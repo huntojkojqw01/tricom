@@ -1,0 +1,33 @@
+<%= form_for(:user, url: change_pass_users_path, html:{class: 'form-horizontal'}) do |f| %>
+  <div class="form-group">
+    <%= f.label :社員番号, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :user_code, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :パスワード, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.password_field :old_password, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :新パスワード, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.password_field :new_password, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :もう一度, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.password_field :renew_password, class: 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-2 col-sm-offset-2">
+      <div class="actions">
+        <%= f.submit '　変　更　', class: 'btn btn-primary' %>
+      </div>
+    </div>
+  </div>
+<% end %>

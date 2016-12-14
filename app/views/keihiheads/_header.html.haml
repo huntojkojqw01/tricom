@@ -1,0 +1,9 @@
+.row-fuid
+  = f.label :申請日付
+  = f.input_field :日付
+  = f.label :申請番号
+  = f.input_field :申請番号, class: 'form-control', disabled: true
+  .pull-right
+    = f.button :submit, '登録する', class: 'btn-primary keihihead-update'
+    = f.button :submit, '削除する', class: 'btn-primary' if mode == :edit
+.spacer

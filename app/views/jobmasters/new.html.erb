@@ -1,0 +1,11 @@
+<%= javascript_include_tag 'jobs' %>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to 'JOBマスタ', jobmasters_path %></li>
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">新規</li>
+</ol>
+
+<%= render 'form', mode: :new %>
+<%provide(:title, (t 'title.jobmaster'))%>

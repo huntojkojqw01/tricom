@@ -1,0 +1,22 @@
+= simple_form_for(@rorumenba) do |f|
+  .col-md-5.col-md-offset-1
+    .row
+      .col-md-6
+        = f.input :ロールコード, label:'ロールコード' do
+          = f.select :ロールコード, Rorumaster.all.map {|p| [ p.ロール名, p.ロールコード ] },{}, {include_blank: true, class: 'form-control'}
+    = f.button :submit, class: 'btn btn-primary', id: 'rorumenba'
+    = hidden_field_tag 'shain'
+  .col-md-5
+    %table#shain-table.shain-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+      %thead
+        %tr
+          %th
+          %th 社員番号
+          %th 社員名
+
+      %tbody
+        - @shains.each do |shain|
+          %tr
+            %td
+            %td#selected_val= shain.社員番号 
+            %td= shain.氏名

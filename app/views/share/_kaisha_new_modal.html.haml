@@ -1,0 +1,12 @@
+.modal#kaisha-new-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 会社新規
+      .modal-body
+        = simple_form_for @kaisha, url: create_kaisha_events_path, remote: true do |f|
+          = f.input :会社コード
+          = f.input :会社名
+          = f.input :備考
+          = f.button :submit, class: 'btn btn-primary'

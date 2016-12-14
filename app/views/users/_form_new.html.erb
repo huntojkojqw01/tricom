@@ -1,0 +1,26 @@
+<div class="col-md-2 col-md-offset-1">
+<%= simple_form_for @user do |f| %>
+  <% if  @shainmasters.nil? || @shainmasters.empty? %>
+    <%= f.input :担当者コード, disabled: true, hint: '社員はすでに存在します' %>
+  <% else %>
+    <%= f.select :担当者コード do %>
+      <% @shainmasters.each do |shainmaster| %>
+        <%= content_tag(:option, shainmaster.title, value: shainmaster.id) %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= f.input :担当者名称 %>
+  <%= f.label :password, "パスワード (4文字以上)" %>
+  <%= f.password_field :password %>
+  <%= f.label :password_confirmation, "再パスワード (4文字以上)" %>
+  <%= f.password_field :password_confirmation %>
+  <%= f.label :avatar, "イメージ" %>
+  <%= f.file_field :avatar %>
+  <%= f.label :email, "メイル" %>
+  <%= f.email_field :email %>
+  <% if current_user.admin? || current_user.supervisor? %>
+    <%= f.input :admin, as: :boolean %>
+  <% end %>
+  <%= f.button :submit, class: 'btn btn-primary' %>
+<% end %>
+</div>

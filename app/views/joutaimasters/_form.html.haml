@@ -1,0 +1,23 @@
+= simple_form_for @joutaimaster do |f|
+  .row
+    .col-md-3.col-md-offset-2
+      = f.input :状態コード if mode == :new
+      = f.input :状態名
+      = f.input :状態区分
+      = f.input :勤怠状態名
+      = f.input :マーク
+      = f.input :WEB使用区分
+      = f.input :勤怠使用区分
+      = f.button :submit, class: 'btn btn-primary'
+
+    .col-md-3.col-md-offset-1
+      .panel.panel-default#preview-panel
+        .panel-heading
+          %h3.panel-title エベント背景色と文字色変更のプリビュー
+        .panel-body
+          .form-group
+            .col-md-8.col-md-offset-1
+              #preview-backgroud.panel.panel-default
+                %p#preview-text{style: "align-content: center"} 松本と昼ごはん
+      = f.input :色
+      = f.input :text_color, label: '文字色'

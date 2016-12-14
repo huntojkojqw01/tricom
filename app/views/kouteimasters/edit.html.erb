@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'kouteimaster' %>
+<%provide(:title, (t 'title.kouteimaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to '工程マスタ', kouteimasters_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form', modal: false, mode: :edit  %>

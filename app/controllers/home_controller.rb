@@ -1,0 +1,2 @@
+class HomeController < BaseController
+end

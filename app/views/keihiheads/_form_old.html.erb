@@ -1,0 +1,24 @@
+<%= form_for @keihi, html: {class:'form-inline'} do |f| %>
+    <% if @keihi.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@keihi.errors.count, "error") %> prohibited this keihi from being saved:</h2>
+
+          <ul>
+            <% @keihi.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <%= render 'header', f: f, mode: mode %>
+    <%= render 'body', f: f %> <br>
+    <%= render 'footer_old', f: f %>
+    
+    <%= render 'share/kaisha_modal' %>
+    <%= render 'share/kikan_modal' %>
+    <%= render 'share/eki_modal' %>
+    <%= render 'share/shonin_modal' %>
+    <%= render 'share/job_modal' %>
+
+<% end %>

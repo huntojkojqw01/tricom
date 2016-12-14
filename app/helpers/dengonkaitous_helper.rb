@@ -1,0 +1,2 @@
+module DengonkaitousHelper
+end

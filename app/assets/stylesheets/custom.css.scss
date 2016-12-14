@@ -1,0 +1,24 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap/variables";
+@import "bootstrap-datetimepicker";
+
+.spacer {
+    margin-top: 20px; /* define margin as you see fit */
+}
+
+.editor-datetime {
+  position: relative;
+}
+
+.breakAll {
+  word-break: break-all;
+}
+
+.kaitou-center-verical{
+  padding-top: 15px;
+}
+
+.dengon-naiyo{
+  width: 500px;
+}

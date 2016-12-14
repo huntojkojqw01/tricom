@@ -1,0 +1,2 @@
+module KouteiHelper
+end

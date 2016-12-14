@@ -1,0 +1,46 @@
+= javascript_include_tag 'keihis'
+= stylesheet_link_tag 'keihis'
+= provide(:title, (t 'title.shonin_search'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 経費承認一覧
+
+-#= form_tag shoninzumi_keihiheads_path, class:'form-inline' do |f|
+= simple_form_for :keihi_shonin, url: shonin_search_keihiheads_path, html: {class:'form-inline'}, method: :get do |f|
+  = render 'shonin_header', f:f
+  .spacer
+  %table.shonin-table.table.table-striped.table-bordered.table-hover{cellspacing:0}
+    %thead
+      %tr
+        %th 清算予定日
+        %th 社員名
+        %th 申請No.
+        %th 交通費
+        %th 日 当
+        %th 宿泊費
+        %th その他
+        %th{style:'color:#F00'} 仮払支給
+        %th{style:'color:blue'} 過不足
+        %th 領収書
+        %th 状態
+        %th 承認者
+        %th{style:'background:darkgrey'} 承認
+        %th
+    %tbody
+      - @keihi_shonins.each do |shonin|
+        %tr
+          %td= shonin.清算予定日
+          %td= shonin.shainmaster_氏名
+          %td= shonin.申請番号
+          %td= shonin.交通費合計
+          %td= shonin.日当合計
+          %td= shonin.宿泊費合計
+          %td= shonin.その他合計
+          %td= shonin.仮払金
+          %td= shonin.過不足
+          %td
+          %td
+          %td= shonin.承認者
+          -#%td= shonin.承認済区分
+          %td= check_box_tag 'shonin[]', shonin.申請番号, false, class: 'shonin-check'
+          %td= link_to '詳細', keihihead_path(shonin)

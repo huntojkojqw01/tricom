@@ -1,0 +1,8 @@
+= simple_form_for @shoninshamst do |f|
+  .col-sm-2.col-sm-offset-2
+    = f.association :shinseisha, label_method: :氏名, value_method: :社員番号, label:'申請者', :selected => session[:current_user_id] if mode == :new
+    = f.association :shouninsha, label_method: :氏名, value_method: :社員番号, label:'承認者', :selected => session[:current_user_id] if mode == :new
+    = f.association :shinseisha, label_method: :氏名, value_method: :社員番号, label:'申請者' if mode == :edit
+    = f.association :shouninsha, label_method: :氏名, value_method: :社員番号, label:'承認者' if mode == :edit
+    = f.input :順番
+    = f.button :submit, class: 'btn btn-primary'

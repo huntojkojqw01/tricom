@@ -1,0 +1,32 @@
+idx = $('#clicked_index').val();
+var d = oTable.row( idx ).data();
+
+d[1] = '<%= @employer.first_name %>';
+d[2] = '<%= @employer.position %>';
+d[3] = '<%= @employer.office %>';
+d[4] = '<%= @employer.age %>';
+d[5] = '<%= @employer.start_date %>';
+d[6] = '<%= @employer.salary %>';
+
+oTable.row( idx ).data( d );
+oTable.draw();
+
+$('#delete_<%= @employer.id %>').click(function() {
+    $(this).parent().parent().toggleClass('success');
+});
+
+////for handle ajax error
+//$(function () {
+//    $(document).bind('ajaxError', 'form#new_employer', function (event, jqxhr, settings, exception) {
+//        // note: jqxhr.responseJSON undefined, parsing responseText instead
+//        $(event.data).render_form_errors($.parseJSON(jqxhr.responseText));
+//    });
+//
+//    //$(document).bind('ajaxSuccess', 'form#new_kouteimaster', function (event, jqxhr, settings, exception) {
+//    //    // note: jqxhr.responseJSON undefined, parsing responseText instead
+//    //    $(location).attr('href','/kouteimasters');
+//    //});
+//});
+
+//clear modal error
+$('#new_employer_modal').modal_success();

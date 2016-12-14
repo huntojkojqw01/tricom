@@ -1,0 +1,2 @@
+Event.delete_all
+Event.reset_pk_sequence

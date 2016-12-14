@@ -1,0 +1,40 @@
+//%h1 Listing setsubi
+= provide(:title, (t 'title.setsubi'))
+= javascript_include_tag 'setsubis'
+
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 設備
+
+
+%table.shonin-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+  %thead
+    %tr
+      %th 設備コード
+      %th 設備名
+      %th 備考
+      %th
+      %th
+
+  %tbody
+    - @setsubi.each do |setsubi|
+      %tr
+        %td= setsubi.設備コード
+        %td= setsubi.設備名
+        %td= setsubi.備考
+        %td= link_to '編集', edit_setsubi_path(setsubi)
+        - msg = t 'app.delete_confirm'
+        %td= link_to '削除', setsubi, :method => :delete, :data => { :confirm => msg }
+
+= link_to '新規', new_setsubi_path
+
+%h4 CSVでのデータをインポート!
+= form_tag import_setsubis_path,class:'form-inline', multipart: true do
+  .form-group
+    = label_tag 'selectcsv', nil, class: 'sr-only'
+    = file_field_tag :file , class: 'btn btn-default'
+  .form-group
+    = label_tag 'importcsv', nil, class: 'sr-only'
+    = submit_tag "Import CSV" , class: 'btn btn-default'
+
+/        %td= link_to '表示', setsubi

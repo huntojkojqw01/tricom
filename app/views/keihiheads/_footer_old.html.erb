@@ -1,0 +1,55 @@
+
+<div  class="spacer"></div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="delete-all">
+      <%= f.button ' 全行削除 ', class: 'btn btn-default delete-all', type: 'button', id: 'delete-all' %>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div  class="col-md-9 col-md-offset-3">
+    <div class="form-group">
+      <%= f.label '小　計' %>
+      <%= f.text_field :交通費合計, size:2, class: 'form-control' %>
+      <%= f.text_field :日当合計, size:2, class: 'form-control' %>
+      <%= f.text_field :宿泊費合計, size:2, class: 'form-control' %>
+      <%= f.text_field :その他合計, size:2, class: 'form-control' %>
+      <%= f.label :仮払金, class:'akaji' %>
+      <%= f.text_field :仮払金, size:2, class: 'form-control' %>
+      <%= f.button ' 合 計 ', class: 'btn', type: 'button', id: 'summary' %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9 col-md-offset-3">
+    <div class="form-group">
+      <%= f.label :旅費交通費合計 %>
+      <%= f.text_field :旅費合計, size:2, class: 'form-control' %>
+      <%= f.label :支給品, class:'akaji' %>
+      <%= f.text_field :支給品, size:2, class: 'form-control' %>
+      <%= f.label :過不足 %>
+      <%= f.text_field :過不足, size:2, class: 'form-control' %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-9 col-md-offset-3">
+    <div class="form-group">
+      <%= f.label '経　費　合　計' %>
+      <%= f.text_field :合計, size:2, class: 'form-control' %>
+      <%= f.check_box :承認kubun %>
+      <%= f.label :承認要求 %>
+      <%= f.label :承認 %>
+      <%= f.text_field_search :承認者,{}, size:2, class_field: 'shonin', class_search: 'shonin-search' %>
+
+      <div class="editor-datetime">
+        <%= f.label :清算予定日 %>
+        <%= f.text_field :清算予定日, size:6, class: 'form-control' %>
+        <%# f.date_select :清算予定日, size:6, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
+</div>

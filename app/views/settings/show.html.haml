@@ -1,0 +1,17 @@
+
+%p#notice= notice
+
+%p
+  %b 社員番号:
+  = @setting.社員番号
+%p
+  %b ScrollTime:
+  = @setting.scrolltime
+%p
+  %b Local:
+  = @setting.local
+
+= link_to '編集', edit_setting_path(@setting)
+\|
+= link_to '戻る', settings_path
+= provide(:title, (t 'title.setting'))

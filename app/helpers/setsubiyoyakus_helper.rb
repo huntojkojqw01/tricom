@@ -1,0 +1,2 @@
+module SetsubiyoyakusHelper
+end

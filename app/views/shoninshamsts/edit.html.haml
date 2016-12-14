@@ -1,0 +1,7 @@
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '承認者マスタ', shoninshamsts_path
+  %li.active 編集
+
+= render 'form', mode: :edit
+= provide(:title, (t 'title.shoninshamst'))

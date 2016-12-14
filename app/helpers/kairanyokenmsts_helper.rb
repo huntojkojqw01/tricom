@@ -1,0 +1,2 @@
+module KairanyokenmstsHelper
+end

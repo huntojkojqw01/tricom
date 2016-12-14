@@ -1,0 +1,2 @@
+module BashokubunmstsHelper
+end

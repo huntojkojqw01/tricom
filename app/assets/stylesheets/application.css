@@ -1,0 +1,125 @@
+/*
+ * This is a manifest file that'll automatically include all the stylesheets available in this directory
+ * and any sub-directories. You're free to add application-wide styles to this file and they'll appear at
+ * the top of the compiled file, but it's generally better to create a new file per style scope.
+ * require_self
+
+ *= require custom
+
+ *= require fullcalendar.min
+ *= require scheduler.min
+
+ *= require dataTables/dataTables.bootstrap.min
+ *= require dataTables/fixedColumns.dataTables.min
+ *= require dataTables/select.dataTables.min
+ *= require dataTables/buttons.dataTables.min
+
+ *= require bootstrap-datetimepicker
+ *= require bootstrap-colorpicker
+
+ * require_tree .
+ * require_self
+*/
+
+.div_scoll {
+  overflow-x:auto;
+  overflow-y:auto;
+  width: 130px;
+}
+.dropdown-menu {
+    display: none;
+    min-width: 200px;
+    top: 80%;
+
+}
+.navbar-nav > li > .dropdown-menu{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.dropdown-menu a {
+   /* padding: 12px 16px;
+    text-decoration: none;*/
+    display: block;
+
+}
+
+.dropdown-menu li {
+    display: block;
+
+}
+
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.text-gray {
+  color: rgb(148, 147, 173);
+}
+.center{
+  text-align: center;
+  width: 250px;
+}
+
+.center li {
+  margin-bottom: 5px;
+}
+.navbar {
+  background-color: rgb(59, 47, 99);
+  background-image: radial-gradient(circle at 50% 0%, rgba(84, 90, 182, 0.6) 0%, transparent 75%), radial-gradient(circle at 100% 0%, rgb(121, 74, 162) 0%, transparent 57%);
+  background-repeat: no-repeat;
+  background-size: 100% 1000px;
+  color : rgb(255, 255, 255);
+}
+
+.glyphicon.glyphicon-home.root{
+  color: rgb(255, 255, 255);
+  font-size: 18.9px;
+
+}
+
+.icon {
+  font-size: 20px;
+
+  top: 15px;
+}
+
+.icon-left {
+  text-align: left;
+}
+
+.menu {
+  margin-bottom: 0px;
+}
+
+.radio{
+  margin-left: 50px;
+  display: inline-block !important;
+}
+
+.user-id{
+  width: 100%;
+  color: #555555;
+  height: 34px;
+  border: solid 1px #ccc;
+  border-radius: 5px;
+  padding: 9px;
+
+}
+/*.radio_buttons{
+  width: 100%;
+}*/
+/*.radio label{
+  display: block;
+  text-align: center;
+  margin: 0 0.2em;
+}
+*/
+/*.radio input[type="radio"]{
+  display: block;
+  margin: 0.5em auto;
+}*/
+
+.input-group-addon.set-border{
+  border-left-width: 0px;
+}

@@ -1,0 +1,99 @@
+<%= form_for @shainmaster, html:{class: 'form-horizontal', role: :form, 'data-model' => 'shainmaster'} do |f| %>
+  <% if @shainmaster.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= @shainmaster.errors.count %> エラーが発生しました:</h2>
+      <ul>
+      <% @shainmaster.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+    
+    <div class="spacer"></div>
+    
+  <div class="form-group">
+    <%= f.label :社員番号, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :社員番号, class: 'form-control', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :連携用社員番号, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :連携用社員番号, class: 'form-control', maxlength: 10 %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :氏名, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :氏名, class: 'form-control' %>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :所属コード, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :所属コード, class: 'form-control' %>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-default" id="shozoku_search" type="button">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </button>
+    </div>
+      <span id="shozoku_name" class="help-block"></span>
+    <span id="shozoku_error" class="help-block"></span>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :直間区分, class: 'col-sm-2 control-label' %>
+    <!--<div class="col-sm-2">-->
+      <%# f.text_field :直間区分, class: 'form-control' %>
+    <!--</div>-->
+    <div class="col-sm-1">
+      <select name="shainmaster[直間区分]" id = "shainmaster_直間区分" aria-controls="shainmaster" class="form-control input-sm">
+        <option value="1">1 : 直接</option>
+        <option value="2">2 : 間接</option>
+      </select>
+    </div>
+  </div>
+    
+  <div class="form-group">
+    <%= f.label :役職コード, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :役職コード, class: 'form-control' %>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-default" id="yakushoku_search" type="button">
+        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+      </button>
+    </div>
+    <span id="yakushoku_name" class="help-block"></span>
+    <span id="yakushoku_error" class="help-block"></span>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :内線電話番号, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :内線電話番号, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :有給残数, class: 'col-sm-2 control-label' %>
+    <div class="col-sm-2">
+      <%= f.text_field :有給残数, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-2 col-sm-offset-2">
+      <%= f.submit '　登録　', class: 'btn btn-primary' %>
+    </div>
+  </div>
+<% end %>
+
+<%= render 'share/shozoku_modal' %>
+<%= render 'share/yakushoku_modal' %>

@@ -1,0 +1,58 @@
+<%provide(:title, (t 'title.employer'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">MultiSelect Edit</li>
+</ol>
+
+<h1>Edit Selected row</h1>
+
+<%= form_for @employer, html: {class: 'horizontal', role: 'form', 'data-model' => 'employer'}, method: 'post' do |f| %>
+<div class="form-group">
+  <%= f.label :お名前, class: 'control-label' %><br>
+  <%= f.text_field :first_name, class: 'form-control' %>
+  <span class="help-block"></span>
+</div>
+
+<%# Added Bootstrap classes, and help-block container for error messages %>
+<div class="form-group">
+  <%= f.label :位置, class: 'control-label' %><br>
+  <%= f.text_field :position, class: 'form-control' %>
+  <span class="help-block"></span>
+</div>
+
+<%# Added Bootstrap classes, and help-block container for error messages %>
+<div class="form-group">
+  <%= f.label :オフィス, class: 'control-label' %><br>
+  <%= f.text_field :office, class: 'form-control' %>
+  <span class="help-block"></span>
+</div>
+
+<%# Added Bootstrap classes, and help-block container for error messages %>
+<div class="form-group">
+  <%= f.label :年齢, class: 'control-label' %><br>
+  <%= f.text_field :age, class: 'form-control' %>
+  <span class="help-block"></span>
+</div>
+
+<%# Added Bootstrap classes, and help-block container for error messages %>
+<div class="form-group">
+  <%= f.label :開始日, class: 'control-label' %><br>
+  <%= f.text_field :start_date, class: 'form-control' %>
+  <span class="help-block"></span>
+</div>
+
+<%# Added Bootstrap classes, and help-block container for error messages %>
+<div class="form-group">
+  <%= f.label :給料, class: 'control-label' %><br>
+  <%= f.text_field :salary, class: 'form-control' %>
+  <span class="help-block"></span>
+</div>
+
+<%# Added Bootstrap classes %>
+<div class="actions">
+  <%= f.submit 'Update', class: 'btn btn-default', name: 'update' %>
+</div>
+</div>
+<% end %>

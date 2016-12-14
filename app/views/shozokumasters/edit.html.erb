@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'shain' %>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to '所属マスタ', shozokumasters_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form', mode: :edit  %>
+<%provide(:title, (t 'title.shozokumaster'))%>

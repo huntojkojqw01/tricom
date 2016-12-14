@@ -1,0 +1,8 @@
+= javascript_include_tag 'shozai'
+= provide(:title, (t 'title.shozai'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '所在マスタ', shozais_path
+  %li.active 新規 /
+
+= render 'form', mode: :new

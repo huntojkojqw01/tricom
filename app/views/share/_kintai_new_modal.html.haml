@@ -1,0 +1,15 @@
+.modal#kintai-new-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 勤怠編集
+      .modal-body
+
+        = simple_form_for @kintai, :url => edit_kintai_path(@kintai.id) do |f|
+          - display = ['   ', '1：保守携帯']
+          = f.text_field :日付, label: '日付',disabled: true
+          = f.input :保守携帯回数, label: '保守携帯' ,collection: (0..1).map {|i| [display[i],i]}, include_blank: false, selected: @kintai.保守携帯回数
+          /   = f.select :工程コード, @kouteis.map { |k| [k.工程名, k.工程コード] }, {include_blank: true}, {class: 'form-control', style: 'width:150px'}
+
+          = f.button :button, '登録する', class: 'btn btn-primary',type: :button, id: :save

@@ -1,0 +1,112 @@
+<%= form_for @joutaimaster, html:{class: 'form-horizontal', role: :form, 'data-model' => 'joutaimaster'} do |f| %>
+    <% if @joutaimaster.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @joutaimaster.errors.count %> エラーが発生しました:</h2>
+          <ul>
+            <% @joutaimaster.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="spacer"></div>
+    <!--left div -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :状態コード, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :状態コード, class: 'form-control', maxlength: 10 %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :状態名, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :状態名, class: 'form-control', maxlength: 10 %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :状態区分, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :状態区分, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :勤怠状態名, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :勤怠状態名, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :マーク, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :マーク, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :背景色, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :色, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :文字色, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :text_color, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :WEB使用区分, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :WEB使用区分, class: 'form-control' %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :勤怠使用区分, class: 'col-md-3 control-label' %>
+          <div class="col-md-3">
+            <%= f.text_field :勤怠使用区分, class: 'form-control' %>
+          </div>
+        </div>
+      </div>
+
+    <!--right div-->
+    <div class="col-md-4">
+      <div style="height: 60px"></div>
+      <!--panel preview-->
+      <div class="panel panel-default" id="preview-panel">
+        <div class="panel-heading">
+          <h3 class="panel-title">エベント背景色と文字色変更のプリビュー</h3>
+        </div>
+        <div class="panel-body">
+          <div class="form-group">
+            <div class="col-md-5 col-md-offset-4">
+              <div id="preview-backgroud" class="panel panel-default">
+                <p id="preview-text" style="align-content: center">松本と昼ごはん</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="col-md-2"></div>
+    <!--end row-->
+
+    <div class="row">
+      <div class="form-group">
+        <div class="col-md-2 col-md-offset-3">
+          <%= f.submit '　登録　', class: 'btn btn-primary' %>
+        </div>
+      </div>
+    </div>
+
+<% end %>

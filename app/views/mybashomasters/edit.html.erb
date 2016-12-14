@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'mybasho' %>
+<%provide(:title, (t 'title.mybashomaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to 'MY場所マスタ', mybashomasters_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form', mode: :edit  %>

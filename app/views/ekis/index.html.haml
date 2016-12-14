@@ -1,0 +1,37 @@
+= javascript_include_tag 'ekis'
+= provide(:title, (t 'title.eki'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 駅マスタ
+
+%table.ekitable.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+  %thead
+    %tr
+      %th 駅コード
+      %th 駅名
+      %th
+      %th
+
+  %tbody
+    - @ekis.each do |eki|
+      %tr
+        %td= eki.id
+        %td= eki.name
+        %td= link_to '編集', edit_eki_path(eki)
+        - msg = t 'app.delete_confirm'
+        %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
+
+%br
+
+= link_to '新規', new_eki_path
+
+
+- if can? :update, @ekis
+  %h4 CSVでのデータをインポート!
+  = form_tag import_ekis_path, class:'form-inline', multipart: true do
+    .form-group
+      = label_tag 'selectcsv', nil, class: 'sr-only'
+      = file_field_tag :file , class: 'btn btn-default'
+    .form-group
+      = label_tag 'importcsv', nil, class: 'sr-only'
+      = submit_tag "Import CSV" , class: 'btn btn-default'

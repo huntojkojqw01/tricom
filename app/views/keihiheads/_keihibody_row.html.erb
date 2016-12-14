@@ -1,0 +1,35 @@
+<tr>
+  <td><%= f.text_field :日付, class: 'form-control datepicker', size: 6 %></td>
+  <td><%= f.text_area_search :相手先, {}, class_field: 'atesaki-name', class_search: 'atesaki-search', size: '60x2' %></td>
+  <!--<td><%# f.text_field_search :機関名, {}, class_field: 'kikan-name', class_search: 'kikan-search', size: 50 %></td>-->
+  <td><%= f.text_area_search :機関名, {}, class_field: 'kikan-name', class_search: 'kikan-search', size: '50x2' %></td>
+  <td>
+    <%= f.text_field_search :発, {}, class_field: 'hastu-name', class_search: 'hastu-search', size: 15 %>
+    <%= f.text_field_search :着, {}, class_field: 'chaku-name', class_search: 'chaku-search', size: 15 %>
+  </td>
+  <!--<td><%# f.text_field :着, class: 'form-control', size: 4  %></td>-->
+  <td>
+    <%#array_value = %w(往路 往復 復路) %>
+    <% array_value = [['往路',1], ['復路',2], ['往復',3]] %>
+    <%# select(:keihibody, :発着kubun, array_value, {}, {class: 'form-control'}) %>
+    <%= f.text_field :交通費, class: 'form-control koutsuhi', size: 4  %>
+    <%= f.select :発着kubun, array_value, {},{class: 'form-control'} %>
+  </td>
+  <td>
+    <%= f.text_field :日当, class: 'form-control nittou', size:4 %>
+    <%= f.text_field :宿泊費, class: 'form-control shukuhaku', size:4 %>
+  </td>
+  <td><%= f.text_field :その他, class: 'form-control sonotha', size:4 %></td>
+  <td><%= f.text_field_search :JOB, {}, class_field: 'job-code', class_search: 'job-search', size: 35 %></td>
+  <td><%= f.text_area :備考, class: 'form-control', size: '10x2'  %></td>
+  <td><%= f.check_box :領収書kubun, class: 'form-control'  %></td>
+
+  <% shainbango = User.find(session[:user]).id %>
+  <%= f.hidden_field :社員番号, value: shainbango %>
+  <%= f.hidden_field :申請番号, class:'shinsheino' %>
+  <%# f.hidden_field :line_no, class:'line-no' %>
+  <%= f.hidden_field :_destroy, class: 'check-remove' %>
+
+  <td><%= link_to '削除', '#', class: 'remove_row' %></td>
+
+</tr>

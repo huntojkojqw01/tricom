@@ -1,0 +1,19 @@
+= javascript_include_tag 'setsubiyoyakus'
+
+/ %h1 Editing setsubiyoyaku
+
+/ = render 'form'
+
+/ = link_to 'Show', @setsubiyoyaku
+/ \|
+/ = link_to 'Back', setsubiyoyaku_path
+
+
+
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '設備予約', setsubiyoyakus_path
+  %li.active 編集
+
+= render 'form'
+= provide(:title, (t 'title.setsubiyoyaku'))

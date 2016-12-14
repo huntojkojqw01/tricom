@@ -1,0 +1,11 @@
+= simple_form_for @keihi, html: {class:'form-inline'} do |f|
+
+  = render 'header', f: f, mode: mode
+  = render 'body', f: f
+  = render 'footer', f: f
+
+  = render 'share/kaisha_modal'
+  = render 'share/kikan_modal'
+  = render 'share/eki_modal'
+  = render 'share/shonin_modal'
+  = render 'share/job_modal'

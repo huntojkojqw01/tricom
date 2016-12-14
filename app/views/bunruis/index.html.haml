@@ -1,0 +1,36 @@
+= javascript_include_tag 'bunruis'
+= provide(:title, (t 'title.bunrui'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 分類マスタ
+
+%table.bunruistable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+  %thead
+    %tr
+      %th 分類コード
+      %th 分類名
+      %th
+      %th
+
+  %tbody
+    - @bunruis.each do |bunrui|
+      %tr
+        %td= bunrui.分類コード
+        %td= bunrui.分類名
+        %td= link_to '編集', edit_bunrui_path(bunrui)
+        - confirm = t 'app.delete_confirm'
+        %td= link_to '削除', bunrui, :method => :delete, :data => { :confirm => confirm}
+
+%br
+
+= link_to '新規', new_bunrui_path
+
+- if can? :update, @bunruis
+  %h4 CSVでのデータをインポート!
+  = form_tag import_bunruis_path,class:'form-inline', multipart: true do
+    .form-group
+      = label_tag 'selectcsv', nil, class: 'sr-only'
+      = file_field_tag :file , class: 'btn btn-default'
+    .form-group
+      = label_tag 'importcsv', nil, class: 'sr-only'
+      = submit_tag "Import CSV" , class: 'btn btn-default'

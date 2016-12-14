@@ -1,0 +1,31 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Shainmaster") do |sheet|
+    sheet.add_row [@date.strftime("%Y/%m")]
+    sheet.add_row
+    sheet.add_row ['社員番号', '社員氏名', '実労働時間', '遅刻早退' ,'普通残業', '深夜残業',
+      '普通保守', '深夜保守', '保守携帯回数', '休暇日数', '午前半休回数', '午後半休回数', '出張回数', '振替休日', '半日振休（前）', '半日振休（後）', '休日出勤日数', '夜間作業']
+    @shainmasters.each do |shainmaster|
+        sheet.add_row [shainmaster.id,
+          shainmaster.title,
+          shainmaster.kintais.get_by_mounth(@date).sum(:実労働時間),
+          shainmaster.kintais.get_by_mounth(@date).sum(:遅刻時間),
+          shainmaster.kintais.get_by_mounth(@date).sum(:普通残業時間),
+          shainmaster.kintais.get_by_mounth(@date).sum(:深夜残業時間),
+          shainmaster.kintais.get_by_mounth(@date).sum(:普通保守時間),
+          shainmaster.kintais.get_by_mounth(@date).sum(:深夜保守時間),
+          shainmaster.kintais.get_by_mounth_hoshukeitai(@date).sum(:保守携帯回数),
+          shainmaster.kintais.get_by_mounth(@date).day_off.count,
+          shainmaster.kintais.get_by_mounth(@date).morning_off.count,
+          shainmaster.kintais.get_by_mounth(@date).afternoon_off.count,
+          shainmaster.kintais.get_by_mounth(@date).business_trip.count,
+          shainmaster.kintais.get_by_mounth(@date).transfer_holiday.count,
+          shainmaster.kintais.get_by_mounth(@date).half_day_off_before.count,
+          shainmaster.kintais.get_by_mounth(@date).half_day_off_after.count,
+          shainmaster.kintais.get_by_mounth(@date).holiday_work.count,
+          shainmaster.kintais.get_by_mounth(@date).night_work.count]
+    end
+    sheet.add_row
+    sheet.add_row ['', '合計', @kintais.sum(:実労働時間), @kintais.sum(:遅刻時間 ),@kintais.sum(:普通残業時間), @kintais.sum(:深夜残業時間),
+      @kintais.sum(:普通保守時間), @kintais.sum(:深夜保守時間), @kintais.get_by_mounth_hoshukeitai(@date).sum(:保守携帯回数), @kintais.day_off.count, @kintais.morning_off.count, @kintais.afternoon_off.count, @kintais.business_trip.count, @kintais.transfer_holiday.count, @kintais.half_day_off_before.count, @kintais.half_day_off_after.count, @kintais.holiday_work.count, @kintais.night_work.count]
+
+end

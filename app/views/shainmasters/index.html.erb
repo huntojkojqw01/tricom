@@ -1,0 +1,65 @@
+<%= javascript_include_tag 'shain' %>
+<%provide(:title, (t 'title.shainmaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">社員マスタ</li>
+</ol>
+
+<!-- <h1>工程マスタ</h1> -->
+
+<table id="shainmaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+
+  <thead>
+    <tr>
+      <th>序列</th>
+      <th>社員番号</th>
+      <th>連携用社員番号</th>
+      <th>氏名</th>
+      <th>所属</th>
+      <th>直間区分</th>
+      <th>役職</th>
+      <th>デフォルトロール</th>
+      <th>内線</th>
+      <th>有給残数</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @shainmasters.each do |shain| %>
+    <tr id="shainmaster_<%= shain.id %>">
+      <td><%= shain.序列 %></td>
+      <td><%= shain.社員番号 %></td>
+      <td><%= shain.連携用社員番号 %></td>
+      <td><%= shain.氏名 %></td>
+      <td><%= shain.shozokumaster.name unless shain.shozokumaster.nil? %></td>
+      <% show_in = %w(直接 間接) %>
+      <td><%= show_in[shain.直間区分.to_i - 1] %></td>
+      <td><%= shain.yakushokumaster.役職名 unless shain.yakushokumaster.nil? %></td>
+      <td><%= shain.rorumaster.ロール名 unless shain.rorumaster.nil? %></td>
+      <td><%= shain.内線電話番号 %></td>
+      <td><%= shain.有給残数 %></td>
+      <td><%= link_to '編集', edit_shainmaster_path(shain) if
+        current_user.admin? %></td>
+      <td><%= link_to '削除', shain, method: :delete, data: { confirm:
+        '削除で宜しですか。' } if current_user.admin? &&
+        current_user != shain.user %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to '新規', new_shainmaster_path if current_user.admin? %>
+<h4>CSVでのデータをインポート!</h4>
+<%= form_tag import_shainmasters_path,class:'form-inline', multipart: true do %>
+    <div class="form-group">
+      <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+      <%= file_field_tag :file , class: 'btn btn-default' %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+      <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+    </div>
+<% end %>

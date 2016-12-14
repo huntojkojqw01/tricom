@@ -1,0 +1,9 @@
+// $input = $('input[name="' + model + '[' + field + ']"]');
+//$input = $('input[name="kouteimaster[工程名]"]')
+//$input.closest('.form-group').addClass('has-error').find('.help-block').html( "を入力してください" );
+
+
+$(document).bind('ajaxSuccess', 'form#new_kouteimaster', function (event, jqxhr, settings, exception) {
+    // note: jqxhr.responseJSON undefined, parsing responseText instead
+    $(location).attr('href','<%= kouteimaster_path(@kouteimaster) %>');
+});

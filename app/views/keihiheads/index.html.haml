@@ -1,0 +1,38 @@
+= javascript_include_tag 'keihis'
+= provide(:title, (t 'title.keihihead'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to 'カレンダー', events_path
+  %li.active 経費入力管理
+
+%table.keihihead-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+  %thead
+    %tr
+      %th 申請番号
+      %th 申請日付
+      %th 承認区分
+      %th 承認者
+      %th 清算予定日
+      %th 清算日
+      %th 承認済区分
+      %th
+      %th
+
+  %tbody
+    - @keihiheads.each do |keihihead|
+      %tr
+        %td= keihihead.申請番号
+        %td= keihihead.日付
+        %td= keihihead.承認kubun
+        %td= (Shainmaster.find_by id: keihihead.承認者).氏名 unless keihihead.承認者.empty?
+        %td= keihihead.清算予定日
+        %td= keihihead.清算日
+        %td= keihihead.承認済区分
+        %td= link_to '編集', edit_keihihead_path(keihihead)
+        - msg = t 'app.delete_confirm'
+        -#%td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
+        %td= link_to '削除', keihihead, method: :delete, data: { confirm: msg }
+
+%br
+
+= link_to '新規', new_keihihead_path

@@ -1,0 +1,59 @@
+I"ÿ(function() {
+  var string_val;
+
+  jQuery(function() {
+    var oTable, shain_table;
+    oTable = $('.rorumenba-table').DataTable({
+      "pagingType": "full_numbers",
+      "oLanguage": {
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      },
+      "aoColumnDefs": [
+        {
+          "bSortable": false,
+          "aTargets": [4, 5]
+        }, {
+          "targets": [4, 5],
+          "width": '7%'
+        }
+      ],
+      "columnDefs": [
+        {
+          "targets": 'no-sort',
+          "orderable": false
+        }
+      ]
+    });
+    return shain_table = $('.shain-table').DataTable({
+      "pagingType": "simple_numbers",
+      "oLanguage": {
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      },
+      columnDefs: [
+        {
+          orderable: false,
+          className: 'select-checkbox',
+          targets: 0
+        }
+      ],
+      select: {
+        style: 'multi'
+      },
+      dom: 'Bfrtip',
+      buttons: ['selectAll', 'selectNone']
+    });
+  });
+
+  string_val = '';
+
+  $('body').on('click', '#shain-table tr', function() {
+    var shainNo, val;
+    shainNo = [];
+    val = $(this).find('#selected_val').html();
+    shainNo.push(val);
+    string_val += '"' + val + '"' + ',';
+    $('#shain').val(string_val);
+  });
+
+}).call(this);
+:ET

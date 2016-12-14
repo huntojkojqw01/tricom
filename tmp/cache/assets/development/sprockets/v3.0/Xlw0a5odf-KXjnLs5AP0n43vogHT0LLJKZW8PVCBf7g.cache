@@ -1,0 +1,60 @@
+I"(function() {
+  var shainNo;
+
+  jQuery(function() {
+    var oTable, shain_table;
+    oTable = $('.rorumenba-table').DataTable({
+      "pagingType": "full_numbers",
+      "oLanguage": {
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      },
+      "aoColumnDefs": [
+        {
+          "bSortable": false,
+          "aTargets": [4, 5]
+        }, {
+          "targets": [4, 5],
+          "width": '7%'
+        }
+      ],
+      "columnDefs": [
+        {
+          "targets": 'no-sort',
+          "orderable": false
+        }
+      ]
+    });
+    return shain_table = $('.shain-table').DataTable({
+      "pagingType": "simple_numbers",
+      "oLanguage": {
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      },
+      columnDefs: [
+        {
+          orderable: false,
+          className: 'select-checkbox',
+          targets: 0
+        }
+      ],
+      select: {
+        style: 'multi'
+      },
+      dom: 'Bfrtip',
+      buttons: ['selectAll', 'selectNone']
+    });
+  });
+
+  shainNo = [];
+
+  $('body').on('click', '#shain-table tr', function() {
+    var string_val, val;
+    string_val = '';
+    val = $(this).find('#selected_val').html();
+    string_val += val;
+    console.log(string_val);
+    shainNo.push(val);
+    $('#shain').val(shainNo.toString());
+  });
+
+}).call(this);
+:ET

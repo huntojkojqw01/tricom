@@ -1,0 +1,8 @@
+= javascript_include_tag 'dengons'
+= provide(:title, (t 'title.dengon'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '伝言一覧', dengons_path
+  %li.active 編集
+
+= render 'form'

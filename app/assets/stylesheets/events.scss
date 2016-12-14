@@ -1,0 +1,30 @@
+/*fullcalendar customize*/
+/*.fc-sat, .fc-sun {*/
+/*background-color: #ddd !important;*/
+/*}*/
+@import "font-awesome";
+.fc-sat, .fc-sun {
+  color: red;
+  background-color: rgb(245,245,245);
+}
+
+div.update-shozai label {
+  font-weight: normal;
+  float: right;
+}
+.fc-bg td {
+  vertical-align: bottom;
+}
+
+.btn-hoshu {
+  background-color: red;
+  color: black;
+}
+
+.btn-text {
+  color: #9EC1E5;
+}
+.fc-head {
+  background-color: #0073AC;
+  color: white;
+}

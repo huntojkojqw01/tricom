@@ -1,0 +1,18 @@
+.modal#daikyu_search_modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 代休相手日付選択
+      .modal-body
+        %table#daikyu_table.daikyutable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%'}
+          %thead
+            %tr
+              %th 代休相手日付
+          %tbody
+            - @daikyus.each do |daikyu|
+              %tr
+                %td= daikyu.代休相手日付
+      .modal-footer
+        %button.btn.btn-primary#koutei_sentaku_ok{type: :button, 'data-dismiss'=>"modal"}　ＯＫ　
+        %button.btn.btn-default{type: :button, 'data-dismiss'=>"modal"} 閉じる

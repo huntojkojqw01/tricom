@@ -1,0 +1,17 @@
+/ %h1 New setsubi
+
+/ = render 'form'
+
+/ = link_to 'Back', setsubis_path
+
+
+
+
+= javascript_include_tag 'setsubis'
+= provide(:title, (t 'title.setsubi'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '設備マスタ', setsubis_path
+  %li.active 新規 /
+
+= render 'form', mode: :new

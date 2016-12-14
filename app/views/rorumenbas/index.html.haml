@@ -1,0 +1,40 @@
+= javascript_include_tag 'rorumenbas'
+= provide(:title, (t 'title.rorumenba'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active ロールメンバ
+
+%br
+
+%table.rorumenba-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+  %thead
+    %tr
+      %th ロールコード
+      %th ロール
+      %th 社員
+      %th 氏名
+      %th ロール内序列
+      %th
+      %th
+  %tbody
+    - @rorumenba.each do |rorumenba|
+      %tr
+        %td= rorumenba.ロールコード
+        %td= rorumenba.rorumaster.ロール名
+        %td= rorumenba.社員番号
+        %td= rorumenba.shainmaster.氏名
+        %td= rorumenba.ロール内序列
+        %td= link_to '編集', edit_rorumenba_path(rorumenba)
+        - msg = t 'app.delete_confirm'
+        %td= link_to '削除', rorumenba, :method => :delete, :data => { :confirm => msg }
+
+= link_to '新規', new_rorumenba_path
+
+%h4 CSVでのデータをインポート!
+= form_tag import_rorumenbas_path,class:'form-inline', multipart: true do
+  .form-group
+    = label_tag 'selectcsv', nil, class: 'sr-only'
+    = file_field_tag :file , class: 'btn btn-default'
+  .form-group
+    = label_tag 'importcsv', nil, class: 'sr-only'
+    = submit_tag "Import CSV" , class: 'btn btn-default'

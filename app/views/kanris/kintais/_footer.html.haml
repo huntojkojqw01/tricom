@@ -1,0 +1,44 @@
+.row
+  .col-sm-17.col-sm-offset-0
+    %table#kintai-table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: "0"}
+      %thead
+        %tr
+          %th 合計時間
+          %th 実労働時間
+          %th 遅刻時間
+          %th 普通残業時間
+          %th 深夜残業時間
+          %th 普通保守時間
+          %th 深夜保守時間
+          %th 保守携帯回数
+          %th 休暇
+          %th 午前半休
+          %th 午後半休
+          %th 出張回数
+          %th 振替休日
+          %th 半日振休（前）
+          %th 半日振休（後）
+          %th 休日出勤日数
+          %th 夜間作業
+
+      %tbody
+        %tr
+          %td
+          %td #{@kintais.sum :実労働時間}
+          %td #{@kintais.sum :遅刻時間}
+          %td #{@kintais.sum :普通残業時間}
+          %td #{@kintais.sum :深夜残業時間}
+          %td #{@kintais.sum :普通保守時間}
+          %td #{@kintais.sum :深夜保守時間}
+          %td #{@kintais.get_by_mounth_hoshukeitai(@date).sum :保守携帯回数 }
+          %td #{@kintais.day_off.count}
+          %td #{@kintais.morning_off.count}
+          %td #{@kintais.afternoon_off.count}
+          %td #{@kintais.business_trip.count}
+          %td #{@kintais.transfer_holiday.count}
+          %td #{@kintais.half_day_off_before.count}
+          %td #{@kintais.half_day_off_after.count}
+          %td #{@kintais.holiday_work.count}
+          %td #{@kintais.night_work.count}
+
+    %p.finish-message

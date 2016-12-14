@@ -1,0 +1,20 @@
+.row
+  .col-md-5
+    = simple_form_for @shozai, html:{class: 'form-horizontal'}, wrapper: :horizontal_form  do |f|
+      = f.input :所在コード if mode == :new
+      = f.input :所在名
+      = f.input :background_color, label:'背景色'
+      = f.input :text_color, label: '文字色'
+      .form-actions.col-sm-offset-3
+        = f.button :submit, class: 'btn btn-primary'
+
+    -#<!--panel preview-->
+  .col-md-4.col-md-offset-1
+    .panel.panel-default#preview-panel
+      .panel-heading
+        %h3.panel-title エベント背景色と文字色変更のプリビュー
+      .panel-body
+        .form-group
+          .col-md-5.col-md-offset-4
+            #preview-backgroud.panel.panel-default
+              %p#preview-text{style: "align-content: center"} 松本と昼ごはん

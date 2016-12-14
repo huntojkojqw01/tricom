@@ -1,0 +1,5 @@
+= simple_form_for @shozokumaster do |f|
+  .col-sm-3.col-sm-offset-3
+    = f.input :所属コード if mode == :new
+    = f.input :所属名
+    = f.button :submit, class: 'btn btn-primary'

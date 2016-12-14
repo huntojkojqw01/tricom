@@ -1,0 +1,28 @@
+I"((function() {
+  jQuery(function() {
+    var oTable;
+    return oTable = $('.setsubiyoyaku-table').DataTable({
+      "pagingType": "full_numbers",
+      "oLanguage": {
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      },
+      "aoColumnDefs": [
+        {
+          "bSortable": false,
+          "aTargets": [5, 6]
+        }, {
+          "targets": [5, 6],
+          "width": '7%'
+        }
+      ],
+      "columnDefs": [
+        {
+          "targets": 'no-sort',
+          "orderable": false
+        }
+      ]
+    });
+  });
+
+}).call(this);
+:ET

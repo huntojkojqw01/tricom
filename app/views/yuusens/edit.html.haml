@@ -1,0 +1,8 @@
+= javascript_include_tag 'yuusens'
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '優先', yuusens_path
+  %li.active 編集
+
+= render 'form', mode: :edit
+= provide(:title, (t 'title.yuusen'))

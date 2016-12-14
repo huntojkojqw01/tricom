@@ -1,0 +1,17 @@
+%p#notice= notice
+
+%p
+  %b 設備コード:
+  = @setsubi.設備コード
+%p
+  %b 設備名:
+  = @setsubi.設備名
+
+%p
+  %b 備考:
+  = @setsubi.備考
+
+= link_to '編集', edit_setsubi_path(@setsubi)
+\|
+= link_to '戻る', setsubis_path
+= provide(:title, (t 'title.setsubi'))

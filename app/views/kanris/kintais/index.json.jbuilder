@@ -1,0 +1,18 @@
+json.summary do
+  json.sum_1 @kintais.sum('実労働時間')
+  json.sum_2 @kintais.sum('遅刻時間')
+  json.sum_3 @kintais.sum('普通残業時間')
+  json.sum_4 @kintais.sum('深夜残業時間')
+  json.sum_5 @kintais.sum('普通保守時間')
+  json.sum_6 @kintais.sum('深夜保守時間')
+  json.sum_7 @kintais.sum('保守携帯回数')
+  json.sum_8 @kintais.sum('実労働時間')
+  json.sum_9 @kintais.sum('実労働時間')
+  json.sum_10 @kintais.sum('実労働時間')
+  json.sum_11 @kintais.sum('実労働時間')
+  json.sum_12 @kintais.sum('実労働時間')
+  json.sum_13 @kintais.sum('実労働時間')
+  json.sum_14 @kintais.sum('実労働時間')
+  json.sum_15 @kintais.sum('実労働時間')
+  json.sum_16 @kintais.sum('実労働時間')
+end

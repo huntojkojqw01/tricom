@@ -1,0 +1,6 @@
+= simple_form_for @bashokubunmst do |f|
+  .col-md-2.col-md-offset-1
+    = f.input :場所区分コード if mode == :new
+    = f.input :場所区分名
+
+    = f.button :submit, '更新する', class: 'btn btn-primary'

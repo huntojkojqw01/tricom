@@ -1,0 +1,33 @@
+= javascript_include_tag 'yakushokus'
+= provide(:title, (t 'title.yakushokumaster'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 役職テーブル
+
+%table#yakushoku_table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+  %thead
+    %tr
+      %th 役職コード
+      %th 役職名
+      %th
+      %th
+  %tbody
+    - @yakushokumasters.each do |yakushoku|
+      %tr{ id: "yakushoku_#{yakushoku.id}" }
+        %td= yakushoku.役職コード
+        %td= yakushoku.役職名
+        %td= link_to '編集', edit_yakushokumaster_path(yakushoku)
+        %td= link_to '削除', yakushoku,  method: :delete, data: { confirm: '削除で宜しですか。' }
+
+%br/
+= link_to '新規', new_yakushokumaster_path
+
+- if can? :update, @yakushokumasters
+  %h4 CSVでのデータをインポート!
+  = form_tag import_yakushokumasters_path,class:'form-inline', multipart: true do
+    .form-group
+      = label_tag 'selectcsv', nil, class: 'sr-only'
+      = file_field_tag :file , class: 'btn btn-default'
+    .form-group
+      = label_tag 'importcsv', nil, class: 'sr-only'
+      = submit_tag "Import CSV" , class: 'btn btn-default'

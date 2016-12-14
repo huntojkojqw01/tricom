@@ -1,0 +1,37 @@
+= javascript_include_tag 'dengonyoukens'
+= provide(:title, (t 'title.dengonyouken'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 伝言用件マスタ
+
+%table.dengonyoukentable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+  %thead
+    %tr
+      %th 種類名
+      %th 備考
+      %th 優先さ
+      %th
+      %th
+
+  %tbody
+    - @dengonyoukens.each do |dengonyouken|
+      %tr
+        %td= dengonyouken.種類名
+        %td= dengonyouken.備考
+        %td= dengonyouken.優先さ
+        %td= link_to '編集', edit_dengonyouken_path(dengonyouken)
+        %td= link_to '削除', dengonyouken, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+
+%br
+
+= link_to '新規', new_dengonyouken_path
+
+- if can? :update, @dengonyoukens
+  %h4 CSVでのデータをインポート!
+  = form_tag import_dengonyoukens_path,class:'form-inline', multipart: true do
+    .form-group
+      = label_tag 'selectcsv', nil, class: 'sr-only'
+      = file_field_tag :file , class: 'btn btn-default'
+    .form-group
+      = label_tag 'importcsv', nil, class: 'sr-only'
+      = submit_tag "Import CSV" , class: 'btn btn-default'

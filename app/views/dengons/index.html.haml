@@ -1,0 +1,54 @@
+= javascript_include_tag 'dengons'
+= provide(:title, (t 'title.dengon'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 伝言一覧
+
+-#.row
+  -#.col-md-5.col-md-offset-4
+    -#%h2
+      -#= "#{Time.now.strftime('%F %H:%M %A')}"
+      -#= "#{Time.current.in_time_zone('').strftime('%F %H:%M %A')}"
+      -#= "#{Date.current.in_time_zone.strftime('%F %H:%M %A')}"
+%br
+
+= form_for :dengon, url: dengons_path, html: {class:'form-inline'}, method: :get do |f|
+  = render 'header', f:f
+  %br
+  %table.dengon.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+    %thead
+      %tr
+        %th 相手先
+        %th 名前
+        %th 日付
+        %th 入力者
+        %th 社員
+        %th 用件
+        %th 回答
+        %th 伝言内容
+        %th 確認
+        %th 送信
+        %th
+        %th
+
+    %tbody
+      - @dengons.each do |dengon|
+        %tr
+          %td= dengon.from1
+          %td= dengon.from2
+          %td= dengon.日付.strftime("%F %H:%M") if dengon.日付
+          %td= dengon.input_user_氏名
+          %td= dengon.to_user_氏名
+          %td{:style => "background-color: "+dengon.dengonyouken.try(:yuusen).try(:色).to_s+"; color: Black"}= dengon.youken_種類名
+          %td= dengon.kaitou_種類名
+          %td= dengon.伝言内容
+          -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
+          %td= dengon.確認 == true ? '確認済':'未確認'
+          %td= dengon.送信 == true ? '許可':'不可'
+          %td= link_to '編集', edit_dengon_path(dengon)
+          %td= link_to '削除', dengon, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+
+%br
+
+= link_to '新規', new_dengon_path
+//{:style => "background-color: "+dengon.dengonyouken.try(:yuusen).try(:色).to_s+"; color: Black"}

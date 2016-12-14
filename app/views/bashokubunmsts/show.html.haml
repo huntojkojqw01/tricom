@@ -1,0 +1,11 @@
+%p
+  %b 場所区分コード
+  = @bashokubunmst.場所区分コード
+%p
+  %b 場所区分名
+  = @bashokubunmst.場所区分名
+
+= link_to '編集', edit_bashokubunmst_path(@bashokubunmst)
+\|
+= link_to '戻る', bashokubunmsts_path
+= provide(:title, (t 'title.bashokubunmst'))

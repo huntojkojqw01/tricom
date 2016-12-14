@@ -1,0 +1,5 @@
+= simple_form_for @yakushokumaster do |f|
+  .col-sm-3.col-sm-offset-3
+    = f.input :役職コード if mode == :new
+    = f.input :役職名
+    = f.button :submit, class: 'btn btn-primary'

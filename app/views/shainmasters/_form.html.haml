@@ -1,0 +1,19 @@
+= simple_form_for @shainmaster do |f|
+  .col-sm-4.col-sm-offset-3
+    = f.input :序列
+    = f.input :社員番号 if mode == :new
+    = f.input :連携用社員番号
+    = f.input :氏名
+    = f.association :shozokumaster, label_method: :所属名, value_method: :所属コード, label:'所属'
+    - show_in = %w(直接 間接)
+    = f.input :直間区分, collection: (1..2).map {|i| [show_in[i-1], i ]}, input_html: {style: 'width:100px'}
+    = f.association :yakushokumaster, label_method: :役職名, value_method: :役職コード, label:'役職'
+    = f.association :rorumaster, label_method: :ロール名, value_method: :ロールコード, label:'デフォルトロール'
+    = f.input :内線電話番号
+    = f.input :有給残数
+    - if current_user.admin? || current_user.supervisor?
+      = f.label :区分, '区分(勤怠管理をしない.)'
+      = f.input :区分, as: :boolean
+      = f.label :タイムライン区分, 'タイムライン区分(タイムラインに表示したくない.)'
+      = f.input :タイムライン区分, as: :boolean
+    = f.button :submit, class: 'btn btn-primary'

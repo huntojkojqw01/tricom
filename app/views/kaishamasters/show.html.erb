@@ -1,0 +1,19 @@
+
+<p>
+  <strong>会社コード：</strong>
+  <%= @kaishamaster.id %>
+</p>
+
+<p>
+  <strong>会社名：</strong>
+  <%= @kaishamaster.name %>
+</p>
+
+<p>
+  <strong>備考：</strong>
+  <%= @kaishamaster.note %>
+</p>
+
+<%= link_to '編集', edit_kaishamaster_path(@kaishamaster) %> |
+<%= link_to '戻る', kaishamasters_path %>
+<%provide(:title, (t 'title.kaishamaster'))%>

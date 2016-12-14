@@ -1,0 +1,11 @@
+<%= javascript_include_tag 'joutai' %>
+<%provide(:title, (t 'title.joutaimaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to '状態マスタ', joutaimasters_path %></li>
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">新規</li>
+</ol>
+
+
+<%= render 'form', mode: :new %>

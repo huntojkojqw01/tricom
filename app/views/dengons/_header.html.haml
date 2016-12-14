@@ -1,0 +1,13 @@
+.row-fruid
+  .form-inline
+    .form-group
+      = label_tag :社員
+      = select(:head, :shainbango, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @shain_param, include_blank: true }, class: 'form-control')
+    .form-group
+      = label_tag :要件
+      = select(:head, :youken, Dengonyouken.all.collect {|p| [ p.種類名, p.id, {:style => "background-color: "+p.yuusen.try(:色).to_s+"; color: Black"} ] }, {selected: @yoken, include_blank: true }, class: 'form-control')
+    .form-group
+      = label_tag :回答
+      = select(:head, :kaitou, Dengonkaitou.all.collect {|p| [ p.種類名, p.id ] }, {selected: @kaitou, include_blank: true }, class: 'form-control')
+    .pull-right
+      = button_tag '検索する', class:'btn btn-primary'

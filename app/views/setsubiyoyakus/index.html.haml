@@ -1,0 +1,34 @@
+= javascript_include_tag 'setsubiyoyakus'
+= provide(:title, (t 'title.setsubiyoyaku'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 設備予約
+
+= form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
+  = render 'header', f:f
+
+%br
+
+%table.setsubiyoyaku-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+  %thead
+    %tr
+      %th 開始時刻
+      %th 終了時刻
+      %th 予約者
+      %th 相手先
+      %th 用件
+      %th
+      %th
+  %tbody
+    - @setsubiyoyaku.each do |setsubiyoyaku|
+      %tr
+        %td= setsubiyoyaku.開始
+        %td= setsubiyoyaku.終了
+        %td= setsubiyoyaku.shainmaster.氏名
+        %td= setsubiyoyaku.kaishamaster.nil? ? setsubiyoyaku.相手先 : setsubiyoyaku.kaishamaster.会社名
+        %td= setsubiyoyaku.用件
+        %td= link_to '編集', edit_setsubiyoyaku_path(setsubiyoyaku)
+        - msg = t 'app.delete_confirm'
+        %td= link_to '削除', setsubiyoyaku, :method => :delete, :data => { :confirm => msg }
+
+= link_to '新規', new_setsubiyoyaku_path

@@ -1,0 +1,23 @@
+.editor-datetime
+  %table#keihi-table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: 0, width: '100%'}
+    %thead
+    %tr
+      %th{rowspan:"2"} 日付
+      %th{rowspan:"2"} 相手先名
+
+      %th{colspan:"4"}　旅　費　交　通　費　
+
+      %th{rowspan:"2"} その他
+      %th{rowspan:"2"} JobNo</th>
+      %th{rowspan:"2"} 備考</th>
+      %th{rowspan:"2"} 領収書</th>
+      %th{rowspan:"2"} </th>
+    %tr
+      %th 機関名
+      %th 発/着
+      %th 交通費
+      %th 日当/宿泊
+    %tbody
+      = f.simple_fields_for :keihibodies do |body|
+        = render 'keihibody_row', f: body
+= link_to_add_row "行追加", f, :keihibodies

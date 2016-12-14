@@ -1,0 +1,27 @@
+<div class = "row">
+  <div class = "col-md-2">
+    <div class = "form-group">
+      <%= text_field_tag :date, @date, class:'form-control date-search' %>
+    </div>
+  </div>
+  <div class = "col-md-2">
+    <h4>
+      経費工数表
+    </h4>
+  </div>
+  <div class = "col-md-2">
+    <div class = "form-group">
+      氏名：<%= select_tag :user_name, options_for_select(Shainmaster.all.
+        collect{ |u| [u.title, u.id] }, selected: @user_name),
+        include_blank: true, class:'form-control' %>
+    </div>
+  </div>
+  <div class = "col-md-3">
+    <h4>
+      担当者番号：<%= @user_name %>
+    </h4>
+  </div>
+  <%= f.submit :経費検索, class: 'btn' %>
+</div>
+<hr>
+

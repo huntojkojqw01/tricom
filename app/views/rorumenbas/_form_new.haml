@@ -1,0 +1,7 @@
+= simple_form_for(@rorumenba) do |f|
+  .col-md-5.col-md-offset-1
+    = f.input :ロールコード, :readonly => true
+    = f.input :社員番号, :readonly => true
+    = f.input :氏名, :readonly => true, :input_html => { :value => @shainna }
+    = f.input :ロール内序列
+    = f.button :submit, class: 'btn btn-primary'

@@ -1,0 +1,21 @@
+{:uriI"file://app/assets/resource/dataTable_ja.txt?type=text/plain&id=9b2713a90d851382fafb1feaf95a96f7f904be44efdbc2c6bb4559f822ec96d7:ET:load_pathI"app/assets/resource;T:filenameI")app/assets/resource/dataTable_ja.txt;T:	nameI"dataTable_ja;T:logical_pathI"dataTable_ja.txt;T:content_typeI"text/plain;T:sourceI"${
+    "sProcessing":   "å‡¦ç†ä¸­...",
+    "sLengthMenu":   "_MENU_ ä»¶è¡¨ç¤º",
+    "sZeroRecords":  "ãƒ‡ãƒ¼ã‚¿ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚",
+    "sInfo":         " _TOTAL_ ä»¶ä¸­ _START_ ã‹ã‚‰ _END_ ã¾ã§è¡¨ç¤º",
+    "sInfoEmpty":    " 0 ä»¶ä¸­ 0 ã‹ã‚‰ 0 ã¾ã§è¡¨ç¤º",
+    "sInfoFiltered": "ï¼ˆå…¨ _MAX_ ä»¶ã‚ˆã‚ŠæŠ½å‡ºï¼‰",
+    "sInfoPostFix":  "",
+    "sSearch":       "æ¤œç´¢:",
+    "sUrl":          "",
+    "oPaginate": {
+        "sFirst":    "å…ˆé ­",
+        "sPrevious": "å‰",
+        "sNext":     "æ¬¡",
+        "sLast":     "æœ€çµ‚"
+    }
+};T:metadata{	:dependencieso:Set:
+@hash}	I"environment-version;TTI"environment-paths;TTI"4processors:type=text/plain&file_type=text/plain;TTI"7file-digest://app/assets/resource/dataTable_ja.txt;TTF:charsetI"
+utf-8;F:digest"%¹èË)¾î¥a8-	1Y¥*Y˜Ú2]ªs€B¨ùø;š:lengthi$:dependencies_digest"%—ÔÎpEv‹}D…AÇ'ªí
+bàí@»N+®qÉ›Éñ:idI"E9b2713a90d851382fafb1feaf95a96f7f904be44efdbc2c6bb4559f822ec96d7;F:
+mtimel+ƒ$X

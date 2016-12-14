@@ -1,0 +1,26 @@
+= javascript_include_tag 'kairans'
+= provide(:title, (t 'title.shokairan'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '回覧', kairans_path
+  %li.active 送回覧
+
+= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: kairans_path, method: :get do |f|
+  %table.shokairan-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+    %thead
+      %tr
+        %th 日時
+        %th 要件
+        %th 件名
+        %th 内容
+        %th 詳細
+    %tbody
+      - @kairans.each do |kairan|
+        %tr
+          %td= kairan.開始
+          %td{:style => "background-color: "+kairan.kairanyokenmst.yuusen.try(:色).to_s+"; color: Black"}= kairan.kairanyokenmst.名称 if kairan.kairanyokenmst
+          %td= kairan.件名
+          %td.breakAll= kairan.内容
+          %td= link_to '詳細', send_kairan_view_kairan_path(kairan)
+
+  = link_to '新規', new_kairan_path

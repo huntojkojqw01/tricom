@@ -1,0 +1,20 @@
+.modal#bunrui_search_modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 分類選択
+      .modal-body
+        %table.bunrui-table.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%'}
+          %thead
+            %tr
+              %th 分類コード
+              %th 分類名
+          %tbody
+            - @bunruis.each do |bunrui|
+              %tr
+                %td= bunrui.分類コード
+                %td= bunrui.分類名
+      .modal-footer
+        %button.btn.btn-primary#koutei_sentaku_ok{type: :button, 'data-dismiss'=>"modal"}　ＯＫ　
+        %button.btn.btn-default{type: :button, 'data-dismiss'=>"modal"} 閉じる

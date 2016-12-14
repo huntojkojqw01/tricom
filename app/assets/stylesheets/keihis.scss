@@ -1,0 +1,20 @@
+// Place all the styles related to the Keihis controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+tr [colspan="4"],[colspan="6"] {
+  text-align: center;
+}
+
+.akaji {
+  color: red;
+  //color: #adadad;
+}
+
+div.delete-all {
+  font-weight: normal;
+  float: right;
+}
+.fix-width {
+  width: 70%;
+}

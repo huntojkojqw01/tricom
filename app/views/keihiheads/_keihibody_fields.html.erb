@@ -1,0 +1,45 @@
+<fieldset>
+  <%= f.label :日付 %> 
+  <!--<%# f.text_field :日付, size: 7, class: 'form-control datepicker', placeholder: '日付'%>-->
+  <%= f.date_select :日付, class: 'form-control '%>
+  
+  <%= f.label '　相手先' %> 
+  <%# f.text_field :相手先, size: 25, class: 'form-control', placeholder: '相手先'  %>
+  <%= f.text_field_search :相手先, size: 25, class: 'form-control', placeholder: '相手先'  %>
+  
+  <%= f.label '　機関'%> 
+  <%= f.text_field :機関名, size: 4, class: 'form-control', placeholder: '機関'  %>
+    
+  <%= f.label '　発'%> 
+  <%= f.text_field :発, size: 4, class: 'form-control', placeholder: '発'  %>
+
+  <%= f.label '　着'%> 
+  <%= f.text_field :着, size: 4, class: 'form-control' , placeholder: '着' %>
+
+  <%= f.label '　交通費'%> 
+  <%= f.text_field :交通費, size: 2, class: 'form-control koutsuhi' , placeholder: '交通費' %>
+
+  <%= f.label '　日当'%> 
+  <%= f.text_field :日当, size: 2, class: 'form-control nittou' , placeholder: '日当' %>
+
+  <%= f.label '　宿泊費'%> 
+  <%= f.text_field :宿泊費, size: 2, class: 'form-control shukuhaku' , placeholder: '宿泊費' %>
+
+  <%= f.label '　その他'%> 
+  <%= f.text_field :その他, size: 2, class: 'form-control sonotha' , placeholder: 'その他' %>
+
+  <%= f.label '　Job'%> 
+  <%= f.text_field :JOB, size: 2, class: 'form-control', placeholder: 'Job' %>
+
+  <%= f.label '　備考'%> 
+  <%= f.text_field :備考, size: 20, class: 'form-control' , placeholder: '備考' %>
+
+  <%= f.check_box :領収書kubun  %>
+  <%= f.label '領収書　' %> 
+  <%= f.hidden_field :shinsheino, class:'shinsheino' %>
+  <%= f.hidden_field :line_no, class:'line-no' %>
+  <%= f.hidden_field :_destroy, class: 'check-remove' %>
+  
+  <%= link_to "削除", '#', class: "remove_fields" %>
+  <legend></legend>
+</fieldset>

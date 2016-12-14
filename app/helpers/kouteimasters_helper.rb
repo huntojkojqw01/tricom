@@ -1,0 +1,2 @@
+module KouteimastersHelper
+end

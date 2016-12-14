@@ -1,0 +1,16 @@
+= simple_form_for(@dengon) do |f|
+  = f.error_notification
+  .col-md-3.col-md-offset-2
+    = f.input :from1, label: '相手先'
+    = f.input :from2, label: '名前'
+    = f.input :日付, as: :date_time_picker
+    = f.association :input_user, label_method: :氏名, value_method: :社員番号, label:'入力者'
+    = f.association :to_user, label_method: :氏名, value_method: :社員番号, label:'社員'
+    = f.association :dengonyouken, label:'用件', collection: Dengonyouken.all.collect { |k| [k.種類名, k.id, {:style => "background-color: "+k.yuusen.try(:色).to_s+"; color: Black"}] }
+    = f.association :dengonkaitou, label_method: :種類名, value_method: :id, label:'回答'
+  .col-md-3.col-md-offset-1
+    = f.input :伝言内容, as: :text, :input_html => { :rows => 10, :cols => 256, :class => 'dengon-naiyo' }
+    = f.input :確認
+    = f.input :送信
+
+    = f.button :submit, class:'btn btn-primary'

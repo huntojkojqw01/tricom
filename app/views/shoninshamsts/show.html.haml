@@ -1,0 +1,14 @@
+%p
+  %b 申請者
+  = @shoninshamst.申請者
+%p
+  %b 承認者
+  = @shoninshamst.承認者
+%p
+  %b 順番
+  = @shoninshamst.順番
+
+= link_to '編集', edit_shoninshamst_path(@shoninshamst)
+\|
+= link_to '戻る', shoninshamsts_path
+= provide(:title, (t 'title.shoninshamst'))

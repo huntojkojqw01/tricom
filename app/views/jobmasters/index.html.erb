@@ -1,0 +1,70 @@
+<%= javascript_include_tag 'jobs' %>
+<%= stylesheet_link_tag 'jobmst' %>
+<%provide(:title, (t 'title.jobmaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">JOBマスタ</li>
+</ol>
+
+<table id="jobmaster" class="table table-striped table-bordered nowrap" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Job番号</th>
+      <th>Job名</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>ユーザ番号</th>
+      <th>ユーザ名</th>
+      <th>入力社員番号</th>
+      <th>分類コード</th>
+      <!--<th>分類名</th>-->
+      <th>関連Job番号</th>
+      <th>備考</th>
+      <!--<th></th>-->
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @jobmasters.each do |jobmaster| %>
+      <tr id="jobmaster_<%= jobmaster.id %>">
+        <td><%= jobmaster.job番号 %></td>
+        <td><%= jobmaster.job名 %></td>
+        <td><%= jobmaster.開始日 %></td>
+        <td><%= jobmaster.終了日 %></td>
+        <td><%= jobmaster.ユーザ番号 %></td>
+        <td><%= jobmaster.ユーザ名 %></td>
+        <td><%= jobmaster.入力社員番号 %></td>
+        <td><%= jobmaster.分類コード %></td>
+        <!--<td><%# jobmaster.分類名 %></td>-->
+        <td><%= jobmaster.関連Job番号 %></td>
+        <td><%= jobmaster.備考 %></td>
+        <!--<td><%# link_to '詳細', jobmaster %></td>-->
+        <td><%= link_to '編集', edit_jobmaster_path(jobmaster) %></td>
+        <td><%= link_to '削除', jobmaster, method: :delete, data: { confirm: '削除でよろしいですが？' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to '新規', new_jobmaster_path %>
+
+<% if can? :update, @jobmasters %>
+
+  <h4>CSVでのデータをインポート!</h4>
+  <%= form_tag import_jobmasters_path,class:'form-inline', multipart: true do %>
+      <div class="form-group">
+        <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+        <%= file_field_tag :file , class: 'btn btn-default' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+        <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+      </div>
+  <% end %>
+<% end %>

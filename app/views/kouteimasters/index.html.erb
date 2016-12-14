@@ -1,0 +1,53 @@
+<%= javascript_include_tag 'kouteimaster' %>
+<%provide(:title, (t 'title.kouteimaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">工程マスタ</li>
+</ol>
+
+<!-- <h1>工程マスタ</h1> -->
+
+<table id="kouteimaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+
+  <thead>
+    <tr>
+      <th>所属</th>
+      <th>工程コード</th>
+      <th>工程名</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <% text = t 'app.delete_confirm' %>
+
+  <tbody>
+    <% @kouteimasters.each do |kouteimaster| %>
+      <tr id="koutei_<%= kouteimaster.id %>">
+        <td><%= kouteimaster.shozokumaster_name %></td>
+        <td><%= kouteimaster.code %></td>
+        <td><%= kouteimaster.name %></td>
+        <td><%= link_to '編集', edit_kouteimaster_path(kouteimaster) %></td>
+        <td><%= link_to '削除', kouteimaster, method: :delete, data: { confirm: "#{text}" } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<%= link_to '新規', new_kouteimaster_path %>
+<% if can? :update, @kouteimasters %>
+  <h4>CSVでのデータをインポート!</h4>
+  <%= form_tag import_kouteimasters_path,class:'form-inline', multipart: true do %>
+      <div class="form-group">
+        <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+        <%= file_field_tag :file , class: 'btn btn-default' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+        <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+      </div>
+  <% end %>
+<% end %>

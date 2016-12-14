@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b ロールコード:
+  = @rorumenba.ロールコード
+%p
+  %b 社員番号:
+  = @rorumenba.社員番号
+
+%p
+  %b 氏名:
+  = @rorumenba.氏名
+
+%p
+  %b ロール内序列:
+  = @rorumenba.ロール内序列
+
+= link_to '編集', edit_rorumenba_path(@rorumenba)
+\|
+= link_to '戻る', rorumenbas_path
+= provide(:title, (t 'title.rorumenba'))

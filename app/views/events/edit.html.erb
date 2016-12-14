@@ -1,0 +1,16 @@
+<%= javascript_include_tag 'event' %>
+<%= javascript_include_tag 'events' %>
+
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <%if request["param"] == "timeline"%>
+    <li><%= link_to 'タイムライン', time_line_view_events_path %></li>
+    <%provide(:title, (t 'title.time_line_view'))%>
+  <%else %>
+    <li><%= link_to 'カレンダー', events_path %></li>
+    <%provide(:title, (t 'title.event'))%>
+  <%end%>
+  <li class="active">イベント</li>
+</ol>
+
+<%= render 'form_event', mode: 'edit' %>

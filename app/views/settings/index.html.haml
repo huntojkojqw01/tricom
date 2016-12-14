@@ -1,0 +1,36 @@
+= javascript_include_tag 'settings'
+= provide(:title, (t 'title.setting'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active Setting
+
+%br
+
+%table.setting-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+  %thead
+    %tr
+      %th 社員番号
+      %th ScrollTime
+      %th Local
+      %th
+      %th
+  %tbody
+    - @setting.each do |setting|
+      %tr
+        %td= setting.社員番号
+        %td= setting.scrolltime
+        %td= setting.local
+        %td= link_to '編集', edit_setting_path(setting)
+        - msg = t 'app.delete_confirm'
+        %td= link_to '削除', setting, :method => :delete, :data => { :confirm => msg }
+
+= link_to '新規', new_setting_path
+
+%h4 CSVでのデータをインポート!
+= form_tag import_settings_path,class:'form-inline', multipart: true do
+  .form-group
+    = label_tag 'selectcsv', nil, class: 'sr-only'
+    = file_field_tag :file , class: 'btn btn-default'
+  .form-group
+    = label_tag 'importcsv', nil, class: 'sr-only'
+    = submit_tag "Import CSV" , class: 'btn btn-default'

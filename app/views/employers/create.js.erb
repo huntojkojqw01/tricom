@@ -1,0 +1,34 @@
+//hide modal
+//    $('#new_employer_modal').modal('hide');
+//add row
+//    $('#multiselect_table').append("<%# j render partial: 'table_row', locals: {employer: @employer } %>");
+
+//refresh the page
+//window.location.reload();
+//oTable.ajax.reload();
+//oTable.draw(true);
+oTable.row.add([
+        '<input type="checkbox" name="delete[<%= @employer.id %>]" id="delete_<%= @employer.id %>" value="1">',
+        '<%= @employer.first_name %>',
+        '<%= @employer.position %>',
+        '<%= @employer.office %>',
+        '<%= @employer.age %>',
+        '<%= @employer.start_date %>',
+        '<%= @employer.salary %>',
+        '<%= @employer.id %>'
+]).draw();
+
+//$('#multiselect_table INPUT').click(function() {
+//    $(this).parent().parent().toggleClass('success');
+//});
+
+$('#delete_<%= @employer.id %>').click(function() {
+    $(this).parent().parent().toggleClass('success');
+});
+
+//$('#multiselect_table tbody').on( 'click', 'tr', function () {
+//    $(this).toggleClass('selected');
+//} );
+
+//clear modal error
+$('#new_employer_modal').modal_success();

@@ -1,0 +1,80 @@
+%div#back-to-top-of-guide
+%nav.navbar.navbar-inverse.navbar-fixed-top{role: :navigation}
+  .container-fluid
+    .navbar-header
+      %ul.nav.navbar-nav.navbar-left
+        %li= link_to " 勤務管理システム", root_path, :class => "glyphicon glyphicon-home root"
+        %li.dropdown
+          %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+            %span メニュー
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to ' カレンダー', events_path, :class => "glyphicon glyphicon-calendar icon-left"
+            %li= link_to ' タイムライン', time_line_view_events_path, :class => "glyphicon glyphicon-list-alt icon-left"
+            %legend.menu
+            %li= link_to ' 勤務', kintais_url, :class => "glyphicon glyphicon-briefcase icon-left"
+            %li= link_to ' 経費', keihiheads_url, :class => "glyphicon glyphicon-yen icon-left"
+            %li= link_to ' 伝言', dengons_url, :class => "glyphicon glyphicon-envelope icon-left"
+            %li= link_to ' 承認', shonin_search_keihiheads_url, :class => "glyphicon glyphicon-ok icon-left"
+            %li= link_to ' 回覧', kairans_url, :class => "glyphicon glyphicon-comment icon-left"
+            %li= link_to ' 設備予約', setsubiyoyakus_url, :class => "glyphicon glyphicon-list icon-left"
+        %li.dropdown
+          %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+            %span ヘルプ
+            %span.caret
+          %ul.dropdown-menu
+            %li= link_to ' ヘルプ', helps_path, :class => "glyphicon glyphicon-question-sign icon-left"
+
+    .collapse.navbar-collapse
+      %ul.nav.navbar-nav.navbar-right
+        - if current_user
+          %li.dropdown
+            %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+              - if current_user.avatar.exists?
+                - image_path_origin = current_user.avatar.url
+                %span= image_tag image_path_origin, size: "30x30"
+              - else
+                %span= image_tag "/assets/thumb/missing.png", size: "30x30"
+
+              / - if avatar_image.present?avatar_image.url(:thumb).present?
+              /   %span= image_tag image_path_origin, size: "30x30"
+              / - else
+
+              / %span Main
+              / %span.caret
+            %ul.dropdown-menu.center
+              / - if image_path_origin.present?
+              /   %li= image_tag image_path_origin, size: "30x30"
+              - if current_user.avatar.exists?
+                - image_path_origin = current_user.avatar.url
+                %li= image_tag image_path_origin, size: "30x30"
+              - else
+                %li= image_tag "/assets/thumb/missing.png", size: "30x30"
+              %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
+              %li.text-gray パスワード更新日：#{current_user.updated_at.to_date}
+              %legend.menu
+              %li= link_to ' プロファイル変更', edit_user_path(current_user), :class => "glyphicon glyphicon-edit icon-left"
+              %li= link_to " ログアウト", logout_path, method: "delete", :class => "glyphicon glyphicon-log-out icon-left"
+
+          / %li.navbar-text パスワード更新日：#{current_user.updated_at.to_date}
+          / - image_path_origin = current_user.avatar.url(:thumb)
+          / - if image_path_origin.present?
+          /   - image_path_length = image_path_origin.length
+          /   - image_path = image_path_origin[1,image_path_length-1]
+          /   %li= image_tag image_path
+          / -#%li= image_tag user.avatar.url(:thumb)
+          / %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
+          %li.dropdown
+            %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
+              %span.glyphicon.glyphicon-asterisk
+              %span.caret
+            %ul.dropdown-menu
+
+              - if current_user.admin? || current_user.supervisor?
+                %li= link_to ' データをエクスポート!', export_csv_index_path, :class => "glyphicon glyphicon-export icon-left"
+              - if current_user.shainmaster.shozokumaster.所属コード == "3"
+                %li= link_to ' 管理G', kanris_root_path, :class => "glyphicon glyphicon-list-alt icon-left"
+              %li= link_to ' 設定', setting_settings_path, :class => "glyphicon glyphicon-asterisk"
+        - else
+          %li= link_to 'ログイン', login_path
+

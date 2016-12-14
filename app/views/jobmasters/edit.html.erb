@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'jobs' %>
+<%provide(:title, (t 'title.jobmaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to 'JOBマスタ', jobmasters_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form', mode: :edit %>

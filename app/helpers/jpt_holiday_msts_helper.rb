@@ -1,0 +1,2 @@
+module JptHolidayMstsHelper
+end

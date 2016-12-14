@@ -1,0 +1,17 @@
+= simple_form_for(@yuusen) do |f|
+  .row
+    .col-md-3.col-md-offset-2
+      = f.input :優先さ if mode == :new
+      = f.input :名前
+      = f.button :submit, class: 'btn btn-primary'
+
+    .col-md-3.col-md-offset-1
+      .panel.panel-default#preview-panel
+        .panel-heading
+          %h3.panel-title 背景色変更のプリビュー
+        .panel-body
+          .form-group
+            .col-md-8.col-md-offset-1
+              #preview-backgroud.panel.panel-default
+                %p#preview-text{style: "align-content: center"} 松本と昼ごはん
+      = f.input :色

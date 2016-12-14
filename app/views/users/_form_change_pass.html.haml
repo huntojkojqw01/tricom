@@ -1,0 +1,9 @@
+= simple_form_for(:user,url: change_pass_users_path) do |f|
+  .col-md-3.col-md-offset-1
+    = f.input :user_code, label: '社員番号'
+    = f.input :old_password, as: :password, label: 'パスワード (4文字以上)'
+    = f.input :new_password, as: :password, label: '新パスワード (4文字以上)'
+    = f.input :renew_password, as: :password, label: 'もう一度'
+    = f.input :avatar, as: :file, required: false
+    = f.input :email, as: :email, required: false
+    = f.button :submit, class: 'btn btn-primary'

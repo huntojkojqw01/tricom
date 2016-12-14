@@ -1,0 +1,8 @@
+= javascript_include_tag 'rorumenbas'
+= provide(:title, (t 'title.rorumenba'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to 'ロールメンバ', rorumenbas_path
+  %li.active 新規
+
+= render 'form'

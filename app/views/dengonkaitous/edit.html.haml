@@ -1,0 +1,7 @@
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '伝言回答マスタ', dengonkaitous_path
+  %li.active 編集
+
+= render 'form', mode: :edit
+= provide(:title, (t 'title.dengonkaitou'))

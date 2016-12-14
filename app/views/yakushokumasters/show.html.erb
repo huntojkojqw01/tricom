@@ -1,0 +1,13 @@
+<p>
+  <strong>役職コード:</strong>
+  <%= @yakushokumaster.役職コード %>
+</p>
+
+<p>
+  <strong>役職名:</strong>
+  <%= @yakushokumaster.役職名 %>
+</p>
+
+<%= link_to '編集', edit_yakushokumaster_path(@yakushokumaster) %> |
+<%= link_to '戻る', yakushokumasters_path %>
+<%provide(:title, (t 'title.yakushokumaster'))%>

@@ -1,0 +1,56 @@
+= simple_form_for @event do |f|
+  .col-md-4.col-md-offset-1
+    - if !request["shain_id"].nil?
+      = f.input :社員番号, input_html: {style: 'width:100px', value: request["shain_id"]}
+    - else
+      = f.input :社員番号, input_html: {style: 'width:100px'}
+    / = f.input :社員番号, input_html: {style: 'width:100px'}
+    .row
+      .col-md-4
+        = f.input :状態コード, label: '状態', input_html: {style: 'width:50px'}, as: :search_field, hint:"#{@event.joutaimaster.try :状態名}", hint_html: {class: 'hint-joutai-refer'}
+      .col-md-3
+        = f.input :有無 , label: '帰社'do
+          = f.select :有無, options_for_select(["帰社", "直帰", "連続"], :selected => @event.有無), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
+    = f.input :場所コード, label: '場所', input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.bashomaster.try :場所名}", hint_html: {class: 'hint-basho-refer'}
+    = f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history_job, hint:"#{@event.jobmaster.try :job名}", hint_html: {class: 'hint-job-refer'}
+    -#= f.input :工程コード, label: '工程', input_html: {style: 'width:100px'}, as: :search_field, hint:"#{@event.kouteimaster.try :工程名}", hint_html: {class: 'hint-koutei-refer'}
+    -#- shozoku = get_shozoku(session[:user]).所属コード
+    -#- kouteis = Kouteimaster.where(所属コード: shozoku)
+    -#= select(:event, :工程コード, kouteis.collect {|k| [ k.工程名, k.工程コード ] }, { include_blank: true }, {class: 'form-control'})
+    = f.input :工程コード, label: '工程' do
+      = f.select :工程コード, @kouteis.map { |k| [k.工程名, k.工程コード] }, {include_blank: true}, {class: 'form-control', style: 'width:150px'}
+    = f.input :所属コード, input_html:{value: "#{get_shozoku(session[:selected_shain]).所属コード}"}, as: :hidden
+  .col-md-4.col-md-offset-1
+    = f.input :開始, as: :date_time_picker
+    = f.input :終了, as: :date_time_picker
+    = f.input :工数, input_html: {style: 'width:100px'}, hint: 'h　(単位：時間)'
+    -#= text_field_tag :kyukei, '', placeholder: '休憩時間', style: 'width:100px'
+    = f.button :button, '工数再計算', type: :button, id: :koushuu
+    = f.input :comment, label: 'コメント'
+
+    - if mode == 'new'
+      - if request["param"] == "timeline"
+        = f.button :submit, '登録する', class: 'btn btn-primary', id: 'timeline'
+      - else
+        = f.button :submit, '登録する ', class: 'btn btn-primary', id: 'event'
+
+    - if @event.計上 != '済' && mode == 'edit'
+      - if request["param"] == "timeline"
+        = f.button :submit, '登録する', class: 'btn btn-primary', id: 'timeline'
+      - else
+        = f.button :submit, '登録する ', class: 'btn btn-primary', id: 'event'
+      - if request["param"] == "timeline"
+        = f.button :submit, '削除する', class: 'btn btn-primary', id: 'timeline'
+      - else
+        = f.button :submit, '削除する ', class: 'btn btn-primary', id: 'event'
+
+= render 'share/joutai_modal'
+= render 'share/basho_modal'
+= render 'share/mybasho_modal'
+= render 'share/koutei_modal'
+= render 'share/shozai_modal'
+= render 'share/job_modal'
+= render 'share/myjob_modal'
+= render 'share/basho_new_modal'
+= render 'share/kaisha_new_modal'
+= render 'share/kaisha_modal'

@@ -1,0 +1,15 @@
+= simple_form_for @bashomaster do |f|
+  .col-md-2.col-md-offset-1
+    = f.input :場所コード if mode == :new
+    = f.input :場所名
+    = f.input :場所名カナ
+    = f.input :SUB
+    = f.association :bashokubunmst, label_method: :場所区分名, value_method: :場所区分コード, label:'場所区分'
+    = f.input :会社コード, wrapper: :vertical_input_group do
+      = f.input_field :会社コード, class: 'form-control'
+      %span.input-group-addon.refer-kaisha
+        %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
+
+    = f.button :submit, '更新する', class: 'btn btn-primary'
+
+= render 'share/kaisha_modal'

@@ -1,0 +1,71 @@
+= javascript_include_tag 'kairans'
+= provide(:title, (t 'title.kairan'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 回覧
+
+-#= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: confirm_kairans_path, method: :get do |f|
+= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: kairans_path, method: :get do |f|
+  = render 'header', f: f
+  %br
+
+  %table.kairan-table.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%'}
+
+    %thead
+      %tr
+        %th 発行者
+        %th 日時
+        %th 要件
+        %th 件名
+        %th 内容
+        %th 確認
+        %th 回答
+        %th
+        %th id
+        %th kairanCode
+
+    %tbody
+      - @kairanShoshais.each do |kairanshosai|
+        %tr
+          %td{:style => "background-color:#fff966"}= kairanshosai.kairan.try :氏名
+          %td= kairanshosai.開始
+          %td{:style => "background-color: "+kairanshosai.kairan.kairanyokenmst.yuusen.try(:色).to_s+"; color: Black"}= kairanshosai.kairan.kairanyokenmst.try :名称 if kairanshosai.kairan
+          %td= kairanshosai.件名
+          %td.breakAll= kairanshosai.内容
+          - if kairanshosai.状態 == '未確認'
+            %td= '未確認'
+          - else
+            %td= '確認済'
+          - kairanKaitou = Kairan.find kairanshosai.回覧コード
+          - kaito = kairanshosai.kairan.確認要 == true ? '要':''
+          - if @shain_param == session[:user]
+            - if kairanshosai.kairan.確認要 == true
+              - if kairanshosai.状態 != '回答済'
+                %td= link_to kaito, kaitou_kairan_path(kairanKaitou)
+              - else
+                %td= '回答済'
+            - else
+              %td= ''
+          - else
+            - if kairanshosai.kairan.確認要 == true
+              - if kairanshosai.状態 != '回答済'
+                %td= '要'
+              - else
+                %td= '回答済'
+            - else
+              %td= ''
+          %td
+          %td= kairanshosai.id
+          %td= kairanshosai.回覧コード
+          -#%td= link_to '編集', edit_kairan_path(kairan)
+          -#%td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+
+  %br
+
+  = hidden_field_tag 'checked'
+  .pull-right
+    -#= button_tag '確認する', name: 'button', id: 'kakunin', value: '確認する', class: 'btn btn-primary'
+
+= link_to '新規', new_kairan_path
+\|
+= link_to '送回覧', shokairan_kairans_path

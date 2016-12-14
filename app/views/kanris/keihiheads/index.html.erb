@@ -1,0 +1,54 @@
+<%= javascript_include_tag 'kintais' %>
+<%= stylesheet_link_tag 'kintais' %>
+<%provide(:title, (t 'title.kanri.keihihead'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li><%= link_to '管理G', kanris_root_path %></li>
+  <li class="active">経費</li>
+</ol>
+
+<%= form_for :kintai, url: kanris_keihiheads_path, html: {class:'form-inline'}, method: :get do |f| %>
+<%= render "kanris/shared/header_keihi", f: f %>
+
+<table  class="table table-bordered table-hover " cellspacing="0" data-sort-name="name" data-sort-order="desc">
+  <thead>
+  <tr>
+    <th rowspan="2">申請番号</th>
+    <th rowspan="2">申請日付</th>
+    <th rowspan="2">社員氏名</th>
+    <th rowspan="2">承認区分</th>
+    <th rowspan="2">承認者</th>
+    <th rowspan="2">清算予定日</th>
+    <th rowspan="2">清算日</th>
+    <th colspan="2">承認済区分</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% if  @keihiheads.nil? || @keihiheads.empty? %>
+    <tr  style="text-align: center;">
+      <td colspan="15">データはありません。</td>
+    </tr>
+  <% else %>
+    <% @keihiheads.each do |keihihead| %>
+
+      <tr id="keihihead-<%= keihihead.id %>">
+        <td><%= keihihead.申請番号 %></td>
+        <td><%= keihihead.日付 %></td>
+        <td><%= keihihead.shainmaster.title %></td>
+        <td><%= keihihead.承認kubun %></td>
+        <td><%= keihihead.承認者 %></td>
+        <td><%= keihihead.清算予定日 %></td>
+        <td><%= keihihead.清算日 %></td>
+        <td><%= keihihead.承認済区分 %></td>
+      </tr>
+  <% end %>
+<%= paginate @keihiheads %>
+  <% end %>
+  </tbody>
+</table>
+
+<% end %>
+

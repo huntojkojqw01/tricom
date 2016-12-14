@@ -1,0 +1,55 @@
+<%= javascript_include_tag 'basho' %>
+<%provide(:title, (t 'title.bashomaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li class="active">場所マスタ</li>
+</ol>
+
+<table id="bashomaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+
+  <thead>
+  <tr>
+    <th>場所コード</th>
+    <th>場所名</th>
+    <th>場所名カナ</th>
+    <th>SUB</th>
+    <th>場所区分</th>
+    <th>会社名</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @bashomasters.each do |basho| %>
+      <tr id="bashomaster_<%= basho.id %>">
+        <td><%= basho.場所コード %></td>
+        <td><%= basho.場所名 %></td>
+        <td><%= basho.場所名カナ %></td>
+        <td><%= basho.SUB %></td>
+        <td><%= basho.bashokubunmst.場所区分名 unless basho.bashokubunmst.nil?%></td>
+        <td><%= basho.kaishamaster.会社名 unless basho.kaishamaster.nil?%></td>
+        <td><%= link_to '編集', edit_bashomaster_path(basho) %></td>
+        <td><%= link_to '削除', basho, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to '新規', new_bashomaster_path %>
+
+<% if can? :update, @bashomasters %>
+
+<h4>CSVでのデータをインポート!</h4>
+<%= form_tag import_bashomasters_path,class:'form-inline', multipart: true do %>
+    <div class="form-group">
+      <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+      <%= file_field_tag :file , class: 'btn btn-default' %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+      <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+    </div>
+<% end %>
+<% end %>

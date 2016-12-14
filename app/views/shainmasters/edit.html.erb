@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'shain' %>
+<%provide(:title, (t 'title.shainmaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to '社員マスタ', shainmasters_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form', mode: :edit  %>

@@ -1,0 +1,8 @@
+= javascript_include_tag 'shoninshamsts'
+= provide(:title, (t 'title.shoninshamst'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '承認者マスタ', shoninshamsts_path
+  %li.active 新規 /
+
+= render 'form', mode: :new

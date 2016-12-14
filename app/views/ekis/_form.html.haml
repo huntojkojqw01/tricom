@@ -1,0 +1,6 @@
+= simple_form_for @eki do |f|
+  .col-sm-3.col-sm-offset-2
+    = f.input :駅コード if mode == :new
+    = f.input :駅名
+    = f.input :駅名カナ
+    = f.button :submit, class: 'btn btn-primary'

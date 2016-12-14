@@ -1,0 +1,34 @@
+= javascript_include_tag 'shoninshamsts'
+= provide(:title, (t 'title.shoninshamst'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 承認者
+
+%table.shonin-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+  %thead
+    %tr
+      %th 申請者
+      %th 承認者
+      %th 順番
+      %th
+      %th
+
+  %tbody
+    - @shoninshamsts.each do |shoninshamst|
+      %tr
+        %td= shoninshamst.shinseisha.氏名
+        %td= shoninshamst.shouninsha.氏名
+        %td= shoninshamst.順番
+        %td= link_to '編集', edit_shoninshamst_path(shoninshamst)
+        - msg = t 'app.delete_confirm'
+        %td= link_to '削除', shoninshamst, :method => :delete, :data => { :confirm => msg }
+
+= link_to '新規', new_shoninshamst_path
+%h4 CSVでのデータをインポート!
+= form_tag import_shoninshamsts_path,class:'form-inline', multipart: true do
+  .form-group
+    = label_tag 'selectcsv', nil, class: 'sr-only'
+    = file_field_tag :file , class: 'btn btn-default'
+  .form-group
+    = label_tag 'importcsv', nil, class: 'sr-only'
+    = submit_tag "Import CSV" , class: 'btn btn-default'

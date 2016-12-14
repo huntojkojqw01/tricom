@@ -1,0 +1,2 @@
+module ShozaisHelper
+end

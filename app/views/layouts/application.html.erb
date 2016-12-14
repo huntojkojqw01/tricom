@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	  <!-- <title><%= @pageTitle %></title> -->
+    <title><%= full_title(yield(:title)) %></title>
+	  <%= stylesheet_link_tag    "application", :media => "all" %>
+	  <%# stylesheet_link_tag    "//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css", :media => "all" %>
+	  <%# javascript_include_tag "//code.jquery.com/jquery-1.10.2.min.js" %>
+	  <%= javascript_include_tag "application" %>
+	  <%= csrf_meta_tags %>
+
+	</head>
+
+	<body>
+    <%= render 'layouts/navigation_links' %>
+
+    <div class="container-fluid" style="margin-top: 70px">
+      <div class="row-fluid">
+        <%= render 'share/messages' %>
+        <%= yield %>
+      </div>
+    </div>
+
+    <%= render 'layouts/footer' %>
+    </body>
+
+</html>

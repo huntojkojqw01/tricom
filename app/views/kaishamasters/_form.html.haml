@@ -1,0 +1,6 @@
+= simple_form_for @kaishamaster do |f|
+  .col-sm-3.col-sm-offset-3
+    = f.input :会社コード if mode == :new
+    = f.input :会社名
+    = f.input :備考
+    = f.button :submit, class: 'btn btn-primary'

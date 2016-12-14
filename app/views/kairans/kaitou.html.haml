@@ -1,0 +1,62 @@
+= javascript_include_tag 'kairans'
+= provide(:title, (t 'title.kaitou'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '回覧', kairans_path
+  %li.active 回答
+
+<div class="row">
+<div class="col-sm-5 col-md-offset-3">
+= simple_form_for @kairan, url: kaitou_create_kairans_path  do |f|
+  .col-md-3.col-md-offset-1
+  %table{cellspacing: '0', width: '100%'}
+    %tr
+      %td.kaitou-center-verical
+        %b 発行者
+      %td.kaitou-center-verical{colspan:'1'}
+        =@hakkosha
+      %td{colspan:'1'}
+    %tr
+      %td.kaitou-center-verical
+        %b 受信者
+      %td.kaitou-center-verical{colspan:'1'}
+        =@jushinsha
+      %td{colspan:'1'}
+    %tr
+      %td.kaitou-center-verical
+        %b 要件
+      %td.kaitou-center-verical{colspan:'1'}
+        = @yoken
+      %td{colspan:'1'}
+        = f.input :要件,  label: false,:as => :hidden, :input_html => { :value => @kairan.要件 }
+    %tr
+      %td
+        %b 開始
+      %td.kaitou-center-verical
+        = f.input :開始, as: :date_time_picker, label: false
+    %tr
+      %td
+        %b 終了
+      %td.kaitou-center-verical
+        = f.input :終了, as: :date_time_picker, label: false
+    %tr
+      %td
+        %b 件名
+      %td.kaitou-center-verical
+        = f.input :件名, label: false
+    %tr
+      %td
+        %b 内容
+      %td.kaitou-center-verical{colspan:'2'}
+        = f.input :内容, as: 'text', label: false, :input_html => { :rows => 10, :cols => 100 }
+
+    %tr
+      %td
+      %td
+        = f.button :submit, '回答する', class: 'btn btn-primary', id: 'kairan', label: false
+
+    = hidden_field_tag 'kaitoid', @kaitoid, label: false
+    = hidden_field_tag 'kaitoto', @kaitoto, label: false
+
+</div>
+</div>

@@ -1,0 +1,2 @@
+module ShainHelper
+end

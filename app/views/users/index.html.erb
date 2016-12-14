@@ -1,0 +1,54 @@
+<%= javascript_include_tag 'user' %>
+<%provide(:title, (t 'title.user.tantousha'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!--<li><%# link_to '社員マスタ', shainmasters_url %></li>-->
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">担当者マスタ</li>
+</ol>
+
+<!-- <h1>工程マスタ</h1> -->
+
+<table id="user_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+
+  <thead>
+    <tr>
+      <th>担当者コード</th>
+      <th>担当者名称</th>
+      <th>アドミン</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @users.each do |user| %>
+      <tr id="user_<%= user.id %>">
+        <td><%= user.担当者コード %></td>
+        <td><%= user.担当者名称 %></td>
+        <td><%= user.admin %></td>
+        <td><%= link_to '詳細', user %></td>
+        <td><%= link_to '編集', edit_user_path(user) if
+        current_user.admin? || current_user.supervisor? %></td>
+        <td><%= link_to '削除', user, method: :delete, data: { confirm: '削除で宜しですか。'} if current_user.admin? || current_user.supervisor? %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<% if can? :manage, User %>
+  <%= link_to "新規" ,new_user_path %>
+  <h4>CSVでのデータをインポート!</h4>
+  <%= form_tag import_users_path, class:'form-inline', multipart: true do %>
+      <div class="form-group">
+        <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+        <%= file_field_tag :file , class: 'btn btn-default' %>
+      </div>
+      <div class="form-group">
+        <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+        <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+      </div>
+  <% end %>
+<% end %>

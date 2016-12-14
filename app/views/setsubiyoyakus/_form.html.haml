@@ -1,0 +1,16 @@
+= simple_form_for(@setsubiyoyaku) do |f|
+  .col-sm-2.col-sm-offset-2
+    = f.input :設備コード, label:'設備コード' do
+      = f.select :設備コード, Setsubi.all.map {|p| [ p.設備名, p.設備コード ] },{}, {include_blank: true, class: 'form-control'}
+    = f.input :予約者, as: :hidden, input_html: {value: session[:user]}
+    = f.input :開始, as: :date_time_picker
+    = f.input :終了, as: :date_time_picker
+    = f.input :用件
+    = f.input :相手先, wrapper: :vertical_input_group do
+      = f.input_field :相手先, class: 'form-control'
+      %span.input-group-addon.refer-kaisha
+        %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
+
+    = f.button :submit, class: 'btn btn-primary'
+
+= render 'share/kaisha_modal'

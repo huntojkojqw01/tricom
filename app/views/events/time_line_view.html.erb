@@ -1,0 +1,69 @@
+<%= javascript_include_tag 'time_line_view.js' %>
+<%= javascript_include_tag 'events' %>
+<%= javascript_include_tag 'resource/ja' %>
+<%= stylesheet_link_tag 'events' %>
+<%provide(:title, (t 'title.time_line_view'))%>
+<div class="row">
+  <div class="col-md-12">
+    <ol class="breadcrumb">
+      <li><%= link_to 'メニュー', main_path %></li>
+      <li><%= link_to 'カレンダー', events_path %></li>
+      <li class="active">タイムライン</li>
+    </ol>
+  </div>
+</div>
+
+<%= simple_form_for :timeline, url: time_line_view_events_path, method: :post do |f| %>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="timeline-view">
+      <div style="height:55px;">
+        <div class="pull-left">
+          <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
+          <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
+          <%= f.submit '承認', class: 'btn btn-default', id:'shonin'%>
+          <%= f.submit '伝言', class: 'btn btn-default', id:'dengon'%>
+          <%= f.submit '回覧', class: 'btn btn-default', id:'kairan'%>
+          <%= f.submit '設備予約', class: 'btn btn-default', id:'setsubiyoyaku'%>
+        </div>
+        <table class="pull-right">
+         <!--  <td>
+            <%= f.input :ロールコード, label:'部署' do %>
+              <%= f.select :ロールコード, @role.map { |k| [k.ロール名, k.ロールコード]}, {:selected => @roru.try(:ロールコード), include_blank: true},{class: 'form-control'}%>
+            <% end %>
+          </td>
+          <td>
+            <%= f.input :状態コード, label:'状態' do %>
+              <%= f.select :状態コード, @joutai.map { |k| [k.状態名, k.状態コード]}, {:prompt => "全て"}, {class: 'form-control'}%>
+            <% end %>
+          </td>
+          <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 15px;margin-left:15px">検索</button></td>
+ -->
+          <td>
+            <bold style="line-height:40px;margin-right:15px;font-weight:bold;">部署</bold>
+          </td>
+          <td>
+            <%= f.select :ロールコード, @role.map { |k| [k.ロール名, k.ロールコード]}, {:selected => @roru.try(:ロールコード), include_blank: true},{class: 'form-control'}%>
+          </td>
+
+          <td>
+            <bold style="line-height:40px;margin-right:15px;margin-left:15px;font-weight:bold;">状態</bold>
+          </td>
+          <td>
+            <%= f.select :状態コード, @joutai.map { |k| [k.状態名, k.状態コード]}, {:prompt => "全て"}, {class: 'form-control'}%>
+          </td>
+          <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 0px;margin-left:15px">検索</button></td>
+
+        </table>
+      </div>
+
+      <div id="calendar-timeline"></div>
+
+      <!-- <div id="calendar-timeline"></div> -->
+
+
+    </div>
+  </div>
+</div>
+<% end %>

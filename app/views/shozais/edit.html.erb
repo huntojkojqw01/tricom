@@ -1,0 +1,9 @@
+<%= javascript_include_tag 'shozai' %>
+<%provide(:title, (t 'title.shozai'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to '所在マスタ', shozais_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form', mode: :edit %>

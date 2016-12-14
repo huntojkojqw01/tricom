@@ -1,0 +1,57 @@
+<%= form_for @user, html:{class: 'form-horizontal'} do |f| %>
+    <% if @user.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= @user.errors.count %> エラーが発生しました:</h2>
+          <ul>
+            <% @user.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :担当者コード, class: 'col-md-2 control-label' %>
+      <div class="col-md-2">
+        <%= f.text_field :担当者コード, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :担当者名称, class: 'col-md-2 control-label' %>
+      <div class="col-md-2">
+        <%= f.text_field :担当者名称, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :パスワード, class: 'col-md-2 control-label' %>
+      <div class="col-md-2">
+        <%= f.password_field :password, autofocus: true, autocomplete: 'off', class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :Avatar, class: 'col-md-2 control-label' %>
+      <div class="col-md-2">
+        <%= f.file_field :avatar, class: 'form-control' %>
+      </div>
+    </div>
+
+    <% if session[:user] == ENV['admin_user'] %>
+        <div class="form-group">
+          <%= f.label :Admin, class: 'col-md-2 control-label' %>
+          <div class="col-md-2">
+            <%= f.check_box :admin %>
+          </div>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <div class="col-md-2 col-sm-offset-2">
+        <div class="actions">
+          <%= f.submit '登録', class: 'btn btn-primary'%>
+        </div>
+      </div>
+    </div>
+<% end %>

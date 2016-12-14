@@ -1,0 +1,25 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">MultiSelect Show</li>
+</ol>
+
+<h1>Show selected row info</h1>
+
+
+<p>
+  <strong>First Name:</strong>
+  <%= @employer.first_name %>
+</p>
+
+<p>
+  <strong>Office:</strong>
+  <%= @employer.office %>
+</p>
+
+<p>
+  <strong>Salary:</strong>
+  <%= @employer.salary %>
+</p>
+<%provide(:title, (t 'title.employer'))%>

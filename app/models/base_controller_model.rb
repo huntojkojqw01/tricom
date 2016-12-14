@@ -1,0 +1,2 @@
+class BaseControllerModel
+end

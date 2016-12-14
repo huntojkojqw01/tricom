@@ -1,0 +1,7 @@
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '駅一覧', ekis_path
+  %li.active 新規
+
+= render 'form', mode: :new
+= provide(:title, (t 'title.eki'))

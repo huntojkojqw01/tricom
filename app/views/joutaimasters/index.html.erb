@@ -1,0 +1,60 @@
+<%= javascript_include_tag 'joutai' %>
+<%provide(:title, (t 'title.joutaimaster'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <!-- <li><a href="#">基準情報</a></li> -->
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">状態マスタ</li>
+</ol>
+
+<table id="joutaimaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+
+  <thead>
+  <tr>
+    <th>状態コード</th>
+    <th>状態名</th>
+    <th>状態区分</th>
+    <th>勤怠状態名</th>
+    <th>マーク</th>
+    <th>背景色</th>
+    <th>文字色</th>
+    <th>WEB使用区分</th>
+    <th>勤怠使用区分</th>
+    <th></th>
+    <th></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @joutaimasters.each do |joutai| %>
+      <tr id="joutaimaster_<%= joutai.id %>">
+        <td><%= joutai.状態コード %></td>
+        <td><%= joutai.状態名 %></td>
+        <td><%= joutai.状態区分 %></td>
+        <td><%= joutai.勤怠状態名 %></td>
+        <td><%= joutai.マーク %></td>
+        <td><%= joutai.色 %></td>
+        <td><%= joutai.text_color %></td>
+        <td><%= joutai.WEB使用区分 %></td>
+        <td><%= joutai.勤怠使用区分 %></td>
+        <td><%= link_to '編集', edit_joutaimaster_path(joutai) %></td>
+        <td><%= link_to '削除', joutai, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to '新規', new_joutaimaster_path %>
+<% if can? :update, @joutaimasters %>
+<h4>CSVでのデータをインポート!</h4>
+<%= form_tag import_joutaimasters_path,class:'form-inline', multipart: true do %>
+    <div class="form-group">
+      <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+      <%= file_field_tag :file , class: 'btn btn-default' %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+      <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+    </div>
+<% end %>
+<% end %>

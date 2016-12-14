@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @dengon.first_name
+%p
+  %b Last name:
+  = @dengon.last_name
+
+= link_to 'Edit', edit_dengon_path(@dengon)
+\|
+= link_to 'Back', dengons_path
+= provide(:title, (t 'title.dengon'))

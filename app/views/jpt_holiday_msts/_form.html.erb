@@ -1,0 +1,42 @@
+<%= form_for(@jpt_holiday_mst, html:{class: 'form-horizontal', role: :form, 'data-model' => 'holiday'}) do |f| %>
+    <% if @jpt_holiday_mst.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@jpt_holiday_mst.errors.count, "error") %> prohibited this jpt_holiday_mst from being saved:</h2>
+
+          <ul>
+            <% @jpt_holiday_mst.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+    <div class="form-group">
+      <%= f.label :休日,  class: 'col-sm-2 control-label' %>
+      <div class="col-sm-2">
+        <%= f.text_field :event_date, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :タイトル,  class: 'col-sm-2 control-label' %>
+      <div class="col-sm-2">
+        <%= f.text_field :title, class: 'form-control' %>
+      </div>
+    </div>
+
+
+    <div class="form-group">
+      <%= f.label :備考,  class: 'col-sm-2 control-label' %>
+      <div class="col-sm-2">
+        <%= f.text_field :description, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-2 col-sm-offset-2">
+        <%= f.submit '　登録　', class: 'btn btn-primary' %>
+      </div>
+    </div>
+
+<% end %>

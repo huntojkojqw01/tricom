@@ -1,0 +1,37 @@
+= javascript_include_tag 'kairanyokenmsts'
+= provide(:title, (t 'title.kairanyoukenmst'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 回覧用件マスタ
+
+%table.kairanyouken-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+  %thead
+    %tr
+      %th 名称
+      %th 備考
+      %th 優先さ
+      %th
+      %th
+
+  %tbody
+    - @kairanyokenmsts.each do |kairanyokenmst|
+      %tr
+        %td= kairanyokenmst.名称
+        %td= kairanyokenmst.備考
+        %td= kairanyokenmst.優先さ
+        %td= link_to '編集', edit_kairanyokenmst_path(kairanyokenmst)
+        %td= link_to '削除', kairanyokenmst, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+
+%br
+
+= link_to '新規', new_kairanyokenmst_path
+
+- if can? :update, @kairanyokenmsts
+  %h4 CSVでのデータをインポート!
+  = form_tag import_kairanyokenmsts_path,class:'form-inline', multipart: true do
+    .form-group
+      = label_tag 'selectcsv', nil, class: 'sr-only'
+      = file_field_tag :file , class: 'btn btn-default'
+    .form-group
+      = label_tag 'importcsv', nil, class: 'sr-only'
+      = submit_tag "Import CSV" , class: 'btn btn-default'

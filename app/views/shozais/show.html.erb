@@ -1,0 +1,13 @@
+<p>
+  <strong>所在コード：</strong>
+  <%= @shozai.所在コード if @shozai.所在コード %>
+</p>
+
+<p>
+  <strong>所在名：</strong>
+  <%= @shozai.所在名 if @shozai.所在名 %>
+</p>
+
+<%= link_to '編集', edit_shozai_path(@shozai) %> |
+<%= link_to '戻る', shozais_path %>
+<%provide(:title, (t 'title.shozai'))%>

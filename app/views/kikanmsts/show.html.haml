@@ -1,0 +1,14 @@
+%p
+  %b 機関コード:
+  = @kikanmst.機関コード
+%p
+  %b 機関名:
+  = @kikanmst.機関名
+%p
+  %b 備考:
+  = @kikanmst.備考
+
+= link_to '編集', edit_kikanmst_path(@kikanmst)
+\|
+= link_to '戻る', kikanmsts_path
+= provide(:title, (t 'title.kikanmst'))

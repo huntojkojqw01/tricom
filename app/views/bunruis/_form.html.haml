@@ -1,0 +1,5 @@
+= simple_form_for @bunrui do |f|
+  .col-md-2.col-md-offset-1
+    = f.input :分類コード if mode == :new
+    = f.input :分類名
+    = f.button :submit, '更新する', class: 'btn btn-primary'

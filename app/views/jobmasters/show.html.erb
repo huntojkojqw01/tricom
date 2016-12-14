@@ -1,0 +1,33 @@
+<p>
+  <strong>JOB番号:</strong>
+  <%= @jobmaster.job番号 %>
+</p>
+
+<p>
+  <strong>JOB名:</strong>
+  <%= @jobmaster.job名 %>
+</p>
+
+<p>
+  <strong>開始日:</strong>
+  <%= @jobmaster.開始日 %>
+</p>
+
+<p>
+  <strong>終了日:</strong>
+  <%= @jobmaster.終了日 %>
+</p>
+
+<p>
+  <strong>ユーザ番号:</strong>
+  <%= @jobmaster.ユーザ番号 %>
+</p>
+
+<p>
+  <strong>ユーザ名:</strong>
+  <%= @jobmaster.ユーザ名 %>
+</p>
+
+<%= link_to '編集', edit_jobmaster_path(@jobmaster) %> |
+<%= link_to '戻る', jobmasters_path %>
+<%provide(:title, (t 'title.jobmaster'))%>

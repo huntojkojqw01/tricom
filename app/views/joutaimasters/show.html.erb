@@ -1,0 +1,42 @@
+<p>
+  <strong>状態コード:</strong>
+  <%= @joutaimaster.状態コード %>
+</p>
+
+<p>
+  <strong>状態名:</strong>
+  <%= @joutaimaster.状態名 %>
+</p>
+
+<p>
+  <strong>状態区分:</strong>
+  <%= @joutaimaster.状態区分 %>
+</p>
+<p>
+  <strong>勤怠状態名:</strong>
+  <%= @joutaimaster.勤怠状態名 %>
+</p>
+<p>
+  <strong>マーク:</strong>
+  <%= @joutaimaster.マーク %>
+</p>
+<p>
+  <strong>色:</strong>
+  <%= @joutaimaster.色 %>
+</p>
+<p>
+  <strong>文字色:</strong>
+  <%= @joutaimaster.text_color %>
+</p>
+<p>
+  <strong>WEB使用区分:</strong>
+  <%= @joutaimaster.WEB使用区分 %>
+</p>
+<p>
+  <strong>勤怠使用区分:</strong>
+  <%= @joutaimaster.勤怠使用区分 %>
+</p>
+
+<%= link_to '編集', edit_joutaimaster_path(@joutaimaster) %> |
+<%= link_to '戻る', joutaimasters_path %>
+<%provide(:title, (t 'title.joutaimaster'))%>

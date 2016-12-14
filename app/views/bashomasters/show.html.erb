@@ -1,0 +1,29 @@
+<p>
+  <strong>場所コード:</strong>
+  <%= @bashomaster.場所コード %>
+</p>
+
+<p>
+  <strong>場所名:</strong>
+  <%= @bashomaster.場所名 %>
+</p>
+<p>
+  <strong>場所名カナ:</strong>
+  <%= @bashomaster.場所名カナ %>
+</p>
+<p>
+  <strong>SUB:</strong>
+  <%= @bashomaster.SUB %>
+</p>
+<p>
+  <strong>場所区分:</strong>
+  <%= @bashomaster.場所区分 %>
+</p>
+<p>
+  <strong>会社コード:</strong>
+  <%= @bashomaster.会社コード %>
+</p>
+
+<%= link_to '編集', edit_bashomaster_path(@bashomaster) %> |
+<%= link_to '戻る', bashomasters_path %>
+<%provide(:title, (t 'title.bashomaster'))%>

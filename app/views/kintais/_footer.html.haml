@@ -1,0 +1,37 @@
+.row
+  .col-sm-2
+    = render 'kinmu_refer'
+  .col-sm-6.col-sm-offset-1
+    %table#kintai-table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: "0"}
+      %thead
+        %tr
+          %th 合計時間
+          %th 実労働
+          %th 遅刻早退
+          %th 普通残業
+          %th 深夜残業
+          %th 普通保守
+          %th 深夜保守
+          %th 保守携帯
+      %tbody
+        %tr
+          %td
+          %td.sum1
+          %td.sum2
+          %td.sum3
+          %td.sum4
+          %td.sum5
+          %td.sum6
+          %td.sum7
+  .col-sm-3
+    .pull-right
+      -#= check_box_tag 'finish-input'
+      -#= label_tag '承認要求'
+      -#= button_tag '入力済', name: 'commit', value:'入力済', class: 'btn btn-default'
+      - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+        = f.submit :入力済, class: 'btn btn-default'
+      - else
+        = f.submit :入力する, class: 'btn btn-default'
+
+
+    %p.finish-message

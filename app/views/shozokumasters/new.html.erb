@@ -1,0 +1,12 @@
+<%= javascript_include_tag 'shozoku' %>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to '所属マスタ', shozokumasters_path %></li>
+  <!-- <li><a href="#">セキュリティ管理</a></li> -->
+  <li class="active">新規</li>
+</ol>
+
+<!-- <h1>工程マスタ・新規入力</h1> -->
+
+<%= render 'form', mode: :new %>
+<%provide(:title, (t 'title.shozokumaster'))%>

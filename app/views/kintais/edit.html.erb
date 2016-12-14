@@ -1,0 +1,11 @@
+<%= javascript_include_tag 'kintais' %>
+<%= stylesheet_link_tag 'kintais' %>
+<%provide(:title, (t 'title.kintai'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to 'カレンダー', events_path %></li>
+  <li><%= link_to '勤怠', kintais_path %></li>
+  <li class="active">編集</li>
+</ol>
+
+<%= render 'form' %>

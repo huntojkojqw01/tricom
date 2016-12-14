@@ -1,0 +1,35 @@
+<!--<div class="form-group">-->
+  <%# name =  User.find(session[:user]).name %>
+  <%# label_tag 'label1','起票者:　' << name << '　' %>
+<!--</div>-->
+<!--<%# select_tag 'mode', options_for_select(['新規','修正'],'新規'), class: 'form-control'%>-->
+
+<div class="form-group">
+  <div class="editor-datetime">
+    <%= label_tag 'label2','申請日付:'%>
+    <%= f.text_field :日付, class: 'form-control', size: 10 %>
+    <%if mode != 'edit' %>
+        <%= button_tag '申請選択', id: 'search-shinshei', type: 'button', class: 'btn' %>
+    <%end %>
+  </div>
+</div>
+
+<div class="form-group">
+  <%= label_tag 'label2','申請No:'%>
+  <%# f.select :shinsheino,[''], {class: 'form-control'} %>
+  <%array_value = [@keihi.id] %>
+  <%= select(:keihihead, :申請番号, array_value, {}, {class: 'form-control'}) %>
+  <%# f.text_field :shinsheino, class: 'form-control' %>
+</div>
+
+<% if mode != 'edit' %>
+    <%= f.submit '経費データ検索', class: 'btn btn-default' %>
+<% end %>
+<%= f.label '　　　　　　　　　　　' %>
+<%= f.submit '登　録', class:'btn btn-primary' %>
+<% if mode == 'edit' %>
+    <%= f.submit '削　除', class:'btn btn-primary', id:'keihi-delete' %>
+<% end %>
+<%shainbango = User.find(session[:user]).id %>
+<%= f.hidden_field :社員番号, value: shainbango %>
+<div class="spacer"></div>

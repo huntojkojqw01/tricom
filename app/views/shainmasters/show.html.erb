@@ -1,0 +1,38 @@
+<p>
+  <strong>序列:</strong>
+  <%= @shainmaster.序列 %>
+</p>
+<p>
+  <strong>社員番号:</strong>
+  <%= @shainmaster.社員番号 %>
+</p>
+
+<p>
+  <strong>連携用社員番号:</strong>
+  <%= @shainmaster.連携用社員番号 %>
+</p>
+
+<p>
+  <strong>氏名:</strong>
+  <%= @shainmaster.氏名 %>
+</p>
+<p>
+  <strong>所属コード:</strong>
+  <%= @shainmaster.所属コード %>
+</p>
+<p>
+  <strong>直間区分:</strong>
+  <%= @shainmaster.直間区分 %>
+</p>
+<p>
+  <strong>役職コード:</strong>
+  <%= @shainmaster.役職コード %>
+</p>
+<p>
+  <strong>デフォルトロール:</strong>
+  <%= @shainmaster.デフォルトロール %>
+</p>
+
+<%= link_to '編集', edit_shainmaster_path(@shainmaster) %> |
+<%= link_to '戻る', shainmasters_path %>
+<%provide(:title, (t 'title.shainmaster'))%>

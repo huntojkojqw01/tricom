@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @yuusen.first_name
+%p
+  %b Last name:
+  = @yuusen.last_name
+
+= link_to 'Edit', edit_yuusen_path(@yuusen)
+\|
+= link_to 'Back', yuusens_path
+= provide(:title, (t 'title.yuusen'))

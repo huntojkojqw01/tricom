@@ -1,0 +1,53 @@
+I"�(function() {
+  jQuery(function() {
+    var oShainTable, oTable;
+    oTable = $('.rorumenba-table').DataTable({
+      "pagingType": "full_numbers",
+      "oLanguage": {
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      },
+      "aoColumnDefs": [
+        {
+          "bSortable": false,
+          "aTargets": [5, 6]
+        }, {
+          "targets": [5, 6],
+          "width": '7%'
+        }
+      ],
+      "columnDefs": [
+        {
+          "targets": 'no-sort',
+          "orderable": false
+        }
+      ]
+    });
+    oShainTable = $('#shain-table-modal').DataTable({
+      "pagingType": "full_numbers",
+      "oLanguage": {
+        "sUrl": "../../assets/resource/dataTable_ja.txt"
+      }
+    });
+    $('#shain-table-modal tbody').on('click', 'tr', function(event) {
+      var d;
+      d = oShainTable.row(this).data();
+      $('#rorumenba_社員番号').val(d[0]);
+      $('#shain-name').text(d[1]);
+      if ($(this).hasClass('selected')) {
+        $(this).removeClass('selected');
+        return $(this).removeClass('success');
+      } else {
+        oShainTable.$('tr.selected').removeClass('selected');
+        oShainTable.$('tr.success').removeClass('success');
+        $(this).addClass('selected');
+        return $(this).addClass('success');
+      }
+    });
+    return $(document).on('click', '.refer-shain', function(event) {
+      $('#shain-search-modal').modal('show');
+      return event.preventDefault();
+    });
+  });
+
+}).call(this);
+:ET

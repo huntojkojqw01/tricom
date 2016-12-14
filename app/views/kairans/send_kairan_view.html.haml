@@ -1,0 +1,34 @@
+= javascript_include_tag 'kairans'
+= provide(:title, (t 'title.kairan'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '回覧一覧', kairans_path
+  %li.active 詳細
+
+-#= render 'form'
+
+= simple_form_for(@kairan) do |f|
+  .col-md-3.col-md-offset-1
+    = f.input :発行者, as: :hidden,disabled: true, input_html: {value: session[:user]}
+    = f.input :要件, label:'要件' do
+      = f.select :要件, Kairanyokenmst.all.map { |k| [k.名称, k.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control', disabled: true}
+    = f.input :開始, as: :date_time_picker, disabled: true
+    = f.input :終了, as: :date_time_picker, disabled: true
+    = f.input :件名, disabled: true
+    = f.input :内容, as: 'text', disabled: true
+    = f.input :確認要, as: :radio_buttons, label: '回答要', disabled: true
+    -#= f.button :submit, class: 'btn btn-primary', id: 'kairan'
+    = hidden_field_tag 'shain', disabled: true
+    = hidden_field_tag 'send_kairan_id', @send_kairan_id, disabled: true
+  .col-md-7.col-md-offset-1
+    %table.shain-table-mark.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+      %thead
+        %tr
+          %th 社員番号
+          %th 社員名
+
+      %tbody
+        - @kairanshosais.each do |kairanshosais|
+          %tr
+            %td= kairanshosais.shainmaster.社員番号
+            %td= kairanshosais.shainmaster.氏名

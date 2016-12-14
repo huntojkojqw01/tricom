@@ -1,0 +1,13 @@
+%p#notice= notice
+
+%p
+  %b First name:
+  = @dengonkaitou.first_name
+%p
+  %b Last name:
+  = @dengonkaitou.last_name
+
+= link_to 'Edit', edit_dengonkaitou_path(@dengonkaitou)
+\|
+= link_to 'Back', dengonkaitous_path
+= provide(:title, (t 'title.dengonkaitou'))

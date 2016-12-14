@@ -1,0 +1,41 @@
+<p>
+  <strong>社員番号:</strong>
+  <%= @myjobmaster.社員番号 %>
+</p>
+<p>
+  <strong>JOB番号:</strong>
+  <%= @myjobmaster.job番号 %>
+</p>
+
+<p>
+  <strong>JOB名:</strong>
+  <%= @myjobmaster.job名 %>
+</p>
+
+<p>
+  <strong>開始日:</strong>
+  <%= @myjobmaster.開始日 %>
+</p>
+
+<p>
+  <strong>終了日:</strong>
+  <%= @myjobmaster.終了日 %>
+</p>
+
+<p>
+  <strong>ユーザ番号:</strong>
+  <%= @myjobmaster.ユーザ番号 %>
+</p>
+
+<p>
+  <strong>ユーザ名:</strong>
+  <%= @myjobmaster.ユーザ名 %>
+</p>
+<p>
+  <strong>更新日:</strong>
+  <%= @myjobmaster.updated_at %>
+</p>
+
+<%= link_to '編集', edit_myjobmaster_path(@myjobmaster) %> |
+<%= link_to '戻る', myjobmasters_path %>
+<%provide(:title, (t 'title.myjobmaster'))%>

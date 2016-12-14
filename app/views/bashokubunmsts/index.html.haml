@@ -1,0 +1,36 @@
+= javascript_include_tag 'bashokubunmsts'
+= provide(:title, (t 'title.bashokubunmst'))
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li.active 場所区分一覧
+
+%table.bashokubunmsttable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+  %thead
+    %tr
+      %th 場所区分コード
+      %th 場所区分名
+      %th
+      %th
+
+  %tbody
+    - @bashokubunmsts.each do |bashokubunmst|
+      %tr
+        %td= bashokubunmst.場所区分コード
+        %td= bashokubunmst.場所区分名
+        %td= link_to '編集', edit_bashokubunmst_path(bashokubunmst)
+        - display = t 'app.delete_confirm'
+        %td= link_to '削除', bashokubunmst, :method => :delete, :data => { :confirm => display }
+
+%br
+
+= link_to '新規', new_bashokubunmst_path
+
+- if can? :update, @bashokubunmsts
+  %h4 CSVでのデータをインポート!
+  = form_tag import_bashokubunmsts_path,class:'form-inline', multipart: true do
+    .form-group
+      = label_tag 'selectcsv', nil, class: 'sr-only'
+      = file_field_tag :file , class: 'btn btn-default'
+    .form-group
+      = label_tag 'importcsv', nil, class: 'sr-only'
+      = submit_tag "Import CSV" , class: 'btn btn-default'

@@ -1,0 +1,51 @@
+= simple_form_for @kintai do |f|
+  .row
+    .col-md-3.col-sm-offset-1
+      - display = ['001 → 07:00 ~ 16:00', '002 → 07:30 ~ 16:30' , '003 → 08:00 ~ 17:00' , '004 → 08:30 ~ 17:30' , '005 → 09:00 ~ 18:00' , '006 → 09:30 ~ 18:30' , '007 → 10:00 ~ 19:00' , '008 → 10:30 ~ 19:30' , '009 → 11:00 ~ 20:00']
+      .row
+        .col-md-10
+          = f.input :勤務タイプ, collection: (Kintai::KINMU_TYPE).map {|i| [display[i.to_i - 1],i]}
+      = f.input :出勤時刻, as: :date_time_picker
+      -#= f.input :出勤時刻, as: :string, wrapper: :vertical_custom_input_group do
+      -#  = f.input_field :出勤時刻, as: :string, class: 'form-control'
+      -#  %span.input-group-btn
+      -#    %button.btn.btn-default.start-time
+      -#      %span.glyphicon.glyphicon-hand-right
+      = f.input :退社時刻, as: :date_time_picker
+      -#= f.input :退社時刻, as: :string, wrapper: :vertical_custom_input_group do
+      -#  = f.input_field :退社時刻, as: :string, class: 'form-control'
+      -#  %span.input-group-btn
+      -#    %button.btn.btn-default.end-time
+      -#      %span.glyphicon.glyphicon-hand-right
+      -#= text_field_tag :kyukei, '', placeholder: '休憩時間', style: 'width: 100px'
+      = f.button :button, type: :button, id: 'time-cal'  do
+        実労働時間再計算
+        %span.glyphicon.glyphicon-hand-right
+      - display = ['0：なし', '1：保守携帯']
+      .row
+        .col-md-10
+          = f.input :保守携帯回数, label: '保守携帯' ,collection: (0..1).map {|i| [display[i],i]}
+      .row
+        .col-md-10
+          = f.input :状態1, wrapper: :vertical_input_group, hint:'', hint_html: { class: 'joutai-code-hint' } do
+            = f.input_field :状態1, class: 'form-control'
+            %span.input-group-btn
+              %button.btn.btn-default.refer-joutai
+                %span.glyphicon.glyphicon-search
+      = f.input :備考, as: :text
+    .col-sm-2.col-sm-offset-1
+      = f.input :実労働時間
+      = f.input :遅刻時間, label: '遅刻/早退時間'
+      = f.input :普通残業時間
+      = f.input :深夜残業時間
+      = f.input :普通保守時間
+      = f.input :深夜保守時間
+    .col-sm-1.col-sm-offset-1
+      = f.button :submit, class: 'btn btn-primary'
+    .col-sm-3
+      .pull-right
+        = render 'kinmu_refer'
+    = f.input :代休相手日付, as: :hidden, input_html: { value: '' }
+    = f.input :代休取得区分, as: :hidden
+    = render 'share/joutai_modal'
+    = render 'share/daikyu_modal'

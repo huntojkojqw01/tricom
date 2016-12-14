@@ -1,0 +1,6 @@
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '場所区分一覧', bashokubunmsts_path
+  %li.active 新規
+= provide(:title, (t 'title.bashokubunmst'))
+= render 'form', mode: :new

@@ -1,0 +1,17 @@
+/ %h1 Editing setsubi
+
+/ = render 'form'
+
+/ = link_to 'Show', @setsubi
+/ \|
+/ = link_to 'Back', setsubi_path
+
+
+
+%ol.breadcrumb
+  %li= link_to 'メニュー', main_path
+  %li= link_to '設備マスタ', setsubis_path
+  %li.active 編集
+
+= render 'form', mode: :edit
+= provide(:title, (t 'title.setsubi'))
