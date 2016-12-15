@@ -1,0 +1,12 @@
+.modal#eki-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 駅編集
+      .modal-body
+        = simple_form_for @eki, url: update_eki_ekis_path do |f|
+          = f.input :駅コード, as: :hidden
+          = f.input :駅名
+          = f.input :駅名カナ
+          = f.button :submit, class: 'btn btn-primary'

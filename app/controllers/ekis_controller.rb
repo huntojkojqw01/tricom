@@ -1,9 +1,10 @@
 class EkisController < ApplicationController
   before_action :require_user!
   before_action :set_eki, only: [:show, :edit, :update, :destroy]
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
   load_and_authorize_resource except: :export_csv
 
-  respond_to :html
+  respond_to :html,:json
 
   def index
     @ekis = Eki.all
@@ -70,6 +71,29 @@ class EkisController < ApplicationController
     end
   end
 
+  def ajax
+    case params[:focus_field]
+      when 'eki_削除する'
+        eki = Eki.find_by(駅コード: params[:eki_id]).destroy
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+
+  def create_eki
+    @eki = Eki.new(eki_params)
+    @eki.save
+    redirect_to ekis_path
+  end
+
+  def update_eki
+    @eki = Eki.find(eki_params[:駅コード])
+    @eki.update(eki_params)
+    redirect_to ekis_path
+  end
+
   private
     def set_eki
       @eki = Eki.find(params[:id])
@@ -78,4 +102,8 @@ class EkisController < ApplicationController
     def eki_params
       params.require(:eki).permit(:駅コード, :駅名, :駅名カナ)
     end
+    def set_param
+      @eki = Eki.new
+    end
+
 end

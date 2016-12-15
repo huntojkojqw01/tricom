@@ -9,6 +9,7 @@
     %tr
       %th 駅コード
       %th 駅名
+      %th 駅名カナ
       %th
       %th
 
@@ -17,14 +18,17 @@
       %tr
         %td= eki.id
         %td= eki.name
+        %td= eki.駅名カナ
         %td= link_to '編集', edit_eki_path(eki)
         - msg = t 'app.delete_confirm'
         %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
 
 %br
 
-= link_to '新規', new_eki_path
-
+/ = link_to '新規', new_eki_path
+%button.btn.btn-primary#new_eki{type: :button} 新規
+%button.btn.btn-primary#edit_eki{type: :button} 編集
+%button.btn.btn-primary#destroy_eki{type: :button} 削除
 
 - if can? :update, @ekis
   %h4 CSVでのデータをインポート!
@@ -35,3 +39,6 @@
     .form-group
       = label_tag 'importcsv', nil, class: 'sr-only'
       = submit_tag "Import CSV" , class: 'btn btn-default'
+
+= render 'eki_new_modal'
+= render 'eki_edit_modal'
