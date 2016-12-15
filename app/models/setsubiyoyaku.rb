@@ -12,7 +12,7 @@ class Setsubiyoyaku < ActiveRecord::Base
   private
   def check_date_input
     if 開始.present? && 終了.present? && 開始 >= 終了
-      errors.add(:終了, "は開始日以上の値にしてください。")
+      errors.add(:終了, (I18n.t 'app.model.check_data_input'))
     end
     # if is update the id it not nil then the old_setsubiyoyaku is exist
     if !self.id.nil?
@@ -27,14 +27,14 @@ class Setsubiyoyaku < ActiveRecord::Base
           # if there changed then check the 開始, 終了 are right ?
           if 設備コード != old_setsubiyoyaku.設備コード || 開始 != old_setsubiyoyaku.開始 || 終了 != old_setsubiyoyaku.終了
             unless 開始 >= setsubiyoyaku.終了 || 終了 <= setsubiyoyaku.開始
-              errors.add(:設備コード, "すでに他のスケジュールがあります。")
+              errors.add(:設備コード, (I18n.t 'app.model.schedule'))
             end
           end
         else
           # if is new the id is nil
           # then check if there changed then check the 開始, 終了 are right ?
           unless 開始 >= setsubiyoyaku.終了 || 終了 <= setsubiyoyaku.開始
-            errors.add(:設備コード, "すでに他のスケジュールがあります。")
+            errors.add(:設備コード, (I18n.t 'app.model.schedule'))
           end
         end
       end

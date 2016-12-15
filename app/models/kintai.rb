@@ -46,10 +46,10 @@ class Kintai < ActiveRecord::Base
   def check_date_input
     if 出勤時刻.present? && 退社時刻.present?
       if 出勤時刻 > 退社時刻
-        errors.add(:退社時刻, "は出勤時刻以上の値にしてください。")
+        errors.add(:退社時刻, (I18n.t 'app.model.check_time_attendance'))
       end
       if ((退社時刻 - 出勤時刻)/1.hour).to_i > 22
-        errors.add(:退社時刻, "は22時間より小さい値にしてください。")
+        errors.add(:退社時刻, (I18n.t 'app.model.check_time'))
       end
     end
   end
@@ -58,7 +58,7 @@ class Kintai < ActiveRecord::Base
     if 状態1.present?
       @joutaimaster = Joutaimaster.find_by 状態コード: 状態1
       if @joutaimaster.nil?
-        errors.add(:状態1, "状態が存在していない")
+        errors.add(:状態1,  (I18n.t 'app.model.check_joutai1'))
       end
     end
   end

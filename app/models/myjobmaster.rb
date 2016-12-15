@@ -44,6 +44,6 @@ class Myjobmaster < ActiveRecord::Base
   end
 
   def check_input
-    errors.add(:終了日, "は開始日以上の値にしてください。") if 開始日.present? && 終了日.present? && 開始日 > 終了日
+    errors.add(:終了日, (I18n.t 'app.model.check_data_input')) if 開始日.present? && 終了日.present? && 開始日 > 終了日
   end
 end
