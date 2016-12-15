@@ -29,7 +29,7 @@ class Event < ActiveRecord::Base
 
   def check_date_input
     if 開始.present? && 終了.present? && 開始 >= 終了
-      errors.add(:終了, "は開始日以上の値にしてください。")
+      errors.add(:終了, (I18n.t 'app.model.check_data_input'))
     end
   end
 

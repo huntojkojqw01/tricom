@@ -33,8 +33,8 @@ class Shoninshamst < ActiveRecord::Base
   private
   def check_shainmaster_equal
     if self.申請者 == self.承認者
-      errors.add(:申請者, '申請者と承認者が一緒しています')
-      errors.add(:承認者, '申請者と承認者が一緒しています')
+      errors.add(:申請者, (I18n.t 'app.model.check_shainmaster_equal'))
+      errors.add(:承認者, (I18n.t 'app.model.check_shainmaster_equal'))
     end
   end
 end

@@ -38,12 +38,12 @@ class Keihihead < ActiveRecord::Base
   def check_kubun
     if 承認kubun != "0"
       if self.承認者.empty? && self.清算予定日.nil?
-        errors.add(:承認者, "承認者を入力してください")
-        errors.add(:清算予定日, "清算予定日を入力してください")
+        errors.add(:承認者, (I18n.t 'app.model.check_kubun.shoninsha'))
+        errors.add(:清算予定日, (I18n.t 'app.model.check_kubun.seisanyoteibi'))
       elsif self.承認者.empty?
-         errors.add(:承認者, "承認者を入力してください")
+         errors.add(:承認者, (I18n.t 'app.model.check_kubun.shoninsha'))
       elsif self.清算予定日.nil?
-        errors.add(:清算予定日, "清算予定日を入力してください")
+        errors.add(:清算予定日, (I18n.t 'app.model.check_kubun.seisanyoteibi'))
       end
     end
   end
