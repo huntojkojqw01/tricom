@@ -36,31 +36,33 @@ jQuery ->
     eki_id = oEkiTable.row('tr.selected').data()
 
     if eki_id == undefined
-      alert("行を選択してください。")
+      alert($('#message_confirm_select').text())
     else
-      $.ajax({
-        url: '/ekis/ajax',
-        data:{
-          focus_field: 'eki_削除する',
-          eki_id: eki_id[0]
-        },
+      response = confirm($('#message_confirm_delete').text())
+      if response
+        $.ajax({
+          url: '/ekis/ajax',
+          data:{
+            focus_field: 'eki_削除する',
+            eki_id: eki_id[0]
+          },
 
-        type: "POST",
+          type: "POST",
 
-        success: (data) ->
-          if data.destroy_success != null
-            console.log("getAjax destroy_success:"+ data.destroy_success)
-            $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
-            $(".ekitable").dataTable().fnDraw()
+          success: (data) ->
+            if data.destroy_success != null
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+              $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
+              $(".ekitable").dataTable().fnDraw()
 
-          else
-            console.log("getAjax destroy_success:"+ data.destroy_success)
+            else
+              console.log("getAjax destroy_success:"+ data.destroy_success)
 
 
-        failure: () ->
-          console.log("eki_削除する keydown Unsuccessful")
+          failure: () ->
+            console.log("eki_削除する keydown Unsuccessful")
 
-      })
+        })
 
   $('#new_eki').click () ->
     $('#eki-new-modal').modal('show')
