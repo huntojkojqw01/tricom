@@ -79,7 +79,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :ekis do
-    collection {post :import}
+    collection {post :ajax, :import, :create_eki, :update_eki}
     collection {get :export_csv}
   end
 

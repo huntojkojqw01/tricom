@@ -22,13 +22,13 @@ class SearchHistoryJobInput < SimpleForm::Inputs::Base
   # end
 
   def span_table
-    template.content_tag(:span, class: 'input-group-addon search-field') do
+    template.content_tag(:span, class: 'input-group-addon search-field set-border') do
       template.concat icon_table
     end
   end
 
   def span_search_history
-    template.content_tag(:span, class: 'input-group-addon search-history-job') do
+    template.content_tag(:span, class: 'input-group-addon search-history-job set-border') do
       template.concat icon_search_history
     end
   end

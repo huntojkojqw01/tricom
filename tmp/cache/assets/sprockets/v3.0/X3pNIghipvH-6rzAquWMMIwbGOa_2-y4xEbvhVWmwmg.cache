@@ -1,21 +1,0 @@
-{:uriI"file://app/assets/resource/dataTable_ja.txt?type=text/plain&id=32d796bf3e572e8c57ab4ecc6fb12002d47a4bbe1e074f6b90118ff68adb7869:ET:load_pathI"app/assets/resource;T:filenameI")app/assets/resource/dataTable_ja.txt;T:	nameI"dataTable_ja;T:logical_pathI"dataTable_ja.txt;T:content_typeI"text/plain;T:sourceI"${
-    "sProcessing":   "Âá¶ÁêÜ‰∏≠...",
-    "sLengthMenu":   "_MENU_ ‰ª∂Ë°®Á§∫",
-    "sZeroRecords":  "„Éá„Éº„Çø„ÅØ„ÅÇ„Çä„Åæ„Åõ„Çì„ÄÇ",
-    "sInfo":         " _TOTAL_ ‰ª∂‰∏≠ _START_ „Åã„Çâ _END_ „Åæ„ÅßË°®Á§∫",
-    "sInfoEmpty":    " 0 ‰ª∂‰∏≠ 0 „Åã„Çâ 0 „Åæ„ÅßË°®Á§∫",
-    "sInfoFiltered": "ÔºàÂÖ® _MAX_ ‰ª∂„Çà„ÇäÊäΩÂá∫Ôºâ",
-    "sInfoPostFix":  "",
-    "sSearch":       "Ê§úÁ¥¢:",
-    "sUrl":          "",
-    "oPaginate": {
-        "sFirst":    "ÂÖàÈ†≠",
-        "sPrevious": "Ââç",
-        "sNext":     "Ê¨°",
-        "sLast":     "ÊúÄÁµÇ"
-    }
-};T:metadata{	:dependencieso:Set:
-@hash}
-I"environment-version;TTI"environment-paths;TTI"rails-env;TTI"4processors:type=text/plain&file_type=text/plain;TTI"7file-digest://app/assets/resource/dataTable_ja.txt;TTF:charsetI"
-utf-8;F:digest"%πËÀ)æÓ•a8-	1Y•*Yò⁄2]™sÄB®˘¯;ö:lengthi$:dependencies_digest"%v—7…˛>lﬁ‡–Ä[maZ†Í8Õ≤&À∑≥∞:idI"E32d796bf3e572e8c57ab4ecc6fb12002d47a4bbe1e074f6b90118ff68adb7869;F:
-mtimel+É$X
