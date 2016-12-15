@@ -201,6 +201,7 @@ ja:
       <<: *errors
   app:
     delete_confirm: 削除で宜しいでしょうか。
+    select_confirm: 行を選択してください。
     flash:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
       import_csv: CSVファイルから読み込んでできました！

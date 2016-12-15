@@ -26,6 +26,10 @@
 %br
 
 / = link_to '新規', new_eki_path
+- msg_select = t 'app.select_confirm'
+- msg_confirm = t 'app.delete_confirm'
+.span#message_confirm_select{hidden: :true} #{msg_select}
+.span#message_confirm_delete{hidden: :true} #{msg_confirm}
 %button.btn.btn-primary#new_eki{type: :button} 新規
 %button.btn.btn-primary#edit_eki{type: :button} 編集
 %button.btn.btn-primary#destroy_eki{type: :button} 削除
