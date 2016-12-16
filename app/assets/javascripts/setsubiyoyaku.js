@@ -4,8 +4,9 @@
 
 
 $(document).ready(function() {
-
-    $.getJSON('/setsubiyoyakus/', function(data) {
+    var setsubi = $('#head_setsubicode').val();
+    param = '&head[setsubicode]='+setsubi;
+    $.getJSON('/setsubiyoyakus?'+param, function(data) {
 
         var setsubiyoyaku_timeline = $('#setsubiyoyaku-timeline').fullCalendar(
             {
@@ -23,6 +24,10 @@ $(document).ready(function() {
                 },
                 firstDay: 1,
                 //editable: true,
+                header: {
+                    left:   'title',
+                    right:  'prev,next'
+                },
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
                 slotLabelFormat: ['HH : mm'],
@@ -31,31 +36,32 @@ $(document).ready(function() {
                 //minTime: '00:00:00',
                 //maxTime: '24:00:00',
 
-                defaultView: 'timelineDay',
+                defaultView: 'agendaWeek',
                 //events: data.setsubiyoyakus,
                 events: data.setsubiyoyakus,
                 eventRender: function(event, element) {
 
 
-                    element.find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
+                  element.find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
                     // var date = event.start.getDate();
                     // alert(date);
                     // $('.fc-time-area tr[data-resource-id="_fc'+date+'"] ').find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
-                },
+                }
 
-                resourceColumns: [
-                    {
-                        labelText: '日付',
-                        field: 'hizuke',
-                        width: 60,
-                        render: function(resources, el) {
-                            el.css('background-color', '#67b168');
-                        }
-                    }
-                ]
-                ,resources: data.hizukes
+                // resourceColumns: [
+                //     {
+                //         labelText: '日付',
+                //         field: 'hizuke',
+                //         width: 60,
+                //         render: function(resources, el) {
+                //             el.css('background-color', '#67b168');
+                //         }
+                //     }
+                // ]
+                // ,resources: data.hizukes
             }
         );
+        $('#setsubiyoyaku-timeline').fullCalendar( 'renderEvent', data.setsubiyoyakus )
         // var nowDate = new Date();
         // var date = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日";
         // $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
