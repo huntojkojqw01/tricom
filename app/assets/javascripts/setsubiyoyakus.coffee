@@ -56,3 +56,19 @@ jQuery ->
   $(document).on 'click', '.refer-kaisha', (event) ->
     $('#kaisha-search-modal').modal('show')
     event.preventDefault()
+
+  $(document).ready () ->
+    $('#table-div').hide()
+    $('#hide_table_button').hide()
+
+
+  $('#hide_table_button').click () ->
+    $('#hide_table_button').hide()
+    $('#show_table_button').show()
+    $('#table-div').hide()
+
+  $('#show_table_button').click () ->
+    $('#hide_table_button').show()
+    $('#show_table_button').hide()
+    $('#table-div').show()
+
