@@ -26,7 +26,7 @@ $(document).ready(function() {
                 //editable: true,
                 header: {
                     left:   'title',
-                    right:  'prev,next'
+                    right:  'today,prev,next'
                 },
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
