@@ -1,12 +1,13 @@
 json.setsubiyoyakus @setsubiyoyaku do |setsubiyoyaku|
   json.extract! setsubiyoyaku, :id
 
-  description = '設備予約'
+  description = ''
+  description = setsubiyoyaku.setsubi.try(:設備名) if setsubiyoyaku.setsubi
   json.description description
 
   title ='default'
   title = setsubiyoyaku.try(:用件)
-  json.title title
+  json.title description + " \n " +title
 
   json.start setsubiyoyaku.try(:開始)
   # json.start '2016-06-03 07:00'
