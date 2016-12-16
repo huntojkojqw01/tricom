@@ -2,15 +2,24 @@ class SetsubiyoyakusController < ApplicationController
   before_action :require_user!
   before_action :set_setsubiyoyaku, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
+
+    @hizukes = all_day_in_month_list()
+    @all_events = Event.all
+    @shains = Shainmaster.all
     @setsubiyoyaku = Setsubiyoyaku.all
     if params[:head].present?
       @setsubi_param = params[:head][:setsubicode]
     end
     @setsubiyoyaku = Setsubiyoyaku.where(設備コード: @setsubi_param) if @setsubi_param.present?
     respond_with(@setsubiyoyaku)
+  end
+
+  def all_day_in_month_list()
+    d = Date.today
+    (d.at_beginning_of_month.to_date..d.at_end_of_month.to_date)
   end
 
   def show
