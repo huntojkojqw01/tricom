@@ -5,6 +5,7 @@
 
 
  var table = $('.ekitable').DataTable();
- table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>] ).draw( false );
+
+ table.row.add( ["<%=@eki.id%>","<%=@eki.name%>","<%=@eki.駅名カナ%>"] ).draw( false );
  // table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>,
  // "test","<%= escape_javascript link_to('削除', @eki, :method => :delete) %>"] ).draw( false );

@@ -8,7 +8,7 @@ $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove
 $(".ekitable").dataTable().fnDraw()
 
  var table = $('.ekitable').DataTable();
- table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>] ).draw( false );
+ table.row.add( ["<%=@eki.id%>","<%=@eki.name%>","<%=@eki.駅名カナ%>"] ).draw( false );
 
 
  // table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>,
