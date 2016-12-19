@@ -42,7 +42,7 @@ class SettingsController < ApplicationController
   def update
     case params[:commit]
 
-      when '登録する'
+      when '設定'
         notice = t "app.flash.update_success" if @setting.update(setting_params)
         #redirect_to :back, notice: notice
 
