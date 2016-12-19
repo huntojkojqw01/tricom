@@ -28,7 +28,7 @@
 = link_to '新規', new_kikanmst_path
 
 - if can? :update, @kikanmsts
-  %h4 CSVでのデータをインポート!
+  %h4=t 'app.label.import_csv'
   = form_tag import_kikanmsts_path,class:'form-inline', multipart: true do
     .form-group
       = label_tag 'selectcsv', nil, class: 'sr-only'

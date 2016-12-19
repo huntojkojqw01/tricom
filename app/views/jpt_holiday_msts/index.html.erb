@@ -36,7 +36,7 @@
 
 <%= link_to '新規', new_jpt_holiday_mst_path %>
 <% if can? :update, @jpt_holiday_msts %>
-  <h4>CSVでのデータをインポート!</h4>
+  <h4><%=t 'app.label.import_csv'%></h4>
   <%= form_tag import_jpt_holiday_msts_path,class:'form-inline', multipart: true do %>
       <div class="form-group">
         <%= label_tag 'selectcsv', nil, class: 'sr-only' %>

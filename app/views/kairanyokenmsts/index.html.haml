@@ -27,7 +27,7 @@
 = link_to '新規', new_kairanyokenmst_path
 
 - if can? :update, @kairanyokenmsts
-  %h4 CSVでのデータをインポート!
+  %h4=t 'app.label.import_csv'
   = form_tag import_kairanyokenmsts_path,class:'form-inline', multipart: true do
     .form-group
       = label_tag 'selectcsv', nil, class: 'sr-only'

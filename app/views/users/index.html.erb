@@ -40,7 +40,7 @@
 
 <% if can? :manage, User %>
   <%= link_to "新規" ,new_user_path %>
-  <h4>CSVでのデータをインポート!</h4>
+  <h4><%=t 'app.label.import_csv'%></h4>
   <%= form_tag import_users_path, class:'form-inline', multipart: true do %>
       <div class="form-group">
         <%= label_tag 'selectcsv', nil, class: 'sr-only' %>

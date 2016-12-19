@@ -30,7 +30,7 @@
 
 = link_to '新規', new_rorumenba_path
 
-%h4 CSVでのデータをインポート!
+%h4=t 'app.label.import_csv'
 = form_tag import_rorumenbas_path,class:'form-inline', multipart: true do
   .form-group
     = label_tag 'selectcsv', nil, class: 'sr-only'
