@@ -36,7 +36,7 @@
 <%= link_to '新規', new_shozokumaster_path if current_user.admin? %>
 
 <% if current_user.admin? %>
-  <h4>CSVでのデータをインポート!</h4>
+  <h4><%=t 'app.label.import_csv'%></h4>
   <%= form_tag import_shozokumasters_path, class:'form-inline',
     multipart: true do %>
     <div class="form-group">

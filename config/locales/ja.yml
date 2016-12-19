@@ -236,7 +236,8 @@ ja:
       check_joutai1: 状態が存在していない
       check_time_attendance: は出勤時刻以上の値にしてください。
       check_time: は22時間より小さい値にしてください。
-
+    label:
+      import_csv: CSVでのデータをインポート!
   export: 輸出
   title:
     bashokubunmst: 場所区分一覧

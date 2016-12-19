@@ -35,7 +35,7 @@
 %button.btn.btn-primary#destroy_eki{type: :button} 削除
 
 - if can? :update, @ekis
-  %h4 CSVでのデータをインポート!
+  %h4=t 'app.label.import_csv'
   = form_tag import_ekis_path, class:'form-inline', multipart: true do
     .form-group
       = label_tag 'selectcsv', nil, class: 'sr-only'
