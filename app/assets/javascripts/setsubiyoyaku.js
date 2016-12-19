@@ -12,7 +12,7 @@ $(document).ready(function() {
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 //height: 1287,
-                height: "auto",
+              //  height: "auto",
                 //firstHour: '06:00',
                 businessHours:{
                     start: '09:00:00', // a start time (09am in this example)
@@ -22,8 +22,6 @@ $(document).ready(function() {
                     // days of week. an array of zero-based day of week integers (0=Sunday)
                     // (Monday-Freeday in this example)
                 },
-                firstDay: 1,
-                //editable: true,
                 header: {
                     left:   'title',
                     right:  'today,prev,next'
@@ -31,12 +29,13 @@ $(document).ready(function() {
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
                 slotLabelFormat: ['HH : mm'],
-                scrollTime: '06:00',
+
                 //slotDuration: moment.duration(0.5, 'hours'),
                 //minTime: '00:00:00',
                 //maxTime: '24:00:00',
 
                 defaultView: 'agendaWeek',
+                scrollTime: '09:00',
                 //events: data.setsubiyoyakus,
                 events: data.setsubiyoyakus,
                 eventRender: function(event, element) {
@@ -47,7 +46,6 @@ $(document).ready(function() {
                     // alert(date);
                     // $('.fc-time-area tr[data-resource-id="_fc'+date+'"] ').find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
                 }
-
                 // resourceColumns: [
                 //     {
                 //         labelText: '日付',
@@ -61,7 +59,7 @@ $(document).ready(function() {
                 // ,resources: data.hizukes
             }
         );
-        $('#setsubiyoyaku-timeline').fullCalendar( 'renderEvent', data.setsubiyoyakus )
+    //    $('#setsubiyoyaku-timeline').fullCalendar( 'renderEvent', data.setsubiyoyakus )
         // var nowDate = new Date();
         // var date = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日";
         // $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
@@ -75,6 +73,9 @@ $(document).ready(function() {
 
 
     });
+
+
+    $('html, body').animate({scrollTop:$(document).height()}, 'slow');
 
 });
 
