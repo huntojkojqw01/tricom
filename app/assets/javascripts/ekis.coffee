@@ -16,14 +16,15 @@ jQuery ->
 
   $('.ekitable').on( 'click', 'tr',  () ->
     d = oEkiTable.row(this).data()
-    if $(this).hasClass('selected')
-      $(this).removeClass('selected')
-      $(this).removeClass('success')
-    else
-      oEkiTable.$('tr.selected').removeClass('selected')
-      oEkiTable.$('tr.success').removeClass('success')
-      $(this).addClass('selected')
-      $(this).addClass('success')
+    if d != undefined
+      if $(this).hasClass('selected')
+        $(this).removeClass('selected')
+        $(this).removeClass('success')
+      else
+        oEkiTable.$('tr.selected').removeClass('selected')
+        oEkiTable.$('tr.success').removeClass('success')
+        $(this).addClass('selected')
+        $(this).addClass('success')
   )
 
   $('#destroy_eki').click () ->
