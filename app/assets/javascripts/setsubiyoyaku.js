@@ -75,7 +75,7 @@ $(document).ready(function() {
     });
 
 
-    $('html, body').animate({scrollTop:$(document).height()}, 'slow');
+    $('html, body').animate({scrollTop:$(document).height()/2});
 
 });
 
