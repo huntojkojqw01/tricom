@@ -7,7 +7,9 @@ json.setsubiyoyakus @setsubiyoyaku do |setsubiyoyaku|
 
   title ='default'
   title = setsubiyoyaku.try(:用件)
-  json.title description + " \n " +title
+  shain = ''
+  shain = '社員の氏名: '+ setsubiyoyaku.shainmaster.try(:氏名) + " \n " if setsubiyoyaku.shainmaster
+  json.title shain + description + " \n " +title
 
   json.start setsubiyoyaku.try(:開始)
   # json.start '2016-06-03 07:00'

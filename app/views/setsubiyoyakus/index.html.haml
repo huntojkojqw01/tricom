@@ -19,15 +19,15 @@
 %button.btn.btn-primary#show_table_button{type: :button} 詳細一覧
 %button.btn.btn-primary#hide_table_button{type: :button} 詳細一覧
 
-
+.spacer
 
 
 
 
 #table-div
 
-  = form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
-    = render 'header', f:f
+  / = form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
+  /   = render 'header', f:f
 
   %br
 
