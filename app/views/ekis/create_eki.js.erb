@@ -1,0 +1,10 @@
+ $('#eki-new-modal').modal('hide');
+ // $(".ekitable").append("<tr><td><%=@eki.id%></td><td><%=@eki.name%></td><td><%=@eki.駅名カナ%></td>"+
+ //  "<td>test</td>"+
+ //  "<td>test</td><tr>");
+
+
+ var table = $('.ekitable').DataTable();
+ table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>] ).draw( false );
+ // table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>,
+ // "test","<%= escape_javascript link_to('削除', @eki, :method => :delete) %>"] ).draw( false );

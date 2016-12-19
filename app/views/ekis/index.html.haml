@@ -10,8 +10,8 @@
       %th 駅コード
       %th 駅名
       %th 駅名カナ
-      %th
-      %th
+      / %th
+      / %th
 
   %tbody
     - @ekis.each do |eki|
@@ -19,9 +19,9 @@
         %td= eki.id
         %td= eki.name
         %td= eki.駅名カナ
-        %td= link_to '編集', edit_eki_path(eki)
-        - msg = t 'app.delete_confirm'
-        %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
+        / %td= link_to '編集', edit_eki_path(eki)
+        / - msg = t 'app.delete_confirm'
+        / %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
 
 %br
 

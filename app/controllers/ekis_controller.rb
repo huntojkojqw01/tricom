@@ -4,7 +4,7 @@ class EkisController < ApplicationController
   before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
   load_and_authorize_resource except: :export_csv
 
-  respond_to :html,:json
+  respond_to :json, :js
 
   def index
     @ekis = Eki.all
@@ -84,14 +84,29 @@ class EkisController < ApplicationController
 
   def create_eki
     @eki = Eki.new(eki_params)
-    @eki.save
-    redirect_to ekis_path
+    # @eki.save
+    respond_to do |format|
+      if  @eki.save
+        format.js { render 'create_eki'}
+      else
+        format.js { render 'create_eki_error'}
+      end
+    end
   end
 
   def update_eki
     @eki = Eki.find(eki_params[:駅コード])
-    @eki.update(eki_params)
-    redirect_to ekis_path
+    # @eki.update(eki_params)
+    # redirect_to ekis_path
+    @data = "erro"
+    respond_to do |format|
+      if  @eki.update(eki_params)
+        format.js { render 'edit_eki'}
+      else
+        format.js { render 'edit_eki_error'}
+      end
+    end
+
   end
 
   private
