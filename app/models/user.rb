@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
   self.table_name = :担当者マスタ
   self.primary_key = :担当者コード
+  attr_accessor :current_password
   attr_accessor :remember_token
   # validates :email, confirmation: true
   # validates :email_confirmation, presence: true
@@ -17,6 +18,8 @@ class User < ActiveRecord::Base
   validate :check_taken, on: :create
   validates :担当者名称, presence: true
   validates :担当者コード, presence: true
+  validates_format_of :email, :with => /(\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z)|(^$)/i, message: I18n.t('errors.messages.wrong_mail_form')
+  validate :current_password_is_correct, on: :update
   has_secure_password
 
   def User.digest string
@@ -53,6 +56,20 @@ class User < ActiveRecord::Base
       @user_info["password"] = @user_info["担当者コード"]
       @user_info["password_confirmation"] = @user_info["担当者コード"]
       User.create @user_info
+    end
+  end
+  # Check if the inputted current password is correct when the user tries to update his/her password
+  def current_password_is_correct
+    # Check if the user tried changing his/her password
+    if !password.blank?
+      # Get a reference to the user since the "authenticate" method always returns false when calling on itself (for some reason)
+      user = User.find_by_id(id)
+
+      # Check if the user CANNOT be authenticated with the entered current password
+      if (user.authenticate(current_password) == false)
+        # Add an error stating that the current password is incorrect
+        errors.add(:current_password, I18n.t('errors.messages.current_password_incorrect'))
+      end
     end
   end
 end
