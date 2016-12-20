@@ -36,6 +36,9 @@ $(document).ready(function() {
 
                 defaultView: 'agendaWeek',
                 scrollTime: '09:00',
+                dragOpacity: "0.5",
+                editable: true,
+
                 //events: data.setsubiyoyakus,
                 events: data.setsubiyoyakus,
                 eventRender: function(event, element) {
@@ -45,7 +48,17 @@ $(document).ready(function() {
                     // var date = event.start.getDate();
                     // alert(date);
                     // $('.fc-time-area tr[data-resource-id="_fc'+date+'"] ').find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
+                },
+                eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+                   // alert(event.title + " was dropped on " + event.start.format());
+                    updateEvent(event);
+                },
+
+
+                eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+                    updateEvent(event);
                 }
+
                 // resourceColumns: [
                 //     {
                 //         labelText: '日付',
@@ -78,6 +91,25 @@ $(document).ready(function() {
     $('html, body').animate({scrollTop:$(document).height()/2});
 
 });
+
+
+function updateEvent(the_event){
+    jQuery.ajax({
+        url: '/setsubiyoyakus/ajax',
+        data: {focus_field: 'setsubiyoyaku_update', eventId: the_event.id, event_start: the_event.start.format('YYYY/MM/DD HH:mm'), event_end: the_event.end.format('YYYY/MM/DD HH:mm') },
+        type: "POST",
+
+        success: function(data) {
+                console.log("Update success");
+        },
+        failure: function() {
+            console.log("Update unsuccessful");
+        }
+    })
+    return;
+
+}
+
 
 // readjust sizing after font load
 // $(window).on('load', function() {

@@ -173,6 +173,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :setsubiyoyakus do
+    collection {post :ajax}
   end
 
   resources :rorumasters do
