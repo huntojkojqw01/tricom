@@ -12,7 +12,7 @@ $(document).ready(function() {
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 //height: 1287,
-              //  height: "auto",
+                height: "auto",
                 //firstHour: '06:00',
                 businessHours:{
                     start: '09:00:00', // a start time (09am in this example)

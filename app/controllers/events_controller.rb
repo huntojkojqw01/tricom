@@ -337,7 +337,14 @@ class EventsController < ApplicationController
          format.json { render json: data}
          # format.js { render 'delete'}
        end
-       # byebug
+     when "event_drag_update"
+        event = Event.find(params[:eventId])
+        event.update(開始: params[:event_start], 終了: params[:event_end])
+        data = {event: event.id}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+
    end
   end
 

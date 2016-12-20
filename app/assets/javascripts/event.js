@@ -52,6 +52,8 @@ $(function(){
                     center: 'month,agendaWeek,agendaDay prevYear,nextYear',
                     right:  'today prev,next'
                 },
+                dragOpacity: "0.5",
+                editable: true,
                 dayClick: function(date, jsEvent, view) {
                    //window.open('http://misuzu.herokuapp.com/events/new?start_at='+date.format());
                    var calendar = document.getElementById('calendar-month-view');
@@ -114,6 +116,15 @@ $(function(){
                             .replaceWith('<div>'+event.job+'</div>'+'<div>'+event.comment+'</div>');
                         }
                     }
+                },
+                eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+                   // alert(event.title + " was dropped on " + event.start.format());
+                    updateEvent(event);
+                },
+
+
+                eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+                    updateEvent(event);
                 }
             }
         );
@@ -1102,4 +1113,22 @@ function showModal(date,hoshukeitai) {
     });
     $('#bt-hoshu-1').show();
     $('#bt-hoshu-0').hide();
+}
+
+
+function updateEvent(the_event){
+    jQuery.ajax({
+        url: '/events/ajax',
+        data: {id: 'event_drag_update', eventId: the_event.id, event_start: the_event.start.format('YYYY/MM/DD HH:mm'), event_end: the_event.end.format('YYYY/MM/DD HH:mm') },
+        type: "POST",
+
+        success: function(data) {
+                console.log("Update success");
+        },
+        failure: function() {
+            console.log("Update unsuccessful");
+        }
+    })
+    return;
+
 }
