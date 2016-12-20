@@ -1119,7 +1119,7 @@ function showModal(date,hoshukeitai) {
 function updateEvent(the_event){
     jQuery.ajax({
         url: '/events/ajax',
-        data: {id: 'event_drag_update', eventId: the_event.id, event_start: the_event.start.format('YYYY/MM/DD HH:mm'), event_end: the_event.end.format('YYYY/MM/DD HH:mm') },
+        data: {id: 'event_drag_update',shainId: the_event.resourceId, eventId: the_event.id, event_start: the_event.start.format('YYYY/MM/DD HH:mm'), event_end: the_event.end.format('YYYY/MM/DD HH:mm') },
         type: "POST",
 
         success: function(data) {
@@ -1129,6 +1129,8 @@ function updateEvent(the_event){
             console.log("Update unsuccessful");
         }
     })
+    $('#calendar-month-view').fullCalendar('updateEvent', the_event);
     return;
+
 
 }

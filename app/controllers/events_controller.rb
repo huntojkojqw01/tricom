@@ -339,7 +339,7 @@ class EventsController < ApplicationController
        end
      when "event_drag_update"
         event = Event.find(params[:eventId])
-        event.update(開始: params[:event_start], 終了: params[:event_end])
+        event.update(社員番号: params[:shainId],開始: params[:event_start], 終了: params[:event_end])
         data = {event: event.id}
         respond_to do |format|
           format.json { render json: data}
