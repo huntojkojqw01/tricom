@@ -122,6 +122,6 @@ class UsersController < ApplicationController
 
   def user_params_for_update
     params.require(:user).permit :担当者名称, :password, :password_confirmation,
-      :avatar, :admin, :有給残数, :email
+      :avatar, :admin, :有給残数, :email, :current_password
   end
 end

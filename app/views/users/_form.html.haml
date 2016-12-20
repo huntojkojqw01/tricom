@@ -3,19 +3,24 @@
     = f.label :担当者コード
     %div.user-id #{@user.担当者コード}
     = f.input :担当者名称
+    = f.label :current_password, "現在パスワード"
+    = f.input :current_password, class: 'form-control', label:false
     = f.label :password, "パスワード (4文字以上)"
-    = f.password_field :password, class: 'form-control'
+    = f.input :password, class: 'form-control', label:false
     = f.label :password_confirmation, "再パスワード (4文字以上)"
-    = f.password_field :password_confirmation, class: 'form-control'
+    = f.input :password_confirmation, class: 'form-control', label:false
     = f.label :avatar, "イメージ"
     %table
       %tr
         %td
-          %img{:id => "thumb",:width => "100", :height => "100"}
+          - if current_user.avatar.exists?
+            %img{:id => "thumb",:width => "100", :height => "100", :src => "#{current_user.avatar.url}"}
+          - else
+            %img{:id => "thumb",:width => "100", :height => "100", :src => "/assets/thumb/missing.png"}
         %td
           = f.file_field :avatar
     = f.label :email, "メール"
-    = f.email_field :email, class: 'form-control'
+    = f.input :email, label: false
     - if current_user.admin? || current_user.supervisor?
       = f.input :admin, as: :boolean
     = f.button :submit, class: 'btn btn-primary'
