@@ -106,6 +106,7 @@ function updateEvent(the_event){
             console.log("Update unsuccessful");
         }
     })
+    $('#setsubiyoyaku-timeline').fullCalendar('updateEvent', the_event);
     return;
 
 }

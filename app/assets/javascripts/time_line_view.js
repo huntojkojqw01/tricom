@@ -50,6 +50,7 @@ $(document).ready(function() {
     // alert($('#timeline_ロールコード').val());
     $.getJSON('/events/time_line_view?'+param, function(data) {
 
+        var flag =0;
         var calendar = $('#calendar-timeline').fullCalendar(
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -75,18 +76,42 @@ $(document).ready(function() {
                 //maxTime: '24:00:00',
                 eventOverlap: false,
                 defaultView: 'timelineDay',
+                dragOpacity: "0.5",
+                editable: true,
                 events: data.events,
                 eventRender: function(event, element) {
                     element.find('span.fc-title').html(data.events.title).html(element.find('span.fc-title').text());
-                    if(event.bashokubun != 1){
+                    if(event.bashokubun != 1 && flag==0){
                         var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
                         var calDate = moment(selectedDate).format();
                         if(event.start.isBefore(calDate) && event.end.isAfter(calDate)){
                             $('.fc-resource-area tr[data-resource-id="'+event.resourceId+'"] td:nth-child(2)').css('color','#e6e6fa');
                         }
                     }
+                },
+                eventDragStart: function(event) {
+                    flag =1;
+                    if(event.bashokubun != 1){
+                        var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
+                        var calDate = moment(selectedDate).format();
+                        if(event.start.isBefore(calDate) && event.end.isAfter(calDate)){
+
+                            $('.fc-resource-area tr[data-resource-id="'+event.resourceId+'"] td:nth-child(2)').css('color','rgb(51, 51, 51)');
+                        }
+                    };
+                },
+                eventDragStop: function(event) {
+                    flag =0;
+                },
+                eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+                    updateEvent(event);
+
+                },
 
 
+                eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+                    updateEvent(event);
+                    // $('#calendar-timeline').fullCalendar('refetchEvents');
                 },
                 //events: '/events.json',
                 //header: {
@@ -302,6 +327,24 @@ $(function(){
 
 });
 
+function updateEvent(the_event){
+    the_event.url = "/events/"+the_event.id+"/edit.html?locale=ja&param=timeline&shain_id="+the_event.resourceId;
+    jQuery.ajax({
+        url: '/events/ajax',
+        data: {id: 'event_drag_update', shainId: the_event.resourceId, eventId: the_event.id, event_start: the_event.start.format('YYYY/MM/DD HH:mm'), event_end: the_event.end.format('YYYY/MM/DD HH:mm') },
+        type: "POST",
+
+        success: function(data) {
+                console.log("Update success");
+        },
+        failure: function() {
+            console.log("Update unsuccessful");
+        }
+    })
+    $('#calendar-timeline').fullCalendar('updateEvent', the_event);
+    return;
+
+}
 // function getUrlVars() {
 //     var vars = {};
 //     var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi,
