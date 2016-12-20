@@ -74,6 +74,14 @@ class SetsubiyoyakusController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
+      when "setsubiyoyaku_update"
+        setsubiyoyaku = Setsubiyoyaku.find(params[:eventId])
+        setsubiyoyaku.update(開始: params[:event_start], 終了: params[:event_end])
+        data = {setsubiyoyaku: setsubiyoyaku.id}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+
     end
   end
 
