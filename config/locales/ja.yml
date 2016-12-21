@@ -96,8 +96,8 @@ ja:
       second: 秒
       year: 年
   errors: &errors
-    format: ! '%{attribute}%{message}'
-    messages:
+    format: ! '%{attribute}%{dengon_menu}'
+    dengon_menus:
       accepted: を受諾してください。
       current_password_incorrect: 現在パスワードが間違いました。
       wrong_mail_form: 正しくメールフォマットを入力してください。
@@ -243,6 +243,7 @@ ja:
   export: 輸出
   title:
     bashokubunmst: 場所区分一覧
+    bashokubunmaster: 場所区分マスタ
     bashomaster: 場所マスタ
     bunrui: 分類一覧
     dengonkaitou: 伝言回答マスタ
@@ -255,7 +256,7 @@ ja:
     export_csv: データをエクスポート
     jobmaster: JOBマスタ
     joutaimaster: 状態マスタ
-    jpt_hokiday_mst: ジュピター休日
+    jpt_hokiday_mst: Jupiter Holiday
     kairan: 回覧
     shokairan: 送回覧
     kaitou: 回答
@@ -290,6 +291,20 @@ ja:
     yakushokumaster: 役職テーブル
     yuusen: 優先
     mybashomaster: MY場所マスタ
-    setting: Setting
+    setting: 設定
     help: ヘルプ
     myjobmaster: MYJOBマスタ
+    keihishonin: 経費承認
+    dengon_menu: 伝言
+    masterkanri: マスタ管理
+    yakushokumaster_table: 役職マスタ
+    kikanmaster: 機関マスタ
+    ekimaster: 駅マスタ
+    bunruimaster: 分類マスタ
+    kinmukanrishisutemu: 勤務管理システム
+    menu: メニュー
+    password_update_date: パスワード更新日
+    profilehenko: プロファイル変更
+    logout: ログアウト
+    login: ログイン
+    kanrig: 管理G
