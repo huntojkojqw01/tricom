@@ -58,7 +58,7 @@ Jpt::Application.routes.draw do
   end
 
 
-  root to: 'main#index'
+
   get "login" => "sessions#new"
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy"
@@ -203,4 +203,5 @@ Jpt::Application.routes.draw do
     end
     resources :keihiheads, only: :index
   end
+  root to: 'main#index'
 end

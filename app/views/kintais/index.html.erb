@@ -10,7 +10,7 @@
 </ol>
 <%= form_for :kintai, url: kintais_path, html: {class:'form-inline'}, method: :get do |f|%>
 <%= render 'header', f:f %>
-<table  id="kintai-table" class="table  table-bordered table-hover" cellspacing="0" >
+<table  id="kintai-table" class="table  table-bordered table-hover table-height" cellspacing="0" >
   <thead>
   <tr>
     <th rowspan="2">日付</th>
@@ -21,7 +21,7 @@
 
     <th colspan="6">就 業 時 間</th>
 
-    <th rowspan="2">保守携帯</th>
+    <th rowspan="2" class="table-width">保守携帯</th>
     <th rowspan="2">処理区分</th>
     <th rowspan="2" >備考</th>
     <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
