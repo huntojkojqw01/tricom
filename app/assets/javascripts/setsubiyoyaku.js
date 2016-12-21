@@ -11,8 +11,8 @@ $(document).ready(function() {
         var setsubiyoyaku_timeline = $('#setsubiyoyaku-timeline').fullCalendar(
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                //height: 1287,
-                height: "auto",
+                height: 600,
+                //height: "auto",
                 //firstHour: '06:00',
                 businessHours:{
                     start: '09:00:00', // a start time (09am in this example)
@@ -57,6 +57,13 @@ $(document).ready(function() {
 
                 eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
                     updateEvent(event);
+                },
+                dayRender: function(date, element, view){
+                    // element.append("<button id='bt-new-"+date.format()+"' onclick='createEvent(\""+date.format()+"\"); return false;' "+
+                    //                 "class='btn btn-primary' type='button'>新規</button>");
+                    element.append("<button id='bt-new-"+date.format()+"' onclick='showModal(\""+date.format()+"\"); return false;' "+
+                                    "value=1 class='btn btn-primary' type='button'>新規</button>");
+
                 }
 
                 // resourceColumns: [
@@ -88,7 +95,7 @@ $(document).ready(function() {
     });
 
 
-    $('html, body').animate({scrollTop:$(document).height()/2});
+   // $('html, body').animate({scrollTop:$(document).height()/2});
 
 });
 
@@ -108,6 +115,12 @@ function updateEvent(the_event){
     })
     $('#setsubiyoyaku-timeline').fullCalendar('updateEvent', the_event);
     return;
+
+}
+
+function showModal(date) {
+
+   window.open('/setsubiyoyakus/new?start_at='+date,"_self");
 
 }
 

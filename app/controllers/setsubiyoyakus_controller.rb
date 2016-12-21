@@ -28,7 +28,14 @@ class SetsubiyoyakusController < ApplicationController
 
   def new
     @kaishamasters = Kaishamaster.all
-    @setsubiyoyaku = Setsubiyoyaku.new
+    vars = request.query_parameters
+    param_date = vars['start_at']
+    date = Date.today.to_s(:db)
+    if(!param_date.nil?)
+      @setsubiyoyaku = Setsubiyoyaku.new(開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
+    else
+      @setsubiyoyaku = Setsubiyoyaku.new(開始: "#{date} 09:00", 終了: "#{date} 18:00")
+    end
     respond_with(@setsubiyoyaku)
   end
 

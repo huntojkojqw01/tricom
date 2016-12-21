@@ -58,9 +58,14 @@ jQuery ->
     event.preventDefault()
 
   $(document).ready () ->
-    $('#table-div').hide()
-    $('#hide_table_button').hide()
-
+    if $('#head_setsubicode').val() != ''
+      $('#table-div').hide()
+      $('#hide_table_button').hide()
+    else
+      $('#setsubiyoyaku-timeline').hide()
+      $('#table-div').hide()
+      $('#hide_table_button').hide()
+      $('#show_table_button').hide()
 
   $('#hide_table_button').click () ->
     $('#hide_table_button').hide()
