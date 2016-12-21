@@ -256,7 +256,7 @@ ja:
     export_csv: データをエクスポート
     jobmaster: JOBマスタ
     joutaimaster: 状態マスタ
-    jpt_hokiday_mst: Jupiter Holiday
+    jpt_hokiday_mst: ジュピター休日
     kairan: 回覧
     shokairan: 送回覧
     kaitou: 回答
@@ -308,3 +308,14 @@ ja:
     logout: ログアウト
     login: ログイン
     kanrig: 管理G
+    tantoushacode: 担当者コード
+    tantoushameishou: 担当者名称
+    genzaipassword: 現在パスワード
+    password: パスワード
+    repassword: 再パスワード
+    nagasayoken: "%{count}文字以上"
+    image: イメージ
+    mail: メール
+    profilehenshuu: プロファイル編集
+    scrolltime: スクロールタイム
+    local: ローカル

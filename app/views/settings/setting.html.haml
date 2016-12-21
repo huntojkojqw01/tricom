@@ -1,8 +1,8 @@
 = javascript_include_tag 'settings'
 = provide(:title, (t 'title.setting'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
-  %li.active 設定
+  %li= link_to (t 'title.menu'), main_path
+  %li.active= (t 'title.setting')
 
 = simple_form_for(@setting) do |f|
 
@@ -15,8 +15,10 @@
       .col-md-12
         .spacer
     = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label:'社員番号', as: :hidden
-    = f.input :scrolltime , label: 'ScrollTime'do
+    = f.label (t 'title.scrolltime')
+    = f.input :scrolltime, label: false do
       = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
-    = f.input :local , label: 'Local'do
+    = f.label (t 'title.local')
+    = f.input :local, label: false do
       = f.select :local, options_for_select(["ja", "en"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
-    = f.button :submit, class:'btn btn-primary', value: "設定"
+    = f.button :submit, class:'btn btn-primary', value: (t 'title.setting')
