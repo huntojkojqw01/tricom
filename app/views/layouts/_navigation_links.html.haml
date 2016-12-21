@@ -3,27 +3,27 @@
   .container-fluid
     .navbar-header
       %ul.nav.navbar-nav.navbar-left
-        %li= link_to " 勤務管理システム", root_path, :class => "glyphicon glyphicon-home root"
+        %li= link_to raw("<i class='glyphicon glyphicon-home' style='margin-right:1em;''></i>"+(t 'title.kinmukanrishisutemu')), root_path, :class => "root"
         %li.dropdown
           %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-            %span メニュー
+            %span= (t 'title.menu')
             %span.caret
           %ul.dropdown-menu
-            %li= link_to ' カレンダー', events_path, :class => "glyphicon glyphicon-calendar icon-left"
-            %li= link_to ' タイムライン', time_line_view_events_path, :class => "glyphicon glyphicon-list-alt icon-left"
+            %li= link_to raw("<i class='glyphicon glyphicon-calendar' style='margin-right:1em;'></i>"+(t 'title.event')), events_path
+            %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.time_line_view')), time_line_view_events_path
             %legend.menu
-            %li= link_to ' 勤務', kintais_url, :class => "glyphicon glyphicon-briefcase icon-left"
-            %li= link_to ' 経費', keihiheads_url, :class => "glyphicon glyphicon-yen icon-left"
-            %li= link_to ' 伝言', dengons_url, :class => "glyphicon glyphicon-envelope icon-left"
-            %li= link_to ' 承認', shonin_search_keihiheads_url, :class => "glyphicon glyphicon-ok icon-left"
-            %li= link_to ' 回覧', kairans_url, :class => "glyphicon glyphicon-comment icon-left"
-            %li= link_to ' 設備予約', setsubiyoyakus_url, :class => "glyphicon glyphicon-list icon-left"
+            %li= link_to raw("<i class='glyphicon glyphicon-briefcase' style='margin-right:1em;'></i>"+(t 'title.kintai')), kintais_url
+            %li= link_to raw("<i class='glyphicon glyphicon-yen' style='margin-right:1em;'></i>"+(t 'title.kanri.keihihead')), keihiheads_url
+            %li= link_to raw("<i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i>"+(t 'title.dengon_menu')), dengons_url
+            %li= link_to raw("<i class='glyphicon glyphicon-ok' style='margin-right:1em;'></i>"+(t 'title.keihishonin')), shonin_search_keihiheads_url
+            %li= link_to raw("<i class='glyphicon glyphicon-comment' style='margin-right:1em;'></i>"+(t 'title.kairan')), kairans_url
+            %li= link_to raw("<i class='glyphicon glyphicon-list' style='margin-right:1em;'></i>"+(t 'title.setsubiyoyaku')), setsubiyoyakus_url
         %li.dropdown
           %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-            %span ヘルプ
+            %span= (t 'title.help')
             %span.caret
           %ul.dropdown-menu
-            %li= link_to ' ヘルプ', helps_path, :class => "glyphicon glyphicon-question-sign icon-left"
+            %li= link_to raw("<i class='glyphicon glyphicon-question-sign' style='margin-right:1em;'></i>"+(t 'title.help')), helps_path
 
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
@@ -44,10 +44,12 @@
               - else
                 %li= image_tag "/assets/thumb/missing.png", size: "30x30"
               %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
-              %li.text-gray パスワード更新日：#{current_user.updated_at.to_date}
+              %li.text-gray
+                = (t 'title.password_update_date')+':'
+                %span #{current_user.updated_at.to_date}
               %legend.menu
-              %li= link_to ' プロファイル変更', edit_user_path(current_user), :class => "glyphicon glyphicon-edit icon-left"
-              %li= link_to " ログアウト", logout_path, method: "delete", :class => "glyphicon glyphicon-log-out icon-left"
+              %li= link_to raw("<i class='glyphicon glyphicon-edit' style='margin-right:1em;'></i>"+(t 'title.profilehenko')), edit_user_path(current_user), :class => "icon-left"
+              %li= link_to raw("<i class='glyphicon glyphicon-log-out' style='margin-right:1em;'></i>"+(t 'title.logout')), logout_path, method: "delete", :class => "icon-left"
 
           / %li.navbar-text パスワード更新日：#{current_user.updated_at.to_date}
           / - image_path_origin = current_user.avatar.url(:thumb)
@@ -64,10 +66,9 @@
             %ul.dropdown-menu
 
               - if current_user.admin? || current_user.supervisor?
-                %li= link_to ' データをエクスポート!', export_csv_index_path, :class => "glyphicon glyphicon-export icon-left"
+                %li= link_to raw("<i class='glyphicon glyphicon-export' style='margin-right:1em;'></i>"+(t 'title.export_csv')+"!"), export_csv_index_path
               - if current_user.shainmaster.shozokumaster.所属コード == "3"
-                %li= link_to ' 管理G', kanris_root_path, :class => "glyphicon glyphicon-list-alt icon-left"
-              %li= link_to ' 設定', setting_settings_path, :class => "glyphicon glyphicon-asterisk"
+                %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.kanrig')), kanris_root_path
+              %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
         - else
-          %li= link_to 'ログイン', login_path
-
+          %li= link_to (t 'title.login'), login_path

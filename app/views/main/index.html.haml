@@ -1,65 +1,65 @@
 = provide(:title, (t 'title.main'))
 .panel.panel-default
   .panel-heading
-    %h3.panel-title メインメニュー
+    %h3.panel-title= (t 'title.main')
   .panel-body
     .row
       .col-md-3
         %ul.list-group
-          %li.list-group-item= link_to 'カレンダー', events_path
-          %li.list-group-item= link_to 'タイムライン', time_line_view_events_path
-          %li.list-group-item= link_to '経費承認', shonin_search_keihiheads_path
+          %li.list-group-item= link_to (t 'title.event'), events_path
+          %li.list-group-item= link_to (t 'title.time_line_view'), time_line_view_events_path
+          %li.list-group-item= link_to (t 'title.keihishonin'), shonin_search_keihiheads_path
           %li.list-group-item
-            = link_to '伝言', dengons_path
+            = link_to (t 'title.dengon_menu'), dengons_path
             - if @dengonCount > 0
               %span.badge #{@dengonCount}
-          %li.list-group-item= link_to '勤怠', kintais_path
-          %li.list-group-item= link_to '経費', keihiheads_path
+          %li.list-group-item= link_to (t 'title.kintai'), kintais_path
+          %li.list-group-item= link_to (t 'title.kanri.keihihead'), keihiheads_path
       .col-md-3
         %ul.list-group
           %li.list-group-item
-            = link_to '回覧', kairans_path
+            = link_to (t 'title.kairan'), kairans_path
             - if @kairanCount > 0
               %span.badge #{@kairanCount}
-          %li.list-group-item= link_to '設備予約', setsubiyoyakus_path
-          %li.list-group-item= link_to 'ロールメンバ', rorumenbas_path
+          %li.list-group-item= link_to (t 'title.setsubiyoyaku'), setsubiyoyakus_path
+          %li.list-group-item= link_to (t 'title.rorumenba'), rorumenbas_path
 
 .panel.panel-default
   .panel-heading
-    %h3.panel-title マスタ管理
+    %h3.panel-title= (t 'title.masterkanri')
   .panel-body
     .row
       .col-md-3
         %ul.list-group
-          %li.list-group-item= link_to '担当者マスタ', users_path
-          %li.list-group-item= link_to '工程マスタ', kouteimasters_path
-          %li.list-group-item= link_to '社員マスタ', shainmasters_path
-          %li.list-group-item= link_to '所属マスタ', shozokumasters_path
-          %li.list-group-item= link_to '会社マスタ', kaishamasters_path
-          %li.list-group-item= link_to 'MY場所マスタ', mybashomasters_path
+          %li.list-group-item= link_to (t 'title.user.tantousha'), users_path
+          %li.list-group-item= link_to (t 'title.kouteimaster'), kouteimasters_path
+          %li.list-group-item= link_to (t 'title.shainmaster'), shainmasters_path
+          %li.list-group-item= link_to (t 'title.shozokumaster'), shozokumasters_path
+          %li.list-group-item= link_to (t 'title.kaishamaster'), kaishamasters_path
+          %li.list-group-item= link_to (t 'title.mybashomaster'), mybashomasters_path
       .col-md-3
         %ul.list-group
-          %li.list-group-item= link_to '場所マスタ', bashomasters_path
-          %li.list-group-item= link_to 'JOBマスタ', jobmasters_path
-          %li.list-group-item= link_to '所在マスタ', shozais_path
-          %li.list-group-item= link_to '役職マスタ', yakushokumasters_path
-          %li.list-group-item= link_to 'ジュピター休日', jpt_holiday_msts_path
-          %li.list-group-item= link_to '機関マスタ', kikanmsts_path
+          %li.list-group-item= link_to (t 'title.bashomaster'), bashomasters_path
+          %li.list-group-item= link_to (t 'title.jobmaster'), jobmasters_path
+          %li.list-group-item= link_to (t 'title.shozai'), shozais_path
+          %li.list-group-item= link_to (t 'title.yakushokumaster_table'), yakushokumasters_path
+          %li.list-group-item= link_to (t 'title.jpt_hokiday_mst'), jpt_holiday_msts_path
+          %li.list-group-item= link_to (t 'title.kikanmaster'), kikanmsts_path
       .col-md-3
         %ul.list-group
-          %li.list-group-item= link_to '駅マスタ', ekis_path
-          %li.list-group-item= link_to '承認者マスタ', shoninshamsts_path
-          %li.list-group-item= link_to '分類マスタ', bunruis_path
-          %li.list-group-item= link_to '状態マスタ', joutaimasters_path
-          %li.list-group-item= link_to '優先', yuusens_path
-          %li.list-group-item= link_to '場所区分マスタ', bashokubunmsts_path
-          %li.list-group-item= link_to 'MYJOBマスタ', myjobmasters_path
+          %li.list-group-item= link_to (t 'title.ekimaster'), ekis_path
+          %li.list-group-item= link_to (t 'title.shoninshamst'), shoninshamsts_path
+          %li.list-group-item= link_to (t 'title.bunruimaster'), bunruis_path
+          %li.list-group-item= link_to (t 'title.joutaimaster'), joutaimasters_path
+          %li.list-group-item= link_to (t 'title.yuusen'), yuusens_path
+          %li.list-group-item= link_to (t 'title.bashokubunmaster'), bashokubunmsts_path
+          %li.list-group-item= link_to (t 'title.myjobmaster'), myjobmasters_path
       .col-md-3
         %ul.list-group
-          %li.list-group-item= link_to '伝言回答マスタ', dengonkaitous_path
-          %li.list-group-item= link_to '伝言用件マスタ', dengonyoukens_path
-          %li.list-group-item= link_to '通信制御マスタ', tsushinseigyous_path
-          %li.list-group-item= link_to '回覧用件マスタ', kairanyokenmsts_path
-          %li.list-group-item= link_to '設備マスタ', setsubis_path
-          %li.list-group-item= link_to 'ロールマスタ', rorumasters_path
-          %li.list-group-item= link_to 'Setting', settings_path
+          %li.list-group-item= link_to (t 'title.dengonkaitou'), dengonkaitous_path
+          %li.list-group-item= link_to (t 'title.dengonyouken'), dengonyoukens_path
+          %li.list-group-item= link_to (t 'title.tsushinseigyou'), tsushinseigyous_path
+          %li.list-group-item= link_to (t 'title.kairanyoukenmst'), kairanyokenmsts_path
+          %li.list-group-item= link_to (t 'title.setsubi'), setsubis_path
+          %li.list-group-item= link_to (t 'title.rorumaster'), rorumasters_path
+          %li.list-group-item= link_to (t 'title.setting'), settings_path

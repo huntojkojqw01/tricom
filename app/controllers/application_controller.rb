@@ -49,6 +49,11 @@ class ApplicationController < ActionController::Base
 
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
+    if logged_in?
+      if !current_user.shainmaster.setting.local.nil?
+        I18n.locale = current_user.shainmaster.setting.local
+      end
+    end
   end
 
   def default_url_options
@@ -69,4 +74,3 @@ class ApplicationController < ActionController::Base
     redirect_to :back
   end
 end
-
