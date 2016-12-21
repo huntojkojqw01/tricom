@@ -42,12 +42,12 @@ class SettingsController < ApplicationController
   def update
     case params[:commit]
 
-      when '設定'
+      when (t 'title.setting')
         notice = t "app.flash.update_success" if @setting.update(setting_params)
         #redirect_to :back, notice: notice
 
         redirect_to(session[:return_to])
-      when '更新する'
+      when (t 'helpers.submit.update')
         flash[:notice] = t "app.flash.update_success" if @setting.update(setting_params)
         respond_with(@setting, location: settings_url)
     end

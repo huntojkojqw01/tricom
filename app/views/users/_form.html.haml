@@ -1,15 +1,16 @@
 = simple_form_for @user do |f|
-  .col-md-2.col-md-offset-1
-    = f.label :担当者コード
+  .col-md-3.col-md-offset-1
+    = f.label (t 'title.tantoushacode')
     %div.user-id #{@user.担当者コード}
-    = f.input :担当者名称
-    = f.label :current_password, "現在パスワード"
+    = f.label (t 'title.tantoushameishou')
+    = f.input :担当者名称, label:false
+    = f.label :current_password, (t 'title.genzaipassword')
     = f.input :current_password, class: 'form-control', label:false
-    = f.label :password, "パスワード (4文字以上)"
+    = f.label :password, (t 'title.password')+" ("+(t 'title.nagasayoken', :count => 4)+")"
     = f.input :password, class: 'form-control', label:false
-    = f.label :password_confirmation, "再パスワード (4文字以上)"
+    = f.label :password_confirmation, (t 'title.repassword')+" ("+(t 'title.nagasayoken', :count => 4)+")"
     = f.input :password_confirmation, class: 'form-control', label:false
-    = f.label :avatar, "イメージ"
+    = f.label :avatar, (t 'title.image')
     %table
       %tr
         %td
@@ -19,7 +20,7 @@
             %img{:id => "thumb",:width => "100", :height => "100", :src => "/assets/thumb/missing.png"}
         %td
           = f.file_field :avatar
-    = f.label :email, "メール"
+    = f.label :email, (t 'title.mail')
     = f.input :email, label: false
     - if current_user.admin? || current_user.supervisor?
       = f.input :admin, as: :boolean

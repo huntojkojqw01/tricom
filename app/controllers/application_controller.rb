@@ -50,8 +50,10 @@ class ApplicationController < ActionController::Base
   def set_locale
     I18n.locale = params[:locale] || I18n.default_locale
     if logged_in?
-      if !current_user.shainmaster.setting.local.nil?
-        I18n.locale = current_user.shainmaster.setting.local
+      if !current_user.shainmaster.setting.nil?
+        if !current_user.shainmaster.setting.local.nil?
+          I18n.locale = current_user.shainmaster.setting.local
+        end
       end
     end
   end

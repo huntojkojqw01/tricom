@@ -133,9 +133,9 @@ en:
     select:
       prompt: 選択してください。
     submit:
-      create: 登録する
-      submit: 保存する
-      update: 更新する
+      create: Register
+      submit: Save
+      update: Update
   number:
     currency:
       format:
@@ -308,3 +308,15 @@ en:
     logout: Logout
     login: Login
     kanrig: Management G
+    tantoushacode: Contact person code
+    tantoushameishou: Contact person name
+    genzaipassword: Current password
+    password: Password
+    repassword: Re-password
+    nagasayoken: greater than %{count} letter
+    image: Image
+    mail: Mail
+    koshinsuru: Update
+    profilehenshuu: Edit profile
+    scrolltime: Scroll Time
+    local: Local
