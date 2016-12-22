@@ -16,8 +16,8 @@ json.setsubiyoyakus @setsubiyoyaku do |setsubiyoyaku|
   json.end setsubiyoyaku.try(:終了)
   # json.end '2016-06-03 09:00'
   json.url edit_setsubiyoyaku_path(setsubiyoyaku)
-  json.color '#67b168'
-  json.textColor 'red'
+  json.color 'rgb(59, 145, 173)'
+  json.textColor 'white'
   json.resourceId setsubiyoyaku.try(:開始).to_date
   # json.hizuke setsubiyoyaku.try(:開始)
 end

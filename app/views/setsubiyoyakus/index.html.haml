@@ -52,5 +52,7 @@
           %td= link_to '編集', edit_setsubiyoyaku_path(setsubiyoyaku)
           - msg = t 'app.delete_confirm'
           %td= link_to '削除', setsubiyoyaku, :method => :delete, :data => { :confirm => msg }
-
-  = link_to '新規', new_setsubiyoyaku_path
+  - if request[:head].present?
+    = link_to '新規', new_setsubiyoyaku_path(:setsubi_code => request[:head][:setsubicode])
+  - else
+    = link_to '新規', new_setsubiyoyaku_path

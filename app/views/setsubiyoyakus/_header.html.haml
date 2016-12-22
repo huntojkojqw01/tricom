@@ -2,5 +2,5 @@
   .form-inline
     .form-group
       = label_tag :機能
-      = select(:head, :setsubicode, Setsubi.all.collect {|p| [ p.設備名, p.設備コード ] } , {selected: @setsubi_param, include_blank: true }, class: 'form-control')
+      = select(:head, :setsubicode, Setsubi.all.order(:設備コード).collect {|p| [ p.設備名, p.設備コード ] } , {selected: @setsubi_param, include_blank: true }, class: 'form-control')
       = button_tag '検索', class:'btn btn-primary'

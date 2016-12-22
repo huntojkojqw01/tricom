@@ -1,8 +1,9 @@
 = simple_form_for(@setsubiyoyaku) do |f|
   .col-sm-2.col-sm-offset-2
-    = f.input :設備コード, label:'設備コード' do
-      = f.select :設備コード, Setsubi.all.map {|p| [ p.設備名, p.設備コード ] },{}, {include_blank: true, class: 'form-control'}
-    = f.input :予約者, as: :hidden, input_html: {value: session[:user]}
+    //= f.input :設備コード
+    = f.association :setsubi, label_method: :設備名, value_method: :設備コード, label:'設備コード', readonly: true
+    = f.input :予約者, label:'予約者' do
+      = f.select :予約者, Shainmaster.all.map {|p| [ p.氏名, p.社員番号 ] },{}, {include_blank: true, class: 'form-control'}
     = f.input :開始, as: :date_time_picker
     = f.input :終了, as: :date_time_picker
     = f.input :用件
