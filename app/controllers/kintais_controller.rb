@@ -19,11 +19,11 @@ class KintaisController < ApplicationController
     session[:selected_kintai_date] = date
     check_kintai_at_day_by_user(current_user.id, date)
     case params[:commit]
-      when '入力済'
+      when (t 'helpers.submit.entered')
         @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
         @kintai.入力済 = '1' if @kintai
         @kintai.save
-      when '入力する'
+      when (t 'helpers.submit.input')
         @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
         @kintai.入力済 = '0' if @kintai
         @kintai.save

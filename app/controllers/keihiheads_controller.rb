@@ -70,7 +70,7 @@ class KeihiheadsController < ApplicationController
 
   def update
     case params[:commit]
-      when '登録する'
+      when (t 'helpers.submit.create')
         params[:keihihead][:日付] = Date.today if keihi_params[:日付].nil?
         if @keihi.update(keihi_params)
           flash[:notice] = t "app.flash.update_success"
@@ -81,7 +81,7 @@ class KeihiheadsController < ApplicationController
           render :edit
 
         end
-      when '削除する'
+      when (t 'helpers.submit.destroy')
         flash[:notice] = t "app.flash.delete_success" if @keihi.destroy
         respond_with @keihi, location: keihiheads_url
     end

@@ -47,19 +47,19 @@ class EventsController < ApplicationController
     @setting = Setting.where(社員番号: session[:user]).first
     if request.post?
       case params[:commit]
-        when '一覧'
+        when (t 'helpers.submit.redirect_to_timeline')
           redirect_to time_line_view_events_url
-        when '勤務'
+        when (t 'helpers.submit.redirect_to_kintai')
           redirect_to kintais_url
-        when '経費'
+        when (t 'helpers.submit.redirect_to_keihihead')
           redirect_to keihiheads_url
-        when '伝言'
+        when (t 'helpers.submit.redirect_to_dengon')
           redirect_to dengons_url
-        when '承認'
+        when (t 'helpers.submit.redirect_to_shonin')
           redirect_to shonin_search_keihiheads_url
-        when '回覧'
+        when (t 'helpers.submit.redirect_to_kairan')
           redirect_to kairans_url
-        when '設備予約'
+        when (t 'helpers.submit.redirect_to_setsubiyoyaku')
           redirect_to setsubiyoyakus_url
       end
     else
@@ -143,9 +143,9 @@ class EventsController < ApplicationController
     #   @event.build_joutaimaster
     # end
     case params[:commit]
-      when '登録する'
+      when (t 'helpers.submit.create')
         redirect_to time_line_view_events_url
-      when '登録する '
+      when (t 'helpers.submit.create_other')
         respond_with @event, location: events_url
     end
 
@@ -153,19 +153,19 @@ class EventsController < ApplicationController
 
   def update
     case params[:commit]
-      when '削除する '
+      when (t 'helpers.submit.destroy_other')
         flash[:notice] = t 'app.flash.delete_success' if @event.destroy
         respond_with @event, location: events_url
-      when '削除する'
+      when (t 'helpers.submit.destroy')
         flash[:notice] = t 'app.flash.delete_success' if @event.destroy
         redirect_to time_line_view_events_url
-      when '登録する '
+      when (t 'helpers.submit.create_other')
         # set_fkey @event, event_params
         flash[:notice] = t 'app.flash.update_success' if @event.update event_params
         # joutai = Joutaimaster.find_by code: event_params[:状態コード]
         # joutai.update color: params['input-backgroud-color'], text_color: params['input-text-color']
         respond_with @event, location: events_url
-      when '登録する'
+      when (t 'helpers.submit.create')
         # set_fkey @event, event_params
         flash[:notice] = t 'app.flash.update_success' if @event.update event_params
         # joutai = Joutaimaster.find_by code: event_params[:状態コード]
@@ -184,24 +184,28 @@ class EventsController < ApplicationController
     #   redirect_to events_url
     # end
     case params[:commit]
-      when '　ＯＫ　'
+      when (t 'helpers.submit.ok')
         # session[:selected_shain] = Shainmaster.find(params[:selected_user]).id
         session[:selected_shain] = params[:selected_user]
         respond_with @event, location: events_url
-      when '一覧'
+      when (t 'helpers.submit.redirect_to_timeline')
         redirect_to time_line_view_events_url
-      when '勤務'
+      when (t 'helpers.submit.redirect_to_kintai')
         redirect_to kintais_url
-      when '経費'
+      when (t 'helpers.submit.redirect_to_keihihead')
         redirect_to keihiheads_url
-      when '伝言'
+      when (t 'helpers.submit.redirect_to_dengon')
         redirect_to dengons_url
-      when '承認'
+      when (t 'helpers.submit.redirect_to_shonin')
         redirect_to shonin_search_keihiheads_url
-      when '回覧'
+      when (t 'helpers.submit.redirect_to_kairan')
         redirect_to kairans_url
-      when '設備予約'
+      when (t 'helpers.submit.redirect_to_setsubiyoyaku')
         redirect_to setsubiyoyakus_url
+
+
+
+
     end
   end
 

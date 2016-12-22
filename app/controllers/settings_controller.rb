@@ -42,7 +42,7 @@ class SettingsController < ApplicationController
   def update
     case params[:commit]
 
-      when (t 'title.setting')
+      when (t 'helpers.submit.setting')
         notice = t "app.flash.update_success" if @setting.update(setting_params)
         #redirect_to :back, notice: notice
 

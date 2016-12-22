@@ -134,8 +134,25 @@ en:
       prompt: 選択してください。
     submit:
       create: Register
+      create_other: 'Register '
       submit: Save
       update: Update
+      destroy: Destroy
+      destroy_other: 'Destroy '
+      setting: Setting
+      ok: '　ＯＫ　'
+      redirect_to_timeline: TimeLine
+      redirect_to_kintai: Kintai
+      redirect_to_keihihead: Keihihead
+      redirect_to_dengon: Dengon
+      redirect_to_shonin: Shonin
+      redirect_to_kairan: Kairan
+      redirect_to_setsubiyoyaku: Setsubiyoyaku
+      input: Input
+      entered: Entered
+    button:
+      search: Search
+      confirm: Confirm
   number:
     currency:
       format:

@@ -46,8 +46,8 @@ class KairansController < ApplicationController
 
   def index
     case params[:button]
-      when '検索'
-      when '確認'
+      when (t 'helpers.button.search')
+      when (t 'helpers.button.confirm')
         strSelecteds = params[:checked]
         arrSelecteds = strSelecteds.split(',') if strSelecteds
         arrSelecteds.each do |kairanShoshaiId|
