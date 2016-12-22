@@ -21,4 +21,4 @@
     = f.label (t 'title.local')
     = f.input :local, label: false do
       = f.select :local, options_for_select(["ja", "en"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
-    = f.button :submit, class:'btn btn-primary', value: (t 'title.setting')
+    = f.button :submit, class:'btn btn-primary', value: (t 'helpers.submit.setting')

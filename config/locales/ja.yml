@@ -134,8 +134,25 @@ ja:
       prompt: 選択してください。
     submit:
       create: 登録する
+      create_other: '登録する '
       submit: 保存する
       update: 更新する
+      destroy: 削除する
+      destroy_other: '削除する '
+      setting: 設定
+      ok: '　ＯＫ　'
+      redirect_to_timeline: 一覧
+      redirect_to_kintai: 勤務
+      redirect_to_keihihead: 経費
+      redirect_to_dengon: 伝言
+      redirect_to_shonin: 承認
+      redirect_to_kairan: 回覧
+      redirect_to_setsubiyoyaku: 設備予約
+      input: 入力する
+      entered: 入力済
+    button:
+      search: 検索
+      confirm: 確認
   number:
     currency:
       format:

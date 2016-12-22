@@ -19,12 +19,12 @@
       <div class="pull-left">
         <!--<div class="btn-group" role="group" aria-label="...">-->
           <%# f.submit '一覧', class: 'btn btn-default', id:'timeline'%>
-          <%= f.submit '勤務', class: 'btn btn-default', id:'kintai'%>
-          <%= f.submit '経費', class: 'btn btn-default', id:'keihi'%>
-          <%= f.submit '承認', class: 'btn btn-default', id:'shonin'%>
-          <%= f.submit '伝言', class: 'btn btn-default', id:'dengon'%>
-          <%= f.submit '回覧', class: 'btn btn-default', id:'kairan'%>
-          <%= f.submit '設備予約', class: 'btn btn-default', id:'setsubiyoyaku'%>
+          <%= f.submit (t 'helpers.submit.redirect_to_kintai'), class: 'btn btn-default', id:'kintai'%>
+          <%= f.submit (t 'helpers.submit.redirect_to_keihihead'), class: 'btn btn-default', id:'keihi'%>
+          <%= f.submit (t 'helpers.submit.redirect_to_shonin'), class: 'btn btn-default', id:'shonin'%>
+          <%= f.submit (t 'helpers.submit.redirect_to_dengon'), class: 'btn btn-default', id:'dengon'%>
+          <%= f.submit (t 'helpers.submit.redirect_to_kairan'), class: 'btn btn-default', id:'kairan'%>
+          <%= f.submit (t 'helpers.submit.redirect_to_setsubiyoyaku'), class: 'btn btn-default', id:'setsubiyoyaku'%>
         <!--</div>-->
       </div>
       <div class="col-xs-2 col-xs-offset-3">

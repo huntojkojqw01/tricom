@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale] || I18n.default_locale
     if logged_in?
       if !current_user.shainmaster.setting.nil?
-        if !current_user.shainmaster.setting.local.nil?
+        if !current_user.shainmaster.setting.local.nil? && current_user.shainmaster.setting.local != ''
           I18n.locale = current_user.shainmaster.setting.local
         end
       end
@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
   end
 
 	def page_title
-    @pageTitle = 'Misuzu'
+    @pageTitle = 'TRICOM'
   end
 
   def record_not_found

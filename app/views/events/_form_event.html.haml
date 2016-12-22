@@ -30,19 +30,19 @@
 
     - if mode == 'new'
       - if request["param"] == "timeline"
-        = f.button :submit, '登録する', class: 'btn btn-primary', id: 'timeline'
+        = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary', id: 'timeline'
       - else
-        = f.button :submit, '登録する ', class: 'btn btn-primary', id: 'event'
+        = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'event'
 
     - if @event.計上 != '済' && mode == 'edit'
       - if request["param"] == "timeline"
-        = f.button :submit, '登録する', class: 'btn btn-primary', id: 'timeline'
+        = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary', id: 'timeline'
       - else
-        = f.button :submit, '登録する ', class: 'btn btn-primary', id: 'event'
+        = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'event'
       - if request["param"] == "timeline"
-        = f.button :submit, '削除する', class: 'btn btn-primary', id: 'timeline'
+        = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline'
       - else
-        = f.button :submit, '削除する ', class: 'btn btn-primary', id: 'event'
+        = f.button :submit, (t 'helpers.submit.destroy_other'), class: 'btn btn-primary', id: 'event'
 
 = render 'share/joutai_modal'
 = render 'share/basho_modal'
