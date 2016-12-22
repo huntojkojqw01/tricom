@@ -78,7 +78,7 @@ $(function(){
                             element.append("<button id='bt-hoshu-1"+date.format()+"' onclick='showModal(\""+date.format()+"\",\"0\"); return false;' "+
                                     "value=1 class='btn btn-hoshu' type='button'>携帯</button>"+
                                     "<button id='bt-hoshu-0"+date.format()+"' onclick='showModal(\""+date.format()+"\",\"1\"); return false;' "+
-                                    "value=0 class='btn btn-primary btn-text' type='button'>携帯</button>");
+                                    "value=0 class='btn btn-text' type='button'>携帯</button>");
                             if(data.kintai_hoshukeitai == 1){
                                 $('#bt-hoshu-1'+date.format()).show();
                                 $('#bt-hoshu-0'+date.format()).hide();

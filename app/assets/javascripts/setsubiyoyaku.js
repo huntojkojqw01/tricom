@@ -119,8 +119,8 @@ function updateEvent(the_event){
 }
 
 function showModal(date) {
-
-   window.open('/setsubiyoyakus/new?start_at='+date,"_self");
+    setsubiCode = $('#head_setsubicode').val();
+    window.open('/setsubiyoyakus/new?start_at='+date+'&setsubi_code='+setsubiCode,"_self");
 
 }
 
