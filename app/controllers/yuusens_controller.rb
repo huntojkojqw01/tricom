@@ -76,6 +76,6 @@ class YuusensController < ApplicationController
     end
 
     def yuusen_params
-      params.require(:yuusen).permit(:優先さ, :名前, :色)
+      params.require(:yuusen).permit(:優先さ, :備考, :色)
     end
 end

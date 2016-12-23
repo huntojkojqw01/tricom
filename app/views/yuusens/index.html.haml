@@ -2,14 +2,14 @@
 = provide(:title, (t 'title.yuusen'))
 %ol.breadcrumb
   %li= link_to 'メニュー', main_path
-  %li.active 優先
+  %li.active=(t 'title.yuusen')
 
 %table.yuusen-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
       %th 優先さ
-      %th 名前
       %th 色
+      %th 備考
       %th
       %th
 
@@ -17,8 +17,8 @@
     - @yuusens.each do |yuusen|
       %tr
         %td= yuusen.優先さ
-        %td= yuusen.名前
-        %td= yuusen.色
+        %td{:style => "background-color:"+yuusen.try(:色).to_s}= yuusen.色
+        %td= yuusen.備考
         %td= link_to '編集', edit_yuusen_path(yuusen)
         %td= link_to '削除', yuusen, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 

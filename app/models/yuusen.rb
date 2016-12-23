@@ -16,7 +16,7 @@ class Yuusen < ActiveRecord::Base
   end
 
   def self.to_csv
-    attributes = %w{優先さ 名前 色}
+    attributes = %w{優先さ 備考 色}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes
