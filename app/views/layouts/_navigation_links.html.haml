@@ -3,28 +3,30 @@
   .container-fluid
     .navbar-header
       %ul.nav.navbar-nav.navbar-left
-        %li= link_to raw("<i class='glyphicon glyphicon-home' style='margin-right:1em;''></i>"+(t 'title.kinmukanrishisutemu')), root_path, :class => "root"
-        %li.dropdown
-          %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-            %span= (t 'title.menu')
-            %span.caret
-          %ul.dropdown-menu
-            %li= link_to raw("<i class='glyphicon glyphicon-calendar' style='margin-right:1em;'></i>"+(t 'title.event')), events_path
-            %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.time_line_view')), time_line_view_events_path
-            %legend.menu
-            %li= link_to raw("<i class='glyphicon glyphicon-briefcase' style='margin-right:1em;'></i>"+(t 'title.kintai')), kintais_url
-            %li= link_to raw("<i class='glyphicon glyphicon-yen' style='margin-right:1em;'></i>"+(t 'title.kanri.keihihead')), keihiheads_url
-            %li= link_to raw("<i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i>"+(t 'title.dengon_menu')), dengons_url
-            %li= link_to raw("<i class='glyphicon glyphicon-ok' style='margin-right:1em;'></i>"+(t 'title.keihishonin')), shonin_search_keihiheads_url
-            %li= link_to raw("<i class='glyphicon glyphicon-comment' style='margin-right:1em;'></i>"+(t 'title.kairan')), kairans_url
-            %li= link_to raw("<i class='glyphicon glyphicon-list' style='margin-right:1em;'></i>"+(t 'title.setsubiyoyaku')), setsubiyoyakus_url
-        %li.dropdown
-          %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-            %span= (t 'title.help')
-            %span.caret
-          %ul.dropdown-menu
-            %li= link_to raw("<i class='glyphicon glyphicon-question-sign' style='margin-right:1em;'></i>"+(t 'title.help')), helps_path
-
+        - if current_user
+          %li= link_to raw("<i class='glyphicon glyphicon-home' style='margin-right:1em;''></i>"+(t 'title.kinmukanrishisutemu')), root_path, :class => "root"
+          %li.dropdown
+            %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+              %span= (t 'title.menu')
+              %span.caret
+            %ul.dropdown-menu
+              %li= link_to raw("<i class='glyphicon glyphicon-calendar' style='margin-right:1em;'></i>"+(t 'title.event')), events_path
+              %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.time_line_view')), time_line_view_events_path
+              %legend.menu
+              %li= link_to raw("<i class='glyphicon glyphicon-briefcase' style='margin-right:1em;'></i>"+(t 'title.kintai')), kintais_url
+              %li= link_to raw("<i class='glyphicon glyphicon-yen' style='margin-right:1em;'></i>"+(t 'title.kanri.keihihead')), keihiheads_url
+              %li= link_to raw("<i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i>"+(t 'title.dengon_menu')), dengons_url
+              %li= link_to raw("<i class='glyphicon glyphicon-ok' style='margin-right:1em;'></i>"+(t 'title.keihishonin')), shonin_search_keihiheads_url
+              %li= link_to raw("<i class='glyphicon glyphicon-comment' style='margin-right:1em;'></i>"+(t 'title.kairan')), kairans_url
+              %li= link_to raw("<i class='glyphicon glyphicon-list' style='margin-right:1em;'></i>"+(t 'title.setsubiyoyaku')), setsubiyoyakus_url
+          %li.dropdown
+            %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+              %span= (t 'title.help')
+              %span.caret
+            %ul.dropdown-menu
+              %li= link_to raw("<i class='glyphicon glyphicon-question-sign' style='margin-right:1em;'></i>"+(t 'title.help')), helps_path
+        -else
+          %li= link_to raw("<i class='glyphicon glyphicon-home' style='margin-right:1em;''></i>"+(t 'title.kinmukanrishisutemu')), root_path, :class => "root"
     .collapse.navbar-collapse
       %ul.nav.navbar-nav.navbar-right
         - if current_user
