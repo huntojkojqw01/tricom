@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161214020129) do
+ActiveRecord::Schema.define(version: 20161223065153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,9 +29,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.string   "分類名"
     t.string   "関連Job番号"
     t.string   "備考"
+    t.index ["job番号"], name: "index_JOBマスタ_on_job番号", unique: true, using: :btree
   end
-
-  add_index "JOBマスタ", ["job番号"], name: "index_JOBマスタ_on_job番号", unique: true, using: :btree
 
   create_table "MYJOBマスタ", id: false, force: :cascade do |t|
     t.string   "社員番号",       null: false
@@ -62,6 +60,21 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.datetime "更新日"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -130,9 +143,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "承認済区分"
+    t.index ["申請番号"], name: "index_keihi_heads_on_申請番号", unique: true, using: :btree
   end
-
-  add_index "keihi_heads", ["申請番号"], name: "index_keihi_heads_on_申請番号", unique: true, using: :btree
 
   create_table "kintais", force: :cascade do |t|
     t.date     "日付"
@@ -161,13 +173,7 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.decimal  "早退時間"
   end
 
-  create_table "setsubiyoyakus", force: :cascade do |t|
-    t.string   "設備コード"
-    t.string   "社員番号"
-    t.string   "相手先"
-    t.string   "開始"
-    t.string   "終了"
-    t.text     "用件"
+  create_table "mybashomasters", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -185,7 +191,7 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.boolean "checked"
   end
 
-  create_table "ロールマスタ", force: :cascade do |t|
+  create_table "ロールマスタ", id: false, force: :cascade do |t|
     t.string   "ロールコード",     limit: 10, null: false
     t.string   "ロール名",       limit: 40
     t.string   "序列",         limit: 10
@@ -193,18 +199,15 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.datetime "updated_at",            null: false
   end
 
-  add_index "ロールマスタ", ["ロールコード"], name: "index_ロールマスタ_on_ロールコード", using: :btree
-
-  create_table "ロールメンバ", force: :cascade do |t|
-    t.string   "ロールコード",     limit: 10, null: false
-    t.string   "社員番号",       limit: 10, null: false
-    t.string   "氏名"
+  create_table "ロールメンバ", id: false, force: :cascade do |t|
+    t.string   "ロールコード"
+    t.string   "社員番号"
+    t.text     "氏名"
     t.string   "ロール内序列",     limit: 10
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.index ["社員番号", "ロールコード"], name: "index_ロールメンバ_on_社員番号_and_ロールコード", unique: true, using: :btree
   end
-
-  add_index "ロールメンバ", ["ロールコード"], name: "index_ロールメンバ_on_ロールコード", using: :btree
 
   create_table "会社マスタ", id: false, force: :cascade do |t|
     t.string   "会社コード",      null: false
@@ -212,9 +215,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.text     "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["会社コード"], name: "index_会社マスタ_on_会社コード", unique: true, using: :btree
   end
-
-  add_index "会社マスタ", ["会社コード"], name: "index_会社マスタ_on_会社コード", unique: true, using: :btree
 
   create_table "伝言", force: :cascade do |t|
     t.string   "from1"
@@ -248,7 +250,7 @@ ActiveRecord::Schema.define(version: 20161214020129) do
 
   create_table "優先", force: :cascade do |t|
     t.integer  "優先さ"
-    t.string   "名前"
+    t.string   "備考"
     t.string   "色"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -259,9 +261,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.string   "分類名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["分類コード"], name: "index_分類マスタ_on_分類コード", unique: true, using: :btree
   end
-
-  add_index "分類マスタ", ["分類コード"], name: "index_分類マスタ_on_分類コード", unique: true, using: :btree
 
   create_table "回覧", force: :cascade do |t|
     t.string   "発行者"
@@ -302,18 +303,16 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.string   "会社コード"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["場所コード"], name: "index_場所マスタ_on_場所コード", unique: true, using: :btree
   end
-
-  add_index "場所マスタ", ["場所コード"], name: "index_場所マスタ_on_場所コード", unique: true, using: :btree
 
   create_table "場所区分マスタ", id: false, force: :cascade do |t|
     t.string   "場所区分コード",    null: false
     t.string   "場所区分名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["場所区分コード"], name: "index_場所区分マスタ_on_場所区分コード", unique: true, using: :btree
   end
-
-  add_index "場所区分マスタ", ["場所区分コード"], name: "index_場所区分マスタ_on_場所区分コード", unique: true, using: :btree
 
   create_table "工程マスタ", id: false, force: :cascade do |t|
     t.string   "所属コード",      null: false
@@ -321,18 +320,16 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.string   "工程名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["所属コード", "工程コード"], name: "index_工程マスタ_on_所属コード_and_工程コード", unique: true, using: :btree
   end
-
-  add_index "工程マスタ", ["所属コード", "工程コード"], name: "index_工程マスタ_on_所属コード_and_工程コード", unique: true, using: :btree
 
   create_table "役職マスタ", id: false, force: :cascade do |t|
     t.string   "役職コード",      null: false
     t.string   "役職名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["役職コード"], name: "index_役職マスタ_on_役職コード", unique: true, using: :btree
   end
-
-  add_index "役職マスタ", ["役職コード"], name: "index_役職マスタ_on_役職コード", unique: true, using: :btree
 
   create_table "所在マスタ", id: false, force: :cascade do |t|
     t.string   "所在コード",      null: false
@@ -341,18 +338,16 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.string   "文字色"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["所在コード"], name: "index_所在マスタ_on_所在コード", unique: true, using: :btree
   end
-
-  add_index "所在マスタ", ["所在コード"], name: "index_所在マスタ_on_所在コード", unique: true, using: :btree
 
   create_table "所属マスタ", id: false, force: :cascade do |t|
     t.string   "所属コード",      null: false
     t.string   "所属名"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["所属コード"], name: "index_所属マスタ_on_所属コード", unique: true, using: :btree
   end
-
-  add_index "所属マスタ", ["所属コード"], name: "index_所属マスタ_on_所属コード", unique: true, using: :btree
 
   create_table "承認者マスタ", force: :cascade do |t|
     t.string   "申請者"
@@ -360,9 +355,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "順番"
+    t.index ["承認者", "申請者"], name: "index_承認者マスタ_on_承認者_and_申請者", using: :btree
   end
-
-  add_index "承認者マスタ", ["承認者", "申請者"], name: "index_承認者マスタ_on_承認者_and_申請者", using: :btree
 
   create_table "担当者マスタ", id: false, force: :cascade do |t|
     t.string   "担当者コード",                              null: false
@@ -377,9 +371,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.string   "email"
     t.string   "password_digest"
     t.boolean  "supervisor",          default: false
+    t.index ["担当者コード"], name: "index_担当者マスタ_on_担当者コード", unique: true, using: :btree
   end
-
-  add_index "担当者マスタ", ["担当者コード"], name: "index_担当者マスタ_on_担当者コード", unique: true, using: :btree
 
   create_table "機関マスタ", id: false, force: :cascade do |t|
     t.string   "機関コード",      null: false
@@ -387,9 +380,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.text     "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["機関コード"], name: "index_機関マスタ_on_機関コード", unique: true, using: :btree
   end
-
-  add_index "機関マスタ", ["機関コード"], name: "index_機関マスタ_on_機関コード", unique: true, using: :btree
 
   create_table "状態マスタ", id: false, force: :cascade do |t|
     t.string   "状態コード",      null: false
@@ -403,9 +395,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.string   "勤怠使用区分"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["状態コード"], name: "index_状態マスタ_on_状態コード", unique: true, using: :btree
   end
-
-  add_index "状態マスタ", ["状態コード"], name: "index_状態マスタ_on_状態コード", unique: true, using: :btree
 
   create_table "社員マスタ", id: false, force: :cascade do |t|
     t.string   "社員番号",                       null: false
@@ -428,9 +419,8 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.date     "login_time"
     t.integer  "序列",         default: 0
     t.string   "デフォルトロール"
+    t.index ["社員番号"], name: "index_社員マスタ_on_社員番号", unique: true, using: :btree
   end
-
-  add_index "社員マスタ", ["社員番号"], name: "index_社員マスタ_on_社員番号", unique: true, using: :btree
 
   create_table "設備マスタ", force: :cascade do |t|
     t.string   "設備コード"
@@ -440,14 +430,12 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "設備マスタ", ["設備コード"], name: "index_設備マスタ_on_設備コード", unique: true, using: :btree
-
   create_table "設備予約", force: :cascade do |t|
     t.string   "設備コード"
-    t.string   "開始"
-    t.string   "終了"
     t.string   "予約者"
     t.string   "相手先"
+    t.string   "開始"
+    t.string   "終了"
     t.text     "用件"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -468,8 +456,7 @@ ActiveRecord::Schema.define(version: 20161214020129) do
     t.datetime "updated_at", null: false
     t.string   "駅名カナ"
     t.integer  "選択回数"
+    t.index ["駅コード"], name: "index_駅マスタ_on_駅コード", unique: true, using: :btree
   end
-
-  add_index "駅マスタ", ["駅コード"], name: "index_駅マスタ_on_駅コード", unique: true, using: :btree
 
 end
