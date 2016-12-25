@@ -10,17 +10,18 @@
 -#    .pull-right
 -#      = submit_tag '更新する', class: 'btn btn-primary'
 .editor-datetime
-  .row-fluid
-    .form-group
-      = label_tag 'sheisanbi','清算日'
-      = text_field_tag :search, params[:search], class:'form-control'
-      -#= f.input_field :清算予定日
-      -#= f.hint '清算予定日付の入力'
-    .form-group
+  .row
+    .col-md-7.col-xs-7.col-sm-7.col-lg-7.form-inline
+      .form-group
+        = label_tag 'sheisanbi','清算日'
+        = text_field_tag :search, params[:search], class:'form-group'
+        -#= f.input_field :清算予定日
+        -#= f.hint '清算予定日付の入力'
+    .col-md-3.col-xs-3.col-sm-3.col-lg-3
       -#= label_tag 'shoninsha','承認者：'
       -#= f.input :承認者 do
         = f.select :承認者, Shoninshamst.current_user(session[:user]).map { |k| [k.shonin_title, k.承認者, { class: k.id }] }.uniq, {include_blank: true}, {class:'form-control'}
       = f.button :submit, '検索する'
       -#= submit_tag '検索する', class: 'btn btn-default search-shonin'
-    .pull-right
+    .col-md-1.col-xs-1.col-sm-1.col-lg-1
       = submit_tag '更新する', class: 'btn btn-primary'

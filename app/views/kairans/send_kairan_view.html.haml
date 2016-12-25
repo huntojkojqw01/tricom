@@ -8,7 +8,7 @@
 -#= render 'form'
 
 = simple_form_for(@kairan) do |f|
-  .col-md-3.col-md-offset-1
+  .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
     = f.input :発行者, as: :hidden,disabled: true, input_html: {value: session[:user]}
     = f.input :要件, label:'要件' do
       = f.select :要件, Kairanyokenmst.all.map { |k| [k.名称, k.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control', disabled: true}
@@ -20,7 +20,7 @@
     -#= f.button :submit, class: 'btn btn-primary', id: 'kairan'
     = hidden_field_tag 'shain', disabled: true
     = hidden_field_tag 'send_kairan_id', @send_kairan_id, disabled: true
-  .col-md-7.col-md-offset-1
+  .col-md-7.col-xs-7.col-sm-7.col-lg-7.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
     %table.shain-table-mark.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
       %thead
         %tr
