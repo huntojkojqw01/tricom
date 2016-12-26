@@ -14,17 +14,24 @@ jQuery ->
     }]
   })
 
+  $("#edit_eki").attr("disabled", true);
+  $("#destroy_eki").attr("disabled", true);
+
   $('.ekitable').on( 'click', 'tr',  () ->
     d = oEkiTable.row(this).data()
     if d != undefined
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
+        $("#edit_eki").attr("disabled", true);
+        $("#destroy_eki").attr("disabled", true);
       else
         oEkiTable.$('tr.selected').removeClass('selected')
         oEkiTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
+        $("#edit_eki").attr("disabled", false);
+        $("#destroy_eki").attr("disabled", false);
   )
 
   $('#destroy_eki').click () ->
@@ -58,6 +65,8 @@ jQuery ->
             console.log("eki_削除する keydown Unsuccessful")
 
         })
+    $("#edit_eki").attr("disabled", true);
+    $("#destroy_eki").attr("disabled", true);
 
   $('#new_eki').click () ->
     $('#eki-new-modal').modal('show')
@@ -74,3 +83,5 @@ jQuery ->
       $('#eki_駅コード').val(eki_id[0])
       $('#eki_駅名').val(eki_id[1])
       $('#eki_駅名カナ').val(eki_id[2])
+      $("#edit_eki").attr("disabled", true);
+      $("#destroy_eki").attr("disabled", true);
