@@ -9,6 +9,18 @@ $(".ekitable").dataTable().fnDraw()
 
  var table = $('.ekitable').DataTable();
  table.row.add( ["<%=@eki.id%>","<%=@eki.name%>","<%=@eki.駅名カナ%>"] ).draw( false );
+ $("#edit_eki").attr("disabled", true);
+ $("#destroy_eki").attr("disabled", true);
+
+ // var eki_id = oEkiTable.row('tr.selected').data()
+ // alert(eki_id);
+ //    if(eki_id == undefined){
+ //      $("#edit_eki").attr("disabled", true);
+ //      $("#destroy_eki").attr("disabled", true);
+ //    }else{
+ //      $("#edit_eki").attr("disabled", false);
+ //      $("#destroy_eki").attr("disabled", false);
+ //    }
 
 
  // table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>,

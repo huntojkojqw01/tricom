@@ -65,8 +65,12 @@ jQuery ->
             console.log("eki_削除する keydown Unsuccessful")
 
         })
-    $("#edit_eki").attr("disabled", true);
-    $("#destroy_eki").attr("disabled", true);
+        $("#edit_eki").attr("disabled", true);
+        $("#destroy_eki").attr("disabled", true);
+      else
+        $("#edit_eki").attr("disabled", false)
+        $("#destroy_eki").attr("disabled", false)
+
 
   $('#new_eki').click () ->
     $('#eki-new-modal').modal('show')
@@ -83,5 +87,3 @@ jQuery ->
       $('#eki_駅コード').val(eki_id[0])
       $('#eki_駅名').val(eki_id[1])
       $('#eki_駅名カナ').val(eki_id[2])
-      $("#edit_eki").attr("disabled", true);
-      $("#destroy_eki").attr("disabled", true);
