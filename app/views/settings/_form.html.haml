@@ -1,6 +1,6 @@
 = simple_form_for(@setting) do |f|
   = f.error_notification
-  .col-md-3.col-md-offset-2
+  .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
     = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label:'社員番号' if mode == :new
     = f.input :scrolltime , label: 'ScrollTime'do
       = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:100px'}

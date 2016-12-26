@@ -1,8 +1,8 @@
 = simple_form_for(@kairan) do |f|
-  .col-md-5.col-md-offset-1
+  .col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
     = f.input :発行者, as: :hidden, input_html: {value: session[:user]}
     .row
-      .col-md-6
+      .col-md-6.col-xs-6.col-sm-6.col-lg-6
         = f.input :要件, label:'要件', input_html: {style: 'width:100px'} do
           = f.select :要件, Kairanyokenmst.all.map { |k| [k.名称, k.id, {:style => "background-color: "+k.yuusen.try(:色).to_s+"; color: Black"}] }, {}, {include_blank: true, class: 'form-control'}
         = f.input :開始,as: :date_time_picker,input_html: { class: 'kairan-input-width' }
@@ -12,7 +12,7 @@
     = f.input :確認要, as: :radio_buttons, label: '回答要',input_html: { class: "radio-inline"}
     = f.button :submit, class: 'btn btn-primary', id: 'kairan'
     = hidden_field_tag 'shain'
-  .col-md-5
+  .col-md-5.col-xs-5.col-sm-5.col-lg-5
     %table#shain-table.shain-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
       %thead
         %tr

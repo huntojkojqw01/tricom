@@ -123,3 +123,25 @@
 .input-group-addon.set-border{
   border-left-width: 0px;
 }
+
+@media (max-width: 480px) {
+    h3 {font-size: 16px;}
+    h2 {font-size: 20px;}
+        .shouzai{
+      float:right;
+    }
+}
+
+@media (max-width: @screen-sm) {
+    h3 {font-size: 8px;}
+        .shouzai{
+      float:right;
+    }
+}
+
+@media (max-width: @screen-lg) {
+    h3 {font-size: 8px;}
+    .shouzai{
+      float:right;
+    }
+}
