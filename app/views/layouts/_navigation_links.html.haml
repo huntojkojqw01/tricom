@@ -72,5 +72,5 @@
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
         - else
           %li= link_to (t 'title.login'), login_path
-    -else
-      %li= link_to raw(t 'title.kinmukanrishisutemu'), root_path, :class => "glyphicon glyphicon-home root navbar-brand"
+    - else
+      = link_to raw(t 'title.kinmukanrishisutemu'), root_path, :class => "glyphicon glyphicon-home root navbar-brand"
