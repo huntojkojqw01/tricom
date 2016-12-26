@@ -132,7 +132,7 @@
     }
 }
 
-@media (max-width: @screen-sm) {
+/*@media (max-width: @screen-sm) {
     h3 {font-size: 8px;}
         .shouzai{
       float:right;
@@ -144,4 +144,4 @@
     .shouzai{
       float:right;
     }
-}
+}*/
