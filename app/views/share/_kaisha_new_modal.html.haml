@@ -5,8 +5,14 @@
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
         %h4.modal-title#myModalLabel 会社新規
       .modal-body
-        = simple_form_for @kaisha, url: create_kaisha_events_path, remote: true do |f|
-          = f.input :会社コード
-          = f.input :会社名
-          = f.input :備考
+        = simple_form_for @kaisha, url: create_kaisha_events_path, remote: true, html: {role: :form, 'data-model' => 'kaishamaster'} do |f|
+          = f.input :会社コード do
+            = f.input_field :会社コード, class: 'form-control'
+            .span.help-block
+          = f.input :会社名 do
+            = f.input_field :会社名, class: 'form-control'
+            .span.help-block
+          = f.input :備考 do
+            = f.input_field :備考, class: 'form-control'
+            .span.help-block
           = f.button :submit, class: 'btn btn-primary'
