@@ -5,9 +5,9 @@ class Kaishamaster < ActiveRecord::Base
   validates :会社コード, :会社名, presence: true
   validates :会社コード, uniqueness: true
 
-  has_one :bashomaster, foreign_key: :会社コード
+  has_one :bashomaster, dependent: :destroy, foreign_key: :会社コード
   has_one :jobmaster, foreign_key: :ユーザ番号
-  has_many :setsubiyoyaku, dependent: :destroy, foreign_key: :会社コード
+  has_many :setsubiyoyaku, dependent: :destroy, foreign_key: :相手先
 
   alias_attribute :id, :会社コード
   alias_attribute :name, :会社名
