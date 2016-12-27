@@ -89,7 +89,7 @@ class EkisController < ApplicationController
       if  @eki.save
         format.js { render 'create_eki'}
       else
-        format.js { render 'create_eki_error'}
+        format.js { render json: @eki.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -98,12 +98,11 @@ class EkisController < ApplicationController
     @eki = Eki.find(eki_params[:駅コード])
     # @eki.update(eki_params)
     # redirect_to ekis_path
-    @data = "erro"
     respond_to do |format|
       if  @eki.update(eki_params)
         format.js { render 'edit_eki'}
       else
-        format.js { render 'edit_eki_error'}
+        format.js { render json: @eki.errors, status: :unprocessable_entity}
       end
     end
 

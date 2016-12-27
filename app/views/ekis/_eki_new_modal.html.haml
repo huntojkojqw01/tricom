@@ -5,8 +5,12 @@
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
         %h4.modal-title#myModalLabel 駅新規
       .modal-body
-        = simple_form_for @eki, url: create_eki_ekis_path, :remote => true do |f|
-          = f.input :駅コード
-          = f.input :駅名
+        = simple_form_for @eki, url: create_eki_ekis_path, :remote => true, html: {role: :form, 'data-model' => 'eki'} do |f|
+          = f.input :駅コード do
+            = f.input_field :駅コード, class: 'form-control'
+            .span.help-block
+          = f.input :駅名 do
+            = f.input_field :駅名, class: 'form-control'
+            .span.help-block
           = f.input :駅名カナ
           = f.button :submit, class: 'btn btn-primary'

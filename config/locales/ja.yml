@@ -96,8 +96,8 @@ ja:
       second: 秒
       year: 年
   errors: &errors
-    format: ! '%{attribute}%{dengon_menu}'
-    dengon_menus:
+    format: ! '%{attribute}%{message}'
+    messages:
       accepted: を受諾してください。
       current_password_incorrect: 現在パスワードが間違いました。
       wrong_mail_form: 正しくメールフォマットを入力してください。
