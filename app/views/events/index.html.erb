@@ -36,6 +36,9 @@
           <!--</label>-->
         <!--</div>-->
       <!--</div>-->
+      <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-md-offset-2 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2">
+        <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
+      </div>
       <div class="pull-right" >
         <div class="form-inline">
           <%= f.input :所在コード, label:'所在' do %>
@@ -46,35 +49,28 @@
 
     </div>
   </div>
-    <br>
-    <div class="row">
-      <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
-        <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
+  <div>
+    <div class="row-fluid">
+      <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
+      <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
+    </div>
+    <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1">
+      <%# button_to '社員選択', %>
+      <button type="button" class="btn btn-default" id="search_user">社員選択</button>
+    </div>
+
+    <div class="pull-right">
+      <div class="form-inline">
+        <%# f.input :勤務タイプ, collection: '001'..'009' %>
+        <% display = ['001 → 07:00 〜 16:00', '002 → 07:30 〜 16:30', '003 → 08:00 〜 17:00', '004 → 08:30 〜 17:30',
+                      '005 → 09:00 〜 18:00', '006 → 09:30 〜 18:30', '007 → 10:00 〜 19:00', '008 → 10:30 〜 19:30', '009 → 11:00 〜 20:00']
+        %>
+        <%= f.input :勤務タイプ,class: "form-control", collection: (1..9).map { |i| ["#{display[i-1]}", "00#{i}"] }%>
       </div>
     </div>
-    <div>
-      <div class="row-fluid">
-        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
-        <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
-      </div>
 
-      <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1">
-        <%# button_to '社員選択', %>
-        <button type="button" class="btn btn-default" id="search_user">社員選択</button>
-      </div>
-
-      <div class="pull-right">
-        <div class="form-inline">
-          <%# f.input :勤務タイプ, collection: '001'..'009' %>
-          <% display = ['001 → 07:00 〜 16:00', '002 → 07:30 〜 16:30', '003 → 08:00 〜 17:00', '004 → 08:30 〜 17:30',
-                        '005 → 09:00 〜 18:00', '006 → 09:30 〜 18:30', '007 → 10:00 〜 19:00', '008 → 10:30 〜 19:30', '009 → 11:00 〜 20:00']
-          %>
-          <%= f.input :勤務タイプ,class: "form-control", collection: (1..9).map { |i| ["#{display[i-1]}", "00#{i}"] }%>
-        </div>
-      </div>
-
-    </div>
-    </div>
+  </div>
+  </div>
 
 
 
