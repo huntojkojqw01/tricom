@@ -19,7 +19,6 @@
       <th>アドミン</th>
       <th></th>
       <th></th>
-      <th></th>
     </tr>
   </thead>
 
@@ -29,7 +28,6 @@
         <td><%= user.担当者コード %></td>
         <td><%= user.担当者名称 %></td>
         <td><%= user.admin %></td>
-        <td><%= link_to '詳細', user %></td>
         <td><%= link_to '編集', edit_user_path(user) if
         current_user.admin? || current_user.supervisor? %></td>
         <td><%= link_to '削除', user, method: :delete, data: { confirm: '削除で宜しですか。'} if current_user.admin? || current_user.supervisor? %></td>
