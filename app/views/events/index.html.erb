@@ -16,8 +16,8 @@
 <%= simple_form_for @shain, url: custom_events_path, method: :post do |f| %>
 <div id="month-view">
   <div>
-    <div class="row">
-      <div class="pull-left col-lg-7">
+    <div class="row-fluid">
+      <div class="pull-left">
         <!--<div class="btn-group" role="group" aria-label="...">-->
           <%# f.submit '一覧', class: 'btn btn-default', id:'timeline'%>
           <%= f.submit (t 'helpers.submit.redirect_to_kintai'), class: 'btn btn-default', id:'kintai'%>
@@ -36,10 +36,10 @@
           <!--</label>-->
         <!--</div>-->
       <!--</div>-->
-      <div style="float:right;" >
+      <div class="pull-right" >
         <div class="form-inline">
           <%= f.input :所在コード, label:'所在' do %>
-              <%= f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-inline'} %>
+              <%= f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
           <% end %>
         </div>
       </div>
@@ -48,13 +48,13 @@
   </div>
     <br>
     <div class="row">
-      <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-md-offset-2 col-xs-offset-2 col-sm-offset-2 col-lg-offset-2">
+      <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
         <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
       </div>
     </div>
     <div>
-      <div class="row">
-        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2">
+      <div class="row-fluid">
+        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
         <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
       </div>
 
@@ -63,7 +63,7 @@
         <button type="button" class="btn btn-default" id="search_user">社員選択</button>
       </div>
 
-      <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4" style="float:right;">
+      <div class="pull-right">
         <div class="form-inline">
           <%# f.input :勤務タイプ, collection: '001'..'009' %>
           <% display = ['001 → 07:00 〜 16:00', '002 → 07:30 〜 16:30', '003 → 08:00 〜 17:00', '004 → 08:30 〜 17:30',
