@@ -17,6 +17,30 @@ jQuery ->
   $("#edit_eki").attr("disabled", true);
   $("#destroy_eki").attr("disabled", true);
 
+
+  $(document).bind('ajaxError', 'form#new_eki', (event, jqxhr, settings, exception) ->
+    $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
+  )
+
+  $.fn.render_form_errors = (errors) ->
+    $form = this;
+    this.clear_previous_errors();
+    model = this.data('model');
+
+
+    $.each(errors, (field, messages) ->
+      $input = $('input[name="' + model + '[' + field + ']"]');
+      $input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') );
+    );
+
+
+  $.fn.clear_previous_errors = () ->
+    $('.form-group.has-error', this).each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+
+
   $('.ekitable').on( 'click', 'tr',  () ->
     d = oEkiTable.row(this).data()
     if d != undefined
@@ -77,9 +101,17 @@ jQuery ->
     $('#eki_駅コード').val('')
     $('#eki_駅名').val('')
     $('#eki_駅名カナ').val('')
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
 
   $('#edit_eki').click () ->
     eki_id = oEkiTable.row('tr.selected').data()
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
     if eki_id == undefined
       alert("行を選択してください。")
     else
