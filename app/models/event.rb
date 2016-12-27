@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   validates :社員番号, :開始, :状態コード, presence: true
   validates :工程コード, :場所コード, :JOB, presence: true, if: Proc.new{|event| event.joutaimaster.try(:状態区分) == '1'}
   validate :check_date_input
-
+  validates_numericality_of :工数, message: I18n.t('errors.messages.not_a_number'), :allow_blank => true
   belongs_to :shainmaster, foreign_key: :社員番号
   belongs_to :joutaimaster, foreign_key: :状態コード
   belongs_to :bashomaster, foreign_key: :場所コード

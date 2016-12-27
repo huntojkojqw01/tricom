@@ -149,7 +149,7 @@ class EventsController < ApplicationController
     # end
     case params[:commit]
       when (t 'helpers.submit.create')
-        redirect_to time_line_view_events_url
+        respond_with @event, location: time_line_view_events_url
       when (t 'helpers.submit.create_other')
         respond_with @event, location: events_url
     end
@@ -175,7 +175,7 @@ class EventsController < ApplicationController
         flash[:notice] = t 'app.flash.update_success' if @event.update event_params
         # joutai = Joutaimaster.find_by code: event_params[:状態コード]
         # joutai.update color: params['input-backgroud-color'], text_color: params['input-text-color']
-        redirect_to time_line_view_events_url
+        respond_with @event, location: time_line_view_events_url
     end
   end
 
