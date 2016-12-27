@@ -6,9 +6,9 @@ $(function() {
             "sUrl": "../../assets/resource/dataTable_ja.txt"
         },
         "aoColumnDefs": [
-            { "bSortable": false, "aTargets": [ 4,5 ]},
+            { "bSortable": false, "aTargets": [ 3,4 ]},
             {
-                "targets": [4,5],
+                "targets": [3,4],
                 "width": '5%'
             }
         ],
