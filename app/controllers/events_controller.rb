@@ -111,7 +111,8 @@ class EventsController < ApplicationController
       @mybasho.save
     else
       respond_to do |format|
-        format.js { render 'create_basho_erro'}
+        # format.js { render 'create_basho_erro'}
+        format.js { render json: @basho.errors, status: :unprocessable_entity}
          # format.js { render 'delete'}
       end
 
@@ -129,7 +130,11 @@ class EventsController < ApplicationController
 
   def create_kaisha
     @kaisha = Kaishamaster.new(kaisha_params)
-    @kaisha.save
+    if @kaisha.save == false
+      respond_to do |format|
+        format.js { render json: @kaisha.errors, status: :unprocessable_entity}
+      end
+    end
   end
 
   def create
