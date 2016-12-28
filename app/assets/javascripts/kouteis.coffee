@@ -5,7 +5,7 @@ jQuery ->
   oShozokuTable = $('#shozoku_search_table').DataTable({
     "pagingType": "full_numbers"
     ,"oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
   })
 

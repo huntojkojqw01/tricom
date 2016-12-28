@@ -4,7 +4,7 @@ jQuery ->
 #    'scrollY': "300px",
     "pagingType": "full_numbers",
     "oLanguage": {
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
     "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 10,11 ]},
@@ -28,28 +28,28 @@ jQuery ->
   oKaisha_modal = $('#kaisha-table-modal').DataTable({
     "pagingType": "full_numbers"
     , "oLanguage": {
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
   })
 
   oShain_modal = $('#user_table').DataTable({
     "pagingType": "full_numbers"
     , "oLanguage": {
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
   })
 
   oJob_modal = $('#job_table').DataTable({
     "pagingType": "full_numbers"
     , "oLanguage": {
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
   })
 
   oBunrui_modal = $('.bunrui-table').DataTable({
     "pagingType": "full_numbers"
     , "oLanguage": {
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
   })
 

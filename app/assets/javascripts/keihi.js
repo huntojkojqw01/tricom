@@ -3,7 +3,7 @@ $(function() {
     oTable = $('#keihi-table-show').DataTable({
         "pagingType": "full_numbers"
         , "oLanguage": {
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         },
         "scrollX": true
     //, "aoColumnDefs": [
@@ -23,28 +23,28 @@ $(function() {
     oKaisha_search_modal = $('#kaisha-table-modal').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oKikan_search_modal = $('#kikan-table-modal').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oEki_search_modal = $('#eki-table-modal').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oJob_search_modal = $('#job_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 });

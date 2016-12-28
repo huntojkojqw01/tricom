@@ -5,7 +5,7 @@ jQuery ->
   oTable = $('.rorumenba-table').DataTable({
     "pagingType": "full_numbers",
     "oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     "aoColumnDefs": [
         { "bSortable": false, "aTargets": [ 5,6 ]},
@@ -30,7 +30,7 @@ jQuery ->
   shain_table = $('.shain-table').DataTable({
     "pagingType": "simple_numbers",
     "oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
 #    "aoColumnDefs": [
 #      { "bSortable": false, "aTargets": [0]},

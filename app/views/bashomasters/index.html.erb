@@ -1,20 +1,20 @@
 <%= javascript_include_tag 'basho' %>
 <%provide(:title, (t 'title.bashomaster'))%>
 <ol class="breadcrumb">
-  <li><%= link_to 'メニュー', main_path %></li>
-  <li class="active">場所マスタ</li>
+  <li><%= link_to (t 'title.menu'), main_path %></li>
+  <li class="active"><%=(t 'title.bashomaster')%></li>
 </ol>
 
 <table id="bashomaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
   <tr>
-    <th>場所コード</th>
-    <th>場所名</th>
-    <th>場所名カナ</th>
+    <th><%=(t 'title.bashocode')%></th>
+    <th><%=(t'title.bashomei')%></th>
+    <th><%=(t'title.bashomeikana')%></th>
     <th>SUB</th>
-    <th>場所区分</th>
-    <th>会社名</th>
+    <th><%=(t'title.bashokubun')%></th>
+    <th><%=(t'title.kaishamei')%></th>
     <th></th>
     <th></th>
   </tr>
@@ -29,15 +29,15 @@
         <td><%= basho.SUB %></td>
         <td><%= basho.bashokubunmst.場所区分名 unless basho.bashokubunmst.nil?%></td>
         <td><%= basho.kaishamaster.会社名 unless basho.kaishamaster.nil?%></td>
-        <td><%= link_to '編集', edit_bashomaster_path(basho) %></td>
-        <td><%= link_to '削除', basho, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+        <td><%= link_to (t 'title.edit'), edit_bashomaster_path(basho) %></td>
+        <td><%= link_to (t 'title.delete'), basho, method: :delete, data: { confirm: (t 'title.delete_confirm') } %></td>
 
       </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= link_to '新規', new_bashomaster_path %>
+<%= link_to (t 'title.new'), new_bashomaster_path %>
 
 <% if can? :update, @bashomasters %>
 
@@ -49,7 +49,7 @@
     </div>
     <div class="form-group">
       <%= label_tag 'importcsv', nil, class: 'sr-only' %>
-      <%= submit_tag "Import CSV" , class: 'btn btn-default' %>
+      <%= submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default' %>
     </div>
 <% end %>
 <% end %>

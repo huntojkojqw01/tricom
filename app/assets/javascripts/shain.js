@@ -3,7 +3,7 @@ $(function() {
     oTable = $('#shainmaster').DataTable({
         "pagingType": "full_numbers"
         , "oLanguage": {
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
         ,"aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 8,9 ]},
@@ -23,7 +23,7 @@ $(function() {
     oShozokuTable = $('#shozoku_search_table').DataTable({
         "pagingType": "full_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
@@ -51,7 +51,7 @@ $(function() {
     oYakushokuTable = $('#yakushoku_search_table').DataTable({
         "pagingType": "full_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 

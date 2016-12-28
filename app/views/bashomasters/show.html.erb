@@ -1,14 +1,14 @@
 <p>
-  <strong>場所コード:</strong>
+  <strong><%=(t 'title.bashocode')%>:</strong>
   <%= @bashomaster.場所コード %>
 </p>
-
+<%=%>
 <p>
-  <strong>場所名:</strong>
+  <strong><%=(t 'title.bashomei')%>:</strong>
   <%= @bashomaster.場所名 %>
 </p>
 <p>
-  <strong>場所名カナ:</strong>
+  <strong><%=(t 'title.bashomeikana')%>:</strong>
   <%= @bashomaster.場所名カナ %>
 </p>
 <p>
@@ -16,14 +16,14 @@
   <%= @bashomaster.SUB %>
 </p>
 <p>
-  <strong>場所区分:</strong>
+  <strong><%=(t 'title.bashokubun')%>:</strong>
   <%= @bashomaster.場所区分 %>
 </p>
 <p>
-  <strong>会社コード:</strong>
+  <strong><%=(t 'title.kaishacode')%>:</strong>
   <%= @bashomaster.会社コード %>
 </p>
 
-<%= link_to '編集', edit_bashomaster_path(@bashomaster) %> |
-<%= link_to '戻る', bashomasters_path %>
+<%= link_to (t 'title.edit'), edit_bashomaster_path(@bashomaster) %> |
+<%= link_to (t 'title.back'), bashomasters_path %>
 <%provide(:title, (t 'title.bashomaster'))%>

@@ -2,7 +2,7 @@ jQuery ->
   export_table = $('.export-table').DataTable({
     "pagingType": "simple_numbers",
     "oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
 #    "aoColumnDefs": [
 #      { "bSortable": false, "aTargets": [0]},
@@ -65,7 +65,7 @@ jQuery ->
     shain_table_mark = $('.shain-table-mark').DataTable({
       "pagingType": "simple_numbers",
       "oLanguage":{
-        "sUrl": "../../assets/resource/dataTable_ja.txt"
+        "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
       },
       "select": {
         "style": 'multi'

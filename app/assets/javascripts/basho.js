@@ -3,7 +3,7 @@ $(function() {
     oTable = $('#bashomaster').DataTable({
         "pagingType": "full_numbers"
         , "oLanguage": {
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         },
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 6,7 ]},
@@ -22,7 +22,7 @@ $(function() {
     oKaishaTable = $('#kaisha-table-modal').DataTable({
         "pagingType": "full_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 

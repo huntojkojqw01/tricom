@@ -1,12 +1,10 @@
 %p#notice= notice
-
 %p
-  %b First name:
-  = @dengonkaitou.first_name
+  %b= (t 'title.shuruimei')+':'
+  = @dengonkaitou.種類名
 %p
-  %b Last name:
-  = @dengonkaitou.last_name
-
+  %b= (t 'title.bikou')+':'
+  = @dengonkaitou.備考
 = link_to 'Edit', edit_dengonkaitou_path(@dengonkaitou)
 \|
 = link_to 'Back', dengonkaitous_path

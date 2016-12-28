@@ -5,7 +5,7 @@ jQuery ->
   oEkiTable = $('.ekitable').DataTable({
     "pagingType": "simple_numbers"
     ,"oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
     "columnDefs": [ {

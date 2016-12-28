@@ -640,7 +640,7 @@ $(function(){
     oTable = $('#user_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         },
         columnDefs: [{
                 targets: [0],
@@ -657,54 +657,54 @@ $(function(){
     oBashoTable = $('#basho_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oMybashoTable = $('#mybasho_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oJoutaiTable = $('#joutai_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oKouteiTable = $('#koutei_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oShozaiTable = $('#shozai_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oJobTable = $('#job_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
     oMyjobTable = $('#myjob_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
 
     oEventTable = $('#event_table').DataTable({
         "pagingType": "full_numbers",
-        "oLanguage":{"sUrl": "../../assets/resource/dataTable_ja.txt"},
+        "oLanguage":{"sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"},
         "aoColumnDefs": [
             {"aTargets": [0], "mRender": function (data, type, full) {
                 return '<a href="/events/' + data + '/edit">詳細</a>';

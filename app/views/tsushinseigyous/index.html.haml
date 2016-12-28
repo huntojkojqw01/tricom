@@ -1,7 +1,7 @@
 = javascript_include_tag 'tsushinseigyous'
 = provide(:title, (t 'title.tsushinseigyou'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
+  %li= link_to (t 'title.menu'), main_path
   %li.active 通信制御マスタ
 
 %table.tsushinseigyotable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
@@ -33,4 +33,4 @@
       = file_field_tag :file , class: 'btn btn-default'
     .form-group
       = label_tag 'importcsv', nil, class: 'sr-only'
-      = submit_tag "Import CSV" , class: 'btn btn-default'
+      = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'

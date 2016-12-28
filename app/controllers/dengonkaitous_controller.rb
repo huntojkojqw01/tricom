@@ -10,7 +10,6 @@ class DengonkaitousController < ApplicationController
   end
 
   def show
-    respond_with(@dengonkaitou)
   end
 
   def new

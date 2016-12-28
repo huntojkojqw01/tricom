@@ -230,7 +230,7 @@ jQuery ->
   oShonin_search_modal = $('#shonin-table-modal').DataTable({
     "pagingType": "simple_numbers"
     ,"oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }})
   
   $('#shonin-table-modal tbody').on 'click', 'tr', (event) ->
@@ -253,7 +253,7 @@ jQuery ->
   oShonin_table = $('.shonin-table').DataTable({
     "pagingType": "simple_numbers",
     "oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
     "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 13 ]},
@@ -299,7 +299,7 @@ jQuery ->
   $('.keihihead-table').DataTable({
     "pagingType": "simple_numbers"
     ,"oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,"aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 7,8 ]},

@@ -52,16 +52,18 @@ $(document).on('ready', function() {
 });
 
 $(document).ready(function() {
+  $path = "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     $('#export_table').DataTable({"pagingType": "full_numbers"
         , "oLanguage": {
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": $path
         }});
 } );
 $(document).ready(function() {
-	$('#kintai_table').DataTable({
+  $path = "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+  $('#kintai_table').DataTable({
         "pagingType": "full_numbers"
         , "oLanguage": {
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": $path
         },
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 4,5 ]},

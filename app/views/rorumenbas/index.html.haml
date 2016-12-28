@@ -1,7 +1,7 @@
 = javascript_include_tag 'rorumenbas'
 = provide(:title, (t 'title.rorumenba'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
+  %li= link_to (t 'title.menu'), main_path
   %li.active ロールメンバ
 
 %br
@@ -37,4 +37,4 @@
     = file_field_tag :file , class: 'btn btn-default'
   .form-group
     = label_tag 'importcsv', nil, class: 'sr-only'
-    = submit_tag "Import CSV" , class: 'btn btn-default'
+    = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
