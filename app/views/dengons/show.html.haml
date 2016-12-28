@@ -7,7 +7,7 @@
   %b Last name:
   = @dengon.last_name
 
-= link_to 'Edit', edit_dengon_path(@dengon)
+= link_to (t 'title.edit'), edit_dengon_path(@dengon)
 \|
-= link_to 'Back', dengons_path
+= link_to (t 'title.modoru'), dengons_path
 = provide(:title, (t 'title.dengon'))

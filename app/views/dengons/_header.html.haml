@@ -10,4 +10,4 @@
       = label_tag :回答
       = select(:head, :kaitou, Dengonkaitou.all.collect {|p| [ p.種類名, p.id ] }, {selected: @kaitou, include_blank: true }, class: 'form-control')
     .pull-right
-      = button_tag '検索する', class:'btn btn-primary'
+      = button_tag (t 'title.kensaku'), class:'btn btn-primary'

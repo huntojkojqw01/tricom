@@ -1,8 +1,8 @@
 = javascript_include_tag 'dengons'
 = provide(:title, (t 'title.dengon'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
-  %li.active 伝言一覧
+  %li= link_to (t 'title.menu'), main_path
+  %li.active= (t 'title.dengon')
 
 -#.row
   -#.col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-4.col-xs-offset-4.col-sm-offset-4.col-lg-offset-4
@@ -18,16 +18,16 @@
   %table.dengon.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
     %thead
       %tr
-        %th 相手先
-        %th 名前
-        %th 日付
-        %th 入力者
-        %th 社員
-        %th 用件
-        %th 回答
-        %th 伝言内容
-        %th 確認
-        %th 送信
+        %th= (t 'title.aitesaki')
+        %th= (t 'title.namae')
+        %th= (t 'title.hidzuke')
+        %th= (t 'title.nyuuryokusha')
+        %th= (t 'title.shain')
+        %th= (t 'title.youken')
+        %th= (t 'title.kaitou')
+        %th= (t 'title.dengonnaiyou')
+        %th= (t 'helpers.button.confirm')
+        %th= (t 'title.soushin')
         %th
         %th
 
@@ -43,12 +43,12 @@
           %td= dengon.kaitou_種類名
           %td= dengon.伝言内容
           -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
-          %td= dengon.確認 == true ? '確認済':'未確認'
-          %td= dengon.送信 == true ? '許可':'不可'
-          %td= link_to '編集', edit_dengon_path(dengon)
-          %td= link_to '削除', dengon, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+          %td= dengon.確認 == true ? (t 'title.kakuninzu'):'未確認'
+          %td= dengon.送信 == true ? (t 'title.approval'):'不可'
+          %td= link_to (t 'title.edit'), edit_dengon_path(dengon)
+          %td= link_to (t 'title.delete'), dengon, :method => :delete, :data => { :confirm => (t 'title.delete_confirm') }
 
 %br
 
-= link_to '新規', new_dengon_path
+= link_to (t 'title.new'), new_dengon_path
 //{:style => "background-color: "+dengon.dengonyouken.try(:yuusen).try(:色).to_s+"; color: Black"}

@@ -223,7 +223,7 @@ en:
     select_confirm: 行を選択してください。
     flash:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
-      import_csv: CSVファイルから読み込んでできました！
+      import_csv: It was able to load from the CSV file!
       record_not_found: 該当情報が見つかりませんでした！
       record_not_existing: 参照情報が存在していない！
       new_success: 新規作成出来ました。
@@ -256,11 +256,11 @@ en:
       check_time_attendance: は出勤時刻以上の値にしてください。
       check_time: は22時間より小さい値にしてください。
     label:
-      import_csv: CSVでのデータをインポート!
+      import_csv: Import data with CSV!
   export: 輸出
   title:
-    bashokubunmst: 場所区分一覧
-    bashokubunmaster: Location class master
+    bashokubunmst: Location classification list
+    bashokubunmaster: Location classification master
     bashomaster: Location master
     bunrui: 分類一覧
     dengonkaitou: Message reply master
@@ -299,8 +299,8 @@ en:
     shainmaster: Employee master
     share: TRICOM
     shoninshamst: Approver master
-    shozai: Location master
-    shozokumaster: Affiliation Master
+    shozai: Location state master
+    shozokumaster: Affiliation master
     tsushinseigyou: Communication control master
     user:
       change_pass: パスワード変更
@@ -337,3 +337,36 @@ en:
     profilehenshuu: Edit profile
     scrolltime: Scroll Time
     local: Local
+    bashocode: Location code
+    bashomei: Location name
+    bashomeikana: Location name in kana
+    bashokubun: Location classification
+    kaishacode: Company code
+    edit: Edit
+    delete: Delete
+    new: New
+    bashokubuncode: Location classification code
+    bashokubunmei: Location classification name
+    modoru: Back
+    bunruicode: Classification code
+    bunruimei: Classification name
+    kaishamei: Company name
+    aitesaki: Partner
+    namae: Name
+    nyuuryokusha: Input person
+    delete_confirm: Do you want to delete?
+    shain: Employee
+    youken: Bussiness
+    kaiou: Reply
+    kensaku: Search
+    dengoichiran: Message list
+    kensaku: Search
+    hidzuke: Date
+    dengonnaiyou: Message content
+    soushin: Send
+    shuruimei: Type name
+    bikou: Remarks
+    kakuninzu: Confirmed
+    kyoka: Approval
+    yuusensa: Priority
+    import_csv_btn: Import CSV

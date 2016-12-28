@@ -1,7 +1,7 @@
 = provide(:title, (t 'title.bashokubunmst'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
-  %li= link_to '場所区分一覧', bashokubunmsts_path
-  %li.active 編集
+  %li= link_to (t 'title.menu'), main_path
+  %li= link_to (t 'title.bashokubunmst'), bashokubunmsts_path
+  %li.active= (t'title.edit')
 
 = render 'form', mode: :edit
