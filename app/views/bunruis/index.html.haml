@@ -1,14 +1,14 @@
 = javascript_include_tag 'bunruis'
 = provide(:title, (t 'title.bunrui'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
-  %li.active 分類マスタ
+  %li= link_to (t 'title.menu'), main_path
+  %li.active= (t 'title.bunruimaster')
 
 %table.bunruistable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
-      %th 分類コード
-      %th 分類名
+      %th= (t 'title.bunruicode')
+      %th= (t 'title.bunruimei')
       %th
       %th
 
@@ -17,13 +17,13 @@
       %tr
         %td= bunrui.分類コード
         %td= bunrui.分類名
-        %td= link_to '編集', edit_bunrui_path(bunrui)
+        %td= link_to (t 'title.edit'), edit_bunrui_path(bunrui)
         - confirm = t 'app.delete_confirm'
-        %td= link_to '削除', bunrui, :method => :delete, :data => { :confirm => confirm}
+        %td= link_to (t 'title.delete'), bunrui, :method => :delete, :data => { :confirm => confirm}
 
 %br
 
-= link_to '新規', new_bunrui_path
+= link_to (t 'title.new'), new_bunrui_path
 
 - if can? :update, @bunruis
   %h4=t 'app.label.import_csv'

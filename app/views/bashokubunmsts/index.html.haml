@@ -1,14 +1,14 @@
 = javascript_include_tag 'bashokubunmsts'
 = provide(:title, (t 'title.bashokubunmst'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
-  %li.active 場所区分一覧
+  %li= link_to (t 'title.menu'), main_path
+  %li.active= (t 'title.bashokubunmst')
 
 %table.bashokubunmsttable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
-      %th 場所区分コード
-      %th 場所区分名
+      %th= (t 'title.bashokubuncode')
+      %th= (t 'title.bashokubunmei')
       %th
       %th
 
@@ -17,13 +17,13 @@
       %tr
         %td= bashokubunmst.場所区分コード
         %td= bashokubunmst.場所区分名
-        %td= link_to '編集', edit_bashokubunmst_path(bashokubunmst)
+        %td= link_to (t 'title.edit'), edit_bashokubunmst_path(bashokubunmst)
         - display = t 'app.delete_confirm'
-        %td= link_to '削除', bashokubunmst, :method => :delete, :data => { :confirm => display }
+        %td= link_to (t 'title.delete'), bashokubunmst, :method => :delete, :data => { :confirm => display }
 
 %br
 
-= link_to '新規', new_bashokubunmst_path
+= link_to (t 'title.new'), new_bashokubunmst_path
 
 - if can? :update, @bashokubunmsts
   %h4=t 'app.label.import_csv'

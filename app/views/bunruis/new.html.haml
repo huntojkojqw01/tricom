@@ -1,7 +1,7 @@
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
-  %li= link_to '分類一覧', bunruis_path
-  %li.active 新規
+  %li= link_to (t 'title.menu'), main_path
+  %li= link_to (t 'title.bunrui'), bunruis_path
+  %li.active= (t 'title.new')
 
 = render 'form', mode: :new
 = provide(:title, (t 'title.bunrui'))

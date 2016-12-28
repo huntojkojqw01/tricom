@@ -336,3 +336,34 @@ ja:
     profilehenshuu: プロファイル編集
     scrolltime: スクロールタイム
     local: ローカル
+    bashocode: 場所コード
+    bashomei: 場所名
+    bashomeikana: 場所名カナ
+    bashokubun: 場所区分
+    kaishacode: 会社コード
+    edit: 編集
+    delete: 削除
+    new: 新規
+    bashokubuncode: 場所区分コード
+    bashokubunmei: 場所区分名
+    modoru: 戻る
+    bunruicode: 分類コード
+    bunruimei: 分類名
+    kaishamei: 会社名
+    aitesaki: 相手先
+    namae: 名前
+    nyuuryokusha: 入力者
+    delete_confirm: 削除で宜しですか。
+    shain: 社員
+    youken: 用件
+    kaitou: 回答
+    kensaku: 検索する
+    hidzuke: 日付
+    dengonnaiyou: 伝言内容
+    shousin: 送信
+    shuruimei: 種類名
+    bikou: 備考
+    kakuninzu: 確認済
+    kyouka: 許可
+    yuusensa: 優先さ
+    import_csv_btn: CSVをインポートする

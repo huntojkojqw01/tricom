@@ -1,11 +1,11 @@
 %p
-  %b 分類コード
+  %b= (t 'title.bunruicode')
   = @bunrui.分類コード
 %p
-  %b 分類名
+  %b= (t 'title.bunruimei')
   = @bunrui.分類名
 
-= link_to '編集', edit_bunrui_path(@bunrui)
+= link_to (t 'title.edit'), edit_bunrui_path(@bunrui)
 \|
-= link_to '戻る', bunruis_path
+= link_to (t 'title.modoru'), bunruis_path
 = provide(:title, (t 'title.bunrui'))
