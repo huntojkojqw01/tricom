@@ -485,6 +485,50 @@ $(function () {
             }
         });
     });
+
+    $('#clear_basho').click(function () {
+
+        $('#event_場所コード').val('');
+        $('.hint-basho-refer').text('');
+        $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
+        $('#event_場所コード').closest('.form-group').removeClass('has-error');
+        oBashoTable.$('tr.selected').removeClass('selected');
+        oBashoTable.$('tr.success').removeClass('success');
+
+    });
+
+
+
+    $('#clear_mybasho').click(function () {
+
+        $('#event_場所コード').val('');
+        $('.hint-basho-refer').text('');
+        $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
+        $('#event_場所コード').closest('.form-group').removeClass('has-error');
+        oMybashoTable.$('tr.selected').removeClass('selected');
+        oMybashoTable.$('tr.success').removeClass('success');
+
+    } );
+
+    $('#clear_job').click(function () {
+        $('#event_JOB').val('');
+        $('.hint-job-refer').text('')
+        $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+        $('#event_JOB').closest('.form-group').removeClass('has-error');
+        oJobTable.$('tr.selected').removeClass('selected');
+        oJobTable.$('tr.success').removeClass('success');
+    } );
+
+    $('#clear_myjob').click(function () {
+        $('#event_JOB').val('');
+        $('.hint-job-refer').text('')
+        $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+        $('#event_JOB').closest('.form-group').removeClass('has-error');
+        oMyjobTable.$('tr.selected').removeClass('selected');
+        oMyjobTable.$('tr.success').removeClass('success');
+    } );
+
+
     //$('#開始').click(function () {
     //    $('#event_開始').data("DateTimePicker").toggle();
     //});

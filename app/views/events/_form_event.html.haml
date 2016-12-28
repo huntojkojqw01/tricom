@@ -1,9 +1,9 @@
 = simple_form_for @event do |f|
   .col-md-4.col-xs-4.col-sm-4.col-lg-4.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
     - if !request["shain_id"].nil?
-      = f.input :社員番号, input_html: {style: 'width:100px', value: request["shain_id"]}
+      = f.input :社員番号, input_html: {style: 'width:100px', value: request["shain_id"]}, hint:"#{Shainmaster.find(request["shain_id"]).try :氏名}", hint_html: {class: 'hint-shain-refer'}
     - else
-      = f.input :社員番号, input_html: {style: 'width:100px'}
+      = f.input :社員番号, input_html: {style: 'width:100px'}, hint:"#{@event.shainmaster.try :氏名}", hint_html: {class: 'hint-shain-refer'}
     / = f.input :社員番号, input_html: {style: 'width:100px'}
     .row
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
@@ -29,17 +29,17 @@
     = f.input :comment, label: 'コメント'
 
     - if mode == 'new'
-      - if request["param"] == "timeline"
+      - if request["param"] == "timeline"|| param == 'timeline'
         = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary', id: 'timeline'
       - else
         = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'event'
 
     - if @event.計上 != '済' && mode == 'edit'
-      - if request["param"] == "timeline"
+      - if request["param"] == "timeline"|| param == 'timeline'
         = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary', id: 'timeline'
       - else
         = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'event'
-      - if request["param"] == "timeline"
+      - if request["param"] == "timeline"|| param == 'timeline'
         = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline'
       - else
         = f.button :submit, (t 'helpers.submit.destroy_other'), class: 'btn btn-primary', id: 'event'
