@@ -61,8 +61,11 @@ $(document).ready(function() {
                 dayRender: function(date, element, view){
                     // element.append("<button id='bt-new-"+date.format()+"' onclick='createEvent(\""+date.format()+"\"); return false;' "+
                     //                 "class='btn btn-primary' type='button'>新規</button>");
-                    element.append("<button id='bt-new-"+date.format()+"' onclick='showModal(\""+date.format()+"\"); return false;' "+
-                                    "value=1 class='btn btn-primary' type='button'>新規</button>");
+                    setsubiCode = $('#head_setsubicode').val();
+                    // element.append("<button id='bt-new-"+date.format()+"' onclick='showModal(\""+date.format()+"\"); return false;' "+
+                    //                 "value=1 class='btn btn-primary' type='button'>新規</button>");
+                    element.append('<a href="/setsubiyoyakus/new?start_at='+date.format()+'&setsubi_code='+setsubiCode+'"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
+                            // el.html('<a href="/events/new?shain_id='+resources.shainid+'"></a>');
 
                 }
 

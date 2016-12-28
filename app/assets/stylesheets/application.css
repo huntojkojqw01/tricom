@@ -72,12 +72,17 @@
   color : rgb(255, 255, 255);
 }
 
-.glyphicon.glyphicon-home.root{
+.navbar-inverse .navbar-brand.root{
   color: rgb(255, 255, 255);
   font-size: 18.9px;
 
 }
-
+.navbar.rarius{
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
 .icon {
   font-size: 20px;
 
