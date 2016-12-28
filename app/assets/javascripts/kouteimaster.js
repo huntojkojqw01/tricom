@@ -6,7 +6,7 @@ $(function(){
         //"scrollX": true,
         //"scrollCollapse": true,
         "oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_ja.txt"
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         },
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 3,4 ]},

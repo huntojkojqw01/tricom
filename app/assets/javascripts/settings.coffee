@@ -5,7 +5,7 @@ jQuery ->
   oTable = $('.setting-table').DataTable({
     "pagingType": "full_numbers",
     "oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     "aoColumnDefs": [
         { "bSortable": false, "aTargets": [ 4,5 ]},

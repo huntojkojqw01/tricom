@@ -67,7 +67,7 @@ jQuery ->
   oJoutai_search_modal = $('#joutai_table').DataTable({
     "pagingType": "simple_numbers"
     ,"oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }})
 
   joutaikubun = ''
@@ -204,7 +204,7 @@ jQuery ->
   oDaikyuTable = $('.daikyutable').DataTable({
     "pagingType": "simple_numbers"
     ,"oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_ja.txt"
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
   })
 

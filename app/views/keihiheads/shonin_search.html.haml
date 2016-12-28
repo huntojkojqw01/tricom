@@ -2,7 +2,7 @@
 = stylesheet_link_tag 'keihis'
 = provide(:title, (t 'title.shonin_search'))
 %ol.breadcrumb
-  %li= link_to 'メニュー', main_path
+  %li= link_to (t 'title.menu'), main_path
   %li.active 経費承認一覧
 
 -#= form_tag shoninzumi_keihiheads_path, class:'form-inline' do |f|
