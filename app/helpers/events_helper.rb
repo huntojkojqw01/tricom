@@ -1,20 +1,20 @@
 module EventsHelper
-  
+
   def get_shozoku(user_id)
     User.find(user_id).shainmaster.shozokumaster
   end
-  
+
   def get_koutei_name(koutei_code, user_id)
     shozoku_code = User.find(user_id).shainmaster.try :所属コード
     Kouteimaster.find_by(所属コード: shozoku_code, 工程コード: koutei_code).try :工程名
   end
-  
+
   # def get_yakushoku(shainbango)
   #   # yakushoku_code = Shainmaster.find_by(連携用社員番号: shainbango).try :役職コード
   #   shain = Shainmaster.find_by(連携用社員番号: shainbango)
   #   yakushoku_name = shain.yakushokumaster.役職名
   #   # Yakushokumaster.find_by(役職コード: yakushoku_code).try :役職名
-  #   
+  #
   # end
 
   # def binding_event_by_change_user(user_id)
@@ -40,7 +40,7 @@ module EventsHelper
     # event.shozai = Shozai.find_by 所在コード: event_params[:所在コード]
     event.jobmaster = Jobmaster.find_by job番号: event_params[:JOB]
   end
-  
+
   def check_user_status
     Shainmaster.all.each do |shain|
       if shain.events.where("Date(開始) = ?", Date.current).count == 0
@@ -53,11 +53,11 @@ module EventsHelper
       end
     end
   end
-  
+
   def kitaku
     # shain = User.find(session[:user]).shainmaster
     shain = Shainmaster.find session[:selected_shain]
-    
+
     # event_search = shain.events.where("Date(終了) = ?",Date.today.to_s(:db))
     # .events.where("Date(終了) = ?", Time.now)
 
@@ -67,4 +67,16 @@ module EventsHelper
     event.joutaimaster = Joutaimaster.find_by(code: '99')
     event.save
   end
+
+  def get_koushuu(start_time, end_time)
+    date_1 = start_time.to_datetime
+    date_2 = end_time.to_datetime
+    koushuu = ((date_2 - date_1)*24)
+    if koushuu < 0
+      return 0
+    else
+      return koushuu
+    end
+  end
+
 end

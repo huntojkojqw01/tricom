@@ -3,7 +3,7 @@
 
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
-  <%if request["param"] == "timeline"%>
+  <%if request["param"] == "timeline"|| local_assigns[:param] == 'timeline'%>
     <li><%= link_to 'タイムライン', time_line_view_events_path %></li>
     <%provide(:title, (t 'title.time_line_view'))%>
   <%else %>
@@ -16,4 +16,4 @@
   <li class="active">イベント</li>
 </ol>
 
-<%= render 'form_event', mode: 'new' %>
+<%= render 'form_event', mode: 'new', param: local_assigns[:param] %>

@@ -138,25 +138,56 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = User.find(session[:user]).shainmaster.events.new event_params
-    # set_fkey @event, event_params
-    flash[:notice] = t 'app.flash.new_success' if @event.save
-
-    # if @event.save
-    #   flash[:notice] = t 'app.flash.new_success'
-    # else
-    #   @event.build_joutaimaster
+    attributes = event_params.clone
+    if event_params[:終了] == '' && event_params[:開始] != ''
+      date = Time.now.strftime("%Y/%m/%d")
+      attributes[:終了] = "#{date} 18:00"
+    end
+    # if attributes[:開始]!= '' && attributes[:終了]!= ''&&attributes[:工数]== ''
+    #   attributes[:工数]= get_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
     # end
+
+    @event = User.find(session[:user]).shainmaster.events.new attributes
+
+    # flash[:notice] = t 'app.flash.new_success' if @event.save
+    # case params[:commit]
+    #   when (t 'helpers.submit.create')
+    #     respond_with @event, location: time_line_view_events_url, action: 'new',locals: { param: 'timeline'}
+    #   when (t 'helpers.submit.create_other')
+    #     respond_with @event, location: events_url
+    # end
+
     case params[:commit]
       when (t 'helpers.submit.create')
-        respond_with @event, location: time_line_view_events_url
+        respond_to do |format|
+          if @event.save
+            flash[:notice] = t 'app.flash.new_success'
+            format.html { redirect_to time_line_view_events_url }
+            format.xml { render xml: @event, status: :created, location: @event }
+          else
+            format.html {render action: 'new', locals: { param: 'timeline'}}
+            format.xml { render xml: @event.errors, status: :unprocessable_entity }
+          end
+        end
       when (t 'helpers.submit.create_other')
+        flash[:notice] = t 'app.flash.new_success' if @event.save
         respond_with @event, location: events_url
     end
 
   end
 
   def update
+
+    attributes = event_params.clone
+    if event_params[:終了] == '' && event_params[:開始] != ''
+      date = Time.now.strftime("%Y/%m/%d")
+      attributes[:終了] = "#{date} 18:00"
+    end
+
+    # if attributes[:開始]!= '' && attributes[:終了]!= '' && attributes[:工数]== ''
+    #   attributes[:工数]= get_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
+    # end
+
     case params[:commit]
       when (t 'helpers.submit.destroy_other')
         flash[:notice] = t 'app.flash.delete_success' if @event.destroy
@@ -165,17 +196,19 @@ class EventsController < ApplicationController
         flash[:notice] = t 'app.flash.delete_success' if @event.destroy
         redirect_to time_line_view_events_url
       when (t 'helpers.submit.create_other')
-        # set_fkey @event, event_params
-        flash[:notice] = t 'app.flash.update_success' if @event.update event_params
-        # joutai = Joutaimaster.find_by code: event_params[:状態コード]
-        # joutai.update color: params['input-backgroud-color'], text_color: params['input-text-color']
+        flash[:notice] = t 'app.flash.update_success' if @event.update attributes
         respond_with @event, location: events_url
       when (t 'helpers.submit.create')
-        # set_fkey @event, event_params
-        flash[:notice] = t 'app.flash.update_success' if @event.update event_params
-        # joutai = Joutaimaster.find_by code: event_params[:状態コード]
-        # joutai.update color: params['input-backgroud-color'], text_color: params['input-text-color']
-        respond_with @event, location: time_line_view_events_url
+        respond_to do |format|
+          if @event.update attributes
+            flash[:notice] = t 'app.flash.update_success'
+            format.html { redirect_to time_line_view_events_url }
+            format.xml { render xml: @event, status: :created, location: @event }
+          else
+            format.html {render action: 'edit', locals: { param: 'timeline'}}
+            format.xml { render xml: @event.errors, status: :unprocessable_entity }
+          end
+        end
     end
   end
 
