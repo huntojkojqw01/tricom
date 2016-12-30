@@ -1,6 +1,7 @@
 class KikanmstsController < ApplicationController
   before_action :require_user!
   before_action :set_kikanmst, only: [:show, :edit, :update, :destroy]
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
   load_and_authorize_resource except: :export_csv
 
   respond_to :html
@@ -70,6 +71,43 @@ class KikanmstsController < ApplicationController
     end
   end
 
+  def ajax
+    case params[:focus_field]
+      when 'kikan_削除する'
+        eki = Kikanmst.find_by(機関コード: params[:kikan_id]).destroy
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+
+  def create_modal
+    @kikanmst = Kikanmst.new(kikanmst_params)
+
+    respond_to do |format|
+      if  @kikanmst.save
+        format.js { render 'create_modal'}
+      else
+        format.js { render json: @kikanmst.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update_modal
+
+    @kikanmst = Kikanmst.find(kikanmst_params[:機関コード])
+
+    respond_to do |format|
+      if  @kikanmst.update(kikanmst_params)
+        format.js { render 'update_modal'}
+      else
+        format.js { render json: @kikanmst.errors, status: :unprocessable_entity}
+      end
+    end
+
+  end
+
   private
     def set_kikanmst
       @kikanmst = Kikanmst.find(params[:id])
@@ -77,5 +115,9 @@ class KikanmstsController < ApplicationController
 
     def kikanmst_params
       params.require(:kikanmst).permit(:機関コード, :機関名, :備考 )
+    end
+
+    def set_param
+      @kikanmst = Kikanmst.new
     end
 end

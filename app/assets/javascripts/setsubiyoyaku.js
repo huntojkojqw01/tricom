@@ -69,40 +69,14 @@ $(document).ready(function() {
                             // el.html('<a href="/events/new?shain_id='+resources.shainid+'"></a>');
 
                 }
-
-                // resourceColumns: [
-                //     {
-                //         labelText: '日付',
-                //         field: 'hizuke',
-                //         width: 60,
-                //         render: function(resources, el) {
-                //             el.css('background-color', '#67b168');
-                //         }
-                //     }
-                // ]
-                // ,resources: data.hizukes
             }
         );
-    //    $('#setsubiyoyaku-timeline').fullCalendar( 'renderEvent', data.setsubiyoyakus )
-        // var nowDate = new Date();
-        // var date = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日";
-        // $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
-        // setsubiyoyaku_timeline.find('.fc-today-button').click(function(){
-        //     var currentDate = new Date();
-        //     var date = currentDate.getFullYear()+"年"+(currentDate.getMonth()+1)+"月"+currentDate.getDate()+"日";
-        //     $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
-
-        // });
-
-
-
     });
 
 
    // $('html, body').animate({scrollTop:$(document).height()/2});
 
 });
-
 
 function updateEvent(the_event){
     jQuery.ajax({
@@ -127,65 +101,6 @@ function showModal(date) {
     window.open('/setsubiyoyakus/new?start_at='+date+'&setsubi_code='+setsubiCode,"_self");
 
 }
-
-
-// readjust sizing after font load
-// $(window).on('load', function() {
-
-//     $('#setsubiyoyaku-timeline').fullCalendar('render');
-// });
-
-// // $(function(){
-// //     var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
-// //     var currentDate = new Date();
-// //     var calDate = moment(selectedDate).format();
-// //     //alert(calDate);
-
-
-// //     if(new Date(calDate) <= currentDate.format ){
-// //         alert('before date'+ new Date(calDate) +"||"+ currentDate);
-// //     }
-// // });
-
-
-// $(document).on("click", ".fc-next-button", function(){
-
-//     var selectedDate = $('#setsubiyoyaku-timeline').fullCalendar('getDate');
-//     var calDate = new Date(moment(selectedDate).format(''));
-
-//     var currentDate = new Date();
-
-//     var date = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日";
-//     if(calDate.getDate()==currentDate.getDate()&&calDate.getMonth()==currentDate.getMonth()&&calDate.getFullYear()==currentDate.getFullYear()){
-//         $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
-
-
-//     }else if(calDate > currentDate ){
-//         $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(予定)</h2></div>');
-//    }
-
-
-// });
-
-
-// $(document).on("click", ".fc-prev-button", function(){
-
-//     var selectedDate = $('#setsubiyoyaku-timeline').fullCalendar('getDate');
-//     var calDate = new Date(moment(selectedDate).format(''));
-
-//     var currentDate = new Date();
-
-//     var date = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日";
-//     if(calDate.getDate()==currentDate.getDate()&&calDate.getMonth()==currentDate.getMonth()&&calDate.getFullYear()==currentDate.getFullYear()){
-//         $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
-
-
-//     }else if(calDate > currentDate ){
-//         $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(予定)</h2></div>');
-//     }
-
-// });
-
 
 
 function getDaysInMonth(month, year) {

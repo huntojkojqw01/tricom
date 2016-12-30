@@ -1,0 +1,9 @@
+$('#shozoku-edit-modal').modal('hide');
+$("#shozokumaster").dataTable().fnDeleteRow($('#shozokumaster').find('tr.selected').remove())
+$("#shozokumaster").dataTable().fnDraw()
+
+ var table = $('#shozokumaster').DataTable();
+ table.row.add( ["<%=@shozokumaster.所属コード%>","<%=@shozokumaster.所属名%>"] ).draw( false );
+ $("#edit_shozoku").attr("disabled", true);
+ $("#destroy_shozoku").attr("disabled", true);
+

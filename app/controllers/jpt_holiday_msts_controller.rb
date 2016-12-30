@@ -1,9 +1,10 @@
 class JptHolidayMstsController < ApplicationController
   before_action :require_user!
   before_action :set_jpt_holiday_mst, only: [:show, :edit, :update, :destroy]
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
   load_and_authorize_resource except: :export_csv
 
-  respond_to :js
+  respond_to :js,:html
 
   def index
     @jpt_holiday_msts = JptHolidayMst.all
@@ -69,12 +70,53 @@ class JptHolidayMstsController < ApplicationController
     end
   end
 
+   def ajax
+    case params[:focus_field]
+      when 'holiday_削除する'
+        holiday = JptHolidayMst.find(params[:holiday_id]).destroy
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+
+  def create_holiday
+    @jpt_holiday_mst = JptHolidayMst.new(jpt_holiday_mst_params)
+
+    respond_to do |format|
+      if  @jpt_holiday_mst.save
+        format.js { render 'create_holiday'}
+      else
+        format.js { render json: @jpt_holiday_mst.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update_holiday
+    @jpt_holiday_mst = JptHolidayMst.find(jpt_holiday_mst_params[:id])
+
+    respond_to do |format|
+      if  @jpt_holiday_mst.update(jpt_holiday_mst_params)
+        format.js { render 'update_holiday'}
+      else
+        format.js { render json: @jpt_holiday_mst.errors, status: :unprocessable_entity}
+      end
+    end
+
+  end
+
+
   private
   def set_jpt_holiday_mst
     @jpt_holiday_mst = JptHolidayMst.find_by id: params[:id]
   end
 
   def jpt_holiday_mst_params
-    params.require(:jpt_holiday_mst).permit(:event_date, :title, :description)
+    params.require(:jpt_holiday_mst).permit(:id, :event_date, :title, :description)
+  end
+
+  def set_param
+      @jpt_holiday_mst = JptHolidayMst.new
   end
 end

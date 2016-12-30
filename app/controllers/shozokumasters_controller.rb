@@ -1,6 +1,7 @@
 class ShozokumastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
+  before_action :set_param, only: :index
   load_and_authorize_resource except: :export_csv
   respond_to :js
 
@@ -66,8 +67,49 @@ class ShozokumastersController < ApplicationController
     end
   end
 
-  private
-  def shozokumaster_params
-    params.require(:shozokumaster).permit :所属コード, :所属名
+   def ajax
+    case params[:focus_field]
+      when 'shozoku_削除する'
+        shozoku = Shozokumaster.find(params[:shozoku_id]).destroy
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
   end
+
+  def create_shozoku
+    @shozokumaster = Shozokumaster.new(shozokumaster_params)
+
+    respond_to do |format|
+      if  @shozokumaster.save
+        format.js { render 'create_shozoku'}
+      else
+        format.js { render json: @shozokumaster.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update_shozoku
+    @shozokumaster = Shozokumaster.find(shozokumaster_params[:所属コード])
+
+    respond_to do |format|
+      if  @shozokumaster.update(shozokumaster_params)
+        format.js { render 'update_shozoku'}
+      else
+        format.js { render json: @shozokumaster.errors, status: :unprocessable_entity}
+      end
+    end
+
+  end
+
+
+
+  private
+    def shozokumaster_params
+      params.require(:shozokumaster).permit :所属コード, :所属名
+    end
+    def set_param
+      @shozokumaster = Shozokumaster.new
+    end
 end

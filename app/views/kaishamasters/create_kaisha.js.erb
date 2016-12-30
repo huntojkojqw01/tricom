@@ -1,0 +1,5 @@
+ $('#kaisha-new-modal').modal('hide');
+
+ var table = $('#kaishamaster-table').DataTable();
+
+ table.row.add( ["<%=@kaishamaster.会社コード%>","<%=@kaishamaster.会社名%>","<%=@kaishamaster.備考%>"] ).draw( false );

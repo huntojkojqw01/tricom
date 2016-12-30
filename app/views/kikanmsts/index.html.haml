@@ -10,8 +10,8 @@
       %th 機関コード
       %th 機関名
       %th 備考
-      %th
-      %th
+      / %th
+      / %th
 
   %tbody
     - @kikanmsts.each do |kikanmst|
@@ -19,13 +19,20 @@
         %td= kikanmst.機関コード
         %td= kikanmst.機関名
         %td= kikanmst.備考
-        %td= link_to '編集', edit_kikanmst_path(kikanmst)
-        - msg = t 'app.delete_confirm'
-        %td= link_to '削除', kikanmst, :method => :delete, :data => { :confirm => msg }
+        / %td= link_to '編集', edit_kikanmst_path(kikanmst)
+        / - msg = t 'app.delete_confirm'
+        / %td= link_to '削除', kikanmst, :method => :delete, :data => { :confirm => msg }
 
 %br
+- msg_select = t 'app.select_confirm'
+- msg_confirm = t 'app.delete_confirm'
+.span#message_confirm_select{hidden: :true} #{msg_select}
+.span#message_confirm_delete{hidden: :true} #{msg_confirm}
+%button.btn.btn-primary#new_kikan{type: :button} 新規
+%button.btn.btn-primary#edit_kikan{type: :button} 編集
+%button.btn.btn-primary#destroy_kikan{type: :button} 削除
 
-= link_to '新規', new_kikanmst_path
+/ = link_to '新規', new_kikanmst_path
 
 - if can? :update, @kikanmsts
   %h4=t 'app.label.import_csv'
@@ -36,3 +43,6 @@
     .form-group
       = label_tag 'importcsv', nil, class: 'sr-only'
       = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+
+= render 'kikan_new_modal'
+= render 'kikan_edit_modal'

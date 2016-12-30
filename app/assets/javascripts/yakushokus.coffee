@@ -4,12 +4,112 @@ jQuery ->
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
-    "aoColumnDefs": [
-      { "bSortable": false, "aTargets": [ 2,3 ]},
-      {"targets": [2,3],"width": '5%'}
-    ],
+
     "columnDefs": [{
       "targets"  : 'no-sort',
       "orderable": false
     }]
   })
+  $("#edit_yakushoku").attr("disabled", true);
+  $("#destroy_yakushoku").attr("disabled", true);
+
+
+  $(document).bind('ajaxError', 'form#new_yakushokumaster', (event, jqxhr, settings, exception) ->
+    $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
+  )
+
+  $.fn.render_form_errors = (errors) ->
+    $form = this;
+    this.clear_previous_errors();
+    model = this.data('model');
+
+
+    $.each(errors, (field, messages) ->
+      $input = $('input[name="' + model + '[' + field + ']"]');
+      $input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') );
+    );
+
+
+  $.fn.clear_previous_errors = () ->
+    $('.form-group.has-error', this).each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+
+
+  $('#yakushoku_table').on( 'click', 'tr',  () ->
+    d = oTable.row(this).data()
+    if d != undefined
+      if $(this).hasClass('selected')
+        $(this).removeClass('selected')
+        $(this).removeClass('success')
+        $("#edit_yakushoku").attr("disabled", true);
+        $("#destroy_yakushoku").attr("disabled", true);
+      else
+        oTable.$('tr.selected').removeClass('selected')
+        oTable.$('tr.success').removeClass('success')
+        $(this).addClass('selected')
+        $(this).addClass('success')
+        $("#edit_yakushoku").attr("disabled", false);
+        $("#destroy_yakushoku").attr("disabled", false);
+  )
+
+  $('#destroy_yakushoku').click () ->
+    yakushoku = oTable.row('tr.selected').data()
+
+    if yakushoku == undefined
+      alert($('#message_confirm_select').text())
+    else
+      response = confirm($('#message_confirm_delete').text())
+      if response
+        $.ajax({
+          url: '/yakushokumasters/ajax',
+          data:{
+            focus_field: 'yakushoku_削除する',
+            yakushoku_id: yakushoku[0]
+          },
+
+          type: "POST",
+
+          success: (data) ->
+            if data.destroy_success != null
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+              $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+              $("#yakushoku_table").dataTable().fnDraw()
+              $("#edit_yakushoku").attr("disabled", true);
+              $("#destroy_yakushoku").attr("disabled", true);
+          failure: () ->
+            console.log("yakushoku_削除する keydown Unsuccessful")
+            $("#edit_yakushoku").attr("disabled", false);
+            $("#destroy_yakushoku").attr("disabled", false);
+
+        })
+
+      else
+        $("#edit_yakushoku").attr("disabled", false)
+        $("#destroy_yakushoku").attr("disabled", false)
+
+
+  $('#new_yakushoku').click () ->
+    $('#yakushoku-new-modal').modal('show')
+    $('#yakushokumaster_役職コード').val('')
+    $('#yakushokumaster_役職名').val('')
+
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+
+  $('#edit_yakushoku').click () ->
+    yakushoku = oTable.row('tr.selected').data()
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+    if yakushoku == undefined
+      alert("行を選択してください。")
+    else
+      $('#yakushoku-edit-modal').modal('show')
+      $('#yakushokumaster_役職コード').val(yakushoku[0])
+      $('#yakushokumaster_役職名').val(yakushoku[1])
+

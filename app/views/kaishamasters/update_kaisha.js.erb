@@ -1,0 +1,9 @@
+$('#kaisha-edit-modal').modal('hide');
+$("#kaishamaster-table").dataTable().fnDeleteRow($('#kaishamaster-table').find('tr.selected').remove())
+$("#kaishamaster-table").dataTable().fnDraw()
+
+ var table = $('#kaishamaster-table').DataTable();
+ table.row.add( ["<%=@kaishamaster.会社コード%>","<%=@kaishamaster.会社名%>","<%=@kaishamaster.備考%>"] ).draw( false );
+ $("#edit_kaisha").attr("disabled", true);
+ $("#destroy_kaisha").attr("disabled", true);
+

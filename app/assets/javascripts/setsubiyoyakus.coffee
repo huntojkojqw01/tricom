@@ -42,6 +42,7 @@ jQuery ->
   $('#kaisha-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKaishaTable.row(this).data()
     $('#setsubiyoyaku_相手先').val(d[0])
+    $('.hint-kaisha-refer').text(d[1])
     $('#kaisha-name').text(d[1])
 
     if ( $(this).hasClass('selected') )
@@ -52,6 +53,15 @@ jQuery ->
       oKaishaTable.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
+
+  $('#clear_kaisha').click () ->
+    $('#setsubiyoyaku_相手先').val('');
+    $('.hint-kaisha-refer').text('');
+    $('#setsubiyoyaku_相手先').closest('.form-group').find('span.help-block').remove();
+    $('#setsubiyoyaku_相手先').closest('.form-group').removeClass('has-error');
+    oKaishaTable.$('tr.selected').removeClass('selected');
+    oKaishaTable.$('tr.success').removeClass('success');
+
 
   $(document).on 'click', '.refer-kaisha', (event) ->
     $('#kaisha-search-modal').modal('show')

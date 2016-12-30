@@ -84,7 +84,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :kikanmsts do
-    collection {post :import}
+    collection {post :import, :ajax, :create_modal, :update_modal}
     collection {get :export_csv}
   end
 
@@ -115,7 +115,7 @@ Jpt::Application.routes.draw do
 
 
   resources :jpt_holiday_msts do
-    collection {post :ajax, :import}
+    collection {post :ajax, :import, :create_holiday, :update_holiday}
     collection{get :export_csv}
   end
 
@@ -138,7 +138,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :yakushokumasters, param: :id do
-    collection {post :ajax, :import}
+    collection {post :ajax, :import, :create_yakushoku, :update_yakushoku}
     collection {get :export_csv}
   end
 
@@ -153,7 +153,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :shozokumasters do
-    collection {post :import}
+    collection {post :import, :ajax, :create_shozoku, :update_shozoku}
     collection {get :export_csv}
   end
 
@@ -163,7 +163,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :kaishamasters, param: :id do
-    collection { post :import}
+    collection { post :import, :ajax, :create_kaisha, :update_kaisha}
     collection {get :export_csv}
   end
 

@@ -1,0 +1,15 @@
+.modal#yakushoku-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 役職編集
+      .modal-body
+        = simple_form_for @yakushokumaster, url: update_yakushoku_yakushokumasters_path, :remote => true, html: {role: :form, 'data-model' => 'yakushokumaster'} do |f|
+          = f.input :役職コード, as: :hidden do
+            = f.input_field :役職コード, class: 'form-control'
+            .span.help-block
+          = f.input :役職名 do
+            = f.input_field :役職名, class: 'form-control'
+            .span.help-block
+          = f.button :submit, class: 'btn btn-primary'

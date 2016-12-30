@@ -13,8 +13,8 @@
       <th>会社コード</th>
       <th>会社名</th>
       <th>備考</th>
-      <th></th>
-      <th></th>
+     <!--  <th></th>
+      <th></th> -->
     </tr>
   </thead>
 
@@ -24,17 +24,25 @@
       <td><%= kaishamaster.id %></td>
         <td><%= kaishamaster.name %></td>
         <td><%= kaishamaster.note %></td>
-        <td><%= link_to '編集', edit_kaishamaster_path(kaishamaster) %></td>
+        <!-- <td><%= link_to '編集', edit_kaishamaster_path(kaishamaster) %></td>
         <% msg = t "app.delete_confirm" %>
-        <td><%= link_to '削除', kaishamaster, method: :delete, data: { confirm: msg } %></td>
+        <td><%= link_to '削除', kaishamaster, method: :delete, data: { confirm: msg } %></td> -->
       </tr>
     <% end %>
   </tbody>
 </table>
 
 <br>
+<% msg_select = t 'app.select_confirm' %>
+<% msg_confirm = t 'app.delete_confirm' %>
+<span id='message_confirm_select' hidden='true'><%=msg_select%></span>
+<span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
+<button class='btn btn-primary' id='new_kaisha' type= 'button'>新規</button>
+<button class='btn btn-primary' id='edit_kaisha' type= 'button'>編集</button>
+<button class='btn btn-primary' id='destroy_kaisha' type= 'button'>削除</button>
+<!--
+<%= link_to '新規', new_kaishamaster_path %> -->
 
-<%= link_to '新規', new_kaishamaster_path %>
 <% if can? :update, @kaishamasters %>
   <h4><%=t 'app.label.import_csv'%></h4>
   <%= form_tag import_kaishamasters_path,class:'form-inline', multipart: true do %>
@@ -48,3 +56,6 @@
       </div>
   <% end %>
 <% end %>
+
+<%= render 'kaisha_edit_modal' %>
+<%= render 'kaisha_new_modal' %>

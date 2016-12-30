@@ -1,0 +1,5 @@
+ $('#holiday-new-modal').modal('hide');
+
+ var table = $('#holiday_table').DataTable();
+
+ table.row.add( ["<%=@jpt_holiday_mst.id%>","<%=@jpt_holiday_mst.event_date%>","<%=@jpt_holiday_mst.title%>","<%=@jpt_holiday_mst.description%>"] ).draw( false );
