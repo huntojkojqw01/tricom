@@ -1,0 +1,5 @@
+ $('#shozoku-new-modal').modal('hide');
+
+ var table = $('#shozokumaster').DataTable();
+
+ table.row.add( ["<%=@shozokumaster.所属コード%>","<%=@shozokumaster.所属名%>"] ).draw( false );

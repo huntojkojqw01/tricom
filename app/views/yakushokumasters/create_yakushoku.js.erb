@@ -1,0 +1,3 @@
+ $('#yakushoku-new-modal').modal('hide');
+ var table = $('#yakushoku_table').DataTable();
+ table.row.add( ["<%=@yakushokumaster.役職コード%>","<%=@yakushokumaster.役職名%>"] ).draw( false );

@@ -1,0 +1,21 @@
+.modal#holiday-new-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel ジュピター休日新規
+      .modal-body
+        = simple_form_for @jpt_holiday_mst, url: create_holiday_jpt_holiday_msts_path, :remote => true, html: {role: :form, 'data-model' => 'jpt_holiday_mst'} do |f|
+          / = f.input :ID do
+          /   = f.input_field :id, class: 'form-control'
+          /   .span.help-block
+          = f.input :休日 do
+            = f.input_field :event_date, class: 'form-control'
+            .span.help-block
+          = f.input :タイトル do
+            = f.input_field :title, class: 'form-control'
+            .span.help-block
+          = f.input :備考 do
+            = f.input_field :description, class: 'form-control'
+            .span.help-block
+          = f.button :submit, class: 'btn btn-primary'

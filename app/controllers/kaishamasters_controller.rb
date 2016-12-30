@@ -1,6 +1,7 @@
 class KaishamastersController < ApplicationController
   before_action :require_user!
   before_action :set_kaishamaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_param, only: :index
   load_and_authorize_resource except: :export_csv
 
   respond_to :js
@@ -70,6 +71,44 @@ class KaishamastersController < ApplicationController
     end
   end
 
+   def ajax
+    case params[:focus_field]
+      when 'kaisha_削除する'
+        kaisha = Kaishamaster.find(params[:kaisha_id]).destroy
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+
+  def create_kaisha
+    @kaishamaster = Kaishamaster.new(kaishamaster_params)
+
+    respond_to do |format|
+      if  @kaishamaster.save
+        format.js { render 'create_kaisha'}
+      else
+        format.js { render json: @kaishamaster.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update_kaisha
+    @kaishamaster = Kaishamaster.find(kaishamaster_params[:会社コード])
+
+    respond_to do |format|
+      if  @kaishamaster.update(kaishamaster_params)
+        format.js { render 'update_kaisha'}
+      else
+        format.js { render json: @kaishamaster.errors, status: :unprocessable_entity}
+      end
+    end
+
+  end
+
+
+
   private
     def set_kaishamaster
       @kaishamaster = Kaishamaster.find(params[:id])
@@ -77,5 +116,9 @@ class KaishamastersController < ApplicationController
 
     def kaishamaster_params
       params.require(:kaishamaster).permit(:会社コード, :会社名, :備考)
+    end
+
+    def set_param
+      @kaishamaster = Kaishamaster.new
     end
 end

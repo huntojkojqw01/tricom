@@ -1,0 +1,18 @@
+.modal#kaisha-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 会社編集
+      .modal-body
+        = simple_form_for @kaishamaster, url: update_kaisha_kaishamasters_path, :remote => true, html: {role: :form, 'data-model' => 'kaishamaster'} do |f|
+          = f.input :会社コード, as: :hidden do
+            = f.input_field :会社コード, class: 'form-control'
+            .span.help-block
+          = f.input :会社名 do
+            = f.input_field :会社名, class: 'form-control'
+            .span.help-block
+          = f.input :備考 do
+            = f.input_field :備考, class: 'form-control'
+            .span.help-block
+          = f.button :submit, class: 'btn btn-primary'

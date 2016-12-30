@@ -1,0 +1,9 @@
+$('#holiday-edit-modal').modal('hide');
+$("#holiday_table").dataTable().fnDeleteRow($('#holiday_table').find('tr.selected').remove())
+$("#holiday_table").dataTable().fnDraw()
+
+ var table = $('#holiday_table').DataTable();
+ table.row.add( ["<%=@jpt_holiday_mst.id%>","<%=@jpt_holiday_mst.event_date%>","<%=@jpt_holiday_mst.title%>","<%=@jpt_holiday_mst.description%>"] ).draw( false );
+ $("#edit_holiday").attr("disabled", true);
+ $("#destroy_holiday").attr("disabled", true);
+

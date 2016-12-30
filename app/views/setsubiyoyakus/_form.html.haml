@@ -9,7 +9,7 @@
     = f.input :開始, as: :date_time_picker
     = f.input :終了, as: :date_time_picker
     = f.input :用件
-    = f.input :相手先, wrapper: :vertical_input_group do
+    = f.input :相手先, wrapper: :vertical_input_group , hint:"#{@setsubiyoyaku.kaishamaster.try :会社名}", hint_html: {class: 'hint-kaisha-refer'} do
       = f.input_field :相手先, class: 'form-control'
       %span.input-group-addon.refer-kaisha
         %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}

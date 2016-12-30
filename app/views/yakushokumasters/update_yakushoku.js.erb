@@ -1,0 +1,9 @@
+ $('#yakushoku-edit-modal').modal('hide');
+$("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+$("#yakushoku_table").dataTable().fnDraw()
+
+ var table = $('#yakushoku_table').DataTable();
+ table.row.add( ["<%=@yakushokumaster.役職コード%>","<%=@yakushokumaster.役職名%>"] ).draw( false );
+ $("#edit_yakushoku").attr("disabled", true);
+ $("#destroy_yakushoku").attr("disabled", true);
+
