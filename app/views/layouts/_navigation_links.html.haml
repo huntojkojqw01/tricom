@@ -73,4 +73,5 @@
         - else
           %li= link_to (t 'title.login'), login_path
     - else
-      = link_to raw(t 'title.kinmukanrishisutemu'), root_path, :class => "glyphicon glyphicon-home root navbar-brand"
+      / = link_to raw(t 'title.kinmukanrishisutemu'), root_path, :class => "glyphicon glyphicon-home root navbar-brand"
+      = link_to raw("<span class='navbar-brand root'><i class='glyphicon glyphicon-home' style='margin-right:1em;'></i>"+(t 'title.kinmukanrishisutemu')+"</span>"), root_path
