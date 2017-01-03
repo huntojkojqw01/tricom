@@ -31,7 +31,11 @@
 //= require dataTables/dataTables.fixedColumns.min
 //= require dataTables/dataTables.select.min
 //= require dataTables/dataTables.buttons.min
-
+//= require dataTables/buttons.html5.min
+//= require dataTables/jszip.min
+//= require dataTables/pdfmake.min
+//= require dataTables/vfs_fonts
+// require dataTables/jquery-1.12.4
 //= require bootstrap-datetimepicker
 //= require bootstrap-colorpicker
 

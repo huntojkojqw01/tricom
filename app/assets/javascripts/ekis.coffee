@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
   oEkiTable = $('.ekitable').DataTable({
+    "dom": 'lBfrtip',
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
@@ -11,7 +12,24 @@ jQuery ->
     "columnDefs": [ {
       "targets"  : 'no-sort',
       "orderable": false
-    }]
+    }],
+
+    "buttons": [{
+                "extend":    'copyHtml5',
+                "text":      '<i class="fa fa-files-o"></i>',
+                "titleAttr": 'Copy'
+            },
+            {
+                "extend":    'excelHtml5',
+                "text":      '<i class="fa fa-file-excel-o"></i>',
+                "titleAttr": 'Excel'
+            },
+            {
+                "extend":    'csvHtml5',
+                "text":      '<i class="fa fa-file-text-o"></i>',
+                "titleAttr": 'CSV'
+            }
+            ]
   })
 
   $("#edit_eki").attr("disabled", true);
