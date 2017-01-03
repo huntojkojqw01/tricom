@@ -2,18 +2,18 @@
 <%= javascript_include_tag 'events' %>
 
 <ol class="breadcrumb">
-  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to (t 'title.menu'), main_path %></li>
   <%if request["param"] == "timeline"|| local_assigns[:param] == 'timeline'%>
-    <li><%= link_to 'タイムライン', time_line_view_events_path %></li>
+    <li><%= link_to (t 'title.time_line_view'), time_line_view_events_path %></li>
     <%provide(:title, (t 'title.time_line_view'))%>
   <%else %>
-    <li><%= link_to 'カレンダー', events_path %></li>
+    <li><%= link_to (t 'title.event'), events_path %></li>
     <%provide(:title, (t 'title.event'))%>
   <%end%>
   <!-- <li><%= link_to 'カレンダー', events_path %></li> -->
   <!-- <li><a href="#">基準情報</a></li> -->
   <!-- <li><a href="#">セキュリティ管理</a></li> -->
-  <li class="active">イベント</li>
+  <li class="active"><%=(t 'title.ibento')%></li>
 </ol>
 
 <%= render 'form_event', mode: 'new', param: local_assigns[:param] %>

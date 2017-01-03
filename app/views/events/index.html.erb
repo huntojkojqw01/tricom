@@ -6,9 +6,9 @@
 <div class="row">
   <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
     <ol class="breadcrumb">
-      <li><%= link_to 'メニュー', main_path %></li>
-      <li><%= link_to 'タイムライン', time_line_view_events_path %></li>
-      <li class="active">カレンダー</li>
+      <li><%= link_to (t 'title.menu'), main_path %></li>
+      <li><%= link_to (t 'title.time_line_view'), time_line_view_events_path %></li>
+      <li class="active"><%= link_to (t 'title.event'), events_path %></li>
     </ol>
   </div>
 </div>
@@ -49,12 +49,12 @@
       </div>
       <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
         <%# button_to '社員選択', %>
-        <button type="button" class="btn btn-default" id="search_user">社員選択</button>
+        <button type="button" class="btn btn-default" id="search_user"><%=(t 'title.shainsentaku')%></button>
       </div>
 
       <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 pull-right">
         <div class="form-inline pull-right">
-          <%= f.input :所在コード, label:'所在' do %>
+          <%= f.input (t 'title.shainsentaku') do %>
               <%= f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
           <% end %>
         </div>
@@ -71,7 +71,7 @@
           <% display = ['001 → 07:00 〜 16:00', '002 → 07:30 〜 16:30', '003 → 08:00 〜 17:00', '004 → 08:30 〜 17:30',
                         '005 → 09:00 〜 18:00', '006 → 09:30 〜 18:30', '007 → 10:00 〜 19:00', '008 → 10:30 〜 19:30', '009 → 11:00 〜 20:00']
           %>
-          <%= f.input :勤務タイプ,class: "form-control", collection: (1..9).map { |i| ["#{display[i-1]}", "00#{i}"] }%>
+          <%= f.input :勤務タイプ, label: (t 'title.kinmutaipu'), class: "form-control", collection: (1..9).map { |i| ["#{display[i-1]}", "00#{i}"] }%>
         </div>
       </div>
     </div>
@@ -146,14 +146,14 @@
           <thead>
           <tr>
             <th></th>
-            <th>開始時刻</th>
-            <th>終了時刻</th>
-            <th>状態</th>
-            <th>場所</th>
+            <th><%=(t 'title.kaishijikoku')%></th>
+            <th><%=(t 'title.shyuuryoujikoku')%></th>
+            <th><%=(t 'title.joutai')%></th>
+            <th><%=(t 'title.basho')%></th>
             <th>JOB</th>
-            <th>工程名</th>
-            <th>工数</th>
-            <th>計上</th>
+            <th><%=(t 'title.kouteimei')%></th>
+            <th><%=(t 'title.koushuu')%></th>
+            <th><%=(t 'title.keijyou')%></th>
           </tr>
           </thead>
 
@@ -193,7 +193,7 @@
 
     <div class="row">
       <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
-        <%= link_to '新規イベント', new_event_path %>
+        <%= link_to (t 'title.newevent'), new_event_path %>
       </div>
     </div>
 

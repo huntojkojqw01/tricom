@@ -3,14 +3,14 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel 駅新規
+        %h4.modal-title#myModalLabel= (t 'title.ekishinki')
       .modal-body
         = simple_form_for @eki, url: create_eki_ekis_path, :remote => true, html: {role: :form, 'data-model' => 'eki'} do |f|
-          = f.input :駅コード do
+          = f.input (t 'title.ekicode') do
             = f.input_field :駅コード, class: 'form-control'
             .span.help-block
-          = f.input :駅名 do
+          = f.input (t 'title.ekimei') do
             = f.input_field :駅名, class: 'form-control'
             .span.help-block
-          = f.input :駅名カナ
+          = f.input :駅名カナ,label: (t 'title.ekimeikana')
           = f.button :submit, class: 'btn btn-primary'

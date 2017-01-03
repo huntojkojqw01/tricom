@@ -21,7 +21,7 @@ development:
   database: jpt
   host: <%= ENV["host"] %>
 #  host: 192.168.35.178
-  username: anhmt
+  username: trunghoang
   password: jpt
 
 # Warning: The database defined as "test" will be erased and

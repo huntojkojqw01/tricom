@@ -20,7 +20,7 @@
         %td= dengonyouken.備考
         %td= dengonyouken.優先さ
         %td= link_to (t 'title.edit'), edit_dengonyouken_path(dengonyouken)
-        %td= link_to (t 'helpers.submit.delete'), dengonyouken, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
+        %td= link_to (t 'helpers.submit.delete'), dengonyouken, :method => :delete, :data => { :confirm => (t 'title.delete_confirm') }
 
 %br
 

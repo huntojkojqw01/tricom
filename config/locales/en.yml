@@ -219,7 +219,7 @@ en:
     errors:
       <<: *errors
   app:
-    delete_confirm: 削除で宜しいでしょうか。
+    delete_confirm: Do you want to delete?
     select_confirm: 行を選択してください。
     flash:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
@@ -262,11 +262,11 @@ en:
     bashokubunmst: Location classification list
     bashokubunmaster: Location classification master
     bashomaster: Location master
-    bunrui: 分類一覧
+    bunrui: Classification list
     dengonkaitou: Message reply master
-    dengon: 伝言一覧
+    dengon: Message list
     dengonyouken: Message requirement master
-    eki: 駅一覧
+    eki: Station list
     employer: MultiSelect
     event: Calendar
     time_line_view: Timeline
@@ -276,7 +276,7 @@ en:
     jpt_hokiday_mst: Jupiter Holiday
     kairan: Circulation
     shokairan: 送回覧
-    kaitou: 回答
+    kaitou: Response
     kairanyoukenmst: Circulation master
     kaishamaster: Company master
     kanri:
@@ -305,7 +305,7 @@ en:
     user:
       change_pass: パスワード変更
       tantousha: Contact person master
-    yakushokumaster: 役職テーブル
+    yakushokumaster: Position master
     yuusen: Priority
     mybashomaster: MY location master
     setting: Setting
@@ -363,10 +363,45 @@ en:
     kensaku: Search
     hidzuke: Date
     dengonnaiyou: Message content
-    soushin: Send
+    shousin: Send
     shuruimei: Type name
     bikou: Remarks
     kakuninzu: Confirmed
     kyoka: Approval
     yuusensa: Priority
     import_csv_btn: Import CSV
+    ekicode: Station code
+    ekimei: Station name
+    ekimeikana: Station name in Kana
+    ekishinki: New station
+    ekihenshyuu: Edit station
+    youkendengon: Requirement
+    shainbangou: Employee ID
+    joutai: State
+    kisha: Back to company
+    basho: Location
+    kouteicode: Process code
+    shozokucode: Department code
+    kaishi: Start
+    shyuuryou: End
+    koushuu: Man-hour
+    koushuusaikeisan: Recaculate Man-hour
+    comment: Comment
+    tani: h (Unit：hour)
+    ibento: Event
+    shainsentaku: Select employee
+    shyozai: Location state
+    kinmutaipu: Work type
+    kaishijikoku: Starting time
+    shyuuryoujikoku: Finishing time
+    kouteimei: Process name
+    keijyou: Recorded
+    newevent: Create new Event
+    busho: Position
+    download: Download
+    keihiheadmaster: Expense master
+    keihiheadbody: Expense body
+    eventmaster: Event master
+    kairanshyousai: Circulation detail
+    kairanshyousaimaster: Circulation detail master
+    yuusen: Priority
