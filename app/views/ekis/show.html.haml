@@ -1,11 +1,11 @@
 %p
-  %b 駅コード
+  %b= (t 'title.ekicode')
   = @eki.id
 %p
-  %b 駅名
+  %b= (t 'title.ekimei')
   = @eki.name
 
-= link_to '編集', edit_eki_path(@eki)
+= link_to (t 'title.edit'), edit_eki_path(@eki)
 \|
-= link_to '戻る', ekis_path
+= link_to (t 'title.modoru'), ekis_path
 = provide(:title, (t 'title.eki'))

@@ -353,9 +353,9 @@ ja:
     aitesaki: 相手先
     namae: 名前
     nyuuryokusha: 入力者
-    delete_confirm: 削除で宜しですか。
+    delete_confirm: 削除で宜しいですか。
     shain: 社員
-    youken: 用件
+    youken: 用件 
     kaitou: 回答
     kensaku: 検索する
     hidzuke: 日付
@@ -367,3 +367,39 @@ ja:
     kyouka: 許可
     yuusensa: 優先さ
     import_csv_btn: CSVをインポートする
+    ekicode: 駅コード
+    ekimei: 駅名
+    ekimeikana: 駅名カナ
+    ekishinki: 駅新規
+    ekihenshyuu: 駅編集
+    youkendengon: 要件
+    shainbangou: 社員番号
+    joutai: 状態
+    kisha: 帰社
+    basho: 場所
+    kouteicode: 工程コード
+    shozokucode: 所属コード
+    kaishi: 開始
+    shyuuryou: 終了
+    koushuu: 工数
+    koushuusaikeisan: 工数再計算
+    comment: コメント
+    tani: h　(単位：時間)
+    ibento: イベント
+    shainsentaku: 社員選択
+    shyozai: 所在
+    kinmutaipu: 勤務タイプ
+    kaishijikoku: 開始時刻
+    shyuuryoujikoku: 終了時刻
+    kouteimei: 工程名
+    keijyou: 計上
+    newevent: 新規イベント
+    busho: 部署
+    download: ダウンロード
+    keihiheadmaster: 経費ヘッド
+    keihiheadbody: 経費ボディ
+    eventmaster: イベントマスタ
+    kairanshyousai: 回覧詳細
+    kairanshyousaimaster: 回覧用件マスタ
+    yuuen: 優先
+

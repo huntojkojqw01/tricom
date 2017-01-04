@@ -2,14 +2,14 @@
 = provide(:title, (t 'title.eki'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
-  %li.active 駅マスタ
+  %li.active= (t 'title.ekimaster')
 
 %table.ekitable.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
-      %th 駅コード
-      %th 駅名
-      %th 駅名カナ
+      %th= (t 'title.ekicode')
+      %th= (t 'title.ekimei')
+      %th= (t 'title.ekimeikana')
       / %th
       / %th
 
@@ -28,11 +28,14 @@
 / = link_to '新規', new_eki_path
 - msg_select = t 'app.select_confirm'
 - msg_confirm = t 'app.delete_confirm'
+- new_text = t 'title.new'
+- edit_text = t 'title.edit'
+- delete_text = t 'title.delete'
 .span#message_confirm_select{hidden: :true} #{msg_select}
 .span#message_confirm_delete{hidden: :true} #{msg_confirm}
-%button.btn.btn-primary#new_eki{type: :button} 新規
-%button.btn.btn-primary#edit_eki{type: :button} 編集
-%button.btn.btn-primary#destroy_eki{type: :button} 削除
+%button.btn.btn-primary#new_eki{type: :button} #{new_text}
+%button.btn.btn-primary#edit_eki{type: :button} #{edit_text}
+%button.btn.btn-primary#destroy_eki{type: :button} #{delete_text}
 
 - if can? :update, @ekis
   %h4=t 'app.label.import_csv'
