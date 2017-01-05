@@ -150,6 +150,7 @@ ja:
       redirect_to_setsubiyoyaku: 設備予約
       input: 入力する
       entered: 入力済
+      send_mail: メールを送る
     button:
       search: 検索
       confirm: 確認
@@ -221,6 +222,7 @@ ja:
   app:
     delete_confirm: 削除で宜しいでしょうか。
     select_confirm: 行を選択してください。
+    forgot_password: パスワードをお忘れですか。
     flash:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
       import_csv: CSVファイルから読み込んでできました！
@@ -241,10 +243,12 @@ ja:
       file_format_invalid: ファイルのフォマットを正しく選択してください。
       not_attributes: " アトリビュートが存在していない！"
       unsucess: "全部フィールドがエンプティーを入力しないでください！"
-
+      let_login_with_code: コードでログインしてください。
     login:
       let_login: ログインしてください。
       logged_in: ログインしました。
+      let_input_mail: メールを入力してください。
+      let_login_with_code: コードでログインしてください。
     model:
       check_data_input: は開始日以上の値にしてください。
       schedule: すでに他のスケジュールがあります。
@@ -333,6 +337,7 @@ ja:
     nagasayoken: "%{count}文字以上"
     image: イメージ
     mail: メール
+    koshinsuru: 更新
     profilehenshuu: プロファイル編集
     scrolltime: スクロールタイム
     local: ローカル
@@ -355,9 +360,10 @@ ja:
     nyuuryokusha: 入力者
     delete_confirm: 削除で宜しいですか。
     shain: 社員
-    youken: 用件 
+    youken: 用件
     kaitou: 回答
     kensaku: 検索する
+    dengoichiran: 伝言一覧
     hidzuke: 日付
     dengonnaiyou: 伝言内容
     shousin: 送信
@@ -402,4 +408,4 @@ ja:
     kairanshyousai: 回覧詳細
     kairanshyousaimaster: 回覧用件マスタ
     yuuen: 優先
-
+    kakuninmeru: 確認

@@ -62,7 +62,10 @@ Jpt::Application.routes.draw do
   get "login" => "sessions#new"
   post "login" => "sessions#create"
   delete "logout" => "sessions#destroy"
-
+  get "confirm" => "sessions#send_mail"
+  post "confirm" => "sessions#confirm_mail"
+  get "login_code" => "sessions#login_code"
+  post "login_code" => "sessions#login_code_confirm"
   resources :bashokubunmsts  do
     collection {post :import}
     collection {get :export_csv}

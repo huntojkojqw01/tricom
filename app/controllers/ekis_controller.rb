@@ -72,9 +72,14 @@ class EkisController < ApplicationController
   end
 
   def ajax
+
     case params[:focus_field]
       when 'eki_削除する'
-        eki = Eki.find_by(駅コード: params[:eki_id]).destroy
+        ekiIds = params[:ekis]
+        ekiIds.each{ |ekiId|
+          Eki.find_by(駅コード: ekiId).destroy
+        }
+        # eki = Eki.find_by(駅コード: params[:eki_id]).destroy
         data = {destroy_success: "success"}
         respond_to do |format|
           format.json { render json: data}
