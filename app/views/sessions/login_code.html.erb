@@ -1,10 +1,10 @@
 <div class="col-md-4 col-xs-8 col-sm-15 col-lg-4 col-md-offset-4 col-xs-offset-2 col-sm-offset-2 col-lg-offset-4">
-  <h3><%= t 'app.login.let_login' %></h3>
+  <h3><%= t 'app.login.let_login_with_code' %></h3>
 </div>
 <div class="col-md-4 col-xs-8 col-sm-15 col-lg-4 col-md-offset-4 col-xs-offset-2 col-sm-offset-2 col-lg-offset-4">
 <div class="well">
 <%provide(:title, (t 'title.session'))%>
-<%= form_for :session, url: login_path, html:{class: 'form-horizontal'} do |f| %>
+<%= form_for :session, url: login_code_path, html:{class: 'form-horizontal'} do |f| %>
   <div class="form-group">
     <div class="field">
       <%= f.label :担当者コード, class: 'col-md-4 col-xs-8 col-sm-4 col-lg-4 control-label' %>
@@ -16,9 +16,9 @@
 
   <div class="form-group">
     <div class="field">
-      <%= f.label :パスワード, class: 'col-md-4 col-xs-8 col-sm-4 col-lg-4 control-label' %>
+      <%= f.label :コード, class: 'col-md-4 col-xs-8 col-sm-4 col-lg-4 control-label' %>
       <div class="col-md-8 col-xs-16 col-sm-8 col-lg-8">
-        <%= f.password_field :password, class: 'form-control', placeholder: 'パスワード', autocomplete: 'off' %>
+        <%= f.text_field :code, class: 'form-control', placeholder: 'コード', autocomplete: 'off' %>
       </div>
     </div>
   </div>
@@ -30,9 +30,10 @@
   </div>
   <div class="form-group">
     <div class="col-md-8 col-xs-8 col-sm-8 col-lg-8 col-md-offset-4 col-xs-offset-2 col-sm-offset-4 col-lg-offset-4">
-      <%= link_to (t 'app.forgot_password'), confirm_path%>
+      <%= link_to 'ログイン', login_path%>
     </div>
   </div>
+
 
 <% end %>
 

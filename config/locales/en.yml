@@ -150,6 +150,7 @@ en:
       redirect_to_setsubiyoyaku: Setsubiyoyaku
       input: Input
       entered: Entered
+      send_mail: Send
     button:
       search: Search
       confirm: Confirm
@@ -221,6 +222,7 @@ en:
   app:
     delete_confirm: Do you want to delete?
     select_confirm: 行を選択してください。
+    forgot_password: Forgot password?
     flash:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
       import_csv: It was able to load from the CSV file!
@@ -241,10 +243,12 @@ en:
       file_format_invalid: ファイルのフォマットを正しく選択してください。
       not_attributes: " アトリビュートが存在していない！"
       unsucess: "全部フィールドがエンプティーを入力しないでください！"
-
+      let_login_with_code: Let login with your code!
     login:
       let_login: ログインしてください。
       logged_in: ログインしました。
+      let_input_mail: Enter your mail!
+      let_login_with_code: Let login with your code!
     model:
       check_data_input: は開始日以上の値にしてください。
       schedule: すでに他のスケジュールがあります。
@@ -405,3 +409,4 @@ en:
     kairanshyousai: Circulation detail
     kairanshyousaimaster: Circulation detail master
     yuusen: Priority
+    kakuninmeru: Confirm with mail
