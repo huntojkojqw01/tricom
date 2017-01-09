@@ -11,17 +11,17 @@ class SessionsController < ApplicationController
     user = User.find_by( email: params[:session][:email])
 
     if user
-      options = { :address              => "smtp.gmail.com",
-                  :port                 => 587,
-                  :domain               => 'heroku.com',
-                  :user_name            => 'anhmt212@gmail.com',
-                  :password             => 'bachanh212',
-                  :authentication       => 'plain',
-                  :enable_starttls_auto => true  }
+      # options = { :address              => "smtp.gmail.com",
+      #             :port                 => 587,
+      #             :domain               => 'heroku.com',
+      #             :user_name            => 'anhmt212@gmail.com',
+      #             :password             => 'bachanh212',
+      #             :authentication       => 'plain',
+      #             :enable_starttls_auto => true  }
 
-      Mail.defaults do
-        delivery_method :smtp, options
-      end
+      # Mail.defaults do
+      #   delivery_method :smtp, options
+      # end
       session[:code] = random_string
       session[:user_code] = user.try(:担当者コード)
       ses = session[:code]
