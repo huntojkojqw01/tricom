@@ -146,6 +146,7 @@
           <thead>
           <tr>
             <th></th>
+            <th></th>
             <th><%=(t 'title.kaishijikoku')%></th>
             <th><%=(t 'title.shyuuryoujikoku')%></th>
             <th><%=(t 'title.joutai')%></th>
@@ -160,6 +161,7 @@
           <tbody>
           <% @events.each do |event| %>
               <tr>
+                <td><%= event.id %></td>
                 <td><%= event.id %></td>
                 <td><%= event.開始 %></td>
                 <td><%= event.終了 %></td>
@@ -193,6 +195,11 @@
 
     <div class="row">
       <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+        <% msg_select = t 'app.select_confirm' %>
+        <% msg_confirm = t 'app.delete_confirm' %>
+        <span id='message_confirm_select' hidden='true'><%=msg_select%></span>
+        <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
+        <button class='btn btn-primary' id='destroy_event' type= 'button'>削除</button>
         <%= link_to (t 'title.newevent'), new_event_path %>
       </div>
     </div>

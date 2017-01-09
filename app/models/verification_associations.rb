@@ -13,7 +13,7 @@ module VerificationAssociations
       end
     end
     return '' if errors.any? || str_error == ''
-    return (I18n.t 'errors.messages.delete_association')+str_error+(I18n.t 'app.delete_confirm')
+    return (I18n.t 'errors.messages.delete_association')
   end
 
 end
