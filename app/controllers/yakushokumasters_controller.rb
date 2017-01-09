@@ -78,6 +78,13 @@ class YakushokumastersController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
+      when 'yakushoku_before_destroy'
+        associations = Yakushokumaster.find_by(役職コード: params[:yakushoku_id]).check_associations
+
+        data = {associations: associations}
+        respond_to do |format|
+          format.json { render json: data}
+        end
     end
   end
 

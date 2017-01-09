@@ -60,34 +60,81 @@ jQuery ->
     if yakushoku == undefined
       alert($('#message_confirm_select').text())
     else
-      response = confirm($('#message_confirm_delete').text())
-      if response
-        $.ajax({
+      $.ajax({
           url: '/yakushokumasters/ajax',
           data:{
-            focus_field: 'yakushoku_削除する',
+            focus_field: 'yakushoku_before_destroy',
             yakushoku_id: yakushoku[0]
           },
 
           type: "POST",
 
           success: (data) ->
-            if data.destroy_success != null
-              console.log("getAjax destroy_success:"+ data.destroy_success)
-              $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
-              $("#yakushoku_table").dataTable().fnDraw()
-              $("#edit_yakushoku").attr("disabled", true);
-              $("#destroy_yakushoku").attr("disabled", true);
+            if data.associations != ''
+              response = confirm(data.associations)
+              if response
+                $.ajax({
+                  url: '/yakushokumasters/ajax',
+                  data:{
+                    focus_field: 'yakushoku_削除する',
+                    yakushoku_id: yakushoku[0]
+                  },
+
+                  type: "POST",
+
+                  success: (data) ->
+                    if data.destroy_success != null
+                      console.log("getAjax destroy_success:"+ data.destroy_success)
+                      $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+                      $("#yakushoku_table").dataTable().fnDraw()
+                      $("#edit_yakushoku").attr("disabled", true);
+                      $("#destroy_yakushoku").attr("disabled", true);
+                  failure: () ->
+                    console.log("yakushoku_削除する keydown Unsuccessful")
+                    $("#edit_yakushoku").attr("disabled", false);
+                    $("#destroy_yakushoku").attr("disabled", false);
+
+                })
+
+              else
+                $("#edit_yakushoku").attr("disabled", false)
+                $("#destroy_yakushoku").attr("disabled", false)
+
+            else
+              response = confirm($('#message_confirm_delete').text())
+              if response
+                $.ajax({
+                  url: '/yakushokumasters/ajax',
+                  data:{
+                    focus_field: 'yakushoku_削除する',
+                    yakushoku_id: yakushoku[0]
+                  },
+
+                  type: "POST",
+
+                  success: (data) ->
+                    if data.destroy_success != null
+                      console.log("getAjax destroy_success:"+ data.destroy_success)
+                      $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+                      $("#yakushoku_table").dataTable().fnDraw()
+                      $("#edit_yakushoku").attr("disabled", true);
+                      $("#destroy_yakushoku").attr("disabled", true);
+                  failure: () ->
+                    console.log("yakushoku_削除する keydown Unsuccessful")
+                    $("#edit_yakushoku").attr("disabled", false);
+                    $("#destroy_yakushoku").attr("disabled", false);
+
+                })
+
+              else
+                $("#edit_yakushoku").attr("disabled", false)
+                $("#destroy_yakushoku").attr("disabled", false)
           failure: () ->
-            console.log("yakushoku_削除する keydown Unsuccessful")
+            console.log("yakushoku_before_destroy keydown Unsuccessful")
             $("#edit_yakushoku").attr("disabled", false);
             $("#destroy_yakushoku").attr("disabled", false);
 
         })
-
-      else
-        $("#edit_yakushoku").attr("disabled", false)
-        $("#destroy_yakushoku").attr("disabled", false)
 
 
   $('#new_yakushoku').click () ->
