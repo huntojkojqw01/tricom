@@ -399,6 +399,29 @@ class EventsController < ApplicationController
    end
   end
 
+  def import
+    if params[:file].nil?
+      flash[:alert] = t "app.flash.file_nil"
+      redirect_to events_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to events_path
+    else
+      begin
+        Event.transaction do
+          Event.delete_all
+          Event.reset_pk_sequence
+          Event.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue => err
+        flash[:danger] = err.to_s
+        redirect_to events_path
+      end
+    end
+  end
+
   def export_csv
     @events = Event.all
 
