@@ -1,4 +1,5 @@
 class Event < ActiveRecord::Base
+  include VerificationAssociations
   self.table_name = :events
 
   validates :社員番号, :開始, :状態コード, presence: true
