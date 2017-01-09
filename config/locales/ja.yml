@@ -124,6 +124,7 @@ ja:
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
       other_than: "は%{count}以外の値にしてください。"
+      delete_association: 'Because there is an association with '
     template:
       body: 次の項目を確認してください。
       header:
@@ -222,7 +223,7 @@ ja:
   app:
     delete_confirm: 削除で宜しいでしょうか。
     select_confirm: 行を選択してください。
-    forgot_password: パスワードをお忘れですか。
+    forgot_password: パスワードを忘れた方はこちら。
     flash:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
       import_csv: CSVファイルから読み込んでできました！
