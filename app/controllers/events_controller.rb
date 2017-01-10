@@ -386,7 +386,7 @@ class EventsController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
-     when 'event_削除する'
+     when 'event_destroy'
         eventIds = params[:events]
         eventIds.each{ |eventId|
           Event.find_by(id: eventId).destroy
