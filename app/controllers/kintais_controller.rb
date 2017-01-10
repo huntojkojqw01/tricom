@@ -17,16 +17,23 @@ class KintaisController < ApplicationController
 
     date = @date_param.to_date
     session[:selected_kintai_date] = date
-    check_kintai_at_day_by_user(current_user.id, date)
+
     case params[:commit]
       when (t 'helpers.submit.entered')
         @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
         @kintai.入力済 = '1' if @kintai
-        @kintai.save
+        @kintai.save if @kintai
       when (t 'helpers.submit.input')
         @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
         @kintai.入力済 = '0' if @kintai
-        @kintai.save
+        @kintai.save if @kintai
+      when (t 'helpers.submit.create')
+        check_kintai_at_day_by_user(current_user.id, date)
+
+      when (t 'helpers.submit.destroy')
+        if(notice!= (t 'app.flash.import_csv'))
+          @kintais = Kintai.selected_month(session[:user], date).order(:日付).destroy_all
+        end
     end
     @kintais = Kintai.selected_month(session[:user], date).order(:日付)
     @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
@@ -113,6 +120,29 @@ class KintaisController < ApplicationController
   def destroy
     flash[:notice] = t 'app.flash.delete_success' if @kintai.destroy
     respond_with(@kintai, location: kintais_url)
+  end
+
+  def import
+    if params[:file].nil?
+      flash[:alert] = t "app.flash.file_nil"
+      redirect_to kintais_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to kintais_path
+    else
+      begin
+        Kintai.transaction do
+          Kintai.delete_all
+          Kintai.reset_pk_sequence
+          Kintai.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice, param_import: "test"
+        end
+      rescue => err
+        flash[:danger] = err.to_s
+        redirect_to kintais_path
+      end
+    end
   end
 
   def export_csv

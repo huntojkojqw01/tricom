@@ -579,6 +579,9 @@ $(function () {
         }
     });
 
+     $('#export_event').click(function(){
+        location.href='/events/export_csv.csv?locale=ja';
+     });
 
 
     //$('#開始').click(function () {
@@ -1284,10 +1287,11 @@ $(function(){
 
 $(function(){
     var s = $("#event_状態コード").val();
-    $('.event_有無').hide();
+    $('.event_帰社').hide();
     if (s == '10' || s == '11' || s == '12' || s == '13'){
-        $('.event_有無').show();
+        $('.event_帰社').show();
     }
+    $("#destroy_event").attr("disabled", true);
 });
 function showModal(date,hoshukeitai) {
 

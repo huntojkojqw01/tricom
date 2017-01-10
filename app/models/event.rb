@@ -33,9 +33,15 @@ class Event < ActiveRecord::Base
       errors.add(:終了, (I18n.t 'app.model.check_data_input'))
     end
   end
-
+  def self.import(file)
+    # a block that runs through a loop in our CSV data
+    CSV.foreach(file.path, headers: true) do |row|
+      # creates a user for each row in the CSV file
+      Event.create! row.to_hash
+    end
+  end
   def self.to_csv
-    attributes = %w{id  社員番号 開始 終了 状態コード 場所コード 所属コード 工程コード 工数 計上 comment}
+    attributes = %w{社員番号 開始 終了 状態コード 場所コード JOB 所属コード 工程コード 工数 計上 comment}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

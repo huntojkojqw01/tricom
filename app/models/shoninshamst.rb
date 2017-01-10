@@ -19,7 +19,7 @@ class Shoninshamst < ActiveRecord::Base
   end
 
   def self.to_csv
-    attributes = %w{id 申請者 承認者}
+    attributes = %w{申請者 承認者 順番}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

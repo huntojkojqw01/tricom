@@ -124,7 +124,7 @@ en:
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
       other_than: "は%{count}以外の値にしてください。"
-      delete_association: 'Because there is an association with '
+      delete_association: 'The data you want to delete is used for other places. Is it OK to delete?'
     template:
       body: 次の項目を確認してください。
       header:

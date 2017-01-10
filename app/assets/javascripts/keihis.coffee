@@ -6,7 +6,7 @@ jQuery ->
     summary()
   $(document).on 'click', '.summary', (event) ->
     summary()
-
+  $("#destroy_keihihead").attr("disabled", true);
 #  sonotha_sum, koutsuhi_sum, nittou_sum, shukuhaku_sum, shinsheino
   summary = () ->
     sonotha_sum = 0
@@ -92,7 +92,7 @@ jQuery ->
     $('.check-remove').each () ->
       $(this).val('1')
       $(this).closest('tr').hide()
-      
+
       $('#keihihead_交通費合計').val(0)
       $('#keihihead_日当合計').val(0)
       $('#keihihead_宿泊費合計').val(0)
@@ -125,7 +125,7 @@ jQuery ->
     regexp = new RegExp($(this).data('id'), 'g')
     $('#keihi-table').find('tr').last().after($(this).data('fields').replace(regexp, time))
     event.preventDefault()
-    
+
   $(document).on 'focus', '.datepicker', (event) ->
     $(this).datetimepicker({
       format: 'YYYY/MM/DD',
@@ -159,7 +159,7 @@ jQuery ->
   $('#kaisha-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKaisha_search_modal.row(this).data()
     $('#keihi-table tr.selected').find('.atesaki-name').val(d[1])
-  
+
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
@@ -172,7 +172,7 @@ jQuery ->
   $('#job_table tbody').on 'click', 'tr', (event) ->
     d = oJob_search_modal.row(this).data()
     $('#keihi-table tr.selected').find('.job-code').val(d[0])
-  
+
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
@@ -189,7 +189,7 @@ jQuery ->
   $('#kikan-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKikan_search_modal.row(this).data()
     $('#keihi-table tr.selected').find('.kikan-name').val(d[1])
-  
+
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
@@ -206,7 +206,7 @@ jQuery ->
       $('#keihi-table tr.selected').find('.hastu-name').val(d[1])
     else
       $('#keihi-table tr.selected').find('.chaku-name').val(d[1])
-      
+
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
@@ -215,7 +215,7 @@ jQuery ->
       oEki_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
-      
+
   $(document).on 'click', '.hastu-search', (event) ->
     eki = '1'
     $('#eki-search-modal').modal('show')
@@ -232,7 +232,7 @@ jQuery ->
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }})
-  
+
   $('#shonin-table-modal tbody').on 'click', 'tr', (event) ->
     d = oShonin_search_modal.row(this).data()
     $('.shonin').val(d[1])
@@ -296,7 +296,8 @@ jQuery ->
     })
     event.preventDefault()
 
-  $('.keihihead-table').DataTable({
+  oKeihiheadTable = $('.keihihead-table').DataTable({
+    "dom": 'lBfrtip',
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
@@ -313,6 +314,51 @@ jQuery ->
       "targets"  : 'no-sort',
       "orderable": false
     }]
+    "buttons": [{
+                "extend":    'copyHtml5',
+                "text":      '<i class="fa fa-files-o"></i>',
+                "titleAttr": 'Copy'
+            },
+            {
+                "extend":    'excelHtml5',
+                "text":      '<i class="fa fa-file-excel-o"></i>',
+                "titleAttr": 'Excel'
+            },
+            {
+                "extend":    'csvHtml5',
+                "text":      '<i class="fa fa-file-text-o"></i>',
+                "titleAttr": 'CSV'
+            },
+            {
+              "extend": 'selectAll',
+              "action": ( e, dt, node, config ) ->
+                oKeihiheadTable.$('tr').addClass('selected')
+                oKeihiheadTable.$('tr').addClass('success')
+                selects = oKeihiheadTable.rows('tr.selected').data()
+                if selects.length == 0
+                  $("#destroy_keihihead").attr("disabled", true);
+                else
+                  $("#destroy_keihihead").attr("disabled", false);
+                $(".buttons-select-none").removeClass('disabled')
+
+
+
+
+            },
+            {
+              "extend": 'selectNone',
+              "action": ( e, dt, node, config ) ->
+                oKeihiheadTable.$('tr').removeClass('selected')
+                oKeihiheadTable.$('tr').removeClass('success')
+                selects = oKeihiheadTable.rows('tr.selected').data()
+                if selects.length == 0
+                  $("#destroy_keihihead").attr("disabled", true);
+                else
+                  $("#destroy_keihihead").attr("disabled", false);
+                $(".buttons-select-none").addClass('disabled')
+            }
+
+            ]
   })
 
   $('.input-group').datetimepicker({
@@ -332,3 +378,70 @@ jQuery ->
   $('#summary').click( () ->
     alert('now')
   )
+
+  $('#export_keihihead').click( () ->
+    location.href='/keihiheads/export_csv.csv?locale=ja';
+  )
+
+  $('.keihihead-table').on( 'click', 'tr',  () ->
+    d = oKeihiheadTable.row(this).data()
+    if d != undefined
+      if $(this).hasClass('selected')
+        $(this).removeClass('selected')
+        $(this).removeClass('success')
+      else
+        $(this).addClass('selected')
+        $(this).addClass('success')
+
+    selects = oKeihiheadTable.rows('tr.selected').data()
+    if selects.length == 0
+      $("#destroy_keihihead").attr("disabled", true);
+      $(".buttons-select-none").addClass('disabled')
+    else
+      $("#destroy_keihihead").attr("disabled", false);
+      $(".buttons-select-none").removeClass('disabled')
+
+  )
+
+  $('#destroy_keihihead').click () ->
+    keihiheads = oKeihiheadTable.rows('tr.selected').data()
+    keihiheadIds = new Array();
+    if keihiheads.length == 0
+      alert($('#message_confirm_select').text())
+    else
+      response = confirm($('#message_confirm_delete').text())
+      if response
+        len = keihiheads.length
+        for i in [0...len]
+          keihiheadIds[i] = keihiheads[i][0]
+
+        $.ajax({
+          url: '/keihiheads/ajax',
+          data:{
+            id: 'keihihead_削除する',
+            keihiheads: keihiheadIds
+          },
+
+          type: "POST",
+
+          success: (data) ->
+            if data.destroy_success != null
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+              $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
+              $(".keihihead-table").dataTable().fnDraw()
+
+            else
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+
+
+          failure: () ->
+            console.log("keihihead_削除する keydown Unsuccessful")
+
+        })
+        $("#destroy_keihihead").attr("disabled", true);
+      else
+        selects = oKeihiheadTable.rows('tr.selected').data()
+        if selects.length == 0
+          $("#destroy_keihihead").attr("disabled", true);
+        else
+          $("#destroy_keihihead").attr("disabled", false);

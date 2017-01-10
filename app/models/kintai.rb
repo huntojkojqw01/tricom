@@ -28,8 +28,15 @@ class Kintai < ActiveRecord::Base
   validates :普通保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
   validates :深夜保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
 
+  def self.import(file)
+    # a block that runs through a loop in our CSV data
+    CSV.foreach(file.path, headers: true) do |row|
+      # creates a user for each row in the CSV file
+      Kintai.create! row.to_hash
+    end
+  end
   def self.to_csv
-    attributes = %w{id 日付 曜日 曜日 勤務タイプ 実労働時間 普通残業時間 深夜残業時間 普通保守時間
+    attributes = %w{日付 曜日 勤務タイプ 実労働時間 普通残業時間 深夜残業時間 普通保守時間
       深夜保守時間 保守携帯回数 状態1 状態2 状態3 備考 社員番号 入力済 holiday 代休相手日付 代休取得区分
       出勤時刻 退社時刻 遅刻時間 早退時間}
 

@@ -289,3 +289,7 @@ jQuery ->
     focusOnShow: false
 #    defaultDate: '2016/03/14 09:00'
   })
+
+  $('#export_kintai').click( () ->
+    location.href='/kintais/export_csv.csv?locale=ja';
+  )

@@ -1,16 +1,17 @@
 - user = Shainmaster.find(session[:user])
 .row
-  .col-md-3.col-xs-3.col-sm-3.col-lg-3
+  .col-md-4.col-xs-8.col-sm-12.col-lg-4
     .form-group
       %label.sr-only date
       -#= f.text_field :日付, class: 'form-control date-search'
       = text_field_tag :search, @date_param, class:'form-control date-search'
       = f.submit :勤怠検索, class: 'btn btn-primary'
-  .col-md-2.col-xs-2.col-sm-2.col-lg-2
+      = f.submit (t 'helpers.submit.create'), class: 'btn btn-primary'
+  .col-md-2.col-xs-4.col-sm-6.col-lg-2
     %h4 勤務工数表
-  .col-md-2.col-xs-2.col-sm-2.col-lg-2
+  .col-md-2.col-xs-4.col-sm-6.col-lg-2
     %h4 氏名：#{user.氏名}
-  .col-md-3.col-xs-3.col-sm-3.col-lg-3
+  .col-md-2.col-xs-4.col-sm-6.col-lg-2
     %h4 担当者番号：#{user.社員番号}
-  .col-md-2.col-xs-2.col-sm-2.col-lg-2
+  .col-md-2.col-xs-4.col-sm-6.col-lg-2
     %h4 有給残数：#{user.有給残数}
