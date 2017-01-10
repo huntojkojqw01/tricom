@@ -40,7 +40,9 @@
 .span#message_confirm_select{hidden: :true} #{msg_select}
 .span#message_confirm_delete{hidden: :true} #{msg_confirm}
 %button.btn.btn-primary#destroy_keihihead{type: :button} #{delete_text}
-= link_to '新規', new_keihihead_path
+%a{href: new_keihihead_path}
+  %button.btn.btn-primary#destroy_keihihead{type: :button} #{(t 'title.new')}
+/ = link_to '新規', new_keihihead_path
 .row.spacer
 %legend
 

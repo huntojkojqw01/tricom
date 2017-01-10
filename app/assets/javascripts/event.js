@@ -545,7 +545,7 @@ $(function () {
             $.ajax({
               url: '/events/ajax',
               data:{
-                id: 'event_削除する',
+                id: 'event_destroy',
                 events: eventIds
               },
 
@@ -563,7 +563,7 @@ $(function () {
                     console.log("getAjax destroy_success:"+ data.destroy_success);
                 },
               failure: function(){
-                console.log("event_削除する keydown Unsuccessful");
+                console.log("event_destroy keydown Unsuccessful");
               }
 
             });
