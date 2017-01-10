@@ -34,5 +34,26 @@
         %td= link_to '削除', keihihead, method: :delete, data: { confirm: msg }
 
 %br
-
+- msg_select = t 'app.select_confirm'
+- msg_confirm = t 'app.delete_confirm'
+- delete_text = t 'title.delete'
+.span#message_confirm_select{hidden: :true} #{msg_select}
+.span#message_confirm_delete{hidden: :true} #{msg_confirm}
+%button.btn.btn-primary#destroy_keihihead{type: :button} #{delete_text}
 = link_to '新規', new_keihihead_path
+.row.spacer
+%legend
+
+- if can? :update, @keihiheads
+  %h4=t 'app.label.import_csv'
+  = form_tag import_keihiheads_path, class:'form-inline', multipart: true do
+    .form-group
+      = label_tag 'selectcsv', nil, class: 'sr-only'
+      = file_field_tag :file , class: 'btn btn-default'
+    .form-group
+      = label_tag 'importcsv', nil, class: 'sr-only'
+      = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+.row.spacer
+%legend
+
+%button.btn.btn-primary#export_keihihead{type: :button} #{t 'title.export_csv'}

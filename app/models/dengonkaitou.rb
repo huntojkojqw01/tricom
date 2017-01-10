@@ -2,7 +2,7 @@ class Dengonkaitou < ActiveRecord::Base
   self.table_name = :伝言回答マスタ
 
   validates :種類名, presence: true
-  
+
   # a class method import, with file passed through as an argument
 
   def self.import(file)

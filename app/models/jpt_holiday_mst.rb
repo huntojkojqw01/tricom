@@ -8,7 +8,7 @@ class JptHolidayMst < ActiveRecord::Base
     end
   end
   def self.to_csv
-    attributes = %w{id event_date title description}
+    attributes = %w{event_date title description}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

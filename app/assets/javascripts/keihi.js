@@ -19,7 +19,7 @@ $(function() {
     //}]
 
     });
-    
+
     oKaisha_search_modal = $('#kaisha-table-modal').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{

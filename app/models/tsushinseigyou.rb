@@ -13,7 +13,7 @@ class Tsushinseigyou < ActiveRecord::Base
   end
 
   def self.to_csv
-    attributes = %w{id 社員番号 メール 送信許可区分}
+    attributes = %w{社員番号 メール 送信許可区分}
 
     CSV.generate(headers: true) do |csv|
       csv << attributes

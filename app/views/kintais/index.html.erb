@@ -24,7 +24,7 @@
     <th rowspan="2" class="table-width">保守携帯</th>
     <th rowspan="2">処理区分</th>
     <th rowspan="2" >備考</th>
-    <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
+    <% if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil? %>
       <th rowspan="2"></th>
     <% end %>
     <!--<th rowspan="2"></th>-->
@@ -81,7 +81,7 @@
           <% end %>
           <%= kintai.備考 %></div></td>
         <!--<td><%# link_to '詳細', kintai %></td>-->
-        <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
+        <% if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil? %>
           <td><%= link_to '編集', edit_kintai_path(kintai) %></td>
         <% end %>
         <% msg = t "app.delete_confirm" %>
@@ -98,3 +98,28 @@
 
 <% end %>
 
+<div class="row">
+  <div class="spacer">
+  </div>
+</div>
+<legend></legend>
+
+<h4><%=t 'app.label.import_csv'%></h4>
+<%= form_tag import_kintais_path,class:'form-inline', multipart: true do %>
+    <div class="form-group">
+      <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+      <%= file_field_tag :file , class: 'btn btn-default' %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+      <%= submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default' %>
+    </div>
+<% end %>
+
+<div class="row">
+  <div class="spacer">
+  </div>
+</div>
+<legend></legend>
+
+<button class='btn btn-primary' id='export_kintai' type= 'button'><%=(t 'title.export_csv')%></button>

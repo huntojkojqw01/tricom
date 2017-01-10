@@ -102,6 +102,17 @@ class KeihiheadsController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
+
+      when 'keihihead_削除する'
+        keihiheadIds = params[:keihiheads]
+        keihiheadIds.each{ |keihiheadId|
+          Keihihead.find_by(申請番号: keihiheadId).destroy
+        }
+        # eki = Eki.find_by(駅コード: params[:eki_id]).destroy
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
     end
   end
 
@@ -111,6 +122,29 @@ class KeihiheadsController < ApplicationController
 
     if params[:commit] == '更新する' && !params[:shonin].nil?
       flash[:notice] = t 'app.flash.update_success' if Keihihead.where(id: params[:shonin]).update_all(承認済区分: '1')
+    end
+  end
+
+  def import
+    if params[:file].nil?
+      flash[:alert] = t "app.flash.file_nil"
+      redirect_to keihiheads_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to keihiheads_path
+    else
+      begin
+        Keihihead.transaction do
+          Keihihead.delete_all
+          Keihihead.reset_pk_sequence
+          Keihihead.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue => err
+        flash[:danger] = err.to_s
+        redirect_to keihiheads_path
+      end
     end
   end
 
