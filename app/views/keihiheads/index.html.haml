@@ -28,7 +28,7 @@
         %td= keihihead.清算予定日
         %td= keihihead.清算日
         %td= keihihead.承認済区分
-        -if keihihead.try(:承認済区分)!= 1
+        -if keihihead.try(:承認済区分)!= "1"
           %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
         -else
           %td= t 'title.edit'
