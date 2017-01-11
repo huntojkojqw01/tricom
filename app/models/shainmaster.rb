@@ -16,6 +16,7 @@ class Shainmaster < ActiveRecord::Base
   has_many :setsubiyoyaku, dependent: :destroy, foreign_key: :予約者
   has_many :mybashomaster, dependent: :destroy, foreign_key: :社員番号
   has_many :myjobmaster, dependent: :destroy, foreign_key: :社員番号
+  has_many :mykaishamaster, dependent: :destroy, foreign_key: :社員番号
   has_many :shouninsha, class_name: Shoninshamst.name,
     foreign_key: :承認者, dependent: :destroy
   has_many :shinseisha, class_name: Shoninshamst.name,

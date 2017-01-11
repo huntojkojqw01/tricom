@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161223065153) do
+ActiveRecord::Schema.define(version: 20170111092552) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,6 +49,15 @@ ActiveRecord::Schema.define(version: 20161223065153) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "MY会社マスタ", id: false, force: :cascade do |t|
+    t.string   "社員番号",       null: false
+    t.string   "会社コード",      null: false
+    t.string   "会社名"
+    t.text     "備考"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "MY場所マスタ", id: false, force: :cascade do |t|
     t.string   "社員番号",       null: false
     t.string   "場所コード",      null: false
@@ -60,6 +69,21 @@ ActiveRecord::Schema.define(version: 20161223065153) do
     t.datetime "更新日"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -158,15 +182,18 @@ ActiveRecord::Schema.define(version: 20161223065153) do
     t.decimal  "早退時間"
   end
 
-  create_table "setsubiyoyakus", force: :cascade do |t|
-    t.string   "設備コード"
-    t.string   "社員番号"
-    t.string   "相手先"
-    t.string   "開始"
-    t.string   "終了"
-    t.text     "用件"
+  create_table "mybashomasters", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "pg_search_documents", force: :cascade do |t|
+    t.text     "content"
+    t.string   "searchable_type"
+    t.integer  "searchable_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
   end
 
   create_table "setting_tables", force: :cascade do |t|
@@ -182,23 +209,22 @@ ActiveRecord::Schema.define(version: 20161223065153) do
     t.boolean "checked"
   end
 
-  create_table "ロールマスタ", force: :cascade do |t|
+  create_table "ロールマスタ", id: false, force: :cascade do |t|
     t.string   "ロールコード",     limit: 10, null: false
     t.string   "ロール名",       limit: 40
     t.string   "序列",         limit: 10
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.index ["ロールコード"], name: "index_ロールマスタ_on_ロールコード", using: :btree
   end
 
-  create_table "ロールメンバ", force: :cascade do |t|
-    t.string   "ロールコード",     limit: 10, null: false
-    t.string   "社員番号",       limit: 10, null: false
-    t.string   "氏名"
+  create_table "ロールメンバ", id: false, force: :cascade do |t|
+    t.string   "ロールコード"
+    t.string   "社員番号"
+    t.text     "氏名"
     t.string   "ロール内序列",     limit: 10
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
-    t.index ["ロールコード"], name: "index_ロールメンバ_on_ロールコード", using: :btree
+    t.index ["社員番号", "ロールコード"], name: "index_ロールメンバ_on_社員番号_and_ロールコード", unique: true, using: :btree
   end
 
   create_table "会社マスタ", id: false, force: :cascade do |t|
@@ -420,15 +446,14 @@ ActiveRecord::Schema.define(version: 20161223065153) do
     t.string   "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["設備コード"], name: "index_設備マスタ_on_設備コード", unique: true, using: :btree
   end
 
   create_table "設備予約", force: :cascade do |t|
     t.string   "設備コード"
-    t.string   "開始"
-    t.string   "終了"
     t.string   "予約者"
     t.string   "相手先"
+    t.string   "開始"
+    t.string   "終了"
     t.text     "用件"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
