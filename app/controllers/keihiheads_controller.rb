@@ -4,10 +4,10 @@ class KeihiheadsController < ApplicationController
   before_action :set_modal, only: [:new, :edit, :update, :destroy, :create, :update]
   # load_and_authorize_resource
 
-  respond_to :js
+  respond_to :js, :json
 
   def index
-    @keihiheads = Keihihead.current_member(session[:user]).order(申請番号: :desc)
+    @keihiheads = Keihihead.current_member(session[:user]).order(日付: :desc)
   end
 
   def show
@@ -113,6 +113,63 @@ class KeihiheadsController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
+      when 'myjob_destroy'
+        myjob = Myjobmaster.where(社員番号: params[:shain],job番号: params[:myjob_id]).first
+        if !myjob.nil?
+         myjob.destroy
+        end
+
+        data = {destroy_success: "success"}
+        respond_to do |format|
+         format.json { render json: data}
+         # format.js { render 'delete'}
+        end
+      when 'job_selected'
+        myjob = Myjobmaster.where(社員番号: params[:shain],job番号: params[:myjob_id]).first
+        if myjob.nil?
+          job = Jobmaster.find(params[:myjob_id])
+          myjob = Myjobmaster.new(社員番号: params[:shain],job番号: params[:myjob_id],
+            job名: job.try(:job名),開始日: job.try(:開始日), 終了日: job.try(:終了日),
+            ユーザ番号: job.try(:ユーザ番号),ユーザ名: job.try(:ユーザ名),入力社員番号: job.try(:入力社員番号),
+            分類コード: job.try(:分類コード),分類名: job.try(:分類名),
+            関連Job番号: job.try(:関連Job番号),備考: job.try(:備考))
+          myjob.save
+        else
+          myjob.update(updated_at: Time.now)
+        end
+
+        data = {time_update: myjob.updated_at}
+        respond_to do |format|
+          format.json { render json: data}
+          # format.js { render 'delete'}
+        end
+      when 'mykaisha_destroy'
+        mykaisha = Mykaishamaster.where(社員番号: params[:shain],会社コード: params[:mykaisha_id]).first
+        if !mykaisha.nil?
+         mykaisha.destroy
+        end
+
+        data = {destroy_success: "success"}
+        respond_to do |format|
+         format.json { render json: data}
+         # format.js { render 'delete'}
+        end
+      when 'kaisha_selected'
+        mykaisha = Mykaishamaster.where(社員番号: params[:shain],会社コード: params[:mykaisha_id]).first
+        if mykaisha.nil?
+          kaisha = Kaishamaster.find(params[:mykaisha_id])
+          mykaisha = Mykaishamaster.new(社員番号: params[:shain],会社コード: params[:mykaisha_id],
+            会社名: kaisha.try(:会社名),備考: kaisha.try(:備考))
+          mykaisha.save
+        else
+          mykaisha.update(updated_at: Time.now)
+        end
+
+        data = {time_update: mykaisha.updated_at}
+        respond_to do |format|
+          format.json { render json: data}
+          # format.js { render 'delete'}
+        end
     end
   end
 
@@ -170,6 +227,8 @@ class KeihiheadsController < ApplicationController
     # @shonins = Shoninshamst.all
     @shonins = Shoninshamst.where(申請者: session[:user])
     @jobs = Jobmaster.all
+    @myjobs = Myjobmaster.where(社員番号: session[:user]).all.order("updated_at desc")
+    @mykaishamasters = Mykaishamaster.where(社員番号: session[:user]).all.order("updated_at desc")
   end
 
   def keihi_params

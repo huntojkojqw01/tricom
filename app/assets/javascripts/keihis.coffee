@@ -158,8 +158,6 @@ jQuery ->
 
   $('#kaisha-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKaisha_search_modal.row(this).data()
-    $('#keihi-table tr.selected').find('.atesaki-name').val(d[1])
-
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
@@ -171,14 +169,34 @@ jQuery ->
 
   $('#job_table tbody').on 'click', 'tr', (event) ->
     d = oJob_search_modal.row(this).data()
-    $('#keihi-table tr.selected').find('.job-code').val(d[0])
-
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
     else
       oJob_search_modal.$('tr.selected').removeClass('selected')
       oJob_search_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+
+  $('#myjob_table tbody').on 'click', 'tr', (event) ->
+    d = oMyjobTable.row(this).data()
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oMyjobTable.$('tr.selected').removeClass('selected')
+      oMyjobTable.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+
+  $('#mykaisha_table tbody').on 'click', 'tr', (event) ->
+    d = oMykaishaTable.row(this).data()
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oMykaishaTable.$('tr.selected').removeClass('selected')
+      oMykaishaTable.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
 
@@ -361,7 +379,7 @@ jQuery ->
             ]
   })
 
-  $('.input-group').datetimepicker({
+  $('#keihihead_日付').datetimepicker({
     format: 'YYYY/MM/DD',
     widgetPositioning: {
       horizontal: 'left',
@@ -383,23 +401,27 @@ jQuery ->
     location.href='/keihiheads/export_csv.csv?locale=ja';
   )
 
-  $('.keihihead-table').on( 'click', 'tr',  () ->
-    d = oKeihiheadTable.row(this).data()
-    if d != undefined
-      if $(this).hasClass('selected')
-        $(this).removeClass('selected')
-        $(this).removeClass('success')
-      else
-        $(this).addClass('selected')
-        $(this).addClass('success')
+  $('.keihihead-table').on( 'click', 'td',  () ->
+    numColumn = oKeihiheadTable.cell(this).index().column
+    if numColumn != 7 && numColumn != 8
+      rowIdx = oKeihiheadTable.cell( this ).index().row
+      d = oKeihiheadTable.row(rowIdx).data()
+      thisRow = oKeihiheadTable.row(rowIdx).nodes().to$()
+      if d != undefined
+        if $(thisRow).hasClass('selected')
+          $(thisRow).removeClass('selected')
+          $(thisRow).removeClass('success')
+        else
+          $(thisRow).addClass('selected')
+          $(thisRow).addClass('success')
 
-    selects = oKeihiheadTable.rows('tr.selected').data()
-    if selects.length == 0
-      $("#destroy_keihihead").attr("disabled", true);
-      $(".buttons-select-none").addClass('disabled')
-    else
-      $("#destroy_keihihead").attr("disabled", false);
-      $(".buttons-select-none").removeClass('disabled')
+      selects = oKeihiheadTable.rows('tr.selected').data()
+      if selects.length == 0
+        $("#destroy_keihihead").attr("disabled", true);
+        $(".buttons-select-none").addClass('disabled')
+      else
+        $("#destroy_keihihead").attr("disabled", false);
+        $(".buttons-select-none").removeClass('disabled')
 
   )
 

@@ -47,107 +47,22 @@ $(function() {
             "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
     });
+    oMyjobTable = $('#myjob_table').DataTable({
+        "pagingType": "simple_numbers"
+        ,"oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+        },
+        "order": [[ 5, "desc" ]]
+    });
+    oMykaishaTable = $('#mykaisha_table').DataTable({
+        "pagingType": "simple_numbers"
+        ,"oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+        },
+        "order": [[ 4, "desc" ]]
+    });
 });
 
-//button handle
-$(function(){
-    //var sonotha_sum, koutsuhi_sum, nittou_sum, shukuhaku_sum, shinsheino;
-
-    //$('#summary').click(function(){
-    //    this.summary_form();
-    //});
-
-    //$('#update_keihi').click(function(){
-    //    this.summary_form();
-    //});
-
-    //$.fn.summary_form = function(){
-    //$('#summary').click(function(){
-    //    sonotha_sum = 0, koutsuhi_sum = 0, nittou_sum = 0, shukuhaku_sum = 0;
-    //    $('.koutsuhi').each(function() {
-    //        var value = $(this).val();
-    //        if(!isNaN(value) && value.length != 0) {
-    //            koutsuhi_sum += parseFloat(value);
-    //        }
-    //    });
-    //    $('.nittou').each(function() {
-    //        var value = $(this).val();
-    //        if(!isNaN(value) && value.length != 0) {
-    //            nittou_sum += parseFloat(value);
-    //        }
-    //    });
-    //    $('.shukuhaku').each(function() {
-    //        var value = $(this).val();
-    //        if(!isNaN(value) && value.length != 0) {
-    //            shukuhaku_sum += parseFloat(value);
-    //        }
-    //    });
-    //    $('.sonotha').each(function() {
-    //        //var value = $(this).text();
-    //        var value = $(this).val();
-    //        // add only if the value is number
-    //        if(!isNaN(value) && value.length != 0) {
-    //            sonotha_sum += parseFloat(value);
-    //        }
-    //    });
-    //
-    //    var hansikin = $('#keihihead_仮払金').val();
-    //    var shikyuhin = $('#keihihead_支給品').val();
-    //    if(!isNaN(hansikin) && hansikin.length != 0) {
-    //    }else { hansikin = 0 }
-    //    if(!isNaN(shikyuhin) && shikyuhin.length != 0) {
-    //    }else { shikyuhin = 0 }
-    //
-    //    //minue value for checked remove
-    //    var _sonotha_sum = 0 , _koutsuhi_sum = 0, _nittou_sum = 0, _shukuhaku_sum = 0;
-    //    $('.check-remove').each(function() {
-    //        if ($(this).val() == "1"){
-    //            var value = $(this).closest('tr').find('.koutsuhi').val();
-    //            if(!isNaN(value) && value.length != 0) {
-    //                _koutsuhi_sum += parseFloat(value);
-    //            }
-    //
-    //            var value = $(this).closest('tr').find('.nittou').val();
-    //            if(!isNaN(value) && value.length != 0) {
-    //                _nittou_sum += parseFloat(value);
-    //            }
-    //
-    //            var value = $(this).closest('tr').find('.shukuhaku').val();
-    //            if(!isNaN(value) && value.length != 0) {
-    //                _shukuhaku_sum += parseFloat(value);
-    //            }
-    //
-    //            var value = $(this).closest('tr').find('.sonotha').val();
-    //            if(!isNaN(value) && value.length != 0) {
-    //                _sonotha_sum += parseFloat(value);
-    //            }
-    //
-    //        }
-    //    });
-    //
-    //    koutsuhi_sum -= _koutsuhi_sum;
-    //    nittou_sum -= _nittou_sum;
-    //    shukuhaku_sum -= _shukuhaku_sum;
-    //    sonotha_sum -= _sonotha_sum;
-    //
-    //    $('#keihihead_交通費合計').val(koutsuhi_sum);
-    //    $('#keihihead_日当合計').val(nittou_sum);
-    //    $('#keihihead_宿泊費合計').val(shukuhaku_sum);
-    //    $('#keihihead_その他合計').val(sonotha_sum);
-    //    $('#keihihead_旅費合計').val(koutsuhi_sum + nittou_sum + shukuhaku_sum);
-    //    $('#keihihead_合計').val(koutsuhi_sum + nittou_sum + shukuhaku_sum + sonotha_sum);
-    //    $('#keihihead_過不足').val(koutsuhi_sum + nittou_sum + shukuhaku_sum + sonotha_sum - hansikin - shikyuhin);
-    //
-    //    shinsheino = $('#keihihead_申請番号').val();
-    //    $('.shinsheino').val(shinsheino);
-    //
-    //    //line = 0;
-    //    //$('.line-no').each(function() {
-    //    //    line +=1;
-    //    //    $(this).val(line);
-    //    //});
-    //});
-}(jQuery));
 
 //binding color picker and refer master
 $(function(){
@@ -206,4 +121,215 @@ $(function(){
             }
         });
     });
+    // $('.keihihead_keihibodies_JOB .search-field').click(function() {
+
+    //     $('#job_search_modal').modal('show')
+
+
+    // });
+
+
+    // $('.search-history-job').click(function() {
+    //     $('#myjob_search_modal').modal('show')
+    // });
+
+    $('#job_sentaku_ok').click(function(){
+
+        var job = oJob_search_modal.row('tr.selected').data();
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val(job[0])
+        var shain = $('#keihihead_keihibodies_attributes_0_社員番号').val();
+        $.ajax({
+            url: '/keihiheads/ajax',
+            data: {id: 'job_selected',myjob_id: job[0],shain: shain},
+            type: "POST",
+
+            success: function(data) {
+               if(data.time_update != null){
+                    console.log("getAjax time update:"+ data.time_update);
+                    var table = $('#myjob_table').DataTable();
+                    // table.row.add( [shain,job[0],job[1],job[2],job[3],data.time_update] ).draw( false );
+                    var rowId = $('#myjob_table').dataTable().fnFindCellRowIndexes(job[0], 1);
+                    if(rowId!= '')
+                        table.cell(rowId, 5).data(data.time_update).draw(false);
+                    else
+                        table.row.add( [shain,job[0],job[1],job[2],job[3],data.time_update] ).draw( false );
+
+                }
+            },
+            failure: function() {
+                console.log("job_selected keydown Unsuccessful");
+            }
+        });
+    });
+
+    $('#myjob_destroy').click(function (){
+        var myjob = oMyjobTable.row('tr.selected').data();
+        var shain = $('#keihihead_keihibodies_attributes_0_社員番号').val();
+        $.ajax({
+            url: '/keihiheads/ajax',
+            data: {id: 'myjob_destroy',myjob_id: myjob[1],shain: shain},
+            type: "POST",
+
+            success: function(data) {
+
+                if(data.destroy_success != null){
+                    console.log("getAjax destroy_success:"+ data.destroy_success);
+                    $("#myjob_table").dataTable().fnDeleteRow($('#myjob_table').find('tr.selected').remove());
+                    $("#myjob_table").dataTable().fnDraw();
+                }
+
+            },
+            failure: function() {
+
+                console.log("myjob_destroy keydown Unsuccessful");
+            }
+        });
+
+    });
+
+    $('#myjob_sentaku_ok').click(function(){
+        var d = oMyjobTable.row('tr.selected').data();
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val(d[1]);
+    });
+
+    $('#clear_job').click(function () {
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
+        oJob_search_modal.$('tr.selected').removeClass('selected');
+        oJob_search_modal.$('tr.success').removeClass('success');
+    } );
+
+    $('#clear_myjob').click(function () {
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
+        oMyjobTable.$('tr.selected').removeClass('selected');
+        oMyjobTable.$('tr.success').removeClass('success');
+    } );
+
+    $('#koutei_sentaku_ok').click(function(){
+
+        var kaisha = oKaisha_search_modal.row('tr.selected').data();
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val(kaisha[1])
+        var shain = $('#keihihead_keihibodies_attributes_0_社員番号').val();
+        $.ajax({
+            url: '/keihiheads/ajax',
+            data: {id: 'kaisha_selected',mykaisha_id: kaisha[0],shain: shain},
+            type: "POST",
+
+            success: function(data) {
+               if(data.time_update != null){
+                    console.log("getAjax time update:"+ data.time_update);
+                    var table = $('#mykaisha_table').DataTable();
+                    // table.row.add( [shain,job[0],job[1],job[2],job[3],data.time_update] ).draw( false );
+                    var rowId = $('#mykaisha_table').dataTable().fnFindCellRowIndexes(kaisha[0], 1);
+                    if(rowId!= '')
+                        table.cell(rowId, 4).data(data.time_update).draw(false);
+                    else
+                        table.row.add( [shain,kaisha[0],kaisha[1],kaisha[2],data.time_update] ).draw( false );
+
+                }
+            },
+            failure: function() {
+                console.log("kaisha_selected keydown Unsuccessful");
+            }
+        });
+    });
+    $('#mykaisha_destroy').click(function (){
+        var mykaisha = oMykaishaTable.row('tr.selected').data();
+        var shain = $('#keihihead_keihibodies_attributes_0_社員番号').val();
+        $.ajax({
+            url: '/keihiheads/ajax',
+            data: {id: 'mykaisha_destroy',mykaisha_id: mykaisha[1],shain: shain},
+            type: "POST",
+
+            success: function(data) {
+
+                if(data.destroy_success != null){
+                    console.log("getAjax destroy_success:"+ data.destroy_success);
+                    $("#mykaisha_table").dataTable().fnDeleteRow($('#mykaisha_table').find('tr.selected').remove());
+                    $("#mykaisha_table").dataTable().fnDraw();
+                }
+
+            },
+            failure: function() {
+
+                console.log("mykaisha_destroy keydown Unsuccessful");
+            }
+        });
+
+    });
+
+    $('#mykaisha_sentaku_ok').click(function(){
+        var d = oMykaishaTable.row('tr.selected').data();
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val(d[2]);
+    });
+
+    $('#clear_kaisha').click(function () {
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('')
+        oKaisha_search_modal.$('tr.selected').removeClass('selected');
+        oKaisha_search_modal.$('tr.success').removeClass('success');
+    } );
+
+    $('#clear_mykaisha').click(function () {
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
+        oMykaishaTable.$('tr.selected').removeClass('selected');
+        oMykaishaTable.$('tr.success').removeClass('success');
+    } );
+
+
 });
+
+$(document).on('click', '.keihihead_keihibodies_JOB .search-field', function(event){
+
+    $('#job_search_modal').modal('show')
+    event.preventDefault();
+});
+
+$(document).on('click', '.keihihead_keihibodies_JOB .search-history-job', function(event){
+
+    $('#myjob_search_modal').modal('show')
+    event.preventDefault();
+});
+
+$(document).on('click', '.keihihead_keihibodies_相手先 .search-field', function(event){
+
+    $('#kaisha-search-modal').modal('show')
+    event.preventDefault();
+});
+
+$(document).on('click', '.keihihead_keihibodies_相手先 .search-history-job', function(event){
+
+    $('#mykaisha_search_modal').modal('show')
+    event.preventDefault();
+});
+
+
+jQuery.fn.dataTableExt.oApi.fnFindCellRowIndexes = function ( oSettings, sSearch, iColumn )
+{
+    var
+        i,iLen, j, jLen, val,
+        aOut = [], aData,
+        columns = oSettings.aoColumns;
+
+    for ( i=0, iLen=oSettings.aoData.length ; i<iLen ; i++ )
+    {
+        aData = oSettings.aoData[i]._aData;
+
+        if ( iColumn === undefined )
+        {
+            for ( j=0, jLen=columns.length ; j<jLen ; j++ )
+            {
+                val = this.fnGetData(i, j);
+
+                if ( val == sSearch )
+                {
+                    aOut.push( i );
+                }
+            }
+        }
+        else if (this.fnGetData(i, iColumn) == sSearch )
+        {
+            aOut.push( i );
+        }
+    }
+
+    return aOut;
+};
