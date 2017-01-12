@@ -834,17 +834,26 @@ $(function(){
         "buttons": [{
             "extend":    'copyHtml5',
             "text":      '<i class="fa fa-files-o"></i>',
-            "titleAttr": 'Copy'
+            "titleAttr": 'Copy',
+            "exportOptions": {
+                "columns": [2,3,4,5,6,7,8,9]
+            }
         },
         {
             "extend":    'excelHtml5',
             "text":      '<i class="fa fa-file-excel-o"></i>',
-            "titleAttr": 'Excel'
+            "titleAttr": 'Excel',
+            "exportOptions": {
+                "columns": [2,3,4,5,6,7,8,9]
+            }
         },
         {
             "extend":    'csvHtml5',
             "text":      '<i class="fa fa-file-text-o"></i>',
-            "titleAttr": 'CSV'
+            "titleAttr": 'CSV',
+            "exportOptions": {
+                "columns": [2,3,4,5,6,7,8,9]
+            }
         },
         {
           "extend": 'selectAll',
