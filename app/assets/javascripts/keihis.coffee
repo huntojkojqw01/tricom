@@ -335,17 +335,26 @@ jQuery ->
     "buttons": [{
                 "extend":    'copyHtml5',
                 "text":      '<i class="fa fa-files-o"></i>',
-                "titleAttr": 'Copy'
+                "titleAttr": 'Copy',
+                "exportOptions": {
+                  "columns": [0,1,2,3,4,5,6]
+                }
             },
             {
                 "extend":    'excelHtml5',
                 "text":      '<i class="fa fa-file-excel-o"></i>',
-                "titleAttr": 'Excel'
+                "titleAttr": 'Excel',
+                "exportOptions": {
+                  "columns": [0,1,2,3,4,5,6]
+                }
             },
             {
                 "extend":    'csvHtml5',
                 "text":      '<i class="fa fa-file-text-o"></i>',
-                "titleAttr": 'CSV'
+                "titleAttr": 'CSV',
+                "exportOptions": {
+                  "columns": [0,1,2,3,4,5,6]
+                }
             },
             {
               "extend": 'selectAll',
