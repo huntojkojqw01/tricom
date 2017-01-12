@@ -59,7 +59,7 @@ $(function(){
                    var calendar = document.getElementById('calendar-month-view');
 
                     calendar.ondblclick = function() {
-                       window.open('/events/new?start_at='+date.format());
+                       location.href='/events/new?start_at='+date.format();
 
                     }
                     //alert(data.sUrl);
