@@ -262,6 +262,7 @@ en:
       check_time: は22時間より小さい値にしてください。
     label:
       import_csv: Import data with CSV!
+      reference: Reference
   export: 輸出
   title:
     bashokubunmst: Location classification list

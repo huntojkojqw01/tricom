@@ -30,11 +30,12 @@
         %td= keihihead.承認済区分
         -if keihihead.try(:承認済区分)!= "1"
           %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
+          - msg = t 'app.delete_confirm'
+          %td= link_to (t 'title.delete'), keihihead, method: :delete, data: { confirm: msg }
         -else
-          %td= t 'title.edit'
-        - msg = t 'app.delete_confirm'
-        -#%td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
-        %td= link_to '削除', keihihead, method: :delete, data: { confirm: msg }
+          %td= link_to (t 'app.label.reference'), keihihead_path(keihihead)
+          / %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
+          %td= t 'title.delete'
 
 %br
 - msg_select = t 'app.select_confirm'

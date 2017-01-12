@@ -434,8 +434,11 @@ jQuery ->
       response = confirm($('#message_confirm_delete').text())
       if response
         len = keihiheads.length
+        k = 0
         for i in [0...len]
-          keihiheadIds[i] = keihiheads[i][0]
+          if keihiheads[i][6] != "1"
+            keihiheadIds[k] = keihiheads[i][0]
+            k = k+1
 
         $.ajax({
           url: '/keihiheads/ajax',
@@ -449,6 +452,17 @@ jQuery ->
           success: (data) ->
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
+              keihiheads = oKeihiheadTable.rows('tr.selected').data()
+
+              if keihiheads.length > 0
+                for i in [0...len]
+                  if keihiheads[i][6] == "1"
+                    rowId = $('.keihihead-table').dataTable().fnFindCellRowIndexes(keihiheads[i][0], 0);
+                    thisRow = oKeihiheadTable.row(rowId).nodes().to$()
+                    if $(thisRow).hasClass('selected')
+                      $(thisRow).removeClass('selected')
+                      $(thisRow).removeClass('success')
+
               $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
               $(".keihihead-table").dataTable().fnDraw()
 

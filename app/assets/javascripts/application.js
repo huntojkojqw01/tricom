@@ -38,6 +38,7 @@
 // require dataTables/jquery-1.12.4
 //= require bootstrap-datetimepicker
 //= require bootstrap-colorpicker
+//= require dataTables/fnFindCellRowIndexes
 
 //= require custom
 
