@@ -222,6 +222,7 @@ en:
       <<: *errors
   app:
     delete_confirm: Do you want to delete?
+    delete_data_in_month_confirm: 当月の勤務データを削除されます。削除でよろしいでしょうか。
     select_confirm: 行を選択してください。
     forgot_password: Forgot password?
     flash:

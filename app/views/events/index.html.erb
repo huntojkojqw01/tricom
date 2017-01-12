@@ -199,8 +199,9 @@
         <% msg_confirm = t 'app.delete_confirm' %>
         <span id='message_confirm_select' hidden='true'><%=msg_select%></span>
         <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
-        <button class='btn btn-primary' id='destroy_event' type= 'button'><%=(t 'title.delete')%></button>
         <a href=<%=new_event_path%> ><button class='btn btn-primary' type= 'button'><%=(t 'title.new')%></button></a>
+        <button class='btn btn-primary' id='destroy_event' type= 'button'><%=(t 'title.delete')%></button>
+
    <!--      <%= link_to (t 'title.newevent'), new_event_path %> -->
       </div>
     </div>
