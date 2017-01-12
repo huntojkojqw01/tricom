@@ -28,7 +28,7 @@
       -#= check_box_tag 'finish-input'
       -#= label_tag '承認要求'
       -#= button_tag '入力済', name: 'commit', value:'入力済', class: 'btn btn-default'
-      = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_confirm') }
+      = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
       - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
         = f.submit (t 'helpers.submit.entered'), class: 'btn btn-primary'
       - else
