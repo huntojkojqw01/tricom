@@ -51,7 +51,8 @@
             %td= body.try(:機関名)
             %td= body.try(:発)
             %td= body.try(:着)
-            %td= body.try(:発着kubun)
+            - array_value = {"1" => '往路',"2" => '復路',"3" => '往復'}
+            %td= array_value[body.try(:発着kubun)]
             %td= body.try(:交通費)
             %td= body.try(:日当)
             %td= body.try(:宿泊費)
@@ -83,7 +84,8 @@
             %td= body.try(:機関名)
             %td= body.try(:発)
             %td= body.try(:着)
-            %td= body.try(:発着kubun)
+            - array_value = {"1" => '往路',"2" => '復路',"3" => '往復'}
+            %td= array_value[body.try(:発着kubun)]
             %td= body.try(:交通費)
             %td= body.try(:日当)
             %td= body.try(:宿泊費)
