@@ -1,41 +1,107 @@
 = javascript_include_tag 'keihis'
+= stylesheet_link_tag 'keihis'
 = provide(:title, (t 'title.keihihead'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li= link_to 'カレンダー', events_path
   %li.active 経費入力管理
+= form_for :keihihead, url: keihiheads_path, html: {class:'form-inline'}, method: :get do |f|
+  = render 'header_search', f:f
+.spacer
 
 %table.keihihead-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
       %th 申請番号
-      %th 申請日付
-      %th 承認区分
-      %th 承認者
       %th 清算予定日
       %th 清算日
+      %th 承認者
       %th 承認済区分
+      %th 日付
+      %th 社員番号
+      %th 相手先
+      %th 機関名
+      %th 発
+      %th 着
+      %th 発着区分
+      %th 交通費
+      %th 日当
+      %th 宿泊費
+      %th その他
+      %th JOB
+      %th 備考
+      %th 領収書区分
       %th
       %th
 
   %tbody
     - @keihiheads.each do |keihihead|
-      %tr
-        %td= keihihead.申請番号
-        %td= keihihead.日付
-        %td= keihihead.承認kubun
-        %td= (Shainmaster.find_by id: keihihead.承認者).try(:氏名) unless keihihead.承認者.empty?
-        %td= keihihead.清算予定日
-        %td= keihihead.清算日
-        %td= keihihead.承認済区分
-        -if keihihead.try(:承認済区分)!= "1"
-          %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
-          - msg = t 'app.delete_confirm'
-          %td= link_to (t 'title.delete'), keihihead, method: :delete, data: { confirm: msg }
-        -else
-          %td= link_to (t 'app.label.reference'), keihihead_path(keihihead)
-          / %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
-          %td= t 'title.delete'
+      - numberRow = 1
+      - keihihead.keihibodies.each do |body|
+        - if numberRow == 1
+          %tr
+            %td= keihihead.申請番号
+            %td= keihihead.清算予定日
+            %td= keihihead.清算日
+            %td= (Shainmaster.find_by id: keihihead.承認者).try(:氏名) unless keihihead.承認者.empty?
+            %td= keihihead.承認済区分
+            %td= body.try(:日付)
+            %td= body.try(:社員番号)
+            %td= body.try(:相手先)
+            %td= body.try(:機関名)
+            %td= body.try(:発)
+            %td= body.try(:着)
+            %td= body.try(:発着kubun)
+            %td= body.try(:交通費)
+            %td= body.try(:日当)
+            %td= body.try(:宿泊費)
+            %td= body.try(:その他)
+            %td= body.try(:JOB)
+            %td= body.try(:備考)
+            %td= body.try(:領収書kubun)
+
+
+            -if keihihead.try(:承認済区分)!= "1" && body.try(:社員番号) == session[:user]
+              %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
+              - msg = t 'app.delete_confirm'
+              %td= link_to (t 'title.delete'), keihihead, method: :delete, data: { confirm: msg }
+            -else
+              %td= link_to (t 'app.label.reference'), keihihead_path(keihihead)
+              / %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
+              %td= t 'title.delete'
+          - numberRow = numberRow + 1
+        - else
+          %tr{hidden: true}
+            %td= keihihead.申請番号
+            %td= keihihead.清算予定日
+            %td= keihihead.清算日
+            %td= (Shainmaster.find_by id: keihihead.承認者).try(:氏名) unless keihihead.承認者.empty?
+            %td= keihihead.承認済区分
+            %td= body.try(:日付)
+            %td= body.try(:社員番号)
+            %td= body.try(:相手先)
+            %td= body.try(:機関名)
+            %td= body.try(:発)
+            %td= body.try(:着)
+            %td= body.try(:発着kubun)
+            %td= body.try(:交通費)
+            %td= body.try(:日当)
+            %td= body.try(:宿泊費)
+            %td= body.try(:その他)
+            %td= body.try(:JOB)
+            %td= body.try(:備考)
+            %td= body.try(:領収書kubun)
+
+
+            -if keihihead.try(:承認済区分)!= "1"
+              %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
+              - msg = t 'app.delete_confirm'
+              %td= link_to (t 'title.delete'), keihihead, method: :delete, data: { confirm: msg }
+            -else
+              %td= link_to (t 'app.label.reference'), keihihead_path(keihihead)
+              / %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
+              %td= t 'title.delete'
+          - numberRow = numberRow + 1
 
 %br
 - msg_select = t 'app.select_confirm'
@@ -48,19 +114,19 @@
 %button.btn.btn-primary#destroy_keihihead{type: :button} #{delete_text}
 
 / = link_to '新規', new_keihihead_path
-.row.spacer
-%legend
+/ .row.spacer
+/ %legend
 
-- if can? :update, @keihiheads
-  %h4=t 'app.label.import_csv'
-  = form_tag import_keihiheads_path, class:'form-inline', multipart: true do
-    .form-group
-      = label_tag 'selectcsv', nil, class: 'sr-only'
-      = file_field_tag :file , class: 'btn btn-default'
-    .form-group
-      = label_tag 'importcsv', nil, class: 'sr-only'
-      = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
-.row.spacer
-%legend
+/ - if can? :update, @keihiheads
+/   %h4=t 'app.label.import_csv'
+/   = form_tag import_keihiheads_path, class:'form-inline', multipart: true do
+/     .form-group
+/       = label_tag 'selectcsv', nil, class: 'sr-only'
+/       = file_field_tag :file , class: 'btn btn-default'
+/     .form-group
+/       = label_tag 'importcsv', nil, class: 'sr-only'
+/       = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+/ .row.spacer
+/ %legend
 
-%button.btn.btn-primary#export_keihihead{type: :button} #{t 'title.export_csv'}
+/ %button.btn.btn-primary#export_keihihead{type: :button} #{t 'title.export_csv'}

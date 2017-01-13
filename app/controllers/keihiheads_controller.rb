@@ -7,7 +7,37 @@ class KeihiheadsController < ApplicationController
   respond_to :js, :json
 
   def index
-    @keihiheads = Keihihead.current_member(session[:user]).order(日付: :desc)
+    vars = request.query_parameters
+    date = vars['date']
+    shain = vars['shain']
+    shonin = vars['shonin']
+    if date.nil? && shain.nil? && shonin.nil?
+      @keihiheads = Keihihead.where(社員番号: session[:user], 清算予定日: Date.today).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+    elsif shonin == ''
+      if date == '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain == ''
+        @keihiheads = Keihihead.where(清算予定日: date).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      elsif date == '' && shain ==''
+        @keihiheads = Keihihead.all.order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      end
+    elsif shonin != ''
+      if shonin == '0'
+        shonin = nil
+      end
+      if date == '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain == ''
+        @keihiheads = Keihihead.where(清算予定日: date,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      elsif date == '' && shain ==''
+        @keihiheads = Keihihead.where(承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+      end
+    end
+
   end
 
   def show

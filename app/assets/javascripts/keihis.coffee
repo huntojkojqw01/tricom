@@ -321,11 +321,13 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,"aoColumnDefs": [
-      { "bSortable": false, "aTargets": [ 7,8 ]},
+      { "bSortable": false, "aTargets": [ 19,20 ]},
       {
-        "targets": [7,8],
+        "targets": [19,20],
         "width": '5%'
       }
+      {"targets": [ 7..18 ],"visible": false }
+      {"targets": [ 5 ],"visible": false }
     ],
     "order": [],
     "columnDefs": [ {
@@ -337,7 +339,7 @@ jQuery ->
                 "text":      '<i class="fa fa-files-o"></i>',
                 "titleAttr": 'Copy',
                 "exportOptions": {
-                  "columns": [0,1,2,3,4,5,6]
+                  "columns": [0..18]
                 }
             },
             {
@@ -345,16 +347,18 @@ jQuery ->
                 "text":      '<i class="fa fa-file-excel-o"></i>',
                 "titleAttr": 'Excel',
                 "exportOptions": {
-                  "columns": [0,1,2,3,4,5,6]
-                }
+                  "columns": [0..18]
+                },
+                "filename": '経費出費明細'
             },
             {
                 "extend":    'csvHtml5',
                 "text":      '<i class="fa fa-file-text-o"></i>',
                 "titleAttr": 'CSV',
                 "exportOptions": {
-                  "columns": [0,1,2,3,4,5,6]
-                }
+                  "columns": [0..18]
+                },
+                "filename": '経費出費明細'
             },
             {
               "extend": 'selectAll',
@@ -402,6 +406,40 @@ jQuery ->
     focusOnShow: false
   })
 
+  $('.datepicker_search').datetimepicker({
+    format: 'YYYY-MM-DD',
+    widgetPositioning: {
+      horizontal: 'left',
+      vertical: 'bottom'
+    }
+    showTodayButton: true,
+    showClear: true,
+    calendarWeeks: true,
+    keyBinds: false,
+    focusOnShow: false
+
+  })
+
+  $('.datepicker_search').on('dp.change', (e) ->
+    date = $(this).val()
+    shain = $('#keihihead_対象者').val()
+    shonin = $('#keihihead_承認済区分').val()
+    location.href = '/keihiheads?locale=ja&date=' +date+'&shain='+shain+'&shonin='+shonin
+  )
+
+  $('#keihihead_対象者').on('change', () ->
+    shain = $(this).val()
+    date =  $('.datepicker_search').val()
+    shonin = $('#keihihead_承認済区分').val()
+    location.href = '/keihiheads?locale=ja&date=' +date+'&shain='+shain+'&shonin='+shonin
+  )
+  $('#keihihead_承認済区分').on('change', () ->
+    shonin = $(this).val()
+    date =  $('.datepicker_search').val()
+    shain = $('#keihihead_対象者').val()
+    location.href = '/keihiheads?locale=ja&date=' +date+'&shain='+shain+'&shonin='+shonin
+  )
+
   $('#summary').click( () ->
     alert('now')
   )
@@ -412,7 +450,7 @@ jQuery ->
 
   $('.keihihead-table').on( 'click', 'td',  () ->
     numColumn = oKeihiheadTable.cell(this).index().column
-    if numColumn != 7 && numColumn != 8
+    if numColumn != 19 && numColumn != 20
       rowIdx = oKeihiheadTable.cell( this ).index().row
       d = oKeihiheadTable.row(rowIdx).data()
       thisRow = oKeihiheadTable.row(rowIdx).nodes().to$()
@@ -444,45 +482,61 @@ jQuery ->
       if response
         len = keihiheads.length
         k = 0
+        shain = $('#shain_login').text()
+        check_permit = true
         for i in [0...len]
-          if keihiheads[i][6] != "1"
+          if keihiheads[i][4] != "1" && keihiheads[i][6] == shain
             keihiheadIds[k] = keihiheads[i][0]
             k = k+1
+          else
+            check_permit = false
+        if check_permit == false
+          alert("他の経費データまたは承認済みのデータでは削除できません。")
+        if k > 0
+          $.ajax({
+            url: '/keihiheads/ajax',
+            data:{
+              id: 'keihihead_削除する',
+              keihiheads: keihiheadIds
+            },
 
-        $.ajax({
-          url: '/keihiheads/ajax',
-          data:{
-            id: 'keihihead_削除する',
-            keihiheads: keihiheadIds
-          },
+            type: "POST",
 
-          type: "POST",
+            success: (data) ->
+              if data.destroy_success != null
+                console.log("getAjax destroy_success:"+ data.destroy_success)
+                keihiheads = oKeihiheadTable.rows('tr.selected').data()
 
-          success: (data) ->
-            if data.destroy_success != null
-              console.log("getAjax destroy_success:"+ data.destroy_success)
-              keihiheads = oKeihiheadTable.rows('tr.selected').data()
+                if keihiheads.length > 0
+                  for i in [0...len]
+                    if keihiheads[i][4] == "1" || keihiheads[i][6] != shain
+                      rowId = $('.keihihead-table').dataTable().fnFindCellRowIndexes(keihiheads[i][0], 0);
+                      thisRow = oKeihiheadTable.row(rowId).nodes().to$()
+                      if $(thisRow).hasClass('selected')
+                        $(thisRow).removeClass('selected')
+                        $(thisRow).removeClass('success')
 
-              if keihiheads.length > 0
-                for i in [0...len]
-                  if keihiheads[i][6] == "1"
-                    rowId = $('.keihihead-table').dataTable().fnFindCellRowIndexes(keihiheads[i][0], 0);
-                    thisRow = oKeihiheadTable.row(rowId).nodes().to$()
-                    if $(thisRow).hasClass('selected')
-                      $(thisRow).removeClass('selected')
-                      $(thisRow).removeClass('success')
+                $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
+                $(".keihihead-table").dataTable().fnDraw()
 
-              $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
-              $(".keihihead-table").dataTable().fnDraw()
-
-            else
-              console.log("getAjax destroy_success:"+ data.destroy_success)
+              else
+                console.log("getAjax destroy_success:"+ data.destroy_success)
 
 
-          failure: () ->
-            console.log("keihihead_削除する keydown Unsuccessful")
+            failure: () ->
+              console.log("keihihead_削除する keydown Unsuccessful")
 
-        })
+          })
+        else
+          keihiheads = oKeihiheadTable.rows('tr.selected').data()
+          if keihiheads.length > 0
+            for i in [0...len]
+              if keihiheads[i][4] == "1" || keihiheads[i][6] != shain
+                rowId = $('.keihihead-table').dataTable().fnFindCellRowIndexes(keihiheads[i][0], 0);
+                thisRow = oKeihiheadTable.row(rowId).nodes().to$()
+                if $(thisRow).hasClass('selected')
+                  $(thisRow).removeClass('selected')
+                  $(thisRow).removeClass('success')
         $("#destroy_keihihead").attr("disabled", true);
       else
         selects = oKeihiheadTable.rows('tr.selected').data()
