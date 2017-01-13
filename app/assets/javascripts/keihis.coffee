@@ -313,6 +313,17 @@ jQuery ->
 
     })
     event.preventDefault()
+  getDate = ->
+    today = new Date();
+    dd = today.getDate();
+    mm = today.getMonth()+1;
+    yyyy = today.getFullYear();
+    if dd<10
+      dd='0'+dd;
+    if mm<10
+      mm='0'+mm;
+    date =yyyy+mm+dd
+
 
   oKeihiheadTable = $('.keihihead-table').DataTable({
     "dom": 'lBfrtip',
@@ -349,7 +360,7 @@ jQuery ->
                 "exportOptions": {
                   "columns": [0..18]
                 },
-                "filename": '経費出費明細'
+                "filename": '経費出費明細_'+getDate()
             },
             {
                 "extend":    'csvHtml5',
@@ -358,7 +369,7 @@ jQuery ->
                 "exportOptions": {
                   "columns": [0..18]
                 },
-                "filename": '経費出費明細'
+                "filename": '経費出費明細_'+getDate()
             },
             {
               "extend": 'selectAll',
@@ -391,6 +402,10 @@ jQuery ->
 
             ]
   })
+
+
+
+
 
   $('#keihihead_日付').datetimepicker({
     format: 'YYYY/MM/DD',

@@ -24,8 +24,10 @@ class KeihiheadsController < ApplicationController
         @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
       end
     elsif shonin != ''
-      if shonin == '0'
+      if shonin == '未確認'
         shonin = nil
+      elsif shonin == '承認済'
+        shonin = 1
       end
       if date == '' && shain != ''
         @keihiheads = Keihihead.where(社員番号: shain,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
