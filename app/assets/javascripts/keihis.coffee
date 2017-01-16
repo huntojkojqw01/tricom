@@ -372,6 +372,15 @@ jQuery ->
                 "filename": '経費出費明細_'+getDate()
             },
             {
+                "extend":    'pdfHtml5',
+                "text":      '<i class="fa fa-file-pdf-o"></i>',
+                "titleAttr": 'PDF',
+                "exportOptions": {
+                  "columns": [0..18]
+                },
+                "filename": '経費出費明細_'+getDate()
+            },
+            {
               "extend": 'selectAll',
               "action": ( e, dt, node, config ) ->
                 oKeihiheadTable.$('tr').addClass('selected')
