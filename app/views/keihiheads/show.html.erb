@@ -20,7 +20,7 @@
       <div class="editor-datetime">
         <%= label_tag 'label2','日付:'%>
         <%= f.text_field :日付, class: 'form-control',disabled: true, size: 10 %>
-        <%= button_tag '>', id: 'search-shinshei', type: 'button', class: 'btn' %>
+    <!--     <%= button_tag '>', id: 'search-shinshei', type: 'button', class: 'btn' %> -->
       </div>
     </div>
 
@@ -115,10 +115,9 @@
       <%= f.label :承認 %>
       <%= f.text_field  :承認者, size:4, disabled: true, class: 'form-control'%>
       <%= Shainmaster.find_by(id: @keihi.承認者).try(:氏名) %>
-      <div class="editor-datetime">
-        <%= f.label :清算予定日 %>
-        <%= f.text_field :清算予定日, size:10, disabled: true, class: 'form-control' %>
-      </div>
+      <%= f.label :清算予定日 %>
+      <%= f.text_field :清算予定日, size:10, disabled: true, class: 'form-control' %>
+
     </div>
 
 <% end %>
