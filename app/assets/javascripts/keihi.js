@@ -68,12 +68,16 @@ $(function() {
 $(function(){
     $('#keihihead_清算予定日').datetimepicker({
         format: 'YYYY/MM/DD',
+        widgetPositioning: {
+          horizontal: 'left',
+          vertical: 'bottom'
+        },
         //inline: true,
         //widgetParent: 'container-fluid',
         showTodayButton: true,
         showClear: true,
         //,daysOfWeekDisabled:[0,6]
-        //calendarWeeks: true,
+        calendarWeeks: true,
         keyBinds: false,
         focusOnShow: false
 

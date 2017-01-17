@@ -22,8 +22,8 @@ jQuery ->
     focusOnShow: false
   })
 
-  $('#kintai_出勤時刻1').datetimepicker({
-    format: 'HH:mm',
+  $('#kintai_出勤時刻').datetimepicker({
+    format: 'YYYY/MM/DD HH:mm',
     showClear: true,
     showTodayButton: true,
     sideBySide: true,
@@ -35,8 +35,8 @@ jQuery ->
     focusOnShow: false
   })
 
-  $('#kintai_退社時刻1').datetimepicker({
-    format: 'HH:mm',
+  $('#kintai_退社時刻').datetimepicker({
+    format: 'YYYY/MM/DD HH:mm',
     showClear: true,
     showTodayButton: true,
     sideBySide: true,
