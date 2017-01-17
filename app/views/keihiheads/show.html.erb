@@ -84,7 +84,56 @@
     <!--footer-->
 
     <div class="spacer"></div>
-    <div class="form-group">
+    <div class="row">
+      <dir class=" col-md-12 col-xs-9 col-sm-9 col-lg-12 col-md-offset-2 col-xs-offset-1 col-sm-offset-1 col-lg-offset-2">
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :交通費合計, size:4, disabled: true, class: 'form-control', :input_html => { :size => 6} %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :日当合計, size:2, disabled: true, class: 'form-control', :input_html => { :size => 6} %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :宿泊費合計, size:2, disabled: true, class: 'form-control', :input_html => { :size => 6} %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :旅費合計, size:4, disabled: true, class: 'form-control', :input_html => { :size => 6} %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :その他合計, size:2, disabled: true, class: 'form-control', :input_html => { :size => 6} %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :仮払金, size:2, disabled: true, class: 'form-control', :input_html => { :size => 6}, :label_html => {:class => "akaji"} %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :過不足, size:4, disabled: true, class: 'form-control', :input_html => { :size => 6} %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :支給品, size:2, disabled: true, class: 'form-control', :input_html => { :size => 6}, :label_html => {:class => "akaji"} %>
+        </dir>
+      </dir>
+    </div>
+    <div class="row">
+      <dir class=" col-md-12 col-xs-9 col-sm-9 col-lg-12 col-md-offset-2 col-xs-offset-1 col-sm-offset-1 col-lg-offset-2">
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :合計, class: 'form-control',:input_html => { :size => 10}, disabled: true %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1 col-md-offset-4 col-xs-offset-1 col-sm-offset-1 col-lg-offset-4">
+          <%= f.label :承認要求 %>
+          <div></div>
+          <%= f.check_box :承認kubun, disabled: true %>
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :承認者,:input_html => { :size => 10}, disabled: true %>
+
+        </dir>
+        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
+          <%= f.input :清算予定日, size:10, class: 'form-control',:input_html => { :size => 10}%>
+
+        </dir>
+      </dir>
+    </dir>
+
+ <!--    <div class="form-group">
       <%= f.label '小　計' %>
       <%= f.text_field :交通費合計, size:4, disabled: true, class: 'form-control' %>
       <%= f.text_field :日当合計, size:2, disabled: true, class: 'form-control' %>
@@ -98,7 +147,7 @@
       <%= f.text_field :過不足, size:4, disabled: true, class: 'form-control' %>
       <%= f.label :支給品, class:'akaji' %>
       <%= f.text_field :支給品, size:2, disabled: true, class: 'form-control' %>
-    </div><br>
+    </div><br> -->
     <!-- <div class="form-group">
       <%= f.label :旅費交通費合計 %>
       <%= f.text_field :旅費合計, size:4, disabled: true, class: 'form-control' %>
@@ -107,7 +156,7 @@
       <%= f.label :過不足 %>
       <%= f.text_field :過不足, size:4, disabled: true, class: 'form-control' %>
     </div><br> -->
-    <div class="form-group">
+  <!--   <div class="form-group">
       <%= f.label '経　費　合　計' %>
       <%= f.text_field :合計, size:4, disabled: true, class: 'form-control' %>
       <%= f.check_box :承認kubun , disabled: true%>
@@ -119,5 +168,5 @@
       <%= f.text_field :清算予定日, size:10, disabled: true, class: 'form-control' %>
 
     </div>
-
+ -->
 <% end %>

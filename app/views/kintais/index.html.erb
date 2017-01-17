@@ -130,8 +130,6 @@
 <legend></legend>
 <% if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil? %>
   <button class='btn btn-primary' id='export_pdf' type= 'button' disabled="true"><%=(t 'app.label.export_pdf')%></button>
-  <%= link_to 'PDF', pdf_show_kintais_path(format: :pdf) %>
 <% else %>
   <button class='btn btn-primary' id='export_pdf' type= 'button'><%=(t 'app.label.export_pdf')%></button>
-  <%= link_to 'PDF', pdf_show_kintais_path(format: :pdf) %>
 <% end %>
