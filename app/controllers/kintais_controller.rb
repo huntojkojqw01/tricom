@@ -47,7 +47,22 @@ class KintaisController < ApplicationController
     @kintai = Kintai.find_by id: params[:id]
     respond_with(@kintai)
   end
+  def pdf_show
+    vars = request.query_parameters
+    @date_param = Date.today
+    @date_param = vars['search'] if vars['search'] != '' && !vars['search'].nil?
+    date = @date_param.to_date
 
+    @kintais = Kintai.selected_month(session[:user], date).order(:日付)
+    @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
+    respond_to do |format|
+      format.pdf do
+        render  pdf: "kintai_pdf",
+                template: 'kintais/pdf_show.pdf.erb',
+                encoding: 'utf8'
+      end
+    end
+  end
   # def new
   #   @kintai = Kintai.new
   #   @kintai.勤務タイプ = Shainmaster.find(session[:user]).勤務タイプ

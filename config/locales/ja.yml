@@ -264,6 +264,7 @@ ja:
     label:
       import_csv: CSVでのデータをインポート!
       reference: 照会
+      export_pdf: PDFでデータをエクスポート!
   export: 輸出
   title:
     bashokubunmst: 場所区分一覧

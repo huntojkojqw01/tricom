@@ -1,0 +1,56 @@
+<h1><%=(t 'title.keihihead')%></h1>
+<table class="table table-bordered custom-report" style="font-size: 8px; border-left: 1px solid #000; border-right: 1px solid #000">
+    <thead style="display: table-header-group">
+        <tr style="page-break-inside: avoid;">
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">申請番号</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">清算予定日</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">清算日</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">承認者</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">承認済区分</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日付</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">社員番号</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">相手先</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">機関名</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">発</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">着</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">発着区分</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">交通費</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日当</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">宿泊費</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">その他</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">JOB</th>
+            <th style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">備考</th>
+            <th style="border-bottom: 1px solid #000; border-top: 1px solid #000">領収書区分</th>
+        </tr>
+
+
+    </thead>
+    <tbody>
+        <% @keihiheads.each do |keihihead| %>
+            <% keihihead.keihibodies.each do |body| %>
+                <tr style="page-break-inside: avoid;">
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= keihihead.申請番号 %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= keihihead.清算予定日 %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= keihihead.清算日 %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= (Shainmaster.find_by id: keihihead.承認者).try(:氏名) unless keihihead.承認者.empty? %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= keihihead.承認済区分 %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:日付) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:社員番号) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:相手先) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:機関名) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:発) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:着) %></td>
+                    <% array_value = {"1" => '往路',"2" => '復路',"3" => '往復'} %>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= array_value[body.try(:発着kubun)] %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:交通費) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:日当) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:宿泊費) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:その他) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:JOB) %></td>
+                    <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.try(:備考) %></td>
+                    <td style="border-bottom: 1px solid #000"><%= body.try(:領収書kubun) %></td>
+                </tr>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>
