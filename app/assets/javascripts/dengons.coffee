@@ -13,6 +13,9 @@ jQuery ->
     focusOnShow: false
   })
 
+  $('#dengon_日付').click () ->
+    $('.datetime').data("DateTimePicker").toggle();
+
   oDengon = $('.dengon').DataTable({
     "pagingType": "full_numbers"
     , "oLanguage": {

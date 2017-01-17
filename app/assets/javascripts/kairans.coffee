@@ -118,6 +118,11 @@ jQuery ->
 #    defaultDate: '2016/03/14 09:00'
   })
 
+  $('#kairan_開始').click () ->
+    $('.kairan_開始 .datetime').data("DateTimePicker").toggle();
+  $('#kairan_終了').click () ->
+    $('.kairan_終了 .datetime').data("DateTimePicker").toggle();
+
   $('#kairan').click () ->
     selected_rows = shain_table.rows( { selected: true } ).data()
     shainNo = []

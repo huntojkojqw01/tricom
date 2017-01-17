@@ -610,31 +610,31 @@ $(function () {
 
     });
 
-    //$('#event_開始').datetimepicker({
-    //    format: 'YYYY/MM/DD HH:mm',
-    //    showClear: true,
-    //    showTodayButton: true,
-    //    sideBySide: true,
-    //    //,daysOfWeekDisabled:[0,6]
-    //    calendarWeeks: true,
-    //    //allowInputToggle: true,
-    //    toolbarPlacement: 'top',
-    //    keyBinds: false,
-    //    focusOnShow: false
-    //});
-    //
-    //$('#event_終了').datetimepicker({
-    //    format: 'YYYY/MM/DD HH:mm',
-    //    showTodayButton: true,
-    //    showClear: true,
-    //    sideBySide: true,
-    //    //daysOfWeekDisabled:[0,6],
-    //    calendarWeeks: true,
-    //    //allowInputToggle: true,
-    //    toolbarPlacement: 'top',
-    //    keyBinds: false,
-    //    focusOnShow: false
-    //});
+    $('#event_開始').datetimepicker({
+       format: 'YYYY/MM/DD HH:mm',
+       showClear: true,
+       showTodayButton: true,
+       sideBySide: true,
+       //,daysOfWeekDisabled:[0,6]
+       calendarWeeks: true,
+       //allowInputToggle: true,
+       toolbarPlacement: 'top',
+       keyBinds: false,
+       focusOnShow: false
+    });
+
+    $('#event_終了').datetimepicker({
+       format: 'YYYY/MM/DD HH:mm',
+       showTodayButton: true,
+       showClear: true,
+       sideBySide: true,
+       //daysOfWeekDisabled:[0,6],
+       calendarWeeks: true,
+       //allowInputToggle: true,
+       toolbarPlacement: 'top',
+       keyBinds: false,
+       focusOnShow: false
+    });
 
     //$("#event_開始").on("dp.change", function (e) {
     //    $('#event_終了').data("DateTimePicker").minDate(e.date);
