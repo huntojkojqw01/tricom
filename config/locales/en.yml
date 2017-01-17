@@ -264,6 +264,7 @@ en:
     label:
       import_csv: Import data with CSV!
       reference: Reference
+      export_pdf: Export data with PDF!
   export: 輸出
   title:
     bashokubunmst: Location classification list

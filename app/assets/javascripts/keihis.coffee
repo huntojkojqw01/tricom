@@ -372,15 +372,6 @@ jQuery ->
                 "filename": '経費出費明細_'+getDate()
             },
             {
-                "extend":    'pdfHtml5',
-                "text":      '<i class="fa fa-file-pdf-o"></i>',
-                "titleAttr": 'PDF',
-                "exportOptions": {
-                  "columns": [0..18]
-                },
-                "filename": '経費出費明細_'+getDate()
-            },
-            {
               "extend": 'selectAll',
               "action": ( e, dt, node, config ) ->
                 oKeihiheadTable.$('tr').addClass('selected')
@@ -568,3 +559,9 @@ jQuery ->
           $("#destroy_keihihead").attr("disabled", true);
         else
           $("#destroy_keihihead").attr("disabled", false);
+
+  $('#pdf_keihihead').click () ->
+    shain = $('#keihihead_対象者').val()
+    date =  $('.datepicker_search').val()
+    shonin = $('#keihihead_承認済区分').val()
+    window.open('/keihiheads/pdf_show.pdf?locale=ja&date=' +date+'&shain='+shain+'&shonin='+shonin)

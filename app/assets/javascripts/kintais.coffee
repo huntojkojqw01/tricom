@@ -293,3 +293,7 @@ jQuery ->
   $('#export_kintai').click( () ->
     location.href='/kintais/export_csv.csv?locale=ja';
   )
+
+  $('#export_pdf').click( () ->
+    window.open('/kintais/pdf_show.pdf?locale=ja&search='+$("#search").val());
+  )

@@ -18,6 +18,10 @@ gem "paperclip-dropbox", "1.3.2"
 # gem 'active_decorator'
 # gem 'cells'
 
+#for print pdf
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+#
 gem 'sprockets'
 gem 'sprockets-rails', '2.3.3'
 

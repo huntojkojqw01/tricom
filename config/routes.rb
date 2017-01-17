@@ -92,7 +92,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :kintais do
-    collection {get :search}
+    collection {get :search,:pdf_show}
     collection {post :import, :ajax}
     collection {get :export_csv}
   end
@@ -148,7 +148,7 @@ Jpt::Application.routes.draw do
 
   resources :keihiheads do
     collection {post :ajax, :shonin_search, :import}
-    collection {get :shonin_search}
+    collection {get :shonin_search, :pdf_show}
     collection {get :export_csv}
   end
 
