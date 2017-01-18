@@ -45,43 +45,58 @@ class KeihiheadsController < ApplicationController
   def show
   end
 
+  # def pdf_show
+  #   vars = request.query_parameters
+  #   date = vars['date']
+  #   shain = vars['shain']
+  #   shonin = vars['shonin']
+  #   if date.nil? && shain.nil? && shonin.nil?
+  #     @keihiheads = Keihihead.where(社員番号: session[:user], 清算予定日: Date.today).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #   elsif shonin == ''
+  #     if date == '' && shain != ''
+  #       @keihiheads = Keihihead.where(社員番号: shain).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     elsif date != '' && shain == ''
+  #       @keihiheads = Keihihead.where(清算予定日: date).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     elsif date == '' && shain ==''
+  #       @keihiheads = Keihihead.all.order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     elsif date != '' && shain != ''
+  #       @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     end
+  #   elsif shonin != ''
+  #     if shonin == '未確認'
+  #       shonin = nil
+  #     elsif shonin == '承認済'
+  #       shonin = 1
+  #     end
+  #     if date == '' && shain != ''
+  #       @keihiheads = Keihihead.where(社員番号: shain,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     elsif date != '' && shain == ''
+  #       @keihiheads = Keihihead.where(清算予定日: date,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     elsif date == '' && shain ==''
+  #       @keihiheads = Keihihead.where(承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     elsif date != '' && shain != ''
+  #       @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
+  #     end
+  #   end
+  #   respond_to do |format|
+  #     format.pdf do
+  #       render  pdf: "keihihead_pdf",
+  #               template: 'keihiheads/pdf_show.pdf.erb',
+  #               encoding: 'utf8'
+  #     end
+  #   end
+  # end
+
   def pdf_show
     vars = request.query_parameters
-    date = vars['date']
-    shain = vars['shain']
-    shonin = vars['shonin']
-    if date.nil? && shain.nil? && shonin.nil?
-      @keihiheads = Keihihead.where(社員番号: session[:user], 清算予定日: Date.today).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-    elsif shonin == ''
-      if date == '' && shain != ''
-        @keihiheads = Keihihead.where(社員番号: shain).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      elsif date != '' && shain == ''
-        @keihiheads = Keihihead.where(清算予定日: date).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      elsif date == '' && shain ==''
-        @keihiheads = Keihihead.all.order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      elsif date != '' && shain != ''
-        @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      end
-    elsif shonin != ''
-      if shonin == '未確認'
-        shonin = nil
-      elsif shonin == '承認済'
-        shonin = 1
-      end
-      if date == '' && shain != ''
-        @keihiheads = Keihihead.where(社員番号: shain,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      elsif date != '' && shain == ''
-        @keihiheads = Keihihead.where(清算予定日: date,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      elsif date == '' && shain ==''
-        @keihiheads = Keihihead.where(承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      elsif date != '' && shain != ''
-        @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date,承認済区分: shonin).order(清算予定日: :asc, 社員番号: :asc, 日付: :asc)
-      end
+    keihi = vars['keihiheadId']
+    if !keihi.nil?
+      @keihi = Keihihead.find_by(申請番号: keihi)
     end
     respond_to do |format|
       format.pdf do
         render  pdf: "keihihead_pdf",
-                template: 'keihiheads/pdf_show.pdf.erb',
+                template: 'keihiheads/pdf_show_new.pdf.erb',
                 encoding: 'utf8'
       end
     end
