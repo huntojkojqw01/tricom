@@ -25,7 +25,7 @@ class Keihibody < ActiveRecord::Base
   private
   def check_all_attribute
     if self.attributes['相手先'].empty? && self.attributes['機関名'].empty? && self.attributes['発'].empty? && self.attributes['着'].empty? && self.attributes['交通費'].empty? && self.attributes['日当'].empty? && self.attributes['宿泊費'].empty? && self.attributes['その他'].empty? && self.attributes['JOB'].empty? && self.attributes['備考'].empty?
-      errors.add(:相手先, "asasa")
+      errors.add(:相手先, I18n.t('app.flash.unsucess'))
     end
   end
 end
