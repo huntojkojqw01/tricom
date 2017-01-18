@@ -1,7 +1,9 @@
 <h1><%= (t 'title.kintai')%></h1>
 
 <% user = Shainmaster.find(session[:user]) %>
-
+<div class="col-md-2 col-xs-4 col-sm-6 col-lg-2">
+  <h4>日付: <%=@date_param %></h4>
+</div>
 <div class="col-md-2 col-xs-4 col-sm-6 col-lg-2">
   <h4>勤務工数表</h4>
 </div>
