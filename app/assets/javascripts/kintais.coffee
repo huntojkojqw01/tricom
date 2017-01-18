@@ -22,31 +22,16 @@ jQuery ->
     focusOnShow: false
   })
 
-  $('#kintai_出勤時刻').datetimepicker({
-    format: 'YYYY/MM/DD HH:mm',
-    showClear: true,
-    showTodayButton: true,
-    sideBySide: true,
-#  //,daysOfWeekDisabled:[0,6]
-#    calendarWeeks: true,
-#  //allowInputToggle: true,
-    toolbarPlacement: 'top',
-    keyBinds: false,
-    focusOnShow: false
-  })
+  $('#kintai_出勤時刻').click () ->
+    $('.kintai_出勤時刻 .datetime').data("DateTimePicker").toggle();
 
-  $('#kintai_退社時刻').datetimepicker({
-    format: 'YYYY/MM/DD HH:mm',
-    showClear: true,
-    showTodayButton: true,
-    sideBySide: true,
-#  //,daysOfWeekDisabled:[0,6]
-    calendarWeeks: true,
-#  //allowInputToggle: true,
-    toolbarPlacement: 'top',
-    keyBinds: false,
-    focusOnShow: false
-  })
+  $('#kintai_退社時刻').click () ->
+    $('.kintai_退社時刻 .datetime').data("DateTimePicker").toggle();
+
+  $('#search_date_icon').click () ->
+    $('.date-search').data("DateTimePicker").toggle();
+  $('#search').click () ->
+    $('.date-search').data("DateTimePicker").toggle();
 
   status = 0
   $(document).on 'click', '.refer-joutai', (event) ->

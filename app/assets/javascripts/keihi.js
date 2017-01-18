@@ -125,6 +125,15 @@ $(function(){
             }
         });
     });
+
+    $('input').keydown(function (e) {
+        if (e.keyCode == 13) {
+            if (!$('.keihihead-update').is( ":focus" )) {
+                e.preventDefault();
+            }
+        }
+
+    });
     // $('.keihihead_keihibodies_JOB .search-field').click(function() {
 
     //     $('#job_search_modal').modal('show')

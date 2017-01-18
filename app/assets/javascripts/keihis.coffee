@@ -422,7 +422,8 @@ jQuery ->
   })
   $('#search_date_icon').click () ->
     $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
-
+  $('#search_date_shonin').click () ->
+    $('#search').data("DateTimePicker").toggle();
   $('.input-group-addon').click () ->
 
     element = $('.input-group').find('#keihihead_日付')

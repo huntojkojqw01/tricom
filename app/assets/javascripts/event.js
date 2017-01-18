@@ -334,6 +334,12 @@ $(function () {
     $('#toggle-calendar-goto').click(function () {
         $('#goto-date-input').data("DateTimePicker").toggle();
     });
+    $('#event_開始').click(function () {
+        $('.event_開始 .datetime').data("DateTimePicker").toggle();
+    });
+    $('#event_終了').click(function () {
+        $('.event_終了 .datetime').data("DateTimePicker").toggle();
+    });
     $('#save').click(function () {
         var hoshukeitai = $("#kintai_保守携帯回数").val();
         var date_kintai = $("#kintai_日付").val();
@@ -610,31 +616,31 @@ $(function () {
 
     });
 
-    $('#event_開始').datetimepicker({
-       format: 'YYYY/MM/DD HH:mm',
-       showClear: true,
-       showTodayButton: true,
-       sideBySide: true,
-       //,daysOfWeekDisabled:[0,6]
-       calendarWeeks: true,
-       //allowInputToggle: true,
-       toolbarPlacement: 'top',
-       keyBinds: false,
-       focusOnShow: false
-    });
+    // $('#event_開始').datetimepicker({
+    //    format: 'YYYY/MM/DD HH:mm',
+    //    showClear: true,
+    //    showTodayButton: true,
+    //    sideBySide: true,
+    //    //,daysOfWeekDisabled:[0,6]
+    //    calendarWeeks: true,
+    //    //allowInputToggle: true,
+    //    toolbarPlacement: 'top',
+    //    keyBinds: false,
+    //    focusOnShow: false
+    // });
 
-    $('#event_終了').datetimepicker({
-       format: 'YYYY/MM/DD HH:mm',
-       showTodayButton: true,
-       showClear: true,
-       sideBySide: true,
-       //daysOfWeekDisabled:[0,6],
-       calendarWeeks: true,
-       //allowInputToggle: true,
-       toolbarPlacement: 'top',
-       keyBinds: false,
-       focusOnShow: false
-    });
+    // $('#event_終了').datetimepicker({
+    //    format: 'YYYY/MM/DD HH:mm',
+    //    showTodayButton: true,
+    //    showClear: true,
+    //    sideBySide: true,
+    //    //daysOfWeekDisabled:[0,6],
+    //    calendarWeeks: true,
+    //    //allowInputToggle: true,
+    //    toolbarPlacement: 'top',
+    //    keyBinds: false,
+    //    focusOnShow: false
+    // });
 
     //$("#event_開始").on("dp.change", function (e) {
     //    $('#event_終了').data("DateTimePicker").minDate(e.date);

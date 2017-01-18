@@ -249,7 +249,7 @@ class KeihiheadsController < ApplicationController
 
   def shonin_search
     @keihi_shonins = Keihihead.where(承認者: session[:user]).where("承認済区分 != ? or 承認済区分 is null", '1')
-    @keihi_shonins = @keihi_shonins.where("Date(清算予定日) <= ?", params[:清算予定日]) if params[:清算予定日]
+    @keihi_shonins = @keihi_shonins.where("Date(清算予定日) <= ?", params[:search]) if params[:search]
 
     if params[:commit] == '更新する' && !params[:shonin].nil?
       flash[:notice] = t 'app.flash.update_success' if Keihihead.where(id: params[:shonin]).update_all(承認済区分: '1')
