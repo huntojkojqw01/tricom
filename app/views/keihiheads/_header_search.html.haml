@@ -17,5 +17,5 @@
       - else
         = f.select(:対象者, Shainmaster.all.order(:社員番号).collect {|p| [ p.氏名, p.社員番号 ] } , {selected: request['shain'], include_blank: "全員" }, class: 'form-control')
       = f.label :承認済区分
-      = f.select( :承認済区分, options_for_select(["未確認","承認済"], selected: request['shonin']),{include_blank: "全て" }, class: 'form-control')
+      = f.select( :承認済区分, options_for_select(["未承認","承認済"], selected: request['shonin']),{include_blank: "全て" }, class: 'form-control')
       .span#shain_login{hidden: :true} #{session[:user]}
