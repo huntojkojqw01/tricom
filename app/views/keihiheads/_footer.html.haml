@@ -88,8 +88,8 @@
     .col-md-2.col-xs-6.col-sm-4.col-lg-1
       = f.input :承認者,:input_html => { :size => 10} do
         = f.text_field_search :承認者,{}, size:10, class_field: 'shonin', class_search: 'shonin-search'
-    .col-md-1.col-xs-3.col-sm-2.col-lg-1
-      = f.input :清算予定日, size:10, class: 'form-control',:input_html => { :size => 10}
+    .col-md-2.col-xs-6.col-sm-4.col-lg-2
+      = f.input :清算予定日, class: 'form-control',as: :date_time_picker,:input_html => { :size => 10}
 
 
 / .row

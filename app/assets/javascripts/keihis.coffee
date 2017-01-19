@@ -405,9 +405,7 @@ jQuery ->
 
 
 
-
-
-  $('#keihihead_日付').datetimepicker({
+  $('.datetime').datetimepicker({
     format: 'YYYY/MM/DD',
     widgetPositioning: {
       horizontal: 'left',
@@ -420,18 +418,16 @@ jQuery ->
     keyBinds: false,
     focusOnShow: false
   })
+
+  $('#keihihead_日付').click () ->
+    $('.keihihead_日付 .datetime').data("DateTimePicker").toggle();
+  $('#keihihead_清算予定日').click () ->
+    $('.keihihead_清算予定日 .datetime').data("DateTimePicker").toggle();
+
   $('#search_date_icon').click () ->
     $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
   $('#search_date_shonin').click () ->
     $('#search').data("DateTimePicker").toggle();
-  $('.input-group-addon').click () ->
-
-    element = $('.input-group').find('#keihihead_日付')
-    element1 = $('.input-group').find('#keihihead_清算予定日')
-    if $(this).prev().is(element)
-      $('#keihihead_日付').data("DateTimePicker").toggle();
-    if $(this).prev().is(element1)
-      $('#keihihead_清算予定日').data("DateTimePicker").toggle();
 
   $('.datepicker_search').datetimepicker({
     format: 'YYYY-MM-DD',
