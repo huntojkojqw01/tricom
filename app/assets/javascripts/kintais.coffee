@@ -30,8 +30,7 @@ jQuery ->
 
   $('#search_date_icon').click () ->
     $('.date-search').data("DateTimePicker").toggle();
-  $('#search').click () ->
-    $('.date-search').data("DateTimePicker").toggle();
+
 
   status = 0
   $(document).on 'click', '.refer-joutai', (event) ->
