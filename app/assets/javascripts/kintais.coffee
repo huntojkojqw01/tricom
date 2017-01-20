@@ -3,6 +3,7 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
   $('.best_in_place').best_in_place()
+
   $('.date-search').datetimepicker({
     format: 'YYYY/MM',
     viewMode: 'months',
@@ -22,15 +23,14 @@ jQuery ->
     focusOnShow: false
   })
 
+  $('#search').click () ->
+    $('.date-search').data("DateTimePicker").toggle();
+
   $('#kintai_出勤時刻').click () ->
-    $('.kintai_出勤時刻 .datetime').data("DateTimePicker").toggle();
+    $('.datetime').data("DateTimePicker").toggle();
 
   $('#kintai_退社時刻').click () ->
     $('.kintai_退社時刻 .datetime').data("DateTimePicker").toggle();
-
-  $('#search_date_icon').click () ->
-    $('.date-search').data("DateTimePicker").toggle();
-
 
   status = 0
   $(document).on 'click', '.refer-joutai', (event) ->
@@ -273,7 +273,17 @@ jQuery ->
     focusOnShow: false
 #    defaultDate: '2016/03/14 09:00'
   })
-
+  $('.datetime1').datetimepicker({
+    format: 'YYYY/MM/DD',
+    widgetPositioning: {
+            horizontal: 'left'
+        },
+    showTodayButton: true,
+    showClear: true,
+    sideBySide: true,
+    keyBinds: false,
+    focusOnShow: false
+  });
   $('#export_kintai').click( () ->
     location.href='/kintais/export_csv.csv?locale=ja';
   )
