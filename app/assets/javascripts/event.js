@@ -331,8 +331,8 @@ $(window).on('load', function() {
 
 //toggle_calendar
 $(function () {
-    $('#toggle-calendar-goto').click(function () {
-        $('#goto-date-input').data("DateTimePicker").toggle();
+    $('#goto-date-input').click(function () {
+        $('.datetime').data("DateTimePicker").toggle();
     });
     $('#event_開始').click(function () {
         $('.event_開始 .datetime').data("DateTimePicker").toggle();
@@ -615,6 +615,18 @@ $(function () {
         focusOnShow: false
 
     });
+    $('.datetime').datetimepicker({
+    format: 'YYYY/MM/DD',
+    widgetPositioning: {
+            horizontal: 'left'
+        },
+    showTodayButton: true,
+    showClear: true,
+    sideBySide: true,
+    //toolbarPlacement: 'top',
+    keyBinds: false,
+    focusOnShow: false
+  });
 
     // $('#event_開始').datetimepicker({
     //    format: 'YYYY/MM/DD HH:mm',
