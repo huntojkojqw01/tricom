@@ -89,11 +89,11 @@
         .space
         = f.check_box :承認kubun
     .col-md-4.col-xs-4.col-sm-4.col-lg-4
-      .col-md-.col-xs-6.col-sm-6.col-lg-6
-        = f.input :承認者, class: 'form-control', input_html: { :style=> 'width: 100%;'}, label: :承認者 do
-          = f.text_field_search :承認者,{}, size:10, class_field: 'shonin', class_search: 'shonin-search'
-      .col-md-4.col-xs-4.col-sm-4.col-lg-4
-        = f.input :清算予定日, class: 'form-control',:input_html => { :size => 10}
+      .col-md-5.col-xs-5.col-sm-5.col-lg-5
+        = f.input :承認者, class: 'form-control', input_html: { :style=> 'width: 80%;'}, label: :承認者 do
+          = f.text_field_search :承認者,{}, class_field: 'shonin', class_search: 'shonin-search'
+      .col-md-6.col-xs-6.col-sm-6.col-lg-6
+        = f.input :清算予定日, class: 'form-control', :input_html => { :size=> 15 }, as: :date_time_picker
 
 
 / .row
