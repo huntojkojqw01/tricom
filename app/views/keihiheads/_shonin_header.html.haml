@@ -14,11 +14,10 @@
     .col-md-11.col-xs-11.col-sm-11.col-lg-11.form-inline
       .form-group
         = label_tag 'sheisanbi','清算日'
-        .input-group
+        .input-group.datetime
           = text_field_tag :search, params[:search], class:'form-control'
-          %span.input-group-btn
-            %button.btn.btn-default#search_date_shonin{type: :button}
-              %span.glyphicon.glyphicon-calendar
+          %span.input-group-addon#search_date_icon
+            %span.glyphicon.glyphicon-calendar#search_date_shonin{"aria-hidden" => "true"}
         = f.button :submit, '検索する'
         -#= f.input_field :清算予定日
         -#= f.hint '清算予定日付の入力'
