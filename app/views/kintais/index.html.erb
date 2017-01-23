@@ -48,9 +48,44 @@
       <tr id="kintai-<%= kintai.id %>" class="<%= add_class %>">
         <td><%= kintai.日付 %></td>
         <td><%= kintai.曜日 %></td>
-        <td><%= kintai.勤務タイプ %></td>
-        <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
+
+        <% if kintai.勤務タイプ.nil? %>
+          <% kinmu_type = Shainmaster.find(session[:user]).勤務タイプ %>
+        <% else %>
+          <% kinmu_type = kintai.勤務タイプ %>
+        <% end %>
+        <td><%= kinmu_type %></td>
+        <% date = kintai.日付.to_s
+        case kinmu_type
+          when '001'
+            start = ' 07:00'
+          when '002'
+            start = ' 07:30'
+          when '003'
+            start = ' 08:00'
+          when '004'
+            start =  ' 08:30'
+          when '005'
+            start =  ' 09:00'
+          when '006'
+            start = ' 09:30'
+          when '007'
+            start = ' 10:00'
+          when '008'
+            start =  ' 10:30'
+          when '009'
+            start =  ' 11:00'
+        end %>
+        <% if kintai.出勤時刻.nil? %>
+          <td><%= start %></td>
+        <% else %>
+          <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
+        <% end %>
+
+
+        <!-- <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td> -->
         <td><%= kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
+        <!-- <td class='kintai-item date_input' style="white-space: pre" id="taishajikoku<%= kintai.id %>"><%= best_in_place kintai, :退社時刻, :as => :input, activator: '#taishajikoku' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "<i class='fa fa-edit'></i>"%></td> -->
         <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
           <td class='kintai-item' style="white-space: pre" id="jitsuroudou<%= kintai.id %>"><%= best_in_place kintai, :実労働時間, :as => :input, activator: '#jitsuroudou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "<i class='fa fa-edit'></i>"%></td>
           <td class='kintai-item' style="white-space: pre" id="chikoku<%= kintai.id %>"><%= best_in_place kintai, :遅刻時間, :as => :input, activator: '#chikoku' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "<i class='fa fa-edit'></i>"%></td>

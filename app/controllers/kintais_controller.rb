@@ -41,6 +41,7 @@ class KintaisController < ApplicationController
 
   def search
     @kintais = Kintai.selected_month(session[:user], session[:selected_kintai_date])
+    @yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
   end
 
   def show

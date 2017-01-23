@@ -332,7 +332,7 @@ $(window).on('load', function() {
 //toggle_calendar
 $(function () {
     $('#goto-date-input').click(function () {
-        $('.datetime').data("DateTimePicker").toggle();
+        $('.datetime_search').data("DateTimePicker").toggle();
     });
     $('#event_開始').click(function () {
         $('.event_開始 .datetime').data("DateTimePicker").toggle();
@@ -615,7 +615,7 @@ $(function () {
         focusOnShow: false
 
     });
-    $('.datetime').datetimepicker({
+    $('.datetime_search').datetimepicker({
     format: 'YYYY/MM/DD',
     widgetPositioning: {
             horizontal: 'left'

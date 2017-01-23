@@ -17,6 +17,7 @@
  *= require bootstrap-datetimepicker
  *= require bootstrap-colorpicker
  *= require font-awesome
+ *= require jquery-ui
 
  * require_tree .
  * require_self
