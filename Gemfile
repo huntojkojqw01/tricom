@@ -4,6 +4,7 @@ ruby '2.3.1'
 gem "rails", "~> 5.0.0.1"
 # gem 'sqlite3'
 gem 'best_in_place'
+gem 'jquery-ui-rails'
 gem 'font-awesome-rails'
 gem "sinatra", git: "https://github.com/sinatra/sinatra.git"
 # passenger start

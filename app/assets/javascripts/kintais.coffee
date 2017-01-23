@@ -106,6 +106,7 @@ jQuery ->
     $('.sum5').text(data.summary.sum5)
     $('.sum6').text(data.summary.sum6)
     $('.sum7').text(data.summary.sum7)
+    $('.sum8').text(data.summary.sum8)
   )
 
   $('#finish-input').click () ->

@@ -96,6 +96,40 @@ module SessionsHelper
       holiday = '1'
       note = day.holidays(:jp)[0][:name]
     end
-    Kintai.create!(日付: day, 曜日: day.wday.to_s, 社員番号: user_id, holiday: holiday, 備考: note)
+
+    kinmu_type = Shainmaster.find(session[:user]).勤務タイプ
+
+    date = day.to_s
+    case kinmu_type
+      when '001'
+        start =  date + ' 07:00:00'
+
+      when '002'
+        start = date + ' 07:30:00'
+
+      when '003'
+        start = date + ' 08:00:00'
+
+      when '004'
+        start = date + ' 08:30:00'
+
+      when '005'
+        start = date + ' 09:00:00'
+
+      when '006'
+        start = date + ' 09:30:00'
+
+      when '007'
+        start = date + ' 10:00:00'
+
+      when '008'
+        start = date + ' 10:30:00'
+
+      when '009'
+        start = date + ' 11:00:00'
+
+    end
+
+    Kintai.create!(日付: day, 曜日: day.wday.to_s, 勤務タイプ: kinmu_type, 出勤時刻: start, 社員番号: user_id, holiday: holiday, 備考: note)
   end
 end
