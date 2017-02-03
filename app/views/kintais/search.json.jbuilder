@@ -7,5 +7,6 @@ json.summary do
   json.sum6 @kintais.sum('深夜保守時間')
   json.sum7 @kintais.sum('保守携帯回数')
   json.sum8 @yukyu
+  json.sum9 @gesshozan
 
 end
