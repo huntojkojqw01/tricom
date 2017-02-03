@@ -107,6 +107,8 @@ jQuery ->
     $('.sum6').text(data.summary.sum6)
     $('.sum7').text(data.summary.sum7)
     $('.sum8').text(data.summary.sum8)
+    $('.input-number').val(data.summary.sum9)
+    summary()
   )
 
   $('#finish-input').click () ->
@@ -274,17 +276,7 @@ jQuery ->
     focusOnShow: false
 #    defaultDate: '2016/03/14 09:00'
   })
-  $('.datetime1').datetimepicker({
-    format: 'YYYY/MM/DD',
-    widgetPositioning: {
-            horizontal: 'left'
-        },
-    showTodayButton: true,
-    showClear: true,
-    sideBySide: true,
-    keyBinds: false,
-    focusOnShow: false
-  });
+
   $('#export_kintai').click( () ->
     location.href='/kintais/export_csv.csv?locale=ja';
   )
@@ -292,3 +284,124 @@ jQuery ->
   $('#export_pdf').click( () ->
     window.open('/kintais/pdf_show.pdf?locale=ja&search='+$("#search").val());
   )
+  $('.time').datetimepicker({
+    format: 'HH:mm',
+    showTodayButton: true,
+    showClear: true,
+    sideBySide: true,
+    toolbarPlacement: 'top',
+    keyBinds: false,
+    focusOnShow: false
+  })
+
+  $('.input-time').click( () ->
+    $(this).closest('.time').data("DateTimePicker").toggle();
+  );
+
+  $('.time').on('dp.change', (e) ->
+    idRow = $(this).find('.input-time').attr('id')
+    idKintai = idRow.substring(12,idRow.length)
+    date = $('#date'+idKintai).text()
+    time = $(this).find('.input-time').val()
+    #alert(date+" "+ time)
+
+    jQuery.ajax({
+      url: '/kintais/ajax',
+      data: {id: 'update_endtime', timeEnd: date+" "+ time, idKintai: idKintai},
+      type: "POST",
+      success: (data) ->
+#       console.log("update_endtime success")
+      failure: () ->
+        console.log("update_endtime field")
+    })
+  )
+
+  $('.timestart').datetimepicker({
+    format: 'HH:mm',
+    showTodayButton: true,
+    showClear: true,
+    sideBySide: true,
+    toolbarPlacement: 'top',
+    keyBinds: false,
+    focusOnShow: false
+  })
+
+  $('.input-time-start').click( () ->
+    $(this).closest('.timestart').data("DateTimePicker").toggle();
+  );
+
+  $('.timestart').on('dp.change', (e) ->
+    idRow = $(this).find('.input-time-start').attr('id')
+    idKintai = idRow.substring(13,idRow.length)
+    date = $('#date'+idKintai).text()
+    time = $(this).find('.input-time-start').val()
+    #alert(date+" "+ time)
+
+    jQuery.ajax({
+      url: '/kintais/ajax',
+      data: {id: 'update_starttime', timeStart: date+" "+ time, idKintai: idKintai},
+      type: "POST",
+      success: (data) ->
+#       console.log("update_endtime success")
+      failure: () ->
+        console.log("update_endtime field")
+    })
+  )
+
+  $('.best_in_place[data-bip-attribute="勤務タイプ"]').on('change', () ->
+    kinmutype = $(this).text()
+    idKintai = $(this).attr('id')
+    date = $('#date'+idKintai).text()
+    jQuery.ajax({
+      url: '/kintais/ajax',
+      data: {id: 'update_kinmutype', kinmutype: kinmutype, idKintai: idKintai, date: date},
+      type: "POST",
+      success: (data) ->
+        $('#shukkinjikoku'+idKintai).val(data.starttime)
+        $('#taishajikoku'+idKintai).val(data.endtime)
+      failure: () ->
+        console.log("update_kinmutype field")
+    })
+  )
+
+  $('.summary').click( () ->
+    $.getJSON('/kintais/search', (data) ->
+      $('.sum1').text(data.summary.sum1)
+      $('.sum2').text(data.summary.sum2)
+      $('.sum3').text(data.summary.sum3)
+      $('.sum4').text(data.summary.sum4)
+      $('.sum5').text(data.summary.sum5)
+      $('.sum6').text(data.summary.sum6)
+      $('.sum7').text(data.summary.sum7)
+      $('.sum8').text(data.summary.sum8)
+
+    )
+  );
+
+  $('.input-number').on('change', () ->
+    summary()
+  )
+
+  $('input').keydown( (e) ->
+    if e.keyCode == 13
+      if $('.input-number').is( ":focus" )
+        e.preventDefault();
+        $('.input-number').blur();
+  );
+
+  summary = () ->
+    gesshozan = $('.input-number').val()
+    if gesshozan == ''
+      gesshozan = 0
+    else
+      gesshozan = parseFloat(gesshozan)
+
+    yuukyu = $('.sum8').text()
+
+    if yuukyu == ''
+      yuukyu = 0
+    else
+      yuukyu = parseFloat(yuukyu)
+
+    sum = yuukyu + gesshozan
+    $('.sum-yuukyu').text(sum)

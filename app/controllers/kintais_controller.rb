@@ -17,7 +17,7 @@ class KintaisController < ApplicationController
 
     date = @date_param.to_date
     session[:selected_kintai_date] = date
-
+    check_kintai_at_day_by_user(current_user.id, date)
     case params[:commit]
       when (t 'helpers.submit.entered')
         @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
@@ -27,8 +27,8 @@ class KintaisController < ApplicationController
         @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
         @kintai.入力済 = '0' if @kintai
         @kintai.save if @kintai
-      when (t 'helpers.submit.create')
-        check_kintai_at_day_by_user(current_user.id, date)
+      # when (t 'helpers.submit.create')
+      #   check_kintai_at_day_by_user(current_user.id, date)
 
       when (t 'helpers.submit.destroy')
         if(notice!= (t 'app.flash.import_csv'))
@@ -41,7 +41,13 @@ class KintaisController < ApplicationController
 
   def search
     @kintais = Kintai.selected_month(session[:user], session[:selected_kintai_date])
+    @kintais_tonow = Kintai.selected_tocurrent(session[:user], session[:selected_kintai_date])
     @yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
+    if session[:selected_kintai_date].month == 1
+      @gesshozan = 0
+    else
+      @gesshozan = @kintais_tonow.day_off.count + @kintais_tonow.morning_off.count*0.5 + @kintais_tonow.afternoon_off.count*0.5
+    end
   end
 
   def show
@@ -131,6 +137,70 @@ class KintaisController < ApplicationController
 
     flash[:notice] = t 'app.flash.update_success' if @kintai.update(kintai_params)
     respond_with(@kintai, location: kintais_url)
+  end
+
+
+  def ajax
+    case params[:id]
+      when 'update_endtime'
+        time_end = params[:timeEnd]
+        kintai = Kintai.find_by(id: params[:idKintai])
+        kintai.update(退社時刻: time_end)
+        data = {update: "update_success"}
+        respond_to do |format|
+         format.json { render json: data}
+        end
+      when 'update_starttime'
+        time_start = params[:timeStart]
+        kintai = Kintai.find_by(id: params[:idKintai])
+        kintai.update(出勤時刻: time_start)
+        data = {update: "update_success"}
+        respond_to do |format|
+         format.json { render json: data}
+        end
+      when 'update_kinmutype'
+        kinmutype = params[:kinmutype]
+        kintai = Kintai.find_by(id: params[:idKintai])
+        date = params[:date]
+      case kinmutype
+        when '001'
+          starttime = date + ' 07:00:00'
+          text_time = '07:00'
+
+        when '002'
+          starttime = date + ' 07:30:00'
+          text_time = '07:30'
+        when '003'
+          starttime = date + ' 08:00:00'
+          text_time = '08:00'
+        when '004'
+          starttime = date + ' 08:30:00'
+          text_time = '08:30'
+        when '005'
+          starttime = date + ' 09:00:00'
+          text_time = '09:00'
+        when '006'
+          starttime = date + ' 09:30:00'
+          text_time = '09:30'
+        when '007'
+          starttime = date + ' 10:00:00'
+          text_time = '10:00'
+        when '008'
+          starttime = date + ' 10:30:00'
+          text_time = '10:30'
+        when '009'
+          starttime = date + ' 11:00:00'
+          text_time = '11:00'
+        when ''
+          starttime = ''
+          text_time = ''
+      end
+        kintai.update(出勤時刻: starttime, 退社時刻: '' )
+        data = {starttime: text_time,endtime: ''}
+        respond_to do |format|
+         format.json { render json: data}
+        end
+    end
   end
 
   def destroy

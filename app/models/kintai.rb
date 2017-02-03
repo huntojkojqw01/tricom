@@ -1,6 +1,7 @@
 class Kintai < ActiveRecord::Base
   # scope :current_month, ->(member) { where( 社員番号: member, 日付: Date.today.beginning_of_month..Date.today.end_of_month )}
   scope :selected_month, ->(member,month) { where( 社員番号:  member, 日付: month.beginning_of_month..month.end_of_month ) }
+  scope :selected_tocurrent, ->(member,month) { where( 社員番号:  member, 日付: Date.today.beginning_of_year..month.prev_month.end_of_month ) }
   scope :current_user, ->(member) { where( 社員番号: member)}
   scope :get_by_mounth, ->(date) { where(日付: date.beginning_of_month..date.end_of_month)}
   scope :get_by_mounth_hoshukeitai, ->(date) { where(日付: date.beginning_of_month..date.end_of_month, 曜日: "2")}
