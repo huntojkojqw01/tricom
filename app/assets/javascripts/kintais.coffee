@@ -409,7 +409,4 @@ jQuery ->
       yuukyu = parseFloat(yuukyu)
 
     sum = gesshozan - yuukyu
-    if sum < 0
-      $('.sum-yuukyu').text(0)
-    else
-      $('.sum-yuukyu').text(sum)
+    $('.sum-yuukyu').text(sum)
