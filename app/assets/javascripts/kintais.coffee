@@ -24,7 +24,7 @@ jQuery ->
   })
 
   $('#search').click () ->
-    $('.date-search').data("DateTimePicker").toggle();
+    $('.date-search').data("DateTimePicker").viewMode("months").toggle();
 
   $('#kintai_出勤時刻').click () ->
     $('.datetime').data("DateTimePicker").toggle();
@@ -124,6 +124,7 @@ jQuery ->
 
   $(document).ready () ->
 #    fill_time()
+
 
   $('.kintai-item').on 'keydown', '.best_in_place', (e) ->
     keyCode = e.keyCode || e.which
