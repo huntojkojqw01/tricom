@@ -21,7 +21,11 @@ div.delete-all {
 
 .summary {
   margin-left: 30px;
-  width: 50%
+  width: 50%;
+  background-color: rgb(249, 249, 249);
+}
+.delete-all {
+  background-color: rgb(249, 249, 249);
 }
 
 .input-group .form-control:last-child {
