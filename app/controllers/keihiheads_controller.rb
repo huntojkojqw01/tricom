@@ -97,7 +97,8 @@ class KeihiheadsController < ApplicationController
       format.pdf do
         render  pdf: "keihihead_pdf",
                 template: 'keihiheads/pdf_show_new.pdf.erb',
-                encoding: 'utf8'
+                encoding: 'utf8',
+                orientation: 'Landscape'
       end
     end
   end
