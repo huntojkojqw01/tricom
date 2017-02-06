@@ -9,7 +9,9 @@ jQuery ->
     viewMode: 'months',
     keyBinds: false,
     focusOnShow: false
-  })
+  }).on('dp.show', () ->
+    $('.date-search').data("DateTimePicker").viewMode("months")
+  );
 
   $('.date-edit').datetimepicker({
     format: 'YYYY/MM/DD',
@@ -123,6 +125,8 @@ jQuery ->
     })
 
   $(document).ready () ->
+    $('.date-search').datetimepicker("show")
+    $('.date-search').datetimepicker("hide")
 #    fill_time()
 
 
