@@ -1,29 +1,141 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf8">
-    <!-- <title><%= @pageTitle %></title> -->
-    <title><%= full_title(yield(:title)) %></title>
 
-  </head>
-
-  <body>
     <div style="display:none" id="language"><%=I18n.locale%></div>
-    <h1 class='test' style="text-align: center;" ><%=(t 'title.keihi')%></h1>
+    <h1 class='test' style="text-align: left;" ><%=(t 'title.keihi_pdf')%></h1>
     <%= simple_form_for @keihi, html: {class:'form-inline'} do |f| %>
+        <table id="keihi-table-show" cellspacing="0" width="100%" style="font-size: 12px">
+            <tr style="page-break-inside: avoid;">
+                  <td>起票者:</td>
+                  <td><%= @keihi.shainmaster_氏名 %></td>
+                  <td></td>
+                  <td>清算予定日:</td>
+                  <td><%=@keihi.日付.to_s%></td>
+                  <td></td>
+                  <td>伝票番号:</td>
+                  <td><%=@keihi.申請番号%></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" rowspan="2">日付</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" rowspan="2">相手先</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" colspan="6">　旅費交通費　</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" rowspan="2">その他</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" rowspan="2">JobNo</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" rowspan="2">備考</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" rowspan="2">領収書</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">機関名</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">発</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">着</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">交通費</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">日当</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">宿泊費</td>
+            </tr>
 
-        <!--header-->
-        <div class="form-group">
-          <%= label_tag 'label1','起票者:　' << @keihi.shainmaster_氏名 << '　' %>
-          <%= label_tag 'label2','日付: ' << @keihi.日付.to_s << '　'%>
-          <%= label_tag 'label3','申請番号: ' << @keihi.申請番号 << '　'%>
-        </div>
+            <% @keihi.keihibodies.each do |body| %>
+                <tr style="page-break-inside: avoid;">
+                  <td style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.日付 %></td>
+                  <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.相手先 %></td>
+                  <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.機関名 %></td>
+                  <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.発 %></td>
+                  <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.着 %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.交通費 %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.日当 %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.宿泊費 %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.その他 %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.JOB %></td>
+                  <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.備考 %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.領収書kubun %></td>
+                </tr>
+            <% end %>
+            <tr style="page-break-inside: avoid;">
+              <td>&nbsp;</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">交通費合計</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日当合計</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">宿泊費合計</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">旅費交通費</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">その他合計</td>
+              <td></td>
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">仮払い金</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">過不足</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">支給品</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td rowspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.交通費合計%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.日当合計%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.宿泊費合計%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.旅費合計%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.その他合計%></td>
+              <td>&nbsp;</td>
+              <td rowspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.仮払金%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.過不足%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.支給品%></td>
+
+            </tr>
+
+
+
+            <tr style="page-break-inside: avoid;">
+                  <td>&nbsp;</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+                  <td>&nbsp;</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+                  <td>&nbsp;</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">経費合計</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">承認要求</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">承認者</td>
+              <td>&nbsp;</td>
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">清算予定日</td>
+              <td>&nbsp;</td>
+
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.合計%></td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td>&nbsp;</td>
+              <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.承認kubun%></td>
+              <% shoninsha = '' %>
+              <% shoninsha = (Shainmaster.find_by id: @keihi.承認者).try(:氏名) unless @keihi.承認者.empty? %>
+              <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= shoninsha%></td>
+              <td>&nbsp;</td>
+              <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.清算予定日.to_s%></td>
+              <td>&nbsp;</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td>&nbsp;</td>
+
+            </tr>
+        </table><br>
 
 
 
 
-
-        <table id="keihi-table-show" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="font-size: 12px; border-left: 1px solid #000; border-right: 1px solid #000">
+        <!-- <table id="keihi-table-show" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%" style="font-size: 12px; border-left: 1px solid #000; border-right: 1px solid #000">
           <thead style="display: table-header-group">
             <tr style="page-break-inside: avoid;">
               <th style="border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" rowspan="2">日付</th>
@@ -61,9 +173,9 @@
                 </tr>
             <% end %>
           </tbody>
-        </table><br>
+        </table><br> -->
 
-        <div class="form-group">
+        <!-- <div class="form-group">
           <%= label_tag 'label','交通費合計: ' << @keihi.交通費合計 << '　' %>
           <%= label_tag 'label','日当合計: ' << @keihi.日当合計 << '　'%>
           <%= label_tag 'label','宿泊費合計: ' << @keihi.宿泊費合計 << '　'%>
@@ -88,10 +200,5 @@
           <%= label_tag 'label','承認者: ' << shoninsha << '　'%>
           <%= label_tag 'label','清算予定日: ' << @keihi.清算予定日.to_s << '　'%>
 
-        </div>
+        </div> -->
     <% end %>
-
-  </body>
-
-</html>
-
