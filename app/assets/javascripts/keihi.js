@@ -65,24 +65,24 @@ $(function() {
 
 
 //binding color picker and refer master
-$(function(){
-    $('#keihihead_清算予定日').datetimepicker({
-        format: 'YYYY/MM/DD',
-        widgetPositioning: {
-          horizontal: 'left',
-          vertical: 'bottom'
-        },
-        //inline: true,
-        //widgetParent: 'container-fluid',
-        showTodayButton: true,
-        showClear: true,
-        //,daysOfWeekDisabled:[0,6]
-        calendarWeeks: true,
-        keyBinds: false,
-        focusOnShow: false
+// $(function(){
+//     $('#keihihead_清算予定日').datetimepicker({
+//         format: 'YYYY/MM/DD',
+//         widgetPositioning: {
+//           horizontal: 'left',
+//           vertical: 'bottom'
+//         },
+//         //inline: true,
+//         //widgetParent: 'container-fluid',
+//         showTodayButton: true,
+//         showClear: true,
+//         //,daysOfWeekDisabled:[0,6]
+//         calendarWeeks: true,
+//         keyBinds: false,
+//         focusOnShow: false
 
-    });
-});
+//     });
+// });
 
 //shinshei retrieve
 $(function(){

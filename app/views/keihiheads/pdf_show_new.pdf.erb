@@ -2,7 +2,7 @@
     <div style="display:none" id="language"><%=I18n.locale%></div>
     <h1 class='test' style="text-align: left;" ><%=(t 'title.keihi_pdf')%></h1>
     <%= simple_form_for @keihi, html: {class:'form-inline'} do |f| %>
-        <table id="keihi-table-show" cellspacing="0" width="100%" style="font-size: 12px">
+        <table id="keihi-table-show" cellspacing="0" width="100%" style="font-size: 13px">
             <tr style="page-break-inside: avoid;">
                   <td>起票者:</td>
                   <td><%= @keihi.shainmaster_氏名 %></td>
@@ -42,13 +42,17 @@
                   <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.機関名 %></td>
                   <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.発 %></td>
                   <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.着 %></td>
-                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.交通費 %></td>
-                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.日当 %></td>
-                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.宿泊費 %></td>
-                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.その他 %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(body.交通費) %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(body.日当) %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(body.宿泊費) %></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(body.その他) %></td>
                   <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.JOB %></td>
                   <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.備考 %></td>
-                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= body.領収書kubun %></td>
+                  <% if body.領収書kubun == "1" %>
+                    <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000">有り</td>
+                  <%else%>
+                    <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000">無し</td>
+                  <%end%>
                 </tr>
             <% end %>
             <tr style="page-break-inside: avoid;">
@@ -72,15 +76,15 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td rowspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.交通費合計%></td>
-              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.日当合計%></td>
-              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.宿泊費合計%></td>
-              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.旅費合計%></td>
-              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.その他合計%></td>
+              <td rowspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.交通費合計)%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.日当合計)%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.宿泊費合計)%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.旅費合計)%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.その他合計)%></td>
               <td>&nbsp;</td>
-              <td rowspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.仮払金%></td>
-              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.過不足%></td>
-              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.支給品%></td>
+              <td rowspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.仮払金)%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.過不足)%></td>
+              <td rowspan="2" style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.支給品)%></td>
 
             </tr>
 
@@ -101,7 +105,7 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">承認要求</td>
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">&nbsp;</td>
               <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">承認者</td>
               <td>&nbsp;</td>
               <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">清算予定日</td>
@@ -112,11 +116,15 @@
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.合計%></td>
+              <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= number_with_delimiter(@keihi.合計)%></td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
               <td>&nbsp;</td>
-              <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= @keihi.承認kubun%></td>
+              <% if @keihi.承認kubun == "1" %>
+                <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000">承認要求</td>
+              <%else%>
+                <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000">&nbsp;</td>
+              <%end%>
               <% shoninsha = '' %>
               <% shoninsha = (Shainmaster.find_by id: @keihi.承認者).try(:氏名) unless @keihi.承認者.empty? %>
               <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= shoninsha%></td>
