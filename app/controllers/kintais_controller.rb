@@ -66,7 +66,8 @@ class KintaisController < ApplicationController
       format.pdf do
         render  pdf: "kintai_pdf",
                 template: 'kintais/pdf_show.pdf.erb',
-                encoding: 'utf8'
+                encoding: 'utf8',
+                orientation: 'Landscape'
       end
     end
   end

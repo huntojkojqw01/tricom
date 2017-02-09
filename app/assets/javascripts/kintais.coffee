@@ -297,7 +297,14 @@ jQuery ->
     toolbarPlacement: 'top',
     keyBinds: false,
     focusOnShow: false
-  })
+  }).on("dp.hide", (e) ->
+    idRow = $(this).find('.input-time').attr('id')
+    idKintai = idRow.substring(12,idRow.length)
+    $("#taishajikoku_picker_"+idKintai).css("display","none")
+    $("#taishajikoku_text_"+idKintai).css("display","")
+    time = $("#taishajikoku"+idKintai).val()
+    $("#taishajikoku_text_"+idKintai).text(time)
+  )
 
   $('.input-time').click( () ->
     $(this).closest('.time').data("DateTimePicker").toggle();
@@ -329,7 +336,14 @@ jQuery ->
     toolbarPlacement: 'top',
     keyBinds: false,
     focusOnShow: false
-  })
+  }).on("dp.hide", (e) ->
+    idRow = $(this).find('.input-time-start').attr('id')
+    idKintai = idRow.substring(13,idRow.length)
+    $("#shukkinjikoku_picker_"+idKintai).css("display","none")
+    $("#shukkinjikoku_text_"+idKintai).css("display","")
+    time = $("#shukkinjikoku"+idKintai).val()
+    $("#shukkinjikoku_text_"+idKintai).text(time)
+  )
 
   $('.input-time-start').click( () ->
     $(this).closest('.timestart').data("DateTimePicker").toggle();
@@ -364,6 +378,8 @@ jQuery ->
       success: (data) ->
         $('#shukkinjikoku'+idKintai).val(data.starttime)
         $('#taishajikoku'+idKintai).val(data.endtime)
+        $("#shukkinjikoku_text_"+idKintai).text(data.starttime)
+        $("#taishajikoku_text_"+idKintai).text(data.endtime)
       failure: () ->
         console.log("update_kinmutype field")
     })
@@ -410,3 +426,20 @@ jQuery ->
 
     sum = gesshozan - yuukyu
     $('.sum-yuukyu').text(sum)
+
+  $('#kintai-table').on('click', 'td', () ->
+    id_column = $(this).attr("id")
+    if id_column.substring(0,13) == "shukkinjikoku"
+      id_column = $(this).attr("id")
+      if id_column.substring(0,21) != "shukkinjikoku_picker_"
+        id = id_column.substring(19,id_column.length)
+        $("#shukkinjikoku_picker_"+id).css("display","")
+        $("#shukkinjikoku_text_"+id).css("display","none")
+
+    else if id_column.substring(0,12) == "taishajikoku"
+      id_column = $(this).attr("id")
+      if id_column.substring(0,20) != "taishajikoku_picker_"
+        id = id_column.substring(18,id_column.length)
+        $("#taishajikoku_picker_"+id).css("display","")
+        $("#taishajikoku_text_"+id).css("display","none")
+  );
