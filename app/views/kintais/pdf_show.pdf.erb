@@ -1,46 +1,58 @@
-<h1><%= (t 'title.kintai')%></h1>
 
 <% user = Shainmaster.find(session[:user]) %>
-<div class="col-md-2 col-xs-4 col-sm-6 col-lg-2">
-  <h4>日付: <%=@date_param %></h4>
-</div>
-<div class="col-md-2 col-xs-4 col-sm-6 col-lg-2">
-  <h4>勤務工数表</h4>
-</div>
-<div class="col-md-2 col-xs-4 col-sm-6 col-lg-2">
-  <h4>氏名： <%=user.氏名 %></h4>
-</div>
-<div class="col-md-2 col-xs-4 col-sm-6 col-lg-2">
-  <h4>担当者番号： <%=user.社員番号 %></h4>
-</div>
-<div class="col-md-2 col-xs-4 col-sm-6 col-lg-2">
-  <h4>有給残数：<%=user.有給残数 %></h4>
-</div>
-
-
-
-<table style="font-size: 12px; border-left: 1px solid #000; border-right: 1px solid #000">
-  <thead style="display: table-header-group">
+<table id="keihi-table-show" cellspacing="0" width="100%" style="font-size: 12px">
   <tr style="page-break-inside: avoid;">
-    <th rowspan="2" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日付</th>
-    <th rowspan="2" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">曜日</th>
-    <th rowspan="2" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">タイプ</th>
-    <th rowspan="2" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">出勤時間</th>
-    <th rowspan="2" width="7%" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">退社時間</th>
-
-    <th colspan="6" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">就 業 時 間</th>
-
-    <th rowspan="2" class="table-width" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">保守携帯</th>
-    <th rowspan="2" style="border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">処理区分</th>
-    <th rowspan="2" style=" border-bottom: 1px solid #000; border-top: 1px solid #000" >備考</th>
+    <td><%=@date_param[0..3] %></td>
+    <td>年</td>
+    <td><%=@date_param[5..6] %> 月度</td>
+    <td></td>
+    <td></td>
+    <td colspan="2" style="font-size: 15px">勤務工数表</td>
+    <td colspan="2" >氏名： <%=user.氏名 %></td>
+    <td colspan="2" >担当者番号： <%=user.社員番号 %></td>
+    <td></td>
+    <td rowspan="2" >有給残数</td>
+    <td>月初残: ....日</td>
   </tr>
   <tr style="page-break-inside: avoid;">
-    <th style="border-right: 1px solid #000; border-bottom: 1px solid #000">実労働時間</th>
-    <th style="border-right: 1px solid #000; border-bottom: 1px solid #000">遅刻早退</th>
-    <th style="border-right: 1px solid #000; border-bottom: 1px solid #000">普通残業</th>
-    <th style="border-right: 1px solid #000; border-bottom: 1px solid #000">深夜残業</th>
-    <th style="border-right: 1px solid #000; border-bottom: 1px solid #000">普通保守</th>
-    <th style="border-right: 1px solid #000; border-bottom: 1px solid #000">深夜保守</th>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>月末残: .... 日</td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr style="page-break-inside: avoid;">
+    <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日付</td>
+    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">曜日</td>
+    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">タイプ</td>
+    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">出勤時間</td>
+    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">退社時間</td>
+
+    <td colspan="6" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">就 業 時 間</td>
+
+    <td rowspan="2" class="table-width" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">保守携帯</td>
+    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">処理区分</td>
+    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" >備考</td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">実労働時間</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">遅刻早退</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">普通残業</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">深夜残業</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">普通保守</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">深夜保守</td>
   </tr>
   </thead>
 
@@ -50,23 +62,23 @@
         kintai.try(:holiday) == '1' %>
       <% add_class = 'success' if kintai.日付 == @date_now %>
       <tr id="kintai-<%= kintai.id %>" class="<%= add_class %>" style="page-break-inside: avoid;">
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.日付 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.曜日 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.勤務タイプ %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.実労働時間 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.遅刻時間 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.普通残業時間 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.深夜残業時間 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.普通保守時間 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.深夜保守時間 %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"> <% if kintai.保守携帯回数 == 1 %> 1:保守携帯 <% end %></td>
-        <td style="border-right: 1px solid #000; border-bottom: 1px solid #000"><% if !kintai.状態1.nil? %>
+        <td style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.日付 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.曜日 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.勤務タイプ %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.実労働時間 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.遅刻時間 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.普通残業時間 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.深夜残業時間 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.普通保守時間 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= kintai.深夜保守時間 %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"> <% if kintai.保守携帯回数 == 1 %> 1:保守携帯 <% end %></td>
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000"><% if !kintai.状態1.nil? %>
           <%= kintai.joutaimaster.try(:状態名) %>
           <% end %>
         </td>
-        <td style="border-bottom: 1px solid #000">
+        <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000">
           <% if !kintai.備考.nil? && kintai.備考.length > 20%>
             <div class = "div_scoll">
           <% else %>
