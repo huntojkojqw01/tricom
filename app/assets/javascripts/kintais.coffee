@@ -429,6 +429,16 @@ jQuery ->
 
   $('#kintai-table').on('click', 'td', () ->
     id_column = $(this).attr("id")
+    $('td').filter( () ->
+      if $(this).attr("id")!= undefined && $(this).attr("id") != id_column
+        idColumn = $(this).attr("id")
+        if idColumn.substring(0,21) == "shukkinjikoku_picker_" && $(this).css('display') != 'none'
+          $(this).css('display', 'none')
+          $("#shukkinjikoku_text_"+idColumn.substring(21,idColumn.length)).css("display","")
+        else if idColumn.substring(0,20) == "taishajikoku_picker_" && $(this).css('display') != 'none'
+          $(this).css('display', 'none')
+          $("#taishajikoku_text_"+idColumn.substring(20,idColumn.length)).css("display","")
+    );
     if id_column.substring(0,13) == "shukkinjikoku"
       id_column = $(this).attr("id")
       if id_column.substring(0,21) != "shukkinjikoku_picker_"
