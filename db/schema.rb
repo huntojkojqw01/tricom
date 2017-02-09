@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170207085030) do
+ActiveRecord::Schema.define(version: 20170209104500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,6 +69,21 @@ ActiveRecord::Schema.define(version: 20170207085030) do
     t.datetime "更新日"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -167,9 +182,7 @@ ActiveRecord::Schema.define(version: 20170207085030) do
     t.decimal  "早退時間"
   end
 
-  create_table "listpagers", force: :cascade do |t|
-    t.string   "title"
-    t.string   "url"
+  create_table "mybashomasters", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -181,17 +194,6 @@ ActiveRecord::Schema.define(version: 20170207085030) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.index ["searchable_type", "searchable_id"], name: "index_pg_search_documents_on_searchable_type_and_searchable_id", using: :btree
-  end
-
-  create_table "setsubiyoyakus", force: :cascade do |t|
-    t.string   "設備コード"
-    t.string   "社員番号"
-    t.string   "相手先"
-    t.string   "開始"
-    t.string   "終了"
-    t.text     "用件"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "setting_tables", force: :cascade do |t|
@@ -261,7 +263,6 @@ ActiveRecord::Schema.define(version: 20170207085030) do
     t.string   "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "color"
     t.integer  "優先さ"
   end
 
@@ -300,7 +301,6 @@ ActiveRecord::Schema.define(version: 20170207085030) do
     t.string   "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string   "color"
     t.integer  "優先さ"
   end
 
@@ -399,6 +399,7 @@ ActiveRecord::Schema.define(version: 20170207085030) do
     t.float    "月末有給残"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.index ["社員番号", "年月"], name: "index_有給休暇履歴_on_社員番号_and_年月", unique: true, using: :btree
   end
 
   create_table "機関マスタ", id: false, force: :cascade do |t|

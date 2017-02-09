@@ -63,7 +63,7 @@
             <div class="input-group timestart">
               <input  id= "shukkinjikoku<%= kintai.id %>" type="text" class="form-control input-time-start" value= <%=kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %>>
               <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
+                  <span class="glyphicon glyphicon-time"></span>
               </div>
             </div>
           </td>
@@ -77,7 +77,7 @@
             <div class="input-group time">
               <input  id= "taishajikoku<%= kintai.id %>" type="text" class="form-control input-time" value= <%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %>>
               <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-calendar"></span>
+                  <span class="glyphicon glyphicon-time"></span>
               </div>
             </div>
           </td>
