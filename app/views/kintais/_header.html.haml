@@ -18,11 +18,41 @@
     %h4 担当者番号：#{user.社員番号}
   .col-md-2.col-xs-4.col-sm-6.col-lg-2
     %table#yuukyu-table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: "0"}
-      %tr
-        %td{rowspan: "2"} 有給残
-        %td 月初残
-        %td
-          %input{type: "text", class: "input-number"}
-      %tr
-        %td{class: "custom-background"} 月末残
-        %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
+      - if @yuukyuu_kyuuka_rireki.nil?
+        - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+          %tr
+            %td{rowspan: "2"} 有給残
+            %td 月初残
+            %td
+              %input{type: "text", class: "input-number",name: "gesshozan", value: 0}
+          %tr
+            %td{class: "custom-background"} 月末残
+            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
+        - else
+          %tr
+            %td{rowspan: "2"} 有給残
+            %td 月初残
+            %td
+              %input{type: "text", class: "input-number", value: 0, disabled: true}
+          %tr
+            %td{class: "custom-background"} 月末残
+            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
+      - else
+        - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+          %tr
+            %td{rowspan: "2"} 有給残
+            %td 月初残
+            %td
+              %input{type: "text", class: "input-number",name: "gesshozan", value: @yuukyuu_kyuuka_rireki.月初有給残}
+          %tr
+            %td{class: "custom-background"} 月末残
+            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
+        - else
+          %tr
+            %td{rowspan: "2"} 有給残
+            %td 月初残
+            %td
+              %input{type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}
+          %tr
+            %td{class: "custom-background"} 月末残
+            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
