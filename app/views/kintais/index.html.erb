@@ -49,7 +49,7 @@
         <td  id= "date<%= kintai.id %>" ><%= kintai.日付 %></td>
         <td><%= kintai.曜日 %></td>
 
-        <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => "<i class='fa fa-sort-desc'></i>", :inner_class => 'form_control kinmutype', id: kintai.id.to_s%></td>
+
 
         <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
        <!--    <% if kintai.出勤時刻.blank? %>
@@ -57,6 +57,7 @@
           <% else %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.出勤時刻.to_s(:time) %></td>
           <%end%> -->
+          <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => "<i class='fa fa-sort-desc'></i>", :inner_class => 'form_control kinmutype', id: kintai.id.to_s%></td>
           <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
           <td id= "shukkinjikoku_picker_<%= kintai.id %>" style="display:none;">
             <div class="input-group timestart">
@@ -71,7 +72,7 @@
           <% else %>
             <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.退社時刻.to_s(:time) %></td>
           <%end%> -->
-          <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
+          <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
           <td id= "taishajikoku_picker_<%= kintai.id %>" style="display:none;">
             <div class="input-group time">
               <input  id= "taishajikoku<%= kintai.id %>" type="text" class="form-control input-time" value= <%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %>>
@@ -89,6 +90,7 @@
           <td class='kintai-item' style="white-space: pre" id="shinyahoshu<%= kintai.id %>"><%= best_in_place kintai, :深夜保守時間, :as => :input, activator: '#shinyahoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "&nbsp;", readonly: true%></td>
           <td class='kintai-item' style="white-space: pre" id="hoshukeitai<%= kintai.id %>" ><%= best_in_place kintai, :保守携帯回数, :as => :select, :collection => [["", ""], [1, "1:保守携帯"]], activator: '#hoshukeitai' + kintai.id.to_s,:place_holder => "<i class='fa fa-sort-desc'></i>", :inner_class => 'form_control'%></td>
         <% else %>
+          <td><%= kintai.勤務タイプ %></td>
           <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
           <td><%= kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
           <td><%= kintai.実労働時間 %></td>
