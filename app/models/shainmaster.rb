@@ -29,6 +29,7 @@ class Shainmaster < ActiveRecord::Base
   has_many :send_dengons, through: :send_dengon, source: :input_user
   has_many :receive_dengons, through: :receive_dengon, source: :to_user
   has_many :rorumenbas, dependent: :destroy, foreign_key: :社員番号
+  has_many :yuukyuu_kyuuka_rireki, dependent: :destroy, foreign_key: :社員番号
   has_one :setting, dependent: :destroy, foreign_key: :社員番号
   belongs_to :shozai, foreign_key: :所在コード
   belongs_to :shozokumaster, foreign_key: :所属コード

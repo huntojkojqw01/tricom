@@ -10,16 +10,33 @@ class KintaisController < ApplicationController
   def index
     @date_now = Date.today.to_date
     @date_param = Date.today
-    @date_param = params[:search] if params[:search].present?
-
+    if params[:search].present?
+      @date_param = params[:search]
+      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param)
+    else
+      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param.strftime("%Y/%m"))
+    end
     # @date_param = params[:search]
     # @date_param = Date.today.to_date unless date_param.present?
 
     date = @date_param.to_date
     session[:selected_kintai_date] = date
     check_kintai_at_day_by_user(current_user.id, date)
+    @kintais = Kintai.selected_month(session[:user], date).order(:日付)
+    yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
+    getsumatsuzan =  params[:gesshozan].to_f- yukyu
     case params[:commit]
       when (t 'helpers.submit.entered')
+        if params[:gesshozan].nil?
+        else
+          @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param)
+          if @yuukyuu_kyuuka_rireki.nil?
+            @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.new(:社員番号 => session[:user], :年月  => params[:search],:月初有給残  => params[:gesshozan], :月末有給残  =>  getsumatsuzan)
+            @yuukyuu_kyuuka_rireki.save
+          else
+            @yuukyuu_kyuuka_rireki.update(:社員番号  => session[:user], :年月  => params[:search],:月初有給残  => params[:gesshozan], :月末有給残  => getsumatsuzan)
+          end
+        end
         @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
         @kintai.入力済 = '1' if @kintai
         @kintai.save if @kintai
@@ -35,7 +52,6 @@ class KintaisController < ApplicationController
           @kintais = Kintai.selected_month(session[:user], date).order(:日付).destroy_all
         end
     end
-    @kintais = Kintai.selected_month(session[:user], date).order(:日付)
     @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
   end
 
