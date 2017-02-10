@@ -1,6 +1,17 @@
 .row
   .col-md-9.col-xs-9.col-sm-9.col-lg-9.col-md-offset-3.col-xs-offset-3.col-sm-offset-3.col-lg-offset-3
     = f.button ' 集 計 す る ', class: 'summary', type: 'button'
+    .pull-right
+      -#= check_box_tag 'finish-input'
+      -#= label_tag '承認要求'
+      -#= button_tag '入力済', name: 'commit', value:'入力済', class: 'btn btn-default'
+      = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
+      - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
+        %button#export_pdf.btn.btn-primary{:disabled => "true", :type => "button"}= (t 'app.label.export_pdf')
+        = f.submit (t 'helpers.submit.entered'), class: 'btn btn-primary'
+      - else
+        %button#export_pdf.btn.btn-primary{:type => "button"}= (t 'app.label.export_pdf')
+        = f.submit (t 'helpers.submit.input'), class: 'btn btn-primary'
 .spacer
   .row
 .row
@@ -30,16 +41,5 @@
           %td.sum6
           %td.sum7
           %td.sum8
-  .col-sm-3
-    .pull-right
-      -#= check_box_tag 'finish-input'
-      -#= label_tag '承認要求'
-      -#= button_tag '入力済', name: 'commit', value:'入力済', class: 'btn btn-default'
-      = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
-      - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
-        = f.submit (t 'helpers.submit.entered'), class: 'btn btn-primary'
-      - else
-        = f.submit (t 'helpers.submit.input'), class: 'btn btn-primary'
-
 
     %p.finish-message
