@@ -3,17 +3,15 @@
 <% yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param) %>
 <table id="keihi-table-show" cellspacing="0" width="100%" style="font-size: 10px">
   <tr style="page-break-inside: avoid;">
-    <td style="font-size: 12px"><%=@date_param[0..3] %></td>
-    <td style="font-size: 12px">年</td>
-    <td width=5% style="font-size: 12px"><%=@date_param[5..6] %> 月度</td>
+    <td style="text-align: right;font-size: 13px"><%=@date_param[0..3] %></td>
+    <td style="font-size: 13px">年</td>
+    <td colspan="3" style="text-align: left;font-size: 13px"><%=@date_param[5..6] %> 月度</td>
+    <td colspan="2" style="font-size: 15px">勤務工数表</td>
+    <td style="font-size: 13px" colspan="2" >氏名： <u><%=user.氏名 %></u></td>
+    <td style="font-size: 13px" colspan="2" >担当者番号： <u><%=user.社員番号 %></u></td>
     <td></td>
-    <td></td>
-    <td colspan="2" style="font-size: 14px">勤務工数表</td>
-    <td style="font-size: 12px" colspan="2" >氏名： <u><%=user.氏名 %></u></td>
-    <td style="font-size: 12px" colspan="2" >担当者番号： <u><%=user.社員番号 %></u></td>
-    <td></td>
-    <td style="font-size: 12px" rowspan="2" >有給残数</td>
-    <td style="font-size: 12px; border-bottom: 1px solid #000" >月初残: <% if !yuukyuu_kyuuka_rireki.nil? %><%= yuukyuu_kyuuka_rireki.月初有給残 %><% end %>日</td>
+    <td style="font-size: 13px" rowspan="2" >有給残数</td>
+    <td style="font-size: 13px; border-bottom: 1px solid #000" >月初残: <% if !yuukyuu_kyuuka_rireki.nil? %><%= yuukyuu_kyuuka_rireki.月初有給残 %><% end %>日</td>
   </tr>
   <tr style="page-break-inside: avoid;">
     <td>&nbsp;</td>
@@ -35,25 +33,23 @@
   </tr>
 
   <tr style="page-break-inside: avoid;">
-    <td rowspan="2" style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日付</td>
-    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">曜日</td>
-    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">タイプ</td>
-    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">出勤時間</td>
-    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">退社時間</td>
-
+    <td rowspan="2" style="width: 4%;text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日付</td>
+    <td rowspan="2" style="width: 4%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">曜日</td>
+    <td rowspan="2" style="width: 6%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">タイプ</td>
+    <td rowspan="2" style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">出勤時間</td>
+    <td rowspan="2" style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">退社時間</td>
     <td colspan="6" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">就 業 時 間</td>
-
-    <td rowspan="2" class="table-width" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">保守携帯</td>
-    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">処理区分</td>
-    <td rowspan="2" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" >備考</td>
+    <td rowspan="2" class="table-width" style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">保守携帯</td>
+    <td rowspan="2" style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">処理区分</td>
+    <td rowspan="2" style="width: 16%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" >備考</td>
   </tr>
   <tr style="page-break-inside: avoid;">
-    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">実労働時間</td>
-    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">遅刻早退</td>
-    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">普通残業</td>
-    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">深夜残業</td>
-    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">普通保守</td>
-    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">深夜保守</td>
+    <td style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000;">実労働時間</td>
+    <td style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">遅刻早退</td>
+    <td style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">普通残業</td>
+    <td style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">深夜残業</td>
+    <td style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">普通保守</td>
+    <td style="width: 7%;text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000">深夜保守</td>
   </tr>
   </thead>
 
@@ -123,11 +119,8 @@
       </tr>
       <tr style="page-break-inside: avoid;">
         <td colspan=11>&nbsp;</td>
-        <td rowspan="3" style="text-align: center; border-left: 1px solid #000; border-right: 1px solid #000;border-bottom: 1px  solid #000">&nbsp;</td>
-        <td rowspan="3" style="text-align: center;border-right: 1px solid #000; border-bottom: 1px solid #000">&nbsp;</td>
-      </tr>
-      <tr>
-        <td colspan=11>&nbsp;</td>
+        <td rowspan="2" style="text-align: center; border-left: 1px solid #000; border-right: 1px solid #000;border-bottom: 1px  solid #000">&nbsp;</td>
+        <td rowspan="2" style="text-align: center;border-right: 1px solid #000; border-bottom: 1px solid #000">&nbsp;</td>
       </tr>
       <tr>
         <td colspan=11>&nbsp;</td>
