@@ -199,11 +199,49 @@
         <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
         <a href=<%=new_event_path%> ><button class='btn btn-primary' type= 'button'><%=(t 'title.new')%></button></a>
         <button class='btn btn-primary' id='destroy_event' type= 'button'><%=(t 'title.delete')%></button>
-
+        <button class='btn btn-primary' id='print_event' type= 'button'><%=(t 'app.label.export_pdf')%></button>
    <!--      <%= link_to (t 'title.newevent'), new_event_path %> -->
       </div>
     </div>
+    <div id="selectDay" style="display: none">
+      <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+          <div class="spacer">
+          </div>
+        </div>
+      </div>
 
+      <div class="row">
+
+        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 ">
+          <label>開始</label>
+          <div class="input-group date_start_select">
+            <input type='text' class="form-control" id="date_start_input" name="date_start_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_start" aria-hidden="true"></span>
+            </span>
+
+          </div>
+
+        </div>
+        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 ">
+          <label>終了</label>
+          <div class="input-group date_end_select">
+            <input type='text' class="form-control" id="date_end_input" name="date_end_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_end" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
+          <label>&nbsp;</label>
+          <div>
+            <button id="print_pdf" class="btn btn-default" type="button"><%=(t 'app.label.export_pdf')%></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
     <div class="row" style="display: none;">
         <%= form_tag import_events_path,class:'form-inline', multipart: true do %>
         <% end %>

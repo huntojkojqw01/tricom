@@ -39,6 +39,29 @@ class EventsController < ApplicationController
     # end
   end
 
+  def pdf_show
+    vars = request.query_parameters
+    @date_start = vars['date_start'] if vars['date_start'] != '' && !vars['date_start'].nil?
+    @date_end = vars['date_end'] if vars['date_end'] != '' && !vars['date_end'].nil?
+
+
+    session[:selected_shain] = current_user.id unless session[:selected_shain].present?
+    @events = Shainmaster.find(session[:selected_shain]).events.
+      where("Date(開始) >= ?",@date_start.to_date.to_s(:db)).
+      where("Date(終了) <= ?",@date_end.to_date.to_s(:db)).
+      order(開始: :asc)
+    @shain = Shainmaster.find(session[:selected_shain])
+    date = @date_start.to_date
+    respond_to do |format|
+      format.pdf do
+        render  pdf: "event_pdf",
+                template: 'events/pdf_show.pdf.erb',
+                encoding: 'utf8',
+                orientation: 'Landscape'
+      end
+    end
+  end
+
   def time_line_view
 
     @role = Rorumaster.all

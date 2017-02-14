@@ -1,0 +1,61 @@
+
+<table id="events-table-show" cellspacing="0" width="100%" style="font-size: 10px">
+  <tr style="page-break-inside: avoid;">
+    <td></td>
+    <td></td>
+    <td style="font-size: 14px">就業報告表</td>
+    <td style="font-size: 13px">氏名 <u><%=@shain.氏名 %></u>　　担当者番号 <u><%=@shain.社員番号 %></u></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td rowspan="3" style="width: 7%;border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000"></td>
+    <td rowspan="3" style="width: 7%;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000"></td>
+    <td rowspan="3" style="width: 7%;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000"></td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td>&nbsp;</td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td>&nbsp;</td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td style="font-size: 13px" colspan="11"><%=l(@date_start.to_date, format: :long) %> ~ <%=l(@date_end.to_date, format: :long) %></td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr style="page-break-inside: avoid;">
+    <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日付</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">曜日</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">取引先</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">JOB</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">時間FR</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">時間TO</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">工数</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">工程</td>
+    <td colspan="3" style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000" >備考</td>
+  </tr>
+  </thead>
+
+  <tbody>
+    <% @events.each do |event| %>
+      <tr style="page-break-inside: avoid;" >
+        <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.開始).strftime("%d")%></td>
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%=l(event.開始.to_date, format: :day) %></td>
+        <td style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= Jobmaster.find(event.JOB).ユーザ名 if event.JOB!=''%></td>
+        <td style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.JOB %> &nbsp;&nbsp; <%=event.job_job名 %></td>
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.開始).strftime("%H:%m") %></td>
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.終了).strftime("%H:%m") %></td>
+
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= get_koushuu(event.開始, event.終了) %></td>
+
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.koutei_工程名 %></td>
+        <td colspan="3" style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.comment %></td>
+        <!--<td><%# event.joutaimaster.状態名 %></td>-->
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
