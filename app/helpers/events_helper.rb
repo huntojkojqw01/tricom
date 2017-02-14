@@ -72,11 +72,23 @@ module EventsHelper
     date_1 = start_time.to_datetime
     date_2 = end_time.to_datetime
     koushuu = ((date_2 - date_1)*24)
-    if koushuu < 0
-      return 0
-    else
-      return koushuu
+    # if koushuu < 0
+    #   return 0
+    # else
+    #   return koushuu
+    # end
+    kousu = []
+    countup = 0
+    until countup > 1000 do
+      kousu.push(countup)
+      countup += 0.25
     end
+    for num in kousu do
+      if num > koushuu && num > 0
+        return (num-0.25)
+      end
+    end
+    return koushuu
   end
 
 end

@@ -589,7 +589,39 @@ $(function () {
         location.href='/events/export_csv.csv?locale=ja';
      });
 
+    $('#print_event').click(function(){
+        if( $("#selectDay").css('display') == 'none'){
+            $("#selectDay").css('display', '');
+            var currentDate = new Date();
+            var startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
+            var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
+            $("#date_start_input").val(startOfWeek);
+            $("#date_end_input").val(endOfWeek);
 
+            // //set minDate and maxDate for datetimepicker
+            // var dateCurrent = $('#calendar-month-view').fullCalendar('getDate');
+            // var minDate = dateCurrent.startOf("month").format("DD-MM-YYYY");
+            // var maxDate = dateCurrent.endOf("month").format("DD-MM-YYYY");
+            // $('.date_start_select').data("DateTimePicker").minDate(minDate);
+            // $('.date_start_select').data("DateTimePicker").maxDate(maxDate);
+            // $('.date_end_select').data("DateTimePicker").minDate(minDate);
+            // $('.date_end_select').data("DateTimePicker").maxDate(maxDate);
+
+
+        }
+        else{
+            $("#selectDay").css('display', 'none')
+        }
+    });
+    $('#print_pdf').click(function(){
+        window.open('/events/pdf_show.pdf?locale=ja&date_start='+$("#date_start_input").val()+'&date_end='+$("#date_end_input").val());
+    });
+    $('#date_start_input').click(function(){
+        $('.date_start_select').data("DateTimePicker").toggle();
+    });
+    $('#date_end_input').click(function(){
+        $('.date_end_select').data("DateTimePicker").toggle();
+    });
     //$('#開始').click(function () {
     //    $('#event_開始').data("DateTimePicker").toggle();
     //});
@@ -616,18 +648,26 @@ $(function () {
 
     });
     $('.datetime_search').datetimepicker({
-    format: 'YYYY/MM/DD',
-    widgetPositioning: {
-            horizontal: 'left'
-        },
-    showTodayButton: true,
-    showClear: true,
-    sideBySide: true,
-    //toolbarPlacement: 'top',
-    keyBinds: false,
-    focusOnShow: false
-  });
+        format: 'YYYY/MM/DD',
+        widgetPositioning: {
+                horizontal: 'left'
+            },
+        showTodayButton: true,
+        showClear: true,
+        sideBySide: true,
+        //toolbarPlacement: 'top',
+        keyBinds: false,
+        focusOnShow: false
+    });
 
+    $('.date_start_select').datetimepicker({
+        // minDate: "2017/02/01",
+        // maxDate: "2017/02/28",
+        format: 'YYYY/MM/DD'
+    });
+    $('.date_end_select').datetimepicker({
+        format: 'YYYY/MM/DD'
+    });
     // $('#event_開始').datetimepicker({
     //    format: 'YYYY/MM/DD HH:mm',
     //    showClear: true,
@@ -1004,9 +1044,9 @@ $(function(){
         //$('#joutai_name').text(d[1]);
         $('.hint-joutai-refer').text(d[1]);
         if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
-            $('.event_有無').show();
+            $('.event_帰社').show();
         else
-            $('.event_有無').hide();
+            $('.event_帰社').hide();
         //#    remove error if has
         $('#event_状態コード').closest('.form-group').find('span.help-block').remove()
         $('#event_状態コード').closest('.form-group').removeClass('has-error')
