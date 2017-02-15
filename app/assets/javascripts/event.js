@@ -592,6 +592,11 @@ $(function () {
     $('#print_event').click(function(){
         if( $("#selectDay").css('display') == 'none'){
             $("#selectDay").css('display', '');
+            $("#print_event_job").attr("disabled", true);
+            $("#print_event_koutei").attr("disabled", true);
+            $("#print_pdf_event").css('display', '');
+            $("#print_pdf_job").css('display', 'none');
+            $("#print_pdf_koutei").css('display', 'none');
             var currentDate = new Date();
             var startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
             var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
@@ -610,11 +615,59 @@ $(function () {
 
         }
         else{
-            $("#selectDay").css('display', 'none')
+            $("#selectDay").css('display', 'none');
+            $("#print_event_job").attr("disabled", false);
+            $("#print_event_koutei").attr("disabled", false);
         }
     });
-    $('#print_pdf').click(function(){
-        window.open('/events/pdf_show.pdf?locale=ja&date_start='+$("#date_start_input").val()+'&date_end='+$("#date_end_input").val());
+    $('#print_event_job').click(function(){
+        if( $("#selectDay").css('display') == 'none'){
+            $("#selectDay").css('display', '');
+            $("#print_event").attr("disabled", true);
+            $("#print_event_koutei").attr("disabled", true);
+            $("#print_pdf_event").css('display', 'none');
+            $("#print_pdf_job").css('display', '');
+            $("#print_pdf_koutei").css('display', 'none');
+            var currentDate = new Date();
+            var startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
+            var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
+            $("#date_start_input").val(startOfWeek);
+            $("#date_end_input").val(endOfWeek);
+        }
+        else{
+            $("#selectDay").css('display', 'none');
+            $("#print_event").attr("disabled", false);
+            $("#print_event_koutei").attr("disabled", false);
+        }
+    });
+    $('#print_event_koutei').click(function(){
+        if( $("#selectDay").css('display') == 'none'){
+            $("#selectDay").css('display', '');
+            $("#print_event").attr("disabled", true);
+            $("#print_event_job").attr("disabled", true);
+            $("#print_pdf_event").css('display', 'none');
+            $("#print_pdf_job").css('display', 'none');
+            $("#print_pdf_koutei").css('display', '');
+            var currentDate = new Date();
+            var startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
+            var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
+            $("#date_start_input").val(startOfWeek);
+            $("#date_end_input").val(endOfWeek);
+        }
+        else{
+            $("#selectDay").css('display', 'none');
+            $("#print_event").attr("disabled", false);
+            $("#print_event_job").attr("disabled", false);
+        }
+    });
+    $('#print_pdf_event').click(function(){
+        window.open('/events/pdf_event_show.pdf?locale=ja&date_start='+$("#date_start_input").val()+'&date_end='+$("#date_end_input").val());
+    });
+    $('#print_pdf_job').click(function(){
+        window.open('/events/pdf_job_show.pdf?locale=ja&date_start='+$("#date_start_input").val()+'&date_end='+$("#date_end_input").val());
+    });
+    $('#print_pdf_koutei').click(function(){
+        window.open('/events/pdf_koutei_show.pdf?locale=ja&date_start='+$("#date_start_input").val()+'&date_end='+$("#date_end_input").val());
     });
     $('#date_start_input').click(function(){
         $('.date_start_select').data("DateTimePicker").toggle();
