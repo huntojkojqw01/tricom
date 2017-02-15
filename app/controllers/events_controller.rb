@@ -60,7 +60,8 @@ class EventsController < ApplicationController
         render  pdf: "event_pdf",
                 template: 'events/pdf_show.pdf.erb',
                 encoding: 'utf8',
-                orientation: 'Landscape'
+                orientation: 'Landscape',
+                title: 'Print PDF'
       end
     end
   end
@@ -87,6 +88,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.pdf do
         render  pdf: "event_job_pdf",
+                title: 'Print PDF',
                 template: 'events/pdf_job_show.pdf.erb',
                 encoding: 'utf8',
                 orientation: 'Landscape'
@@ -116,6 +118,7 @@ class EventsController < ApplicationController
     respond_to do |format|
       format.pdf do
         render  pdf: "event_koutei_pdf",
+                title: 'Print PDF',
                 template: 'events/pdf_koutei_show.pdf.erb',
                 encoding: 'utf8',
                 orientation: 'Landscape'
