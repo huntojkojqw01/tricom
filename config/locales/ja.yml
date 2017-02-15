@@ -266,6 +266,9 @@ ja:
       import_csv: CSVでのデータをインポート!
       reference: 照会
       export_pdf: 印刷する
+      pdf_event: 就業合計表
+      pdf_event_job: 就業JOB集計
+      pdf_event_koutei: 就業工程集計
   export: 輸出
   title:
     bashokubunmst: 場所区分一覧

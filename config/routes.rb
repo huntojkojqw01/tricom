@@ -99,7 +99,7 @@ Jpt::Application.routes.draw do
 
   resources :events, only: [:index, :new, :create, :edit, :update] do
 		collection {post :ajax, :custom, :create_basho, :create_kaisha, :time_line_view, :import}
-    collection {get :time_line_view, :pdf_show}
+    collection {get :time_line_view, :pdf_event_show, :pdf_job_show, :pdf_koutei_show}
     collection {get :export_csv}
 	end
 

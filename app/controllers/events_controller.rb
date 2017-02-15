@@ -39,7 +39,7 @@ class EventsController < ApplicationController
     # end
   end
 
-  def pdf_show
+  def pdf_event_show
     vars = request.query_parameters
     @date_start = vars['date_start'] if vars['date_start'] != '' && !vars['date_start'].nil?
     @date_end = vars['date_end'] if vars['date_end'] != '' && !vars['date_end'].nil?
@@ -50,12 +50,73 @@ class EventsController < ApplicationController
       where("Date(開始) >= ?",@date_start.to_date.to_s(:db)).
       where("Date(終了) <= ?",@date_end.to_date.to_s(:db)).
       order(開始: :asc)
+    @events.each{ |event|
+        Event.find_by(id: event.id).update(工数: get_koushuu(event.開始, event.終了))
+    }
     @shain = Shainmaster.find(session[:selected_shain])
     date = @date_start.to_date
     respond_to do |format|
       format.pdf do
         render  pdf: "event_pdf",
                 template: 'events/pdf_show.pdf.erb',
+                encoding: 'utf8',
+                orientation: 'Landscape'
+      end
+    end
+  end
+
+   def pdf_job_show
+    vars = request.query_parameters
+    @date_start = vars['date_start'] if vars['date_start'] != '' && !vars['date_start'].nil?
+    @date_end = vars['date_end'] if vars['date_end'] != '' && !vars['date_end'].nil?
+
+
+    session[:selected_shain] = current_user.id unless session[:selected_shain].present?
+    @events = Shainmaster.find(session[:selected_shain]).events.
+      where("Date(開始) >= ?",@date_start.to_date.to_s(:db)).
+      where("Date(終了) <= ?",@date_end.to_date.to_s(:db))
+    @events.each{ |event|
+        Event.find_by(id: event.id).update(工数: get_koushuu(event.開始, event.終了))
+    }
+    # 'JOB, 工数'
+    @eventJOB = @events.select('JOB','SUM(CAST(工数 AS DECIMAL)) AS sum_job').group(:JOB).order(:JOB)
+    # @problems = @test.select('JOB','工数').group(:JOB).order(:JOB).sum("CAST(events.工数 AS DECIMAL)")
+     # te = Kintai.select("勤務タイプ","SUM(実労働時間) AS KKK").group(:勤務タイプ).order(:勤務タイプ => :asc)
+    @shain = Shainmaster.find(session[:selected_shain])
+    date = @date_start.to_date
+    respond_to do |format|
+      format.pdf do
+        render  pdf: "event_job_pdf",
+                template: 'events/pdf_job_show.pdf.erb',
+                encoding: 'utf8',
+                orientation: 'Landscape'
+      end
+    end
+  end
+
+   def pdf_koutei_show
+    vars = request.query_parameters
+    @date_start = vars['date_start'] if vars['date_start'] != '' && !vars['date_start'].nil?
+    @date_end = vars['date_end'] if vars['date_end'] != '' && !vars['date_end'].nil?
+
+
+    session[:selected_shain] = current_user.id unless session[:selected_shain].present?
+    @events = Shainmaster.find(session[:selected_shain]).events.
+      where("Date(開始) >= ?",@date_start.to_date.to_s(:db)).
+      where("Date(終了) <= ?",@date_end.to_date.to_s(:db))
+    @events.each{ |event|
+        Event.find_by(id: event.id).update(工数: get_koushuu(event.開始, event.終了))
+    }
+    # 'JOB, 工数'
+    @eventKoutei = @events.select('JOB','工程コード','SUM(CAST(工数 AS DECIMAL)) AS sum_job').group(:JOB,:工程コード).order(:JOB)
+    # @problems = @test.select('JOB','工数').group(:JOB).order(:JOB).sum("CAST(events.工数 AS DECIMAL)")
+     # te = Kintai.select("勤務タイプ","SUM(実労働時間) AS KKK").group(:勤務タイプ).order(:勤務タイプ => :asc)
+    @shain = Shainmaster.find(session[:selected_shain])
+    date = @date_start.to_date
+    respond_to do |format|
+      format.pdf do
+        render  pdf: "event_koutei_pdf",
+                template: 'events/pdf_koutei_show.pdf.erb',
                 encoding: 'utf8',
                 orientation: 'Landscape'
       end

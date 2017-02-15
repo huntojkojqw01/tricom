@@ -266,6 +266,9 @@ en:
       import_csv: Import data with CSV!
       reference: Reference
       export_pdf: Export data with PDF!
+      pdf_event: 就業合計表
+      pdf_event_job: 就業JOB集計
+      pdf_event_koutei: 就業工程集計
   export: 輸出
   title:
     bashokubunmst: Location classification list

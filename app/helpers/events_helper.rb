@@ -91,4 +91,9 @@ module EventsHelper
     return koushuu
   end
 
+  def test_fun(val1)
+    return val1.to_f +1
+
+  end
+
 end

@@ -1,0 +1,60 @@
+
+<table id="events-table-show" cellspacing="0" width="100%" style="font-size: 10px">
+  <tr style="page-break-inside: avoid;">
+
+    <td style="text-align:center;font-size: 14px">就業報告表</td>
+    <td style="font-size: 13px">氏名 <u><%=@shain.氏名 %></u>　　担当者番号 <u><%=@shain.社員番号 %></u></td>
+    <td rowspan="3" style="width: 7%;border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000"></td>
+    <td rowspan="3" style="width: 7%;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000"></td>
+    <td rowspan="3" style="width: 7%;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000"></td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td style="text-align:center;font-size: 13px">（※工程単位で集計)</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td>&nbsp;</td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td style="font-size: 13px" colspan="11"><%=l(@date_start.to_date, format: :long) %> ~ <%=l(@date_end.to_date, format: :long) %></td>
+  </tr>
+  <tr style="page-break-inside: avoid;">
+    <td>&nbsp;</td>
+  </tr>
+
+  <tr style="page-break-inside: avoid;">
+    <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">取引先</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">JOB</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">工程</td>
+    <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">工数</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  </thead>
+
+  <tbody>
+    <% sumJob = 0 %>
+    <% @eventKoutei.each do |event| %>
+      <% sumJob = sumJob + event.sum_job %>
+      <tr style="page-break-inside: avoid;" >
+        <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= Jobmaster.find(event.JOB).ユーザ名 if event.JOB!=''%></td>
+        <td style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.JOB %> &nbsp;&nbsp; <%=event.job_job名 %></td>
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= Kouteimaster.find_by(工程コード: event.工程コード).工程名 if event.工程コード!=''%></td>
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.sum_job %></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    <% end %>
+    <%if !@eventKoutei.nil? %>
+      <tr style="page-break-inside: avoid;" >
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td style="border-right: 1px solid #000">&nbsp;</td>
+        <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= sumJob %></td>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+      </tr>
+    <% end %>
+  </tbody>
+
+</table>
