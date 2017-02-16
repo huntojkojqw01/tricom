@@ -590,5 +590,5 @@ jQuery ->
     window.open('/keihiheads/pdf_show.pdf?locale=ja&date=' +date+'&shain='+shain+'&shonin='+shonin)
 
   $('#pdf_show_keihihead').click () ->
-    keihiheadId = $('#keihihead_申請番号').val()
+    keihiheadId = $('#keihihead_id').val()
     window.open('/keihiheads/pdf_show.pdf?locale=ja&keihiheadId=' +keihiheadId)

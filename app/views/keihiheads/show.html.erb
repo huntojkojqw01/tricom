@@ -31,6 +31,9 @@
       <%= select(:keihihead, :id, array_value, {}, {class: 'form-control',disabled: true}) %>
       <%# f.text_field :shinsheino, class: 'form-control' %>
     </div>
+    <div class="form-group pull-right">
+      <button id="pdf_show_keihihead" class="btn btn-primary" type="button"><%=(t 'app.label.export_pdf')%></button>
+    </div>
 
     <div class="spacer"></div>
 
