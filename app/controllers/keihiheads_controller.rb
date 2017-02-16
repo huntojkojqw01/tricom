@@ -98,7 +98,8 @@ class KeihiheadsController < ApplicationController
         render  pdf: "keihihead_pdf",
                 template: 'keihiheads/pdf_show_new.pdf.erb',
                 encoding: 'utf8',
-                orientation: 'Landscape'
+                orientation: 'Landscape',
+                title: (t 'title.keihi_pdf')
       end
     end
   end
@@ -173,6 +174,19 @@ class KeihiheadsController < ApplicationController
           render :edit
 
         end
+      when (t 'app.label.export_pdf')
+        params[:keihihead][:日付] = Date.today if keihi_params[:日付].nil?
+        if @keihi.update(keihi_params)
+          flash[:notice] = t "app.flash.update_success"
+          redirect_to edit_keihihead_url(@keihi,keihiheadId: @keihi.申請番号)
+          # redirect_to :controller => 'keihiheads', :action => 'pdf_show', :keihiheadId => "18"
+          # render :js => "window.location = '/keihiheads/pdf_show.pdf?locale=ja&keihiheadId="+@keihi.申請番号+"'"
+          # render 'open_pdf', format: :js
+        else
+          flash[:danger] = t 'app.flash.unsucess'
+          render :edit
+        end
+
       when (t 'helpers.submit.destroy')
         flash[:notice] = t "app.flash.delete_success" if @keihi.destroy
         respond_with @keihi, location: keihiheads_url

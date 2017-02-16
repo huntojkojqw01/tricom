@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
+  $(document).ready () ->
+    keihi_pdf = getUrlVars()["keihiheadId"];
+    if keihi_pdf != '' && keihi_pdf != undefined
+      window.open('/keihiheads/pdf_show.pdf?locale=ja&keihiheadId=' +keihi_pdf)
   $(document).on 'click', '.keihihead-update', (event) ->
     summary()
   $(document).on 'click', '.summary', (event) ->
