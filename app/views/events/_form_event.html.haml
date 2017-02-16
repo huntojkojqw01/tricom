@@ -20,7 +20,7 @@
     = f.input (t 'title.kouteicode') do
       = f.select :工程コード, @kouteis.map { |k| [k.工程名, k.工程コード] }, {include_blank: true}, {class: 'form-control', style: 'width:150px'}
     = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(session[:selected_shain]).所属コード}"}, as: :hidden
-  .col-md-4.col-xs-4.col-sm-4.col-lg-4.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
+  .col-md-4.col-xs-4.col-sm-4.col-lg-4
     = f.input :開始, label: (t 'title.kaishi'), as: :date_time_picker
     = f.input :終了, label: (t 'title.shyuuryou'), as: :date_time_picker
     = f.input :工数, label: (t 'title.koushuu'), input_html: {style: 'width:100px'}, hint: (t 'title.tani')
@@ -43,6 +43,12 @@
         = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline'
       - else
         = f.button :submit, (t 'helpers.submit.destroy_other'), class: 'btn btn-primary', id: 'event'
+  .col-md-1.col-xs-3.col-sm-2.col-lg-1{id: "selectShozai"}
+    = label_tag (t 'app.label.calendar_genzai')
+    - if !request["shain_id"].nil?
+      = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(request["shain_id"]).所在コード, include_blank: true }, class: 'form-control')
+    - else
+      = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(@event.社員番号).所在コード, include_blank: true }, class: 'form-control')
 
 = render 'share/joutai_modal'
 = render 'share/basho_modal'
