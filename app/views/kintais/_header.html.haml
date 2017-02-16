@@ -1,11 +1,11 @@
 - user = Shainmaster.find(session[:user])
 .row
-  .col-md-3.col-xs-6.col-sm-9.col-lg-3
+  .col-md-3.col-xs-5.col-sm-8.col-lg-3
     .form-group
       %label.sr-only date
       -#= f.text_field :日付, class: 'form-control date-search'
       .input-group.date-search
-        = text_field_tag :search, @date_param, class:'form-control'
+        = text_field_tag :search, @date_param, class:'form-control', size: 6
         %span.input-group-addon
           %span.glyphicon.glyphicon-calendar
       = f.submit :勤怠検索, class: 'btn btn-primary'
@@ -18,41 +18,20 @@
     %h4 担当者番号：#{user.社員番号}
   .col-md-3.col-xs-4.col-sm-6.col-lg-3
     %table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: "0"}
-      - if @yuukyuu_kyuuka_rireki.nil?
-        - if @kintai.入力済 == '0' || @kintai.入力済.nil?
-          %tr
-            %th{rowspan: "2"} 有給残
-            %th 月初残
-            %td
-              %input.form-control{size: 10,type: "text", class: "input-number",name: "gesshozan", value: 0}
-          %tr
-            %th{class: "custom-background"} 月末残
-            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
-        - else
-          %tr
-            %th{rowspan: "2"} 有給残
-            %th 月初残
-            %td
-              %input.form-control{size: 10, type: "text", class: "input-number", value: 0, disabled: true}
-          %tr
-            %th{class: "custom-background"} 月末残
-            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
-      - else
-        - if @kintai.入力済 == '0' || @kintai.入力済.nil?
-          %tr
-            %th{rowspan: "2"} 有給残
-            %th 月初残
-            %td
-              %input.form-control{size: 10,type: "text", class: "input-number",name: "gesshozan", value: @yuukyuu_kyuuka_rireki.月初有給残}
-          %tr
-            %th{class: "custom-background"} 月末残
-            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
-        - else
-          %tr
-            %th{rowspan: "2"} 有給残
-            %th 月初残
-            %td
-              %input.form-control{size: 10,type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}
-          %tr
-            %th{class: "custom-background"} 月末残
-            %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
+      %tr
+        %th{rowspan: "2"} 有給残
+        %th 月初残
+        %td
+          - if @yuukyuu_kyuuka_rireki.nil?
+            - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+              %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: 0}
+            - else
+              %input.form-control{size: 4, type: "text", class: "input-number", value: 0, disabled: true}
+          - else
+            - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+              %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: @yuukyuu_kyuuka_rireki.月初有給残}
+            - else
+              %input.form-control{size: 4,type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}
+      %tr
+        %th{class: "custom-background"} 月末残
+        %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}

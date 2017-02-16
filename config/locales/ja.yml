@@ -349,8 +349,8 @@ ja:
     mail: メール
     koshinsuru: 更新
     profilehenshuu: プロファイル編集
-    scrolltime: スクロールタイム
-    local: ローカル
+    scrolltime: タイムライン開始時間
+    local: システム言語
     bashocode: 場所コード
     bashomei: 場所名
     bashomeikana: 場所名カナ

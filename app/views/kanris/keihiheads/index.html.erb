@@ -12,26 +12,21 @@
 <%= form_for :kintai, url: kanris_keihiheads_path, html: {class:'form-inline'}, method: :get do |f| %>
 <%= render "kanris/shared/header_keihi", f: f %>
 
-<table  class="table table-bordered table-hover " cellspacing="0" data-sort-name="name" data-sort-order="desc">
+<table id="keihihead_table" class="table table-bordered table-hover " cellspacing="0" data-sort-name="name" data-sort-order="desc">
   <thead>
   <tr>
-    <th rowspan="2">申請番号</th>
-    <th rowspan="2">申請日付</th>
-    <th rowspan="2">社員氏名</th>
-    <th rowspan="2">承認区分</th>
-    <th rowspan="2">承認者</th>
-    <th rowspan="2">清算予定日</th>
-    <th rowspan="2">清算日</th>
-    <th colspan="2">承認済区分</th>
+    <th>申請番号</th>
+    <th>申請日付</th>
+    <th>社員氏名</th>
+    <th>承認区分</th>
+    <th>承認者</th>
+    <th>清算予定日</th>
+    <th>清算日</th>
+    <th>承認済区分</th>
   </tr>
   </thead>
 
   <tbody>
-  <% if  @keihiheads.nil? || @keihiheads.empty? %>
-    <tr  style="text-align: center;">
-      <td colspan="15">データはありません。</td>
-    </tr>
-  <% else %>
     <% @keihiheads.each do |keihihead| %>
 
       <tr id="keihihead-<%= keihihead.id %>">
@@ -44,8 +39,6 @@
         <td><%= keihihead.清算日 %></td>
         <td><%= keihihead.承認済区分 %></td>
       </tr>
-  <% end %>
-<%= paginate @keihiheads %>
   <% end %>
   </tbody>
 </table>

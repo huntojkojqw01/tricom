@@ -15,8 +15,8 @@
   <tr>
     <th rowspan="2">日付</th>
     <th rowspan="2">曜日</th>
-    <th rowspan="2" style="width: 100px">タイプ</th>
-    <th rowspan="2">出勤時間</th>
+    <th rowspan="2">タイプ</th>
+    <th rowspan="2" width="7%">出勤時間</th>
     <th rowspan="2" width="7%">退社時間</th>
 
     <th colspan="6">就 業 時 間</th>
@@ -31,12 +31,12 @@
     <!--<th rowspan="2"></th>-->
   </tr>
   <tr>
-    <th>実労働時間</th>
-    <th>遅刻早退</th>
-    <th>普通残業</th>
-    <th>深夜残業</th>
-    <th>普通保守</th>
-    <th>深夜保守</th>
+    <th width="7%">実労働時間</th>
+    <th width="7%">遅刻早退</th>
+    <th width="7%">普通残業</th>
+    <th width="7%">深夜残業</th>
+    <th width="7%">普通保守</th>
+    <th width="7%">深夜保守</th>
   </tr>
   </thead>
 
@@ -48,9 +48,6 @@
       <tr id="kintai-<%= kintai.id %>" class="<%= add_class %>">
         <td  id= "date<%= kintai.id %>" ><%= kintai.日付 %></td>
         <td><%= kintai.曜日 %></td>
-
-
-
         <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
        <!--    <% if kintai.出勤時刻.blank? %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><i class='fa fa-edit'></i></td>
@@ -107,11 +104,11 @@
         </td>
         <td>
           <% if !kintai.備考.nil? && kintai.備考.length > 20%>
-            <div class = "div_scoll">
+            <div class = "div_scoll"><%= kintai.備考 %></div>
           <% else %>
-            <div>
+            <div><%= kintai.備考 %></div>
           <% end %>
-          <%= kintai.備考 %></div></td>
+        </td>
         <!--<td><%# link_to '詳細', kintai %></td>-->
         <% if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil? %>
           <td><%= link_to '編集', edit_kintai_path(kintai) %></td>

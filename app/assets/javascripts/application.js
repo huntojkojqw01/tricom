@@ -61,32 +61,23 @@ $(document).on('ready', function() {
 
 $(document).ready(function() {
   $path = "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-    $('#export_table').DataTable({"pagingType": "full_numbers"
+  $('#export_table').DataTable({"pagingType": "full_numbers"
         , "oLanguage": {
             "sUrl": $path
         }});
-} );
-$(document).ready(function() {
-  $path = "../../assets/resource/dataTable_"+$('#language').text()+".txt"
   $('#kintai_table').DataTable({
         "pagingType": "full_numbers"
         , "oLanguage": {
             "sUrl": $path
-        },
-        "aoColumnDefs": [
-            { "bSortable": false, "aTargets": [ 4,5 ]},
-            {
-                "targets": [4,5],
-                "width": '5%'
-            }
-        ],
-        "columnDefs": [ {
-            "targets"  : 'no-sort',
-            "orderable": false
-        }]
+        }
+    });
+  $('#keihihead_table').DataTable({
+        "pagingType": "full_numbers"
+        , "oLanguage": {
+            "sUrl": $path
+        }
     });
 });
-
 //get param from Url
 //var roru = getUrlVars()["roru"];
 
