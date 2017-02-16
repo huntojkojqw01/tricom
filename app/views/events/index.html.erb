@@ -278,6 +278,7 @@
         <%= form_tag import_events_path,class:'form-inline', multipart: true do %>
           <div>
             <%= submit_tag (t 'title.import_csv_btn') , class: 'btn btn-primary' %>
+            <button class='btn btn-primary' id='export_event' type= 'button'><%=(t 'title.export_csv')%></button>
           </div>
           <div class="spacer">
           </div>
@@ -293,20 +294,20 @@
       </div>
     </div>
 
-    <div class="row">
+  <!--   <div class="row">
       <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
         <div class="spacer">
         </div>
       </div>
     </div>
-    <legend></legend>
+    <legend></legend> -->
 
-    <div class="row">
+   <!--  <div class="row">
       <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 ">
 
-        <button class='btn btn-primary' id='export_event' type= 'button'><%=(t 'title.export_csv')%></button>
+
       </div>
-    </div>
+    </div> -->
 
 
 
