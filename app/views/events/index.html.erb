@@ -54,8 +54,8 @@
 
       <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 pull-right">
         <div class="form-inline pull-right">
-          <%= f.input (t 'title.shainsentaku') do %>
-              <%= f.select :所在コード, Shozai.all.map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
+          <%= f.input (t 'app.label.calendar_genzai') do %>
+              <%= f.select :所在コード, Shozai.all.order(所在コード: :asc).map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
           <% end %>
         </div>
       </div>

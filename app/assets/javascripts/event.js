@@ -747,10 +747,29 @@ $(function () {
     //    focusOnShow: false
     // });
 
-    //$("#event_開始").on("dp.change", function (e) {
-    //    $('#event_終了').data("DateTimePicker").minDate(e.date);
-    //});
-    //
+    $(".event_開始 .datetime").on("dp.change", function (e) {
+
+        var q = new Date();
+        var m = q.getMonth();
+        var d = q.getDate();
+        var y = q.getFullYear();
+
+        var date = new Date(y,m,d);
+
+        var mydate = new Date($("#event_開始").val().substring(0,10));
+
+        date =date.toString()
+        mydate = mydate.toString()
+        if(date == mydate)
+        {
+            $("#selectShozai").css('display', '');
+        }
+        else
+        {
+            $("#selectShozai").css('display', 'none');
+        }
+    });
+
     //$("#event_終了").on("dp.change", function (e) {
     //    $('#event_開始').data("DateTimePicker").maxDate(e.date);
     //});

@@ -230,6 +230,14 @@ class EventsController < ApplicationController
       date = Time.now.strftime("%Y/%m/%d")
       attributes[:終了] = "#{date} 18:00"
     end
+    dateCheck = event_params[:開始].to_date
+    if event_params[:開始] != '' && dateCheck == Date.today
+        shozai_id = params[:head][:shozaicode]
+        shozai = Shozai.find(shozai_id)
+        shain = User.find(event_params[:社員番号]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+    end
     # if attributes[:開始]!= '' && attributes[:終了]!= ''&&attributes[:工数]== ''
     #   attributes[:工数]= get_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
     # end
@@ -270,7 +278,14 @@ class EventsController < ApplicationController
       date = Time.now.strftime("%Y/%m/%d")
       attributes[:終了] = "#{date} 18:00"
     end
-
+    dateCheck = event_params[:開始].to_date
+    if event_params[:開始] != '' && dateCheck == Date.today && params[:commit] != (t 'helpers.submit.destroy_other') && params[:commit] != (t 'helpers.submit.destroy')
+        shozai_id = params[:head][:shozaicode]
+        shozai = Shozai.find(shozai_id)
+        shain = User.find(event_params[:社員番号]).shainmaster
+        shain.shozai = shozai if shozai
+        shain.save
+    end
     # if attributes[:開始]!= '' && attributes[:終了]!= '' && attributes[:工数]== ''
     #   attributes[:工数]= get_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
     # end
