@@ -266,9 +266,9 @@ en:
       import_csv: Import data with CSV!
       reference: Reference
       export_pdf: Export data with PDF!
-      pdf_event: 就業合計表
-      pdf_event_job: 就業JOB集計
-      pdf_event_koutei: 就業工程集計
+      pdf_event: 就業報告表
+      pdf_event_job: '就業合計表(JOB単位）'
+      pdf_event_koutei: '就業合計表(工程単位）'
       calendar_genzai: 現在
   export: 輸出
   title:
