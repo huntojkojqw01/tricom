@@ -6,7 +6,8 @@
   = f.input_field :申請番号, class: 'form-control', disabled: true
   .pull-right
     - if mode == :edit
-      %button.btn.btn-primary#pdf_show_keihihead{type: :button} #{t 'app.label.export_pdf'}
+      = f.button :submit, (t 'app.label.export_pdf'), class: 'btn-primary keihihead-update'
+      / %button.btn.btn-primary#pdf_show_keihihead{type: :button} #{t 'app.label.export_pdf'}
     - msg = t 'app.delete_confirm'
     = f.button :submit, (t 'helpers.submit.create'), class: 'btn-primary keihihead-update'
     = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn-primary', :data => { :confirm => msg } if mode == :edit
