@@ -28,7 +28,7 @@
   <td><%= f.text_area :備考, class: 'form-control', size: '10x2'  %></td>
   <td><%= f.check_box :領収書kubun, class: 'form-control'  %></td>
 
-  <% shainbango = User.find(session[:user]).id %>
+  <% shainbango = @keihi.社員番号 %>
   <%= f.hidden_field :社員番号, value: shainbango %>
   <%= f.hidden_field :申請番号, class:'shinsheino' %>
   <%# f.hidden_field :line_no, class:'line-no' %>
