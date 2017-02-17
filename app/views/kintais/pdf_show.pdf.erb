@@ -81,11 +81,11 @@
         </td>
         <td style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000">
           <% if !kintai.備考.nil? && kintai.備考.length > 20%>
-            <div class = "div_scoll">
+            <div class = "div_scoll"><%= kintai.備考 %></div>
           <% else %>
-            <div>
+            <div><%= kintai.備考 %></div>
           <% end %>
-          <%= kintai.備考 %></div></td>
+          </td>
       </tr>
       <% if !kintai.実労働時間.nil? %><% jitsuroudou += kintai.実労働時間%><% end %>
       <% if !kintai.遅刻時間.nil? %><% chikoku += kintai.遅刻時間%><% end %>
