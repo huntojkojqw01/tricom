@@ -107,7 +107,15 @@ class KeihiheadsController < ApplicationController
   def new
     week_start = Date.current.wday > 2 ? Date.current.next_week : Date.current.beginning_of_week
     seisan_yoteibi = week_start.advance(days: 1)
-    @keihi = Keihihead.new(日付: Date.today,清算予定日: seisan_yoteibi)
+    vars = request.query_parameters
+    shain = vars['shain']
+    if shain == ''
+      @keihi = Keihihead.new(日付: Date.today,清算予定日: seisan_yoteibi,社員番号: session[:user])
+    else
+      @keihi = Keihihead.new(日付: Date.today,清算予定日: seisan_yoteibi,社員番号: shain)
+    end
+
+    # @keihi = Keihihead.new(日付: Date.today,清算予定日: seisan_yoteibi)
     shinsheino = 1
     # shinsheino = Keihihead.maximum(:id) + 1 if Keihihead.exists?
     shinsheino = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1 if Keihihead.exists?
@@ -151,7 +159,8 @@ class KeihiheadsController < ApplicationController
     @keihi = Keihihead.new(keihi_params)
     @keihi.id = 1
     @keihi.id = Keihihead.pluck(:id).map {|i| i.to_i}.max + 1 if Keihihead.exists?
-    @keihi.社員番号 = session[:user]
+    # @keihi.社員番号 = session[:user]
+    @keihi.社員番号 = keihi_params[:keihibodies_attributes]["0"][:社員番号]
     if @keihi.save
       flash[:notice] = t 'app.flash.new_success'
       redirect_to keihiheads_url

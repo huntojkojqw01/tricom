@@ -111,8 +111,14 @@
 - delete_text = t 'title.delete'
 .span#message_confirm_select{hidden: :true} #{msg_select}
 .span#message_confirm_delete{hidden: :true} #{msg_confirm}
-%a{href: new_keihihead_path}
-  %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
+- if request['shain'].nil?
+  %a{href: new_keihihead_path(shain: session[:user])}
+    %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
+- else
+  %a{href: new_keihihead_path(shain: request['shain'])}
+    %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
+/ %a{href: new_keihihead_path}
+/   %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
 %button.btn.btn-primary#destroy_keihihead{type: :button} #{delete_text}
 / %button.btn.btn-primary#pdf_keihihead{type: :button} #{t 'app.label.export_pdf'}
 
