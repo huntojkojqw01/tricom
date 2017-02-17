@@ -12,14 +12,13 @@
 <%= simple_form_for @keihi, html: {class:'form-inline'} do |f| %>
 
     <!--header-->
-    <div class="form-group">
-      <%= label_tag 'label1','起票者:　' << @keihi.shainmaster_氏名 << '　' %>
-    </div>
+
 
     <div class="form-group">
       <div class="editor-datetime">
         <%= label_tag 'label2','日付:'%>
         <%= f.text_field :日付, class: 'form-control',disabled: true, size: 10 %>
+
     <!--     <%= button_tag '>', id: 'search-shinshei', type: 'button', class: 'btn' %> -->
       </div>
     </div>
@@ -30,6 +29,12 @@
       <%array_value = [@keihi.id , @keihi.id] %>
       <%= select(:keihihead, :id, array_value, {}, {class: 'form-control',disabled: true}) %>
       <%# f.text_field :shinsheino, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= label_tag 'label2','社員番号:'%>
+      <%= f.text_field :社員番号, class: 'form-control',disabled: true, size: 10 %>
+      <%= label_tag 'label2','氏名:'%>
+      <%= f.text_field :shainmaster_氏名, class: 'form-control',disabled: true, size: 10 %>
     </div>
     <div class="form-group pull-right">
       <button id="pdf_show_keihihead" class="btn btn-primary" type="button"><%=(t 'app.label.export_pdf')%></button>
@@ -88,56 +93,65 @@
 
     <div class="spacer"></div>
     <div class="row">
-      <dir class=" col-md-12 col-xs-9 col-sm-9 col-lg-12 col-md-offset-2 col-xs-offset-1 col-sm-offset-1 col-lg-offset-2">
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :交通費合計, size:4, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'} %>
+      <dir class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
+        <dir class=" col-md-7 col-xs-7 col-sm-7 col-lg-7 ">
+          <dir class=" col-md-2 col-xs-2 col-sm-2 col-lg-2 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1">
+            <%= f.input :交通費合計, size:4, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'} %>
+          </dir>
+          <dir class=" col-md-2 col-xs-2 col-sm-2 col-lg-2">
+            <%= f.input :日当合計, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}%>
+          </dir>
+          <dir class=" col-md-2 col-xs-2 col-sm-2 col-lg-2">
+            <%= f.input :宿泊費合計, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}%>
+          </dir>
+          <dir class=" col-md-4 col-xs-4 col-sm-4 col-lg-3">
+            <%= f.input :旅費合計, size:4, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}, label: "旅費交通費合計"%>
+          </dir>
+          <dir class=" col-md-2 col-xs-2 col-sm-2 col-lg-2">
+            <%= f.input :その他合計, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'} %>
+          </dir>
         </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :日当合計, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}%>
-        </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :宿泊費合計, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}%>
-        </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :旅費合計, size:4, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'} %>
-        </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :その他合計, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'} %>
-        </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :仮払金, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}, :label_html => {:class => "akaji"} %>
-        </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :過不足, size:4, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'} %>
-        </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <%= f.input :支給品, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}, :label_html => {:class => "akaji"} %>
-        </dir>
+        <div class=" col-md-4 col-xs-4 col-sm-4 col-lg-4 ">
+          <dir class=" col-md-4 col-xs-4 col-sm-4 col-lg-4">
+            <%= f.input :仮払金, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}, :label_html => {:class => "akaji"} %>
+          </dir>
+          <dir class=" col-md-4 col-xs-4 col-sm-4 col-lg-4">
+            <%= f.input :過不足, size:4, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'} %>
+          </dir>
+          <dir class=" col-md-4 col-xs-4 col-sm-4 col-lg-4">
+            <%= f.input :支給品, size:2, disabled: true, class: 'form-control', input_html: { :style=> 'width: 100%;'}, :label_html => {:class => "akaji"} %>
+          </dir>
+        </div>
+
       </dir>
     </div>
     <div class="row">
-      <dir class=" col-md-12 col-xs-9 col-sm-9 col-lg-12 col-md-offset-2 col-xs-offset-1 col-sm-offset-1 col-lg-offset-2">
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <!-- <%= f.input :合計, class: 'form-control', input_html: { :style=> 'width: 100%;'}, disabled: true %> -->
-          <%= f.label '経費合計' %>
-          <%= f.text_field :合計, style: 'width: 100%;', disabled: true, class: 'form-control' %>
+      <dir class=" col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
+        <dir class=" col-md-7 col-xs-7 col-sm-7 col-lg-7 ">
+          <dir class=" col-md-3 col-xs-3 col-sm-3 col-lg-3 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1">
+            <!-- <%= f.input :合計, class: 'form-control', input_html: { :style=> 'width: 100%;'}, disabled: true %> -->
+            <%= f.label '経費合計' %>
+            <%= f.text_field :合計, style: 'width: 100%;', disabled: true, class: 'form-control' %>
+          </dir>
+          <dir class=" col-md-2 col-xs-2 col-sm-2 col-lg-2 col-md-offset-6 col-xs-offset-6 col-sm-offset-6 col-lg-offset-6">
+            <%= f.label :承認要求 %>
+            <div></div>
+            <%= f.check_box :承認kubun, disabled: true %>
+          </dir>
         </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1 col-md-offset-3 col-xs-offset-1 col-sm-offset-1 col-lg-offset-3">
-          <%= f.label :承認要求 %>
-          <div></div>
-          <%= f.check_box :承認kubun, disabled: true %>
-        </dir>
-        <dir class=" col-md-1 col-xs-8 col-sm-4 col-lg-1">
-          <!-- <%= f.input :承認者,:input_html => { :size => 10}, disabled: true %> -->
-          <%= f.label :承認 %>
-          <%= f.text_field  :承認者 , style: 'width: 100%;', disabled: true, class: 'form-control'%>
+        <div class=" col-md-4 col-xs-4 col-sm-4 col-lg-4 ">
+          <dir class=" col-md-5 col-xs-5 col-sm-5 col-lg-5">
+            <!-- <%= f.input :承認者,:input_html => { :size => 10}, disabled: true %> -->
+            <%= f.label :承認者 %>
+            <%= f.text_field  :承認者 , style: 'width: 100%;', disabled: true, class: 'form-control'%>
 
-        </dir>
-        <dir class=" col-md-2 col-xs-8 col-sm-4 col-lg-2">
-          <!-- <%= f.input :清算予定日, size: 10, class: 'form-control',:input_html => { :size => 10}%> -->
-          <%= f.label :清算予定日 %>
-          <%= f.text_field :清算予定日, style: 'width: 100%;', disabled: true, class: 'form-control' %>
-        </dir>
+          </dir>
+          <dir class=" col-md-6 col-xs-6 col-sm-6 col-lg-6">
+            <!-- <%= f.input :清算予定日, size: 10, class: 'form-control',:input_html => { :size => 10}%> -->
+            <%= f.label :清算予定日 %>
+            <%= f.text_field :清算予定日, style: 'width: 100%;', disabled: true, class: 'form-control' %>
+          </dir>
+        </div>
       </dir>
     </dir>
 
