@@ -3,7 +3,11 @@
 
   = f.input :日付, label: false,as: :date_time_picker,:input_html => { :size => 10}
   = f.label :申請番号
-  = f.input_field :申請番号, class: 'form-control', disabled: true
+  = f.input_field :申請番号, class: 'form-control', disabled: true, style: "width:100px"
+  = f.label :社員番号
+  = f.input_field :社員番号, class: 'form-control', disabled: true, style: "width:100px"
+  = f.label :氏名
+  = f.input_field :shainmaster_氏名, class: 'form-control', disabled: true, style: "width:100px"
   .pull-right
     - if mode == :edit
       = f.button :submit, (t 'app.label.export_pdf'), class: 'btn-primary keihihead-update'
