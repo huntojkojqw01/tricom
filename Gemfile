@@ -1,21 +1,21 @@
 source 'https://rubygems.org'
 
 ruby '2.3.1'
-gem "rails", "~> 5.0.0.1"
+gem 'rails', '~> 5.0.0.1'
 # gem 'sqlite3'
 gem 'best_in_place'
 gem 'jquery-ui-rails'
 gem 'font-awesome-rails'
-gem "sinatra", git: "https://github.com/sinatra/sinatra.git"
+gem 'sinatra', git: 'https://github.com/sinatra/sinatra.git'
 # passenger start
 gem 'passenger', '>= 5.0.4'
 # gem 'thin'
 # gem 'puma'
 
 # for avatar, upload picture
-gem 'paperclip', "4.3.7"
-gem "bcrypt", "~> 3.1.7"
-gem "paperclip-dropbox", "1.3.2"
+gem 'paperclip', '4.3.7'
+gem 'bcrypt', '~> 3.1.7'
+gem 'paperclip-dropbox', '1.3.2'
 # gem 'active_decorator'
 # gem 'cells'
 
@@ -45,8 +45,8 @@ gem 'bootstrap3-datetimepicker-rails'
 gem 'responders'
 gem 'figaro', '~> 1.0'
 gem 'cancancan', '~> 1.10'
-gem "haml-rails"
-gem "holidays", '~> 2.2.0'
+gem 'haml-rails'
+gem 'holidays', '~> 2.2.0'
 
 # group :assets
 gem 'bootstrap-colorpicker-rails'
@@ -59,8 +59,8 @@ gem 'execjs'
 gem 'therubyracer'
 gem 'mail'
 gem 'ransack'
-gem "kaminari"
-gem "kaminari-bootstrap", "~> 3.0.1"
+gem 'kaminari'
+gem 'kaminari-bootstrap', '~> 3.0.1'
 # gem 'enum_help'
 #gem 'debugger'
 
@@ -75,7 +75,7 @@ gem "kaminari-bootstrap", "~> 3.0.1"
     # gem 'twitter-bootstrap-rails'
 # end
 gem 'axlsx', '~> 2.0'
-gem "axlsx_rails"
+gem 'axlsx_rails'
 
 group :development, :test do
  gem 'better_errors'
@@ -84,7 +84,7 @@ group :development, :test do
  #gem 'quiet_assets'
  gem 'rails_layout'
  gem 'rspec-rails'
- gem "byebug"
- gem "web-console", "~> 2.0"
- gem "spring"
+ gem 'byebug'
+ gem 'web-console', '~> 2.0'
+ gem 'spring'
 end

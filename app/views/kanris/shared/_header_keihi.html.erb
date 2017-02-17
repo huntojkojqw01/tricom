@@ -1,13 +1,8 @@
 <div class = "row">
   <div class = "col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
     <div class = "form-group">
-      <%= text_field_tag :date, @date, class:'form-control date-search' %>
+      <%= text_field_tag :date, @date, class:'form-control date-search', size: 6 %>
     </div>
-  </div>
-  <div class = "col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
-    <h4>
-      経費工数表
-    </h4>
   </div>
   <div class = "col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
     <div class = "form-group">
@@ -16,12 +11,19 @@
         include_blank: true, class:'form-control' %>
     </div>
   </div>
+  <div class = "col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+    <%= f.submit :経費検索, class: 'btn' %>
+  </div>
+  <div class = "col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+    <h4>
+      経費工数表
+    </h4>
+  </div>
   <div class = "col-md-3 col-xs-3 col-sm-3 col-lg-3">
     <h4>
       担当者番号：<%= @user_name %>
     </h4>
   </div>
-  <%= f.submit :経費検索, class: 'btn' %>
 </div>
 <hr>
 

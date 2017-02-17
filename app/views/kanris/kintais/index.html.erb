@@ -19,7 +19,7 @@
 <% end %>
 
 <hr>
-<table  id="kintai_table" class="table table-bordered table-hover " cellspacing="0" data-sort-name="name" data-sort-order="desc">
+<table id="kintai_table" class="table table-bordered table-hover " cellspacing="0" data-sort-name="name" data-sort-order="desc">
   <thead>
   <tr>
     <th rowspan="2" data-field="id" data-sortable="true">社員番号</th>
@@ -49,11 +49,6 @@
   </tr>
   </thead>
   <tbody>
-  <% if  @shainmasters.nil? || @shainmasters.empty? %>
-    <tr  style="text-align: center;">
-      <td colspan="15">データはありません。</td>
-    </tr>
-  <% else %>
     <% @shainmasters.each do |shainmaster| %>
       <tr>
         <td><%= shainmaster.id %></td>
@@ -76,7 +71,6 @@
         <td><%= shainmaster.kintais.get_by_mounth(@date).night_work.count %></td>
         <td><%= link_to "詳細", kanris_kintai_path(shainmaster.id, date: @date) %></td>
       </tr>
-    <% end %>
   <% end %>
   </tbody>
 </table>
