@@ -73,10 +73,19 @@ $(function() {
     $('#destroy_shozoku').click(function(){
         var shozoku = oTable.row('tr.selected').data()
         if( shozoku == undefined)
-            alert($('#message_confirm_select').text())
+            swal($('#message_confirm_select').text())
         else{
-            var response = confirm($('#message_confirm_delete').text());
-            if (response){
+             swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() {
                 $.ajax({
                     url: '/shozokumasters/ajax',
                     data:{
@@ -87,6 +96,7 @@ $(function() {
                     type: "POST",
 
                     success: function(data){
+                        swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                           $("#shozokumaster").dataTable().fnDeleteRow($('#shozokumaster').find('tr.selected').remove());
@@ -103,11 +113,45 @@ $(function() {
                 });
                 $("#edit_shozoku").attr("disabled", true);
                 $("#destroy_shozoku").attr("disabled", true);
+            },function(dismiss) {
+                if (dismiss === 'cancel') {
+                    $("#edit_shozoku").attr("disabled", false)
+                    $("#destroy_shozoku").attr("disabled", false)
+                }
+            });
+            // var response = confirm($('#message_confirm_delete').text());
+            // if (response){
+            //     $.ajax({
+            //         url: '/shozokumasters/ajax',
+            //         data:{
+            //             focus_field: 'shozoku_削除する',
+            //             shozoku_id: shozoku[0]
+            //         },
 
-            }else{
-                $("#edit_shozoku").attr("disabled", false)
-                $("#destroy_shozoku").attr("disabled", false)
-            }
+            //         type: "POST",
+
+            //         success: function(data){
+            //             if (data.destroy_success != null){
+            //               console.log("getAjax destroy_success:"+ data.destroy_success);
+            //               $("#shozokumaster").dataTable().fnDeleteRow($('#shozokumaster').find('tr.selected').remove());
+            //               $("#shozokumaster").dataTable().fnDraw();
+
+            //             }else
+            //               console.log("getAjax destroy_success:"+ data.destroy_success);
+            //          },
+            //          failure: function(){
+            //             console.log("shozoku_削除する keydown Unsuccessful");
+            //          }
+
+
+            //     });
+            //     $("#edit_shozoku").attr("disabled", true);
+            //     $("#destroy_shozoku").attr("disabled", true);
+
+            // }else{
+            //     $("#edit_shozoku").attr("disabled", false)
+            //     $("#destroy_shozoku").attr("disabled", false)
+            // }
 
         }
     });
@@ -137,7 +181,7 @@ $(function() {
         });
 
         if (shozoku == undefined)
-          alert("行を選択してください。");
+          swal("行を選択してください。");
         else{
             $('#shozoku-edit-modal').modal('show');
             $('#shozokumaster_所属コード').val(shozoku[0]);

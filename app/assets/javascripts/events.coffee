@@ -45,7 +45,7 @@ jQuery ->
       data: {id: 'save_kinmu_type', data: val},
       type: "POST",
       success: (data) ->
-#        alert('勤務タイプ保存！')
+#        swal('勤務タイプ保存！')
       failure: () ->
         console.log("save-kinmu-type field")
     }))

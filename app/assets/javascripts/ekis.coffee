@@ -133,10 +133,20 @@ jQuery ->
     ekis = oEkiTable.rows('tr.selected').data()
     ekiIds = new Array();
     if ekis.length == 0
-      alert($('#message_confirm_select').text())
+      swal($('#message_confirm_select').text())
     else
-      response = confirm($('#message_confirm_delete').text())
-      if response
+
+      swal({
+        title: $('#message_confirm_delete').text(),
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then(() ->
         len = ekis.length
         for i in [0...len]
           ekiIds[i] = ekis[i][0]
@@ -151,6 +161,7 @@ jQuery ->
           type: "POST",
 
           success: (data) ->
+            swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
               $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
@@ -166,17 +177,63 @@ jQuery ->
         })
         $("#edit_eki").attr("disabled", true);
         $("#destroy_eki").attr("disabled", true);
-      else
-        selects = oEkiTable.rows('tr.selected').data()
-        if selects.length == 0
-          $("#edit_eki").attr("disabled", true);
-          $("#destroy_eki").attr("disabled", true);
-        else
-          $("#destroy_eki").attr("disabled", false);
-          if selects.length == 1
-            $("#edit_eki").attr("disabled", false);
-          else
+
+      ,(dismiss) ->
+        if dismiss == 'cancel'
+
+          selects = oEkiTable.rows('tr.selected').data()
+          if selects.length == 0
             $("#edit_eki").attr("disabled", true);
+            $("#destroy_eki").attr("disabled", true);
+          else
+            $("#destroy_eki").attr("disabled", false);
+            if selects.length == 1
+              $("#edit_eki").attr("disabled", false);
+            else
+              $("#edit_eki").attr("disabled", true);
+      );
+      # response = confirm($('#message_confirm_delete').text())
+      # if response
+      #   len = ekis.length
+      #   for i in [0...len]
+      #     ekiIds[i] = ekis[i][0]
+
+      #   $.ajax({
+      #     url: '/ekis/ajax',
+      #     data:{
+      #       focus_field: 'eki_削除する',
+      #       ekis: ekiIds
+      #     },
+
+      #     type: "POST",
+
+      #     success: (data) ->
+      #       if data.destroy_success != null
+      #         console.log("getAjax destroy_success:"+ data.destroy_success)
+      #         $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
+      #         $(".ekitable").dataTable().fnDraw()
+
+      #       else
+      #         console.log("getAjax destroy_success:"+ data.destroy_success)
+
+
+      #     failure: () ->
+      #       console.log("eki_削除する keydown Unsuccessful")
+
+      #   })
+      #   $("#edit_eki").attr("disabled", true);
+      #   $("#destroy_eki").attr("disabled", true);
+      # else
+      #   selects = oEkiTable.rows('tr.selected').data()
+      #   if selects.length == 0
+      #     $("#edit_eki").attr("disabled", true);
+      #     $("#destroy_eki").attr("disabled", true);
+      #   else
+      #     $("#destroy_eki").attr("disabled", false);
+      #     if selects.length == 1
+      #       $("#edit_eki").attr("disabled", false);
+      #     else
+      #       $("#edit_eki").attr("disabled", true);
 
 
   $('#new_eki').click () ->
@@ -196,7 +253,7 @@ jQuery ->
       $(this).removeClass('has-error');
     );
     if eki_id == undefined
-      alert("行を選択してください。")
+      swal("行を選択してください。")
     else
       $('#eki-edit-modal').modal('show')
       $('#eki_駅コード').val(eki_id[0])

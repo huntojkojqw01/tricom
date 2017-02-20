@@ -40,9 +40,9 @@
       - else
         = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'event'
       - if request["param"] == "timeline"|| param == 'timeline'
-        = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline'
+        = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline',data: {confirm: (t 'app.delete_confirm')}
       - else
-        = f.button :submit, (t 'helpers.submit.destroy_other'), class: 'btn btn-primary', id: 'event'
+        = f.button :submit, (t 'helpers.submit.destroy_other'), class: 'btn btn-primary', id: 'event', data: {confirm: (t 'app.delete_confirm')}
   .col-md-1.col-xs-3.col-sm-2.col-lg-1{id: "selectShozai"}
     = label_tag (t 'app.label.calendar_genzai')
     - if !request["shain_id"].nil?
