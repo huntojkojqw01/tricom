@@ -80,10 +80,19 @@ $(function() {
     $('#destroy_holiday').click(function(){
         var holiday = oTable.row('tr.selected').data()
         if( holiday == undefined)
-            alert($('#message_confirm_select').text())
+            swal($('#message_confirm_select').text())
         else{
-            var response = confirm($('#message_confirm_delete').text());
-            if (response){
+            swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() {
                 $.ajax({
                     url: '/jpt_holiday_msts/ajax',
                     data:{
@@ -94,6 +103,7 @@ $(function() {
                     type: "POST",
 
                     success: function(data){
+                        swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                           $("#holiday_table").dataTable().fnDeleteRow($('#holiday_table').find('tr.selected').remove());
@@ -110,11 +120,46 @@ $(function() {
                 });
                 $("#edit_holiday").attr("disabled", true);
                 $("#destroy_holiday").attr("disabled", true);
+            }, function(dismiss) {
+                if (dismiss === 'cancel') {
 
-            }else{
-                $("#edit_holiday").attr("disabled", false)
-                $("#destroy_holiday").attr("disabled", false)
-            }
+                    $("#edit_holiday").attr("disabled", false)
+                    $("#destroy_holiday").attr("disabled", false)
+                }
+            });
+            // var response = confirm($('#message_confirm_delete').text());
+            // if (response){
+            //     $.ajax({
+            //         url: '/jpt_holiday_msts/ajax',
+            //         data:{
+            //             focus_field: 'holiday_削除する',
+            //             holiday_id: holiday[0]
+            //         },
+
+            //         type: "POST",
+
+            //         success: function(data){
+            //             if (data.destroy_success != null){
+            //               console.log("getAjax destroy_success:"+ data.destroy_success);
+            //               $("#holiday_table").dataTable().fnDeleteRow($('#holiday_table').find('tr.selected').remove());
+            //               $("#holiday_table").dataTable().fnDraw();
+
+            //             }else
+            //               console.log("getAjax destroy_success:"+ data.destroy_success);
+            //          },
+            //          failure: function(){
+            //             console.log("holiday_削除する keydown Unsuccessful");
+            //          }
+
+
+            //     });
+            //     $("#edit_holiday").attr("disabled", true);
+            //     $("#destroy_holiday").attr("disabled", true);
+
+            // }else{
+            //     $("#edit_holiday").attr("disabled", false)
+            //     $("#destroy_holiday").attr("disabled", false)
+            // }
 
         }
     });
@@ -144,7 +189,7 @@ $(function() {
         });
 
         if (holiday == undefined)
-          alert("行を選択してください。");
+          swal("行を選択してください。");
         else{
             $('#holiday-edit-modal').modal('show');
             $('#jpt_holiday_mst_id').val(holiday[0]);

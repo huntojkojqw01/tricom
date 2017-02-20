@@ -538,50 +538,105 @@ $(function () {
         var events = oEventTable.rows('tr.selected').data();
         var eventIds = new Array();
         if( events.length == 0)
-          alert($('#message_confirm_select').text());
+          swal($('#message_confirm_select').text());
         else{
-          var response = confirm($('#message_confirm_delete').text());
-          if(response){
-            var len = events.length;
+            swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() {
+                var len = events.length;
 
-            var i=0;
-            for(i=0;i<len;i++)
-              eventIds[i] = events[i][0];
+                var i=0;
+                for(i=0;i<len;i++)
+                  eventIds[i] = events[i][0];
 
-            $.ajax({
-              url: '/events/ajax',
-              data:{
-                id: 'event_destroy',
-                events: eventIds
-              },
+                $.ajax({
+                  url: '/events/ajax',
+                  data:{
+                    id: 'event_destroy',
+                    events: eventIds
+                  },
 
-              type: "POST",
+                  type: "POST",
 
-              success: function(data){
-                if (data.destroy_success != null){
-                    console.log("getAjax destroy_success:"+ data.destroy_success);
-                    $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
-                    $("#event_table").dataTable().fnDraw();
-                    for(i=0;i<len;i++)
-                        $('#calendar-month-view').fullCalendar('removeEvents',eventIds[i]);
+                  success: function(data){
+                    swal("削除されました!", "", "success");
+                    if (data.destroy_success != null){
+                        console.log("getAjax destroy_success:"+ data.destroy_success);
+                        $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
+                        $("#event_table").dataTable().fnDraw();
+                        for(i=0;i<len;i++)
+                            $('#calendar-month-view').fullCalendar('removeEvents',eventIds[i]);
 
-                }else
-                    console.log("getAjax destroy_success:"+ data.destroy_success);
-                },
-              failure: function(){
-                console.log("event_destroy keydown Unsuccessful");
-              }
+                    }else
+                        console.log("getAjax destroy_success:"+ data.destroy_success);
+                    },
+                  failure: function(){
+                    console.log("event_destroy keydown Unsuccessful");
+                  }
 
+                });
+
+                $("#destroy_event").attr("disabled", true);
+            }, function(dismiss) {
+                if (dismiss === 'cancel') {
+
+                    var selects = oEventTable.rows('tr.selected').data();
+                    if( selects.length == 0)
+                      $("#destroy_event").attr("disabled", true);
+                    else
+                      $("#destroy_event").attr("disabled", false);
+                }
             });
+          // var response = confirm($('#message_confirm_delete').text());
+          // if(response){
+          //   var len = events.length;
 
-            $("#destroy_event").attr("disabled", true);
-          }else{
-            var selects = oEventTable.rows('tr.selected').data();
-            if( selects.length == 0)
-              $("#destroy_event").attr("disabled", true);
-            else
-              $("#destroy_event").attr("disabled", false);
-          }
+          //   var i=0;
+          //   for(i=0;i<len;i++)
+          //     eventIds[i] = events[i][0];
+
+          //   $.ajax({
+          //     url: '/events/ajax',
+          //     data:{
+          //       id: 'event_destroy',
+          //       events: eventIds
+          //     },
+
+          //     type: "POST",
+
+          //     success: function(data){
+          //       if (data.destroy_success != null){
+          //           console.log("getAjax destroy_success:"+ data.destroy_success);
+          //           $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
+          //           $("#event_table").dataTable().fnDraw();
+          //           for(i=0;i<len;i++)
+          //               $('#calendar-month-view').fullCalendar('removeEvents',eventIds[i]);
+
+          //       }else
+          //           console.log("getAjax destroy_success:"+ data.destroy_success);
+          //       },
+          //     failure: function(){
+          //       console.log("event_destroy keydown Unsuccessful");
+          //     }
+
+          //   });
+
+          //   $("#destroy_event").attr("disabled", true);
+          // }else{
+          //   var selects = oEventTable.rows('tr.selected').data();
+          //   if( selects.length == 0)
+          //     $("#destroy_event").attr("disabled", true);
+          //   else
+          //     $("#destroy_event").attr("disabled", false);
+          // }
         }
     });
 

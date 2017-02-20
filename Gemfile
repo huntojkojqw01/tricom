@@ -11,7 +11,7 @@ gem 'sinatra', git: 'https://github.com/sinatra/sinatra.git'
 gem 'passenger', '>= 5.0.4'
 # gem 'thin'
 # gem 'puma'
-
+gem 'sweetalert2'
 # for avatar, upload picture
 gem 'paperclip', '4.3.7'
 gem 'bcrypt', '~> 3.1.7'

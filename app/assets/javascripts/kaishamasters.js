@@ -74,10 +74,19 @@ $(function() {
     $('#destroy_kaisha').click(function(){
         var kaisha = oTable.row('tr.selected').data()
         if( kaisha == undefined)
-            alert($('#message_confirm_select').text())
+            swal($('#message_confirm_select').text())
         else{
-            var response = confirm($('#message_confirm_delete').text());
-            if (response){
+            swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() {
                 $.ajax({
                     url: '/kaishamasters/ajax',
                     data:{
@@ -88,6 +97,7 @@ $(function() {
                     type: "POST",
 
                     success: function(data){
+                        swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                           $("#kaishamaster-table").dataTable().fnDeleteRow($('#kaishamaster-table').find('tr.selected').remove());
@@ -104,11 +114,45 @@ $(function() {
                 });
                 $("#edit_kaisha").attr("disabled", true);
                 $("#destroy_kaisha").attr("disabled", true);
+            },function(dismiss) {
+                if (dismiss === 'cancel') {
+                    $("#edit_kaisha").attr("disabled", false)
+                    $("#destroy_kaisha").attr("disabled", false)
+                }
+            });
+            // var response = confirm($('#message_confirm_delete').text());
+            // if (response){
+            //     $.ajax({
+            //         url: '/kaishamasters/ajax',
+            //         data:{
+            //             focus_field: 'kaisha_削除する',
+            //             kaisha_id: kaisha[0]
+            //         },
 
-            }else{
-                $("#edit_kaisha").attr("disabled", false)
-                $("#destroy_kaisha").attr("disabled", false)
-            }
+            //         type: "POST",
+
+            //         success: function(data){
+            //             if (data.destroy_success != null){
+            //               console.log("getAjax destroy_success:"+ data.destroy_success);
+            //               $("#kaishamaster-table").dataTable().fnDeleteRow($('#kaishamaster-table').find('tr.selected').remove());
+            //               $("#kaishamaster-table").dataTable().fnDraw();
+
+            //             }else
+            //               console.log("getAjax destroy_success:"+ data.destroy_success);
+            //          },
+            //          failure: function(){
+            //             console.log("kaisha_削除する keydown Unsuccessful");
+            //          }
+
+
+            //     });
+            //     $("#edit_kaisha").attr("disabled", true);
+            //     $("#destroy_kaisha").attr("disabled", true);
+
+            // }else{
+            //     $("#edit_kaisha").attr("disabled", false)
+            //     $("#destroy_kaisha").attr("disabled", false)
+            // }
 
         }
     });
@@ -138,7 +182,7 @@ $(function() {
         });
 
         if (kaisha == undefined)
-          alert("行を選択してください。");
+            swal("行を選択してください。");
         else{
             $('#kaisha-edit-modal').modal('show');
             $('#kaishamaster_会社コード').val(kaisha[0]);

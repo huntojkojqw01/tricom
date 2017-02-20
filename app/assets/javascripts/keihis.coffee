@@ -479,7 +479,7 @@ jQuery ->
   )
 
   $('#summary').click( () ->
-    alert('now')
+    swal('now')
   )
 
   $('#export_keihihead').click( () ->
@@ -514,10 +514,19 @@ jQuery ->
     keihiheads = oKeihiheadTable.rows('tr.selected').data()
     keihiheadIds = new Array();
     if keihiheads.length == 0
-      alert($('#message_confirm_select').text())
+      swal($('#message_confirm_select').text())
     else
-      response = confirm($('#message_confirm_delete').text())
-      if response
+      swal({
+        title: $('#message_confirm_delete').text(),
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then(() ->
         len = keihiheads.length
         k = 0
         shain = $('#shain_login').text()
@@ -529,7 +538,7 @@ jQuery ->
           else
             check_permit = false
         if check_permit == false
-          alert("他の経費データまたは承認済みのデータでは削除できません。")
+          swal("他の経費データまたは承認済みのデータでは削除できません。")
         if k > 0
           $.ajax({
             url: '/keihiheads/ajax',
@@ -541,6 +550,7 @@ jQuery ->
             type: "POST",
 
             success: (data) ->
+              swal("削除されました!", "", "success");
               if data.destroy_success != null
                 console.log("getAjax destroy_success:"+ data.destroy_success)
                 keihiheads = oKeihiheadTable.rows('tr.selected').data()
@@ -576,12 +586,80 @@ jQuery ->
                   $(thisRow).removeClass('selected')
                   $(thisRow).removeClass('success')
         $("#destroy_keihihead").attr("disabled", true);
-      else
-        selects = oKeihiheadTable.rows('tr.selected').data()
-        if selects.length == 0
-          $("#destroy_keihihead").attr("disabled", true);
-        else
-          $("#destroy_keihihead").attr("disabled", false);
+      ,(dismiss) ->
+        if dismiss == 'cancel'
+          selects = oKeihiheadTable.rows('tr.selected').data()
+          if selects.length == 0
+            $("#destroy_keihihead").attr("disabled", true);
+          else
+            $("#destroy_keihihead").attr("disabled", false);
+      );
+      # response = confirm($('#message_confirm_delete').text())
+      # if response
+      #   len = keihiheads.length
+      #   k = 0
+      #   shain = $('#shain_login').text()
+      #   check_permit = true
+      #   for i in [0...len]
+      #     if keihiheads[i][4] != "1" && keihiheads[i][6] == shain
+      #       keihiheadIds[k] = keihiheads[i][0]
+      #       k = k+1
+      #     else
+      #       check_permit = false
+      #   if check_permit == false
+      #     swal("他の経費データまたは承認済みのデータでは削除できません。")
+      #   if k > 0
+      #     $.ajax({
+      #       url: '/keihiheads/ajax',
+      #       data:{
+      #         id: 'keihihead_削除する',
+      #         keihiheads: keihiheadIds
+      #       },
+
+      #       type: "POST",
+
+      #       success: (data) ->
+      #         if data.destroy_success != null
+      #           console.log("getAjax destroy_success:"+ data.destroy_success)
+      #           keihiheads = oKeihiheadTable.rows('tr.selected').data()
+
+      #           if keihiheads.length > 0
+      #             for i in [0...len]
+      #               if keihiheads[i][4] == "1" || keihiheads[i][6] != shain
+      #                 rowId = $('.keihihead-table').dataTable().fnFindCellRowIndexes(keihiheads[i][0], 0);
+      #                 thisRow = oKeihiheadTable.row(rowId).nodes().to$()
+      #                 if $(thisRow).hasClass('selected')
+      #                   $(thisRow).removeClass('selected')
+      #                   $(thisRow).removeClass('success')
+
+      #           $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
+      #           $(".keihihead-table").dataTable().fnDraw()
+
+      #         else
+      #           console.log("getAjax destroy_success:"+ data.destroy_success)
+
+
+      #       failure: () ->
+      #         console.log("keihihead_削除する keydown Unsuccessful")
+
+      #     })
+      #   else
+      #     keihiheads = oKeihiheadTable.rows('tr.selected').data()
+      #     if keihiheads.length > 0
+      #       for i in [0...len]
+      #         if keihiheads[i][4] == "1" || keihiheads[i][6] != shain
+      #           rowId = $('.keihihead-table').dataTable().fnFindCellRowIndexes(keihiheads[i][0], 0);
+      #           thisRow = oKeihiheadTable.row(rowId).nodes().to$()
+      #           if $(thisRow).hasClass('selected')
+      #             $(thisRow).removeClass('selected')
+      #             $(thisRow).removeClass('success')
+      #   $("#destroy_keihihead").attr("disabled", true);
+      # else
+      #   selects = oKeihiheadTable.rows('tr.selected').data()
+      #   if selects.length == 0
+      #     $("#destroy_keihihead").attr("disabled", true);
+      #   else
+      #     $("#destroy_keihihead").attr("disabled", false);
 
   $('#pdf_keihihead').click () ->
     shain = $('#keihihead_対象者').val()

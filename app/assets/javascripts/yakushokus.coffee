@@ -58,7 +58,7 @@ jQuery ->
     yakushoku = oTable.row('tr.selected').data()
 
     if yakushoku == undefined
-      alert($('#message_confirm_select').text())
+      swal($('#message_confirm_select').text())
     else
       $.ajax({
           url: '/yakushokumasters/ajax',
@@ -71,8 +71,17 @@ jQuery ->
 
           success: (data) ->
             if data.associations != ''
-              response = confirm(data.associations)
-              if response
+              swal({
+                title: data.associations,
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              }).then(() ->
                 $.ajax({
                   url: '/yakushokumasters/ajax',
                   data:{
@@ -83,6 +92,7 @@ jQuery ->
                   type: "POST",
 
                   success: (data) ->
+                    swal("削除されました!", "", "success");
                     if data.destroy_success != null
                       console.log("getAjax destroy_success:"+ data.destroy_success)
                       $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
@@ -95,14 +105,52 @@ jQuery ->
                     $("#destroy_yakushoku").attr("disabled", false);
 
                 })
+              ,(dismiss) ->
+                if dismiss == 'cancel'
+                  $("#edit_yakushoku").attr("disabled", false)
+                  $("#destroy_yakushoku").attr("disabled", false)
+              );
+              # response = confirm(data.associations)
+              # if response
+              #   $.ajax({
+              #     url: '/yakushokumasters/ajax',
+              #     data:{
+              #       focus_field: 'yakushoku_削除する',
+              #       yakushoku_id: yakushoku[0]
+              #     },
 
-              else
-                $("#edit_yakushoku").attr("disabled", false)
-                $("#destroy_yakushoku").attr("disabled", false)
+              #     type: "POST",
+
+              #     success: (data) ->
+              #       if data.destroy_success != null
+              #         console.log("getAjax destroy_success:"+ data.destroy_success)
+              #         $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+              #         $("#yakushoku_table").dataTable().fnDraw()
+              #         $("#edit_yakushoku").attr("disabled", true);
+              #         $("#destroy_yakushoku").attr("disabled", true);
+              #     failure: () ->
+              #       console.log("yakushoku_削除する keydown Unsuccessful")
+              #       $("#edit_yakushoku").attr("disabled", false);
+              #       $("#destroy_yakushoku").attr("disabled", false);
+
+              #   })
+
+              # else
+              #   $("#edit_yakushoku").attr("disabled", false)
+              #   $("#destroy_yakushoku").attr("disabled", false)
 
             else
-              response = confirm($('#message_confirm_delete').text())
-              if response
+              swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "Cancel",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              }).then(() ->
                 $.ajax({
                   url: '/yakushokumasters/ajax',
                   data:{
@@ -113,6 +161,7 @@ jQuery ->
                   type: "POST",
 
                   success: (data) ->
+                    swal("削除されました!", "", "success");
                     if data.destroy_success != null
                       console.log("getAjax destroy_success:"+ data.destroy_success)
                       $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
@@ -126,9 +175,39 @@ jQuery ->
 
                 })
 
-              else
-                $("#edit_yakushoku").attr("disabled", false)
-                $("#destroy_yakushoku").attr("disabled", false)
+              ,(dismiss) ->
+                if dismiss == 'cancel'
+                  $("#edit_yakushoku").attr("disabled", false)
+                  $("#destroy_yakushoku").attr("disabled", false)
+              );
+              # response = confirm($('#message_confirm_delete').text())
+              # if response
+              #   $.ajax({
+              #     url: '/yakushokumasters/ajax',
+              #     data:{
+              #       focus_field: 'yakushoku_削除する',
+              #       yakushoku_id: yakushoku[0]
+              #     },
+
+              #     type: "POST",
+
+              #     success: (data) ->
+              #       if data.destroy_success != null
+              #         console.log("getAjax destroy_success:"+ data.destroy_success)
+              #         $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+              #         $("#yakushoku_table").dataTable().fnDraw()
+              #         $("#edit_yakushoku").attr("disabled", true);
+              #         $("#destroy_yakushoku").attr("disabled", true);
+              #     failure: () ->
+              #       console.log("yakushoku_削除する keydown Unsuccessful")
+              #       $("#edit_yakushoku").attr("disabled", false);
+              #       $("#destroy_yakushoku").attr("disabled", false);
+
+              #   })
+
+              # else
+              #   $("#edit_yakushoku").attr("disabled", false)
+              #   $("#destroy_yakushoku").attr("disabled", false)
           failure: () ->
             console.log("yakushoku_before_destroy keydown Unsuccessful")
             $("#edit_yakushoku").attr("disabled", false);
@@ -154,7 +233,7 @@ jQuery ->
       $(this).removeClass('has-error');
     );
     if yakushoku == undefined
-      alert("行を選択してください。")
+      swal("行を選択してください。")
     else
       $('#yakushoku-edit-modal').modal('show')
       $('#yakushokumaster_役職コード').val(yakushoku[0])

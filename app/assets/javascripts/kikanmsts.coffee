@@ -62,10 +62,19 @@ jQuery ->
     kikan = oKikanTable.row('tr.selected').data()
 
     if kikan == undefined
-      alert($('#message_confirm_select').text())
+      swal($('#message_confirm_select').text())
     else
-      response = confirm($('#message_confirm_delete').text())
-      if response
+      swal({
+        title: $('#message_confirm_delete').text(),
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        cancelButtonText: "Cancel",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then(() ->
         $.ajax({
           url: '/kikanmsts/ajax',
           data:{
@@ -76,6 +85,7 @@ jQuery ->
           type: "POST",
 
           success: (data) ->
+            swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
               $(".kikantable").dataTable().fnDeleteRow($('.kikantable').find('tr.selected').remove())
@@ -88,10 +98,39 @@ jQuery ->
             $("#destroy_kikan").attr("disabled", false);
 
         })
+      ,(dismiss) ->
+        if dismiss == 'cancel'
+          $("#edit_kikan").attr("disabled", false)
+          $("#destroy_kikan").attr("disabled", false)
+      );
+      # response = confirm($('#message_confirm_delete').text())
+      # if response
+      #   $.ajax({
+      #     url: '/kikanmsts/ajax',
+      #     data:{
+      #       focus_field: 'kikan_削除する',
+      #       kikan_id: kikan[0]
+      #     },
 
-      else
-        $("#edit_kikan").attr("disabled", false)
-        $("#destroy_kikan").attr("disabled", false)
+      #     type: "POST",
+
+      #     success: (data) ->
+      #       if data.destroy_success != null
+      #         console.log("getAjax destroy_success:"+ data.destroy_success)
+      #         $(".kikantable").dataTable().fnDeleteRow($('.kikantable').find('tr.selected').remove())
+      #         $(".kikantable").dataTable().fnDraw()
+      #         $("#edit_kikan").attr("disabled", true);
+      #         $("#destroy_kikan").attr("disabled", true);
+      #     failure: () ->
+      #       console.log("kikan_削除する keydown Unsuccessful")
+      #       $("#edit_kikan").attr("disabled", false);
+      #       $("#destroy_kikan").attr("disabled", false);
+
+      #   })
+
+      # else
+      #   $("#edit_kikan").attr("disabled", false)
+      #   $("#destroy_kikan").attr("disabled", false)
 
 
   $('#new_kikan').click () ->
@@ -111,7 +150,7 @@ jQuery ->
       $(this).removeClass('has-error');
     );
     if kikan == undefined
-      alert("行を選択してください。")
+      swal("行を選択してください。")
     else
       $('#kikan-edit-modal').modal('show')
       $('#kikanmst_機関コード').val(kikan[0])
