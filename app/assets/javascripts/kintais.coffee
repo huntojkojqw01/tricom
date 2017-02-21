@@ -783,8 +783,8 @@ jQuery ->
       fustu_zangyo = fustu_zangyo - hiru_kyukei - yoru_kyukei - 8
     else
       fustu_zangyo = real_hours - 8
-      if fustu_zangyo < 0
-        fustu_zangyo = 0
+    if fustu_zangyo < 0
+      fustu_zangyo = 0
 
     if souchou_kyukei > 0
       shinya_zangyou = moment(souchou_kyukei_start, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
@@ -793,6 +793,8 @@ jQuery ->
           if num > shinya_zangyou && num > 0
             shinya_zangyou = num - 0.5
             break
+      else
+        shinya_zangyou = 0
     else
       shinya_zangyou = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
       if shinya_zangyou < 0
