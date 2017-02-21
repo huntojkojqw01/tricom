@@ -221,53 +221,187 @@ jQuery ->
     kousu.push(countup)
     countup += 0.5
 
+  # $('#time-cal').on 'click', (event) ->
+  #   start_time = $('#kintai_出勤時刻').val()
+  #   end_time = $('#kintai_退社時刻').val()
+
+  #   start_time_date = start_time.substring(0,10)
+  #   end_time_date = end_time.substring(0,10)
+
+  #   read_hours = 0
+  #   fustu_zangyo = 0
+  #   shinya_zangyou = 0
+
+  #   shinya_diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time_date + ' 22:00', 'YYYY/MM/DD HH:mm'),'hours', true)
+  #   if shinya_diff > 0
+  #     for num in kousu
+  #       if num > shinya_diff && num > 0
+  #         shinya_zangyou = num - 0.5
+  #         break
+
+  #   fustu_zangyou_diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time_date + ' 19:00', 'YYYY/MM/DD HH:mm'),'hours', true)
+  #   if fustu_zangyou_diff > 0
+  #     for num in kousu
+  #       if num > fustu_zangyou_diff && num > 0
+  #         fustu_zangyo = num - 0.5
+  #         break
+  #   if fustu_zangyo > 3 then fustu_zangyo = 3
+
+  #   fustu_end = end_time
+  #   fustu_start = start_time
+  #   if moment(end_time, 'YYYY/MM/DD HH:mm') > moment(start_time_date + ' 18:00', 'YYYY/MM/DD HH:mm') then fustu_end = start_time_date + ' 18:00'
+  #   if moment(start_time, 'YYYY/MM/DD HH:mm') > moment(start_time_date + ' 12:00', 'YYYY/MM/DD HH:mm') && moment(start_time, 'YYYY/MM/DD HH:mm') < moment(start_time_date + ' 13:00', 'YYYY/MM/DD HH:mm') then fustu_start = start_time_date + ' 13:00'
+
+  #   fustu_diff = moment(fustu_end, 'YYYY/MM/DD HH:mm').diff(moment(fustu_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+  #   if moment(start_time_date + ' 12:00', 'YYYY/MM/DD HH:mm') > moment(start_time, 'YYYY/MM/DD HH:mm') then fustu_diff -= 1
+
+  #   if fustu_diff > 0
+  #     for num in kousu
+  #       if num > fustu_diff && num > 0
+  #         read_hours = num - 0.5
+  #         break
+
+  #   read_hours += fustu_zangyo + shinya_zangyou
+  #   if joutaikubun == '2'
+  #     $('#kintai_遅刻時間').val('0')
+  #   $('#kintai_実労働時間').val(read_hours)
+  #   $('#kintai_普通残業時間').val(fustu_zangyo)
+  #   $('#kintai_深夜残業時間').val(shinya_zangyou)
+  #   $('#kintai_深夜保守時間').val()
+
   $('#time-cal').on 'click', (event) ->
+
+    real_hours = 0
+    fustu_zangyo = 0
+    shinya_zangyou = 0
+    hiru_kyukei = 0
+    yoru_kyukei = 0
+    shinya_kyukei = 0
+    souchou_kyukei = 0
+
     start_time = $('#kintai_出勤時刻').val()
     end_time = $('#kintai_退社時刻').val()
 
     start_time_date = start_time.substring(0,10)
     end_time_date = end_time.substring(0,10)
 
-    read_hours = 0
-    fustu_zangyo = 0
-    shinya_zangyou = 0
+    nextDay = moment(start_time_date).add('days',1)
+    next_time_date = moment(nextDay).format("YYYY-MM-DD")
 
-    shinya_diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time_date + ' 22:00', 'YYYY/MM/DD HH:mm'),'hours', true)
-    if shinya_diff > 0
+
+    hiru_kyukei_start =     start_time_date + ' 12:00'
+    hiru_kyukei_end =       start_time_date + ' 13:00'
+    yoru_kyukei_start =     start_time_date + ' 18:00'
+    yoru_kyukei_end =       start_time_date + ' 19:00'
+    shinya_kyukei_start =   start_time_date + ' 23:00'
+    shinya_kyukei_end =     next_time_date + ' 00:00'
+    souchou_kyukei_start =  next_time_date + ' 04:00'
+    souchou_kyukei_end =    next_time_date + ' 07:00'
+
+    hiru_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(hiru_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if hiru_diff_1 > 0
       for num in kousu
-        if num > shinya_diff && num > 0
-          shinya_zangyou = num - 0.5
+        if num > hiru_diff_1 && num > 0
+          hiru_diff_1 = num - 0.5
           break
+      hiru_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(hiru_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if hiru_diff_2 <= 0
+        hiru_kyukei = hiru_diff_1
+      else
+        for num in kousu
+          if num > hiru_diff_2 && num > 0
+            hiru_diff_2 = num - 0.5
+            break
+        hiru_kyukei = hiru_diff_1 - hiru_diff_2
 
-    fustu_zangyou_diff = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time_date + ' 19:00', 'YYYY/MM/DD HH:mm'),'hours', true)
-    if fustu_zangyou_diff > 0
+    yoru_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(yoru_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if yoru_diff_1 > 0
       for num in kousu
-        if num > fustu_zangyou_diff && num > 0
+        if num > yoru_diff_1 && num > 0
+          yoru_diff_1 = num - 0.5
+          break
+      yoru_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(yoru_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if yoru_diff_2 <= 0
+        yoru_kyukei = yoru_diff_1
+      else
+        for num in kousu
+          if num > yoru_diff_2 && num > 0
+            yoru_diff_2 = num - 0.5
+            break
+        yoru_kyukei = yoru_diff_1 - yoru_diff_2
+
+    shinya_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if shinya_diff_1 > 0
+      for num in kousu
+        if num > shinya_diff_1 && num > 0
+          shinya_diff_1 = num - 0.5
+          break
+      shinya_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if shinya_diff_2 <= 0
+        shinya_kyukei = shinya_diff_1
+      else
+        for num in kousu
+          if num > shinya_diff_2 && num > 0
+            shinya_diff_2 = num - 0.5
+            break
+        shinya_kyukei = shinya_diff_1 - shinya_diff_2
+
+    souchou_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(souchou_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if souchou_diff_1 > 0
+      for num in kousu
+        if num > souchou_diff_1 && num > 0
+          souchou_diff_1 = num - 0.5
+          break
+      souchou_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(souchou_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if souchou_diff_2 <= 0
+        souchou_kyukei = souchou_diff_1
+      else
+        for num in kousu
+          if num > souchou_diff_2 && num > 0
+            souchou_diff_2 = num - 0.5
+            break
+        souchou_kyukei = souchou_diff_1 - souchou_diff_2
+
+    real_hours = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'),'hours', true)
+    for num in kousu
+      if num > real_hours && num > 0
+        real_hours = num - 0.5
+        break
+    real_hours = real_hours - hiru_kyukei - yoru_kyukei - shinya_kyukei - souchou_kyukei
+    if real_hours < 0
+      real_hours = 0
+    if shinya_kyukei > 0
+      fustu_zangyo = moment(shinya_kyukei_start, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'),'hours', true)
+      for num in kousu
+        if num > fustu_zangyo && num > 0
           fustu_zangyo = num - 0.5
           break
-    if fustu_zangyo > 3 then fustu_zangyo = 3
+      fustu_zangyo = fustu_zangyo - hiru_kyukei - yoru_kyukei - 8
+    else
+      fustu_zangyo = real_hours - 8
+      if fustu_zangyo < 0
+        fustu_zangyo = 0
 
-    fustu_end = end_time
-    fustu_start = start_time
-    if moment(end_time, 'YYYY/MM/DD HH:mm') > moment(start_time_date + ' 18:00', 'YYYY/MM/DD HH:mm') then fustu_end = start_time_date + ' 18:00'
-    if moment(start_time, 'YYYY/MM/DD HH:mm') > moment(start_time_date + ' 12:00', 'YYYY/MM/DD HH:mm') && moment(start_time, 'YYYY/MM/DD HH:mm') < moment(start_time_date + ' 13:00', 'YYYY/MM/DD HH:mm') then fustu_start = start_time_date + ' 13:00'
-
-    fustu_diff = moment(fustu_end, 'YYYY/MM/DD HH:mm').diff(moment(fustu_start, 'YYYY/MM/DD HH:mm'),'hours', true)
-    if moment(start_time_date + ' 12:00', 'YYYY/MM/DD HH:mm') > moment(start_time, 'YYYY/MM/DD HH:mm') then fustu_diff -= 1
-
-    if fustu_diff > 0
+    if souchou_kyukei > 0
+      shinya_zangyou = moment(souchou_kyukei_start, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
       for num in kousu
-        if num > fustu_diff && num > 0
-          read_hours = num - 0.5
+        if num > shinya_zangyou && num > 0
+          shinya_zangyou = num - 0.5
           break
-
-    read_hours += fustu_zangyo + shinya_zangyou
-    if joutaikubun == '2'
-      $('#kintai_遅刻時間').val('0')
-    $('#kintai_実労働時間').val(read_hours)
+    else
+      shinya_zangyou = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if shinya_zangyou < 0
+        shinya_zangyou = 0
+      else
+        for num in kousu
+          if num > shinya_zangyou && num > 0
+            shinya_zangyou = num - 0.5
+            break
+    $('#kintai_実労働時間').val(real_hours)
     $('#kintai_普通残業時間').val(fustu_zangyo)
     $('#kintai_深夜残業時間').val(shinya_zangyou)
-    $('#kintai_深夜保守時間').val()
+    $('#kintai_普通保守時間').val(yoru_kyukei)
+    $('#kintai_深夜保守時間').val(shinya_kyukei)
 
   $('.datetime').datetimepicker({
     format: 'YYYY/MM/DD HH:mm',
@@ -315,17 +449,12 @@ jQuery ->
     idKintai = idRow.substring(12,idRow.length)
     date = $('#date'+idKintai).text()
     time = $(this).find('.input-time').val()
-    #alert(date+" "+ time)
-
-    jQuery.ajax({
-      url: '/kintais/ajax',
-      data: {id: 'update_endtime', timeEnd: date+" "+ time, idKintai: idKintai},
-      type: "POST",
-      success: (data) ->
-#       console.log("update_endtime success")
-      failure: () ->
-        console.log("update_endtime field")
-    })
+    start_time = date + " " +$("#shukkinjikoku"+idKintai).val()
+    if time >= "00:00" && time <= "07:00"
+      nextDay = moment(date).add('days',1)
+      date = moment(nextDay).format("YYYY-MM-DD")
+    end_time = date + " " +$("#taishajikoku"+idKintai).val()
+    calculater(start_time,end_time,idKintai)
   )
 
   $('.timestart').datetimepicker({
@@ -453,3 +582,147 @@ jQuery ->
         $("#taishajikoku_picker_"+id).css("display","")
         $("#taishajikoku_text_"+id).css("display","none")
   );
+
+  calculater = (start_time, end_time, idKintai) ->
+    joutai = $("#joutai"+idKintai).attr("value")
+    real_hours = 0
+    fustu_zangyo = 0
+    shinya_zangyou = 0
+    hiru_kyukei = 0
+    yoru_kyukei = 0
+    shinya_kyukei = 0
+    souchou_kyukei = 0
+    start_time_date = start_time.substring(0,10)
+    end_time_date = end_time.substring(0,10)
+
+    nextDay = moment(start_time_date).add('days',1)
+    next_time_date = moment(nextDay).format("YYYY-MM-DD")
+
+
+    hiru_kyukei_start =     start_time_date + ' 12:00'
+    hiru_kyukei_end =       start_time_date + ' 13:00'
+    yoru_kyukei_start =     start_time_date + ' 18:00'
+    yoru_kyukei_end =       start_time_date + ' 19:00'
+    shinya_kyukei_start =   start_time_date + ' 23:00'
+    shinya_kyukei_end =     next_time_date + ' 00:00'
+    souchou_kyukei_start =  next_time_date + ' 04:00'
+    souchou_kyukei_end =    next_time_date + ' 07:00'
+
+    hiru_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(hiru_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if hiru_diff_1 > 0
+      for num in kousu
+        if num > hiru_diff_1 && num > 0
+          hiru_diff_1 = num - 0.5
+          break
+      hiru_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(hiru_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if hiru_diff_2 <= 0
+        hiru_kyukei = hiru_diff_1
+      else
+        for num in kousu
+          if num > hiru_diff_2 && num > 0
+            hiru_diff_2 = num - 0.5
+            break
+        hiru_kyukei = hiru_diff_1 - hiru_diff_2
+
+    yoru_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(yoru_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if yoru_diff_1 > 0
+      for num in kousu
+        if num > yoru_diff_1 && num > 0
+          yoru_diff_1 = num - 0.5
+          break
+      yoru_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(yoru_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if yoru_diff_2 <= 0
+        yoru_kyukei = yoru_diff_1
+      else
+        for num in kousu
+          if num > yoru_diff_2 && num > 0
+            yoru_diff_2 = num - 0.5
+            break
+        yoru_kyukei = yoru_diff_1 - yoru_diff_2
+
+    shinya_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if shinya_diff_1 > 0
+      for num in kousu
+        if num > shinya_diff_1 && num > 0
+          shinya_diff_1 = num - 0.5
+          break
+      shinya_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if shinya_diff_2 <= 0
+        shinya_kyukei = shinya_diff_1
+      else
+        for num in kousu
+          if num > shinya_diff_2 && num > 0
+            shinya_diff_2 = num - 0.5
+            break
+        shinya_kyukei = shinya_diff_1 - shinya_diff_2
+
+    souchou_diff_1 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(souchou_kyukei_start, 'YYYY/MM/DD HH:mm'),'hours', true)
+    if souchou_diff_1 > 0
+      for num in kousu
+        if num > souchou_diff_1 && num > 0
+          souchou_diff_1 = num - 0.5
+          break
+      souchou_diff_2 = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(souchou_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if souchou_diff_2 <= 0
+        souchou_kyukei = souchou_diff_1
+      else
+        for num in kousu
+          if num > souchou_diff_2 && num > 0
+            souchou_diff_2 = num - 0.5
+            break
+        souchou_kyukei = souchou_diff_1 - souchou_diff_2
+
+    real_hours = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'),'hours', true)
+    for num in kousu
+      if num > real_hours && num > 0
+        real_hours = num - 0.5
+        break
+    real_hours = real_hours - hiru_kyukei - yoru_kyukei - shinya_kyukei - souchou_kyukei
+    if real_hours < 0
+      real_hours = 0
+    if shinya_kyukei > 0
+      fustu_zangyo = moment(shinya_kyukei_start, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'),'hours', true)
+      for num in kousu
+        if num > fustu_zangyo && num > 0
+          fustu_zangyo = num - 0.5
+          break
+      fustu_zangyo = fustu_zangyo - hiru_kyukei - yoru_kyukei - 8
+    else
+      fustu_zangyo = real_hours - 8
+      if fustu_zangyo < 0
+        fustu_zangyo = 0
+
+    if souchou_kyukei > 0
+      shinya_zangyou = moment(souchou_kyukei_start, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      for num in kousu
+        if num > shinya_zangyou && num > 0
+          shinya_zangyou = num - 0.5
+          break
+    else
+      shinya_zangyou = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if shinya_zangyou < 0
+        shinya_zangyou = 0
+      else
+        for num in kousu
+          if num > shinya_zangyou && num > 0
+            shinya_zangyou = num - 0.5
+            break
+
+    #alert(real_hours + "\n"+ fustu_zangyo+ "\n"+ shinya_zangyou+"\n"+hiru_kyukei+ "\n"+yoru_kyukei+ "\n" + shinya_kyukei + "\n" +souchou_kyukei)
+
+    $('#best_in_place_kintai_'+idKintai+"_実労働時間").text(real_hours)
+    $('#best_in_place_kintai_'+idKintai+"_普通残業時間").text(fustu_zangyo)
+    $('#best_in_place_kintai_'+idKintai+"_深夜残業時間").text(shinya_zangyou)
+    $('#best_in_place_kintai_'+idKintai+"_普通保守時間").text(yoru_kyukei)
+    $('#best_in_place_kintai_'+idKintai+"_深夜保守時間").text(shinya_kyukei)
+
+    jQuery.ajax({
+      url: '/kintais/ajax',
+      data: {id: 'update_endtime', timeEnd: end_time, idKintai: idKintai,real_hours: real_hours, fustu_zangyo: fustu_zangyo,shinya_zangyou: shinya_zangyou,yoru_kyukei: yoru_kyukei, shinya_kyukei: shinya_kyukei},
+      type: "POST",
+      success: (data) ->
+        console.log("update_endtime success")
+      failure: () ->
+        console.log("update_endtime field")
+    })
+
