@@ -248,7 +248,10 @@ class EventsController < ApplicationController
     # end
 
     @event = User.find(session[:user]).shainmaster.events.new attributes
-
+    if attributes[:状態コード].in?(['30','31','32'])
+      kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
+      kintai.update(状態1: attributes[:状態コード])
+    end
     # flash[:notice] = t 'app.flash.new_success' if @event.save
     # case params[:commit]
     #   when (t 'helpers.submit.create')
@@ -308,11 +311,21 @@ class EventsController < ApplicationController
         flash[:notice] = t 'app.flash.delete_success' if @event.destroy
         redirect_to time_line_view_events_url
       when (t 'helpers.submit.create_other')
-        flash[:notice] = t 'app.flash.update_success' if @event.update attributes
+        if @event.update attributes
+          flash[:notice] = t 'app.flash.update_success'
+          if attributes[:状態コード].in?(['30','31','32'])
+              kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
+              kintai.update(状態1: attributes[:状態コード])
+          end
+        end
         respond_with @event, location: events_url
       when (t 'helpers.submit.create')
         respond_to do |format|
           if @event.update attributes
+            if attributes[:状態コード].in?(['30','31','32'])
+              kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
+              kintai.update(状態1: attributes[:状態コード])
+            end
             flash[:notice] = t 'app.flash.update_success'
             format.html { redirect_to time_line_view_events_url }
             format.xml { render xml: @event, status: :created, location: @event }
