@@ -397,7 +397,60 @@ jQuery ->
           if num > shinya_zangyou && num > 0
             shinya_zangyou = num - 0.5
             break
+    kinmutype = $('#kintai_勤務タイプ').val()
+    start_time_default = start_time_date
+    end_time_default = start_time_date
+    switch (kinmutype)
+      when '001'
+        start_time_default += ' 07:00'
+        end_time_default += ' 16:00'
+      when '002'
+        start_time_default += ' 07:30'
+        end_time_default += ' 16:30'
+      when '003'
+        start_time_default += ' 08:00'
+        end_time_default += ' 17:00'
+      when '004'
+        start_time_default += ' 08:30'
+        end_time_default += ' 17:30'
+      when '005'
+        start_time_default += ' 09:00'
+        end_time_default += ' 18:00'
+      when '006'
+        start_time_default += ' 09:30'
+        end_time_default += ' 18:30'
+      when '007'
+        start_time_default += ' 10:00'
+        end_time_default += ' 19:00'
+      when '008'
+        start_time_default += ' 10:30'
+        end_time_default += ' 19:30'
+      when '009'
+        start_time_default += ' 11:00'
+        end_time_default += ' 20:00'
+    if kinmutype != ''
+      chikoku = moment(start_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time_default, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if chikoku > 0
+        for num in kousu
+          if num > chikoku && num > 0
+            chikoku = num - 0.5
+            break
+      else
+        chikoku = 0
+
+      soutai = moment(end_time_default, 'YYYY/MM/DD HH:mm').diff(moment(end_time, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if soutai > 0
+        for num in kousu
+          if num > soutai && num > 0
+            soutai = num - 0.5
+            break
+      else
+        soutai = 0
+      chikoku_soutai = soutai + chikoku
+    else
+      chikoku_soutai = 0
     $('#kintai_実労働時間').val(real_hours)
+    $('#kintai_遅刻時間').val(chikoku_soutai)
     $('#kintai_普通残業時間').val(fustu_zangyo)
     $('#kintai_深夜残業時間').val(shinya_zangyou)
     $('#kintai_普通保守時間').val(yoru_kyukei)
@@ -449,12 +502,30 @@ jQuery ->
     idKintai = idRow.substring(12,idRow.length)
     date = $('#date'+idKintai).text()
     time = $(this).find('.input-time').val()
-    start_time = date + " " +$("#shukkinjikoku"+idKintai).val()
+    start_input = $("#shukkinjikoku"+idKintai).val()
+    end_input = $("#taishajikoku"+idKintai).val()
+    start_time = date + " " +start_input
     if time >= "00:00" && time <= "07:00"
       nextDay = moment(date).add('days',1)
       date = moment(nextDay).format("YYYY-MM-DD")
-    end_time = date + " " +$("#taishajikoku"+idKintai).val()
-    calculater(start_time,end_time,idKintai)
+    if end_input == ''
+      end_time = ''
+    else
+      end_time = date + " " + end_input
+    if start_input != '' && end_input != ''
+      calculater(start_time,end_time,idKintai)
+    else if start_input == ''
+      jQuery.ajax({
+        url: '/kintais/ajax',
+        data: {id: 'update_endtime', timeEnd: end_time, idKintai: idKintai},
+        type: "POST",
+        success: (data) ->
+  #       console.log("update_endtime success")
+        failure: () ->
+          console.log("update_endtime field")
+      })
+    else if end_input == ''
+      update_when_time_null(start_time,end_time,idKintai)
   )
 
   $('.timestart').datetimepicker({
@@ -484,16 +555,31 @@ jQuery ->
     date = $('#date'+idKintai).text()
     time = $(this).find('.input-time-start').val()
     #alert(date+" "+ time)
+    start_input = $("#shukkinjikoku"+idKintai).val()
+    end_input = $("#taishajikoku"+idKintai).val()
+    if start_input == ''
+      start_time = ''
+    else
+      start_time = date + " " +start_input
+    if end_input >= "00:00" && end_input <= "07:00"
+      nextDay = moment(date).add('days',1)
+      date = moment(nextDay).format("YYYY-MM-DD")
+    end_time = date + " " + end_input
+    if start_input != '' && end_input != ''
+      calculater(start_time,end_time,idKintai)
+    else if end_input == ''
+      jQuery.ajax({
+        url: '/kintais/ajax',
+        data: {id: 'update_starttime', timeStart: start_time, idKintai: idKintai},
+        type: "POST",
+        success: (data) ->
+  #       console.log("update_endtime success")
+        failure: () ->
+          console.log("update_endtime field")
+      })
+    else if start_input == ''
+      update_when_time_null(start_time,end_time,idKintai)
 
-    jQuery.ajax({
-      url: '/kintais/ajax',
-      data: {id: 'update_starttime', timeStart: date+" "+ time, idKintai: idKintai},
-      type: "POST",
-      success: (data) ->
-#       console.log("update_endtime success")
-      failure: () ->
-        console.log("update_endtime field")
-    })
   )
 
   $('.best_in_place[data-bip-attribute="勤務タイプ"]').on('change', () ->
@@ -509,6 +595,12 @@ jQuery ->
         $('#taishajikoku'+idKintai).val(data.endtime)
         $("#shukkinjikoku_text_"+idKintai).text(data.starttime)
         $("#taishajikoku_text_"+idKintai).text(data.endtime)
+        $('#best_in_place_kintai_'+idKintai+"_実労働時間").text('')
+        $('#best_in_place_kintai_'+idKintai+"_遅刻時間").text('')
+        $('#best_in_place_kintai_'+idKintai+"_普通残業時間").text('')
+        $('#best_in_place_kintai_'+idKintai+"_深夜残業時間").text('')
+        $('#best_in_place_kintai_'+idKintai+"_普通保守時間").text('')
+        $('#best_in_place_kintai_'+idKintai+"_深夜保守時間").text('')
       failure: () ->
         console.log("update_kinmutype field")
     })
@@ -673,19 +765,21 @@ jQuery ->
         souchou_kyukei = souchou_diff_1 - souchou_diff_2
 
     real_hours = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'),'hours', true)
-    for num in kousu
-      if num > real_hours && num > 0
-        real_hours = num - 0.5
-        break
+    if real_hours > 0
+      for num in kousu
+        if num > real_hours && num > 0
+          real_hours = num - 0.5
+          break
     real_hours = real_hours - hiru_kyukei - yoru_kyukei - shinya_kyukei - souchou_kyukei
     if real_hours < 0
       real_hours = 0
     if shinya_kyukei > 0
       fustu_zangyo = moment(shinya_kyukei_start, 'YYYY/MM/DD HH:mm').diff(moment(start_time, 'YYYY/MM/DD HH:mm'),'hours', true)
-      for num in kousu
-        if num > fustu_zangyo && num > 0
-          fustu_zangyo = num - 0.5
-          break
+      if fustu_zangyo >0
+        for num in kousu
+          if num > fustu_zangyo && num > 0
+            fustu_zangyo = num - 0.5
+            break
       fustu_zangyo = fustu_zangyo - hiru_kyukei - yoru_kyukei - 8
     else
       fustu_zangyo = real_hours - 8
@@ -694,10 +788,11 @@ jQuery ->
 
     if souchou_kyukei > 0
       shinya_zangyou = moment(souchou_kyukei_start, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
-      for num in kousu
-        if num > shinya_zangyou && num > 0
-          shinya_zangyou = num - 0.5
-          break
+      if shinya_zangyou >0
+        for num in kousu
+          if num > shinya_zangyou && num > 0
+            shinya_zangyou = num - 0.5
+            break
     else
       shinya_zangyou = moment(end_time, 'YYYY/MM/DD HH:mm').diff(moment(shinya_kyukei_end, 'YYYY/MM/DD HH:mm'),'hours', true)
       if shinya_zangyou < 0
@@ -709,8 +804,60 @@ jQuery ->
             break
 
     #alert(real_hours + "\n"+ fustu_zangyo+ "\n"+ shinya_zangyou+"\n"+hiru_kyukei+ "\n"+yoru_kyukei+ "\n" + shinya_kyukei + "\n" +souchou_kyukei)
+    kinmutype = $('#'+idKintai).text()
+    start_time_default = start_time_date
+    end_time_default = start_time_date
+    switch (kinmutype)
+      when '001'
+        start_time_default += ' 07:00'
+        end_time_default += ' 16:00'
+      when '002'
+        start_time_default += ' 07:30'
+        end_time_default += ' 16:30'
+      when '003'
+        start_time_default += ' 08:00'
+        end_time_default += ' 17:00'
+      when '004'
+        start_time_default += ' 08:30'
+        end_time_default += ' 17:30'
+      when '005'
+        start_time_default += ' 09:00'
+        end_time_default += ' 18:00'
+      when '006'
+        start_time_default += ' 09:30'
+        end_time_default += ' 18:30'
+      when '007'
+        start_time_default += ' 10:00'
+        end_time_default += ' 19:00'
+      when '008'
+        start_time_default += ' 10:30'
+        end_time_default += ' 19:30'
+      when '009'
+        start_time_default += ' 11:00'
+        end_time_default += ' 20:00'
+    if kinmutype != ''
+      chikoku = moment(start_time, 'YYYY/MM/DD HH:mm').diff(moment(start_time_default, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if chikoku > 0
+        for num in kousu
+          if num > chikoku && num > 0
+            chikoku = num - 0.5
+            break
+      else
+        chikoku = 0
 
+      soutai = moment(end_time_default, 'YYYY/MM/DD HH:mm').diff(moment(end_time, 'YYYY/MM/DD HH:mm'),'hours', true)
+      if soutai > 0
+        for num in kousu
+          if num > soutai && num > 0
+            soutai = num - 0.5
+            break
+      else
+        soutai = 0
+      chikoku_soutai = soutai + chikoku
+    else
+      chikoku_soutai = 0
     $('#best_in_place_kintai_'+idKintai+"_実労働時間").text(real_hours)
+    $('#best_in_place_kintai_'+idKintai+"_遅刻時間").text(chikoku_soutai)
     $('#best_in_place_kintai_'+idKintai+"_普通残業時間").text(fustu_zangyo)
     $('#best_in_place_kintai_'+idKintai+"_深夜残業時間").text(shinya_zangyou)
     $('#best_in_place_kintai_'+idKintai+"_普通保守時間").text(yoru_kyukei)
@@ -718,11 +865,38 @@ jQuery ->
 
     jQuery.ajax({
       url: '/kintais/ajax',
-      data: {id: 'update_endtime', timeEnd: end_time, idKintai: idKintai,real_hours: real_hours, fustu_zangyo: fustu_zangyo,shinya_zangyou: shinya_zangyou,yoru_kyukei: yoru_kyukei, shinya_kyukei: shinya_kyukei},
+      data: {id: 'update_time', timeStart: start_time,timeEnd: end_time, idKintai: idKintai,real_hours: real_hours, fustu_zangyo: fustu_zangyo,shinya_zangyou: shinya_zangyou,yoru_kyukei: yoru_kyukei, shinya_kyukei: shinya_kyukei, chikoku_soutai: chikoku_soutai},
       type: "POST",
       success: (data) ->
         console.log("update_endtime success")
       failure: () ->
         console.log("update_endtime field")
     })
+
+  update_when_time_null = (start_time, end_time, idKintai) ->
+    real_hours = ''
+    fustu_zangyo = ''
+    shinya_zangyou = ''
+    hiru_kyukei = ''
+    yoru_kyukei = ''
+    shinya_kyukei = ''
+    souchou_kyukei = ''
+    chikoku_soutai = ''
+    $('#best_in_place_kintai_'+idKintai+"_実労働時間").text(real_hours)
+    $('#best_in_place_kintai_'+idKintai+"_遅刻時間").text(chikoku_soutai)
+    $('#best_in_place_kintai_'+idKintai+"_普通残業時間").text(fustu_zangyo)
+    $('#best_in_place_kintai_'+idKintai+"_深夜残業時間").text(shinya_zangyou)
+    $('#best_in_place_kintai_'+idKintai+"_普通保守時間").text(yoru_kyukei)
+    $('#best_in_place_kintai_'+idKintai+"_深夜保守時間").text(shinya_kyukei)
+
+    jQuery.ajax({
+      url: '/kintais/ajax',
+      data: {id: 'update_time', timeStart: start_time,timeEnd: end_time, idKintai: idKintai,real_hours: real_hours, fustu_zangyo: fustu_zangyo,shinya_zangyou: shinya_zangyou,yoru_kyukei: yoru_kyukei, shinya_kyukei: shinya_kyukei, chikoku_soutai: chikoku_soutai},
+      type: "POST",
+      success: (data) ->
+        console.log("update_endtime success")
+      failure: () ->
+        console.log("update_endtime field")
+    })
+
 
