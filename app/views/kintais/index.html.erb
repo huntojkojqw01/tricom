@@ -15,7 +15,7 @@
   <tr>
     <th rowspan="2">日付</th>
     <th rowspan="2">曜日</th>
-    <th rowspan="2">タイプ</th>
+    <th rowspan="2" width="5%">タイプ</th>
     <th rowspan="2" width="7%">出勤時間</th>
     <th rowspan="2" width="7%">退社時間</th>
 
@@ -54,8 +54,38 @@
           <% else %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.出勤時刻.to_s(:time) %></td>
           <%end%> -->
-          <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => "<i class='fa fa-sort-desc'></i>", :inner_class => 'form_control kinmutype', id: kintai.id.to_s%></td>
-          <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
+          <% if kintai.日付 != @date_now
+            place_holder1 = "<i class='fa fa-sort-desc'></i>"
+            place_holder2 = "&nbsp;"
+            place_holder3 = "&nbsp;"
+            place_holder4 = "&nbsp;"
+            place_holder5 = "&nbsp;"
+            place_holder6 = "&nbsp;"
+            place_holder7 = "&nbsp;"
+            place_holder8 = "&nbsp;"
+            place_holder9 = "&nbsp;"
+            place_holder10 = "<i class='fa fa-sort-desc'></i>"
+
+          else
+            place_holder1 = "<span class='text-gray'>タイプ</span>"
+            place_holder2 = "<span class='text-gray'>出勤時間</span>"
+            place_holder3 = "<span class='text-gray'>退社時間</span>"
+            place_holder4 = "<span class='text-gray'>実労働時間</span>"
+            place_holder5 = "<span class='text-gray'>遅刻早退</span>"
+            place_holder6 = "<span class='text-gray'>普通残業</span>"
+            place_holder7 = "<span class='text-gray'>深夜残業</span>"
+            place_holder8 = "<span class='text-gray'>普通保守</span>"
+            place_holder9 = "<span class='text-gray'>深夜保守</span>"
+            place_holder10 = "<span class='text-gray'>保守携帯</span>"
+
+          end%>
+          <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => place_holder1, :inner_class => 'form_control kinmutype', id: kintai.id.to_s%></td>
+          <% if kintai.出勤時刻.blank? && kintai.日付 == @date_now %>
+            <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><i class='text-gray'>出勤時間</i></td>
+          <% else %>
+            <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><%=kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
+          <%end%>
+
           <td id= "shukkinjikoku_picker_<%= kintai.id %>" style="display:none;">
             <div class="input-group timestart">
               <input  id= "shukkinjikoku<%= kintai.id %>" type="text" class="form-control input-time-start" value= <%=kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %>>
@@ -69,7 +99,12 @@
           <% else %>
             <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.退社時刻.to_s(:time) %></td>
           <%end%> -->
-          <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
+          <% if kintai.退社時刻.blank? && kintai.日付 == @date_now %>
+            <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><i class='text-gray'>退社時刻</i></td>
+          <% else %>
+            <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
+          <%end%>
+
           <td id= "taishajikoku_picker_<%= kintai.id %>" style="display:none;">
             <div class="input-group time">
               <input  id= "taishajikoku<%= kintai.id %>" type="text" class="form-control input-time" value= <%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %>>
@@ -78,14 +113,14 @@
               </div>
             </div>
           </td>
-          <td class='kintai-item' style="white-space: pre" id="jitsuroudou<%= kintai.id %>"><%= best_in_place kintai, :実労働時間, :as => :input, activator: '#jitsuroudou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "&nbsp;"%></td>
-          <td class='kintai-item' style="white-space: pre" id="chikoku<%= kintai.id %>"><%= best_in_place kintai, :遅刻時間, :as => :input, activator: '#chikoku' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "&nbsp;"%></td>
+          <td class='kintai-item' style="white-space: pre" id="jitsuroudou<%= kintai.id %>"><%= best_in_place kintai, :実労働時間, :as => :input, activator: '#jitsuroudou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder4%></td>
+          <td class='kintai-item' style="white-space: pre" id="chikoku<%= kintai.id %>"><%= best_in_place kintai, :遅刻時間, :as => :input, activator: '#chikoku' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder5%></td>
         <!--<td><%# kintai.早退時間 %></td>-->
-          <td class='kintai-item' style="white-space: pre" id="futsuzangyou<%= kintai.id %>"><%= best_in_place kintai, :普通残業時間, :as => :input, activator: '#futsuzangyou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "&nbsp;"%></td>
-          <td class='kintai-item' style="white-space: pre" id="shinyazangyou<%= kintai.id %>"><%= best_in_place kintai, :深夜残業時間, :as => :input, activator: '#shinyazangyou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "&nbsp;"%></td>
-          <td class='kintai-item' style="white-space: pre" id="fushuuhoshu<%= kintai.id %>"><%= best_in_place kintai, :普通保守時間, :as => :input, activator: '#fushuuhoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "&nbsp;"%></td>
-          <td class='kintai-item' style="white-space: pre" id="shinyahoshu<%= kintai.id %>"><%= best_in_place kintai, :深夜保守時間, :as => :input, activator: '#shinyahoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => "&nbsp;", readonly: true%></td>
-          <td class='kintai-item' style="white-space: pre" id="hoshukeitai<%= kintai.id %>" ><%= best_in_place kintai, :保守携帯回数, :as => :select, :collection => [["", ""], [1, "1:保守携帯"]], activator: '#hoshukeitai' + kintai.id.to_s,:place_holder => "<i class='fa fa-sort-desc'></i>", :inner_class => 'form_control'%></td>
+          <td class='kintai-item' style="white-space: pre" id="futsuzangyou<%= kintai.id %>"><%= best_in_place kintai, :普通残業時間, :as => :input, activator: '#futsuzangyou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder6%></td>
+          <td class='kintai-item' style="white-space: pre" id="shinyazangyou<%= kintai.id %>"><%= best_in_place kintai, :深夜残業時間, :as => :input, activator: '#shinyazangyou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder7%></td>
+          <td class='kintai-item' style="white-space: pre" id="fushuuhoshu<%= kintai.id %>"><%= best_in_place kintai, :普通保守時間, :as => :input, activator: '#fushuuhoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder8%></td>
+          <td class='kintai-item' style="white-space: pre" id="shinyahoshu<%= kintai.id %>"><%= best_in_place kintai, :深夜保守時間, :as => :input, activator: '#shinyahoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder9, readonly: true%></td>
+          <td class='kintai-item' style="white-space: pre" id="hoshukeitai<%= kintai.id %>" ><%= best_in_place kintai, :保守携帯回数, :as => :select, :collection => [["", ""], [1, "1:保守携帯"]], activator: '#hoshukeitai' + kintai.id.to_s,:place_holder => place_holder10, :inner_class => 'form_control'%></td>
         <% else %>
           <td><%= kintai.勤務タイプ %></td>
           <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
