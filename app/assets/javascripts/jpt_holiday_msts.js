@@ -89,7 +89,7 @@ $(function() {
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
                 confirmButtonText: "OK",
-                cancelButtonText: "Cancel",
+                cancelButtonText: "キャンセル",
                 closeOnConfirm: false,
                 closeOnCancel: false
             }).then(function() {
