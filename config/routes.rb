@@ -185,6 +185,11 @@ Jpt::Application.routes.draw do
     collection {get :export_csv}
   end
 
+  resources :yuukyuu_kyuuka_rirekis do
+    collection { post :import}
+    collection {get :export_csv}
+  end
+
   resources :rorumenbas do
     collection { post :import}
     collection {get :export_csv}

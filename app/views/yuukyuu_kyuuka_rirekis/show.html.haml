@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b 社員番号:
+  = @yuukyuu_kyuuka_rireki.社員番号
+%p
+  %b 年月:
+  = @yuukyuu_kyuuka_rireki.年月
+
+%p
+  %b 月初有給残:
+  = @yuukyuu_kyuuka_rireki.月初有給残
+
+%p
+  %b 月末有給残:
+  = @yuukyuu_kyuuka_rireki.月末有給残
+
+= link_to '編集', edit_yuukyuu_kyuuka_rireki_path(@yuukyuu_kyuuka_rireki)
+\|
+= link_to '戻る', yuukyuu_kyuuka_rirekis_path
+= provide(:title, (t 'title.yuukyuu_kyuuka'))

@@ -1,0 +1,8 @@
+= javascript_include_tag 'yuukyuu_kyuukas'
+= provide(:title, (t 'title.yuukyuu_kyuuka'))
+%ol.breadcrumb
+  %li= link_to (t 'title.menu'), main_path
+  %li= link_to (t 'title.yuukyuu_kyuuka'), yuukyuu_kyuuka_rirekis_path
+  %li.active 編集
+
+= render 'form', mode: :edit
