@@ -19,8 +19,8 @@ class KairansController < ApplicationController
 
   def kaitou_create
     taiShoSha = params[:kaitoto]
-    kairan_params[:発行者] = session[:user]
     kairan = Kairan.create(kairan_params)
+    kairan.update(発行者: session[:user])
     Kairanshosai.create!(回覧コード:kairan.id, 対象者: taiShoSha, 状態: 0)
     kairanShoshai = Kairanshosai.where(回覧コード: params[:kaitoid], 対象者: session[:user]).first!
     kairanShoshai.update(状態: 2)
@@ -109,7 +109,6 @@ class KairansController < ApplicationController
     # kairan_params[:発行者] = session[:user]
     kairan_params[:状態] = 0
     @kairan = Kairan.new(kairan_params)
-
     flash[:notice] = t "app.flash.new_success" if @kairan.save
     updateKairanDetail(@kairan.id, params[:shain])
     respond_with(@kairan, location: kairans_url)
