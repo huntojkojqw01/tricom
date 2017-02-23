@@ -150,7 +150,7 @@ $(document).ready(function() {
                     {
                         labelText: '社員名',
                         field: 'shain',
-                        width: 60,
+                        width: 44,
                         render: function(resources, el) {
                             el.css('background-color', '#67b168');
                         }
@@ -167,7 +167,7 @@ $(document).ready(function() {
                     {
                         labelText: '状態',
                         field: 'joutai',
-                        width: 20,
+                        width: 40,
                         render: function(resources, el) {
                             el.css('background-color', resources.background_color);
                             el.css('color', resources.text_color);
@@ -176,7 +176,7 @@ $(document).ready(function() {
                     {
                         labelText: '伝言',
                         field: 'dengon',
-                        width: 20,
+                        width: 18,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
                         }
@@ -185,7 +185,7 @@ $(document).ready(function() {
                     {
                         labelText: '回覧',
                         field: 'kairan',
-                        width: 20,
+                        width: 18,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
                         }
