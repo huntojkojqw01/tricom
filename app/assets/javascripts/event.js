@@ -310,8 +310,9 @@ $(document).ready(function(){
 $(window).on('load', function() {
     $('#calendar-timeline').fullCalendar('render');
     $('#goto-date-input').val(moment().format('YYYY/MM/DD'));
+    var strtime = new Date($("#event_開始").val());
 
-    if ($('#event_状態コード').val() == "30"){
+    if ($('#event_状態コード').val() == "30" || ($('#event_状態コード').val() == "60" && strtime.getHours() >= 9)){
         $('#event_場所コード').prop( "disabled", true );
         $('#event_JOB').prop( "disabled", true );
         $('#event_工程コード').prop( "disabled", true );
@@ -323,8 +324,7 @@ $(window).on('load', function() {
         $('#event_JOB').prop( "disabled", false );
         $('#event_工程コード').prop( "disabled", false );
         $('#basho_search').prop( "disabled", false );
-        $('#koutei_search').prop( "disabled", false );
-
+        $('#koutei_search').prop( "disabled", false )
     }
 
 });
@@ -812,6 +812,7 @@ $(function () {
         var date = new Date(y,m,d);
 
         var mydate = new Date($("#event_開始").val().substring(0,10));
+        var strtime = new Date($("#event_開始").val());
 
         date =date.toString()
         mydate = mydate.toString()
@@ -822,6 +823,20 @@ $(function () {
         else
         {
             $("#selectShozai").css('display', 'none');
+        }
+        if ($('#event_状態コード').val() == "30" || ($('#event_状態コード').val() == "60" && strtime.getHours() >= 9)){
+            $('#event_場所コード').prop( "disabled", true );
+            $('#event_JOB').prop( "disabled", true );
+            $('#event_工程コード').prop( "disabled", true );
+            $('#basho_search').prop( "disabled", true );
+            $('#koutei_search').prop( "disabled", true );
+
+        }else{
+            $('#event_場所コード').prop( "disabled", false );
+            $('#event_JOB').prop( "disabled", false );
+            $('#event_工程コード').prop( "disabled", false );
+            $('#basho_search').prop( "disabled", false );
+            $('#koutei_search').prop( "disabled", false )
         }
     });
 
@@ -1188,9 +1203,9 @@ $(function(){
             $(this).addClass('selected');
             $(this).addClass('success');
         }
-
         //check if that day missing
-        if (d[0] == "30"){
+        var strtime = new Date($("#event_開始").val());
+        if (d[0] == "30" || (d[0] == "60" && strtime.getHours() >= 9)){
             //$('#event_開始').val(moment());
             //$('#event_終了').val(moment());
 
