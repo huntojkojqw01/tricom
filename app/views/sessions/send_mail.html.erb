@@ -7,6 +7,14 @@
 <%= form_for :session, url: confirm_path, html:{class: 'form-horizontal'} do |f| %>
   <div class="form-group">
     <div class="field">
+      <%= f.label :担当者コード, class: 'col-md-4 col-xs-8 col-sm-4 col-lg-4 control-label' %>
+      <div class="col-md-8 col-xs-16 col-sm-8 col-lg-8">
+        <%= f.text_field :担当者コード, class: 'form-control', placeholder: 'ID', autocomplete: 'off' %>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="field">
       <%= f.label :email, (t 'title.mail'), class: 'col-md-4 col-xs-8 col-sm-4 col-lg-4 control-label' %>
       <div class="col-md-8 col-xs-16 col-sm-8 col-lg-8">
         <%= f.text_field :email, class: 'form-control', placeholder: 'メール', autocomplete: 'off' %>
