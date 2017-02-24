@@ -2,6 +2,7 @@ class User < ActiveRecord::Base
   self.table_name = :担当者マスタ
   self.primary_key = :担当者コード
   attr_accessor :current_password
+  attr_accessor :flag_reset_password
   attr_accessor :remember_token
   # validates :email, confirmation: true
   # validates :email_confirmation, presence: true
@@ -66,7 +67,7 @@ class User < ActiveRecord::Base
       user = User.find_by_id(id)
 
       # Check if the user CANNOT be authenticated with the entered current password
-      if (user.authenticate(current_password) == false)
+      if (user.authenticate(current_password) == false) && flag_reset_password != true
         # Add an error stating that the current password is incorrect
         errors.add(:current_password, I18n.t('errors.messages.current_password_incorrect'))
       end

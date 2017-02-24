@@ -8,32 +8,37 @@ class SessionsController < ApplicationController
   end
 
   def confirm_mail
-    user = User.find_by( email: params[:session][:email])
+    user = User.find_by(担当者コード: params[:session][:担当者コード], email: params[:session][:email])
 
-    if user
-      # options = { :address              => "smtp.gmail.com",
-      #             :port                 => 587,
-      #             :domain               => 'heroku.com',
-      #             :user_name            => 'anhmt212@gmail.com',
-      #             :password             => 'bachanh212',
-      #             :authentication       => 'plain',
-      #             :enable_starttls_auto => true  }
+    # if user
+    #   options = { :address              => "smtp.gmail.com",
+    #               :port                 => 587,
+    #               :domain               => 'heroku.com',
+    #               :user_name            => 'anhmt212@gmail.com',
+    #               :password             => 'bachanh212',
+    #               :authentication       => 'plain',
+    #               :enable_starttls_auto => true  }
 
-      # Mail.defaults do
-      #   delivery_method :smtp, options
-      # end
+    #   Mail.defaults do
+    #     delivery_method :smtp, options
+    #   end
       session[:code] = random_string
       session[:user_code] = user.try(:担当者コード)
       ses = session[:code]
-
-      Mail.deliver do
-        to "#{user.try(:email)}"
-        from 'hminhduc@gmail.com'
-        subject '【勤務システム】code'
-        body "担当者コード : 【#{user.try(:担当者コード)}】。コード: 【"+ses+"】。"
+      if user.update(password: ses,flag_reset_password: true)
+        Mail.deliver do
+          to "#{user.try(:email)}"
+          from 'hminhduc@gmail.com'
+          subject '【勤務システム】'
+          body "担当者コード : 【#{user.try(:担当者コード)}】。新しいパスワード: 【"+ses+"】。"
+        end
+        flash[:notice] = t "app.login.let_login"
+        redirect_to login_path
+      else
+        flash[:danger] = t "app.flash.login_field"
+        render "send_mail"
       end
-      flash[:notice] = t "app.flash.let_login_with_code"
-      redirect_to login_code_path
+
     else
       flash[:danger] = t "app.flash.login_field"
       render "send_mail"
