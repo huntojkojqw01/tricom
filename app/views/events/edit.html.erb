@@ -10,7 +10,7 @@
     <li><%= link_to (t 'title.event'), events_path %></li>
     <%provide(:title, (t 'title.event'))%>
   <%end%>
-  <li class="active"><%= link_to (t 'title.ibento')%></li>
+  <li class="active"><%=(t 'title.ibento')%></li>
 </ol>
 
 <%= render 'form_event', mode: 'edit' , param: local_assigns[:param]%>
