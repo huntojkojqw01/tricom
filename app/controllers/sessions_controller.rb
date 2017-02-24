@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def confirm_mail
     user = User.find_by(担当者コード: params[:session][:担当者コード], email: params[:session][:email])
 
-    # if user
+    if user
     #   options = { :address              => "smtp.gmail.com",
     #               :port                 => 587,
     #               :domain               => 'heroku.com',
