@@ -129,6 +129,7 @@ $.rails.showConfirmationDialog = function(link){
     title: message,
     type: 'warning',
     confirmButtonText: 'OK',
+    cancelButtonText: "キャンセル",
     confirmButtonColor: '#2acbb3',
     showCancelButton: true
   }).then(function(e){

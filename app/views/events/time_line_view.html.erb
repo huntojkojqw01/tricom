@@ -27,6 +27,11 @@
           <%= f.submit (t 'helpers.submit.redirect_to_kairan'), class: 'btn btn-default', id:'kairan'%>
           <%= f.submit (t 'helpers.submit.redirect_to_setsubiyoyaku'), class: 'btn btn-default', id:'setsubiyoyaku'%>
         </div> -->
+        <div class="form-inline pull-left">
+          <%= f.input (t 'app.label.calendar_genzai') do %>
+              <%= f.select :所在コード, Shozai.all.order(所在コード: :asc).map { |s| [s.name, s.id, { class: '' }] }, {:selected => Shainmaster.find(session[:user]).try(:所在コード)}, {include_blank: true, class: 'form-control'} %>
+          <% end %>
+        </div>
         <table class="pull-right">
          <!--  <td>
             <%= f.input :ロールコード, label:'部署' do %>
