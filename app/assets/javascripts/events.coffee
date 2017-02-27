@@ -62,6 +62,18 @@ jQuery ->
         console.log("change_shozai field")
     }))
 
+  $('#timeline_所在コード').on('change', () ->
+    val = $(this).val()
+    jQuery.ajax({
+      url: '/events/ajax',
+      data: {id: 'change_shozai_timeline', data: val},
+      type: "POST",
+      success: (data) ->
+        location.reload()
+      failure: () ->
+        console.log("change_shozai field")
+    }))
+
   $('#basho-new').click () ->
     $('#basho-new-modal').modal('show')
 

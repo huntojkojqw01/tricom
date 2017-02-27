@@ -424,6 +424,19 @@ class EventsController < ApplicationController
        respond_to do |format|
          format.json { render json: return_data}
        end
+     when 'change_shozai_timeline'
+       shozai_id = params[:data]
+       shozai = Shozai.find(shozai_id)
+       shain = User.find(session[:user]).shainmaster
+       shain.shozai = shozai if shozai
+       if shain.save
+         return_data = {message: 'OK'}
+       else
+         return_data = {message: 'NotOK'}
+       end
+       respond_to do |format|
+         format.json { render json: return_data}
+       end
       when 'kintai_保守携帯回数'
        kintai = Kintai.where(日付: params[:date_kintai],社員番号: session[:user]).first
        Kintai.find(kintai.id).update(保守携帯回数: params[:hoshukeitai])
