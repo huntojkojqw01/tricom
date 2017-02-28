@@ -226,6 +226,7 @@ ja:
     delete_data_in_month_confirm: 当月の勤務データを削除されます。削除でよろしいでしょうか。
     select_confirm: 行を選択してください。
     forgot_password: パスワードを忘れた方はこちら。
+    update_pass_success: パスワードを更新できました。
     flash:
       kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
       import_csv: CSVファイルから読み込んでできました！
@@ -252,6 +253,7 @@ ja:
       logged_in: ログインしました。
       let_input_mail: メールを入力してください。
       let_login_with_code: コードでログインしてください。
+      send_mail: パスワードをメールに送りました。メールをチェックしてください。
     model:
       check_data_input: は開始日以上の値にしてください。
       schedule: すでに他のスケジュールがあります。

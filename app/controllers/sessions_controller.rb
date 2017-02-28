@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
           subject '【勤務システム】'
           body "担当者コード : 【#{user.try(:担当者コード)}】。新しいパスワード: 【"+ses+"】。"
         end
-        flash[:notice] = t "app.login.let_login"
+        flash[:notice] = t "app.login.send_mail"
         redirect_to login_path
       else
         flash[:danger] = t "app.flash.login_field"

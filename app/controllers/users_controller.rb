@@ -73,7 +73,8 @@ class UsersController < ApplicationController
           end
           redirect_to root_url
         else
-          redirect_to :back, notice: '新パスワードともう一度パスワードが異なります。'
+          flash[:notice] = t "app.update_pass_success"
+          redirect_to :back
         end
       else
         redirect_to :back, notice: 'ユーザーIDまたはパスワードが間違っています。'
