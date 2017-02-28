@@ -1,7 +1,8 @@
 class Joutaimaster < ActiveRecord::Base
   self.table_name = :状態マスタ
   self.primary_key = :状態コード
-
+  include PgSearch
+  multisearchable :against => %w{状態コード 状態名 状態区分 勤怠状態名 マーク 色 文字色 WEB使用区分 勤怠使用区分}
   scope :web_use, -> { where( WEB使用区分:'1')}
 
   validates :状態コード, :状態名, presence: true
@@ -53,5 +54,9 @@ class Joutaimaster < ActiveRecord::Base
         csv << attributes.map{ |attr| joutaimaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

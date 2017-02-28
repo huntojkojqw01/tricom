@@ -26,7 +26,8 @@ gem 'wkhtmltopdf-binary'
 #
 gem 'sprockets'
 gem 'sprockets-rails', '2.3.3'
-
+#PostgreSQL's full text search.
+gem 'pg_search'
 # gem 'bootstrap-sass', '~> 3.3.5', path: 'vendor/bootstrap-sass-3.3.5.1'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'sass-rails', '>= 3.2'

@@ -1,6 +1,7 @@
 class Kairan < ActiveRecord::Base
   self.table_name = :回覧
-
+  include PgSearch
+  multisearchable :against => %w{id 発行者 要件 開始 終了 件名 内容 確認 確認要 確認済}
   belongs_to :kairanyokenmst, foreign_key: :要件
   belongs_to :shainmaster, foreign_key: :発行者
 
@@ -23,5 +24,8 @@ class Kairan < ActiveRecord::Base
       end
     end
   end
-
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
+  end
 end

@@ -1,0 +1,21 @@
+%p#notice= notice
+
+%p
+  %b Title Japanses:
+  = @path.title_jp
+%p
+  %b Title English:
+  = @path.title_en
+
+%p
+  %b Model Name:
+  = @path.model_name
+
+%p
+  %b Path:
+  = @path.path_url
+
+= link_to '編集', edit_path_path(@path)
+\|
+= link_to '戻る', paths_path
+= provide(:title, (t 'title.path'))

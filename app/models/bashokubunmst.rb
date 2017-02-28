@@ -1,6 +1,8 @@
 class Bashokubunmst < ActiveRecord::Base
   self.table_name = :場所区分マスタ
   self.primary_key = :場所区分コード
+  include PgSearch
+  multisearchable :against => %w{場所区分コード 場所区分名}
 
   validates :場所区分コード, :場所区分名, presence: true
   validates :場所区分コード, uniqueness: true
@@ -28,5 +30,10 @@ class Bashokubunmst < ActiveRecord::Base
         csv << attributes.map{ |attr| bashokubunmst.send(attr) }
       end
     end
+  end
+
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

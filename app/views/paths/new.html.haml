@@ -1,0 +1,7 @@
+= javascript_include_tag 'paths'
+= provide(:title, (t 'title.path'))
+%ol.breadcrumb
+  %li= link_to (t 'title.menu'), main_path
+  %li.active Path /
+
+= render 'form', mode: :new

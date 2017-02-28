@@ -1,6 +1,9 @@
 class Keihihead < ActiveRecord::Base
   self.table_name = :keihi_heads
   self.primary_key = :申請番号
+  include PgSearch
+  multisearchable :against => %w{申請番号 日付 社員番号 申請者 交通費合計 日当合計 宿泊費合計
+      その他合計 旅費合計 仮払金 合計 支給品 過不足 承認kubun 承認者 清算予定日 清算日 承認済区分}
   has_many :keihibodies, foreign_key: :申請番号, dependent: :destroy
   belongs_to :shainmaster, foreign_key: :社員番号
 
@@ -40,6 +43,10 @@ class Keihihead < ActiveRecord::Base
         csv << attributes.map{ |attr| keihi_head.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 
   private

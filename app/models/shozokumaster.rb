@@ -1,7 +1,8 @@
 class Shozokumaster < ActiveRecord::Base
   self.table_name = :所属マスタ
   self.primary_key = :所属コード
-
+  include PgSearch
+  multisearchable :against => %w{所属コード 所属名}
   validates :所属コード, :所属名, presence: true
   validates :所属コード, uniqueness: true
 
@@ -29,5 +30,9 @@ class Shozokumaster < ActiveRecord::Base
         csv << attributes.map{ |attr| shozokumaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

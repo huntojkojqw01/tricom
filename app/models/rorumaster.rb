@@ -1,6 +1,8 @@
 class Rorumaster < ActiveRecord::Base
 	self.table_name = :ロールマスタ
 	self.primary_key = :ロールコード
+  include PgSearch
+  multisearchable :against => %w{ロールコード ロール名 序列}
   validates :ロールコード,:ロール名, presence: true
   validates :ロールコード, uniqueness: true
   validates :ロールコード, length: {maximum: 10}
@@ -28,5 +30,9 @@ class Rorumaster < ActiveRecord::Base
         csv << attributes.map{ |attr| rorumaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

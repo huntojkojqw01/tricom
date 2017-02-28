@@ -205,5 +205,9 @@
       <td><%= @index+=1 %></td>
       <td><%= link_to (t 'title.yuukyuu_kyuuka'), export_csv_yuukyuu_kyuuka_rirekis_path(format: :csv) %></td>
     </tr>
+    <tr>
+      <td><%= @index+=1 %></td>
+      <td><%= link_to (t 'title.path'), export_csv_paths_path(format: :csv) %></td>
+    </tr>
   </tbody>
 </table>
