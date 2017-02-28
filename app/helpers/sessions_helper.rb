@@ -12,9 +12,47 @@ module SessionsHelper
     # 現在保留
     # check_shozai()
     check_kintai_at_day_by_user(user.id, Date.today)
+    set_data_search
     respond_with user, location: time_line_view_events_url
   end
-
+  def set_data_search
+    if logged_in?
+      Bashokubunmst.rebuild_pg_search_documents
+      Bashomaster.rebuild_pg_search_documents
+      Bunrui.rebuild_pg_search_documents
+      Dengon.rebuild_pg_search_documents
+      Dengonkaitou.rebuild_pg_search_documents
+      Dengonyouken.rebuild_pg_search_documents
+      Eki.rebuild_pg_search_documents
+      Event.rebuild_pg_search_documents
+      Jobmaster.rebuild_pg_search_documents
+      Joutaimaster.rebuild_pg_search_documents
+      JptHolidayMst.rebuild_pg_search_documents
+      Kairan.rebuild_pg_search_documents
+      Kairanshosai.rebuild_pg_search_documents
+      Kairanyokenmst.rebuild_pg_search_documents
+      Kaishamaster.rebuild_pg_search_documents
+      Keihibody.rebuild_pg_search_documents
+      Keihihead.rebuild_pg_search_documents
+      Kikanmst.rebuild_pg_search_documents
+      Kintai.rebuild_pg_search_documents
+      Kouteimaster.rebuild_pg_search_documents
+      Rorumaster.rebuild_pg_search_documents
+      Rorumenba.rebuild_pg_search_documents
+      Setsubi.rebuild_pg_search_documents
+      Setsubiyoyaku.rebuild_pg_search_documents
+      Setting.rebuild_pg_search_documents
+      Shainmaster.rebuild_pg_search_documents
+      Shoninshamst.rebuild_pg_search_documents
+      Shozai.rebuild_pg_search_documents
+      Shozokumaster.rebuild_pg_search_documents
+      Tsushinseigyou.rebuild_pg_search_documents
+      User.rebuild_pg_search_documents
+      Yakushokumaster.rebuild_pg_search_documents
+      YuukyuuKyuukaRireki.rebuild_pg_search_documents
+      Yuusen.rebuild_pg_search_documents
+    end
+  end
   def current_user
     if session[:current_user_id]
       @current_user ||= User.find_by id: session[:current_user_id]

@@ -1,6 +1,7 @@
 class Dengonyouken < ActiveRecord::Base
   self.table_name = :伝言用件マスタ
-
+  include PgSearch
+  multisearchable :against => %w{id 種類名 備考 優先さ}
   belongs_to :yuusen, foreign_key: :優先さ
 
   validates :種類名, presence: true
@@ -26,5 +27,8 @@ class Dengonyouken < ActiveRecord::Base
       end
     end
   end
-
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
+  end
 end

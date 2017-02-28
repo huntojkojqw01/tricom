@@ -1,7 +1,8 @@
 class Shainmaster < ActiveRecord::Base
   self.table_name = :社員マスタ
   self.primary_key = :社員番号
-
+  include PgSearch
+  multisearchable :against => %w{序列 社員番号 連携用社員番号 氏名 所属コード デフォルトロール 直間区分 役職コード 内線電話番号 伝言件数 回覧件数 所在コード 有給残数 残業区分 勤務タイプ }
   # default_scope { where("社員番号 is not '#{ENV['admin_user']}'")}
   default_scope { order(序列: :ASC) }
   validates :社員番号,:氏名, :連携用社員番号, presence: true
@@ -69,5 +70,9 @@ class Shainmaster < ActiveRecord::Base
         csv << attributes.map{ |attr| shainmaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

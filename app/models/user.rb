@@ -1,6 +1,8 @@
 class User < ActiveRecord::Base
   self.table_name = :担当者マスタ
   self.primary_key = :担当者コード
+  include PgSearch
+  multisearchable :against => %w{担当者コード 担当者名称 admin email supervisor}
   attr_accessor :current_password
   attr_accessor :flag_reset_password
   attr_accessor :remember_token
@@ -72,5 +74,9 @@ class User < ActiveRecord::Base
         errors.add(:current_password, I18n.t('errors.messages.current_password_incorrect'))
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

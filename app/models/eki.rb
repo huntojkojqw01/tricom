@@ -1,4 +1,7 @@
 class Eki < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:駅コード, :駅名, :駅名カナ, :選択回数]
+
   self.table_name = :駅マスタ
   self.primary_key = :駅コード
 
@@ -26,4 +29,10 @@ class Eki < ActiveRecord::Base
       end
     end
   end
+
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
+  end
+
 end

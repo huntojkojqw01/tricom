@@ -1,7 +1,8 @@
 class Kaishamaster < ActiveRecord::Base
   self.table_name = :会社マスタ
   self.primary_key = :会社コード
-
+  include PgSearch
+  multisearchable :against => %w{会社コード 会社名 備考}
   validates :会社コード, :会社名, presence: true
   validates :会社コード, uniqueness: true
 
@@ -36,5 +37,9 @@ class Kaishamaster < ActiveRecord::Base
         csv << attributes.map{ |attr| kaishamaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

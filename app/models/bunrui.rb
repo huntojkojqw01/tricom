@@ -1,7 +1,8 @@
 class Bunrui < ActiveRecord::Base
   self.table_name = :分類マスタ
   self.primary_key = :分類コード
-
+  include PgSearch
+  multisearchable :against => %w{分類コード 分類名}
   validates :分類コード, uniqueness: true
   validates :分類コード, :分類名, presence: true
 
@@ -22,5 +23,9 @@ class Bunrui < ActiveRecord::Base
         csv << attributes.map{ |attr| user.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

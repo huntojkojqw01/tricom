@@ -1,4 +1,6 @@
 class Kikanmst < ActiveRecord::Base
+  include PgSearch
+  multisearchable :against => [:機関コード, :機関名, :備考]
   self.table_name = :機関マスタ
   self.primary_key = :機関コード
 
@@ -25,5 +27,9 @@ class Kikanmst < ActiveRecord::Base
         csv << attributes.map{ |attr| kikanmst.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

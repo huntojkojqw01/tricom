@@ -1,6 +1,7 @@
 class Setsubiyoyaku < ActiveRecord::Base
   self.table_name = :設備予約
-
+  include PgSearch
+  multisearchable :against => %w{設備コード 予約者 相手先 開始 終了 用件}
   validates :設備コード, :開始, :終了, presence: true
 
   belongs_to :setsubi, foreign_key: :設備コード
@@ -8,7 +9,10 @@ class Setsubiyoyaku < ActiveRecord::Base
   belongs_to :kaishamaster, foreign_key: :相手先
 
   validate :check_date_input
-
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
+  end
   private
   def check_date_input
     if 開始.present? && 終了.present? && 開始 >= 終了

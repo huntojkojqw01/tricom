@@ -1,6 +1,7 @@
 class Shoninshamst < ActiveRecord::Base
   self.table_name = :承認者マスタ
-
+  include PgSearch
+  multisearchable :against => %w{申請者 承認者 順番}
   scope :current_user, ->(member) {where( 承認者: member)}
   belongs_to :shouninsha, foreign_key: :承認者, class_name: 'Shainmaster'
   belongs_to :shinseisha, foreign_key: :申請者, class_name: 'Shainmaster'
@@ -29,7 +30,10 @@ class Shoninshamst < ActiveRecord::Base
       end
     end
   end
-
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
+  end
   private
   def check_shainmaster_equal
     if self.申請者 == self.承認者

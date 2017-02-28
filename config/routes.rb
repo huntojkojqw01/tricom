@@ -7,6 +7,10 @@ Jpt::Application.routes.draw do
     collection {get :export_csv}
     collection {post :import}
   end
+  resources :paths do
+    collection {get :export_csv}
+    collection {post :import}
+  end
   resources :setsubis do
     collection {post :import}
     collection {get :export_csv}
@@ -18,7 +22,7 @@ Jpt::Application.routes.draw do
   get 'kanris/index'
 
   get 'kanri/index'
-
+  get 'main/search'
   get 'helps' => 'helps#index'
 
   resources :kairans do

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170209104500) do
+ActiveRecord::Schema.define(version: 20170227104628) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -187,6 +187,15 @@ ActiveRecord::Schema.define(version: 20170209104500) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "paths", force: :cascade do |t|
+    t.string   "title_jp"
+    t.string   "title_en"
+    t.string   "model_name_field"
+    t.string   "path_url"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
   create_table "pg_search_documents", force: :cascade do |t|
     t.text     "content"
     t.string   "searchable_type"
@@ -263,6 +272,7 @@ ActiveRecord::Schema.define(version: 20170209104500) do
     t.string   "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "color"
     t.integer  "優先さ"
   end
 
@@ -301,6 +311,7 @@ ActiveRecord::Schema.define(version: 20170209104500) do
     t.string   "備考"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string   "color"
     t.integer  "優先さ"
   end
 

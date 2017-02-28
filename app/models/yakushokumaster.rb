@@ -2,7 +2,8 @@ class Yakushokumaster < ActiveRecord::Base
   include VerificationAssociations
   self.table_name = :役職マスタ
   self.primary_key = :役職コード
-
+  include PgSearch
+  multisearchable :against => %w{役職コード 役職名}
   validates :役職コード, :役職名, presence: true
   validates :役職コード, uniqueness: true
 
@@ -28,5 +29,9 @@ class Yakushokumaster < ActiveRecord::Base
         csv << attributes.map{ |attr| yakushokumaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

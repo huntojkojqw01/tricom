@@ -107,6 +107,11 @@ $(document).ready(function() {
         readURL(this);
     });
 });
+$(function(){
+  $("#search").click(function(){
+    location.href = "/main/search?search="+$("#search_field").val()
+  })
+});
 //Override the default confirm dialog by rails
 $.rails.allowAction = function(link){
   if (link.data("confirm") == undefined){

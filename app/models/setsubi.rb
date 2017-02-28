@@ -1,6 +1,8 @@
 class Setsubi < ActiveRecord::Base
 	self.table_name = :設備マスタ
  	self.primary_key = :設備コード
+  include PgSearch
+  multisearchable :against => %w{設備コード 設備名 備考}
   validates :設備コード, :設備名, presence: true
   validates :設備コード, uniqueness: true
   has_many :setsubiyoyaku, dependent: :destroy, foreign_key: :設備コード
@@ -22,4 +24,8 @@ class Setsubi < ActiveRecord::Base
       		end
     	end
   	end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
+  end
 end

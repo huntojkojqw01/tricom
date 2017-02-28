@@ -1,7 +1,8 @@
 class Kouteimaster < ActiveRecord::Base
   self.table_name = :工程マスタ
   self.primary_keys = :所属コード, :工程コード
-
+  include PgSearch
+  multisearchable :against => %w{所属コード 工程コード 工程名}
   validates :所属コード, :工程コード, :工程名, presence: true
   validates :工程コード, uniqueness: {scope: :所属コード}
 
@@ -34,5 +35,9 @@ class Kouteimaster < ActiveRecord::Base
         csv << attributes.map{ |attr| kouteimaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end

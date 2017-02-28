@@ -2,7 +2,8 @@ class Shozai < ActiveRecord::Base
   require 'csv'
   self.table_name = :所在マスタ
   self.primary_key = :所在コード
-
+  include PgSearch
+  multisearchable :against => %w{所在コード 所在名 背景色 文字色}
   validates :所在コード, :所在名, presence: true
   validates :所在コード, uniqueness: true
 
@@ -33,6 +34,11 @@ class Shozai < ActiveRecord::Base
         csv << attributes.map{ |attr| shozai.send(attr) }
       end
     end
+  end
+
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 
 end

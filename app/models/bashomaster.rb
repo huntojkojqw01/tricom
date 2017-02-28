@@ -2,6 +2,8 @@ class Bashomaster < ActiveRecord::Base
   self.table_name = :場所マスタ
   self.primary_key = :場所コード
 
+  include PgSearch
+  multisearchable :against => %w{場所コード 場所名 場所名カナ SUB 場所区分 会社コード}
 
   validates :場所コード, :場所名, presence: true
   validates :場所コード, uniqueness: true
@@ -54,5 +56,9 @@ class Bashomaster < ActiveRecord::Base
         csv << attributes.map{ |attr| bashomaster.send(attr) }
       end
     end
+  end
+  # Naive approach
+  def self.rebuild_pg_search_documents
+    find_each { |record| record.update_pg_search_document }
   end
 end
