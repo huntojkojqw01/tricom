@@ -1,8 +1,8 @@
 class Kouteimaster < ActiveRecord::Base
   self.table_name = :工程マスタ
-  self.primary_keys = :所属コード, :工程コード
+  self.primary_keys = :工程コード, :所属コード
   include PgSearch
-  multisearchable :against => %w{所属コード 工程コード 工程名}
+  multisearchable :against => %w{shozokumaster_name 工程コード 工程名}
   validates :所属コード, :工程コード, :工程名, presence: true
   validates :工程コード, uniqueness: {scope: :所属コード}
 
@@ -40,4 +40,19 @@ class Kouteimaster < ActiveRecord::Base
   def self.rebuild_pg_search_documents
     find_each { |record| record.update_pg_search_document }
   end
+  # More sophisticated approach
+  # def self.rebuild_pg_search_documents
+  #   PgSearch::Document.delete_all(:searchable_type => "Kouteimaster")
+  #   connection.execute <<-SQL
+  #    INSERT INTO pg_search_documents (searchable_type, searchable_id, content, created_at, updated_at)
+  #      SELECT 'Kouteimaster' AS searchable_type,
+  #             工程コード AS searchable_id,
+  #             (所属マスタ.所属名 || ' ' || 工程コード || ' ' || 工程名) AS content,
+  #             now() AS created_at,
+  #             now() AS updated_at
+  #      FROM 工程マスタ
+  #      LEFT JOIN 所属マスタ
+  #        ON 所属マスタ.所属コード = 工程マスタ.所属コード
+  #   SQL
+  # end
 end

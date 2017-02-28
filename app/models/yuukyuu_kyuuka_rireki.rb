@@ -2,7 +2,7 @@ class YuukyuuKyuukaRireki < ActiveRecord::Base
   self.table_name = :有給休暇履歴
   self.primary_key = :社員番号, :年月
   include PgSearch
-  multisearchable :against => %w{社員番号 年月 月初有給残 月末有給残}
+  multisearchable :against => %w{社員番号 年月 }
   validates :年月,:社員番号, presence: true
   belongs_to :shainmaster, foreign_key: :社員番号
 

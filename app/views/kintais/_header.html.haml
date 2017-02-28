@@ -23,12 +23,12 @@
         %th 月初残
         %td
           - if @yuukyuu_kyuuka_rireki.nil?
-            - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+            - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
               %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: 0}
             - else
               %input.form-control{size: 4, type: "text", class: "input-number", value: 0, disabled: true}
           - else
-            - if @kintai.入力済 == '0' || @kintai.入力済.nil?
+            - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
               %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: @yuukyuu_kyuuka_rireki.月初有給残}
             - else
               %input.form-control{size: 4,type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}

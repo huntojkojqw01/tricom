@@ -15,6 +15,7 @@ $(function() {
             "visible": false
         }
         ]
+        ,"oSearch": {"sSearch": queryParameters().search}
     });
 
     $('#holiday_table').on( 'click', 'tr', function () {

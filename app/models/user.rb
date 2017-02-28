@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   self.table_name = :担当者マスタ
   self.primary_key = :担当者コード
   include PgSearch
-  multisearchable :against => %w{担当者コード 担当者名称 admin email supervisor}
+  multisearchable :against => %w{担当者コード 担当者名称}
   attr_accessor :current_password
   attr_accessor :flag_reset_password
   attr_accessor :remember_token

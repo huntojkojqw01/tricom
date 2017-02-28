@@ -13,15 +13,15 @@ class MainController < ApplicationController
   end
   def search
     vars = request.query_parameters
-    search = ''
+    @search = ''
     if vars['search']!= '' && !vars['search'].nil?
-      search = vars['search']
+      @search = vars['search']
     end
-    @searchs = PgSearch::Document.where('content LIKE ?','%'+search+'%').select(:searchable_type).distinct
+    @searchs = PgSearch::Document.where('content LIKE ?','%'+@search+'%').select(:searchable_type).distinct
     @paths = Path.all.where(model_name_field: (@searchs.map(&:searchable_type)))
-    .or(Path.where('title_jp LIKE ?','%'+search+'%'))
-    .or(Path.where('title_en LIKE ?','%'+search+'%'))
-    .or(Path.where('model_name_field LIKE ?','%'+search+'%'))
+    @masters = Path.where('title_jp LIKE ?','%'+@search+'%')
+    .or(Path.where('title_en LIKE ?','%'+@search+'%'))
+    .or(Path.where('model_name_field LIKE ?','%'+@search+'%'))
 
   end
 end

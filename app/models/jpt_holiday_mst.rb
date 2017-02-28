@@ -1,6 +1,6 @@
 class JptHolidayMst < ActiveRecord::Base
   include PgSearch
-  multisearchable :against => %w{event_date title description}
+  multisearchable :against => %w{title description}
   def self.import(file)
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|

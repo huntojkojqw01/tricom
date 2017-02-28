@@ -1,7 +1,7 @@
 class Kairanyokenmst < ActiveRecord::Base
   self.table_name = :回覧用件マスタ
   include PgSearch
-  multisearchable :against => %w{id 名称 備考 優先さ}
+  multisearchable :against => %w{名称 備考}
   belongs_to :yuusen, foreign_key: :優先さ
 
   validates :名称, presence: true

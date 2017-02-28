@@ -11,6 +11,12 @@ class KeihiheadsController < ApplicationController
     date = vars['date']
     shain = vars['shain']
     shonin = vars['shonin']
+    search = vars['search']
+    if !search.nil?
+      date = ''
+      shain = ''
+      shonin = ''
+    end
     if date.nil? && shain.nil? && shonin.nil?
       @keihiheads = Keihihead.where(社員番号: session[:user], 清算予定日: Date.today).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
     elsif shonin == ''

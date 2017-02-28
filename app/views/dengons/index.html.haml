@@ -44,7 +44,7 @@
           %td= dengon.伝言内容
           -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
           %td= dengon.確認 == true ? (t 'title.kakuninzu'):'未確認'
-          %td= dengon.送信 == true ? (t 'title.approval'):'不可'
+          %td= dengon.送信 == true ? (t 'app.label.necessary'):(t 'app.label.unnecessary')
           %td= link_to (t 'title.edit'), edit_dengon_path(dengon)
           %td= link_to (t 'title.delete'), dengon, :method => :delete, :data => { :confirm => (t 'title.delete_confirm') }
 

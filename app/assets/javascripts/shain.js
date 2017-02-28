@@ -16,6 +16,7 @@ $(function() {
             "targets"  : 'no-sort',
             "orderable": false
         }]
+        ,"oSearch": {"sSearch": queryParameters().search}
 
     });
 
@@ -45,8 +46,8 @@ $(function() {
             $(this).addClass('success');
         }
 
-    } );    
-    
+    } );
+
     //init yakushoku modal table
     oYakushokuTable = $('#yakushoku_search_table').DataTable({
         "pagingType": "full_numbers"

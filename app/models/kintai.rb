@@ -1,9 +1,8 @@
 class Kintai < ActiveRecord::Base
   # scope :current_month, ->(member) { where( 社員番号: member, 日付: Date.today.beginning_of_month..Date.today.end_of_month )}
   include PgSearch
-  multisearchable :against => %w{日付 曜日 勤務タイプ 実労働時間 普通残業時間 深夜残業時間 普通保守時間
-      深夜保守時間 保守携帯回数 状態1 状態2 状態3 備考 社員番号 入力済 holiday 代休相手日付 代休取得区分
-      出勤時刻 退社時刻 遅刻時間 早退時間}
+  multisearchable :against => %w{日付 曜日 勤務タイプ joutai_状態名 備考 社員番号}
+
   scope :selected_month, ->(member,month) { where( 社員番号:  member, 日付: month.beginning_of_month..month.end_of_month ) }
   scope :selected_tocurrent, ->(member,month) { where( 社員番号:  member, 日付: Date.today.beginning_of_year..month.prev_month.end_of_month ) }
   scope :current_user, ->(member) { where( 社員番号: member)}
@@ -32,7 +31,7 @@ class Kintai < ActiveRecord::Base
   validates :深夜残業時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
   validates :普通保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
   validates :深夜保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
-
+  delegate :状態名, to: :joutaimaster, prefix: :joutai, allow_nil: true
   def self.import(file)
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|
@@ -57,6 +56,10 @@ class Kintai < ActiveRecord::Base
   def self.rebuild_pg_search_documents
     find_each { |record| record.update_pg_search_document }
   end
+
+  # def shain_logined?
+  #   社員番号 == Thread.current[:session][:user] if !Thread.current[:session].nil?
+  # end
   private
   def check_date_input
     if 出勤時刻.present? && 退社時刻.present?

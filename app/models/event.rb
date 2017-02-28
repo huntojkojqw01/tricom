@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
   include VerificationAssociations
   self.table_name = :events
   include PgSearch
-  multisearchable :against => %w{社員番号 開始 終了 状態コード 場所コード JOB 所属コード 工程コード 工数 計上 comment}
+  multisearchable :against => %w{社員番号 開始 終了 joutai_状態名 場所コード job_job名 所属コード koutei_工程名 計上 comment}
 
   validates :社員番号, :開始, :状態コード, presence: true
   validates :工程コード, :場所コード, :JOB, presence: true, if: Proc.new{|event| event.joutaimaster.try(:状態区分) == '1' && !(event.joutaimaster.try(:状態コード) == '60' && Time.parse(event.開始).hour >= 9)}

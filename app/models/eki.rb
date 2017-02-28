@@ -1,6 +1,6 @@
 class Eki < ActiveRecord::Base
   include PgSearch
-  multisearchable :against => [:駅コード, :駅名, :駅名カナ, :選択回数]
+  multisearchable :against => [:駅コード, :駅名, :駅名カナ]
 
   self.table_name = :駅マスタ
   self.primary_key = :駅コード

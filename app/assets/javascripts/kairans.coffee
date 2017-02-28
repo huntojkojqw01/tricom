@@ -66,6 +66,7 @@ jQuery ->
 #      'selectColumns',
 #      'selectCells'
     ],
+    "oSearch": {"sSearch": queryParameters().search}
   })
 
   shain_table = $('.shain-table').DataTable({

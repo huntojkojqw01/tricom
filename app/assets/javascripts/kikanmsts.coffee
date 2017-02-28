@@ -12,6 +12,7 @@ jQuery ->
       "targets"  : 'no-sort',
       "orderable": false
     }]
+    ,"oSearch": {"sSearch": queryParameters().search}
   })
 
   $("#edit_kikan").attr("disabled", true);

@@ -345,6 +345,7 @@ jQuery ->
       {"targets": [ 5 ],"visible": false }
     ],
     "order": [],
+    "oSearch": {"sSearch": queryParameters().search},
     "columnDefs": [ {
       "targets"  : 'no-sort',
       "orderable": false

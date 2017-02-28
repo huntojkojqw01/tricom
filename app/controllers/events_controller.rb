@@ -164,12 +164,12 @@ class EventsController < ApplicationController
         end
         if vars['roru'].empty? && !vars['joutai'].empty?
           @all_events=Event.where(状態コード: vars['joutai'])
-          @shains = Shainmaster.where(タイムライン区分: false).all.joins(:rorumenbas).reorder("ロールメンバ.ロール内序列 asc,ロールメンバ.ロールコード asc")
+          @shains = Shainmaster.where(タイムライン区分: false, 所在コード: vars['joutai']).all.joins(:rorumenbas).reorder("ロールメンバ.ロール内序列 asc,ロールメンバ.ロールコード asc")
         end
         if !vars['roru'].empty? && !vars['joutai'].empty?
           @all_events=Event.where(状態コード: vars['joutai'])
           rorumenbas = Rorumenba.where(ロールコード: vars['roru'])
-          @shains = Shainmaster.where(タイムライン区分: false).joins(:rorumenbas).where(ロールメンバ: {ロールコード: vars['roru']}).reorder('ロールメンバ.ロールコード asc,ロールメンバ.ロール内序列 asc')
+          @shains = Shainmaster.where(タイムライン区分: false,所在コード: vars['joutai']).joins(:rorumenbas).where(ロールメンバ: {ロールコード: vars['roru']}).reorder('ロールメンバ.ロールコード asc,ロールメンバ.ロール内序列 asc')
         end
       end
 

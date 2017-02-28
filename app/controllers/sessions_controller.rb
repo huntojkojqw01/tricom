@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
     #               :port                 => 587,
     #               :domain               => 'heroku.com',
     #               :user_name            => 'anhmt212@gmail.com',
-    #               :password             => 'bachanh212',
+    #               :password             => 'password_of_mail',
     #               :authentication       => 'plain',
     #               :enable_starttls_auto => true  }
 

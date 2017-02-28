@@ -88,7 +88,21 @@ function getUrlVars() {
     });
     return vars;
   }
+//ex. queryParameters().search
+function queryParameters () {
+        var result = {};
 
+        var uri_dec = decodeURIComponent(window.location.search);
+        var params = uri_dec.split(/\?|\&/);
+
+        params.forEach( function(it) {
+            if (it) {
+                var param = it.split("=");
+                result[param[0]] = param[1];
+            }
+        });
+        return result;
+    }
 //display thumb preview of avatar in Edit User
 function readURL(input) {
 
@@ -108,9 +122,15 @@ $(document).ready(function() {
     });
 });
 $(function(){
-  $("#search").click(function(){
+  $("#search_icon").click(function(){
     location.href = "/main/search?search="+$("#search_field").val()
-  })
+  });
+  $('#search_field').keydown( function(e) {
+    if (e.keyCode == 13) {
+      location.href = "/main/search?search="+$("#search_field").val()
+    }
+  });
+
 });
 //Override the default confirm dialog by rails
 $.rails.allowAction = function(link){
