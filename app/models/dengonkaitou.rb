@@ -1,7 +1,7 @@
 class Dengonkaitou < ActiveRecord::Base
   self.table_name = :伝言回答マスタ
   include PgSearch
-  multisearchable :against => %w{id 種類名 備考}
+  multisearchable :against => %w{種類名 備考}
   validates :種類名, presence: true
 
   # a class method import, with file passed through as an argument

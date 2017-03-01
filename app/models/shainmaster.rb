@@ -2,7 +2,7 @@ class Shainmaster < ActiveRecord::Base
   self.table_name = :社員マスタ
   self.primary_key = :社員番号
   include PgSearch
-  multisearchable :against => %w{序列 社員番号 連携用社員番号 氏名 所属コード デフォルトロール 直間区分 役職コード 内線電話番号 伝言件数 回覧件数 所在コード 有給残数 残業区分 勤務タイプ }
+  multisearchable :against => %w{序列 社員番号 連携用社員番号 氏名 shozoku_name roru_ロール名 yakushoku_役職名 内線電話番号 有給残数 }
   # default_scope { where("社員番号 is not '#{ENV['admin_user']}'")}
   default_scope { order(序列: :ASC) }
   validates :社員番号,:氏名, :連携用社員番号, presence: true
@@ -43,7 +43,9 @@ class Shainmaster < ActiveRecord::Base
     from 担当者マスタ)"}
   scope :get_kubun, ->{where(区分: false)}
   delegate :所在名, to: :shozai, prefix: :shozai, allow_nil: true
-
+  delegate :name, to: :shozokumaster, prefix: :shozoku, allow_nil: true
+  delegate :ロール名, to: :rorumaster, prefix: :roru, allow_nil: true
+  delegate :役職名, to: :yakushokumaster, prefix: :yakushoku, allow_nil: true
   def self.import(file)
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|

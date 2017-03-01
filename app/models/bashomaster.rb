@@ -3,7 +3,7 @@ class Bashomaster < ActiveRecord::Base
   self.primary_key = :場所コード
 
   include PgSearch
-  multisearchable :against => %w{場所コード 場所名 場所名カナ SUB 場所区分 会社コード}
+  multisearchable :against => %w{場所コード 場所名 場所名カナ SUB bashokubun_場所区分名 kaisha_name}
 
   validates :場所コード, :場所名, presence: true
   validates :場所コード, uniqueness: true
@@ -16,6 +16,7 @@ class Bashomaster < ActiveRecord::Base
   belongs_to :bashokubunmst, foreign_key: :場所区分
 
   delegate :name, to: :kaishamaster, prefix: :kaisha, allow_nil: true
+  delegate :場所区分名, to: :bashokubunmst, prefix: :bashokubun, allow_nil: true
 
   alias_attribute :id, :場所コード
   alias_attribute :name, :場所名

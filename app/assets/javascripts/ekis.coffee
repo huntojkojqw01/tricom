@@ -13,7 +13,7 @@ jQuery ->
       "targets"  : 'no-sort',
       "orderable": false
     }],
-
+    "oSearch": {"sSearch": queryParameters().search},
 
     "buttons": [{
                 "extend":    'copyHtml5',

@@ -23,6 +23,7 @@ jQuery ->
 #      'rightColumns': 2,
 #      'heightMatch': 'none'
 #    }
+    "oSearch": {"sSearch": queryParameters().search}
   })
 
   oKaisha_modal = $('#kaisha-table-modal').DataTable({

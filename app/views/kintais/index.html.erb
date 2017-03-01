@@ -48,7 +48,7 @@
       <tr id="kintai-<%= kintai.id %>" class="<%= add_class %>">
         <td  id= "date<%= kintai.id %>" ><%= kintai.日付 %></td>
         <td><%= kintai.曜日 %></td>
-        <% if @kintai.入力済 == '0' || @kintai.入力済.nil? %>
+        <% if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil? %>
        <!--    <% if kintai.出勤時刻.blank? %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><i class='fa fa-edit'></i></td>
           <% else %>

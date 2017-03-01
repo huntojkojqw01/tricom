@@ -1,7 +1,7 @@
 class Dengonyouken < ActiveRecord::Base
   self.table_name = :伝言用件マスタ
   include PgSearch
-  multisearchable :against => %w{id 種類名 備考 優先さ}
+  multisearchable :against => %w{種類名 備考}
   belongs_to :yuusen, foreign_key: :優先さ
 
   validates :種類名, presence: true

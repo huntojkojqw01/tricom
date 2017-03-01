@@ -34,4 +34,5 @@ jQuery ->
       "targets": 'no-sort',
       "orderable": false
     }]
+    ,"oSearch": {"sSearch": queryParameters().search}
   })

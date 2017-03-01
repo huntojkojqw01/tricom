@@ -1,4 +1,4 @@
-%div#back-to-top-of-guide
+%div#back-to-top-of-guidesearch
 %nav.navbar.navbar-inverse.rarius
   .container-fluid.row
     - if current_user
@@ -29,10 +29,10 @@
             %span.caret
           %ul.dropdown-menu
             %li= link_to raw("<i class='glyphicon glyphicon-question-sign' style='margin-right:1em;'></i>"+(t 'title.help')), helps_path
-      .col-md-2.col-xs-6.col-sm-2.col-lg-2
+      .col-md-2.col-xs-6.col-sm-4.col-lg-2
         .input-group.search-field
           %input{type: "text", class: "form-control ",id: :search_field, name: :search_field,}
-          %span.input-group-addon#search
+          %span.input-group-addon#search_icon
             %span.glyphicon.glyphicon-search{"aria-hidden" => "true"}
       %ul.nav.navbar-nav.navbar-right
         - if current_user

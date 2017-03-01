@@ -7,6 +7,7 @@ jQuery ->
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
+    ,"oSearch": {"sSearch": queryParameters().search}
     ,"aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 2,3 ]},
       {

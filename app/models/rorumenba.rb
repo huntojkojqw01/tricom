@@ -2,12 +2,12 @@ class Rorumenba < ActiveRecord::Base
 	self.table_name = :ロールメンバ
 	self.primary_keys = :ロールコード, :社員番号
   include PgSearch
-  multisearchable :against => %w{ロールコード 社員番号 氏名 ロール内序列}
+  multisearchable :against => %w{ロールコード rorumaster_ロール名 社員番号 氏名 ロール内序列}
   validates :ロールコード,:社員番号, presence: true
   validates :ロール内序列, length: {maximum: 10}
 	belongs_to :shainmaster, foreign_key: :社員番号
 	belongs_to :rorumaster, foreign_key: :ロールコード
-
+  delegate :ロール名, to: :rorumaster, prefix: :rorumaster, allow_nil: true
   def self.import(file)
 
     # a block that runs through a loop in our CSV data

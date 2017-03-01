@@ -2,7 +2,7 @@ class Jobmaster < ActiveRecord::Base
   self.table_name = :JOBマスタ
   self.primary_key = :job番号
   include PgSearch
-  multisearchable :against => %w{job番号 job名 開始日 終了日 ユーザ番号 ユーザ名 入力社員番号 分類コード 分類名 関連Job番号 備考}
+  multisearchable :against => %w{job番号 job名 ユーザ番号 ユーザ名 入力社員番号 分類コード 分類名 関連Job番号 備考}
   validates :job番号, uniqueness: true
   validates :job番号, :job名, presence: true
   validates :入力社員番号, numericality: { only_integer: true }, inclusion: {in: Shainmaster.pluck(:社員番号)}, allow_blank: true

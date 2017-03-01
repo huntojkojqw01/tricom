@@ -50,6 +50,7 @@ class KintaisController < ApplicationController
       when (t 'helpers.submit.destroy')
         if(notice!= (t 'app.flash.import_csv'))
           @kintais = Kintai.selected_month(session[:user], date).order(:日付).destroy_all
+          redirect_to kintais_url
         end
     end
     @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])

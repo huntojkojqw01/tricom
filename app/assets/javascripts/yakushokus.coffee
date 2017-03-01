@@ -9,6 +9,7 @@ jQuery ->
       "targets"  : 'no-sort',
       "orderable": false
     }]
+    ,"oSearch": {"sSearch": queryParameters().search}
   })
   $("#edit_yakushoku").attr("disabled", true);
   $("#destroy_yakushoku").attr("disabled", true);

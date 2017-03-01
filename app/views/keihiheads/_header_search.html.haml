@@ -4,14 +4,18 @@
       / .col-md-12.col-xs-12.col-sm-12.col-lg-12
       = f.label :清算予定日
       .input-group.datetime
-        - if request["date"].nil?
+        - if !request["search"].nil?
+          = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: ''
+        - elsif request["date"].nil?
           = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: Date.today
         - else
           = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: request['date']
         %span.input-group-addon#search_date_icon
           %span.glyphicon.glyphicon-calendar#search_date_icon{"aria-hidden" => "true"}
       = f.label :対象者
-      - if request['shain'].nil?
+      - if !request["search"].nil?
+        = f.select(:対象者, Shainmaster.all.order(:社員番号).collect {|p| [ p.氏名, p.社員番号 ] } , {selected: '', include_blank: '全員' }, class: 'form-control')
+      - elsif request['shain'].nil?
         = f.select(:対象者, Shainmaster.all.order(:社員番号).collect {|p| [ p.氏名, p.社員番号 ] } , {selected: session[:user], include_blank: '全員' }, class: 'form-control')
       - else
         = f.select(:対象者, Shainmaster.all.order(:社員番号).collect {|p| [ p.氏名, p.社員番号 ] } , {selected: request['shain'], include_blank: "全員" }, class: 'form-control')
