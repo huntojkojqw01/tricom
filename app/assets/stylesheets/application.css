@@ -27,6 +27,17 @@
 .search-field{
   margin-top: 10px;
 }
+.search-icon{
+  background-color: rgb(255, 255, 255);
+  border-bottom-left-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.search-input{
+  border-left-width: 0;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+}
 .div_scoll {
   overflow-x:auto;
   overflow-y:auto;

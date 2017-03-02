@@ -121,9 +121,23 @@ $(document).ready(function() {
         readURL(this);
     });
 });
+
+$(document).on('click', function (e) {
+    var $menu = $('#search_field');
+    // If element is opened and click target is outside it, hide it
+    if ($menu.is(':visible') && !$menu.is(e.target) && !$menu.has(e.target).length) {
+      $('.search-group').removeClass('col-md-4 col-xs-10 col-sm-8 col-lg-4');
+      $('.search-group').addClass('col-md-2 col-xs-6 col-sm-4 col-lg-2');
+
+    }
+});
 $(function(){
   $("#search_icon").click(function(){
     location.href = "/main/search?search="+$("#search_field").val()
+  });
+  $("#search_field").click(function(){
+    $('.search-group').removeClass('col-md-2 col-xs-6 col-sm-4 col-lg-2');
+    $('.search-group').addClass('col-md-4 col-xs-10 col-sm-8 col-lg-4');
   });
   $('#search_field').keydown( function(e) {
     if (e.keyCode == 13) {
