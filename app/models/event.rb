@@ -2,7 +2,7 @@ class Event < ActiveRecord::Base
   include VerificationAssociations
   self.table_name = :events
   include PgSearch
-  multisearchable :against => %w{社員番号 開始 終了 joutai_状態名 場所コード job_job名 所属コード koutei_工程名 計上 comment}
+  multisearchable :against => %w{開始 終了 joutai_状態名 basho_name job_job名 koutei_工程名 計上}
 
   validates :社員番号, :開始, :状態コード, presence: true
   validates :工程コード, :場所コード, :JOB, presence: true, if: Proc.new{|event| event.joutaimaster.try(:状態区分) == '1' && !(event.joutaimaster.try(:状態コード) == '60' && Time.parse(event.開始).hour >= 9)}
@@ -33,6 +33,14 @@ class Event < ActiveRecord::Base
   def check_date_input
     if 開始.present? && 終了.present? && 開始 >= 終了
       errors.add(:終了, (I18n.t 'app.model.check_data_input'))
+    end
+  end
+  def basho_name
+    basho = Bashomaster.find_by(場所コード: self.場所コード)
+    if basho.try(:場所区分) == '2'
+      basho.try(:kaisha_name)
+    else
+      basho.try(:name)
     end
   end
   def self.import(file)

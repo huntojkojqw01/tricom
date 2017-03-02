@@ -1030,6 +1030,7 @@ $(function(){
         "columnDefs": [
             {"targets" : 'no-sort', "orderable": false}
         ],
+        "oSearch": {"sSearch": queryParameters().search},
         "autoWidth": true,
         "buttons": [{
             "extend":    'copyHtml5',

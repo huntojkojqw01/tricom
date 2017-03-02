@@ -18,10 +18,10 @@ class MainController < ApplicationController
       @search = vars['search']
     end
     @searchs = PgSearch::Document.where('content LIKE ?','%'+@search+'%').select(:searchable_type).distinct
-    @paths = Path.all.where(model_name_field: (@searchs.map(&:searchable_type)))
+    @paths = Path.all.where(model_name_field: (@searchs.map(&:searchable_type))).where.not(title_jp: (t 'title.time_line_view'))
     @masters = Path.where('title_jp LIKE ?','%'+@search+'%')
     .or(Path.where('title_en LIKE ?','%'+@search+'%'))
     .or(Path.where('model_name_field LIKE ?','%'+@search+'%'))
-
+    @masters = @masters.where.not(model_name_field: (@paths.map(&:model_name_field)))
   end
 end

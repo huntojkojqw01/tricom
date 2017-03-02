@@ -164,7 +164,7 @@ class KintaisController < ApplicationController
         time_start = params[:timeStart]
         time_end = params[:timeEnd]
         kintai = Kintai.find_by(id: params[:idKintai])
-        kintai.update(出勤時刻: time_start,退社時刻: time_end, 実労働時間: params[:real_hours], 普通残業時間: params[:fustu_zangyo], 深夜残業時間: params[:shinya_zangyou], 普通保守時間: params[:yoru_kyukei], 深夜保守時間: params[:shinya_kyukei], 遅刻時間: params[:chikoku_soutai])
+        kintai.update(出勤時刻: time_start,退社時刻: time_end, 実労働時間: params[:real_hours], 普通残業時間: params[:fustu_zangyo], 深夜残業時間: params[:shinya_zangyou], 深夜保守時間: params[:shinya_kyukei], 遅刻時間: params[:chikoku_soutai])
         data = {update: "update_success"}
         respond_to do |format|
          format.json { render json: data}
