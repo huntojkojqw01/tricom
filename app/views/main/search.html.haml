@@ -8,11 +8,11 @@
     %h3.panel-title= (t 'title.search')
   .panel-body
     .row
+      - numIndex = 0
       - if @masters.count > 0
         - numColumn = 1
         - numColumn = @masters.count / 4 if @masters.count >= 4
         - num = @masters.count
-        - numIndex = 0
         - @masters.each do |path|
           - text = path.title_en
           - if I18n.locale.to_s == 'ja' || text = ''
