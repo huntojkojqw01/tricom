@@ -53,28 +53,29 @@ module SessionsHelper
   def reset_data_search
     if logged_in?
 
-      Bashomaster.rebuild_pg_search_documents
-      Dengon.rebuild_pg_search_documents
-      Dengonkaitou.rebuild_pg_search_documents
-      Dengonyouken.rebuild_pg_search_documents
-      Eki.rebuild_pg_search_documents
-      Jobmaster.rebuild_pg_search_documents
-      JptHolidayMst.rebuild_pg_search_documents
-      Kairan.rebuild_pg_search_documents
-      PgSearch::Document.delete_all(searchable_type: "Kairanshosai")
-      Kairanyokenmst.rebuild_pg_search_documents
-      Keihihead.rebuild_pg_search_documents
-      PgSearch::Document.delete_all(searchable_type: "Keihibody")
-      Kintai.rebuild_pg_search_documents
-      Kouteimaster.rebuild_pg_search_documents
-      Rorumenba.rebuild_pg_search_documents
-      Setsubiyoyaku.rebuild_pg_search_documents
-      PgSearch::Document.delete_all(searchable_type: "Setting")
-      Shainmaster.rebuild_pg_search_documents
-      Shoninshamst.rebuild_pg_search_documents
-      Tsushinseigyou.rebuild_pg_search_documents
-      User.rebuild_pg_search_documents
-      YuukyuuKyuukaRireki.rebuild_pg_search_documents
+      # Bashomaster.rebuild_pg_search_documents
+      # Dengon.rebuild_pg_search_documents
+      # Dengonkaitou.rebuild_pg_search_documents
+      # Dengonyouken.rebuild_pg_search_documents
+      # Eki.rebuild_pg_search_documents
+      # Jobmaster.rebuild_pg_search_documents
+      # JptHolidayMst.rebuild_pg_search_documents
+      # Kairan.rebuild_pg_search_documents
+      # PgSearch::Document.delete_all(searchable_type: "Kairanshosai")
+      # Kairanyokenmst.rebuild_pg_search_documents
+      # Keihihead.rebuild_pg_search_documents
+      # PgSearch::Document.delete_all(searchable_type: "Keihibody")
+      # Kintai.rebuild_pg_search_documents
+      # Kouteimaster.rebuild_pg_search_documents
+      # Rorumenba.rebuild_pg_search_documents
+      # Setsubiyoyaku.rebuild_pg_search_documents
+      # PgSearch::Document.delete_all(searchable_type: "Setting")
+      # Shainmaster.rebuild_pg_search_documents
+      # Shoninshamst.rebuild_pg_search_documents
+      # Tsushinseigyou.rebuild_pg_search_documents
+      # User.rebuild_pg_search_documents
+      # YuukyuuKyuukaRireki.rebuild_pg_search_documents
+      Event.rebuild_pg_search_documents
     end
   end
   def current_user

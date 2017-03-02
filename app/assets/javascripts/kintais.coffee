@@ -453,7 +453,7 @@ jQuery ->
     $('#kintai_遅刻時間').val(chikoku_soutai)
     $('#kintai_普通残業時間').val(fustu_zangyo)
     $('#kintai_深夜残業時間').val(shinya_zangyou)
-    $('#kintai_普通保守時間').val(yoru_kyukei)
+    #$('#kintai_普通保守時間').val(yoru_kyukei)
     $('#kintai_深夜保守時間').val(shinya_kyukei)
 
   $('.datetime').datetimepicker({
@@ -862,7 +862,7 @@ jQuery ->
     $('#best_in_place_kintai_'+idKintai+"_遅刻時間").text(chikoku_soutai)
     $('#best_in_place_kintai_'+idKintai+"_普通残業時間").text(fustu_zangyo)
     $('#best_in_place_kintai_'+idKintai+"_深夜残業時間").text(shinya_zangyou)
-    $('#best_in_place_kintai_'+idKintai+"_普通保守時間").text(yoru_kyukei)
+    #$('#best_in_place_kintai_'+idKintai+"_普通保守時間").text(yoru_kyukei)
     $('#best_in_place_kintai_'+idKintai+"_深夜保守時間").text(shinya_kyukei)
 
     jQuery.ajax({
@@ -888,7 +888,7 @@ jQuery ->
     $('#best_in_place_kintai_'+idKintai+"_遅刻時間").text(chikoku_soutai)
     $('#best_in_place_kintai_'+idKintai+"_普通残業時間").text(fustu_zangyo)
     $('#best_in_place_kintai_'+idKintai+"_深夜残業時間").text(shinya_zangyou)
-    $('#best_in_place_kintai_'+idKintai+"_普通保守時間").text(yoru_kyukei)
+    #$('#best_in_place_kintai_'+idKintai+"_普通保守時間").text(yoru_kyukei)
     $('#best_in_place_kintai_'+idKintai+"_深夜保守時間").text(shinya_kyukei)
 
     jQuery.ajax({
