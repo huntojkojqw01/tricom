@@ -1,0 +1,186 @@
+<% if @keihiheads.count > 0 && request["order"]=="社員順"%>
+  <div id="showTable">
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+          <table id="keihi_shuppi_table" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+            <tr style="page-break-inside: avoid;">
+              <td colspan="7" style="text-align: center; font-size: 20px;border-bottom-width: 0px;">経費出費合計表</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td colspan="2" style="text-align: left; border-top-width: 0px; border-right-width: 0px;"><%=request["timeStart"]+"〜"+request["timeEnd"]%></td>
+              <td colspan="4" style="text-align: right; border-top-width: 0px; border-right-width: 0px; border-left-width: 0px;"><%=request["timeEnd"]%></td>
+              <td style="text-align: right; border-top-width: 0px; border-left-width: 0px;">1 / 2</td>
+            </tr>
+            <tr style="page-break-inside: avoid;background-color: rgb(221, 221, 221)">
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">氏名</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">JOB</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">交通費</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日当</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">宿泊費</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">小計</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">その他</td>
+            </tr>
+            <% shain = @keihiheads.first.社員番号 %>
+            <% check = true
+              koutsuhi = 0
+              nitto = 0
+              shukuhakuhi =0
+              shoukei = 0
+              sonota = 0
+            %>
+            <tr style="page-break-inside: avoid;">
+              <td rowspan="<%= Keihibody.where(申請番号: (@keihiheads.where(社員番号: shain).map(&:申請番号))).count %>" style="border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= shain+ " "+(Shainmaster.find_by id: shain).try(:氏名) unless shain.empty? %></td>
+            <% @keihiheads.each do |keihihead| %>
+              <% if keihihead.社員番号 != shain%>
+                <tr style="page-break-inside: avoid; background-color: rgb(221, 221, 221)">
+                  <td colspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;">合計</td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=koutsuhi%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=nitto%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shukuhakuhi%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shoukei%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=sonota%></td>
+                </tr>
+                <tr style="page-break-inside: avoid;">
+                  <td rowspan="<%= Keihibody.where(申請番号: (@keihiheads.where(社員番号: keihihead.社員番号).map(&:申請番号))).count%>" style="border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= keihihead.社員番号 + " " +(Shainmaster.find_by id: keihihead.社員番号).try(:氏名) unless keihihead.社員番号.empty? %></td>
+                <% shain = keihihead.社員番号 %>
+                <% check = true
+                  koutsuhi = 0
+                  nitto = 0
+                  shukuhakuhi =0
+                  shoukei = 0
+                  sonota = 0
+                %>
+              <% end %>
+
+              <% keihihead.keihibodies.each do |body|%>
+                <% if check == false %>
+                  <tr style="page-break-inside: avoid; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;">
+                <%end%>
+                <td style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.JOB + " " +(Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty? %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:交通費) %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:日当) %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:宿泊費) %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:交通費).to_i+ body.try(:日当).to_i+body.try(:宿泊費).to_i %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:その他) %></td>
+                <% check = false
+                  koutsuhi = koutsuhi + body.try(:交通費).to_i
+                  nitto = nitto + body.try(:日当).to_i
+                  shukuhakuhi = shukuhakuhi + body.try(:宿泊費).to_i
+                  shoukei = shukuhakuhi + nitto + koutsuhi
+                  sonota = sonota + body.try(:その他).to_i
+                %>
+              </tr>
+            <%end %>
+            <% end %>
+            <tr style="page-break-inside: avoid;background-color: rgb(221, 221, 221)">
+              <td colspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;">合計</td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=koutsuhi%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=nitto%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shukuhakuhi%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shoukei%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=sonota%></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+  </div>
+<%end%>
+
+
+
+
+<% if @keihiheads.count > 0 && request["order"]=="JOB順"%>
+  <div id="showTable_JOB">
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+        <div class="spacer">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+          <table id="keihi_shuppi_table_job" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+            <tr style="page-break-inside: avoid;">
+              <td colspan="7" style="text-align: center; font-size: 18px;border-bottom-width: 0px;">経費出費合計表</td>
+            </tr>
+            <tr style="page-break-inside: avoid;">
+              <td colspan="2" style="text-align: left; border-top-width: 0px; border-right-width: 0px;"><%=request["timeStart"]+"〜"+request["timeEnd"]%></td>
+              <td colspan="4" style="text-align: right; border-top-width: 0px; border-right-width: 0px; border-left-width: 0px;"><%= request["timeEnd"]%></td>
+              <td style="text-align: right; border-top-width: 0px; border-left-width: 0px;">1 / 2</td>
+            </tr>
+            <tr style="page-break-inside: avoid;background-color: rgb(221, 221, 221)">
+              <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">JOB</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">氏名</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">交通費</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">日当</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">宿泊費</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">小計</td>
+              <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">その他</td>
+            </tr>
+            <% job = @keihibodies.first.JOB %>
+            <% check = true
+              koutsuhi = 0
+              nitto = 0
+              shukuhakuhi =0
+              shoukei = 0
+              sonota = 0
+            %>
+            <tr style="page-break-inside: avoid;">
+              <td rowspan="<%= @keihibodies.where(JOB: job).count %>" style="border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= job+ " "+(Jobmaster.find_by job番号: job).try(:job名) unless job.empty? %></td>
+            <% @keihibodies.each do |body| %>
+              <% if body.JOB != job%>
+                <tr style="page-break-inside: avoid;background-color: rgb(221, 221, 221)">
+                  <td colspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;">合計</td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=koutsuhi%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=nitto%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shukuhakuhi%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shoukei%></td>
+                  <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=sonota%></td>
+                </tr>
+                <tr>
+                  <td rowspan="<%= @keihibodies.where(JOB: body.JOB).count%>" style="border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.JOB + " " +(Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty?%></td>
+                <% job = body.JOB %>
+                <% check = true
+                  koutsuhi = 0
+                  nitto = 0
+                  shukuhakuhi =0
+                  shoukei = 0
+                  sonota = 0
+                %>
+              <% end %>
+
+
+              <% if check == false %>
+                <tr style="page-break-inside: avoid;">
+              <%end%>
+                <td style="text-align: left; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.keihihead.社員番号 + " " + (Shainmaster.find_by id: body.keihihead.社員番号).try(:氏名) unless body.keihihead.社員番号.empty? %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:交通費) %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:日当) %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:宿泊費) %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:交通費).to_i + body.try(:日当).to_i+body.try(:宿泊費).to_i %></td>
+                <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.try(:その他)  %></td>
+              <% check = false
+                koutsuhi = koutsuhi + body.try(:交通費).to_i
+                nitto = nitto + body.try(:日当).to_i
+                shukuhakuhi = shukuhakuhi + body.try(:宿泊費).to_i
+                shoukei = shukuhakuhi + nitto + koutsuhi
+                sonota = sonota + body.try(:その他).to_i
+              %>
+            </tr>
+            <% end %>
+            <tr style="page-break-inside: avoid;background-color: rgb(221, 221, 221)">
+              <td colspan="2" style="text-align: right; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;">合計</td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=koutsuhi%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=nitto%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shukuhakuhi%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=shoukei%></td>
+              <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;"><%=sonota%></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+  </div>
+<%end%>

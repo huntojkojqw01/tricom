@@ -24,25 +24,7 @@
       = f.label :順位
       = select(:head, :順位, options_for_select(["社員順", "JOB順"],selected: request["order"]), {}, class: 'form-control')
       %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
-      / = f.label "ORDER:"
-      / %table
-      /   %tr
-      /     %td
-      /       = f.radio_button :show_order, "shain"
-      /       = label :show_order_shain, 'Email'
-      /   %tr
-      /     %td
-      /       = f.radio_button :show_order, "job"
-      /       = label :show_order_shain, 'JOB'
-      / %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
-      / %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
-      / %table
-      /   %tr
-      /     %td
-      /       = f.radio_button :show_order, "shain"
-      /       = label :show_order_shain, 'Email'
-      /   %tr
-      /     %td
-      /       = f.radio_button :show_order, "job"
-      /       = label :show_order_shain, 'JOB'
-      / %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
+    .pull-right
+      = f.label :順位
+      = select(:print, :順位, options_for_select(["社員順", "JOB順"],selected: request["order"]), {}, class: 'form-control')
+      %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi_print}=(t 'app.label.export_pdf')
