@@ -1,0 +1,48 @@
+.row-fruid
+  %h4= "担当者: " + Shainmaster.find(session[:user]).氏名
+.row-fruid
+
+  .form-inline
+    .form-group
+      / .col-md-12.col-xs-12.col-sm-12.col-lg-12
+      = f.label :清算日
+      .input-group.datetime-start
+        - if !request["timeStart"].nil?
+          = f.text_field :seisanbi_start, class: 'form-control', value: request["timeStart"]
+        - else
+          = f.text_field :seisanbi_start, class: 'form-control'
+        %span.input-group-addon#search_date_icon
+          %span.glyphicon.glyphicon-calendar#search_date_icon{"aria-hidden" => "true"}
+      = f.label "〜"
+      .input-group.datetime-end
+        - if !request["timeEnd"].nil?
+          = f.text_field :seisanbi_end, class: 'form-control', value: request["timeEnd"]
+        - else
+          = f.text_field :seisanbi_end, class: 'form-control'
+        %span.input-group-addon#search_date_icon
+          %span.glyphicon.glyphicon-calendar#search_date_icon{"aria-hidden" => "true"}
+      = f.label :順位
+      = select(:head, :順位, options_for_select(["社員順", "JOB順"],selected: request["order"]), {}, class: 'form-control')
+      %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
+      / = f.label "ORDER:"
+      / %table
+      /   %tr
+      /     %td
+      /       = f.radio_button :show_order, "shain"
+      /       = label :show_order_shain, 'Email'
+      /   %tr
+      /     %td
+      /       = f.radio_button :show_order, "job"
+      /       = label :show_order_shain, 'JOB'
+      / %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
+      / %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
+      / %table
+      /   %tr
+      /     %td
+      /       = f.radio_button :show_order, "shain"
+      /       = label :show_order_shain, 'Email'
+      /   %tr
+      /     %td
+      /       = f.radio_button :show_order, "job"
+      /       = label :show_order_shain, 'JOB'
+      / %button{type: :button,class: "btn btn-primary",id: :kensaku_keihi}=(t 'helpers.button.search')
