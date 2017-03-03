@@ -33,4 +33,13 @@ $(function(){
     else
       swal("清算予定日からと清算予定日までを入力してください")
   })
+  $('#kensaku_keihi_print').click(function(){
+    timeStart = $('#keihi_shuppi_seisanbi_start').val();
+    timeEnd = $('#keihi_shuppi_seisanbi_end').val();
+    order = $('#print_順位').val()
+    if(timeStart != '' && timeEnd != '')
+      window.open('/keihiheads/pdf_show_keihi_shuppi.pdf?locale=ja'+"&timeStart="+timeStart+"&timeEnd="+timeEnd+"&order="+order)
+    else
+      swal("清算予定日からと清算予定日までを入力してください")
+  })
 });

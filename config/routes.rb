@@ -152,7 +152,7 @@ Jpt::Application.routes.draw do
 
   resources :keihiheads do
     collection {post :ajax, :shonin_search, :import}
-    collection {get :shonin_search, :pdf_show, :show_keihi_shuppi}
+    collection {get :shonin_search, :pdf_show, :show_keihi_shuppi,:pdf_show_keihi_shuppi}
     collection {get :export_csv}
   end
 

@@ -213,6 +213,33 @@ class KeihiheadsController < ApplicationController
     respond_with(@keihi, location: keihiheads_url)
   end
 
+  def pdf_show_keihi_shuppi
+    vars = request.query_parameters
+    timeStart = vars['timeStart']
+    timeEnd = vars['timeEnd']
+    order = vars['order']
+
+    @keihiheads = Keihihead.all.order(社員番号: :asc)
+    if !timeStart.nil? && !timeEnd.nil? && !order.nil?
+      @keihiheads = Keihihead.all.where("Date(清算予定日) <= ?", timeEnd.to_date)
+        .where("Date(清算予定日) >= ?", timeStart.to_date)
+      if order == "社員順"
+        @keihiheads = @keihiheads.order(社員番号: :asc)
+      else
+        @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号))).joins(:keihihead).order(JOB: :asc).order("keihi_heads.社員番号 asc")
+      end
+    end
+    respond_to do |format|
+      format.pdf do
+        render  pdf: "keihihead_pdf",
+                template: 'keihiheads/pdf_show_keihi_shuppi.pdf.erb',
+                encoding: 'utf8',
+                orientation: 'Landscape',
+                title: (t 'title.keihi_pdf')
+      end
+    end
+  end
+
   def show_keihi_shuppi
     vars = request.query_parameters
     timeStart = vars['timeStart']
