@@ -40,7 +40,7 @@
                 .col-md-3.col-xs-6.col-sm-3.col-lg-3
                   %ul.list-group
                     %li.list-group-item= link_to text , path.path_url+"&search="+ @kintai.first.try(:日付).to_s
-            - if path.model_name_field == 'Event' && path.title_jp == (t 'title.event')
+            - elsif path.model_name_field == 'Event' && path.title_jp == (t 'title.event')
               - @event = Event.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Event")).map(&:searchable_id)).where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db))
               - if !@event.first.nil?
                 .col-md-3.col-xs-6.col-sm-3.col-lg-3
@@ -56,7 +56,7 @@
               - @kintai = Kintai.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Kintai")).map(&:searchable_id)).where(社員番号: session[:user])
               - if !@kintai.first.nil?
                 %li.list-group-item= link_to text , path.path_url+"&search="+ @kintai.first.try(:日付).to_s
-            - if path.model_name_field == 'Event' && path.title_jp == (t 'title.event')
+            - elsif path.model_name_field == 'Event' && path.title_jp == (t 'title.event')
               - @event = Event.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Event")).map(&:searchable_id)).where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db))
               - if !@event.first.nil?
                 %li.list-group-item= link_to text , path.path_url+"&search="+ @search
