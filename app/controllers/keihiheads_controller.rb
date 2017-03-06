@@ -223,11 +223,27 @@ class KeihiheadsController < ApplicationController
     if !timeStart.nil? && !timeEnd.nil? && !order.nil?
       @keihiheads = Keihihead.all.where("Date(清算予定日) <= ?", timeEnd.to_date)
         .where("Date(清算予定日) >= ?", timeStart.to_date)
+      @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
+        .where.not(JOB: '')
+        .joins(:keihihead)
+        .select('JOB','keihi_heads.社員番号 AS keihi_社員番号',"SUM(CASE WHEN (交通費 IS NULL OR 交通費 = '') THEN 0 ELSE CAST(交通費 AS DECIMAL) END) AS 交通費","SUM(CASE WHEN (日当 IS NULL OR 日当 = '') THEN 0 ELSE CAST(日当 AS DECIMAL) END) AS 日当","SUM(CASE WHEN (宿泊費 IS NULL OR 宿泊費 = '') THEN 0 ELSE CAST(宿泊費 AS DECIMAL) END) AS 宿泊費","SUM(CASE WHEN (その他 IS NULL OR その他 = '') THEN 0 ELSE CAST(その他 AS DECIMAL) END) AS その他")
+        .group(:JOB,"keihi_社員番号")
+      @keihi_body = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
+        .where.not(JOB: '')
+        .joins(:keihihead)
+        .select("keihi_heads.社員番号")
+        .distinct
+      @keihi_body_shain = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
+        .where.not(JOB: '')
+        .joins(:keihihead)
+        .select("JOB")
+        .distinct
       if order == "社員順"
         @keihiheads = @keihiheads.order(社員番号: :asc)
+        @keihibodies = @keihibodies.order("keihi_heads.社員番号 asc").order(JOB: :asc)
       else
-        @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号))).joins(:keihihead).order(JOB: :asc).order("keihi_heads.社員番号 asc")
-      end
+        @keihibodies = @keihibodies.order(JOB: :asc).order("keihi_heads.社員番号 asc")
+        end
     end
     respond_to do |format|
       format.pdf do
@@ -247,13 +263,33 @@ class KeihiheadsController < ApplicationController
     order = vars['order']
 
     @keihiheads = Keihihead.all.order(社員番号: :asc)
+    @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
     if !timeStart.nil? && !timeEnd.nil? && !order.nil?
       @keihiheads = Keihihead.all.where("Date(清算予定日) <= ?", timeEnd.to_date)
         .where("Date(清算予定日) >= ?", timeStart.to_date)
+      @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
+        .where.not(JOB: '')
+        .joins(:keihihead)
+        .select('JOB','keihi_heads.社員番号 AS keihi_社員番号',"SUM(CASE WHEN (交通費 IS NULL OR 交通費 = '') THEN 0 ELSE CAST(交通費 AS DECIMAL) END) AS 交通費","SUM(CASE WHEN (日当 IS NULL OR 日当 = '') THEN 0 ELSE CAST(日当 AS DECIMAL) END) AS 日当","SUM(CASE WHEN (宿泊費 IS NULL OR 宿泊費 = '') THEN 0 ELSE CAST(宿泊費 AS DECIMAL) END) AS 宿泊費","SUM(CASE WHEN (その他 IS NULL OR その他 = '') THEN 0 ELSE CAST(その他 AS DECIMAL) END) AS その他")
+        .group(:JOB,"keihi_社員番号")
+      @keihi_body = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
+        .where.not(JOB: '')
+        .joins(:keihihead)
+        .select("keihi_heads.社員番号")
+        .distinct
+      @keihi_body_shain = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
+        .where.not(JOB: '')
+        .joins(:keihihead)
+        .select("JOB")
+        .distinct
       if order == "社員順"
         @keihiheads = @keihiheads.order(社員番号: :asc)
+        @keihibodies = @keihibodies.order("keihi_heads.社員番号 asc").order(JOB: :asc)
       else
-        @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号))).joins(:keihihead).order(JOB: :asc).order("keihi_heads.社員番号 asc")
+        # @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号))).joins(:keihihead).order(JOB: :asc).order("keihi_heads.社員番号 asc")
+        @keihibodies = @keihibodies.order(JOB: :asc).order("keihi_heads.社員番号 asc")
+        # , "SUM(CAST(COALESCE(宿泊費,'0') AS DECIMAL)) AS 宿泊費","SUM(CAST(COALESCE(その他,'0') AS DECIMAL)) AS その他"
+        # ,'SUM(CAST(COALESCE(日当,'0') AS DECIMAL)) AS 日当','SUM(CAST(COALESCE(宿泊費,'0') AS DECIMAL)) AS 宿泊費','SUM(CAST(COALESCE(その他,'0') AS DECIMAL)) AS その他'
       end
     end
 
