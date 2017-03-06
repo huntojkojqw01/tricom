@@ -12,105 +12,8 @@
 <%= form_for :keihi_shuppi, url: show_keihi_shuppi_keihiheads_path, html: {class:'form-inline'}, method: :get do |f|
   render 'header_keihi_shuppi', f:f
 end %>
-<% if @keihiheads.count > 0 && request["order"]=="社員順"%>
-  <div id="showTable">
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-        <div class="spacer">
-        </div>
-      </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-          <table id="keihi_shuppi_table" class="table  table-bordered table-hover" cellspacing="0" width="100%">
-            <tr>
-              <td colspan="7" style="text-align: center; font-size: 18px;border-bottom-width: 0px;">経費出費合計表</td>
-            </tr>
-            <tr>
-              <td colspan="2" style="text-align: left; border-top-width: 0px; border-right-width: 0px;"><%=request["timeStart"]+"〜"+request["timeEnd"]%></td>
-              <td colspan="4" style="text-align: right; border-top-width: 0px; border-right-width: 0px; border-left-width: 0px;"><%=request["timeEnd"]%></td>
-              <td style="text-align: right; border-top-width: 0px; border-left-width: 0px;">1 / 2</td>
-            </tr>
-            <tr>
-              <td style="text-align: center; ">氏名</td>
-              <td style="text-align: center; ">JOB</td>
-              <td style="text-align: center; ">交通費</td>
-              <td style="text-align: center; ">日当</td>
-              <td style="text-align: center; ">宿泊費</td>
-              <td style="text-align: center; ">小計</td>
-              <td style="text-align: center; ">その他</td>
-            </tr>
-            <% shain = @keihiheads.first.社員番号 %>
-            <% check = true
-              koutsuhi = 0
-              nitto = 0
-              shukuhakuhi =0
-              shoukei = 0
-              sonota = 0
-            %>
-            <tr>
-              <td rowspan="<%= Keihibody.where(申請番号: (@keihiheads.where(社員番号: shain).map(&:申請番号))).count %>"><%= shain+ " "+(Shainmaster.find_by id: shain).try(:氏名) unless shain.empty? %></td>
-            <% @keihiheads.each do |keihihead| %>
-              <% if keihihead.社員番号 != shain%>
-                <tr>
-                  <td colspan="2" style="text-align: right; ">合計</td>
-                  <td style="text-align: right; "><%=koutsuhi%></td>
-                  <td style="text-align: right; "><%=nitto%></td>
-                  <td style="text-align: right; "><%=shukuhakuhi%></td>
-                  <td style="text-align: right; "><%=shoukei%></td>
-                  <td style="text-align: right; "><%=sonota%></td>
-                </tr>
-                <tr>
-                  <td rowspan="<%= Keihibody.where(申請番号: (@keihiheads.where(社員番号: keihihead.社員番号).map(&:申請番号))).count%>"><%= keihihead.社員番号 + " " +(Shainmaster.find_by id: keihihead.社員番号).try(:氏名) unless keihihead.社員番号.empty? %></td>
-                <% shain = keihihead.社員番号 %>
-                <% check = true
-                  koutsuhi = 0
-                  nitto = 0
-                  shukuhakuhi =0
-                  shoukei = 0
-                  sonota = 0
-                %>
-              <% end %>
 
-              <% keihihead.keihibodies.each do |body|%>
-                <% if check == false %>
-                  <tr>
-                <%end%>
-                <td style="text-align: left; "><%= body.JOB + " " +(Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty? %></td>
-                <td style="text-align: right; "><%= body.try(:交通費) %></td>
-                <td style="text-align: right; "><%= body.try(:日当) %></td>
-                <td style="text-align: right; "><%= body.try(:宿泊費) %></td>
-                <td style="text-align: right; "><%= body.try(:交通費).to_i+ body.try(:日当).to_i+body.try(:宿泊費).to_i %></td>
-                <td style="text-align: right; "><%= body.try(:その他) %></td>
-                <% check = false
-                  koutsuhi = koutsuhi + body.try(:交通費).to_i
-                  nitto = nitto + body.try(:日当).to_i
-                  shukuhakuhi = shukuhakuhi + body.try(:宿泊費).to_i
-                  shoukei = shukuhakuhi + nitto + koutsuhi
-                  sonota = sonota + body.try(:その他).to_i
-                %>
-              </tr>
-            <%end %>
-            <% end %>
-            <tr>
-              <td colspan="2" style="text-align: right; ">合計</td>
-              <td style="text-align: right; "><%=koutsuhi%></td>
-              <td style="text-align: right; "><%=nitto%></td>
-              <td style="text-align: right; "><%=shukuhakuhi%></td>
-              <td style="text-align: right; "><%=shoukei%></td>
-              <td style="text-align: right; "><%=sonota%></td>
-            </tr>
-          </table>
-        </div>
-
-      </div>
-  </div>
-<%end%>
-
-
-
-
-<% if @keihiheads.count > 0 && request["order"]=="JOB順"%>
+<% if !@keihibodies.first.nil? && request["order"]=="JOB順"%>
   <div id="showTable_JOB">
     <div class="row">
       <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
@@ -147,7 +50,7 @@ end %>
               sonota = 0
             %>
             <tr>
-              <td rowspan="<%= @keihibodies.where(JOB: job).count %>"><%= job+ " "+(Jobmaster.find_by job番号: job).try(:job名) unless job.empty? %></td>
+              <td rowspan="<%= @keihi_body.where(JOB: job).count %>"><%= job+ " "+(Jobmaster.find_by job番号: job).try(:job名) unless job.empty? %></td>
             <% @keihibodies.each do |body| %>
               <% if body.JOB != job%>
                 <tr>
@@ -159,7 +62,7 @@ end %>
                   <td style="text-align: right; "><%=sonota%></td>
                 </tr>
                 <tr>
-                  <td rowspan="<%= @keihibodies.where(JOB: body.JOB).count%>"><%= body.JOB + " " +(Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty?%></td>
+                  <td rowspan="<%= @keihi_body.where(JOB: body.JOB).count%>"><%= body.JOB + " " +(Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty?%></td>
                 <% job = body.JOB %>
                 <% check = true
                   koutsuhi = 0
@@ -174,7 +77,7 @@ end %>
               <% if check == false %>
                 <tr>
               <%end%>
-              <td style="text-align: left; "><%= body.keihihead.社員番号 + " " + (Shainmaster.find_by id: body.keihihead.社員番号).try(:氏名) unless body.keihihead.社員番号.empty? %></td>
+              <td style="text-align: left; "><%= body.keihi_社員番号 + " " + (Shainmaster.find_by id: body.keihi_社員番号).try(:氏名) unless body.keihi_社員番号.empty? %></td>
                 <td style="text-align: right; "><%= body.try(:交通費) %></td>
                 <td style="text-align: right; "><%= body.try(:日当) %></td>
                 <td style="text-align: right; "><%= body.try(:宿泊費) %></td>
@@ -203,3 +106,99 @@ end %>
       </div>
   </div>
 <%end%>
+
+
+<% if !@keihibodies.first.nil? && request["order"]=="社員順"%>
+  <div id="showTable_Shain">
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+        <div class="spacer">
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+          <table id="keihi_shuppi_table_shain" class="table  table-bordered table-hover" cellspacing="0" width="100%">
+            <tr>
+              <td colspan="7" style="text-align: center; font-size: 18px;border-bottom-width: 0px;">経費出費合計表</td>
+            </tr>
+            <tr>
+              <td colspan="2" style="text-align: left; border-top-width: 0px; border-right-width: 0px;"><%=request["timeStart"]+"〜"+request["timeEnd"]%></td>
+              <td colspan="4" style="text-align: right; border-top-width: 0px; border-right-width: 0px; border-left-width: 0px;"><%= request["timeEnd"]%></td>
+              <td style="text-align: right; border-top-width: 0px; border-left-width: 0px;">1 / 2</td>
+            </tr>
+            <tr>
+              <td style="text-align: center; ">氏名</td>
+              <td style="text-align: center; ">JOB</td>
+              <td style="text-align: center; ">交通費</td>
+              <td style="text-align: center; ">日当</td>
+              <td style="text-align: center; ">宿泊費</td>
+              <td style="text-align: center; ">小計</td>
+              <td style="text-align: center; ">その他</td>
+            </tr>
+            <% shain = @keihibodies.first.keihi_社員番号 %>
+            <% check = true
+              koutsuhi = 0
+              nitto = 0
+              shukuhakuhi =0
+              shoukei = 0
+              sonota = 0
+            %>
+            <tr>
+              <td rowspan="<%= @keihi_body_shain.where('keihi_heads.社員番号 = '+'\''+shain+'\'').count %>"><%= shain+ " "+(Shainmaster.find_by id: shain).try(:氏名) unless shain.empty?  %></td>
+            <% @keihibodies.each do |body| %>
+              <% if body.keihi_社員番号 != shain%>
+                <tr>
+                  <td colspan="2" style="text-align: right; ">合計</td>
+                  <td style="text-align: right; "><%=koutsuhi%></td>
+                  <td style="text-align: right; "><%=nitto%></td>
+                  <td style="text-align: right; "><%=shukuhakuhi%></td>
+                  <td style="text-align: right; "><%=shoukei%></td>
+                  <td style="text-align: right; "><%=sonota%></td>
+                </tr>
+                <tr>
+                  <td rowspan="<%= @keihi_body_shain.where('keihi_heads.社員番号 = '+'\''+body.keihi_社員番号+'\'').count%>"><%= body.keihi_社員番号 + " " +(Shainmaster.find_by id: body.keihi_社員番号).try(:氏名) unless body.keihi_社員番号.empty? %></td>
+                <% shain = body.keihi_社員番号 %>
+                <% check = true
+                  koutsuhi = 0
+                  nitto = 0
+                  shukuhakuhi =0
+                  shoukei = 0
+                  sonota = 0
+                %>
+              <% end %>
+
+
+              <% if check == false %>
+                <tr>
+              <%end%>
+              <td style="text-align: left; "><%= body.JOB + " " + (Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty?  %></td>
+                <td style="text-align: right; "><%= body.try(:交通費) %></td>
+                <td style="text-align: right; "><%= body.try(:日当) %></td>
+                <td style="text-align: right; "><%= body.try(:宿泊費) %></td>
+                <td style="text-align: right; "><%= body.try(:交通費).to_i + body.try(:日当).to_i+body.try(:宿泊費).to_i %></td>
+                <td style="text-align: right; "><%= body.try(:その他)  %></td>
+              <% check = false
+                koutsuhi = koutsuhi + body.try(:交通費).to_i
+                nitto = nitto + body.try(:日当).to_i
+                shukuhakuhi = shukuhakuhi + body.try(:宿泊費).to_i
+                shoukei = shukuhakuhi + nitto + koutsuhi
+                sonota = sonota + body.try(:その他).to_i
+              %>
+            </tr>
+            <% end %>
+            <tr>
+              <td colspan="2" style="text-align: right; ">合計</td>
+              <td style="text-align: right; "><%=koutsuhi%></td>
+              <td style="text-align: right; "><%=nitto%></td>
+              <td style="text-align: right; "><%=shukuhakuhi%></td>
+              <td style="text-align: right; "><%=shoukei%></td>
+              <td style="text-align: right; "><%=sonota%></td>
+            </tr>
+          </table>
+        </div>
+
+      </div>
+  </div>
+<%end%>
+
