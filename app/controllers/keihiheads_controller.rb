@@ -263,6 +263,7 @@ class KeihiheadsController < ApplicationController
     order = vars['order']
 
     @keihiheads = Keihihead.all.order(社員番号: :asc)
+    @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
     if !timeStart.nil? && !timeEnd.nil? && !order.nil?
       @keihiheads = Keihihead.all.where("Date(清算予定日) <= ?", timeEnd.to_date)
         .where("Date(清算予定日) >= ?", timeStart.to_date)
