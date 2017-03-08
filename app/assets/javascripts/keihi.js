@@ -419,5 +419,3 @@ $(document).on('click', '.keihihead_keihibodies_相手先 .search-history-job', 
     $('#mykaisha_search_modal').modal('show')
     event.preventDefault();
 });
-
-
