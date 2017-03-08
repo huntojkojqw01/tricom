@@ -5,7 +5,11 @@
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
   <li><%= link_to 'カレンダー', events_path %></li>
-  <li><%= link_to '経費入力管理', keihiheads_path %></li>
+  <% if params[:shonin] %>
+    <li><%= link_to '経費承認一覧', shonin_search_keihiheads_path %></li>
+  <% else  %>
+    <li><%= link_to '経費入力管理', keihiheads_path %></li>
+  <% end %>
   <li class="active">経費・照会</li>
 </ol>
 

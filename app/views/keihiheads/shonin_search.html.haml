@@ -43,4 +43,4 @@
           %td= shonin.承認者
           -#%td= shonin.承認済区分
           %td= check_box_tag 'shonin[]', shonin.申請番号, false, class: 'shonin-check'
-          %td= link_to '詳細', keihihead_path(shonin)
+          %td= link_to '詳細', keihihead_path(shonin, :shonin => true)
