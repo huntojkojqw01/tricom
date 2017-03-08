@@ -1,0 +1,11 @@
+var table = $('#event_sanshou_table').DataTable();
+table.clear().draw();
+<% @events.each do |event|%>
+  <%if event.bashomaster
+    basho_name = event.bashomaster.name
+    basho_name = event.bashomaster.kaisha_name if event.bashomaster.場所区分 == '2'
+  end%>
+  table.row.add( ["<%=event.id%>","<%=event.開始%>","<%=event.終了%>","<%=event.joutaimaster.try(:name)%>","<%=basho_name%>","<%=event.job_job名%>","<%=event.koutei_工程名%>","<%=event.工数%>","<%=event.計上%>"] ).draw( false );
+<%end%>
+
+$('#event_sanshou_modal').modal('show');
