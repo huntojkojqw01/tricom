@@ -159,6 +159,16 @@ jQuery ->
   $(document).on 'click', '.job-search', (event) ->
     $('#job_search_modal').modal('show')
     event.preventDefault()
+  $('#event_sanshou_table tbody').on 'click', 'tr', (event) ->
+    d = oEvent_sanshou_modal.row(this).data()
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oEvent_sanshou_modal.$('tr.selected').removeClass('selected')
+      oEvent_sanshou_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
 
   $('#kaisha-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKaisha_search_modal.row(this).data()
