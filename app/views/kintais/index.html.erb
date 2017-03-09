@@ -89,9 +89,7 @@
           <td id= "shukkinjikoku_picker_<%= kintai.id %>" style="display:none;">
             <div class="input-group timestart">
               <input  id= "shukkinjikoku<%= kintai.id %>" type="text" class="form-control input-time-start" value= <%=kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %>>
-              <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-time"></span>
-              </div>
+              
             </div>
           </td>
       <!--     <% if kintai.退社時刻.blank? %>
@@ -106,11 +104,9 @@
           <%end%>
 
           <td id= "taishajikoku_picker_<%= kintai.id %>" style="display:none;">
-            <div class="input-group time">
-              <input  id= "taishajikoku<%= kintai.id %>" type="text" class="form-control input-time" value= <%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %>>
-              <div class="input-group-addon">
-                  <span class="glyphicon glyphicon-time"></span>
-              </div>
+            <div class="input-group time">              
+              <input  id= "taishajikoku<%= kintai.id %>" type="text" class="form-control input-time" value= <%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %>>              
+              
             </div>
           </td>
           <td class='kintai-item' style="white-space: pre" id="jitsuroudou<%= kintai.id %>"><%= best_in_place kintai, :実労働時間, :as => :input, activator: '#jitsuroudou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder4%></td>
