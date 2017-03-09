@@ -39,6 +39,20 @@ jQuery ->
     $('#joutai_search_modal').modal('show')
 #    status = 1
     event.preventDefault()
+    
+  $('#kinmu_refer').hide()
+  $('.kinmu-hide').hide()
+  $(document).on 'click', '.kinmu-hide', (event) ->
+    $('#kinmu_refer').hide()
+    $('.kinmu-hide').hide()
+    $('.kinmu-show').show()
+    event.preventDefault()
+
+  $(document).on 'click', '.kinmu-show', (event) ->
+    $('#kinmu_refer').show()
+    $('.kinmu-show').hide()
+    $('.kinmu-hide').show()
+    event.preventDefault()
 
 #  $(document).on 'click', '.status2', (event) ->
 #    $('#joutai_search_modal').modal('show')
@@ -900,5 +914,3 @@ jQuery ->
       failure: () ->
         console.log("update_endtime field")
     })
-
-
