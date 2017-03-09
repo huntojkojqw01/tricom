@@ -20,5 +20,5 @@
       = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
     = f.label (t 'title.local')
     = f.input :local, label: false do
-      = f.select :local, options_for_select(["ja", "en"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
+      = f.select :local, options_for_select(["ja", "en","vi"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
     = f.button :submit, class:'btn btn-primary', value: (t 'helpers.submit.setting')
