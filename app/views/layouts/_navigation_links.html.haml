@@ -39,6 +39,40 @@
 
       %ul.nav.navbar-nav.navbar-right
         - if current_user
+          - kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
+          - dengons = Dengon.where(社員番号: session[:user], 確認: false)
+          - if dengons.count > 0
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-comment text-red'}
+              %ul.dropdown-menu.center
+                %li= image_tag "/assets/thumb/missing.png", size: "30x30"
+                %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
+                %li.text-gray パスワード更新日：#{current_user.updated_at.to_date}
+                %legend.menu
+                - dengons.each do |dengon|
+                  %li= link_to ' '+ dengon.伝言内容, dengons_path(search: dengon.伝言内容), :class => "glyphicon glyphicon-envelope icon-left"
+          - else
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-comment',:onclick => "location.href = '/dengons?locale=ja' ; return false"}
+          - if kairans.count > 0
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-envelope text-red',:onclick => "location.href = '/kairans?locale=ja' ; return false"}
+              %ul.dropdown-menu.center
+                %li= image_tag "/assets/thumb/missing.png", size: "30x30"
+                %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
+                %li.text-gray パスワード更新日：#{current_user.updated_at.to_date}
+                %legend.menu
+                - kairans.each do |kairan|
+                  %li= link_to ' '+ kairan.内容, kairans_path(search: kairan.内容), :class => "glyphicon glyphicon-envelope icon-left"
+
+          - else
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-envelope', :onclick => "location.href = '/kairans?locale=ja' ; return false"}
+            / = link_to raw("<span class='navbar-brand root'><i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i></span>"), kairans_url
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
               / - if current_user.avatar.exists?
