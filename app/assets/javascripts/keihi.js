@@ -216,6 +216,12 @@ $(function(){
         oJob_search_modal.$('tr.selected').removeClass('selected');
         oJob_search_modal.$('tr.success').removeClass('success');
     } );
+    $('#clear_event').click(function () {
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
+        oEvent_sanshou_modal.$('tr.selected').removeClass('selected');
+        oEvent_sanshou_modal.$('tr.success').removeClass('success');
+    } );
 
     $('#clear_myjob').click(function () {
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
