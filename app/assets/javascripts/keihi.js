@@ -61,6 +61,12 @@ $(function() {
         },
         "order": [[ 4, "desc" ]]
     });
+    oEvent_sanshou_modal = $('#event_sanshou_table').DataTable({
+        "pagingType": "simple_numbers"
+        ,"oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+        }
+    });
 });
 
 
@@ -210,6 +216,12 @@ $(function(){
         oJob_search_modal.$('tr.selected').removeClass('selected');
         oJob_search_modal.$('tr.success').removeClass('success');
     } );
+    $('#clear_event').click(function () {
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
+        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
+        oEvent_sanshou_modal.$('tr.selected').removeClass('selected');
+        oEvent_sanshou_modal.$('tr.success').removeClass('success');
+    } );
 
     $('#clear_myjob').click(function () {
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
@@ -286,10 +298,104 @@ $(function(){
         oMykaishaTable.$('tr.selected').removeClass('selected');
         oMykaishaTable.$('tr.success').removeClass('success');
     } );
+    $('#event_sentaku_ok').click(function(){
+
+        var event = oEvent_sanshou_modal.row('tr.selected').data();
+        // $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val(event[3])
+        if(event!=undefined){
+            jQuery.ajax({
+                url: '/keihiheads/ajax',
+                data: {id: 'event_selected',event_id: event[0]},
+                type: "POST",
+                // processData: false,
+                // contentType: 'application/json',
+
+                success: function(data) {
+                    if(data.job != null){
+                        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val(data.aitesaki)
+                        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val(data.job)
+                    }
+                    console.log("getAjax kintai_id:");
+                },
+                failure: function() {
+                    console.log("kintai_保守携帯回数 keydown Unsuccessful");
+                }
+            });
+        }
+
+    });
+
+    // $('.event_sanshou').click(function(){
+
+
+    //     // jQuery.ajax({
+    //     //     url: '/keihiheads/ajaxsss',
+    //     //     data: {id: 'get_events',date: date_input},
+    //     //     type: "POST",
+    //     //     // processData: false,
+    //     //     // contentType: 'application/json',
+    //     //     success: function(data) {
+    //     //         $('#event_sanshou_modal').modal('show');
+    //     //     },
+    //     //     failure: function() {
+    //     //     }
+    //     // });
+    // })
+        // var events = oEvent_sanshou_modal.rows('tr').data();
+        // var date_input = $('#keihi-table tr.selected td:nth-child(1)').find('input').val();
+        // date_input = $('#keihihead_keihibodies_attributes_0_日付').val();
+        // alert("date_input")
+
+        // date_input =
+        // if( events.length > 0){
+        //     for (var i = 0; i < events.length; i++) {
+        //         date =
+        //     }
+        // }
+        //           for i in [0...len]
+        //             if events[i][4] == "1" || events[i][6] != shain
+        //               rowId = $('.keihihead-table').dataTable().fnFindCellRowIndexes(events[i][0], 0);
+        //               thisRow = oKeihiheadTable.row(rowId).nodes().to$()
+        //               if $(thisRow).hasClass('selected')
+        //                 $(thisRow).removeClass('selected')
+        //                 $(thisRow).removeClass('success')
+
+        //         $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
+        //         $(".keihihead-table").dataTable().fnDraw()
+        // $("#event_sanshou_table").dataTable().fnDeleteRow($('#event_sanshou_table').find('tr.selected').remove());
+        // $("#event_sanshou_table").dataTable().fnDraw();
+        // $('#event_sanshou_modal').modal('show');
 
 
 });
 
+$(document).on('click', '.event_sanshou', function(event){
+    var events = oEvent_sanshou_modal.rows('tr').data();
+    var date = $(this).closest('tr').find('.datepicker').val();
+    if(date != ''){
+        var date_input = moment(date, 'YYYY/MM/DD HH:mm').subtract('days',14).format('YYYY/MM/DD HH:mm');
+        var shain = $('#keihihead_社員番号').val();
+        jQuery.ajax({
+            url: '/keihiheads/ajax',
+            data: {id: 'get_events',date_input: date_input, shain: shain},
+            type: "POST",
+            // processData: false,
+            // contentType: 'application/json',
+
+            success: function(data) {
+
+                console.log("getAjax kintai_id:");
+            },
+            failure: function() {
+                console.log("kintai_保守携帯回数 keydown Unsuccessful");
+            }
+        });
+    }else{
+        swal("日付を入力してください。");
+    }
+
+
+});
 $(document).on('click', '.keihihead_keihibodies_JOB .search-field', function(event){
 
     $('#job_search_modal').modal('show')

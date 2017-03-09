@@ -372,6 +372,23 @@ class KeihiheadsController < ApplicationController
           format.json { render json: data}
           # format.js { render 'delete'}
         end
+      when 'get_events'
+        @events =  Shainmaster.find(params[:shain]).events.joins(:joutaimaster)
+        .where("Date(開始) >= ?",params[:date_input])
+        .where('状態マスタ.状態区分 = \'1\'').order(開始: :desc)
+        respond_to do |format|
+          # format.json { render json: "data"}
+          format.js { render 'reset_event_modal'}
+        end
+      when 'event_selected'
+        event = Event.find_by(id: params[:event_id])
+        job = ''
+        job = Jobmaster.find_by(job番号: event.try(:JOB)) if event.JOB
+        data = {job: event.try(:JOB), aitesaki: job.try(:ユーザ名)}
+        respond_to do |format|
+          # format.json { render json: "data"}
+          format.json { render json: data}
+        end
     end
   end
 
@@ -431,6 +448,7 @@ class KeihiheadsController < ApplicationController
     @jobs = Jobmaster.all
     @myjobs = Myjobmaster.where(社員番号: session[:user]).all.order("updated_at desc")
     @mykaishamasters = Mykaishamaster.where(社員番号: session[:user]).all.order("updated_at desc")
+    @events
   end
 
   def keihi_params
