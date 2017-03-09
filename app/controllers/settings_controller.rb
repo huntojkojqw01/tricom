@@ -97,6 +97,6 @@ class SettingsController < ApplicationController
     end
 
     def setting_params
-      params.require(:setting).permit :社員番号, :scrolltime, :local
+      params.require(:setting).permit :社員番号, :scrolltime, :local, :select_holiday_vn
     end
 end
