@@ -18,6 +18,7 @@ class EventsController < ApplicationController
     @shain = Shainmaster.find(session[:selected_shain])
     @kairanCount = Kairanshosai.where(対象者: session[:user], 状態: 0).count
     shain = Shainmaster.find(session[:user])
+    @setting = Setting.where(社員番号: session[:selected_shain]).first
     if shain
       shain.回覧件数 = @kairanCount
       shain.save

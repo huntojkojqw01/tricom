@@ -12,6 +12,7 @@
       %th 社員番号
       %th ScrollTime
       %th Local
+      %th Vietnamese Holidays
       %th
       %th
   %tbody
@@ -20,6 +21,7 @@
         %td= setting.社員番号
         %td= setting.scrolltime
         %td= setting.local
+        %td= setting.select_holiday_vn
         %td= link_to '編集', edit_setting_path(setting)
         - msg = t 'app.delete_confirm'
         %td= link_to '削除', setting, :method => :delete, :data => { :confirm => msg }

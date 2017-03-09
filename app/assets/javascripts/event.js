@@ -7,7 +7,27 @@ $(function(){
     //var firstHour = new Date().getUTCHours();
     var scroll = -1,
         viewNames = ['agendaWeek', 'agendaDay', 'timelineDay'];
+
     $.getJSON('/events', function(data) {
+        var myEventSourses = '';
+        if(data.setting.select_holiday_vn == "1")
+            myEventSourses = [
+                    {
+                        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
+                        color: 'green'
+                    }
+                    ,{
+                        googleCalendarId: 'en.vietnamese#holiday@group.v.calendar.google.com',
+                        color: 'blue'
+                    }
+                ];
+        else
+            myEventSourses = [
+                    {
+                        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
+                        color: 'green'
+                    }
+                ];
         var calendar = $('#calendar-month-view').fullCalendar(
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -33,16 +53,7 @@ $(function(){
                 //maxTime: '24:00:00',
                 //eventOverlap: false,
                 googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
-                eventSources: [
-                    {
-                        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
-                        color: 'green'
-                    }
-                    ,{
-                        googleCalendarId: 'en.vietnamese#holiday@group.v.calendar.google.com',
-                        color: 'blue'
-                    }
-                ],
+                eventSources: myEventSourses,
                 schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
                 //defaultView: 'timelineDay',
                 events: data.my_events,

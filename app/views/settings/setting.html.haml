@@ -21,4 +21,8 @@
     = f.label (t 'title.local')
     = f.input :local, label: false do
       = f.select :local, options_for_select(["ja", "en","vi"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
+    = f.label (t 'app.label.select_vn_holiday')
+    .space
+    = f.check_box :select_holiday_vn
+    .br
     = f.button :submit, class:'btn btn-primary', value: (t 'helpers.submit.setting')

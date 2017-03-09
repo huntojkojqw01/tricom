@@ -274,6 +274,7 @@ en:
       calendar_genzai: 現在
       necessary: Necessary
       unnecessary: Unnecessary
+      select_vn_holiday: Vietnamese Holidays
   export: 輸出
   title:
     bashokubunmst: Location classification list

@@ -90,3 +90,8 @@ json.holidays @holidays do |holiday|
   json.end holiday.try(:event_date)
   json.color 'red'
 end
+
+json.setting do
+  json.select_holiday_vn @setting.try(:select_holiday_vn) if @setting
+  json.select_holiday_vn '0' if !@setting
+end
