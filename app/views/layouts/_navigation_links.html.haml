@@ -13,15 +13,17 @@
           %ul.dropdown-menu
             %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.time_line_view')), time_line_view_events_path
             %li= link_to raw("<i class='glyphicon glyphicon-calendar' style='margin-right:1em;'></i>"+(t 'title.event')), events_path
-
             %legend.menu
             %li= link_to raw("<i class='glyphicon glyphicon-briefcase' style='margin-right:1em;'></i>"+(t 'title.kintai')), kintais_url
+            %legend.menu
             %li= link_to raw("<i class='glyphicon glyphicon-yen' style='margin-right:1em;'></i>"+(t 'title.kanri.keihihead')), keihiheads_url
-            %li= link_to raw("<i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i>"+(t 'title.kairan')), kairans_url
-            %li= link_to raw("<i class='glyphicon glyphicon-comment' style='margin-right:1em;'></i>"+(t 'title.dengon_menu')), dengons_url
-            %li= link_to raw("<i class='glyphicon glyphicon-list' style='margin-right:1em;'></i>"+(t 'title.setsubiyoyaku')), setsubiyoyakus_url
             %li= link_to raw("<i class='glyphicon glyphicon-ok' style='margin-right:1em;'></i>"+(t 'title.keihishonin')), shonin_search_keihiheads_url
             %li= link_to raw("<i class='glyphicon glyphicon-yen' style='margin-right:1em;'></i>"+(t 'title.keihi_shuppi_menu')), show_keihi_shuppi_keihiheads_path
+            %legend.menu
+            %li= link_to raw("<i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i>"+(t 'title.kairan')), kairans_url
+            %li= link_to raw("<i class='glyphicon glyphicon-comment' style='margin-right:1em;'></i>"+(t 'title.dengon_menu')), dengons_url
+            %legend.menu
+            %li= link_to raw("<i class='glyphicon glyphicon-list' style='margin-right:1em;'></i>"+(t 'title.setsubiyoyaku')), setsubiyoyakus_url
 
 
         %li.dropdown
