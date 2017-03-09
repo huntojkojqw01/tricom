@@ -1,13 +1,10 @@
 <tr>
   <td><%= f.text_field :日付, class: 'form-control datepicker', size: 8 %></td>
   <!-- <td><%= f.text_area_search :相手先, {}, class_field: 'atesaki-name', class_search: 'atesaki-search', size: '60x2' %></td> -->
-  <td style="width: 20%">
+  <td align="right">
     <%= f.button :button, "イベント参照", class: 'btn btn-primary event_sanshou', type: 'button', html: {width: "100px"}%>
-    <%= f.input :相手先, input_html: {style: 'width:100px;float:right'}, as: :search_history_job, label: false%>
-    <br>
-    <div class="right-keihi-row">
-      <%= f.input :JOB, input_html: {style: 'width:100px; float:right'}, as: :search_history_job,label: false%>
-    </div>
+    <%= f.input :相手先, input_html: {style: 'width:100px'}, as: :search_history_job, label: false%>
+    <%= f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history_job,label: false%>
   </td>
   <!--<td><%# f.text_field_search :機関名, {}, class_field: 'kikan-name', class_search: 'kikan-search', size: 50 %></td>-->
   <td><%= f.text_area_search :機関名, {}, class_field: 'kikan-name', class_search: 'kikan-search', size: '50x2' %></td>
