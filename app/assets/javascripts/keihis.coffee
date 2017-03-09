@@ -452,8 +452,8 @@ jQuery ->
   $('#search_date_icon_group').click (e) ->
     $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
 
-  $('#keihihead_清算予定日_search').click (e) ->
-    $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
+  # $('#keihihead_清算予定日_search').click (e) ->
+  #   $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
 
   $('#search').click () ->
     $('.datetime').data("DateTimePicker").toggle();

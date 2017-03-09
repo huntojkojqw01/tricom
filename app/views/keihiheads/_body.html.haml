@@ -11,10 +11,10 @@
       %th{rowspan:"2"}
     %tr
       / %th{style: "background-color: rgb(249, 249, 249)"} ※イベント参照
-      %th 機関名
-      %th 発/着
-      %th 交通費
-      %th 日当/宿泊
+      %th{style: "background-color: rgb(249, 249, 249)"} 機関名
+      %th{style: "background-color: rgb(249, 249, 249)"} 発/着
+      %th{style: "background-color: rgb(249, 249, 249)"} 交通費
+      %th{style: "background-color: rgb(249, 249, 249)"} 日当/宿泊
     %tbody
       = f.simple_fields_for :keihibodies do |body|
         = render 'keihibody_row', f: body
