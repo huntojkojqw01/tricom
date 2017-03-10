@@ -430,8 +430,15 @@ class EventsController < ApplicationController
        shozai = Shozai.find(shozai_id)
        shain = User.find(session[:user]).shainmaster
        shain.shozai = shozai if shozai
+
        if shain.save
-         return_data = {message: 'OK'}
+         joutai = ''
+         joutai = shain.shozai_所在名 if shain.shozai
+         background_color = ''
+         background_color = shain.shozai.try :background_color if shain.shozai
+         text_color = ''
+         text_color = shain.shozai.try :text_color if shain.shozai
+         return_data = {message: 'OK', resourceID: session[:user], joutai: joutai,bgColor: background_color, color: text_color }
        else
          return_data = {message: 'NotOK'}
        end

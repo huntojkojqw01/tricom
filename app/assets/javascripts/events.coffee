@@ -69,7 +69,8 @@ jQuery ->
       data: {id: 'change_shozai_timeline', data: val},
       type: "POST",
       success: (data) ->
-        location.reload()
+        $('.fc-resource-area tr[data-resource-id="'+data.resourceID+'"] td:nth-child(3)').css('color',data.color).css('background-color',data.bgColor);
+        $('.fc-resource-area tr[data-resource-id="'+data.resourceID+'"] td:nth-child(3)').text(data.joutai);
       failure: () ->
         console.log("change_shozai field")
     }))
