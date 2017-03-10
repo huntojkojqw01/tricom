@@ -24,5 +24,7 @@
     = f.label (t 'app.label.select_vn_holiday')
     .space
     = f.check_box :select_holiday_vn
-    .br
+    .row
+      .col-md-12.col-xs-12.col-sm-12.col-lg-12
+        .spacer
     = f.button :submit, class:'btn btn-primary', value: (t 'helpers.submit.setting')

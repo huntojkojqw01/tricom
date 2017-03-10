@@ -5,10 +5,10 @@ class Jobmaster < ActiveRecord::Base
   multisearchable :against => %w{job番号 job名 ユーザ番号 ユーザ名 入力社員番号 分類コード 分類名 関連Job番号 備考}
   validates :job番号, uniqueness: true
   validates :job番号, :job名, presence: true
-  validates :入力社員番号, numericality: { only_integer: true }, inclusion: {in: Shainmaster.pluck(:社員番号)}, allow_blank: true
-  validates :関連Job番号, numericality: { only_integer: true }, inclusion: {in: Jobmaster.pluck(:job番号)}, allow_blank: true
-  validates :ユーザ番号, inclusion: {in: Kaishamaster.pluck(:会社コード)}, allow_blank: true
-  validates :分類コード, inclusion: {in: Bunrui.pluck(:分類コード)}, allow_blank: true
+  validates :入力社員番号, numericality: { only_integer: true }, inclusion: {in: proc{Shainmaster.pluck(:社員番号)}}, allow_blank: true
+  validates :関連Job番号, numericality: { only_integer: true }, inclusion: {in: proc{Jobmaster.pluck(:job番号)}}, allow_blank: true
+  validates :ユーザ番号, inclusion: {in: proc{Kaishamaster.pluck(:会社コード)}}, allow_blank: true
+  validates :分類コード, inclusion: {in: proc{Bunrui.pluck(:分類コード)}}, allow_blank: true
   validate :check_input
 
   has_one :event, foreign_key: :JOB
