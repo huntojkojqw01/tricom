@@ -1,5 +1,4 @@
-%div#back-to-top-of-guidesearch
-%nav.navbar.navbar-inverse.rarius
+%nav.navbar.navbar-inverse.rarius.navbar-fixed-top
   .container-fluid
     - if current_user
       .navbar-header
@@ -13,15 +12,17 @@
           %ul.dropdown-menu
             %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.time_line_view')), time_line_view_events_path
             %li= link_to raw("<i class='glyphicon glyphicon-calendar' style='margin-right:1em;'></i>"+(t 'title.event')), events_path
-
             %legend.menu
             %li= link_to raw("<i class='glyphicon glyphicon-briefcase' style='margin-right:1em;'></i>"+(t 'title.kintai')), kintais_url
+            %legend.menu
             %li= link_to raw("<i class='glyphicon glyphicon-yen' style='margin-right:1em;'></i>"+(t 'title.kanri.keihihead')), keihiheads_url
-            %li= link_to raw("<i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i>"+(t 'title.kairan')), kairans_url
-            %li= link_to raw("<i class='glyphicon glyphicon-comment' style='margin-right:1em;'></i>"+(t 'title.dengon_menu')), dengons_url
-            %li= link_to raw("<i class='glyphicon glyphicon-list' style='margin-right:1em;'></i>"+(t 'title.setsubiyoyaku')), setsubiyoyakus_url
             %li= link_to raw("<i class='glyphicon glyphicon-ok' style='margin-right:1em;'></i>"+(t 'title.keihishonin')), shonin_search_keihiheads_url
             %li= link_to raw("<i class='glyphicon glyphicon-yen' style='margin-right:1em;'></i>"+(t 'title.keihi_shuppi_menu')), show_keihi_shuppi_keihiheads_path
+            %legend.menu
+            %li= link_to raw("<i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i>"+(t 'title.kairan')), kairans_url
+            %li= link_to raw("<i class='glyphicon glyphicon-comment' style='margin-right:1em;'></i>"+(t 'title.dengon_menu')), dengons_url
+            %legend.menu
+            %li= link_to raw("<i class='glyphicon glyphicon-list' style='margin-right:1em;'></i>"+(t 'title.setsubiyoyaku')), setsubiyoyakus_url
 
 
         %li.dropdown
@@ -38,6 +39,32 @@
 
       %ul.nav.navbar-nav.navbar-right
         - if current_user
+          - kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
+          - dengons = Dengon.where(社員番号: session[:user], 確認: false)
+          - if dengons.count > 0
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-comment text-red'}
+              %ul.dropdown-menu.center
+                - dengons.each do |dengon|
+                  %li= link_to ' '+ dengon.伝言内容, dengons_path(search: dengon.伝言内容), :class => "glyphicon glyphicon-envelope icon-left"
+          - else
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-comment',:onclick => "location.href = '/dengons?locale=ja' ; return false"}
+          - if kairans.count > 0
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-envelope text-red',:onclick => "location.href = '/kairans?locale=ja' ; return false"}
+              %ul.dropdown-menu.center
+                - kairans.each do |kairan|
+                  %li= link_to ' '+ kairan.内容, kairans_path(search: kairan.内容), :class => "glyphicon glyphicon-envelope icon-left"
+
+          - else
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %span{class: 'glyphicon glyphicon-envelope', :onclick => "location.href = '/kairans?locale=ja' ; return false"}
+            / = link_to raw("<span class='navbar-brand root'><i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i></span>"), kairans_url
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
               / - if current_user.avatar.exists?

@@ -1,6 +1,10 @@
 .row
   .col-sm-2
-    = render 'kinmu_refer'
+    %button.btn.btn-default.kinmu-show
+      %span.glyphicon.glyphicon-list-alt
+    %button.btn.btn-default.kinmu-hide
+      %span.glyphicon.glyphicon-list-alt
+    = render 'kinmu_refer_tab_help'
   .col-md-6.col-xs-6.col-sm-6.col-lg-6.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
     = f.button ' 集 計 す る ', class: 'summary', type: 'button'
     .row

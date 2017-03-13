@@ -55,11 +55,11 @@ end %>
               <% if body.JOB != job%>
                 <tr>
                   <td colspan="2" style="text-align: right; ">合計</td>
-                  <td style="text-align: right; "><%=number_with_delimiter(koutsuhi)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(nitto)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(shukuhakuhi)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(shoukei)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(sonota)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(koutsuhi)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(nitto)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(shukuhakuhi)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(shoukei)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(sonota)%></td>
                 </tr>
                 <tr>
                   <td rowspan="<%= @keihi_body.where(JOB: body.JOB).count%>"><%= body.JOB + " " +(Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty?%></td>
@@ -78,11 +78,11 @@ end %>
                 <tr>
               <%end%>
               <td style="text-align: left; "><%= body.keihi_社員番号 + " " + (Shainmaster.find_by id: body.keihi_社員番号).try(:氏名) unless body.keihi_社員番号.empty? %></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:交通費)) %></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:日当)) %></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:宿泊費) )%></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:交通費).to_i + body.try(:日当).to_i+body.try(:宿泊費).to_i )%></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:その他)  )%></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:交通費)) %></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:日当)) %></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:宿泊費) )%></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:交通費).to_i + body.try(:日当).to_i+body.try(:宿泊費).to_i )%></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:その他)  )%></td>
               <% check = false
                 koutsuhi = koutsuhi + body.try(:交通費).to_i
                 nitto = nitto + body.try(:日当).to_i
@@ -94,11 +94,11 @@ end %>
             <% end %>
             <tr>
               <td colspan="2" style="text-align: right; ">合計</td>
-              <td style="text-align: right; "><%=number_with_delimiter(koutsuhi)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(nitto)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(shukuhakuhi)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(shoukei)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(sonota)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(koutsuhi)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(nitto)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(shukuhakuhi)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(shoukei)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(sonota)%></td>
             </tr>
           </table>
         </div>
@@ -150,11 +150,11 @@ end %>
               <% if body.keihi_社員番号 != shain%>
                 <tr>
                   <td colspan="2" style="text-align: right; ">合計</td>
-                  <td style="text-align: right; "><%=number_with_delimiter(koutsuhi)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(nitto)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(shukuhakuhi)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(shoukei)%></td>
-                  <td style="text-align: right; "><%=number_with_delimiter(sonota)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(koutsuhi)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(nitto)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(shukuhakuhi)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(shoukei)%></td>
+                  <td style="text-align: right; ">¥<%=number_with_delimiter(sonota)%></td>
                 </tr>
                 <tr>
                   <td rowspan="<%= @keihi_body_shain.where('keihi_heads.社員番号 = '+'\''+body.keihi_社員番号+'\'').count%>"><%= body.keihi_社員番号 + " " +(Shainmaster.find_by id: body.keihi_社員番号).try(:氏名) unless body.keihi_社員番号.empty? %></td>
@@ -173,11 +173,11 @@ end %>
                 <tr>
               <%end%>
               <td style="text-align: left; "><%= body.JOB + " " + (Jobmaster.find_by job番号: body.JOB).try(:job名) unless body.JOB.empty?  %></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:交通費)) %></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:日当)) %></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:宿泊費)) %></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:交通費).to_i + body.try(:日当).to_i+body.try(:宿泊費).to_i )%></td>
-                <td style="text-align: right; "><%= number_with_delimiter(body.try(:その他))  %></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:交通費)) %></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:日当)) %></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:宿泊費)) %></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:交通費).to_i + body.try(:日当).to_i+body.try(:宿泊費).to_i )%></td>
+                <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:その他))  %></td>
               <% check = false
                 koutsuhi = koutsuhi + body.try(:交通費).to_i
                 nitto = nitto + body.try(:日当).to_i
@@ -189,11 +189,11 @@ end %>
             <% end %>
             <tr>
               <td colspan="2" style="text-align: right; ">合計</td>
-              <td style="text-align: right; "><%=number_with_delimiter(koutsuhi)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(nitto)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(shukuhakuhi)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(shoukei)%></td>
-              <td style="text-align: right; "><%=number_with_delimiter(sonota)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(koutsuhi)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(nitto)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(shukuhakuhi)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(shoukei)%></td>
+              <td style="text-align: right; ">¥<%=number_with_delimiter(sonota)%></td>
             </tr>
           </table>
         </div>
@@ -201,4 +201,3 @@ end %>
       </div>
   </div>
 <%end%>
-

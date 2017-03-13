@@ -18,6 +18,7 @@ class EventsController < ApplicationController
     @shain = Shainmaster.find(session[:selected_shain])
     @kairanCount = Kairanshosai.where(対象者: session[:user], 状態: 0).count
     shain = Shainmaster.find(session[:user])
+    @setting = Setting.where(社員番号: session[:selected_shain]).first
     if shain
       shain.回覧件数 = @kairanCount
       shain.save
@@ -429,8 +430,15 @@ class EventsController < ApplicationController
        shozai = Shozai.find(shozai_id)
        shain = User.find(session[:user]).shainmaster
        shain.shozai = shozai if shozai
+
        if shain.save
-         return_data = {message: 'OK'}
+         joutai = ''
+         joutai = shain.shozai_所在名 if shain.shozai
+         background_color = ''
+         background_color = shain.shozai.try :background_color if shain.shozai
+         text_color = ''
+         text_color = shain.shozai.try :text_color if shain.shozai
+         return_data = {message: 'OK', resourceID: session[:user], joutai: joutai,bgColor: background_color, color: text_color }
        else
          return_data = {message: 'NotOK'}
        end

@@ -1,4 +1,4 @@
-en:
+vi:
   date:
     abbr_day_names:
     - Sun
@@ -135,15 +135,15 @@ en:
     select:
       prompt: 選択してください。
     submit:
-      create: Register
-      create_other: 'Register '
-      submit: Save
-      update: Update
-      destroy: Destroy
-      destroy_other: 'Destroy '
-      setting: Setting
-      ok: '　ＯＫ　'
-      redirect_to_timeline: TimeLine
+      create:
+      create_other: ' Đăng kí '
+      submit:  Lưu
+      update: Cập nhật
+      destroy: Xóa
+      destroy_other: ' Xóa'
+      setting:  Cài đặt
+      ok: '　Xong　'
+      redirect_to_timeline:  Dòng thời gian
       redirect_to_kintai: Kintai
       redirect_to_keihihead: Keihihead
       redirect_to_dengon: Dengon
@@ -274,7 +274,7 @@ en:
       calendar_genzai: 現在
       necessary: Necessary
       unnecessary: Unnecessary
-      select_vn_holiday: Vietnamese Holidays
+      select_vn_holiday: Ngày lễ của Việt Nam
   export: 輸出
   title:
     bashokubunmst: Location classification list
@@ -286,35 +286,35 @@ en:
     dengonyouken: Message requirement master
     eki: Station list
     employer: MultiSelect
-    event: Calendar
-    time_line_view: Timeline
+    event:  Lịch
+    time_line_view:  Dòng thời gian
     export_csv: Export data
     jobmaster: Job master
     joutaimaster: State master
     jpt_hokiday_mst: Jupiter Holiday
-    kairan: Circulation
+    kairan:  Thư
     shokairan: 送回覧
     kaitou: Response
     kairanyoukenmst: Circulation master
     kaishamaster: Company master
     kanri:
-      keihihead: Expenses
-      kintai: Attendance
+      keihihead: Chi phí
+      kintai: Tham dự
       main: 管理G メインメニュー
     keihibodie: TRICOM
     keihihead: 経費入力管理
     keihi_pdf: 経費出費明細
     shonin_search: 経費承認一覧
     kikanmst: 機関一覧
-    kintai: Attendance
+    kintai: Tham dự
     kouteimaster: Process master
     layout: TRICOM
     main: Main Menu
     rorumaster: Role master
-    rorumenba: Role Member
+    rorumenba: Vị trí
     session: Login
     setsubi: Device master
-    setsubiyoyaku: Device reservation
+    setsubiyoyaku:   Đặt dùng thiết bị
     shainmaster: Employee master
     share: TRICOM
     shoninshamst: Approver master
@@ -328,16 +328,16 @@ en:
     yuusen: Priority
     mybashomaster: MY location master
     setting: Setting
-    help: Help
+    help:  Trợ giúp
     myjobmaster: MYJOB master
-    keihishonin: Expense approval
-    dengon_menu: Message
+    keihishonin:  Xác nhận chi phí
+    dengon_menu: Tin nhắn
     masterkanri: Master management
     yakushokumaster_table: Official position master
     kikanmaster: Institution master
     ekimaster: Station master
     bunruimaster: Classification master
-    kinmukanrishisutemu: Work management system
+    kinmukanrishisutemu: Hệ thống quản lí công việc
     menu: Menu
     password_update_date: Password update date
     profilehenko: Change Profile
@@ -430,4 +430,4 @@ en:
     path: Path
     search: Search Results
     keihi_shuppi: Expense Total Table
-    keihi_shuppi_menu: Accounting Department
+    keihi_shuppi_menu:  Kế toán

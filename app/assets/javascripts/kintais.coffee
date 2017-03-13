@@ -39,6 +39,20 @@ jQuery ->
     $('#joutai_search_modal').modal('show')
 #    status = 1
     event.preventDefault()
+    
+  $('#kinmu_refer').hide()
+  $('.kinmu-hide').hide()
+  $(document).on 'click', '.kinmu-hide', (event) ->
+    $('#kinmu_refer').hide()
+    $('.kinmu-hide').hide()
+    $('.kinmu-show').show()
+    event.preventDefault()
+
+  $(document).on 'click', '.kinmu-show', (event) ->
+    $('#kinmu_refer').show()
+    $('.kinmu-show').hide()
+    $('.kinmu-hide').show()
+    event.preventDefault()
 
 #  $(document).on 'click', '.status2', (event) ->
 #    $('#joutai_search_modal').modal('show')
@@ -483,7 +497,7 @@ jQuery ->
     sideBySide: true,
     toolbarPlacement: 'top',
     keyBinds: false,
-    focusOnShow: false
+    focusOnShow: false     
   }).on("dp.hide", (e) ->
     idRow = $(this).find('.input-time').attr('id')
     idKintai = idRow.substring(12,idRow.length)
@@ -492,8 +506,10 @@ jQuery ->
     time = $("#taishajikoku"+idKintai).val()
     $("#taishajikoku_text_"+idKintai).text(time)
   )
-
-  $('.input-time').click( () ->
+  $('.input-time').datetimepicker({
+      format: 'HH:mm'
+    })
+  $('.input-time').click( () ->    
     $(this).closest('.time').data("DateTimePicker").toggle();
   );
 
@@ -544,7 +560,9 @@ jQuery ->
     time = $("#shukkinjikoku"+idKintai).val()
     $("#shukkinjikoku_text_"+idKintai).text(time)
   )
-
+  $('.input-time-start').datetimepicker({
+      format: 'HH:mm'
+    })
   $('.input-time-start').click( () ->
     $(this).closest('.timestart').data("DateTimePicker").toggle();
   );
@@ -900,5 +918,3 @@ jQuery ->
       failure: () ->
         console.log("update_endtime field")
     })
-
-

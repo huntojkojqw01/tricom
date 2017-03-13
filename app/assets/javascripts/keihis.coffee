@@ -449,27 +449,30 @@ jQuery ->
   $('#keihihead_清算予定日').click () ->
     $('.keihihead_清算予定日 .datetime').data("DateTimePicker").toggle();
 
-  $('#keihihead_清算予定日_search').click () ->
-    $('.datetime').data("DateTimePicker").toggle();
+  $('#search_date_icon_group').click (e) ->
+    $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
+
+  # $('#keihihead_清算予定日_search').click (e) ->
+  #   $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
 
   $('#search').click () ->
     $('.datetime').data("DateTimePicker").toggle();
 
-  $('.datepicker_search').datetimepicker({
-    format: 'YYYY-MM-DD',
-    widgetPositioning: {
-      horizontal: 'left',
-      vertical: 'bottom'
-    }
-    showTodayButton: true,
-    showClear: true,
-    calendarWeeks: true,
-    keyBinds: false,
-    focusOnShow: false
+  # $('.datepicker_search').datetimepicker({
+  #   format: 'YYYY-MM-DD',
+  #   widgetPositioning: {
+  #     horizontal: 'left',
+  #     vertical: 'bottom'
+  #   }
+  #   showTodayButton: true,
+  #   showClear: true,
+  #   calendarWeeks: true,
+  #   keyBinds: false,
+  #   focusOnShow: false
 
-  })
+  # })
 
-  $('.datepicker_search').on('dp.change', (e) ->
+  $('#keihihead_清算予定日_search ').on('dp.change', () ->
     date = $(this).val()
     shain = $('#keihihead_対象者').val()
     shonin = $('#keihihead_承認済区分').val()

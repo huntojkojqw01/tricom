@@ -73,6 +73,10 @@
 .text-gray {
   color: rgb(148, 147, 173);
 }
+
+.text-red {
+  color: red;
+}
 .center{
   text-align: center;
   width: 250px;
@@ -167,3 +171,4 @@
       float:right;
     }
 }*/
+body { padding-top: 70px; }

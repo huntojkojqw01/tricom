@@ -2,7 +2,7 @@
   <td><%= f.text_field :日付, class: 'form-control datepicker', size: 8 %></td>
   <!-- <td><%= f.text_area_search :相手先, {}, class_field: 'atesaki-name', class_search: 'atesaki-search', size: '60x2' %></td> -->
   <td align="right">
-    <%= f.button :button, "イベント参照", class: 'btn btn-primary event_sanshou', type: 'button', html: {width: "100px"}%>
+    <%= f.button :button, "", class: 'btn btn-default event_sanshou glyphicon glyphicon-tasks', type: 'button', html: {width: "100px"}%>
     <%= f.input :相手先, input_html: {style: 'width:100px'}, as: :search_history_job, label: false%>
     <%= f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history_job,label: false%>
   </td>

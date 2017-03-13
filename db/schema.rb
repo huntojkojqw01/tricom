@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170227104628) do
+ActiveRecord::Schema.define(version: 20170309074318) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -69,21 +69,6 @@ ActiveRecord::Schema.define(version: 20170227104628) do
     t.datetime "更新日"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "delayed_jobs", force: :cascade do |t|
-    t.integer  "priority",   default: 0, null: false
-    t.integer  "attempts",   default: 0, null: false
-    t.text     "handler",                null: false
-    t.text     "last_error"
-    t.datetime "run_at"
-    t.datetime "locked_at"
-    t.datetime "failed_at"
-    t.string   "locked_by"
-    t.string   "queue"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -182,11 +167,6 @@ ActiveRecord::Schema.define(version: 20170227104628) do
     t.decimal  "早退時間"
   end
 
-  create_table "mybashomasters", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "paths", force: :cascade do |t|
     t.string   "title_jp"
     t.string   "title_en"
@@ -206,11 +186,12 @@ ActiveRecord::Schema.define(version: 20170227104628) do
   end
 
   create_table "setting_tables", force: :cascade do |t|
-    t.string   "社員番号",       null: false
+    t.string   "社員番号",              null: false
     t.string   "scrolltime"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "local"
+    t.string   "select_holiday_vn"
   end
 
   create_table "temps", force: :cascade do |t|

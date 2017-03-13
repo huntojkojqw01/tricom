@@ -3,14 +3,14 @@
     .form-group
       / .col-md-12.col-xs-12.col-sm-12.col-lg-12
       = f.label :清算予定日
-      .input-group.datetime
+      .input-group
         - if !request["search"].nil?
           = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: ''
         - elsif request["date"].nil?
           = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: Date.today
         - else
           = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: request['date']
-        %span.input-group-addon#search_date_icon
+        %span.input-group-addon#search_date_icon_group
           %span.glyphicon.glyphicon-calendar#search_date_icon{"aria-hidden" => "true"}
       = f.label :対象者
       - if !request["search"].nil?
