@@ -1,35 +1,35 @@
 vi:
   date:
     abbr_day_names:
-    - Sun
-    - Mon
-    - Tue
-    - Wed
-    - Thu
-    - Fri
-    - Sat
+    - Chủ nhật
+    - Thứ hai
+    - Thứ ba
+    - Thứ tư
+    - Thứ năm
+    - Thứ sáu
+    - Thứ bảy
     abbr_month_names:
     -
-    - Jan
-    - Feb
-    - Mar
-    - Apr
-    - May
-    - Jun
-    - Jul
-    - Aug
-    - Sep
-    - Oct
-    - Nov
-    - Dec
+    - Tháng một
+    - Tháng hai
+    - Tháng ba
+    - Tháng bốn
+    - Tháng năm
+    - Tháng sáu
+    - Tháng bảy
+    - Tháng tám
+    - Tháng chín
+    - Tháng mười
+    - Tháng mười một
+    - Tháng mười hai
     day_names:
-    - Sunday
-    - Monday
-    - Tuesday
-    - Wednesday
-    - Thursday
-    - Friday
-    - Saturday
+    - Chủ nhật
+    - Thứ hai
+    - Thứ ba
+    - Thứ tư
+    - Thứ năm
+    - Thứ sáu
+    - Thứ bảy
     formats:
       default: ! '%m/%d/%Y'
       long: ! '%m %d,%Y(%a)'
@@ -37,18 +37,18 @@ vi:
       day: ! '%a'
     month_names:
     -
-    - January
-    - February
-    - March
-    - April
-    - May
-    - June
-    - July
-    - August
-    - September
-    - October
-    - November
-    - December
+    - Tháng một
+    - Tháng hai
+    - Tháng ba
+    - Tháng bốn
+    - Tháng năm
+    - Tháng sáu
+    - Tháng bảy
+    - Tháng tám
+    - Tháng chín
+    - Tháng mười
+    - Tháng mười một
+    - Tháng mười hai
     order:
     - :month
     - :day
@@ -56,106 +56,106 @@ vi:
   datetime:
     distance_in_words:
       about_x_hours:
-        one: 約1時間
-        other: 約%{count}時間
+        one:  khoảng 1 giờ
+        other: khoảng %{count} giờ
       about_x_months:
-        one: 約1ヶ月
-        other: 約%{count}ヶ月
+        one: khoảng 1 tháng
+        other: khoảng %{count} tháng 
       about_x_years:
-        one: 約1年
-        other: 約%{count}年
+        one: khoảng 1 năm
+        other: khoảng %{count} năm
       almost_x_years:
-        one: 1年弱
-        other: ! '%{count}年弱'
-      half_a_minute: 30秒前後
+        one: gần 1 năm
+        other: ! '%{count} năm'
+      half_a_minute: 30 giây
       less_than_x_minutes:
-        one: 1分以内
-        other: ! '%{count}分未満'
+        one: dưới 1 phút
+        other: ! 'dưới %{count} phút' 
       less_than_x_seconds:
-        one: 1秒以内
-        other: ! '%{count}秒未満'
+        one: dưới 1 giây
+        other: ! 'dưới %{count} giây'
       over_x_years:
-        one: 1年以上
-        other: ! '%{count}年以上'
+        one: trên 1 năm
+        other: ! 'trên %{count} năm'
       x_days:
-        one: 1日
-        other: ! '%{count}日'
+        one: 1 ngày
+        other: ! '%{count} ngày'
       x_minutes:
-        one: 1分
-        other: ! '%{count}分'
+        one: 1 phút
+        other: ! '%{count} phút'
       x_months:
-        one: 1ヶ月
-        other: ! '%{count}ヶ月'
+        one: 1 tháng
+        other: ! '%{count} tháng'
       x_seconds:
-        one: 1秒
-        other: ! '%{count}秒'
+        one: 1 giây
+        other: ! '%{count} giây'
     prompts:
-      day: day
-      hour: hour
-      minute: minute
-      month: month
-      second: second
-      year: year
+      day: ngày
+      hour: giờ
+      minute: phút
+      month: tháng
+      second: giây
+      year: năm
   errors: &errors
     format: ! '%{attribute}%{dengon_menu}'
     dengon_menus:
-      accepted: を受諾してください。
-      current_password_incorrect: 現在パスワードが間違いました。
-      wrong_mail_form: 正しくメールフォマットを入力してください。
-      blank: を入力してください。
-      present: は入力しないでください。
-      confirmation: と%{attribute}の入力が一致しません。
-      empty: を入力してください。
-      equal_to: は%{count}にしてください。
-      even: は偶数にしてください。
-      exclusion: は予約されています。
-      greater_than: は%{count}より大きい値にしてください。
-      greater_than_or_equal_to: は%{count}以上の値にしてください。
-      inclusion: は一覧にありません。
-      invalid: は不正な値です。
-      less_than: は%{count}より小さい値にしてください。
-      less_than_or_equal_to: は%{count}以下の値にしてください。
-      not_a_number: は数値で入力してください。
-      not_an_integer: は整数で入力してください。
-      odd: は奇数にしてください。
-      record_invalid: バリデーションに失敗しました。 %{errors}
-      restrict_dependent_destroy: ! '%{record}が存在しているので削除できません。'
-      taken: はすでに存在します。
-      too_long: は%{count}文字以内で入力してください。
-      too_short: は%{count}文字以上で入力してください。
-      wrong_length: は%{count}文字で入力してください。
-      other_than: "は%{count}以外の値にしてください。"
-      delete_association: 'The data you want to delete is used for other places. Is it OK to delete?'
+      accepted: Làm ơn hãy xác nhận.
+      current_password_incorrect: Mật khẩu hiện tại không dúng.
+      wrong_mail_form: Hãy nhập đúng dạng của email.
+      blank: Xin hãy điền mục này.
+      present: Xin đừng điền mục này.
+      confirmation: Thuộc tính %{attribute} không khớp.
+      empty: Xin hãy điền mục này.
+      equal_to: Hãy đặt thuộc tính này bằng %{count}.
+      even: Hãy đặt thuộc tính này là số chẵn
+      exclusion: Thuộc tính này đã được đặt trước.
+      greater_than: Hãy đặt thuộc tính này lớn hơn %{count}.
+      greater_than_or_equal_to: Hãy đặt thuộc tính này lớn hơn hoặc bằng %{count}.
+      inclusion: Thuộc tính này không ở trong danh sách.
+      invalid: Giá trị này không chính xác.
+      less_than: Hãy đặt thuộc tính này nhỏ hơn %{count}.
+      less_than_or_equal_to: Hãy đặt thuộc tính này nhỏ hơn hoặc bằng %{count}.
+      not_a_number: Không phải số.
+      not_an_integer: Không phải số nguyên.
+      odd: Hãy đặt thuộc tính này là số lẻ.
+      record_invalid: Xác nhận thất bại. %{errors}
+      restrict_dependent_destroy: ! Vì '%{record} tồn tại nên không thể xóa.'
+      taken: Đã tồn tại.
+      too_long: Hãy nhập thấp hơn %{count} kí tự.
+      too_short: Hãy nhập nhiều hơn %{count} kí tự.
+      wrong_length: Hãy nhập trong %{count} kí tự.
+      other_than: "Hãy nhập khác giá trị %{count}."
+      delete_association: 'Dữ liệu muốn xóa đang được sử dụng. Có thực sự muốn xóa?'
     template:
-      body: 次の項目を確認してください。
+      body: Hãy kiểm tra các mục sau.
       header:
-        one: ! '%{model}にエラーが発生しました。'
-        other: ! '%{model}に%{count}個のエラーが発生しました。'
+        one: ! Có lỗi phát sinh ở '%{model}.'
+        other: ! Có %{count} lỗi phát sinh ở'%{model}.'
   helpers:
     select:
-      prompt: 選択してください。
+      prompt: Hãy chọn.
     submit:
-      create:
-      create_other: ' Đăng kí '
+      create: Đăng kí
+      create_other: 'Đăng kí '
       submit:  Lưu
       update: Cập nhật
       destroy: Xóa
-      destroy_other: ' Xóa'
+      destroy_other: 'Xóa'
       setting:  Cài đặt
       ok: '　Xong　'
       redirect_to_timeline:  Dòng thời gian
-      redirect_to_kintai: Kintai
-      redirect_to_keihihead: Keihihead
-      redirect_to_dengon: Dengon
-      redirect_to_shonin: Shonin
-      redirect_to_kairan: Kairan
-      redirect_to_setsubiyoyaku: Setsubiyoyaku
-      input: Input
-      entered: Entered
-      send_mail: Send
+      redirect_to_kintai: Tham dự
+      redirect_to_keihihead: Chi phí
+      redirect_to_dengon: Tin nhắn
+      redirect_to_shonin: Xác nhận chi phí
+      redirect_to_kairan: Thư
+      redirect_to_setsubiyoyaku: Đặt dùng thiết bị
+      input: Đầu vào
+      entered: Đã nhập
+      send_mail: Đã gửi
     button:
-      search: Search
-      confirm: Confirm
+      search: Tìm kiếm
+      confirm: Xác nhận
   number:
     currency:
       format:
@@ -176,11 +176,11 @@ vi:
       decimal_units:
         format: ! '%n %u'
         units:
-          billion: 十億
-          million: 百万
-          quadrillion: 千兆
-          thousand: 千
-          trillion: 兆
+          billion: Tỉ
+          million: Triệu
+          quadrillion: Nghìn tỉ
+          thousand: Nghìn
+          trillion: Trăm tỉ
           unit: ''
       format:
         delimiter: ''
@@ -190,11 +190,11 @@ vi:
       storage_units:
         format: ! '%n%u'
         units:
-          byte: バイト
-          gb: ギガバイト
-          kb: キロバイト
-          mb: メガバイト
-          tb: テラバイト
+          byte: byte
+          gb: gigabyte
+          kb: kilobyte
+          mb: megabyte
+          tb: terabyte
     percentage:
       format:
         delimiter: ''
@@ -204,16 +204,16 @@ vi:
         delimiter: ''
   support:
     array:
-      last_word_connector: と
-      two_words_connector: と
-      words_connector: と
+      last_word_connector: và
+      two_words_connector: và
+      words_connector: và
   time:
-    am: 午前
+    am: buổi sáng
     formats:
       default: ! '%Y/%m/%d %H:%M:%S'
-      long: ! '%Y年%m月%d日(%a) %H時%M分%S秒 %z'
+      long: ! '%Y năm %m tháng %d ngày (%a) %H giờ %M phút %S giây %z'
       short: ! '%y/%m/%d %H:%M'
-    pm: 午後
+    pm: buổi chiều
   # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
   activemodel:
     errors:
@@ -222,212 +222,212 @@ vi:
     errors:
       <<: *errors
   app:
-    delete_confirm: Do you want to delete?
-    delete_data_in_month_confirm: 当月の勤務データを削除されます。削除でよろしいでしょうか。
-    select_confirm: 行を選択してください。
-    forgot_password: Forgot password?
-    update_pass_success: パスワードを更新できました。
+    delete_confirm: Có muốn xóa?
+    delete_data_in_month_confirm: Dữ liệu làm việc tháng này sẽ bị xóa. Có muốn xóa.
+    select_confirm: Hãy lựa chọn.
+    forgot_password: Quên mật khẩu?
+    update_pass_success: Mật khẩu đã được thay đổi.
     flash:
-      kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
-      import_csv: It was able to load from the CSV file!
-      record_not_found: 該当情報が見つかりませんでした！
-      record_not_existing: 参照情報が存在していない！
-      new_success: 新規作成出来ました。
-      update_success: 更新成功出来ました。
-      delete_success: 削除成功出来ました。
-      login_field: 正しい情報で入力してください。
-      login_new: 担当者コードが正しくないです。
-      login_existing: ユーザーが既に登録されました。
-      access_denied: あなたはアクセス権限ではありません！
-      mail_to: 社員のメールアドレスを登録していません。
-      mail_send_field: エラーが発生する為、メールを送信できませんでした！
-      kairan_confirm: チェックされた回覧を確認済み
-      wellcome_to: よろこそ！
-      file_nil: ファイルが存在していない！
-      file_format_invalid: ファイルのフォマットを正しく選択してください。
-      not_attributes: " アトリビュートが存在していない！"
-      unsucess: "全部フィールドがエンプティーを入力しないでください！"
-      let_login_with_code: Let login with your code!
+      kintai_finish_input: Đã nhập xong, sau này không thể thay đổi dữ liệu của tháng này.
+      import_csv: Đã tải dữ liệu từ file CSV!
+      record_not_found: Không tin thấy thông tin tương ứng！
+      record_not_existing: Thông tin tham chiếu không tồn tại！
+      new_success: Tạo mới thành công.
+      update_success: Chỉnh sửa thành công.
+      delete_success: Xóa thành công .
+      login_field: Hãy nhập thông tin chính xác.
+      login_new: Mã của người quản lý không chính xác.
+      login_existing: Tài khoản này đã được đăng kí.
+      access_denied: Từ chối truy cập！
+      mail_to: Địa chỉ mail của công ty chưa được đăng kí.
+      mail_send_field: Không thể gửi do có lỗi！
+      kairan_confirm: Đã xác nhận những thư được đánh dấu
+      wellcome_to: Xin chào！
+      file_nil: Tệp không tồn tại！
+      file_format_invalid: Hãy chọn tệp đúng chuẩn.
+      not_attributes: "Thuộc tính không tồn tại！"
+      unsucess: "Không được để trống toàn bộ các trường"
+      let_login_with_code: Hãy đăng nhập bằng mã!
     login:
-      let_login: ログインしてください。
-      logged_in: ログインしました。
-      let_input_mail: Enter your mail!
-      let_login_with_code: Let login with your code!
-      send_mail: パスワードをメールに送りました。メールをチェックしてください。
+      let_login: Hãy đăng nhập.
+      logged_in: Đã đăng nhập.
+      let_input_mail: Hãy điền mail!
+      let_login_with_code: Hãy đăng nhập bằng mã!
+      send_mail: Mật khẩu đã được gửi đến hòm thư. Hãy kiểm tra trong hòm thư.
     model:
-      check_data_input: は開始日以上の値にしてください。
-      schedule: すでに他のスケジュールがあります。
+      check_data_input: Hãy nhập ngày muộn hơn ngày bắt đầu.
+      schedule: Đã có lịch khác.
       check_kubun:
-        shoninsha: 承認者を入力してください
-        seisanyoteibi: 清算予定日を入力してください
-      check_shainmaster_equal: 申請者と承認者が一緒しています
-      check_joutai1: 状態が存在していない
-      check_time_attendance: は出勤時刻以上の値にしてください。
-      check_time: は22時間より小さい値にしてください。
+        shoninsha: Hãy nhập người xác nhận
+        seisanyoteibi: Hãy nhập ngày thanh lý
+      check_shainmaster_equal: Người xác nhận và người nộp giống nhau
+      check_joutai1: Tình trạng này không tồn tại
+      check_time_attendance: Hãy nhập giá trị lớn hơn thời gian làm việc.
+      check_time: Hãy nhập giá trị nhỏ hơn 22 giờ.
     label:
-      import_csv: Import data with CSV!
-      reference: Reference
-      export_pdf: Export data with PDF!
-      pdf_event: 就業報告表
-      pdf_event_job: '就業合計表(JOB単位）'
-      pdf_event_koutei: '就業合計表(工程単位）'
-      calendar_genzai: 現在
-      necessary: Necessary
-      unnecessary: Unnecessary
+      import_csv: Đã tải dữ liệu từ file CSV!!
+      reference: Tham khảo
+      export_pdf: Xuất dữ liệu ra PDF!
+      pdf_event: Bảng báo cáo công việc
+      pdf_event_job: 'Bảng tổng hợp công việc(đơn vị JOB）'
+      pdf_event_koutei: 'Bảng tổng hợp công việc(đơn vị tiến trình）'
+      calendar_genzai: Hiện tại
+      necessary: Cần thiết
+      unnecessary:  Không cần thiết
       select_vn_holiday: Ngày lễ của Việt Nam
-  export: 輸出
+  export: Xuất
   title:
-    bashokubunmst: Location classification list
-    bashokubunmaster: Location classification master
-    bashomaster: Location master
-    bunrui: Classification list
-    dengonkaitou: Message reply master
-    dengon: Message list
-    dengonyouken: Message requirement master
-    eki: Station list
-    employer: MultiSelect
+    bashokubunmst: Phân loại địa điểm
+    bashokubunmaster: Phân loại địa điểm (master)
+    bashomaster:  Địa điểm (master)
+    bunrui: Danh sách phân loại
+    dengonkaitou: Tin nhắn trả lời (master)
+    dengon: Danh sách tin nhắn
+    dengonyouken: Các loại tin nhắn (master)
+    eki: Danh sách nhà ga
+    employer: Đa lựa chọn
     event:  Lịch
     time_line_view:  Dòng thời gian
-    export_csv: Export data
-    jobmaster: Job master
-    joutaimaster: State master
-    jpt_hokiday_mst: Jupiter Holiday
+    export_csv: Xuất dữ liệu
+    jobmaster:  Công việc (master)
+    joutaimaster: Trạng thái (master)
+    jpt_hokiday_mst: Ngày lễ của Jupiter
     kairan:  Thư
-    shokairan: 送回覧
-    kaitou: Response
-    kairanyoukenmst: Circulation master
-    kaishamaster: Company master
+    shokairan: Thư đã gửi
+    kaitou: Hồi đáp
+    kairanyoukenmst: Các loại thư (master)
+    kaishamaster: Công ty (master)
     kanri:
       keihihead: Chi phí
       kintai: Tham dự
-      main: 管理G メインメニュー
+      main: Menu chính
     keihibodie: TRICOM
-    keihihead: 経費入力管理
+    keihihead: Quản lý kinh phí
     keihi_pdf: 経費出費明細
-    shonin_search: 経費承認一覧
-    kikanmst: 機関一覧
+    shonin_search: Danh sách xác nhận chi phí
+    kikanmst: Danh sách đại lý
     kintai: Tham dự
-    kouteimaster: Process master
+    kouteimaster: Tiến trình (master)
     layout: TRICOM
     main: Main Menu
-    rorumaster: Role master
-    rorumenba: Vị trí
-    session: Login
-    setsubi: Device master
+    rorumaster: Vai trò (master)
+    rorumenba: Vai trò
+    session: Đăng nhập
+    setsubi: Thiết bị (master)
     setsubiyoyaku:   Đặt dùng thiết bị
-    shainmaster: Employee master
+    shainmaster: Nhân viên (master)
     share: TRICOM
-    shoninshamst: Approver master
-    shozai: Location state master
-    shozokumaster: Affiliation master
-    tsushinseigyou: Communication control master
+    shoninshamst: Người xác nhận (master)
+    shozai: Vị trí (master)
+    shozokumaster: Nhóm hoạt động (master)
+    tsushinseigyou: Địa chỉ liên lạc (master)
     user:
-      change_pass: パスワード変更
-      tantousha: Contact person master
-    yakushokumaster: Position master
-    yuusen: Priority
-    mybashomaster: MY location master
-    setting: Setting
+      change_pass: Đổi mật khẩu
+      tantousha: Người quản lý (master)
+    yakushokumaster: Chức vụ(master)
+    yuusen:  Ưu tiên
+    mybashomaster: Địa điểm của tôi (master)
+    setting: Cài đặt
     help:  Trợ giúp
-    myjobmaster: MYJOB master
+    myjobmaster: Công việc của tôi (master)
     keihishonin:  Xác nhận chi phí
     dengon_menu: Tin nhắn
-    masterkanri: Master management
-    yakushokumaster_table: Official position master
-    kikanmaster: Institution master
-    ekimaster: Station master
-    bunruimaster: Classification master
+    masterkanri: Quản lý
+    yakushokumaster_table: Chức vụ (master)
+    kikanmaster: Đại lý (master)
+    ekimaster: Nhà ga (master)
+    bunruimaster: Phân loại (master)
     kinmukanrishisutemu: Hệ thống quản lí công việc
     menu: Menu
-    password_update_date: Password update date
-    profilehenko: Change Profile
-    logout: Logout
-    login: Login
-    kanrig: Management G
-    tantoushacode: Contact person code
-    tantoushameishou: Contact person name
-    genzaipassword: Current password
-    password: Password
-    repassword: Re-password
-    nagasayoken: greater than %{count} letter
-    image: Image
-    mail: Mail
-    koshinsuru: Update
-    profilehenshuu: Edit profile
-    scrolltime: Scroll Time
-    local: Local
-    bashocode: Location code
-    bashomei: Location name
-    bashomeikana: Location name in kana
-    bashokubun: Location classification
-    kaishacode: Company code
-    edit: Edit
-    delete: Delete
-    new: New
-    bashokubuncode: Location classification code
-    bashokubunmei: Location classification name
-    modoru: Back
-    bunruicode: Classification code
-    bunruimei: Classification name
-    kaishamei: Company name
-    aitesaki: Partner
-    namae: Name
-    nyuuryokusha: Input person
-    delete_confirm: Do you want to delete?
-    shain: Employee
-    youken: Bussiness
-    kaiou: Reply
-    kensaku: Search
-    dengoichiran: Message list
-    kensaku: Search
-    hidzuke: Date
-    dengonnaiyou: Message content
-    shousin: Send
-    shuruimei: Type name
-    bikou: Remarks
-    kakuninzu: Confirmed
-    kyoka: Approval
-    yuusensa: Priority
-    import_csv_btn: Import CSV
-    ekicode: Station code
-    ekimei: Station name
-    ekimeikana: Station name in Kana
-    ekishinki: New station
-    ekihenshyuu: Edit station
-    youkendengon: Requirement
-    shainbangou: Employee ID
-    joutai: State
-    kisha: Back to company
-    basho: Location
-    kouteicode: Process code
-    shozokucode: Department code
-    kaishi: Start
-    shyuuryou: End
-    koushuu: Man-hour
-    koushuusaikeisan: Recaculate Man-hour
-    comment: Comment
-    tani: h (Unit：hour)
-    ibento: Event
-    shainsentaku: Select employee
-    shyozai: Location state
-    kinmutaipu: Work type
-    kaishijikoku: Starting time
-    shyuuryoujikoku: Finishing time
-    kouteimei: Process name
-    keijyou: Recorded
-    newevent: Create new Event
-    busho: Position
-    download: Download
-    keihiheadmaster: Expense master
-    keihi: Expense
-    keihiheadbody: Expense body
-    eventmaster: Event master
-    kairanshyousai: Circulation detail
-    kairanshyousaimaster: Circulation detail master
-    yuusen: Priority
-    kakuninmeru: Confirm with mail
-    yuukyuu_kyuuka: 有給休暇履歴
+    password_update_date: Ngày thay đổi mật khẩu
+    profilehenko: Thay đổi hồ sơ
+    logout: Đăng xuất
+    login: Đăng nhập
+    kanrig: Quản lý
+    tantoushacode: Mã người quản lý
+    tantoushameishou: Tên người quản lý
+    genzaipassword: Mật khẩu hiện tại
+    password: Mật khẩu
+    repassword: Nhập lại mật khẩu
+    nagasayoken: Nhiều hơn %{count} kí tự
+    image: Hình ảnh
+    mail: Thư
+    koshinsuru: Cập nhật
+    profilehenshuu: Chỉnh sửa hồ sơ
+    scrolltime: Thời gian bắt đầu
+    local: Ngôn ngữ hệ thống
+    bashocode: Mã địa điểm
+    bashomei: Tên địa điểm
+    bashomeikana: Tên địa điểm bằng kana
+    bashokubun: Phân loại địa điểm
+    kaishacode: Mã công ty
+    edit: Chỉnh sửa
+    delete: Xóa
+    new: Tạo mới
+    bashokubuncode: Mã phân loại
+    bashokubunmei: Loại địa diểm
+    modoru: Quay lại
+    bunruicode: Mã phân loại
+    bunruimei: Tên phân loại
+    kaishamei: Tên công ty
+    aitesaki: Đối tác
+    namae: Tên
+    nyuuryokusha: Người nhập
+    delete_confirm: Có muốn xóa?
+    shain: Nhân viên
+    youken: Yêu cầu
+    kaiou: Hồi đáp
+    kensaku: Tìm kiếm
+    dengoichiran: Danh sách tin nhắn
+    kensaku: Tìm kiếm
+    hidzuke: Ngày tháng
+    dengonnaiyou: Nội dung tin nhắn
+    shousin: Gửi
+    shuruimei: Tên loại
+    bikou: Chú thích
+    kakuninzu: Xác nhận
+    kyoka: Cho phép
+    yuusensa: Độ ưu tiên
+    import_csv_btn: Nhập CSV
+    ekicode: Mã nhà ga
+    ekimei: Tên nhà ga
+    ekimeikana: Tên nhà ga bằng kana
+    ekishinki: Nhà ga mới
+    ekihenshyuu: Chỉnh sửa nhà ga
+    youkendengon: Yêu cầu
+    shainbangou: Mã nhân viên
+    joutai: Tình trạng
+    kisha: Quay về công ty
+    basho: Địa điểm
+    kouteicode: Mã tiến trình
+    shozokucode: Mã nhóm
+    kaishi: Bắt đầu
+    shyuuryou:  Kết thúc
+    koushuu:  Người-giờ
+    koushuusaikeisan:  Tính toán lại người-giờ
+    comment:  Bình luận
+    tani: h (Đơn vị： giờ)
+    ibento: Sự kiện
+    shainsentaku: Lựa chọn nhân viên
+    shyozai: Vị trí
+    kinmutaipu: Loại dịch vụ
+    kaishijikoku: Thời gian bắt đầu
+    shyuuryoujikoku: Thời gian kết thúc
+    kouteimei: Tên tiến trình
+    keijyou: Bản ghi
+    newevent: Sự kiện mới
+    busho: Vị trí
+    download:  Tải xuống
+    keihiheadmaster: Chi phí (master)
+    keihi: Chi phí
+    keihiheadbody: Chi phí
+    eventmaster: Sự kiện (master)
+    kairanshyousai: Nội dung thư
+    kairanshyousaimaster: Phân loại thư (master)
+    yuusen: Độ ưu tiên (master)
+    kakuninmeru: Xác nhận qua mail
+    yuukyuu_kyuuka: Ngày nghỉ có lương
     path: Path
-    search: Search Results
-    keihi_shuppi: Expense Total Table
+    search: Kết quả tìm kiếm
+    keihi_shuppi: Bảng kế toán
     keihi_shuppi_menu:  Kế toán
