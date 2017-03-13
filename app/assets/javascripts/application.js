@@ -69,6 +69,7 @@ $(document).on('ready', function() {
             $('.kairan-count').addClass('text-red');
           }
           $(".kairan-count").text(data.notification.kairanCount)
+          $(".kairan-count-main").text(data.notification.kairanCount)
           $(".kairan-item").css("display","")
           var items = ''
           for (var i = 0; i < data.notification.kairanCount ; i++) {
@@ -82,6 +83,7 @@ $(document).on('ready', function() {
           }
           $(".kairan-item").css("display","none")
           $(".kairan-count").text('')
+          $(".kairan-count-main").text('')
           $(".kairan-item").html('')
         }
         if(data.notification.dengonCount > 0){
@@ -90,6 +92,7 @@ $(document).on('ready', function() {
             $('.dengon-count').addClass('text-red');
           }
           $(".dengon-count").text(data.notification.dengonCount)
+          $(".dengon-count-main").text(data.notification.dengonCount)
           $(".dengon-item").css("display","")
           var items = ''
           for (var i = 0; i < data.notification.dengonCount ; i++) {
@@ -103,6 +106,7 @@ $(document).on('ready', function() {
           }
           $(".dengon-item").css("display","none")
           $(".dengon-count").text('')
+          $(".dengon-count-main").text('')
           $(".dengon-item").html('')
         }
 
