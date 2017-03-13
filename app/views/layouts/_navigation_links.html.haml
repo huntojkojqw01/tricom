@@ -49,7 +49,7 @@
                 %span{class: 'dengon-count text-red'} #{dengons.count}
               %ul.dropdown-menu.center.dengon-item
                 - dengons.each do |dengon|
-                  - naiyou = dengon.伝言内容.length > 14 ? "#{dengon.伝言内容[0...14]}..." : dengon.伝言内容
+                  - naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
                   %li= link_to ' '+ naiyou, dengons_path(search: dengon.伝言内容), :class => "glyphicon glyphicon-envelope icon-left"
           - else
             %li.dropdown
@@ -65,7 +65,7 @@
                 %span{class: 'kairan-count text-red'} #{kairans.count}
               %ul.dropdown-menu.center.kairan-item
                 - kairans.each do |kairan|
-                  - naiyou = kairan.内容.length > 14 ? "#{kairan.内容[0...14]}..." : kairan.内容
+                  - naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
                   %li= link_to ' '+ naiyou, kairans_path(search: kairan.内容), :class => "glyphicon glyphicon-envelope icon-left"
 
           - else
