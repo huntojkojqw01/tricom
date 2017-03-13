@@ -57,7 +57,7 @@ jQuery ->
       data: {id: 'change_shozai', data: val},
       type: "POST",
       success: (data) ->
-        location.reload()
+        #location.reload()
       failure: () ->
         console.log("change_shozai field")
     }))
