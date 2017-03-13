@@ -56,6 +56,64 @@ $(document).on('ready', function() {
   setTimeout(function() {
     $('.alert').fadeOut('normal');
   }, 6000);
+
+  setInterval(function() {
+    jQuery.ajax({
+      url: '/main.json',
+      dataType: "JSON",
+      method: "GET",
+      success: function(data) {
+        if(data.notification.kairanCount > 0){
+          if($('.glyphicon-envelope').hasClass('text-red') == false){
+            $('.glyphicon-envelope').addClass('text-red');
+            $('.kairan-count').addClass('text-red');
+          }
+          $(".kairan-count").text(data.notification.kairanCount)
+          $(".kairan-item").css("display","")
+          var items = ''
+          for (var i = 0; i < data.notification.kairanCount ; i++) {
+            items = items + data.my_kairans[i].item
+          }
+          $(".kairan-item").html(items)
+        }else{
+          if($('.glyphicon-envelope').hasClass('text-red')){
+            $('.glyphicon-envelope').removeClass('text-red');
+            $('.kairan-count').removeClass('text-red');
+          }
+          $(".kairan-item").css("display","none")
+          $(".kairan-count").text('')
+          $(".kairan-item").html('')
+        }
+        if(data.notification.dengonCount > 0){
+           if($('.glyphicon-comment').hasClass('text-red') == false){
+            $('.glyphicon-comment').addClass('text-red');
+            $('.dengon-count').addClass('text-red');
+          }
+          $(".dengon-count").text(data.notification.dengonCount)
+          $(".dengon-item").css("display","")
+          var items = ''
+          for (var i = 0; i < data.notification.dengonCount ; i++) {
+            items = items + data.my_dengons[i].item
+          }
+          $(".dengon-item").html(items)
+        }else{
+          if($('.glyphicon-comment').hasClass('text-red')){
+            $('.glyphicon-comment').removeClass('text-red');
+            $('.dengon-count').removeClass('text-red');
+          }
+          $(".dengon-item").css("display","none")
+          $(".dengon-count").text('')
+          $(".dengon-item").html('')
+        }
+
+        // alert(data.notification.kairanCount)
+      },
+      failure: function() {
+          console.log("Unsuccessful");
+      }
+  });
+
+  }, 6000);
 });
 
 $(document).ready(function() {
