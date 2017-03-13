@@ -10,6 +10,9 @@ class MainController < ApplicationController
     shain = Shainmaster.find_by id: session[:user]
     shain.update_attributes 伝言件数: @dengonCount
 
+    @kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
+    @dengons = Dengon.where(社員番号: session[:user], 確認: false)
+
   end
   def search
     vars = request.query_parameters
