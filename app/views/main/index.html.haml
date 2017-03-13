@@ -10,14 +10,16 @@
           %li.list-group-item= link_to (t 'title.event'), events_path
           %li.list-group-item= link_to (t 'title.kintai'), kintais_path
           %li.list-group-item= link_to (t 'title.kanri.keihihead'), keihiheads_path
+          %li.list-group-item= link_to (t 'title.keihishonin'), shonin_search_keihiheads_path
+      .col-md-3.col-xs-6.col-sm-3.col-lg-3
+        %ul.list-group
+          %li.list-group-item= link_to (t 'title.keihi_shuppi_menu'), show_keihi_shuppi_keihiheads_path
           %li.list-group-item
             = link_to (t 'title.kairan'), kairans_path
             - if @kairanCount > 0
               %span.badge.kairan-count-main #{@kairanCount}
             - else
               %span.badge.kairan-count-main
-      .col-md-3.col-xs-6.col-sm-3.col-lg-3
-        %ul.list-group
           %li.list-group-item
             = link_to (t 'title.dengon_menu'), dengons_path
             - if @dengonCount > 0
@@ -25,9 +27,7 @@
             - else
               %span.badge.dengon-count-main
           %li.list-group-item= link_to (t 'title.setsubiyoyaku'), setsubiyoyakus_path
-          %li.list-group-item= link_to (t 'title.keihishonin'), shonin_search_keihiheads_path
           %li.list-group-item= link_to (t 'title.rorumenba'), rorumenbas_path
-          %li.list-group-item= link_to (t 'title.keihi_shuppi_menu'), show_keihi_shuppi_keihiheads_path
 
 .panel.panel-default
   .panel-heading
