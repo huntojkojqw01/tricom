@@ -68,9 +68,13 @@ class ShozokumastersController < ApplicationController
   end
 
    def ajax
-    case params[:focus_field]
+    case params[:focus_field]     
       when 'shozoku_削除する'
-        shozoku = Shozokumaster.find(params[:shozoku_id]).destroy
+        shozokuIds = params[:shozokus]
+        shozokuIds.each{ |shozokuId|
+          shozoku=Shozokumaster.find(shozokuId)
+          shozoku.destroy unless shozoku==nil      
+        }        
         data = {destroy_success: "success"}
         respond_to do |format|
           format.json { render json: data}

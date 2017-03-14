@@ -54,6 +54,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def ajax
+    case params[:focus_field]
+      when 'user_削除する'
+        userIds = params[:users]
+        userIds.each{ |userId|
+          User.find_by(担当者コード: userId).destroy
+        }        
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+
   def change_pass
     if request.post?
       @user = User.find_by(担当者コード: params[:user][:user_code].downcase, password: params[:user][:old_password])

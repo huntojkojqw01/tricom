@@ -164,10 +164,7 @@ jQuery ->
             swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
-              rows = oEkiTable.rows('tr.selected').remove().draw();
-              # $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
-              # $(".ekitable").dataTable().fnDraw()
-
+              oTable.rows('tr.selected').remove().draw()
             else
               console.log("getAjax destroy_success:"+ data.destroy_success)
 
@@ -193,50 +190,6 @@ jQuery ->
             else
               $("#edit_eki").attr("disabled", true);
       );
-      # response = confirm($('#message_confirm_delete').text())
-      # if response
-      #   len = ekis.length
-      #   for i in [0...len]
-      #     ekiIds[i] = ekis[i][0]
-
-      #   $.ajax({
-      #     url: '/ekis/ajax',
-      #     data:{
-      #       focus_field: 'eki_削除する',
-      #       ekis: ekiIds
-      #     },
-
-      #     type: "POST",
-
-      #     success: (data) ->
-      #       if data.destroy_success != null
-      #         console.log("getAjax destroy_success:"+ data.destroy_success)
-      #         $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
-      #         $(".ekitable").dataTable().fnDraw()
-
-      #       else
-      #         console.log("getAjax destroy_success:"+ data.destroy_success)
-
-
-      #     failure: () ->
-      #       console.log("eki_削除する keydown Unsuccessful")
-
-      #   })
-      #   $("#edit_eki").attr("disabled", true);
-      #   $("#destroy_eki").attr("disabled", true);
-      # else
-      #   selects = oEkiTable.rows('tr.selected').data()
-      #   if selects.length == 0
-      #     $("#edit_eki").attr("disabled", true);
-      #     $("#destroy_eki").attr("disabled", true);
-      #   else
-      #     $("#destroy_eki").attr("disabled", false);
-      #     if selects.length == 1
-      #       $("#edit_eki").attr("disabled", false);
-      #     else
-      #       $("#edit_eki").attr("disabled", true);
-
-
   $('#new_eki').click () ->
     $('#eki-new-modal').modal('show')
     $('#eki_駅コード').val('')
@@ -248,7 +201,7 @@ jQuery ->
     );
 
   $('#edit_eki').click () ->
-    eki_id = oEkiTable.row('tr.selected').data()
+    eki_id = oEkiTable.row('tr.selected').data()    
     $('.form-group.has-error').each( () ->
       $('.help-block', $(this)).html('');
       $(this).removeClass('has-error');

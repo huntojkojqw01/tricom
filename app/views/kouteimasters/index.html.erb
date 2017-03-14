@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'kouteimaster' %>
+<%= javascript_include_tag 'kouteimasters' %>
 <%provide(:title, (t 'title.kouteimaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -9,7 +9,7 @@
 
 <!-- <h1>工程マスタ</h1> -->
 
-<table id="kouteimaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="kouteimaster" class="kouteitable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
     <tr>
@@ -36,8 +36,11 @@
   </tbody>
 </table>
 
-<br>
-<%= link_to '新規', new_kouteimaster_path %>
+<span id="message_confirm_select" hidden="true"><%=t "app.select_confirm"%></span>
+<span id="message_confirm_delete" hidden="true"><%=t "app.delete_confirm"%></span>
+<%=link_to t("title.new"),new_kouteimaster_path,class: "btn btn-primary",id: "new_koutei"%>
+<button id="edit_koutei" class="btn btn-primary"%>"><%=t "title.edit"%></button>
+<button id="destroy_koutei" class="btn btn-primary"><%=t "title.delete"%></button><br>
 <% if can? :update, @kouteimasters %>
   <h4><%=t 'app.label.import_csv'%></h4>
   <%= form_tag import_kouteimasters_path,class:'form-inline', multipart: true do %>

@@ -72,14 +72,13 @@ class EkisController < ApplicationController
   end
 
   def ajax
-
     case params[:focus_field]
-      when 'eki_削除する'
-        ekiIds = params[:ekis]
-        ekiIds.each{ |ekiId|
-          Eki.find_by(駅コード: ekiId).destroy
+      when 'eki_削除する'        
+        params[:ekis].each{ |ekiId|
+          eki=Eki.find_by(駅コード: ekiId)
+          eki.destroy if eki
         }
-        # eki = Eki.find_by(駅コード: params[:eki_id]).destroy
+        
         data = {destroy_success: "success"}
         respond_to do |format|
           format.json { render json: data}
@@ -89,7 +88,7 @@ class EkisController < ApplicationController
 
   def create_eki
     @eki = Eki.new(eki_params)
-    # @eki.save
+    
     respond_to do |format|
       if  @eki.save
         format.js { render 'create_eki'}
@@ -101,8 +100,7 @@ class EkisController < ApplicationController
 
   def update_eki
     @eki = Eki.find(eki_params[:駅コード])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
+    
     respond_to do |format|
       if  @eki.update(eki_params)
         format.js { render 'edit_eki'}

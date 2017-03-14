@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'shozoku' %>
+<%= javascript_include_tag 'shozokumasters' %>
 <%provide(:title, (t 'title.shozokumaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -9,7 +9,7 @@
 
 <!-- <h1>工程マスタ</h1> -->
 
-<table id="shozokumaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="shozokumaster" class="shozokutable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
   <tr>
@@ -23,26 +23,18 @@
   <tbody>
   <% @shozokumasters.each do |shozoku| %>
       <tr id="shozokumaster_<%= shozoku.id %>">
-      <td><%= shozoku.所属コード %></td>
+        <td><%= shozoku.所属コード %></td>
         <td><%= shozoku.所属名 %></td>
         <!-- <td><%= link_to '編集', edit_shozokumaster_path(shozoku) if
-          current_user.admin? %></td>
+            current_user.admin? %></td>
         <td><%= link_to '削除', shozoku, method: :delete, data: {confirm:
-          '削除で宜しですか。'} if current_user.admin? %></td> -->
+            '削除で宜しですか。'} if current_user.admin? %></td> -->
       </tr>
   <% end %>
   </tbody>
 </table>
 
-<% msg_select = t 'app.select_confirm' %>
-<% msg_confirm = t 'app.delete_confirm' %>
-<span id='message_confirm_select' hidden='true'><%=msg_select%></span>
-<span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
-<button class='btn btn-primary' id='new_shozoku' type= 'button'>新規</button>
-<button class='btn btn-primary' id='edit_shozoku' type= 'button'>編集</button>
-<button class='btn btn-primary' id='destroy_shozoku' type= 'button'>削除</button>
-<!--
-<%= link_to '新規', new_shozokumaster_path if current_user.admin? %> -->
+<%=render 'share/new_edit_destroy_buttons', object: "shozoku"%>
 
 <% if current_user.admin? %>
   <h4><%=t 'app.label.import_csv'%></h4>
