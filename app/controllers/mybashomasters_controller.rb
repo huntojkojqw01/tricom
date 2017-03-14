@@ -47,6 +47,16 @@ class MybashomastersController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
+      when "mybasho_削除する"
+        mybashoIds = params[:mybashos]
+        mybashoIds.each{ |mybashoId|
+          Mybashomaster.find(mybashoId).destroy          
+        }        
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+      else      
     end
   end
 
