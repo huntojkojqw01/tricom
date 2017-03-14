@@ -58,6 +58,20 @@ class KouteimastersController < ApplicationController
         data = {shozoku_name: shozoku_name}
         respond_to do |format|
           format.json { render json: data}
+        end      
+      else    
+    end
+  end
+  def multi_delete
+    case params[:focus_field]     
+      when 'koutei_削除する'
+        kouteiIds = params[:kouteis]
+        kouteiIds.each{ |kouteiId|
+          Kouteimaster.find(kouteiId).destroy          
+        }        
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
         end
     end
   end
@@ -97,6 +111,7 @@ class KouteimastersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
   def set_kouteimaster
+
     @kouteimaster = Kouteimaster.find(params[:id])
   end
 

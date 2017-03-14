@@ -47,7 +47,20 @@ class ShainmastersController < ApplicationController
     @shainmaster.destroy if current_user != @shainmaster.user
     respond_with @shainmaster, location: shainmasters_url
   end
-
+  def multi_delete
+    case params[:focus_field]     
+      when 'shain_削除する'
+        shainIds = params[:shains]
+        shainIds.each{ |shainId|
+          shain=Shainmaster.find(shainId)
+          shain.destroy unless current_user== shain.user || shain==nil      
+        }        
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
   def import
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"

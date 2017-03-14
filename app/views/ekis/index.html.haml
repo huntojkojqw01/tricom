@@ -23,20 +23,7 @@
         / - msg = t 'app.delete_confirm'
         / %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
 
-%br
-
-/ = link_to '新規', new_eki_path
-- msg_select = t 'app.select_confirm'
-- msg_confirm = t 'app.delete_confirm'
-- new_text = t 'title.new'
-- edit_text = t 'title.edit'
-- delete_text = t 'title.delete'
-.span#message_confirm_select{hidden: :true} #{msg_select}
-.span#message_confirm_delete{hidden: :true} #{msg_confirm}
-%button.btn.btn-primary#new_eki{type: :button} #{new_text}
-%button.btn.btn-primary#edit_eki{type: :button} #{edit_text}
-%button.btn.btn-primary#destroy_eki{type: :button} #{delete_text}
-
+=render "share/new_edit_destroy_buttons", object: "eki"
 - if can? :update, @ekis
   %h4=t 'app.label.import_csv'
   = form_tag import_ekis_path, class:'form-inline', multipart: true do

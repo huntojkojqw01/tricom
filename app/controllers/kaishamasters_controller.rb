@@ -74,7 +74,10 @@ class KaishamastersController < ApplicationController
    def ajax
     case params[:focus_field]
       when 'kaisha_削除する'
-        kaisha = Kaishamaster.find(params[:kaisha_id]).destroy
+        params[:kaishas].each {|kaisha_code|
+          kaisha = Kaishamaster.find(kaisha_code)
+          kaisha.destroy if kaisha
+        }
         data = {destroy_success: "success"}
         respond_to do |format|
           format.json { render json: data}

@@ -117,7 +117,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :shainmasters do
-    collection {post :ajax, :import}
+    collection {post :ajax, :import, :multi_delete}
     collection {get :export_csv}
   end
 
@@ -142,7 +142,7 @@ Jpt::Application.routes.draw do
     collection {get :change_pass}
     collection {post :change_pass}
     collection {get :export_csv}
-    collection {post :import}
+    collection {post :ajax, :import}
   end
 
   resources :yakushokumasters, param: :id do
@@ -166,7 +166,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :joutaimasters do
-    collection {post :import}
+    collection {post :import, :multi_delete}
     collection {get :export_csv}
   end
 
@@ -185,7 +185,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :rorumasters do
-    collection { post :import}
+    collection { post :import, :multi_delete}
     collection {get :export_csv}
   end
 
@@ -201,7 +201,7 @@ Jpt::Application.routes.draw do
 
   constraints(:id => /\w+(,\w+)*/) do
     resources :kouteimasters do
-      collection {post :ajax}
+      collection {post :ajax, :multi_delete}
       collection{post :import}
       collection {get :export_csv}
     end
