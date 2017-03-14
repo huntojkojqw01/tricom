@@ -89,8 +89,9 @@ jQuery ->
             swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
-              $(".kikantable").dataTable().fnDeleteRow($('.kikantable').find('tr.selected').remove())
-              $(".kikantable").dataTable().fnDraw()
+              oKikanTable.rows('tr.selected').remove().draw();
+              # $(".kikantable").dataTable().fnDeleteRow($('.kikantable').find('tr.selected').remove())
+              # $(".kikantable").dataTable().fnDraw()
               $("#edit_kikan").attr("disabled", true);
               $("#destroy_kikan").attr("disabled", true);
           failure: () ->

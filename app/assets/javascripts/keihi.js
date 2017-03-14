@@ -193,8 +193,9 @@ $(function(){
 
                 if(data.destroy_success != null){
                     console.log("getAjax destroy_success:"+ data.destroy_success);
-                    $("#myjob_table").dataTable().fnDeleteRow($('#myjob_table').find('tr.selected').remove());
-                    $("#myjob_table").dataTable().fnDraw();
+                    oMyjobTable.rows('tr.selected').remove().draw();
+                    // $("#myjob_table").dataTable().fnDeleteRow($('#myjob_table').find('tr.selected').remove());
+                    // $("#myjob_table").dataTable().fnDraw();
                 }
 
             },
@@ -269,8 +270,9 @@ $(function(){
 
                 if(data.destroy_success != null){
                     console.log("getAjax destroy_success:"+ data.destroy_success);
-                    $("#mykaisha_table").dataTable().fnDeleteRow($('#mykaisha_table').find('tr.selected').remove());
-                    $("#mykaisha_table").dataTable().fnDraw();
+                    oMykaishaTable.rows('tr.selected').remove().draw();
+                    // $("#mykaisha_table").dataTable().fnDeleteRow($('#mykaisha_table').find('tr.selected').remove());
+                    // $("#mykaisha_table").dataTable().fnDraw();
                 }
 
             },

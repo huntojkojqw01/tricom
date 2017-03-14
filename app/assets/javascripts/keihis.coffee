@@ -577,9 +577,9 @@ jQuery ->
                       if $(thisRow).hasClass('selected')
                         $(thisRow).removeClass('selected')
                         $(thisRow).removeClass('success')
-
-                $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
-                $(".keihihead-table").dataTable().fnDraw()
+                oKeihiheadTable.rows('tr.selected').remove().draw()
+                # $(".keihihead-table").dataTable().fnDeleteRow($('.keihihead-table').find('tr.selected').remove())
+                # $(".keihihead-table").dataTable().fnDraw()
 
               else
                 console.log("getAjax destroy_success:"+ data.destroy_success)

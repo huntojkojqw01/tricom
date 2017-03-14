@@ -99,8 +99,9 @@ $(function() {
                         swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
-                          $("#shozokumaster").dataTable().fnDeleteRow($('#shozokumaster').find('tr.selected').remove());
-                          $("#shozokumaster").dataTable().fnDraw();
+                          oTable.rows('tr.selected').remove().draw();
+                          // $("#shozokumaster").dataTable().fnDeleteRow($('#shozokumaster').find('tr.selected').remove());
+                          // $("#shozokumaster").dataTable().fnDraw();
 
                         }else
                           console.log("getAjax destroy_success:"+ data.destroy_success);

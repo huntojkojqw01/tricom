@@ -7,9 +7,10 @@ module VerificationAssociations
     # str_error = self.class.model_name.human.capitalize
     str_error = ''
     self.class.reflect_on_all_associations().each do |association|
-      if send(association.name).any?
-
+      if association.name != :pg_search_document
+        if send(association.name).any?
           str_error = str_error  +self.class.human_attribute_name(association.name).downcase+ ", "
+        end
       end
     end
     return '' if errors.any? || str_error == ''

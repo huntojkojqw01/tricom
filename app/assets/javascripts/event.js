@@ -401,8 +401,9 @@ $(function () {
                     console.log("getAjax destroy_success:"+ data.destroy_success);
                     // $('#mybasho_table').find('tr.selected').remove();
                     // $("#mybasho_table").dataTable().fnDraw();
-                    $("#mybasho_table").dataTable().fnDeleteRow($('#mybasho_table').find('tr.selected').remove());
-                    $("#mybasho_table").dataTable().fnDraw();
+                    oMybashoTable.rows('tr.selected').remove().draw();
+                    // $("#mybasho_table").dataTable().fnDeleteRow($('#mybasho_table').find('tr.selected').remove());
+                    // $("#mybasho_table").dataTable().fnDraw();
                 }
                 else{
 
@@ -434,8 +435,9 @@ $(function () {
                     console.log("getAjax destroy_success:"+ data.destroy_success);
                     // $('#mybasho_table').find('tr.selected').remove();
                     // $("#mybasho_table").dataTable().fnDraw();
-                    $("#myjob_table").dataTable().fnDeleteRow($('#myjob_table').find('tr.selected').remove());
-                    $("#myjob_table").dataTable().fnDraw();
+                    oMyjobTable.rows('tr.selected').remove().draw();
+                    // $("#myjob_table").dataTable().fnDeleteRow($('#myjob_table').find('tr.selected').remove());
+                    // $("#myjob_table").dataTable().fnDraw();
                 }
                 else{
 
@@ -581,8 +583,9 @@ $(function () {
                     swal("削除されました!", "", "success");
                     if (data.destroy_success != null){
                         console.log("getAjax destroy_success:"+ data.destroy_success);
-                        $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
-                        $("#event_table").dataTable().fnDraw();
+                        oEventTable.rows('tr.selected').remove().draw();
+                        // $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
+                        // $("#event_table").dataTable().fnDraw();
                         for(i=0;i<len;i++)
                             $('#calendar-month-view').fullCalendar('removeEvents',eventIds[i]);
 
