@@ -107,8 +107,9 @@ $(function() {
                         swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
-                          $("#holiday_table").dataTable().fnDeleteRow($('#holiday_table').find('tr.selected').remove());
-                          $("#holiday_table").dataTable().fnDraw();
+                          oTable.rows('tr.selected').remove().draw();
+                          // $("#holiday_table").dataTable().fnDeleteRow($('#holiday_table').find('tr.selected').remove());
+                          // $("#holiday_table").dataTable().fnDraw();
 
                         }else
                           console.log("getAjax destroy_success:"+ data.destroy_success);

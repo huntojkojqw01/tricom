@@ -101,8 +101,9 @@ $(function() {
                         swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
-                          $("#kaishamaster-table").dataTable().fnDeleteRow($('#kaishamaster-table').find('tr.selected').remove());
-                          $("#kaishamaster-table").dataTable().fnDraw();
+                          oTable.rows('tr.selected').remove().draw();
+                          // $("#kaishamaster-table").dataTable().fnDeleteRow($('#kaishamaster-table').find('tr.selected').remove());
+                          // $("#kaishamaster-table").dataTable().fnDraw();
 
                         }else
                           console.log("getAjax destroy_success:"+ data.destroy_success);

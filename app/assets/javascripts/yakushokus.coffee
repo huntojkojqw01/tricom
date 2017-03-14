@@ -96,8 +96,9 @@ jQuery ->
                     swal("削除されました!", "", "success");
                     if data.destroy_success != null
                       console.log("getAjax destroy_success:"+ data.destroy_success)
-                      $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
-                      $("#yakushoku_table").dataTable().fnDraw()
+                      oTable.row('tr.selected').remove().draw()
+                      #$("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+                      #$("#yakushoku_table").dataTable().fnDraw()
                       $("#edit_yakushoku").attr("disabled", true);
                       $("#destroy_yakushoku").attr("disabled", true);
                   failure: () ->
@@ -165,8 +166,9 @@ jQuery ->
                     swal("削除されました!", "", "success");
                     if data.destroy_success != null
                       console.log("getAjax destroy_success:"+ data.destroy_success)
-                      $("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
-                      $("#yakushoku_table").dataTable().fnDraw()
+                      oTable.row('tr.selected').remove().draw()
+                      #$("#yakushoku_table").dataTable().fnDeleteRow($('#yakushoku_table').find('tr.selected').remove())
+                      #$("#yakushoku_table").dataTable().fnDraw()
                       $("#edit_yakushoku").attr("disabled", true);
                       $("#destroy_yakushoku").attr("disabled", true);
                   failure: () ->

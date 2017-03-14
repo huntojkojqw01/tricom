@@ -164,8 +164,9 @@ jQuery ->
             swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
-              $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
-              $(".ekitable").dataTable().fnDraw()
+              rows = oEkiTable.rows('tr.selected').remove().draw();
+              # $(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
+              # $(".ekitable").dataTable().fnDraw()
 
             else
               console.log("getAjax destroy_success:"+ data.destroy_success)
