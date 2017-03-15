@@ -16,5 +16,8 @@
                 %td= bunrui.分類コード
                 %td= bunrui.分類名
       .modal-footer
+        .pull-left
+          = link_to '分類マスタ管理へ', bunruis_path
         %button.btn.btn-primary#koutei_sentaku_ok{type: :button, 'data-dismiss'=>"modal"}　ＯＫ　
         %button.btn.btn-default{type: :button, 'data-dismiss'=>"modal"} 閉じる
+        
