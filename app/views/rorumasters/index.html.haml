@@ -11,8 +11,7 @@
       %th ロールコード
       %th ロール名
       %th 序列
-      %th
-      %th
+     
 
   %tbody
     - @rorumaster.each do |rorumaster|
@@ -20,11 +19,18 @@
         %td= rorumaster.ロールコード
         %td= rorumaster.ロール名
         %td= rorumaster.序列
-        %td= link_to '編集', edit_rorumaster_path(rorumaster)
-        - msg = t 'app.delete_confirm'
-        %td= link_to '削除', rorumaster, :method => :delete, :data => { :confirm => msg }
+        
 
-= link_to '新規', new_rorumaster_path
+- msg_select = t 'app.select_confirm'
+- msg_confirm = t 'app.delete_confirm'
+- new_text = t 'title.new'
+- edit_text = t 'title.edit'
+- delete_text = t 'title.delete'
+.span#message_confirm_select{hidden: :true} #{msg_select}
+.span#message_confirm_delete{hidden: :true} #{msg_confirm}
+%button.btn.btn-primary#new_rorumaster{type: :button} #{new_text}
+%button.btn.btn-primary#edit_rorumaster{type: :button} #{edit_text}
+%button.btn.btn-primary#destroy_rorumaster{type: :button} #{delete_text}
 
 %h4=t 'app.label.import_csv'
 = form_tag import_rorumasters_path,class:'form-inline', multipart: true do
@@ -34,3 +40,6 @@
   .form-group
     = label_tag 'importcsv', nil, class: 'sr-only'
     = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+
+= render 'roru_new_modal'
+= render 'roru_edit_modal'
