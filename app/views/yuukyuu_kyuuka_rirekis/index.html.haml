@@ -6,9 +6,10 @@
 
 %br
 
-%table.yuukyuu_kyuuka_rireki_table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+%table.ykkkretable.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
+      %th
       %th 社員番号
       %th 年月
       %th 月初有給残
@@ -18,6 +19,7 @@
   %tbody
     - @yuukyuu_kyuuka_rireki.each do |yuukyuu_kyuuka_rireki|
       %tr
+        %td= yuukyuu_kyuuka_rireki.id
         %td= yuukyuu_kyuuka_rireki.社員番号
         %td= yuukyuu_kyuuka_rireki.年月
         %td= yuukyuu_kyuuka_rireki.月初有給残
@@ -25,9 +27,7 @@
         %td= link_to '編集', edit_yuukyuu_kyuuka_rireki_path(yuukyuu_kyuuka_rireki)
         - msg = t 'app.delete_confirm'
         %td= link_to '削除', yuukyuu_kyuuka_rireki, :method => :delete, :data => { :confirm => msg }
-
-= link_to '新規', new_yuukyuu_kyuuka_rireki_path
-
+=render 'share/new_edit_destroy_buttons', object: "ykkkre",new_path: new_yuukyuu_kyuuka_rireki_path
 %h4=t 'app.label.import_csv'
 = form_tag import_yuukyuu_kyuuka_rirekis_path,class:'form-inline', multipart: true do
   .form-group

@@ -35,7 +35,19 @@ class YuukyuuKyuukaRirekisController < ApplicationController
     @yuukyuu_kyuuka_rireki.destroy
     respond_with(@yuukyuu_kyuuka_rireki)
   end
-
+  def ajax
+    case params[:focus_field]     
+      when 'ykkkre_削除する'
+        ykkkreIds = params[:ykkkres]
+        ykkkreIds.each{ |ykkkreId|
+          YuukyuuKyuukaRireki.find(ykkkreId).destroy          
+        }        
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
   def import
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"

@@ -38,7 +38,19 @@ class JptHolidayMstsController < ApplicationController
     @jpt_holiday_mst.destroy
     respond_with(@jpt_holiday_mst, location: jpt_holiday_msts_path)
   end
-
+  def ajax
+    case params[:focus_field]
+      when 'holiday_削除する'
+        params[:holidays].each {|holiday_code|
+          holiday=JptHolidayMst.find(holiday_code)
+          holiday.destroy if holiday
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end        
+    end
+  end
   def import
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
@@ -67,17 +79,6 @@ class JptHolidayMstsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @jpt_holidays.to_csv, filename: "ジュピター休日.csv" }
-    end
-  end
-
-   def ajax
-    case params[:focus_field]
-      when 'holiday_削除する'
-        holiday = JptHolidayMst.find(params[:holiday_id]).destroy
-        data = {destroy_success: "success"}
-        respond_to do |format|
-          format.json { render json: data}
-        end
     end
   end
 

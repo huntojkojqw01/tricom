@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'jpt_holiday_msts' %>
+<%= javascript_include_tag 'jptholidaymasters' %>
 <%provide(:title, (t 'title.jpt_hokiday_mst'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -8,7 +8,7 @@
 </ol>
 
 
-<table id="holiday_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="holiday_table" class="holidaytable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
   <thead>
   <tr>
     <th>ID</th>
@@ -34,22 +34,7 @@
   <% end %>
   </tbody>
 </table>
-
-<br>
-
-<% msg_select = t 'app.select_confirm' %>
-<% msg_confirm = t 'app.delete_confirm' %>
-<span id='message_confirm_select' hidden='true'><%=msg_select%></span>
-<span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
-<button class='btn btn-primary' id='new_holiday' type= 'button'>新規</button>
-<button class='btn btn-primary' id='edit_holiday' type= 'button'>編集</button>
-<button class='btn btn-primary' id='destroy_holiday' type= 'button'>削除</button>
-
-<%= render 'holiday_edit_modal' %>
-<%= render 'holiday_new_modal' %>
-<!--
-<%= link_to '新規', new_jpt_holiday_mst_path %>
- -->
+<%=render 'share/new_edit_destroy_buttons', object: "holiday"%>
 <% if can? :update, @jpt_holiday_msts %>
   <h4><%=t 'app.label.import_csv'%></h4>
   <%= form_tag import_jpt_holiday_msts_path,class:'form-inline', multipart: true do %>
@@ -63,7 +48,8 @@
       </div>
   <% end %>
 <% end %>
-
+<%= render 'holiday_edit_modal' %>
+<%= render 'holiday_new_modal' %>
 
 
 

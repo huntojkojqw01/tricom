@@ -192,10 +192,9 @@ jQuery ->
               $("#edit_user").attr("disabled", true);
       ); 
   $('#edit_user').click ->      
-    user_id = oTable.row('tr.selected').data()    
-    if user_id == undefined
+    new_address = oTable.row('tr.selected').data()[3].split("\"")[1]    
+    if new_address == undefined
       swal("行を選択してください。")
-    else
-      new_address=$("#edit_user").attr("link")      
-      window.location = new_address.replace(/\d+/,user_id[0])
+    else            
+      window.location = new_address
    

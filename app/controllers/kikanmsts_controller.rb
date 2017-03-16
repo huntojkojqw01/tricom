@@ -38,7 +38,20 @@ class KikanmstsController < ApplicationController
     @kikanmst.destroy
     respond_with(@kikanmst)
   end
-
+  def ajax
+    case params[:focus_field]
+      when 'kikan_削除する'
+        params[:kikans].each {|kikan_code|
+          p kikan_code
+          kikan=Kikanmst.find(kikan_code)
+          kikan.destroy if kikan
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end        
+    end
+  end
   def import
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
@@ -69,18 +82,7 @@ class KikanmstsController < ApplicationController
       format.html
       format.csv { send_data @kikanmsts.to_csv, filename: "機関マスタ.csv" }
     end
-  end
-
-  def ajax
-    case params[:focus_field]
-      when 'kikan_削除する'
-        eki = Kikanmst.find_by(機関コード: params[:kikan_id]).destroy
-        data = {destroy_success: "success"}
-        respond_to do |format|
-          format.json { render json: data}
-        end
-    end
-  end
+  end  
 
   def create_modal
     @kikanmst = Kikanmst.new(kikanmst_params)

@@ -1,23 +1,23 @@
-<%= javascript_include_tag 'basho' %>
+<%= javascript_include_tag 'bashomasters' %>
 <%provide(:title, (t 'title.bashomaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to (t 'title.menu'), main_path %></li>
   <li class="active"><%=(t 'title.bashomaster')%></li>
 </ol>
 
-<table id="bashomaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="bashomaster" class="bashotable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
-  <tr>
-    <th><%=(t 'title.bashocode')%></th>
-    <th><%=(t'title.bashomei')%></th>
-    <th><%=(t'title.bashomeikana')%></th>
-    <th>SUB</th>
-    <th><%=(t'title.bashokubun')%></th>
-    <th><%=(t'title.kaishamei')%></th>
-    <th></th>
-    <th></th>
-  </tr>
+    <tr>
+      <th><%=(t 'title.bashocode')%></th>
+      <th><%=(t'title.bashomei')%></th>
+      <th><%=(t'title.bashomeikana')%></th>
+      <th>SUB</th>
+      <th><%=(t'title.bashokubun')%></th>
+      <th><%=(t'title.kaishamei')%></th>
+      <th></th>
+      <th></th>
+    </tr>
   </thead>
 
   <tbody>
@@ -36,11 +36,8 @@
   <% end %>
   </tbody>
 </table>
-
-<%= link_to (t 'title.new'), new_bashomaster_path %>
-
+<%=render 'share/new_edit_destroy_buttons', object: "basho",new_path: new_bashomaster_path%>
 <% if can? :update, @bashomasters %>
-
 <h4><%=t 'app.label.import_csv'%></h4>
 <%= form_tag import_bashomasters_path,class:'form-inline', multipart: true do %>
     <div class="form-group">
