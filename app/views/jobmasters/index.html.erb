@@ -52,7 +52,15 @@
 
 <br>
 
-<%= link_to '新規', new_jobmaster_path %>
+<% msg_select = t 'app.select_confirm' %>
+<% msg_confirm = t 'app.delete_confirm' %>
+<% new_text = t 'title.new' %>
+<% edit_text = t 'title.edit' %>
+<% delete_text = t 'title.delete' %>
+
+<%= link_to new_text, new_jobmaster_path , { :class=>"button btn btn-primary" }%>
+<button class='btn btn-primary' id='edit_jobmaster' type= 'button'><%= edit_text %></button>
+<button class='btn btn-primary' id='destroy_jobmaster' type= 'button'><%= delete_text %></button>
 
 <% if can? :update, @jobmasters %>
 

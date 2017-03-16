@@ -1,0 +1,14 @@
+.modal#roru-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel Edit
+      .modal-body
+        = simple_form_for (Rorumaster.new), url: update_roru_rorumasters_path, :remote => true, html: {role: :form, 'data-model' => 'rorumaster'} do |f| 
+          = f.hidden_field :ロールコード, class: 'form-control'
+          = f.input "ロール名" do
+            = f.input_field :ロール名, class: 'form-control'
+            .span.help-block
+          = f.input :序列,label: "序列"
+          = f.button :submit, class: 'btn btn-primary'

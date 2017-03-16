@@ -1,0 +1,5 @@
+ $('#roru-new-modal').modal('hide');
+
+ var table = $('.rorumaster-table').DataTable();
+
+ table.row.add( ["<%=@rorumaster.ロールコード%>","<%=@rorumaster.ロール名%>","<%=@rorumaster.序列%>"] ).draw( false );

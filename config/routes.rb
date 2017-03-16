@@ -185,7 +185,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :rorumasters do
-    collection { post :import, :multi_delete}
+    collection { post :import, :ajax, :multi_delete, :create_roru, :update_roru}
     collection {get :export_csv}
   end
 

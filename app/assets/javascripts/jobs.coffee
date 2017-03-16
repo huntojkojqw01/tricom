@@ -1,5 +1,6 @@
 jQuery ->
   oTable = $('#jobmaster').DataTable({
+    "dom": 'lBfrtip',
     "scrollX": true,
 #    'scrollY': "300px",
     "pagingType": "full_numbers",
@@ -23,9 +24,94 @@ jQuery ->
 #      'rightColumns': 2,
 #      'heightMatch': 'none'
 #    }
-    "oSearch": {"sSearch": queryParameters().search}
-  })
+    "oSearch": {"sSearch": queryParameters().search},
 
+    "buttons": [{
+                "extend":    'copyHtml5',
+                "text":      '<i class="fa fa-files-o"></i>',
+                "titleAttr": 'Copy'
+            },
+            {
+                "extend":    'excelHtml5',
+                "text":      '<i class="fa fa-file-excel-o"></i>',
+                "titleAttr": 'Excel'
+            },
+            {
+                "extend":    'csvHtml5',
+                "text":      '<i class="fa fa-file-text-o"></i>',
+                "titleAttr": 'CSV'
+            },
+            {
+              "extend": 'selectAll',
+              "action": ( e, dt, node, config ) ->
+                oTable.$('tr').addClass('selected')
+                oTable.$('tr').addClass('success')
+                selects = oTable.rows('tr.selected').data()
+                if selects.length == 0
+                  $("#edit_jobmaster").attr("disabled", true);
+                  $("#destroy_jobmaster").attr("disabled", true);
+                else
+                  $("#destroy_jobmaster").attr("disabled", false);
+                  if selects.length == 1
+                    $("#edit_jobmaster").attr("disabled", false);
+                  else
+                    $("#edit_jobmaster").attr("disabled", true);
+                $(".buttons-select-none").removeClass('disabled')
+
+
+
+
+            },
+            {
+              "extend": 'selectNone',
+              "action": ( e, dt, node, config ) ->
+                oTable.$('tr').removeClass('selected')
+                oTable.$('tr').removeClass('success')
+                selects = oTable.rows('tr.selected').data()
+                if selects.length == 0
+                  $("#edit_jobmaster").attr("disabled", true);
+                  $("#destroy_jobmaster").attr("disabled", true);
+                else
+                  $("#destroy_jobmaster").attr("disabled", false);
+                  if selects.length == 1
+                    $("#edit_jobmaster").attr("disabled", false);
+                  else
+                    $("#edit_jobmaster").attr("disabled", true);
+                $(".buttons-select-none").addClass('disabled')
+            }
+            ]
+  })
+  $("#edit_jobmaster").attr("disabled", true);
+  $("#destroy_jobmaster").attr("disabled", true);
+
+  $('#jobmaster').on( 'click', 'tr',  () ->
+    d = oTable.row(this).data()
+    if d != undefined
+      if $(this).hasClass('selected')
+        $(this).removeClass('selected')
+        $(this).removeClass('success')
+        # $("#edit_jobmaster").attr("disabled", true);
+        # $("#destroy_jobmaster").attr("disabled", true);
+      else
+        # oTable.$('tr.selected').removeClass('selected')
+        # oTable.$('tr.success').removeClass('success')
+        $(this).addClass('selected')
+        $(this).addClass('success')
+        # $("#edit_jobmaster").attr("disabled", false);
+        # $("#destroy_jobmaster").attr("disabled", false);
+    selects = oTable.rows('tr.selected').data()
+    if selects.length == 0
+      $("#edit_jobmaster").attr("disabled", true);
+      $("#destroy_jobmaster").attr("disabled", true);
+      $(".buttons-select-none").addClass('disabled')
+    else
+      $("#destroy_jobmaster").attr("disabled", false);
+      $(".buttons-select-none").removeClass('disabled')
+      if selects.length == 1
+        $("#edit_jobmaster").attr("disabled", false);
+      else
+        $("#edit_jobmaster").attr("disabled", true);
+  )
   oKaisha_modal = $('#kaisha-table-modal').DataTable({
     "pagingType": "full_numbers"
     , "oLanguage": {
@@ -262,3 +348,71 @@ jQuery ->
 #      when '4'
 #        $('#jobmaster_分類名').val('社内業務')
 #  )
+
+  $('#destroy_jobmaster').click () ->
+    jobs = oTable.rows('tr.selected').data()
+    jobIds = new Array();
+    if jobs.length == 0
+      swal($('#message_confirm_select').text())
+    else
+      swal({
+        title: $('#message_confirm_delete').text(),
+        text: "削除でよろしいですが？",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        cancelButtonText: "キャンセル",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then(() ->
+        len = jobs.length
+        for i in [0...len]
+          jobIds[i] = jobs[i][0]
+
+        $.ajax({
+          url: '/jobmasters/ajax',
+          data:{
+            focus_field: 'jobmaster_削除する',
+            jobs: jobIds
+          },
+
+          type: "POST",
+
+          success: (data) ->
+            swal("削除されました!", "", "success");
+            if data.destroy_success != null
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+              $("#jobmaster").dataTable().fnDeleteRow($('#jobmaster').find('tr.selected').remove())
+              $("#jobmaster").dataTable().fnDraw()
+
+            else
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+
+
+          failure: () ->
+            console.log("job_削除する keydown Unsuccessful")
+
+        })
+        $("#edit_jobmaster").attr("disabled", true);
+        $("#destroy_jobmaster").attr("disabled", true);
+
+      ,(dismiss) ->
+        if dismiss == 'cancel'
+
+          selects = oTable.rows('tr.selected').data()
+          if selects.length == 0
+            $("#edit_jobmaster").attr("disabled", true);
+            $("#destroy_jobmaster").attr("disabled", true);
+          else
+            $("#destroy_jobmaster").attr("disabled", false);
+            if selects.length == 1
+              $("#edit_jobmaster").attr("disabled", false);
+            else
+              $("#edit_jobmaster").attr("disabled", true);
+            
+      );
+
+  $('#edit_jobmaster').click () ->
+    job_id = oTable.row('tr.selected').data()    
+    window.open('/jobmasters/' + job_id[0] + '/edit?locale=ja')
