@@ -1,0 +1,5 @@
+ $('#setsubi-new-modal').modal('hide');
+
+ var table = $('.shonin-table').DataTable();
+
+ table.row.add( ["<%=@setsubi.設備コード%>","<%=@setsubi.設備名%>","<%=@setsubi.備考%>"] ).draw( false );

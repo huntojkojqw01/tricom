@@ -12,7 +12,7 @@ Jpt::Application.routes.draw do
     collection {post :import}
   end
   resources :setsubis do
-    collection {post :import}
+    collection {post :import, :ajax, :create_setsubi, :update_setsubi}
     collection {get :export_csv}
   end
   resources :settings do
@@ -34,7 +34,7 @@ Jpt::Application.routes.draw do
 
   resources :kairanyokenmsts do
     collection {get :export_csv}
-    collection {post :import}
+    collection {post :import, :ajax, :create_kairanyoken, :update_kairanyoken}
   end
 
   resources :kairanshosais do
