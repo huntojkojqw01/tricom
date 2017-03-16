@@ -415,4 +415,4 @@ jQuery ->
 
   $('#edit_jobmaster').click () ->
     job_id = oTable.row('tr.selected').data()    
-    window.open('/jobmasters/' + job_id[0] + '/edit?locale=ja')
+    window.location = '/jobmasters/' + job_id[0] + '/edit?locale=ja'

@@ -2,12 +2,12 @@ class SetsubisController < ApplicationController
   before_action :require_user!
   before_action :set_setsubi, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource except: :export_csv
-
-  respond_to :html
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
+  respond_to :html, :js
 
   def index
     @setsubi = Setsubi.all
-    respond_with(@setsubi)
+    
   end
 
   def show
@@ -72,6 +72,44 @@ class SetsubisController < ApplicationController
     end
   end
 
+  def ajax
+    case params[:focus_field]
+      when 'setsubi_削除する'
+        setsubiIds = params[:setsubis]
+        setsubiIds.each{ |setsubiId|
+          Setsubi.find_by(設備コード: setsubiId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
+    end
+  end
+
+    def create_setsubi
+    @setsubi = Setsubi.new(setsubi_params)
+    respond_to do |format|
+      if  @setsubi.save
+        format.js { render 'create_setsubi'}
+      else
+        format.js { render json: @setsubi.errors, status: :unprocessable_entity}
+      end
+    end
+    end
+
+  def update_setsubi
+    @setsubi = Setsubi.find(setsubi_params[:設備コード])
+    # @eki.update(eki_params)
+    # redirect_to ekis_path
+    respond_to do |format|
+      if  @setsubi.update(setsubi_params)
+        format.js { render 'update_setsubi'}
+      else
+        format.js { render json: @setsubi.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
   private
     def set_setsubi
       @setsubi = Setsubi.find(params[:id])
@@ -79,5 +117,9 @@ class SetsubisController < ApplicationController
 
     def setsubi_params
       params.require(:setsubi).permit(:設備コード, :設備名, :備考)
+    end
+
+    def set_param
+      @setsubi = Setsubi.new()
     end
 end
