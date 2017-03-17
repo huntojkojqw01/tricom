@@ -176,7 +176,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :shozais do
-    collection { post :import}
+    collection { post :import, :ajax}
     collection {get :export_csv}
   end
 
@@ -190,7 +190,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :yuukyuu_kyuuka_rirekis do
-    collection { post :import}
+    collection { post :import, :ajax}
     collection {get :export_csv}
   end
 

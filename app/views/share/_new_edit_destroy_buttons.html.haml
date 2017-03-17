@@ -1,0 +1,10 @@
+- new_path||=nil
+%span#message_confirm_select{hidden: true}=t "app.select_confirm"
+%span#message_confirm_delete{hidden: true}=t "app.delete_confirm"
+-if new_path
+	=link_to t("title.new"),new_path,class: "btn btn-primary"
+-else
+	%button.btn.btn-primary{id: "new_#{object}"}=t "title.new"
+%button.btn.btn-primary{id: "edit_#{object}"}=t "title.edit"
+%button.btn.btn-primary{id: "destroy_#{object}"}=t "title.delete"
+%br

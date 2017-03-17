@@ -38,7 +38,20 @@ class ShozaisController < ApplicationController
     @shozai.destroy
     respond_with @shozai, location: shozais_url
   end
-
+  def ajax
+    case params[:focus_field]      
+      when "shozai_削除する"
+        params[:shozais].each {|shozai_code|
+          shozai=Shozai.find(shozai_code)
+          shozai.destroy if shozai
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+      else
+    end
+  end
   def import
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"

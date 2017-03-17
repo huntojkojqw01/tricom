@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'shozai' %>
+<%= javascript_include_tag 'shozaimasters' %>
 <%provide(:title, (t 'title.shozai'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -7,7 +7,7 @@
   <li class="active">所在マスタ</li>
 </ol>
 
-<table id="shozais" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="shozais" class="shozaitable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
   <tr>
@@ -33,13 +33,8 @@
   <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to '新規', new_shozai_path %>
-
+<%=render 'share/new_edit_destroy_buttons', object: "shozai",new_path: new_shozai_path%>
 <% if can? :update, @shozais %>
-
     <h4><%=t 'app.label.import_csv'%></h4>
     <%= form_tag import_shozais_path,class:'form-inline', multipart: true do %>
         <div class="form-group">

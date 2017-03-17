@@ -1,5 +1,5 @@
 jQuery ->
-  oTable = $('.kouteitable').DataTable({
+  oTable = $('.ykkkretable').DataTable({
     "dom": 'lBfrtip',
     "pagingType": "simple_numbers"
     ,"oLanguage":{
@@ -7,13 +7,13 @@ jQuery ->
     }
     ,
     "aoColumnDefs": [ 
-      { "bSortable": false, "aTargets": [ 3]},
+      { "bSortable": false, "aTargets": [ 4,5 ]},
       {
-        "targets": [3],
+        "targets": [4,5],
         "width": '5%'
       }
       {
-        "targets": 3,
+        "targets": 0,
         "visible": false
       }
     ],
@@ -41,14 +41,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_koutei").attr("disabled", true);
-                  $("#destroy_koutei").attr("disabled", true);
+                  $("#edit_ykkkre").attr("disabled", true);
+                  $("#destroy_ykkkre").attr("disabled", true);
                 else
-                  $("#destroy_koutei").attr("disabled", false);
+                  $("#destroy_ykkkre").attr("disabled", false);
                   if selects.length == 1
-                    $("#edit_koutei").attr("disabled", false);
+                    $("#edit_ykkkre").attr("disabled", false);
                   else
-                    $("#edit_koutei").attr("disabled", true);
+                    $("#edit_ykkkre").attr("disabled", true);
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -62,63 +62,63 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_koutei").attr("disabled", true);
-                  $("#destroy_koutei").attr("disabled", true);
+                  $("#edit_ykkkre").attr("disabled", true);
+                  $("#destroy_ykkkre").attr("disabled", true);
                 else
-                  $("#destroy_koutei").attr("disabled", false);
+                  $("#destroy_ykkkre").attr("disabled", false);
                   if selects.length == 1
-                    $("#edit_koutei").attr("disabled", false);
+                    $("#edit_ykkkre").attr("disabled", false);
                   else
-                    $("#edit_koutei").attr("disabled", true);
+                    $("#edit_ykkkre").attr("disabled", true);
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
 
-  $("#edit_koutei").attr("disabled", true);
-  $("#destroy_koutei").attr("disabled", true);
+  $("#edit_ykkkre").attr("disabled", true);
+  $("#destroy_ykkkre").attr("disabled", true);
 
 
-  $(document).bind('ajaxError', 'form#new_kouteimaster', (event, jqxhr, settings, exception) ->
+  $(document).bind('ajaxError', 'form#new_ykkkre', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
-  
-  $('.kouteitable').on( 'click', 'tr',  () ->
+
+  $('.ykkkretable').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_koutei").attr("disabled", true);
-        # $("#destroy_koutei").attr("disabled", true);
+        # $("#edit_ykkkre").attr("disabled", true);
+        # $("#destroy_ykkkre").attr("disabled", true);
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')        
-        #$("#edit_koutei").attr("disabled", true);
-        # $("#edit_koutei").attr("disabled", false);
-        # $("#destroy_koutei").attr("disabled", false);
+        #$("#edit_ykkkre").attr("disabled", true);
+        # $("#edit_ykkkre").attr("disabled", false);
+        # $("#destroy_ykkkre").attr("disabled", false);
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_koutei").attr("disabled", true);
-      $("#destroy_koutei").attr("disabled", true);
+      $("#edit_ykkkre").attr("disabled", true);
+      $("#destroy_ykkkre").attr("disabled", true);
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_koutei").attr("disabled", false);
+      $("#destroy_ykkkre").attr("disabled", false);
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_koutei").attr("disabled", false);
+        $("#edit_ykkkre").attr("disabled", false);
       else
-        $("#edit_koutei").attr("disabled", true);
+        $("#edit_ykkkre").attr("disabled", true);
 
   )
 
-  $('#destroy_koutei').click () ->
-    kouteis = oTable.rows('tr.selected').data()    
-    kouteiIds = new Array();
-    if kouteis.length == 0
+  $('#destroy_ykkkre').click () ->
+    ykkkres = oTable.rows('tr.selected').data()    
+    ykkkreIds = new Array();
+    if ykkkres.length == 0
       swal($('#message_confirm_select').text())
     else
 
@@ -133,15 +133,15 @@ jQuery ->
         closeOnConfirm: false,
         closeOnCancel: false
       }).then(() ->
-        len = kouteis.length
+        len = ykkkres.length
         for i in [0...len]          
-          kouteiIds[i] = kouteis[i][3].split('/')[2]
+          ykkkreIds[i] = ykkkres[i][0]
 
         $.ajax({
-          url: '/kouteimasters/multi_delete',
+          url: '/yuukyuu_kyuuka_rirekis/ajax',
           data:{
-            focus_field: 'koutei_削除する',
-            kouteis: kouteiIds
+            focus_field: 'ykkkre_削除する',
+            ykkkres: ykkkreIds
           },
 
           type: "POST",
@@ -156,43 +156,39 @@ jQuery ->
 
 
           failure: () ->
-            console.log("koutei_削除する keydown Unsuccessful")
+            console.log("ykkkre_削除する keydown Unsuccessful")
 
         })
-        $("#edit_koutei").attr("disabled", true);
-        $("#destroy_koutei").attr("disabled", true);
+        $("#edit_ykkkre").attr("disabled", true);
+        $("#destroy_ykkkre").attr("disabled", true);
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_koutei").attr("disabled", true);
-            $("#destroy_koutei").attr("disabled", true);
+            $("#edit_ykkkre").attr("disabled", true);
+            $("#destroy_ykkkre").attr("disabled", true);
           else
-            $("#destroy_koutei").attr("disabled", false);
+            $("#destroy_ykkkre").attr("disabled", false);
             if selects.length == 1
-              $("#edit_koutei").attr("disabled", false);
+              $("#edit_ykkkre").attr("disabled", false);
             else
-              $("#edit_koutei").attr("disabled", true);
+              $("#edit_ykkkre").attr("disabled", true);
       ); 
-  $('#new_koutei').click ()->
-      $('#koutei-new-modal').modal('show')      
-      $('#kouteimaster_所属コード').val('')
-      $('#kouteimaster_工程コード').val('')
-      $('#kouteimaster_工程名').val('')
-      $('.form-group.has-error').each ()->
-        $('.help-block', $(this)).html('')
-        $(this).removeClass('has-error')
-  $('#edit_koutei').click () ->      
-    koutei = oTable.row('tr.selected').data()
-    $('.form-group.has-error').each () ->
-      $('.help-block', $(this)).html('')
-      $(this).removeClass('has-error')
-    if (koutei == undefined)
+  $('#edit_ykkkre').click ->      
+    new_address = oTable.row('tr.selected').data()[5].split("\"")[1]    
+    if new_address == undefined
       swal("行を選択してください。")
-    else
-      $('#koutei-edit-modal').modal('show')
-      $('#kouteimaster_所属コード').val(koutei[0])
-      $('#kouteimaster_工程コード').val(koutei[1])
-      $('#kouteimaster_工程名').val(koutei[2])
+    else            
+      window.location = new_address
+  $('.datetime').datetimepicker({
+    format: 'YYYY/MM',
+    viewMode: 'months',
+    keyBinds: false,
+    focusOnShow: false
+    }).on('dp.show', ()->
+        $('.datetime').data("DateTimePicker").viewMode("months")
+    );
+  $('#yuukyuu_kyuuka_rireki_年月').click () ->
+    $('.datetime').data("DateTimePicker").viewMode("months").toggle()

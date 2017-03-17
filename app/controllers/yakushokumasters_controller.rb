@@ -73,7 +73,10 @@ class YakushokumastersController < ApplicationController
    def ajax
     case params[:focus_field]
       when 'yakushoku_削除する'
-        yakushoku = Yakushokumaster.find_by(役職コード: params[:yakushoku_id]).destroy
+        params[:yakushokus].each {|yakushoku_code|
+          yakushoku=Yakushokumaster.find(yakushoku_code)
+          yakushoku.destroy if yakushoku
+        }
         data = {destroy_success: "success"}
         respond_to do |format|
           format.json { render json: data}

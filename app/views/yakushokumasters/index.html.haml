@@ -1,10 +1,10 @@
-= javascript_include_tag 'yakushokus'
+= javascript_include_tag 'yakushokumasters'
 = provide(:title, (t 'title.yakushokumaster'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active=(t 'title.yakushokumaster')
 
-%table#yakushoku_table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+%table#yakushoku_table.yakushokutable.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
       %th 役職コード
@@ -19,15 +19,7 @@
         / %td= link_to '編集', edit_yakushokumaster_path(yakushoku)
         / %td= link_to '削除', yakushoku,  method: :delete, data: { confirm: '削除で宜しですか。' }
 
-%br/
-- msg_select = t 'app.select_confirm'
-- msg_confirm = t 'app.delete_confirm'
-.span#message_confirm_select{hidden: :true} #{msg_select}
-.span#message_confirm_delete{hidden: :true} #{msg_confirm}
-%button.btn.btn-primary#new_yakushoku{type: :button} 新規
-%button.btn.btn-primary#edit_yakushoku{type: :button} 編集
-%button.btn.btn-primary#destroy_yakushoku{type: :button} 削除
-/ = link_to '新規', new_yakushokumaster_path
+=render 'share/new_edit_destroy_buttons', object: "yakushoku"
 
 - if can? :update, @yakushokumasters
   %h4=t 'app.label.import_csv'
