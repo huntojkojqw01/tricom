@@ -45,7 +45,6 @@ class SettingsController < ApplicationController
       when (t 'helpers.submit.setting')
         notice = t "app.flash.update_success" if @setting.update(setting_params)
         #redirect_to :back, notice: notice
-
         redirect_to(session[:return_to])
       when (t 'helpers.submit.update')
         flash[:notice] = t "app.flash.update_success" if @setting.update(setting_params)
@@ -97,6 +96,6 @@ class SettingsController < ApplicationController
     end
 
     def setting_params
-      params.require(:setting).permit :社員番号, :scrolltime, :local, :select_holiday_vn
+      params.require(:setting).permit :社員番号, :scrolltime, :local, :select_holiday_vn, :turning_data
     end
 end
