@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   :storage => :dropbox, :dropbox_credentials => "#{Rails.root}/config/dropbox.yml",styles: {original: "50x50#"},:dropbox_visibility => 'private',
   :dropbox_options => {:path => proc {"Avatar_Misuzu/#{id}_#{avatar.original_filename}" }}
   belongs_to :shainmaster, foreign_key: :担当者コード
+  has_many :conversations, :foreign_key => :sender_id
   alias_attribute :id, :担当者コード
   alias_attribute :name, :担当者名称
   validates_attachment_content_type :avatar, :content_type => /\Aimage\/.*\Z/

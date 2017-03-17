@@ -41,6 +41,23 @@
         - if current_user
           - kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
           - dengons = Dengon.where(社員番号: session[:user], 確認: false)
+          - messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil).joins(:user).where("担当者マスタ.担当者コード!= ?",current_user.id).order(created_at: :desc)
+          - if messages.count > 0
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %i{class: 'glyphicon glyphicon-bell text-red'}
+                %span{class: 'message-count text-red'} #{messages.count}
+              %ul.dropdown-menu.message-item
+                - messages.each do |message|
+                  - naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
+                  %li= link_to ' '+ message.user.name+': '+naiyou, "#", class: " glyphicon glyphicon-comment icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
+          - else
+            %li.dropdown
+              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+                %i{class: 'glyphicon glyphicon-bell'}
+                %span{class: 'message-count'}
+              %ul.dropdown-menu.message-item{style: "display: none"}
+
           - if dengons.count > 0
             %li.dropdown
               %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
@@ -117,6 +134,20 @@
               - if current_user.shainmaster.shozokumaster.所属コード == "3"
                 %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.kanrig')), kanris_root_path
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
+          %li.dropdown
+            %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
+              %span.glyphicon.glyphicon-list-alt
+              %span.glyphicon.glyphicon-user
+            %ul.dropdown-menu.address-chat
+              - @users = User.all
+              - @users.each_with_index do |user, index|
+                / - if current_user.avatar.exists?
+                /   - image_path_origin = current_user.avatar.url
+                /   %li= link_to raw("<span><img src="+image_path_origin+" style='margin-right:1em;'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
+                / - else
+                /   %li= link_to raw("<span><img src='/assets/thumb/missing.png' style='margin-right:1em;'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
+
+                %li= link_to raw("<span><img src='/assets/thumb/missing.png' style='margin-right:1em;'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
         - else
           %li= link_to (t 'title.login'), login_path
     - else

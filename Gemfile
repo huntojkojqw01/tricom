@@ -23,6 +23,9 @@ gem 'seed_dump'
 #for print pdf
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+#for chat
+gem 'private_pub'
+gem 'thin'
 #
 gem 'sprockets'
 gem 'sprockets-rails', '2.3.3'

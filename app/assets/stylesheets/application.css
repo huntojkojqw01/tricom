@@ -18,12 +18,20 @@
  *= require bootstrap-colorpicker
  *= require font-awesome
  *= require jquery-ui
-
+ *= require chat
  * require_tree .
  * require_self
 
  *= require sweetalert2
 */
+.message-item{
+  text-align: center;
+  width: 400px
+}
+.address-chat{
+  height: 600px;
+  overflow: auto;
+}
 .search-field{
   margin-top: 10px;
 }
