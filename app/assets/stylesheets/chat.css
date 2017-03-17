@@ -9,6 +9,7 @@
     position: expression("absolute");
     width: 280px;
     display: none;
+    z-index: 999;
 }
 
 .chatboxhead {
