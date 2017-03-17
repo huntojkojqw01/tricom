@@ -231,6 +231,7 @@ ActiveRecord::Schema.define(version: 20170317053102) do
     t.datetime "updated_at",        null: false
     t.string   "local"
     t.string   "select_holiday_vn"
+    t.boolean  "turning_data"
   end
 
   create_table "temps", force: :cascade do |t|
