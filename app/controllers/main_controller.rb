@@ -12,7 +12,10 @@ class MainController < ApplicationController
 
     @kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
     @dengons = Dengon.where(社員番号: session[:user], 確認: false)
+    @users = User.all
 
+    @messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil)
+    .joins(:user).where("担当者マスタ.担当者コード!= ?",current_user.id).order(created_at: :desc)
   end
   def search
     vars = request.query_parameters

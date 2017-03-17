@@ -14,7 +14,9 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
-
+//= require chat
+//= require private_pub
+//= require main
 
 // require turbolinks
 

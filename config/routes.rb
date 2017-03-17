@@ -3,6 +3,10 @@ Jpt::Application.routes.draw do
 
   get 'rorumasters/new'
 
+  resources :conversations do
+    collection {post :update_message}
+    resources :messages
+  end
   resources :yuusens do
     collection {get :export_csv}
     collection {post :import}
