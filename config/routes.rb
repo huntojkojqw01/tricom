@@ -205,7 +205,7 @@ Jpt::Application.routes.draw do
 
   constraints(:id => /\w+(,\w+)*/) do
     resources :kouteimasters do
-      collection {post :ajax, :multi_delete}
+      collection {post :ajax,:multi_delete, :create_koutei, :update_koutei}
       collection{post :import}
       collection {get :export_csv}
     end

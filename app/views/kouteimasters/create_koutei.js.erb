@@ -1,0 +1,9 @@
+$('#koutei-new-modal').modal('hide');
+var table = $('#kouteimaster').DataTable(); 
+table.row.add( ["<%=@kouteimaster.所属コード%>",
+	"<%=@kouteimaster.shozokumaster_name%>",
+ 	"<%=@kouteimaster.工程コード%>",
+ 	"<%=@kouteimaster.工程名%>",
+ 	"<a href='<%=edit_kouteimaster_path(@kouteimaster)%>'>編集</a>",
+ 	"not finish"	 	
+ 	] ).draw();
