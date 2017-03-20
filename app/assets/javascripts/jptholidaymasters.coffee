@@ -6,7 +6,7 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       # { "bSortable": false, "aTargets": [ 2,3 ]},
       # {
       #   "targets": [2,3],
@@ -75,16 +75,16 @@ jQuery ->
             }
 
             ]
-  })  
+  })
   $("#edit_holiday").attr("disabled", true);
-  $("#destroy_holiday").attr("disabled", true); 
+  $("#destroy_holiday").attr("disabled", true);
 
 
   $(document).bind('ajaxError', 'form#new_jpt_holiday_mst', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
 
-  
+
   $('.holidaytable').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
@@ -97,7 +97,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
         #$("#edit_holiday").attr("disabled", true);
         # $("#edit_holiday").attr("disabled", false);
         # $("#destroy_holiday").attr("disabled", false);
@@ -186,7 +186,7 @@ jQuery ->
     $('.form-group.has-error').each ()->
       $('.help-block', $(this)).html('')
       $(this).removeClass('has-error')
-  $('#edit_holiday').click () ->      
+  $('#edit_holiday').click () ->
     holiday = oTable.row('tr.selected').data()
     $('.form-group.has-error').each () ->
       $('.help-block', $(this)).html('')

@@ -1,0 +1,5 @@
+ $('#job-new-modal').modal('hide');
+
+ var table = $('#job_table').DataTable();
+
+ table.row.add( ["<%=@jobmaster.job番号%>","<%=@jobmaster.job名%>","<%=@jobmaster.ユーザ名%>","<%=@jobmaster.bunrui_分類名%>"] ).draw( false );

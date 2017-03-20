@@ -94,7 +94,8 @@ jQuery ->
   $('#kaisha-table-modal tbody').on( 'click', 'tr',  () ->
     d = oKaisha_modal.row(this).data()
     $('#mybashomaster_会社コード').val(d[0])
-
+    $('#job-new-modal #jobmaster_ユーザ番号').val(d[0])
+    $('#job-new-modal #jobmaster_ユーザ名').val(d[1])
     if $(this).hasClass('selected')
       $(this).removeClass('selected')
       $(this).removeClass('success')

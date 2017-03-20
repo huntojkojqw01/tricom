@@ -383,8 +383,7 @@ jQuery ->
             swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
-              $("#jobmaster").dataTable().fnDeleteRow($('#jobmaster').find('tr.selected').remove())
-              $("#jobmaster").dataTable().fnDraw()
+              oTable.rows('tr.selected').remove().draw()
 
             else
               console.log("getAjax destroy_success:"+ data.destroy_success)
@@ -410,9 +409,9 @@ jQuery ->
               $("#edit_jobmaster").attr("disabled", false);
             else
               $("#edit_jobmaster").attr("disabled", true);
-            
+
       );
 
   $('#edit_jobmaster').click () ->
-    job_id = oTable.row('tr.selected').data()    
+    job_id = oTable.row('tr.selected').data()
     window.location = '/jobmasters/' + job_id[0] + '/edit?locale=ja'

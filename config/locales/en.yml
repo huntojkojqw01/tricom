@@ -291,6 +291,8 @@ en:
     time_line_view: Timeline
     export_csv: Export data
     jobmaster: Job master
+    jobshinki: New job
+    jobhenshyuu: Edit job
     joutaimaster: State master
     jpt_hokiday_mst: Jupiter Holiday
     kairan: Circulation
