@@ -1,0 +1,8 @@
+ $('#kairanyouken-edit-modal').modal('hide');
+$(".kairanyouken-table").dataTable().fnDeleteRow($('.kairanyouken-table').find('tr.selected').remove())
+$(".kairanyouken-table").dataTable().fnDraw()
+
+ var table = $('.kairanyouken-table').DataTable();
+ table.row.add( ["<%=@kairanyokenmst.名称%>","<%=@kairanyokenmst.備考%>","<%=@kairanyokenmst.優先さ%>"] ).draw( false );
+
+
