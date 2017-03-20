@@ -2,7 +2,7 @@ class KairanyokenmstsController < ApplicationController
   before_action :require_user!
   before_action :set_kairanyokenmst, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html,:js
 
   def index
     @kairanyokenmsts = Kairanyokenmst.all
@@ -67,6 +67,44 @@ class KairanyokenmstsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @kairanyokens.to_csv, filename: "回覧用件マスタ.csv" }
+    end
+  end
+
+  def ajax
+    case params[:focus_field]
+      when 'kairanyouken_削除する'
+        kairanyoukenIds = params[:kairanyoukens]
+        kairanyoukenIds.each{ |kairanyoukenId|
+          Kairanyokenmst.find_by(名称: kairanyoukenId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
+    end
+  end
+
+    def create_kairanyoken
+    @kairanyokenmst = Kairanyokenmst.new(kairanyokenmst_params)
+    respond_to do |format|
+      if  @kairanyokenmst.save
+        format.js { render 'create_kairanyouken'}
+      else
+        format.js { render json: @kairanyokenmst.errors, status: :unprocessable_entity}
+      end
+    end
+    end
+
+  def update_kairanyoken
+    @kairanyokenmst = Kairanyokenmst.find_by(名称: kairanyokenmst_params[:名称])
+    # @eki.update(eki_params)
+    # redirect_to ekis_path
+    respond_to do |format|
+      if  @kairanyokenmst.update(kairanyokenmst_params)
+        format.js { render 'update_kairanyouken'}
+      else
+        format.js { render json: @kairanyokenmst.errors, status: :unprocessable_entity}
+      end
     end
   end
 

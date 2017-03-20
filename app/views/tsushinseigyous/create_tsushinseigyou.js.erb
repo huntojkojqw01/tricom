@@ -1,0 +1,5 @@
+ $('#tsushinseigyou-new-modal').modal('hide');
+
+ var table = $('.tsushinseigyoutable').DataTable();
+
+ table.row.add( ["<%=@tsushinseigyou.社員番号%>","<%=@tsushinseigyou.メール%>","<%=@tsushinseigyou.送信許可区分%>"] ).draw( false );

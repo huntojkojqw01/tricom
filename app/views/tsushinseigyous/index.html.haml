@@ -7,24 +7,22 @@
 %table.tsushinseigyotable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
+      %th id
       %th 社員番号
       %th メール
       %th 送信許可区分
-      %th
-      %th
 
   %tbody
     - @tsushinseigyous.each do |tsushinseigyou|
       %tr
+        %td= tsushinseigyou.id
         %td= tsushinseigyou.shain_氏名
         %td= tsushinseigyou.メール
         %td= tsushinseigyou.送信許可区分 == '0' ? '不可' : '許可'
-        %td= link_to '編集', edit_tsushinseigyou_path(tsushinseigyou)
-        %td= link_to '削除', tsushinseigyou, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
-
+        
 %br
 
-= link_to '新規', new_tsushinseigyou_path
+=render 'share/new_edit_destroy_buttons',object: 'tsushinseigyou'
 - if can? :update, @tsushinseigyous
   %h4=t 'app.label.import_csv'
   = form_tag import_tsushinseigyous_path,class:'form-inline', multipart: true do
@@ -34,3 +32,5 @@
     .form-group
       = label_tag 'importcsv', nil, class: 'sr-only'
       = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+= render 'tsushinseigyou_new_modal'
+= render 'tsushinseigyou_edit_modal'

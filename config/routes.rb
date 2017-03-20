@@ -48,7 +48,7 @@ Jpt::Application.routes.draw do
 
   resources :tsushinseigyous do
     collection {get :export_csv}
-    collection {post :import}
+    collection {post :import, :ajax, :create_tsushinseigyou, :update_tsushinseigyou}
   end
 
   resources :dengonyoukens do
