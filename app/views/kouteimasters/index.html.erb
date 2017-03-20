@@ -13,6 +13,7 @@
 
   <thead>
     <tr>
+      <th></th>
       <th>所属</th>
       <th>工程コード</th>
       <th>工程名</th>
@@ -26,6 +27,7 @@
   <tbody>
     <% @kouteimasters.each do |kouteimaster| %>
       <tr id="koutei_<%= kouteimaster.id %>">
+        <td><%= kouteimaster.所属コード%></td>
         <td><%= kouteimaster.shozokumaster_name %></td>
         <td><%= kouteimaster.code %></td>
         <td><%= kouteimaster.name %></td>
@@ -35,12 +37,7 @@
     <% end %>
   </tbody>
 </table>
-
-<span id="message_confirm_select" hidden="true"><%=t "app.select_confirm"%></span>
-<span id="message_confirm_delete" hidden="true"><%=t "app.delete_confirm"%></span>
-<%=link_to t("title.new"),new_kouteimaster_path,class: "btn btn-primary",id: "new_koutei"%>
-<button id="edit_koutei" class="btn btn-primary"%>"><%=t "title.edit"%></button>
-<button id="destroy_koutei" class="btn btn-primary"><%=t "title.delete"%></button><br>
+<%=render 'share/new_edit_destroy_buttons',object: 'koutei'%>
 <% if can? :update, @kouteimasters %>
   <h4><%=t 'app.label.import_csv'%></h4>
   <%= form_tag import_kouteimasters_path,class:'form-inline', multipart: true do %>
@@ -54,3 +51,5 @@
       </div>
   <% end %>
 <% end %>
+<%= render 'koutei_new_modal' %>
+<%= render 'koutei_edit_modal' %>

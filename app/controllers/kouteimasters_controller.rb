@@ -3,6 +3,7 @@ class KouteimastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_kouteimaster, only: [:show, :edit, :update, :destroy]
   before_action :set_shozoku, only: [:new, :edit, :create, :update]
+  before_action :set_param, only: :index
   respond_to :js
   load_and_authorize_resource except: :export_csv
 
@@ -42,7 +43,29 @@ class KouteimastersController < ApplicationController
     flash[:notice] = t "app.flash.update_success" if @kouteimaster.update kouteimaster_params
     respond_with @kouteimaster
   end
+  def create_koutei
+    @kouteimaster = Kouteimaster.new(kouteimaster_params)
 
+    respond_to do |format|
+      if  @kouteimaster.save
+        format.js { render 'create_koutei'}
+      else
+        format.js { render json: @kouteimaster.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update_koutei
+    koutei=kouteimaster_params    
+    @kouteimaster = Kouteimaster.find("#{koutei[:工程コード]},#{koutei[:所属コード]}")    
+    respond_to do |format|
+      if  @kouteimaster.update(koutei)
+        format.js { render 'update_koutei'}
+      else
+        format.js { render json: @kouteimaster.errors, status: :unprocessable_entity}
+      end
+    end
+  end
   # DELETE /kouteimasters/1
   # DELETE /kouteimasters/1.json
   def destroy
@@ -64,10 +87,10 @@ class KouteimastersController < ApplicationController
   end
   def multi_delete
     case params[:focus_field]     
-      when 'koutei_削除する'
-        kouteiIds = params[:kouteis]
-        kouteiIds.each{ |kouteiId|
-          Kouteimaster.find(kouteiId).destroy          
+      when 'koutei_削除する'        
+        params[:kouteis].each{ |kouteiId|
+          koutei=Kouteimaster.find(kouteiId)
+          koutei.destroy if koutei          
         }        
         data = {destroy_success: "success"}
         respond_to do |format|
@@ -127,5 +150,7 @@ class KouteimastersController < ApplicationController
   def param_valid
       params[:kouteimaster][:所属コード].in?(Shozokumaster.pluck(:所属コード))
   end
-
+  def set_param
+      @kouteimaster=Kouteimaster.new
+  end
 end

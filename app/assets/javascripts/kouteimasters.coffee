@@ -7,15 +7,15 @@ jQuery ->
     }
     ,
     "aoColumnDefs": [ 
-      { "bSortable": false, "aTargets": [ 3]},
+      { "bSortable": false, "aTargets": [ 4,5]},
       {
-        "targets": [3],
+        "targets": [4,5],
         "width": '5%'
-      }
+      },
       {
-        "targets": 3,
+        "targets": 0,
         "visible": false
-      }
+      }      
     ],
     "oSearch": {"sSearch": queryParameters().search},
 
@@ -135,7 +135,7 @@ jQuery ->
       }).then(() ->
         len = kouteis.length
         for i in [0...len]          
-          kouteiIds[i] = kouteis[i][3].split('/')[2]
+          kouteiIds[i] = kouteis[i][4].split('/')[2]
 
         $.ajax({
           url: '/kouteimasters/multi_delete',
@@ -194,5 +194,5 @@ jQuery ->
     else
       $('#koutei-edit-modal').modal('show')
       $('#kouteimaster_所属コード').val(koutei[0])
-      $('#kouteimaster_工程コード').val(koutei[1])
-      $('#kouteimaster_工程名').val(koutei[2])
+      $('#kouteimaster_工程コード').val(koutei[2])
+      $('#kouteimaster_工程名').val(koutei[3])

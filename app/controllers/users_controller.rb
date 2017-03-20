@@ -56,15 +56,16 @@ class UsersController < ApplicationController
 
   def ajax
     case params[:focus_field]
-      when 'user_削除する'
-        userIds = params[:users]
-        userIds.each{ |userId|
-          User.find_by(担当者コード: userId).destroy
-        }        
-        data = {destroy_success: "success"}
-        respond_to do |format|
-          format.json { render json: data}
-        end
+    when 'user_削除する'
+      params[:users].each {|user_code|
+        user=User.find(user_code)
+        user.destroy if user
+      }            
+      data = {destroy_success: "success"}
+      respond_to do |format|
+        format.json { render json: data}
+      end
+    else
     end
   end
 
