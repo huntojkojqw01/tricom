@@ -12,6 +12,7 @@ class Mybashomaster < ActiveRecord::Base
   belongs_to :kaishamaster, foreign_key: :会社コード
   belongs_to :bashokubunmst, foreign_key: :場所区分
   belongs_to :shainmaster, foreign_key: :社員番号
+  belongs_to :bashomaster, foreign_key: :場所コード
   delegate :name, to: :kaishamaster, prefix: :kaisha, allow_nil: true
 
   # alias_attribute :id, :場所コード

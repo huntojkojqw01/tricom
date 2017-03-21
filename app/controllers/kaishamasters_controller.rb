@@ -82,6 +82,15 @@ class KaishamastersController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
+      when "kaishamaster_削除する"
+        kaishaIds = params[:kaishas]
+        kaishaIds.each{ |kaishaId|
+          Kaishamaster.find(kaishaId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
     end
   end
 

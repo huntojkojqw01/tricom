@@ -45,7 +45,9 @@ $(function () {
         widgetPositioning: {
             horizontal: 'left'
         },
-        showTodayButton: true
+        showTodayButton: true,
+        keyBinds: false,
+        focusOnShow: false
 
     });
   $('#job-new-modal #jobmaster_開始日').click( function(){

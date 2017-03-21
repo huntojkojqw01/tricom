@@ -14,6 +14,7 @@ class Myjobmaster < ActiveRecord::Base
   belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
   belongs_to :bunrui,foreign_key: :分類コード
   belongs_to :shainmaster, foreign_key: :社員番号
+  belongs_to :jobmaster, foreign_key: :job番号
   # alias_attribute :id, :job番号
   # alias_attribute :job_name, :job名
   delegate :分類名, to: :bunrui, prefix: :bunrui, allow_nil: true
