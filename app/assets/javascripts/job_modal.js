@@ -162,6 +162,8 @@ $(function() {
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                           oJobTable.rows('tr.selected').remove().draw();
+                          $('#event_JOB').val('');
+                          $('.hint-job-refer').text('')
                         }else
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                      },

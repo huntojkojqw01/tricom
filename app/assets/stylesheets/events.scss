@@ -30,3 +30,15 @@ div.update-shozai label {
   background-color: #0073AC;
   color: white;
 }
+.hover-end {
+  width:auto;
+  height:auto;
+  background:#ccc;
+  position:absolute;
+  z-index:10001;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+
+}

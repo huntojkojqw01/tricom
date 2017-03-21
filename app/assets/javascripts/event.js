@@ -138,6 +138,30 @@ $(function(){
                 eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
                     updateEvent(event);
                 }
+                ,eventMouseover: function(event, jsEvent, view) {
+                    var tooltip = '<div class="tooltipevent hover-end">' +'<div>'+ event.start.format() +'</div>' +'<div>'+ event.end.format()+'</div>' +'<div>'+ event.title +'</div>' ;
+                    if(event.job != undefined){
+                        tooltip = tooltip + '<div>'+event.job+'</div>'
+                    }
+                    if(event.comment != undefined){
+                        tooltip = tooltip + '<div>'+event.comment+'</div>'
+                    }
+                    tooltip = tooltip +'</div>'
+                    $("body").append(tooltip);
+                    $(this).mouseover(function(e) {
+                        $(this).css('z-index', 10000);
+                        $('.tooltipevent').fadeIn('500');
+                        $('.tooltipevent').fadeTo('10', 1.9);
+                    }).mousemove(function(e) {
+                        $('.tooltipevent').css('top', e.pageY + 10);
+                        $('.tooltipevent').css('left', e.pageX + 20);
+                    });
+                },
+
+                eventMouseout: function(event, jsEvent, view) {
+                    $(this).css('z-index', 8);
+                    $('.tooltipevent').remove();
+                }
             }
         );
 

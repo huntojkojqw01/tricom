@@ -7,3 +7,5 @@ $("#job_table").dataTable().fnDraw()
  table.row.add( ["<%=@jobmaster.job番号%>","<%=@jobmaster.job名%>","<%=@jobmaster.ユーザ名%>","<%=@jobmaster.bunrui_分類名%>"] ).draw( false );
  $("#edit_jobmaster").attr("disabled", true);
  $("#destroy_jobmaster").attr("disabled", true);
+ $('#event_JOB').val("<%=@jobmaster.job番号%>");
+ $('.hint-job-refer').text("<%=@jobmaster.job名%>")
