@@ -23,7 +23,7 @@ class ConversationsController < ApplicationController
     if messageCount > 0
       @mess.each do |message|
         naiyou = message.body.length > 12 ? (message.body[0...12]+ '...') : message.body
-        items = items + '<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\"'+message.conversation.sender_id+'\" data-rip = \"'+ message.conversation.recipient_id+'\" href=\"#\"> '+ message.user.name+': '+naiyou+'</a></li>' if message.body
+        items = items + '<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\"'+message.conversation.sender_id+'\" data-rip = \"'+ message.conversation.recipient_id+'\" href=\"#\">&nbsp;&nbsp;&nbsp;'+ message.user.name+': '+naiyou+'</a></li>' if message.body
       end
     end
 
@@ -83,7 +83,7 @@ class ConversationsController < ApplicationController
     if messageCount > 0
       @mess.each do |message|
         naiyou = message.body.length > 12 ? (message.body[0...12]+ '...') : message.body
-        items = items + '<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\"'+message.conversation.sender_id+'\" data-rip = \"'+ message.conversation.recipient_id+'\" href=\"#\"> '+ message.user.name+': '+naiyou+'</a></li>' if message.body
+        items = items + '<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\"'+message.conversation.sender_id+'\" data-rip = \"'+ message.conversation.recipient_id+'\" href=\"#\">&nbsp;&nbsp;&nbsp;'+ message.user.name+': '+naiyou+'</a></li>' if message.body
       end
     end
 

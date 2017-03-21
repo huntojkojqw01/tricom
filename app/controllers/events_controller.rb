@@ -192,7 +192,7 @@ class EventsController < ApplicationController
     @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
   end
 
-  def create_basho
+  def create_mybasho
     @basho = Bashomaster.new(basho_params)
     @mybasho = Mybashomaster.new(mybashomaster_params)
     if @basho.save == true
@@ -221,6 +221,17 @@ class EventsController < ApplicationController
     if @kaisha.save == false
       respond_to do |format|
         format.js { render json: @kaisha.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update_kaisha
+    @kaishamaster = Kaishamaster.find(kaisha_params[:会社コード])
+    respond_to do |format|
+      if  @kaishamaster.update(kaisha_params)
+        format.js { render 'edit_kaisha'}
+      else
+        format.js { render json: @kaishamaster.errors, status: :unprocessable_entity}
       end
     end
   end

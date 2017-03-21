@@ -14,7 +14,7 @@ class Jobmaster < ActiveRecord::Base
   has_one :event, foreign_key: :JOB
   belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
   belongs_to :bunrui,foreign_key: :分類コード
-
+  has_many :myjobmaster, dependent: :destroy, foreign_key: :job番号
   alias_attribute :id, :job番号
   alias_attribute :job_name, :job名
   delegate :分類名, to: :bunrui, prefix: :bunrui, allow_nil: true

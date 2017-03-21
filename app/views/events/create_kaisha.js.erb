@@ -1,2 +1,9 @@
 $('#kaisha-new-modal').modal('hide')
 $('#mybashomaster_会社コード').val('<%= @kaisha.会社コード %>')
+
+var table = $('#kaisha-table-modal').DataTable();
+
+table.row.add( ["<%=@kaisha.会社コード%>","<%=@kaisha.会社名%>","<%=@kaisha.備考%>"] ).draw( false );
+$('#jobmaster_ユーザ番号').val("<%=@kaisha.会社コード%>");
+$('#jobmaster_ユーザ名').val("<%=@kaisha.会社名%>");
+

@@ -52,7 +52,7 @@
                 - if messages.count > 0
                   - messages.each do |message|
                     - naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
-                    %li= link_to ' '+ message.user.name+': '+naiyou, "#", class: " fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
+                    %li= link_to raw('&nbsp;&nbsp;&nbsp;')+ message.user.name+': '+naiyou, "#", class: "fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
                 - if kairans.count > 0
                   - if messages.count > 0
                     %legend.menu
@@ -146,8 +146,7 @@
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
-              %span.glyphicon.glyphicon-comment
-              %span.glyphicon.glyphicon-user
+              %span.fa.fa-wechat
             %ul.dropdown-menu.address-chat
               - @users = User.all
               - @users.each_with_index do |user, index|

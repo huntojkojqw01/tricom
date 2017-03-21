@@ -17,5 +17,5 @@ end
 
 json.my_messages @messages do |message|
   naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
-  json.item "<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\""+message.conversation.sender_id+"\" data-rip = \""+ message.conversation.recipient_id+"\" href=\"#\"> "+ message.user.name+": "+naiyou+"</a></li>" if message.body
+  json.item "<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\""+message.conversation.sender_id+"\" data-rip = \""+ message.conversation.recipient_id+"\" href=\"#\">&nbsp;&nbsp;&nbsp;"+ message.user.name+": "+naiyou+"</a></li>" if message.body
 end

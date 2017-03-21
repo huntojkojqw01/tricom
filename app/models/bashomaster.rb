@@ -14,7 +14,7 @@ class Bashomaster < ActiveRecord::Base
 
   belongs_to :kaishamaster, foreign_key: :会社コード
   belongs_to :bashokubunmst, foreign_key: :場所区分
-
+  has_many :mybashomaster, dependent: :destroy, foreign_key: :場所コード
   delegate :name, to: :kaishamaster, prefix: :kaisha, allow_nil: true
   delegate :場所区分名, to: :bashokubunmst, prefix: :bashokubun, allow_nil: true
 

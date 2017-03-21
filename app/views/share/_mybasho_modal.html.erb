@@ -30,7 +30,7 @@
                 <td><%= mybasho.場所名カナ %></td>
                 <td><%= mybasho.会社コード %></td>
                 <td><%= mybasho.kaisha_name %></td>
-                <td><%= mybasho.updated_at %></td>
+                <td><%= mybasho.updated_at.to_s[0..18] %></td>
 
               </tr>
           <% end %>
