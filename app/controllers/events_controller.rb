@@ -225,6 +225,28 @@ class EventsController < ApplicationController
     end
   end
 
+  def create_job
+    @jobmaster = Jobmaster.new(jobmaster_params)
+
+    respond_to do |format|
+      if @jobmaster.save
+        format.js { render 'create_job'}
+      else
+        format.js { render json: @jobmaster.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+  def update_job
+    @jobmaster = Jobmaster.find(jobmaster_params[:job番号])
+    respond_to do |format|
+      if  @jobmaster.update(jobmaster_params)
+        format.js { render 'edit_job'}
+      else
+        format.js { render json: @jobmaster.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
   def create
     attributes = event_params.clone
     if event_params[:終了] == '' && event_params[:開始] != ''
@@ -541,7 +563,12 @@ class EventsController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
-
+     when 'get_job_selected'
+      job = Jobmaster.find(params[:job_id])
+      data = {job: job}
+      respond_to do |format|
+         format.json { render json: data}
+       end
    end
   end
 
@@ -603,6 +630,12 @@ private
       @mybashos = Mybashomaster.where(社員番号: vars['shain_id']).all.order("updated_at desc")
       @myjobs = Myjobmaster.where(社員番号: vars['shain_id']).all.order("updated_at desc")
     end
+    max_job = Jobmaster.pluck(:job番号).map {|i| i.to_i}.max + 1
+    # max_job = Jobmaster.maximum(:job番号) + 1
+    max_job = 100001 if max_job < 100001
+    @jobmaster = Jobmaster.new
+    @shains = Shainmaster.all
+    @bunruis = Bunrui.all
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
@@ -617,6 +650,9 @@ private
 
   def kaisha_params
     params.require(:kaishamaster).permit(:会社コード, :会社名, :備考)
+  end
+  def jobmaster_params
+    params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
   end
 
   def mybashomaster_params

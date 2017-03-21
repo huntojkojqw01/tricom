@@ -63,7 +63,7 @@ class JobmastersController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
-         when "jobmaster_削除する"
+      when "jobmaster_削除する"
         jobIds = params[:jobs]
         jobIds.each{ |jobId|
           Jobmaster.find_by(job番号: jobId).destroy

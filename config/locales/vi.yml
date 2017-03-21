@@ -60,7 +60,7 @@ vi:
         other: khoảng %{count} giờ
       about_x_months:
         one: khoảng 1 tháng
-        other: khoảng %{count} tháng 
+        other: khoảng %{count} tháng
       about_x_years:
         one: khoảng 1 năm
         other: khoảng %{count} năm
@@ -70,7 +70,7 @@ vi:
       half_a_minute: 30 giây
       less_than_x_minutes:
         one: dưới 1 phút
-        other: ! 'dưới %{count} phút' 
+        other: ! 'dưới %{count} phút'
       less_than_x_seconds:
         one: dưới 1 giây
         other: ! 'dưới %{count} giây'
@@ -290,6 +290,8 @@ vi:
     time_line_view:  Dòng thời gian
     export_csv: Xuất dữ liệu
     jobmaster:  Công việc (master)
+    jobshinki: Công việc mới
+    ekihenshyuu: Chỉnh sửa công việc
     joutaimaster: Trạng thái (master)
     jpt_hokiday_mst: Ngày lễ của Jupiter
     kairan:  Thư

@@ -1134,6 +1134,9 @@ $(function(){
         var d = oTable.row(this).data();
         $('#selected_user').val(d[0]);
         $('#selected_user_name').val(d[1]);
+        $('#jobmaster_入力社員番号').val(d[0])
+        $('.hint-shain-refer').text(d[1])
+
 
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -1287,26 +1290,6 @@ $(function(){
 
     } );
 
-    //工程選択された行を判断
-    $('#job_table tbody').on( 'click', 'tr', function () {
-
-        var d = oJobTable.row(this).data();
-        $('#event_JOB').val(d[0]);
-        //$('#job_name').text(d[1]);
-        $('.hint-job-refer').text(d[1])
-
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-            $(this).removeClass('success');
-        }
-        else {
-            oJobTable.$('tr.selected').removeClass('selected');
-            oJobTable.$('tr.success').removeClass('success');
-            $(this).addClass('selected');
-            $(this).addClass('success');
-        }
-
-    } );
 
     $('#myjob_table tbody').on( 'click', 'tr', function () {
 
