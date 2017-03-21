@@ -42,15 +42,29 @@
           - kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
           - dengons = Dengon.where(社員番号: session[:user], 確認: false)
           - messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil).joins(:user).where("担当者マスタ.担当者コード!= ?",current_user.id).order(created_at: :desc)
-          - if messages.count > 0
+          - count_total = kairans.count + dengons.count + messages.count
+          - if count_total > 0
             %li.dropdown
               %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
                 %i{class: 'glyphicon glyphicon-bell text-red'}
-                %span{class: 'message-count text-red'} #{messages.count}
+                %span{class: 'message-count text-red'} #{count_total}
               %ul.dropdown-menu.message-item
-                - messages.each do |message|
-                  - naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
-                  %li= link_to ' '+ message.user.name+': '+naiyou, "#", class: " glyphicon glyphicon-comment icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
+                - if messages.count > 0
+                  - messages.each do |message|
+                    - naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
+                    %li= link_to ' '+ message.user.name+': '+naiyou, "#", class: " fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
+                - if kairans.count > 0
+                  - if messages.count > 0
+                    %legend.menu
+                  - kairans.each do |kairan|
+                    - naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
+                    %li= link_to ' '+ naiyou, kairans_path(search: kairan.内容), :class => "glyphicon glyphicon-envelope icon-left"
+                - if dengons.count > 0
+                  - if kairans.count > 0 || messages.count > 0
+                    %legend.menu
+                  - dengons.each do |dengon|
+                    - naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
+                    %li= link_to ' '+ naiyou, dengons_path(search: dengon.伝言内容), :class => "glyphicon glyphicon-comment icon-left"
           - else
             %li.dropdown
               %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
@@ -58,41 +72,37 @@
                 %span{class: 'message-count'}
               %ul.dropdown-menu.message-item{style: "display: none"}
 
-          - if dengons.count > 0
-            %li.dropdown
-              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-                / %span{class: 'glyphicon glyphicon-comment text-red',:onclick => "location.href = '/dengons?locale=ja' ; return false"}#{dengons.count}
-                %i{class: 'glyphicon glyphicon-comment text-red',:onclick => "location.href = '/dengons?locale=ja' ; return false"}
-                %span{class: 'dengon-count text-red'} #{dengons.count}
-              %ul.dropdown-menu.center.dengon-item
-                - dengons.each do |dengon|
-                  - naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
-                  %li= link_to ' '+ naiyou, dengons_path(search: dengon.伝言内容), :class => "glyphicon glyphicon-envelope icon-left"
-          - else
-            %li.dropdown
-              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-                %i{class: 'glyphicon glyphicon-comment',:onclick => "location.href = '/dengons?locale=ja' ; return false"}
-                %span{class: 'dengon-count'}
-              %ul.dropdown-menu.center.dengon-item{style: "display: none"}
-                / %span{class: 'glyphicon glyphicon-comment',:onclick => "location.href = '/dengons?locale=ja' ; return false"}
-          - if kairans.count > 0
-            %li.dropdown
-              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-                %i{class: 'glyphicon glyphicon-envelope text-red', :onclick => "location.href = '/kairans?locale=ja' ; return false"}
-                %span{class: 'kairan-count text-red'} #{kairans.count}
-              %ul.dropdown-menu.center.kairan-item
-                - kairans.each do |kairan|
-                  - naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
-                  %li= link_to ' '+ naiyou, kairans_path(search: kairan.内容), :class => "glyphicon glyphicon-envelope icon-left"
+          / - if dengons.count > 0
+          /   %li.dropdown
+          /     %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+          /       %i{class: 'glyphicon glyphicon-comment text-red',:onclick => "location.href = '/dengons?locale=ja' ; return false"}
+          /       %span{class: 'dengon-count text-red'} #{dengons.count}
+          /     %ul.dropdown-menu.center.dengon-item
+          /       - dengons.each do |dengon|
+          /         - naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
+          /         %li= link_to ' '+ naiyou, dengons_path(search: dengon.伝言内容), :class => "glyphicon glyphicon-comment icon-left"
+          / - else
+          /   %li.dropdown
+          /     %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+          /       %i{class: 'glyphicon glyphicon-comment',:onclick => "location.href = '/dengons?locale=ja' ; return false"}
+          /       %span{class: 'dengon-count'}
+          /     %ul.dropdown-menu.center.dengon-item{style: "display: none"}
+          / - if kairans.count > 0
+          /   %li.dropdown
+          /     %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+          /       %i{class: 'glyphicon glyphicon-envelope text-red', :onclick => "location.href = '/kairans?locale=ja' ; return false"}
+          /       %span{class: 'kairan-count text-red'} #{kairans.count}
+          /     %ul.dropdown-menu.center.kairan-item
+          /       - kairans.each do |kairan|
+          /         - naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
+          /         %li= link_to ' '+ naiyou, kairans_path(search: kairan.内容), :class => "glyphicon glyphicon-envelope icon-left"
 
-          - else
-            %li.dropdown
-              %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-                %i{class: 'glyphicon glyphicon-envelope', :onclick => "location.href = '/kairans?locale=ja' ; return false"}
-                %span{class: 'kairan-count'}
-              %ul.dropdown-menu.center.kairan-item{style: "display: none"}
-                / %span{class: 'glyphicon glyphicon-envelope', :onclick => "location.href = '/kairans?locale=ja' ; return false"}
-            / = link_to raw("<span class='navbar-brand root'><i class='glyphicon glyphicon-envelope' style='margin-right:1em;'></i></span>"), kairans_url
+          / - else
+          /   %li.dropdown
+          /     %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
+          /       %i{class: 'glyphicon glyphicon-envelope', :onclick => "location.href = '/kairans?locale=ja' ; return false"}
+          /       %span{class: 'kairan-count'}
+          /     %ul.dropdown-menu.center.kairan-item{style: "display: none"}
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
               / - if current_user.avatar.exists?
@@ -136,7 +146,7 @@
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
-              %span.glyphicon.glyphicon-list-alt
+              %span.glyphicon.glyphicon-comment
               %span.glyphicon.glyphicon-user
             %ul.dropdown-menu.address-chat
               - @users = User.all
