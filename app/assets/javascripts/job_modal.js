@@ -48,12 +48,20 @@ $(function () {
         showTodayButton: true
 
     });
-  $('#jobmaster_開始日').click( function(){
+  $('#job-new-modal #jobmaster_開始日').click( function(){
     $('#job-new-modal .jobmaster_開始日 .date').data("DateTimePicker").toggle();
   });
 
-  $('#jobmaster_終了日').click( function(){
+  $('#job-new-modal #jobmaster_終了日').click( function(){
     $('#job-new-modal .jobmaster_終了日 .date').data("DateTimePicker").toggle();
+  })
+
+  $('#job-edit-modal #jobmaster_開始日').click( function(){
+    $('#job-edit-modal .jobmaster_開始日 .date').data("DateTimePicker").toggle();
+  });
+
+  $('#job-edit-modal #jobmaster_終了日').click( function(){
+    $('#job-edit-modal .jobmaster_終了日 .date').data("DateTimePicker").toggle();
   })
 
   $('.search-field').click( function(){
