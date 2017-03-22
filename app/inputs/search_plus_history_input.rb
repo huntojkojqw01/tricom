@@ -1,12 +1,12 @@
-class SearchFieldsInput < SimpleForm::Inputs::Base
+class SearchPlusHistoryInput < SimpleForm::Inputs::Base
   def input(wrapper_options = nil)
     template.content_tag(:div, class: 'form-inline') do
       template.content_tag(:div, class: 'input-group search-group') do
-        # template.concat @builder.text_field(attribute_name, merge_wrapper_options(input_html_options,wrapper_options))
         template.concat @builder.text_field(attribute_name, input_html_options)
+
         template.concat span_search
-        # template.concat span_add
         template.concat span_plus_sign
+        template.concat span_search_history
       end
     end
   end
@@ -16,19 +16,19 @@ class SearchFieldsInput < SimpleForm::Inputs::Base
   end
 
   def span_plus_sign
-    template.content_tag(:span, class: 'input-group-addon search-plus') do
+    template.content_tag(:span, class: 'input-group-addon search-plus set-border') do
       template.concat icon_plus_sign
     end
   end
 
-  def span_add
-    template.content_tag(:span, class: 'input-group-addon') do
-      template.concat icon_add
+  def span_search_history
+    template.content_tag(:span, class: 'input-group-addon search-history set-border') do
+      template.concat icon_search_history
     end
   end
 
   def span_search
-    template.content_tag(:span, class: 'input-group-addon search-field') do
+    template.content_tag(:span, class: 'input-group-addon search-field set-border') do
       template.concat icon_search
     end
   end
@@ -37,8 +37,8 @@ class SearchFieldsInput < SimpleForm::Inputs::Base
     "<i class='glyphicon glyphicon-plus-sign'></i>".html_safe
   end
 
-  def icon_add
-    "<i class='glyphicon glyphicon-plus'></i>".html_safe
+  def icon_search_history
+    "<i class='glyphicon glyphicon-time'></i>".html_safe
   end
 
   def icon_search

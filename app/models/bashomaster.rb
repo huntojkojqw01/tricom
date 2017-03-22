@@ -1,7 +1,7 @@
 class Bashomaster < ActiveRecord::Base
   self.table_name = :場所マスタ
   self.primary_key = :場所コード
-
+  after_update :doUpdateMybasho
   include PgSearch
   multisearchable :against => %w{場所コード 場所名 場所名カナ SUB bashokubun_場所区分名 kaisha_name}
 
@@ -24,7 +24,9 @@ class Bashomaster < ActiveRecord::Base
   def basho_kubun?
     場所区分 == '2'
   end
-
+  def doUpdateMybasho
+    mybashos = Mybashomaster.where(場所コード: self.場所コード).update_all(場所名: self.場所名,場所名カナ: self.場所名カナ,SUB: self.SUB,場所区分: self.場所区分,会社コード: self.会社コード)
+  end
   # a class method import, with file passed through as an argument
   def self.import(file)
     # a block that runs through a loop in our CSV data

@@ -1,11 +1,13 @@
  $('#job-edit-modal').modal('hide');
 
-$("#job_table").dataTable().fnDeleteRow($('#job_table').find('tr.selected').remove())
-$("#job_table").dataTable().fnDraw()
+oJobTable.rows('tr.selected').remove().draw();
 
  var table = $('#job_table').DataTable();
- table.row.add( ["<%=@jobmaster.job番号%>","<%=@jobmaster.job名%>","<%=@jobmaster.ユーザ名%>","<%=@jobmaster.bunrui_分類名%>"] ).draw( false );
- $("#edit_jobmaster").attr("disabled", true);
- $("#destroy_jobmaster").attr("disabled", true);
+ var row = table.row.add( ["<%=@jobmaster.job番号%>","<%=@jobmaster.job名%>","<%=@jobmaster.ユーザ名%>","<%=@jobmaster.bunrui_分類名%>"] ).draw( false ).nodes().to$();
+
+ row.addClass('selected');
+ row.addClass('success');
+ $("#edit_jobmaster").attr("disabled", false);
+ $("#destroy_jobmaster").attr("disabled", false);
  $('#event_JOB').val("<%=@jobmaster.job番号%>");
  $('.hint-job-refer').text("<%=@jobmaster.job名%>")

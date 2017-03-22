@@ -1,0 +1,12 @@
+$('#basho-edit-modal').modal('hide');
+
+oBashoTable.rows('tr.selected').remove().draw();
+
+var table = $('#basho_table').DataTable();
+var row = table.row.add( ["<%=@bashomaster.場所コード%>","<%=@bashomaster.場所名%>","<%=@bashomaster.場所名カナ%>","<%=@bashomaster.会社コード%>","<%=@bashomaster.kaisha_name%>"] ).draw( false ).nodes().to$();
+row.addClass( 'selected' );
+row.addClass( 'success' );
+$("#edit_basho").attr("disabled", false);
+$("#destroy_basho").attr("disabled", false);
+$('#event_場所コード').val("<%=@bashomaster.場所コード%>");
+$('.hint-basho-refer').text("<%=@bashomaster.場所名%>");

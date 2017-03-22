@@ -12,7 +12,7 @@
         = f.input (t 'title.kisha') do
           = f.select :有無, options_for_select(["帰社", "直帰", "連続"], :selected => @event.有無), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
     = f.input :場所コード, label: (t 'title.basho'), input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.bashomaster.try :場所名}", hint_html: {class: 'hint-basho-refer'}
-    = f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history_job, hint:"#{@event.jobmaster.try :job名}", hint_html: {class: 'hint-job-refer'}
+    = f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.jobmaster.try :job名}", hint_html: {class: 'hint-job-refer'}
     -#= f.input :工程コード, label: '工程', input_html: {style: 'width:100px'}, as: :search_field, hint:"#{@event.kouteimaster.try :工程名}", hint_html: {class: 'hint-koutei-refer'}
     -#- shozoku = get_shozoku(session[:user]).所属コード
     -#- kouteis = Kouteimaster.where(所属コード: shozoku)
@@ -51,16 +51,18 @@
       = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(@event.社員番号).所在コード, include_blank: true }, class: 'form-control', style: 'width:150px' )
 
 = render 'share/joutai_modal'
-= render 'share/basho_modal'
+= render 'share/basho_modal', add_CUD: true
+= render 'share/basho_new_modal'
+= render 'share/basho_edit_modal'
 = render 'share/mybasho_modal'
 = render 'share/koutei_modal'
 = render 'share/shozai_modal'
 = render 'share/job_modal', add_CUD: true
 = render 'share/myjob_modal'
-= render 'share/mybasho_new_modal'
 
-= render 'jobmasters/job_edit_modal'
-= render 'jobmasters/job_new_modal'
+
+= render 'share/job_edit_modal'
+= render 'share/job_new_modal'
 = render 'share/kaisha_modal', add_CUD: true
 = render 'share/shain_modal_refer'
 = render 'share/bunrui_modal'

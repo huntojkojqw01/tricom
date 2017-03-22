@@ -1,6 +1,7 @@
 class Kaishamaster < ActiveRecord::Base
   self.table_name = :会社マスタ
   self.primary_key = :会社コード
+  after_update :doUpdateMykaisha
   include PgSearch
   multisearchable :against => %w{会社コード 会社名 備考}
   validates :会社コード, :会社名, presence: true
@@ -14,6 +15,9 @@ class Kaishamaster < ActiveRecord::Base
   alias_attribute :name, :会社名
   alias_attribute :note, :備考
 
+  def doUpdateMykaisha
+    mykaishas = Mykaishamaster.where(会社コード: self.会社コード).update_all(会社名: self.会社名,備考: self.備考)
+  end
 # a class method import, with file passed through as an argument
   def self.import(file)
     # a block that runs through a loop in our CSV data

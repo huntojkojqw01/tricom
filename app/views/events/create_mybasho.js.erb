@@ -1,3 +1,2 @@
-$('#event_場所コード').val('<%= @mybasho.場所コード %>')
-$('#basho_name').text('<%= @mybasho.場所名 %>')
-$('#mybasho-new-modal').modal('hide')
+var table = $('#mybasho_table').DataTable();
+var row = table.row.add( ["<%=@mybasho.社員番号%>","<%=@mybasho.場所コード%>","<%=@mybasho.場所名%>","<%=@mybasho.場所名カナ%>","<%=@mybasho.会社コード%>","<%=@mybasho.kaisha_name%>","<%=@mybasho.updated_at.to_s[0..18]%>"] ).order( [ 6, 'desc' ]).draw( false )

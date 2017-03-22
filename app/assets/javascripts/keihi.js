@@ -404,7 +404,7 @@ $(document).on('click', '.keihihead_keihibodies_JOB .search-field', function(eve
     event.preventDefault();
 });
 
-$(document).on('click', '.keihihead_keihibodies_JOB .search-history-job', function(event){
+$(document).on('click', '.keihihead_keihibodies_JOB .search-history', function(event){
 
     $('#myjob_search_modal').modal('show')
     event.preventDefault();
@@ -416,7 +416,7 @@ $(document).on('click', '.keihihead_keihibodies_相手先 .search-field', functi
     event.preventDefault();
 });
 
-$(document).on('click', '.keihihead_keihibodies_相手先 .search-history-job', function(event){
+$(document).on('click', '.keihihead_keihibodies_相手先 .search-history', function(event){
 
     $('#mykaisha_search_modal').modal('show')
     event.preventDefault();
