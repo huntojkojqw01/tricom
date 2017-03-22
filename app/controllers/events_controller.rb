@@ -636,6 +636,7 @@ private
     @bashos = Bashomaster.all
 
     @joutais = Joutaimaster.web_use.all
+    @joutaimaster = Joutaimaster.new
     # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
     @kouteis = Shainmaster.find(session[:selected_shain]).shozokumaster.kouteimasters
     @basho = Bashomaster.new

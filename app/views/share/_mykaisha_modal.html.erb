@@ -26,7 +26,7 @@
                 <td><%= mykaisha.会社コード %></td>
                 <td><%= mykaisha.会社名 %></td>
                 <td><%= mykaisha.備考 %></td>
-                <td><%= mykaisha.updated_at %></td>
+                <td><%= mykaisha.updated_at.to_s[0..18] %></td>
               </tr>
           <% end %>
           </tbody>

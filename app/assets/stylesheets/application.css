@@ -24,6 +24,9 @@
 
  *= require sweetalert2
 */
+.colorpicker {
+  z-index: 9999;
+}
 .message-item{
   text-align: center;
   width: 400px
