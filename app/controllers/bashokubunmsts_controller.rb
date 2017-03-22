@@ -2,7 +2,7 @@ class BashokubunmstsController < ApplicationController
   before_action :require_user!
   before_action :set_bashokubunmst, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @bashokubunmsts = Bashokubunmst.all
@@ -69,6 +69,43 @@ class BashokubunmstsController < ApplicationController
     end
   end
 
+  def ajax
+    case params[:focus_field]
+      when 'bashokubunmst_削除する'
+        bashokubunmstIds = params[:bashokubunmsts]
+        bashokubunmstIds.each{ |bashokubunmstId|
+          Bashokubunmst.find_by(場所区分コード: bashokubunmstId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
+    end
+  end
+
+    def create_bashokubunmst
+    @bashokubunmst = Bashokubunmst.new(bashokubunmst_params)
+    respond_to do |format|
+      if  @bashokubunmst.save
+        format.js { render 'create_bashokubun'}
+      else
+        format.js { render json: @bashokubunmsts.errors, status: :unprocessable_entity}
+      end
+    end
+    end
+
+  def update_bashokubunmst
+    @bashokubunmst = Bashokubunmst.find_by(場所区分コード: bashokubunmst_params[:場所区分コード])
+    # @eki.update(eki_params)
+    # redirect_to ekis_path
+    respond_to do |format|
+      if  @bashokubunmst.update(bashokubunmst_params)
+        format.js { render 'update_bashokubun'}
+      else
+        format.js { render json: @bashokubunmsts.errors, status: :unprocessable_entity}
+      end
+    end
+  end
   private
     def set_bashokubunmst
       @bashokubunmst = Bashokubunmst.find(params[:id])

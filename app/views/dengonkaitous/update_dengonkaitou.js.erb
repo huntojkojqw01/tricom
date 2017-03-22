@@ -1,0 +1,7 @@
+ $('#dengonkaitou-edit-modal').modal('hide');
+$(".dengonkaitoutable").dataTable().fnDeleteRow($('.dengonkaitoutable').find('tr.selected').remove())
+$(".dengonkaitoutable").dataTable().fnDraw()
+
+ var table = $('.dengonkaitoutable').DataTable();
+ table.row.add( ["<%=@dengonkaitou.種類名%>","<%=@dengonkaitou.備考%>"] ).draw( false );
+

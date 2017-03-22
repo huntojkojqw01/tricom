@@ -9,21 +9,17 @@
     %tr
       %th= (t 'title.bashokubuncode')
       %th= (t 'title.bashokubunmei')
-      %th
-      %th
+
 
   %tbody
     - @bashokubunmsts.each do |bashokubunmst|
       %tr
         %td= bashokubunmst.場所区分コード
         %td= bashokubunmst.場所区分名
-        %td= link_to (t 'title.edit'), edit_bashokubunmst_path(bashokubunmst)
-        - display = t 'app.delete_confirm'
-        %td= link_to (t 'title.delete'), bashokubunmst, :method => :delete, :data => { :confirm => display }
+       
 
 %br
-
-= link_to (t 'title.new'), new_bashokubunmst_path
+= render 'share/new_edit_destroy_buttons',object: 'bashokubunmst'
 
 - if can? :update, @bashokubunmsts
   %h4=t 'app.label.import_csv'
@@ -34,3 +30,5 @@
     .form-group
       = label_tag 'importcsv', nil, class: 'sr-only'
       = submit_tag "Import CSV" , class: 'btn btn-default'
+= render 'bashokubun_new_modal'
+= render 'bashokubun_edit_modal'

@@ -141,8 +141,7 @@ jQuery ->
             swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
-              $(".rorumaster-table").dataTable().fnDeleteRow($('.rorumaster-table').find('tr.selected').remove())
-              $(".rorumaster-table").dataTable().fnDraw()
+              oTable.rows('tr.selected').remove().draw()
 
             else
               console.log("getAjax destroy_success:"+ data.destroy_success)
