@@ -42,6 +42,7 @@ $(function () {
   $('#kaisha-table-modal tbody').on( 'click', 'tr', function () {
     var d = oKaisha_modal.row(this).data();
     $('#mybashomaster_会社コード').val(d[0]);
+    $('#bashomaster_会社コード').val(d[0]);
     $('#jobmaster_ユーザ番号').val(d[0]);
     $('#jobmaster_ユーザ名').val(d[1]);
     if( $(this).hasClass('selected')){
@@ -59,6 +60,21 @@ $(function () {
     }
 
   });
+
+  $('#clear_kaisha').click(function () {
+        $('#jobmaster_ユーザ番号').val('');
+        $('#jobmaster_ユーザ名').val('');
+        $('#jobmaster_ユーザ番号').closest('.form-group').find('.span.help-block').text('');
+        $('#jobmaster_ユーザ番号').closest('.form-group').removeClass('has-error');
+
+        $('#bashomaster_会社コード').val('');
+        $('#bashomaster_会社コード').closest('.form-group').find('.span.help-block').text('');
+        $('#bashomaster_会社コード').closest('.form-group').removeClass('has-error');
+
+        oKaisha_modal.$('tr.selected').removeClass('selected');
+        oKaisha_modal.$('tr.success').removeClass('success');
+    });
+
 
 });
 
@@ -159,17 +175,6 @@ $(function() {
 
     });
 
-    $('#clear_kaisha').click(function () {
-        $('#jobmaster_ユーザ番号').val('');
-        $('#jobmaster_ユーザ名').val('');
-        $('#jobmaster_ユーザ番号').closest('.form-group').find('.span.help-block').text('');
-        $('#jobmaster_ユーザ番号').closest('.form-group').removeClass('has-error');
-        $('#mybashomaster_会社コード').val('');
-        $('#mybashomaster_会社コード').closest('.form-group').find('.span.help-block').text('');
-        $('#mybashomaster_会社コード').closest('.form-group').removeClass('has-error');
-        oKaisha_modal.$('tr.selected').removeClass('selected');
-        oKaisha_modal.$('tr.success').removeClass('success');
-    });
 
 
 

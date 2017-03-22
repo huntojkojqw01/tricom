@@ -480,66 +480,6 @@ $(function () {
         // $('#mybasho_search_modal').modal('show');
     });
 
-    $('#koutei_sentaku_ok_mybasho').click(function(){
-        var mybasho_id = oBashoTable.row('tr.selected').data();
-        var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'basho_selected',mybasho_id: mybasho_id[0],shain: shain},
-            type: "POST",
-
-            success: function(data) {
-               if(data.mybasho_id != null){
-                    console.log("getAjax mybasho_id:"+ data.mybasho_id);
-
-                }
-                else{
-
-                    console.log("getAjax mybasho_id:"+ data.mybasho_id);
-                }
-            },
-            failure: function() {
-                console.log("basho_selected keydown Unsuccessful");
-            }
-        });
-    });
-
-    $('#job_sentaku_ok').click(function(){
-
-        var myjob_id = oJobTable.row('tr.selected').data();
-        var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'job_selected',myjob_id: myjob_id[0],shain: shain},
-            type: "POST",
-
-            success: function(data) {
-               if(data.myjob_id != null){
-                    console.log("getAjax myjob_id:"+ data.myjob_id);
-
-                }
-                else{
-
-                    console.log("getAjax myjob_id:"+ data.myjob_id);
-                }
-            },
-            failure: function() {
-                console.log("job_selected keydown Unsuccessful");
-            }
-        });
-    });
-
-    $('#clear_basho').click(function () {
-
-        $('#event_場所コード').val('');
-        $('.hint-basho-refer').text('');
-        $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
-        $('#event_場所コード').closest('.form-group').removeClass('has-error');
-        oBashoTable.$('tr.selected').removeClass('selected');
-        oBashoTable.$('tr.success').removeClass('success');
-
-    });
-
 
 
     $('#clear_mybasho').click(function () {
@@ -553,14 +493,7 @@ $(function () {
 
     } );
 
-    $('#clear_job').click(function () {
-        $('#event_JOB').val('');
-        $('.hint-job-refer').text('')
-        $('#event_JOB').closest('.form-group').find('span.help-block').remove();
-        $('#event_JOB').closest('.form-group').removeClass('has-error');
-        oJobTable.$('tr.selected').removeClass('selected');
-        oJobTable.$('tr.success').removeClass('success');
-    } );
+
 
     $('#clear_myjob').click(function () {
         $('#event_JOB').val('');
@@ -991,12 +924,6 @@ $(function(){
         ]
     });
 
-    oBashoTable = $('#basho_table').DataTable({
-        "pagingType": "simple_numbers"
-        ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-        }
-    });
 
     oMybashoTable = $('#mybasho_table').DataTable({
         "pagingType": "simple_numbers"
@@ -1026,12 +953,7 @@ $(function(){
         }
     });
 
-    oJobTable = $('#job_table').DataTable({
-        "pagingType": "simple_numbers"
-        ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-        }
-    });
+
     oMyjobTable = $('#myjob_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
@@ -1175,26 +1097,7 @@ $(function(){
 
     } );
 
-    //場所選択された行を判断
-    $('#basho_table tbody').on( 'click', 'tr', function () {
 
-        var d = oBashoTable.row(this).data();
-        $('#event_場所コード').val(d[0]);
-        //$('#basho_name').text(d[1]);
-        $('.hint-basho-refer').text(d[1]);
-        $('#event_場所コード').closest('.form-group').find('span.help-block').remove()
-        $('#event_場所コード').closest('.form-group').removeClass('has-error')
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-            $(this).removeClass('success');
-        }
-        else {
-            oBashoTable.$('tr.selected').removeClass('selected');
-            oBashoTable.$('tr.success').removeClass('success');
-            $(this).addClass('selected');
-            $(this).addClass('success');
-        }
-    } );
 
     $('#mybasho_table tbody').on( 'click', 'tr', function () {
 

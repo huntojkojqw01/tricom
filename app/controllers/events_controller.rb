@@ -192,30 +192,6 @@ class EventsController < ApplicationController
     @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
   end
 
-  def create_mybasho
-    @basho = Bashomaster.new(basho_params)
-    @mybasho = Mybashomaster.new(mybashomaster_params)
-    if @basho.save == true
-      @mybasho.save
-    else
-      respond_to do |format|
-        # format.js { render 'create_basho_erro'}
-        format.js { render json: @basho.errors, status: :unprocessable_entity}
-         # format.js { render 'delete'}
-      end
-
-    end
-
-    # if @mybasho.save == false
-    #   #Mybashomaster.where(社員番号: mybashomaster_params[:社員番号], 場所コード: mybashomaster_params[:場所コード]).first.update mybashomaster_params
-    # end
-
-    # @mybasho.save
-   # @basho.save
-    # @mybasho = Mybashomaster.new(mybashomaster_params)
-    # @basho.save
-  end
-
   def create_kaisha
     @kaisha = Kaishamaster.new(kaisha_params)
     if @kaisha.save == false
@@ -232,6 +208,26 @@ class EventsController < ApplicationController
         format.js { render 'edit_kaisha'}
       else
         format.js { render json: @kaishamaster.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def create_basho
+    @basho = Bashomaster.new(bashomaster_params)
+    if @basho.save == false
+      respond_to do |format|
+        format.js { render json: @basho.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+
+  def update_basho
+    @bashomaster = Bashomaster.find(bashomaster_params[:場所コード])
+    respond_to do |format|
+      if  @bashomaster.update(bashomaster_params)
+        format.js { render 'edit_basho'}
+      else
+        format.js { render json: @bashomaster.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -512,22 +508,26 @@ class EventsController < ApplicationController
        end
      when 'basho_selected'
 
-        mybasho = Mybashomaster.where(社員番号: params[:shain],場所コード: params[:mybasho_id]).first
-        if mybasho.nil?
+        @mybasho = Mybashomaster.where(社員番号: params[:shain],場所コード: params[:mybasho_id]).first
+        if @mybasho.nil?
           basho = Bashomaster.find(params[:mybasho_id])
-          mybasho = Mybashomaster.new(社員番号: params[:shain],場所コード: params[:mybasho_id],
+          @mybasho = Mybashomaster.new(社員番号: params[:shain],場所コード: params[:mybasho_id],
             場所名: basho.try(:場所名),場所名カナ: basho.try(:場所名カナ), SUB: basho.try(:SUB),
             場所区分: basho.try(:場所区分),会社コード: basho.try(:会社コード))
-          mybasho.save
+          if @mybasho.save
+            respond_to do |format|
+              format.js { render 'create_mybasho'}
+            end
+          end
         else
-          mybasho.update(updated_at: Time.now)
+          @mybasho.update(updated_at: Time.now)
+          data = {mybasho_id: @mybasho.id}
+          respond_to do |format|
+            format.json { render json: data}
+          end
         end
 
-       data = {destroy_success: mybasho.id}
-       respond_to do |format|
-         format.json { render json: data}
-         # format.js { render 'delete'}
-       end
+
      when 'myjob_削除する'
        myjob = Myjobmaster.where(社員番号: params[:shain],job番号: params[:myjob_id]).first
        if !myjob.nil?
@@ -540,24 +540,27 @@ class EventsController < ApplicationController
          # format.js { render 'delete'}
        end
      when 'job_selected'
-        myjob = Myjobmaster.where(社員番号: params[:shain],job番号: params[:myjob_id]).first
-        if myjob.nil?
+        @myjob = Myjobmaster.where(社員番号: params[:shain],job番号: params[:myjob_id]).first
+        if @myjob.nil?
           job = Jobmaster.find(params[:myjob_id])
-          myjob = Myjobmaster.new(社員番号: params[:shain],job番号: params[:myjob_id],
+          @myjob = Myjobmaster.new(社員番号: params[:shain],job番号: params[:myjob_id],
             job名: job.try(:job名),開始日: job.try(:開始日), 終了日: job.try(:終了日),
             ユーザ番号: job.try(:ユーザ番号),ユーザ名: job.try(:ユーザ名),入力社員番号: job.try(:入力社員番号),
             分類コード: job.try(:分類コード),分類名: job.try(:分類名),
             関連Job番号: job.try(:関連Job番号),備考: job.try(:備考))
-          myjob.save
+          if @myjob.save
+            respond_to do |format|
+              format.js { render 'create_myjob'}
+            end
+          end
         else
-          myjob.update(updated_at: Time.now)
+          @myjob.update(updated_at: Time.now)
+          data = {myjob_id: @mybasho.id}
+          respond_to do |format|
+            format.json { render json: data}
+          end
         end
 
-       data = {destroy_success: myjob.id}
-       respond_to do |format|
-         format.json { render json: data}
-         # format.js { render 'delete'}
-       end
      when "event_drag_update"
         event = Event.find(params[:eventId])
         event.update(社員番号: params[:shainId],開始: params[:event_start], 終了: params[:event_end])
@@ -577,6 +580,12 @@ class EventsController < ApplicationController
      when 'get_job_selected'
       job = Jobmaster.find(params[:job_id])
       data = {job: job}
+      respond_to do |format|
+         format.json { render json: data}
+       end
+     when 'get_basho_selected'
+      basho = Bashomaster.find(params[:basho_id])
+      data = {basho: basho}
       respond_to do |format|
          format.json { render json: data}
        end
@@ -630,7 +639,7 @@ private
     # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
     @kouteis = Shainmaster.find(session[:selected_shain]).shozokumaster.kouteimasters
     @basho = Bashomaster.new
-    @mybasho = Mybashomaster.new
+
     @kaisha = Kaishamaster.new
     @kaishamasters = Kaishamaster.all
     vars = request.query_parameters
@@ -655,8 +664,8 @@ private
                                   :計上, :所在コード, :comment, :有無, :帰社区分)
   end
 
-  def basho_params
-    params.require(:mybashomaster).permit(:場所コード, :場所名, :場所名カナ, :SUB, :場所区分, :会社コード)
+  def bashomaster_params
+    params.require(:bashomaster).permit(:場所コード, :場所名, :場所名カナ, :SUB, :場所区分, :会社コード)
   end
 
   def kaisha_params
@@ -664,9 +673,5 @@ private
   end
   def jobmaster_params
     params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
-  end
-
-  def mybashomaster_params
-    params.require(:mybashomaster).permit(:社員番号, :場所コード, :場所名, :場所名カナ, :SUB, :場所区分,:会社コード, :更新日)
   end
 end

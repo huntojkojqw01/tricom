@@ -4,6 +4,10 @@ oKaisha_modal.rows('tr.selected').remove().draw();
 
 var table = $('#kaisha-table-modal').DataTable();
 
-table.row.add( ["<%=@kaishamaster.会社コード%>","<%=@kaishamaster.会社名%>","<%=@kaishamaster.備考%>"] ).draw( false );
+var row = table.row.add( ["<%=@kaishamaster.会社コード%>","<%=@kaishamaster.会社名%>","<%=@kaishamaster.備考%>"] ).draw( false ).nodes().to$();
+row.addClass('selected');
+row.addClass('success');
+$("#edit_kaishamaster").attr("disabled", false);
+$("#destroy_kaishamaster").attr("disabled", false);
 $('#jobmaster_ユーザ番号').val("<%=@kaishamaster.会社コード%>");
 $('#jobmaster_ユーザ名').val("<%=@kaishamaster.会社名%>");

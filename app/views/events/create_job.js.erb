@@ -1,7 +1,12 @@
- $('#job-new-modal').modal('hide');
+$('#job-new-modal').modal('hide');
+oJobTable.$('tr.selected').removeClass('selected');
+oJobTable.$('tr.success').removeClass('success');
+var table = $('#job_table').DataTable();
 
- var table = $('#job_table').DataTable();
-
- table.row.add( ["<%=@jobmaster.job番号%>","<%=@jobmaster.job名%>","<%=@jobmaster.ユーザ名%>","<%=@jobmaster.bunrui_分類名%>"] ).draw( false );
+var row = table.row.add( ["<%=@jobmaster.job番号%>","<%=@jobmaster.job名%>","<%=@jobmaster.ユーザ名%>","<%=@jobmaster.bunrui_分類名%>"] ).draw( false ).nodes().to$();
+row.addClass('selected');
+row.addClass('success');
+$("#edit_jobmaster").attr("disabled", false);
+$("#destroy_jobmaster").attr("disabled", false);
 $('#event_JOB').val("<%=@jobmaster.job番号%>");
 $('.hint-job-refer').text("<%=@jobmaster.job名%>")

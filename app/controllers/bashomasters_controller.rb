@@ -54,8 +54,8 @@ class BashomastersController < ApplicationController
         data = {destroy_success: "success"}
         respond_to do |format|
           format.json { render json: data}
-        end 
-      else  
+        end
+      else
     end
   end
 

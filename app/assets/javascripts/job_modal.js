@@ -1,6 +1,12 @@
 $(document).ready(function(){
     $("#edit_jobmaster").attr("disabled", true);
     $("#destroy_jobmaster").attr("disabled", true);
+    oJobTable = $('#job_table').DataTable({
+        "pagingType": "simple_numbers"
+        ,"oLanguage":{
+            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+        }
+    });
     oJob_Table = $('#job_table_in_job').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
@@ -122,7 +128,38 @@ $(function () {
         }
 
     } );
+   $('#clear_job').click(function () {
+        $('#event_JOB').val('');
+        $('.hint-job-refer').text('')
+        $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+        $('#event_JOB').closest('.form-group').removeClass('has-error');
+        oJobTable.$('tr.selected').removeClass('selected');
+        oJobTable.$('tr.success').removeClass('success');
+    } );
+  $('#job_sentaku_ok').click(function(){
 
+        var myjob_id = oJobTable.row('tr.selected').data();
+        var shain = $('#event_社員番号').val();
+        $.ajax({
+            url: '/events/ajax',
+            data: {id: 'job_selected',myjob_id: myjob_id[0],shain: shain},
+            type: "POST",
+
+            success: function(data) {
+               if(data.myjob_id != null){
+                    console.log("getAjax myjob_id:"+ data.myjob_id);
+
+                }
+                else{
+
+                    console.log("getAjax myjob_id:"+ data.myjob_id);
+                }
+            },
+            failure: function() {
+                console.log("job_selected keydown Unsuccessful");
+            }
+        });
+    });
 
 });
 

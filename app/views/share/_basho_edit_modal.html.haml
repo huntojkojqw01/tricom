@@ -1,0 +1,27 @@
+.modal#basho-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 場所編集
+      .modal-body
+        = simple_form_for @basho, url: update_basho_events_path, remote: true, html: {role: :form, 'data-model' => 'bashomaster'} do |f|
+          = f.input :場所コード do
+            = f.input_field :場所コード, class: 'form-control',readonly: true
+            .span.help-block
+          = f.input :場所名 do
+            = f.input_field :場所名, class: 'form-control'
+            .span.help-block
+          = f.input :場所名カナ do
+            = f.input_field :場所名カナ, class: 'form-control'
+            .span.help-block
+          = f.input :SUB do
+            = f.input_field :SUB, class: 'form-control'
+            .span.help-block
+          = f.input :場所区分, label: false do
+            = f.association :bashokubunmst, label_method: :場所区分名, value_method: :場所区分コード, label:'場所区分', input_html:{style: 'width:100px'}
+            .span.help-block
+          = f.input :会社コード, as: :search_field do
+            = f.input_field :会社コード, as: :search_field, class: 'form-control', style: 'width:100px'
+            .span.help-block
+          = f.button :submit, class: 'btn btn-primary', id: 'basho-new-ok'

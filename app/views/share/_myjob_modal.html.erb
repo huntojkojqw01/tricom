@@ -28,7 +28,7 @@
                 <td><%= myjob.job名 %></td>
                 <td><%= myjob.ユーザ名 %></td>
                 <td><%= myjob.bunrui_分類名 %></td>
-                <td><%= myjob.updated_at %></td>
+                <td><%= myjob.updated_at.to_s[0..18] %></td>
               </tr>
           <% end %>
           </tbody>

@@ -119,22 +119,13 @@ jQuery ->
       $('#kaisha-search-modal').modal('show')
   )
 
-  $('.search-plus').click( () ->
-    $('#mybasho-new-modal').modal('show')
-
-    element = $('.search-group').find('#mybashomaster_会社コード')
-    if $(this).prev().prev().is(element)
-      $('#kaisha-new-modal').modal('show')
-      $('#kaisha-new-modal #kaishamaster_会社コード').val('');
-      $('#kaisha-new-modal #kaishamaster_会社名').val('');
-      $('#kaisha-new-modal #kaishamaster_備考').val('');
-  )
-
   $('.search-history').click( () ->
-    $('#mybasho_search_modal').modal('show')
-  )
-  $('.search-history-job').click( () ->
-    $('#myjob_search_modal').modal('show')
+    element1 = $('.search-group').find('#event_場所コード')
+    element2 = $('.search-group').find('#event_JOB')
+    if $(this).prev().prev().is(element1)
+      $('#mybasho_search_modal').modal('show')
+    if $(this).prev().prev().is(element2)
+      $('#myjob_search_modal').modal('show')
   )
 
   $('#basho-new-ok').click( () ->

@@ -1,0 +1,2 @@
+var table = $('#myjob_table').DataTable();
+table.row.add( ["<%=@myjob.社員番号%>","<%=@myjob.job番号%>","<%=@myjob.job名%>","<%=@myjob.ユーザ名%>","<%=@myjob.bunrui_分類名%>","<%=@myjob.updated_at.to_s[0..18] %>"] ).order( [ 5, 'desc' ]).draw( false );
