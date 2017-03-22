@@ -23,7 +23,7 @@
         %td= setting.scrolltime
         %td= setting.local
         %td= setting.select_holiday_vn
-        %td= setting.turning data
+        %td= setting.turning_data
         %td= link_to '編集', edit_setting_path(setting)
         - msg = t 'app.delete_confirm'
         %td= link_to '削除', setting, :method => :delete, :data => { :confirm => msg }
