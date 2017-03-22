@@ -1,0 +1,7 @@
+ $('#dengonyouken-edit-modal').modal('hide');
+$(".dengonyoukentable").dataTable().fnDeleteRow($('.dengonyoukentable').find('tr.selected').remove())
+$(".dengonyoukentable").dataTable().fnDraw()
+
+ var table = $('.dengonyoukentable').DataTable();
+ table.row.add( ["<%=@dengonyouken.種類名%>","<%=@dengonyouken.備考%>","<%=@dengonyouken.優先さ%>"] ).draw( false );
+

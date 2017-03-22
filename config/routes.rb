@@ -53,12 +53,12 @@ Jpt::Application.routes.draw do
 
   resources :dengonyoukens do
     collection {get :export_csv}
-    collection {post :import}
+    collection {post :import, :ajax, :create_dengonyouken, :update_dengonyouken}
   end
 
   resources :dengonkaitous do
     collection {get :export_csv}
-    collection {post :import}
+    collection {post :import, :ajax, :create_dengonkaitou, :update_dengonkaitou}
   end
 
   resources :dengons do
@@ -75,7 +75,7 @@ Jpt::Application.routes.draw do
   get "login_code" => "sessions#login_code"
   post "login_code" => "sessions#login_code_confirm"
   resources :bashokubunmsts  do
-    collection {post :import}
+    collection {post :import, :ajax, :create_bashokubunmst, :update_bashokubunmst}
     collection {get :export_csv}
   end
 

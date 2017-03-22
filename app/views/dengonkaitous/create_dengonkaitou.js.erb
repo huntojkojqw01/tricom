@@ -1,0 +1,4 @@
+ $('#dengonkaitou-new-modal').modal('hide');
+
+ var table = $('.dengonkaitoutable').DataTable();
+ table.row.add( ["<%=@dengonkaitou.種類名%>","<%=@dengonkaitou.備考%>"] ).draw( false );

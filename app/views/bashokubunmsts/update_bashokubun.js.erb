@@ -1,0 +1,7 @@
+ $('#bashokubunmst-edit-modal').modal('hide');
+$(".bashokubunmsttable").dataTable().fnDeleteRow($('.bashokubunmsttable').find('tr.selected').remove())
+$(".bashokubunmsttable").dataTable().fnDraw()
+
+ var table = $('.bashokubunmsttable').DataTable();
+ table.row.add( ["<%=@bashokubunmst.場所区分コード%>","<%=@bashokubunmst.場所区分名%>"] ).draw( false );
+

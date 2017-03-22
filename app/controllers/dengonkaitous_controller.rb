@@ -2,7 +2,7 @@ class DengonkaitousController < ApplicationController
   before_action :require_user!
   before_action :set_dengonkaitou, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @dengonkaitous = Dengonkaitou.all
@@ -65,6 +65,44 @@ class DengonkaitousController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @dengonkaitous.to_csv, filename: "伝言回答マスタ.csv" }
+    end
+  end
+
+  def ajax
+    case params[:focus_field]
+      when 'dengonkaitou_削除する'
+        dengonkaitouIds = params[:dengonkaitous]
+        dengonkaitouIds.each{ |dengonkaitouId|
+          Dengonkaitou.find_by(種類名: dengonkaitouId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
+    end
+  end
+
+    def create_dengonkaitou
+    @dengonkaitou = Dengonkaitou.new(dengonkaitou_params)
+    respond_to do |format|
+      if  @dengonkaitou.save
+        format.js { render 'create_dengonkaitou'}
+      else
+        format.js { render json: @dengonkaitous.errors, status: :unprocessable_entity}
+      end
+    end
+    end
+
+  def update_dengonkaitou
+    @dengonkaitou = Dengonkaitou.find_by(種類名: dengonkaitou_params[:種類名])
+    # @eki.update(eki_params)
+    # redirect_to ekis_path
+    respond_to do |format|
+      if  @dengonkaitou.update(dengonkaitou_params)
+        format.js { render 'update_dengonkaitou'}
+      else
+        format.js { render json: @dengonkaitous.errors, status: :unprocessable_entity}
+      end
     end
   end
 

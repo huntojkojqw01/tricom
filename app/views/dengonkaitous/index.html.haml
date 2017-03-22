@@ -9,21 +9,18 @@
     %tr
       %th= (t 'title.shuruimei')
       %th= (t 'title.bikou')
-      %th
-      %th
+
 
   %tbody
     - @dengonkaitous.each do |dengonkaitou|
       %tr
         %td= dengonkaitou.種類名
         %td= dengonkaitou.備考
-        %td= link_to (t 'title.edit'), edit_dengonkaitou_path(dengonkaitou)
-        %td= link_to (t 'title.delete'), dengonkaitou, :method => :delete, :data => { :confirm => (t 'title.delete_confirm')  }
+
 
 %br
 
-= link_to (t 'title.new'), new_dengonkaitou_path
-
+= render 'share/new_edit_destroy_buttons',object: 'dengonkaitou'
 - if can? :update, @dengonkaitous
   %h4=t 'app.label.import_csv'
   = form_tag import_dengonkaitous_path,class:'form-inline', multipart: true do
@@ -33,3 +30,5 @@
     .form-group
       = label_tag 'importcsv', nil, class: 'sr-only'
       = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+= render 'dengonkaitou_new_modal'
+= render 'dengonkaitou_edit_modal'
