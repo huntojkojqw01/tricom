@@ -50,7 +50,9 @@
     - else
       = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(@event.社員番号).所在コード, include_blank: true }, class: 'form-control', style: 'width:150px' )
 
-= render 'share/joutai_modal'
+= render 'share/joutai_modal', add_CUD: true
+= render 'share/joutai_edit_modal'
+= render 'share/joutai_new_modal'
 = render 'share/basho_modal', add_CUD: true
 = render 'share/basho_new_modal'
 = render 'share/basho_edit_modal'

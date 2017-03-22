@@ -1,0 +1,49 @@
+.modal#joutai-new-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-lg
+    .modal-content{style: 'height: 700px'}
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel 状態新規
+      .modal-body
+        .editor-datetime
+          = simple_form_for @joutaimaster, url: create_joutai_joutaimasters_path, remote: true, html: {role: :form, 'data-model' => 'joutaimaster'} do |f|
+            .row
+              .col-md-3.col-xs-9.col-sm-6.col-lg-3.col-md-offset-2.col-xs-offset-1.col-sm-offset-1.col-lg-offset-2
+                = f.input :状態コード do
+                  = f.input_field :状態コード, class: 'form-control'
+                  .span.help-block
+                = f.input :状態名 do
+                  = f.input_field :状態名, class: 'form-control'
+                  .span.help-block
+                = f.input :状態区分 do
+                  = f.input_field :状態区分, class: 'form-control'
+                  .span.help-block
+                = f.input :勤怠状態名 do
+                  = f.input_field :勤怠状態名, class: 'form-control'
+                  .span.help-block
+                = f.input :マーク do
+                  = f.input_field :マーク, class: 'form-control'
+                  .span.help-block
+                = f.input :WEB使用区分 do
+                  = f.input_field :WEB使用区分, class: 'form-control'
+                  .span.help-block
+                = f.input :勤怠使用区分 do
+                  = f.input_field :勤怠使用区分, class: 'form-control'
+                  .span.help-block
+                = f.button :submit, class: 'btn btn-primary'
+
+              .col-md-3.col-xs-9.col-sm-6.col-lg-3.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
+                .panel.panel-default#preview-panel
+                  .panel-heading
+                    %h3.panel-title 背景色と文字色変更のプリビュー
+                  .panel-body
+                    .form-group
+                      .col-md-8.col-xs-8.col-sm-8.col-lg-8.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
+                        #preview-backgroud.panel.panel-default
+                          %p#preview-text{style: "align-content: center"} 松本と昼ごはん
+                = f.input :色 do
+                  = f.input_field :色, class: 'form-control'
+                  .span.help-block
+                = f.input :text_color, label: '文字色' do
+                  = f.input_field :text_color, class: 'form-control'
+                  .span.help-block

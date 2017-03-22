@@ -932,12 +932,6 @@ $(function(){
         }
     });
 
-    oJoutaiTable = $('#joutai_table').DataTable({
-        "pagingType": "simple_numbers"
-        ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-        }
-    });
 
     oKouteiTable = $('#koutei_table').DataTable({
         "pagingType": "simple_numbers"
@@ -1123,57 +1117,7 @@ $(function(){
     // if (s != '11'){
     //     $('.event_有無').hide();
     // }
-    //状態選択された行を判断
-    $('#joutai_table tbody').on( 'click', 'tr', function () {
 
-        var d = oJoutaiTable.row(this).data();
-        $('#event_状態コード').val(d[0]);
-        //$('#joutai_name').text(d[1]);
-        $('.hint-joutai-refer').text(d[1]);
-        if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
-            $('.event_帰社').show();
-        else
-            $('.event_帰社').hide();
-        //#    remove error if has
-        $('#event_状態コード').closest('.form-group').find('span.help-block').remove()
-        $('#event_状態コード').closest('.form-group').removeClass('has-error')
-
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-            $(this).removeClass('success');
-        }
-        else {
-            oJoutaiTable.$('tr.selected').removeClass('selected');
-            oJoutaiTable.$('tr.success').removeClass('success');
-            $(this).addClass('selected');
-            $(this).addClass('success');
-        }
-        //check if that day missing
-        var strtime = new Date($("#event_開始").val());
-        if (d[0] == "30" || (d[0] == "60" && strtime.getHours() >= 9)){
-            //$('#event_開始').val(moment());
-            //$('#event_終了').val(moment());
-
-            $('#event_場所コード').prop( "disabled", true );
-            $('#event_JOB').prop( "disabled", true );
-            $('#event_工程コード').prop( "disabled", true );
-            $('#basho_search').prop( "disabled", true );
-            $('#koutei_search').prop( "disabled", true );
-
-        }else{
-            //$('#event_開始').val('');
-            //$('#event_終了').val('');
-
-            $('#event_場所コード').prop( "disabled", false );
-            $('#event_JOB').prop( "disabled", false );
-            $('#event_工程コード').prop( "disabled", false );
-            $('#basho_search').prop( "disabled", false );
-            $('#koutei_search').prop( "disabled", false );
-
-        }
-
-
-    } );
 
     //工程選択された行を判断
     $('#koutei_table tbody').on( 'click', 'tr', function () {

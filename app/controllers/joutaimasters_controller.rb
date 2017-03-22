@@ -41,6 +41,48 @@ class JoutaimastersController < ApplicationController
     respond_with @joutaimaster, location: joutaimasters_url
   end
 
+  def create_joutai
+    @joutai = Joutaimaster.new(joutaimaster_params)
+    respond_to do |format|
+      if  @joutai.save
+        format.js { render 'create_joutai'}
+      else
+        format.js { render json: @joutai.errors, status: :unprocessable_entity}
+      end
+    end
+
+  end
+
+  def update_joutai
+    @joutai = Joutaimaster.find(joutaimaster_params[:状態コード])
+    respond_to do |format|
+      if  @joutai.update(joutaimaster_params)
+        format.js { render 'update_joutai'}
+      else
+        format.js { render json: @joutai.errors, status: :unprocessable_entity}
+      end
+    end
+  end
+  def ajax
+    case params[:focus_field]
+      when "joutaimaster_削除する"
+        params[:joutais].each {|joutai_code|
+          joutai = Joutaimaster.find(joutai_code)
+          joutai.destroy if joutai
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+      when 'get_joutai_selected'
+        joutai = Joutaimaster.find(params[:joutai_id])
+        data = {joutai: joutai}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
+
   def import
     if params[:file].nil?
       flash[:alert] = t "app.flash.file_nil"
