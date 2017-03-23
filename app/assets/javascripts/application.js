@@ -128,7 +128,6 @@ $(document).on('ready', function() {
           for (var i = 0; i < data.notification.kairanCount ; i++) {
             items = items + data.my_kairans[i].item
           }
-
           if ((data.notification.messageCount > 0 || data.notification.kairanCount > 0) && data.notification.dengonCount >0){
             items = items + "<legend class='menu'></legend>"
           }
