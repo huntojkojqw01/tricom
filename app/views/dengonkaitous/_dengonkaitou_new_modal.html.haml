@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel New
+        %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
         = simple_form_for (Dengonkaitou.new), url: create_dengonkaitou_dengonkaitous_path, :remote => true, html: {role: :form, 'data-model' => 'dengonkaitou'} do |f| 
           = f.input :種類名, label: "種類名", class: 'form-control'

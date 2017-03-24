@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel Edit
+        %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
         = simple_form_for (Kairanyokenmst.new), url: update_kairanyoken_kairanyokenmsts_path, :remote => true, html: {role: :form, 'data-model' => 'kairanyokenmst'} do |f| 
           = f.hidden_field :id

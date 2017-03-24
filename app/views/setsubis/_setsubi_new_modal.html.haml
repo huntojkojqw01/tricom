@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel New
+        %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
         = simple_form_for (Setsubi.new), url: create_setsubi_setsubis_path, :remote => true, html: {role: :form, 'data-model' => 'setsubi'} do |f|
           = f.input :設備コード do

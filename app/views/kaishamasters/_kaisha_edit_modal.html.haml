@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel 会社編集
+        %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
         = simple_form_for @kaishamaster, url: update_kaisha_kaishamasters_path, :remote => true, html: {role: :form, 'data-model' => 'kaishamaster'} do |f|
           = f.input :会社コード, as: :hidden do

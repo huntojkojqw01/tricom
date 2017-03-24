@@ -1,0 +1,4 @@
+ $('#shoninsha-new-modal').modal('hide');
+
+ var table = $('.shonin-table').DataTable();
+ table.row.add( ["","<%=@shoninshamst.shinseisha.氏名%>","<%=@shoninshamst.shouninsha.氏名%>","<%=@shoninshamst.順番%>"] ).draw( false );

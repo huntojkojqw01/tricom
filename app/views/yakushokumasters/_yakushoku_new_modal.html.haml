@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel 役職新規
+        %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
         = simple_form_for @yakushokumaster, url: create_yakushoku_yakushokumasters_path, :remote => true, html: {role: :form, 'data-model' => 'yakushokumaster'} do |f|
           = f.input :役職コード do
