@@ -156,6 +156,7 @@ ja:
     button:
       search: 検索
       confirm: 確認
+      cancel: キャンセル
   number:
     currency:
       format:

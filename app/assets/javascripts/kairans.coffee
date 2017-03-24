@@ -23,22 +23,9 @@ jQuery ->
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
-#    "aoColumnDefs": [
-#      { "bSortable": false, "aTargets": [5 ]},
-#      {"targets": [3],"width": '30%'},
-#      {"targets": [5], "width": '5%'}
-#    ],
-#    "columnDefs": [
-#      {"targets"  : 'no-sort',"orderable": false}
-#    ]
 
-#    "columnDefs": [
-#      { "width": "30%", "targets": 3 },
-#      { "width": "5%", "targets": 4 },
-#      {"targets"  : 'no-sort', "orderable": false }
-#    ]
-
-    columnDefs: [ {orderable: false, className: 'select-checkbox',targets: 7},
+    columnDefs: [
+      { orderable: false,className: 'select-checkbox',targets: 7},
       { "width": "12%", "targets": 0 },
       { "width": "12%", "targets": 1 },
       { "width": "13%", "targets": 2 },
@@ -49,22 +36,17 @@ jQuery ->
       { "width": "5%", "targets": 7 },
       { "targets": [ 8 ], "visible": false, "searchable": false },
       { "targets": [ 9 ], "visible": false, "searchable": false },
+      { "targets": [ 10 ], "visible": false, "searchable": false },
     ],
     select: {
-#      style:    'os',
       style:    'multi',
       selector: 'td:last-child'
     },
     order: [[ 0, 'des' ]],
     dom: 'Bfrtip',
     buttons: [
-#      'selected',
-#      'selectedSingle',
       'selectAll',
       'selectNone'
-#      'selectRows',
-#      'selectColumns',
-#      'selectCells'
     ],
     "oSearch": {"sSearch": queryParameters().search}
   })
@@ -74,39 +56,30 @@ jQuery ->
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
-#    "aoColumnDefs": [
-#      { "bSortable": false, "aTargets": [0]},
-#      {
-#        "targets": [0],
-#        "width": '20%'
-#      }
-#    ],
-#    "columnDefs": [{
-#      "targets"  : 'no-sort',
-#      "orderable": false
-#    }],
     columnDefs: [ {
       orderable: false,
       className: 'select-checkbox',
       targets:   0
     } ],
     select: {
-#      style:    'os',
       style:    'multi',
-#      selector: 'td:first-child'
+
     },
     dom: 'Bfrtip',
     buttons: [
-#      'selected',
-#      'selectedSingle',
       'selectAll',
       'selectNone'
-#      'selectRows',
-#      'selectColumns',
-#      'selectCells'
     ]
   })
 
+
+  kairan_table.on( 'select', ( e, dt, type, indexes )->
+    row = kairan_table[ type ]( indexes ).nodes().to$()
+    data = kairan_table.row( indexes ).data()
+    if data[10] != $('#session_user').val()
+      kairan_table.row( indexes ).nodes().to$().removeClass( 'selected' );
+      swal("あなたはアクセス権限ではありません！")
+  );
   $('.datetime').datetimepicker({
     format: 'YYYY/MM/DD HH:mm',
     showTodayButton: true,
@@ -124,12 +97,15 @@ jQuery ->
   $('#kairan_終了').click () ->
     $('.kairan_終了 .datetime').data("DateTimePicker").toggle();
 
-  $('#kairan').click () ->
+  $('#kairan').click (e) ->
     selected_rows = shain_table.rows( { selected: true } ).data()
     shainNo = []
     for row in selected_rows
       shainNo.push(row[1])
     $('#shain').val(shainNo.toString())
+    if $('#kairan_開始').val() == '' && $('#kairan_終了').val() == '' && $('#kairan_件名').val() == ''&& $('#kairan_件名').val() == ''&& $('#shain').val() == ''
+      e.preventDefault()
+      swal("入力してください。")
 
   $('#kakunin').click () ->
     selected_rows = kairan_table.rows( { selected: true } ).data()
@@ -166,12 +142,3 @@ jQuery ->
         api.rows(getTaishoList(data.taishosha)).select()
     })
   )
-
-#  shain_table_mark.rows(["[id='10002']", "[id='81000']"]).select()
-
-#  shain_table_mark.rows().every( () ->
-#    data = this.data()
-#    if data[0] == '10002'
-#      $(this).addClass('duc')
-##      shain_table.row(this).select()
-#  )

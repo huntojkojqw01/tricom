@@ -156,6 +156,7 @@ en:
     button:
       search: Search
       confirm: Confirm
+      cancel: Cancel
   number:
     currency:
       format:
