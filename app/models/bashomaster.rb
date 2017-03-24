@@ -9,7 +9,7 @@ class Bashomaster < ActiveRecord::Base
   validates :場所コード, uniqueness: true
   validates :会社コード, presence: true, if: :basho_kubun?
   # validates :会社コード, inclusion: {in: Kaishamaster.pluck(:会社コード)}, allow_blank: true
-
+  validates :会社コード, inclusion: {in: proc{Kaishamaster.pluck(:会社コード)}}, allow_blank: true
   has_many :events
 
   belongs_to :kaishamaster, foreign_key: :会社コード

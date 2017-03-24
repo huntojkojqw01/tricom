@@ -8,6 +8,9 @@ class Event < ActiveRecord::Base
   validates :工程コード, :場所コード, :JOB, presence: true, if: Proc.new{|event| event.joutaimaster.try(:状態区分) == '1' && !(event.joutaimaster.try(:状態コード) == '60' && Time.parse(event.開始).hour >= 9)}
   validate :check_date_input
   validates_numericality_of :工数, message: I18n.t('errors.messages.not_a_number'), :allow_blank => true
+  validates :状態コード, inclusion: {in: proc{Joutaimaster.pluck(:状態コード)}}, allow_blank: true
+  validates :場所コード, inclusion: {in: proc{Bashomaster.pluck(:場所コード)}}, allow_blank: true
+  validates :JOB, inclusion: {in: proc{Jobmaster.pluck(:job番号)}}, allow_blank: true
   belongs_to :shainmaster, foreign_key: :社員番号
   belongs_to :joutaimaster, foreign_key: :状態コード
   belongs_to :bashomaster, foreign_key: :場所コード

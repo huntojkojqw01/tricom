@@ -4,10 +4,10 @@ class Myjobmaster < ActiveRecord::Base
 
   validates :job番号, uniqueness: {scope: :社員番号}
   validates :job番号, :job名, :社員番号, presence: true
-  validates :入力社員番号, numericality: { only_integer: true }, inclusion: {in: Shainmaster.pluck(:社員番号)}, allow_blank: true
-  validates :関連Job番号, numericality: { only_integer: true }, inclusion: {in: Myjobmaster.pluck(:job番号)}, allow_blank: true
-  validates :ユーザ番号, inclusion: {in: Kaishamaster.pluck(:会社コード)}, allow_blank: true
-  validates :分類コード, inclusion: {in: Bunrui.pluck(:分類コード)}, allow_blank: true
+  validates :入力社員番号, numericality: { only_integer: true }, inclusion: {in: proc{Shainmaster.pluck(:社員番号)}}, allow_blank: true
+  validates :関連Job番号, numericality: { only_integer: true }, inclusion: {in: proc{Jobmaster.pluck(:job番号)}}, allow_blank: true
+  validates :ユーザ番号, inclusion: {in: proc{Kaishamaster.pluck(:会社コード)}}, allow_blank: true
+  validates :分類コード, inclusion: {in: proc{Bunrui.pluck(:分類コード)}}, allow_blank: true
   validate :check_input
 
   has_one :event, foreign_key: :JOB

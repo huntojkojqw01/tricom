@@ -7,10 +7,15 @@
     <%= f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history,label: false%>
   </td>
   <!--<td><%# f.text_field_search :機関名, {}, class_field: 'kikan-name', class_search: 'kikan-search', size: 50 %></td>-->
-  <td><%= f.text_area_search :機関名, {}, class_field: 'kikan-name', class_search: 'kikan-search', size: '50x2' %></td>
   <td>
-    <%= f.text_field_search :発, {}, class_field: 'hastu-name', class_search: 'hastu-search', size: 15 %>
-    <%= f.text_field_search :着, {}, class_field: 'chaku-name', class_search: 'chaku-search', size: 15 %>
+<!--     <%= f.text_area_search :機関名, {}, class_field: 'kikan-name', class_search: 'kikan-search', size: '50x2' %> -->
+    <%= f.input :機関名, input_html: {style: 'width:200px'}, as: :search_field,label: false%>
+  </td>
+  <td>
+    <%= f.input :発, input_html: {style: 'width:150px'}, as: :search_field,label: false%>
+    <%= f.input :着, input_html: {style: 'width:150px'}, as: :search_field,label: false%>
+<!--     <%= f.text_field_search :発, {}, class_field: 'hastu-name', class_search: 'hastu-search', size: 15 %>
+    <%= f.text_field_search :着, {}, class_field: 'chaku-name', class_search: 'chaku-search', size: 15 %> -->
   </td>
   <!--<td><%# f.text_field :着, class: 'form-control', size: 4  %></td>-->
   <td>
