@@ -3,7 +3,7 @@ class ShoninshamstsController < ApplicationController
   before_action :set_shoninshamst, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource except: :export_csv
 
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @shoninshamsts = Shoninshamst.all
@@ -15,7 +15,7 @@ class ShoninshamstsController < ApplicationController
   end
 
   def new
-    # @shoninshamst = Shoninshamst.new
+    @shoninshamst = Shoninshamst.new
     respond_with(@shoninshamst)
   end
 
@@ -34,7 +34,7 @@ class ShoninshamstsController < ApplicationController
 
   def update
     @shoninshamst.update(shoninshamst_params)
-    respond_with(@shoninshamst)
+    respond_with(@shoninshamst, location: shoninshamsts_url)
   end
 
   def destroy
@@ -74,6 +74,32 @@ class ShoninshamstsController < ApplicationController
     end
   end
 
+  def ajax
+    case params[:focus_field]
+      when 'shonin_削除する'
+        shoninIds = params[:shonins]
+        shoninIds.each{ |shoninId|
+          Shoninshamst.find_by(id: shoninId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
+    end
+  end
+
+    def create_shonin
+    @shoninshamst = Shoninshamst.new(shoninshamst_params)
+    respond_to do |format|
+      if  @shoninshamst.save
+        format.js { render 'create_shoninsha'}
+      else
+        format.js { render json: @shoninshamst.errors, status: :unprocessable_entity}
+      end
+    end
+    end
+
+  
   private
     def set_shoninshamst
       @shoninshamst = Shoninshamst.find(params[:id])

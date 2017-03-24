@@ -9,7 +9,7 @@ Jpt::Application.routes.draw do
   end
   resources :yuusens do
     collection {get :export_csv}
-    collection {post :import}
+    collection {post :import, :ajax}
   end
   resources :paths do
     collection {get :export_csv}
@@ -82,12 +82,12 @@ Jpt::Application.routes.draw do
   end
 
   resources :bunruis do
-    collection {post :import}
+    collection {post :import, :ajax, :create_bunrui, :update_bunrui}
     collection {get :export_csv}
   end
 
   resources :shoninshamsts  do
-    collection {post :import}
+    collection {post :import, :ajax, :create_shonin}
     collection {get :export_csv}
   end
 
@@ -172,7 +172,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :joutaimasters do
-    collection {post :import, :multi_delete, :ajax, :create_joutai, :update_joutai}
+    collection {post :import, :multi_delete, :ajax}
     collection {get :export_csv}
   end
 

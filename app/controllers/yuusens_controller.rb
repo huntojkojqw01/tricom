@@ -2,7 +2,7 @@ class YuusensController < ApplicationController
   before_action :require_user!
   before_action :set_yuusen, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource except: :export_csv
-  respond_to :html
+  respond_to :html, :js
 
   def index
     @yuusens = Yuusen.all
@@ -57,6 +57,20 @@ class YuusensController < ApplicationController
       rescue => err
         flash[:danger] = err.to_s
         redirect_to yuusens_path
+      end
+    end
+  end
+
+  def ajax
+    case params[:focus_field]
+      when 'yuusen_削除する'
+        yuusenIds = params[:yuusens]
+        yuusenIds.each{ |yuusenId|
+          Yuusen.find_by(優先さ: yuusenId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
       end
     end
   end

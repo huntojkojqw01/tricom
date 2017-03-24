@@ -25,14 +25,14 @@ class JoutaimastersController < ApplicationController
     @joutaimaster = Joutaimaster.new(joutaimaster_params)
 
     flash[:notice] = t "app.flash.new_success" if @joutaimaster.save
-    respond_with @joutaimaster
+    redirect_to joutaimasters_path
 
   end
 
   def update
 
     flash[:notice] = t "app.flash.update_success" if @joutaimaster.update joutaimaster_params_for_update
-    respond_with @joutaimaster
+    redirect_to joutaimasters_path
 
   end
 
@@ -41,28 +41,7 @@ class JoutaimastersController < ApplicationController
     respond_with @joutaimaster, location: joutaimasters_url
   end
 
-  def create_joutai
-    @joutai = Joutaimaster.new(joutaimaster_params)
-    respond_to do |format|
-      if  @joutai.save
-        format.js { render 'create_joutai'}
-      else
-        format.js { render json: @joutai.errors, status: :unprocessable_entity}
-      end
-    end
-
-  end
-
-  def update_joutai
-    @joutai = Joutaimaster.find(joutaimaster_params[:状態コード])
-    respond_to do |format|
-      if  @joutai.update(joutaimaster_params)
-        format.js { render 'update_joutai'}
-      else
-        format.js { render json: @joutai.errors, status: :unprocessable_entity}
-      end
-    end
-  end
+  
   def ajax
     case params[:focus_field]
       when "joutaimaster_削除する"
@@ -112,6 +91,20 @@ class JoutaimastersController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @joutaimasters.to_csv, filename: "状態マスタ.csv" }
+    end
+  end
+
+  def ajax
+    case params[:focus_field]
+      when 'joutaimaster_削除する'
+        joutaiIds = params[:joutais]
+        joutaiIds.each{ |joutaiId|
+          Joutaimaster.find_by(状態コード: joutaiId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
     end
   end
   private

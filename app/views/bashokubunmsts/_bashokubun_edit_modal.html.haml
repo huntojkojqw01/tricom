@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel Edit
+        %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
         = simple_form_for (Bashokubunmst.new), url: update_bashokubunmst_bashokubunmsts_path, :remote => true, html: {role: :form, 'data-model' => 'bashokubunmst'} do |f| 
           = f.input :場所区分コード, label: "場所区分コード", class: 'form-control'

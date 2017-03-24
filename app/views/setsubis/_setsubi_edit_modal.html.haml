@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel Edit
+        %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
         = simple_form_for (Setsubi.new), url: update_setsubi_setsubis_path, :remote => true, html: {role: :form, 'data-model' => 'setsubi'} do |f| 
           = f.hidden_field :設備コード, class: 'form-control'

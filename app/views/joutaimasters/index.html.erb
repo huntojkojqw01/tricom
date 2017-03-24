@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'joutai' %>
+<%= javascript_include_tag 'joutais' %>
 <%provide(:title, (t 'title.joutaimaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -20,8 +20,7 @@
     <th>文字色</th>
     <th>WEB使用区分</th>
     <th>勤怠使用区分</th>
-    <th></th>
-    <th></th>
+  
   </tr>
   </thead>
 
@@ -37,14 +36,15 @@
         <td style = "background-color: <%= joutai.try(:色).to_s%> ;color: <%= joutai.try(:text_color).to_s %>"><%= joutai.text_color %></td>
         <td><%= joutai.WEB使用区分 %></td>
         <td><%= joutai.勤怠使用区分 %></td>
-        <td><%= link_to '編集', edit_joutaimaster_path(joutai) %></td>
-        <td><%= link_to '削除', joutai, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+       
       </tr>
   <% end %>
   </tbody>
 </table>
 
-<%= link_to '新規', new_joutaimaster_path %>
+
+<%=render 'share/new_edit_destroy_buttons', object: "joutai",new_path: new_joutaimaster_path%>
+
 <% if can? :update, @joutaimasters %>
 <h4><%=t 'app.label.import_csv'%></h4>
 <%= form_tag import_joutaimasters_path,class:'form-inline', multipart: true do %>

@@ -9,21 +9,19 @@
     %tr
       %th= (t 'title.bunruicode')
       %th= (t 'title.bunruimei')
-      %th
-      %th
+      
 
   %tbody
     - @bunruis.each do |bunrui|
       %tr
         %td= bunrui.分類コード
         %td= bunrui.分類名
-        %td= link_to (t 'title.edit'), edit_bunrui_path(bunrui)
-        - confirm = t 'app.delete_confirm'
-        %td= link_to (t 'title.delete'), bunrui, :method => :delete, :data => { :confirm => confirm}
+        
 
 %br
 
-= link_to (t 'title.new'), new_bunrui_path
+
+= render 'share/new_edit_destroy_buttons',object: 'bunrui'
 
 - if can? :update, @bunruis
   %h4=t 'app.label.import_csv'
@@ -34,3 +32,5 @@
     .form-group
       = label_tag 'importcsv', nil, class: 'sr-only'
       = submit_tag "Import CSV" , class: 'btn btn-default'
+= render 'bunrui_new_modal'
+= render 'bunrui_edit_modal'

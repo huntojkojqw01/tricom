@@ -3,7 +3,7 @@
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel 工程新規
+        %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
         = simple_form_for @kouteimaster, url: create_koutei_kouteimasters_path, :remote => true, html: {role: :form, 'data-model' => 'kouteimaster'} do |f|
           = f.input :所属コード do

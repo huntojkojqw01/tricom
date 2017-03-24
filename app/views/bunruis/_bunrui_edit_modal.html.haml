@@ -1,0 +1,11 @@
+.modal#bunrui-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel= (t 'title.edit')
+      .modal-body
+        = simple_form_for (Bunrui.new), url: update_bunrui_bunruis_path, :remote => true, html: {role: :form, 'data-model' => 'bunrui'} do |f| 
+          = f.input :分類コード, label: "分類コード", as: :hidden
+          = f.input :分類名, label: "分類名"
+          = f.button :submit, class: 'btn btn-primary'
