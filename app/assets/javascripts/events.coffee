@@ -124,8 +124,18 @@ jQuery ->
     element2 = $('.search-group').find('#event_JOB')
     if $(this).prev().prev().is(element1)
       $('#mybasho_search_modal').modal('show')
+      mybasho = oMybashoTable.row('tr.selected').data();
+      if mybasho == undefined
+        $("#mybasho_destroy").attr("disabled", true);
+      else
+        $("#mybasho_destroy").attr("disabled", false);
     if $(this).prev().prev().is(element2)
       $('#myjob_search_modal').modal('show')
+      myjob = oMyjobTable.row('tr.selected').data();
+      if myjob == undefined
+        $("#myjob_destroy").attr("disabled", true);
+      else
+        $("#myjob_destroy").attr("disabled", false);
   )
 
   $('#basho-new-ok').click( () ->

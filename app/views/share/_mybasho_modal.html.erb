@@ -57,6 +57,10 @@
         <div class="pull-left">
           <%= link_to 'MY場所マスタ管理へ', mybashomasters_path %>
         </div>
+        <% msg_select = t 'app.select_confirm' %>
+        <% msg_confirm = t 'app.delete_confirm' %>
+        <span id='message_confirm_select' hidden='true'><%=msg_select%></span>
+        <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
         <button type="button" class="btn btn-default" id="clear_mybasho">選択を解除する</button>
         <button type="submit" style= 'margin-right: 100px' class="btn btn-primary" id="mybasho_destroy">削除する</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" id="koutei_sentaku_ok">　ＯＫ　</button>
