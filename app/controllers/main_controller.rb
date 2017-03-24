@@ -29,6 +29,14 @@ class MainController < ApplicationController
     .or(Path.where('title_en LIKE ?','%'+@search+'%'))
     .or(Path.where('model_name_field LIKE ?','%'+@search+'%'))
     @masters = @masters.where.not(model_name_field: (@paths.map(&:model_name_field)))
+    @event = Event.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Event")).map(&:searchable_id)).where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db))
+    @kintai = Kintai.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Kintai")).map(&:searchable_id)).where(社員番号: session[:user])
+    if @event.first.nil?
+      @paths = @paths.where.not(title_jp: (t 'title.event')).where.not(model_name_field: ['Event'])
+    end
+    if @kintai.first.nil?
+      @paths = @paths.where.not(model_name_field: ['Kintai'])
+    end
     respond_to do |format|
       format.html
       if(I18n.locale.to_s == 'ja')
