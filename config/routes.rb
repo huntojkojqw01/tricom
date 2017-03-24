@@ -172,7 +172,7 @@ Jpt::Application.routes.draw do
   end
 
   resources :joutaimasters do
-    collection {post :import, :multi_delete, :ajax}
+    collection {post :import, :multi_delete, :ajax, :create_joutai, :update_joutai}
     collection {get :export_csv}
   end
 
