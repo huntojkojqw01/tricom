@@ -65,7 +65,9 @@ Jpt::Application.routes.draw do
     collection {get :export_csv}
   end
 
-
+  resources :main, only: [:index] do
+    collection {get :search}
+  end
 
   get "login" => "sessions#new"
   post "login" => "sessions#create"

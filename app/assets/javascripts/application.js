@@ -242,7 +242,6 @@ $(function(){
       location.href = "/main/search?search="+$("#search_field").val()
     }
   });
-
 });
 //Override the default confirm dialog by rails
 $.rails.allowAction = function(link){
@@ -273,3 +272,20 @@ $.rails.showConfirmationDialog = function(link){
     $.rails.confirmed(link);
   });
 };
+
+jQuery(function(){
+  return $("#search_field").autocomplete({
+    source: function( request, response ) {
+      var search = $("#search_field").val()
+      return $.ajax({
+        type: "GET",
+        url: "/main/search.json",
+        data: {search: search},
+        success: function(data){
+          console.log(data);
+          response(data);
+        }
+      });
+    }
+  });
+});
