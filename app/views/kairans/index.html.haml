@@ -23,6 +23,7 @@
         %th
         %th id
         %th kairanCode
+        %th 対象者
 
     %tbody
       - @kairanShoshais.each do |kairanshosai|
@@ -38,7 +39,7 @@
             %td= '確認済'
           - kairanKaitou = Kairan.find kairanshosai.回覧コード
           - kaito = kairanshosai.kairan.確認要 == true ? '要':''
-          - if @shain_param == session[:user]
+          - if kairanshosai.対象者 == session[:user]
             - if kairanshosai.kairan.確認要 == true
               - if kairanshosai.状態 != '回答済'
                 %td= link_to kaito, kaitou_kairan_path(kairanKaitou)
@@ -57,12 +58,14 @@
           %td
           %td= kairanshosai.id
           %td= kairanshosai.回覧コード
+          %td= kairanshosai.対象者
           -#%td= link_to '編集', edit_kairan_path(kairan)
           -#%td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 
   %br
 
   = hidden_field_tag 'checked'
+  = hidden_field_tag 'session_user', session[:user]
   .pull-right
     -#= button_tag '確認する', name: 'button', id: 'kakunin', value: '確認する', class: 'btn btn-primary'
 

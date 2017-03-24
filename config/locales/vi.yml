@@ -156,6 +156,7 @@ vi:
     button:
       search: Tìm kiếm
       confirm: Xác nhận
+      cancel: Hủy bỏ
   number:
     currency:
       format:
