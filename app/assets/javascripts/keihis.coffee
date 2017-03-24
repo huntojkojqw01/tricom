@@ -224,7 +224,7 @@ jQuery ->
 
   $('#kikan-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKikan_search_modal.row(this).data()
-    $('#keihi-table tr.selected').find('.kikan-name').val(d[1])
+    #$('#keihi-table tr.selected').find('.kikan-name').val(d[1])
 
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')

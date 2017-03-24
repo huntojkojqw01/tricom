@@ -9,6 +9,11 @@ class Keihibody < ActiveRecord::Base
   scope :current_member, ->(member) { where( 社員番号: member )}
 
   validate :check_all_attribute
+  validates :相手先, inclusion: {in: proc{Kaishamaster.pluck(:会社名)}}, allow_blank: true
+  validates :JOB, inclusion: {in: proc{Jobmaster.pluck(:job番号)}}, allow_blank: true
+  validates :機関名, inclusion: {in: proc{Kikanmst.pluck(:機関名)}}, allow_blank: true
+  validates :発, inclusion: {in: proc{Eki.pluck(:駅名)}}, allow_blank: true
+  validates :着, inclusion: {in: proc{Eki.pluck(:駅名)}}, allow_blank: true
 
   def self.to_csv
     attributes = %w{id 申請番号 日付 社員番号 相手先 機関名 発 着 発着kubun 交通費 日当

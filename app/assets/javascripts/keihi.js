@@ -1,4 +1,5 @@
 // init search table
+var eki_modal = ''
 $(function() {
     oTable = $('#keihi-table-show').DataTable({
         "pagingType": "full_numbers"
@@ -372,6 +373,23 @@ $(function(){
         }
 
     });
+    $('#kikan_sentaku_ok').click(function(){
+        var kikan = oKikan_search_modal.row('tr.selected').data()
+        if(kikan!=undefined){
+            $('#keihi-table tr.selected').find('.keihihead_keihibodies_機関名').find('input').val(kikan[1])
+        }
+    });
+
+    $('#eki_sentaku_ok').click(function(){
+        var eki_selected = oEki_search_modal.row('tr.selected').data()
+        if(eki_selected!=undefined && eki_modal == '1'){
+            $('#keihi-table tr.selected').find('.keihihead_keihibodies_発').find('input').val(eki_selected[1])
+        }
+
+        if(eki_selected!=undefined && eki_modal == '2'){
+            $('#keihi-table tr.selected').find('.keihihead_keihibodies_着').find('input').val(eki_selected[1])
+        }
+    });
 
     // $('.event_sanshou').click(function(){
 
@@ -479,5 +497,25 @@ $(document).on('click', '.keihihead_keihibodies_相手先 .search-history', func
         $("#mykaisha_destroy").attr("disabled", false);
 
     }
+    event.preventDefault();
+});
+
+$(document).on('click', '.keihihead_keihibodies_機関名 .search-field', function(event){
+
+    $('#kikan-search-modal').modal('show')
+    event.preventDefault();
+});
+
+$(document).on('click', '.keihihead_keihibodies_発 .search-field', function(event){
+
+    $('#eki-search-modal').modal('show')
+    eki_modal = '1'
+    event.preventDefault();
+});
+
+$(document).on('click', '.keihihead_keihibodies_着 .search-field', function(event){
+
+    $('#eki-search-modal').modal('show')
+    eki_modal = '2'
     event.preventDefault();
 });
