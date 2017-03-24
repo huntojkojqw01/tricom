@@ -29,5 +29,12 @@ class MainController < ApplicationController
     .or(Path.where('title_en LIKE ?','%'+@search+'%'))
     .or(Path.where('model_name_field LIKE ?','%'+@search+'%'))
     @masters = @masters.where.not(model_name_field: (@paths.map(&:model_name_field)))
+    respond_to do |format|
+      format.html
+      if(I18n.locale.to_s == 'ja')
+        format.json { render json: @masters.map(&:title_jp)+@paths.map(&:title_jp)}
+      else
+        format.json { render json: @masters.map(&:title_en)+@paths.map(&:title_en)}
+      end
+    end
   end
-end
