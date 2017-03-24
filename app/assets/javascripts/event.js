@@ -415,69 +415,97 @@ $(function () {
     $('#mybasho_destroy').click(function (){
         var mybasho_id = oMybashoTable.row('tr.selected').data();
         var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'mybasho_削除する',mybasho_id: mybasho_id[1],shain: shain},
-            type: "POST",
+        if( mybasho_id == undefined)
+            swal($('#message_confirm_select').text())
+        else{
+            swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "キャンセル",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() {
+                $.ajax({
+                    url: '/events/ajax',
+                    data: {id: 'mybasho_削除する',mybasho_id: mybasho_id[1],shain: shain},
+                    type: "POST",
 
-            success: function(data) {
-               if(data.destroy_success != null){
-                    console.log("getAjax destroy_success:"+ data.destroy_success);
-                    // $('#mybasho_table').find('tr.selected').remove();
-                    // $("#mybasho_table").dataTable().fnDraw();
-                    oMybashoTable.rows('tr.selected').remove().draw();
-                    // $("#mybasho_table").dataTable().fnDeleteRow($('#mybasho_table').find('tr.selected').remove());
-                    // $("#mybasho_table").dataTable().fnDraw();
+                    success: function(data) {
+                       if(data.destroy_success != null){
+                            console.log("getAjax destroy_success:"+ data.destroy_success);
+                            oMybashoTable.rows('tr.selected').remove().draw();
+                        }
+                        else{
+                            console.log("getAjax destroy_success:"+ data.destroy_success);
+                        }
+                    },
+                    failure: function() {
+                        console.log("mybasho_削除する keydown Unsuccessful");
+                    }
+                });
+                $("#mybasho_destroy").attr("disabled", true);
+                $('#event_場所コード').val('');
+                $('.hint-basho-refer').text('');
+            }, function(dismiss) {
+                if (dismiss === 'cancel') {
+                    $("#myjob_destroy").attr("disabled", false);
                 }
-                else{
+            });
+        }
 
-                    console.log("getAjax destroy_success:"+ data.destroy_success);
-                }
-            },
-            failure: function() {
-                console.log("mybasho_削除する keydown Unsuccessful");
-            }
-        });
-        $('#event_場所コード').val('');
-        //$('#basho_name').text(d[1]);
-        $('.hint-basho-refer').text('');
-
-        // $('#mybasho_search_modal').modal('hide');
-        // $('#mybasho_search_modal').modal('show');
     });
 
     $('#myjob_destroy').click(function (){
         var myjob_id = oMyjobTable.row('tr.selected').data();
         var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'myjob_削除する',myjob_id: myjob_id[1],shain: shain},
-            type: "POST",
 
-            success: function(data) {
-               if(data.destroy_success != null){
-                    console.log("getAjax destroy_success:"+ data.destroy_success);
-                    // $('#mybasho_table').find('tr.selected').remove();
-                    // $("#mybasho_table").dataTable().fnDraw();
-                    oMyjobTable.rows('tr.selected').remove().draw();
-                    // $("#myjob_table").dataTable().fnDeleteRow($('#myjob_table').find('tr.selected').remove());
-                    // $("#myjob_table").dataTable().fnDraw();
+        if( myjob_id == undefined)
+            swal($('#message_confirm_select').text())
+        else{
+            swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "キャンセル",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() {
+                $.ajax({
+                    url: '/events/ajax',
+                    data: {id: 'myjob_削除する',myjob_id: myjob_id[1],shain: shain},
+                    type: "POST",
+
+                    success: function(data) {
+                       if(data.destroy_success != null){
+                            console.log("getAjax destroy_success:"+ data.destroy_success);
+                            oMyjobTable.rows('tr.selected').remove().draw();
+                        }
+                        else{
+
+                            console.log("getAjax destroy_success:"+ data.destroy_success);
+                        }
+                    },
+                    failure: function() {
+                        console.log("myjob_削除する keydown Unsuccessful");
+                    }
+                });
+                $("#myjob_destroy").attr("disabled", true);
+                $('#event_JOB').val('');
+                $('.hint-job-refer').text('');
+
+            }, function(dismiss) {
+                if (dismiss === 'cancel') {
+                    $("#myjob_destroy").attr("disabled", false);
                 }
-                else{
-
-                    console.log("getAjax destroy_success:"+ data.destroy_success);
-                }
-            },
-            failure: function() {
-                console.log("myjob_削除する keydown Unsuccessful");
-            }
-        });
-        $('#event_JOB').val('');
-        //$('#basho_name').text(d[1]);
-        $('.hint-job-refer').text('');
-
-        // $('#mybasho_search_modal').modal('hide');
-        // $('#mybasho_search_modal').modal('show');
+            });
+        }
     });
 
 
@@ -490,6 +518,7 @@ $(function () {
         $('#event_場所コード').closest('.form-group').removeClass('has-error');
         oMybashoTable.$('tr.selected').removeClass('selected');
         oMybashoTable.$('tr.success').removeClass('success');
+        $("#mybasho_destroy").attr("disabled", true);
 
     } );
 
@@ -502,6 +531,7 @@ $(function () {
         $('#event_JOB').closest('.form-group').removeClass('has-error');
         oMyjobTable.$('tr.selected').removeClass('selected');
         oMyjobTable.$('tr.success').removeClass('success');
+        $("#myjob_destroy").attr("disabled", true);
     } );
 
     $('#destroy_event').click(function(){
@@ -1104,12 +1134,14 @@ $(function(){
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
+            $("#mybasho_destroy").attr("disabled", true);
         }
         else {
             oMybashoTable.$('tr.selected').removeClass('selected');
             oMybashoTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
+            $("#mybasho_destroy").attr("disabled", false);
         }
     } );
 
@@ -1172,12 +1204,14 @@ $(function(){
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
+            $("#myjob_destroy").attr("disabled", true);
         }
         else {
             oMyjobTable.$('tr.selected').removeClass('selected');
             oMyjobTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
+            $("#myjob_destroy").attr("disabled", false);
         }
 
     } );

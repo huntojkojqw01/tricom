@@ -197,22 +197,26 @@ jQuery ->
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
+      $("#myjob_destroy").attr("disabled", true);
     else
       oMyjobTable.$('tr.selected').removeClass('selected')
       oMyjobTable.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
+      $("#myjob_destroy").attr("disabled", false);
 
   $('#mykaisha_table tbody').on 'click', 'tr', (event) ->
     d = oMykaishaTable.row(this).data()
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
+      $("#mykaisha_destroy").attr("disabled", true);
     else
       oMykaishaTable.$('tr.selected').removeClass('selected')
       oMykaishaTable.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
+      $("#mykaisha_destroy").attr("disabled", false);
 
   $(document).on 'click', '.kikan-search', (event) ->
     $('#kikan-search-modal').modal('show')
