@@ -41,8 +41,9 @@ class JoutaimastersController < ApplicationController
     respond_with @joutaimaster, location: joutaimasters_url
   end
 
-  
+
   def ajax
+    byebug
     case params[:focus_field]
       when "joutaimaster_削除する"
         params[:joutais].each {|joutai_code|

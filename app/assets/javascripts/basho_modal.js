@@ -87,7 +87,8 @@ $(function () {
         $('#event_場所コード').closest('.form-group').removeClass('has-error');
         oBashoTable.$('tr.selected').removeClass('selected');
         oBashoTable.$('tr.success').removeClass('success');
-
+        $("#edit_basho").attr("disabled", true);
+        $("#destroy_basho").attr("disabled", true);
     });
 
     $('#koutei_sentaku_ok_basho').click(function(){

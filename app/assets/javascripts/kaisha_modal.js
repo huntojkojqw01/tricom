@@ -73,6 +73,8 @@ $(function () {
 
         oKaisha_modal.$('tr.selected').removeClass('selected');
         oKaisha_modal.$('tr.success').removeClass('success');
+        $("#edit_kaishamaster").attr("disabled", true);
+        $("#destroy_kaishamaster").attr("disabled", true);
     });
 
 

@@ -140,6 +140,8 @@ $(function () {
         $('#event_工程コード').prop( "disabled", false );
         $('#basho_search').prop( "disabled", false );
         $('#koutei_search').prop( "disabled", false );
+        $("#edit_joutaimaster").attr("disabled", true);
+        $("#destroy_joutaimaster").attr("disabled", true);
 
     });
 
@@ -249,6 +251,7 @@ $(function() {
         if (joutaimaster == undefined)
           swal("行を選択してください。");
         else{
+            alert(joutaimaster[0])
             jQuery.ajax({
                 url: '/joutaimasters/ajax',
                 data: {focus_field: 'get_joutai_selected',joutai_id: joutaimaster[0]},
