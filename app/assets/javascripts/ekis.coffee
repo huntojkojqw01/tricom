@@ -164,7 +164,7 @@ jQuery ->
             swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
-              oTable.rows('tr.selected').remove().draw()
+              oEkiTable.rows('tr.selected').remove().draw()
             else
               console.log("getAjax destroy_success:"+ data.destroy_success)
 
@@ -201,7 +201,7 @@ jQuery ->
     );
 
   $('#edit_eki').click () ->
-    eki_id = oEkiTable.row('tr.selected').data()    
+    eki_id = oEkiTable.row('tr.selected').data()
     $('.form-group.has-error').each( () ->
       $('.help-block', $(this)).html('');
       $(this).removeClass('has-error');

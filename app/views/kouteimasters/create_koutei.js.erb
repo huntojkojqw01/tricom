@@ -1,9 +1,9 @@
 $('#koutei-new-modal').modal('hide');
-var table = $('#kouteimaster').DataTable(); 
+var table = $('#kouteimaster').DataTable();
 table.row.add( ["<%=@kouteimaster.所属コード%>",
 	"<%=@kouteimaster.shozokumaster_name%>",
  	"<%=@kouteimaster.工程コード%>",
  	"<%=@kouteimaster.工程名%>",
  	"<a href='<%=edit_kouteimaster_path(@kouteimaster)%>'>編集</a>",
- 	"not finish"	 	
+ 	"<a href='<%=kouteimaster_path(@kouteimaster)%>' data-confirm= '削除で宜しいでしょうか。' data-method='delete'>削除</a>"
  	] ).draw();
