@@ -72,14 +72,26 @@ jQuery ->
     ]
   })
 
-
+  $('#kakunin').prop('disabled',true)
   kairan_table.on( 'select', ( e, dt, type, indexes )->
     row = kairan_table[ type ]( indexes ).nodes().to$()
     data = kairan_table.row( indexes ).data()
     if data[10] != $('#session_user').val()
       kairan_table.row( indexes ).nodes().to$().removeClass( 'selected' );
       swal("あなたはアクセス権限ではありません！")
+    else if data[5] == '確認済'
+      kairan_table.row( indexes ).nodes().to$().removeClass( 'selected' );
+      swal("確認済!")
+
   );
+  $('.kairan-table tbody').on( 'click', 'tr', () ->
+    d = kairan_table.row('tr.selected').data()
+    if d!= undefined
+      $('#kakunin').prop('disabled',false)
+    else
+      $('#kakunin').prop('disabled',true)
+  )
+
   $('.datetime').datetimepicker({
     format: 'YYYY/MM/DD HH:mm',
     showTodayButton: true,
