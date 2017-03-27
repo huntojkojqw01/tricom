@@ -42,11 +42,11 @@ class Kouteimaster < ActiveRecord::Base
   end
   # More sophisticated approach
   # def self.rebuild_pg_search_documents
-  #   PgSearch::Document.delete_all(:searchable_type => "Kouteimaster")
+  #   PgSearch::Document.where(:searchable_type => "Kouteimaster").delete_all
   #   connection.execute <<-SQL
   #    INSERT INTO pg_search_documents (searchable_type, searchable_id, content, created_at, updated_at)
   #      SELECT 'Kouteimaster' AS searchable_type,
-  #             工程コード AS searchable_id,
+  #             CAST (工程コード AS integer) AS searchable_id,
   #             (所属マスタ.所属名 || ' ' || 工程コード || ' ' || 工程名) AS content,
   #             now() AS created_at,
   #             now() AS updated_at
