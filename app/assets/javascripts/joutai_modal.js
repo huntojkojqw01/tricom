@@ -76,16 +76,6 @@ $(function () {
     //状態選択された行を判断
     $('#joutai_table tbody').on( 'click', 'tr', function () {
 
-        var d = oJoutaiTable.row(this).data();
-        $('#event_状態コード').val(d[0]);
-        $('.hint-joutai-refer').text(d[1]);
-        if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
-            $('.event_帰社').show();
-        else
-            $('.event_帰社').hide();
-        $('#event_状態コード').closest('.form-group').find('span.help-block').remove()
-        $('#event_状態コード').closest('.form-group').removeClass('has-error')
-
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
@@ -100,46 +90,43 @@ $(function () {
             $("#edit_joutaimaster").attr("disabled", false);
             $("#destroy_joutaimaster").attr("disabled", false);
         }
-        //check if that day missing
-        var strtime = new Date($("#event_開始").val());
-        if (d[0] == "30" || (d[0] == "60" && strtime.getHours() >= 9)){
-            //$('#event_開始').val(moment());
-            //$('#event_終了').val(moment());
-
-            $('#event_場所コード').prop( "disabled", true );
-            $('#event_JOB').prop( "disabled", true );
-            $('#event_工程コード').prop( "disabled", true );
-            $('#basho_search').prop( "disabled", true );
-            $('#koutei_search').prop( "disabled", true );
-
-        }else{
-            //$('#event_開始').val('');
-            //$('#event_終了').val('');
-
-            $('#event_場所コード').prop( "disabled", false );
-            $('#event_JOB').prop( "disabled", false );
-            $('#event_工程コード').prop( "disabled", false );
-            $('#basho_search').prop( "disabled", false );
-            $('#koutei_search').prop( "disabled", false );
-
-        }
-
 
     } );
-    $('#clear_joutai').click(function () {
-        $('.event_帰社').hide();
+    $('#joutai_sentaku_ok').click(function(){
+        var d = oJoutaiTable.row('tr.selected').data();
+        if(d!= undefined){
+            $('#event_状態コード').val(d[0]);
+            $('.hint-joutai-refer').text(d[1]);
+            if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
+                $('.event_帰社').show();
+            else
+                $('.event_帰社').hide();
+            $('#event_状態コード').closest('.form-group').find('span.help-block').remove();
+            $('#event_状態コード').closest('.form-group').removeClass('has-error');
+            //check if that day missing
+            var strtime = new Date($("#event_開始").val());
+            if (d[0] == "30" || (d[0] == "60" && strtime.getHours() >= 9)){
+                $('#event_場所コード').prop( "disabled", true );
+                $('#event_JOB').prop( "disabled", true );
+                $('#event_工程コード').prop( "disabled", true );
+                $('#basho_search').prop( "disabled", true );
+                $('#koutei_search').prop( "disabled", true );
+            }else{
+                $('#event_場所コード').prop( "disabled", false );
+                $('#event_JOB').prop( "disabled", false );
+                $('#event_工程コード').prop( "disabled", false );
+                $('#basho_search').prop( "disabled", false );
+                $('#koutei_search').prop( "disabled", false );
+            }
+        }
+    });
 
-        $('#event_状態コード').val('');
-        $('.hint-joutai-refer').text('');
-        $('#event_状態コード').closest('.form-group').find('span.help-block').remove();
-        $('#event_状態コード').closest('.form-group').removeClass('has-error');
+    $('#clear_joutai').click(function () {
+
         oJoutaiTable.$('tr.selected').removeClass('selected');
         oJoutaiTable.$('tr.success').removeClass('success');
-        $('#event_場所コード').prop( "disabled", false );
-        $('#event_JOB').prop( "disabled", false );
-        $('#event_工程コード').prop( "disabled", false );
-        $('#basho_search').prop( "disabled", false );
-        $('#koutei_search').prop( "disabled", false );
+        $("#edit_joutaimaster").attr("disabled", true);
+        $("#destroy_joutaimaster").attr("disabled", true);
 
     });
 
@@ -182,17 +169,21 @@ $(function() {
                         swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
+                          d = oJoutaiTable.row('tr.selected').data()
                           oJoutaiTable.rows('tr.selected').remove().draw();
-                          $('.event_帰社').hide();
-                          $('#event_状態コード').val('');
-                          $('.hint-joutai-refer').text('');
-                          $("#edit_joutaimaster").attr("disabled", true);
-                          $("#destroy_joutaimaster").attr("disabled", true);
-                          $('#event_場所コード').prop( "disabled", false );
-                          $('#event_JOB').prop( "disabled", false );
-                          $('#event_工程コード').prop( "disabled", false );
-                          $('#basho_search').prop( "disabled", false );
-                          $('#koutei_search').prop( "disabled", false );
+                          if($('#event_状態コード').val()== d[0]){
+                            $('.event_帰社').hide();
+                              $('#event_状態コード').val('');
+                              $('.hint-joutai-refer').text('');
+                              $("#edit_joutaimaster").attr("disabled", true);
+                              $("#destroy_joutaimaster").attr("disabled", true);
+                              $('#event_場所コード').prop( "disabled", false );
+                              $('#event_JOB').prop( "disabled", false );
+                              $('#event_工程コード').prop( "disabled", false );
+                              $('#basho_search').prop( "disabled", false );
+                              $('#koutei_search').prop( "disabled", false );
+                          }
+
                         }else
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                      },

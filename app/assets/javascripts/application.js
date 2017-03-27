@@ -41,6 +41,7 @@
 //= require bootstrap-datetimepicker
 //= require bootstrap-colorpicker
 //= require dataTables/fnFindCellRowIndexes
+//= require dataTables/page.jumpToData()
 
 //= require custom
 

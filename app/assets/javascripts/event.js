@@ -448,8 +448,6 @@ $(function () {
                     }
                 });
                 $("#mybasho_destroy").attr("disabled", true);
-                $('#event_場所コード').val('');
-                $('.hint-basho-refer').text('');
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
                     $("#myjob_destroy").attr("disabled", false);
@@ -497,8 +495,6 @@ $(function () {
                     }
                 });
                 $("#myjob_destroy").attr("disabled", true);
-                $('#event_JOB').val('');
-                $('.hint-job-refer').text('');
 
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
@@ -509,13 +505,28 @@ $(function () {
     });
 
 
+    $('#mybasho_sentaku_ok').click(function(){
+        var d = oMybashoTable.row('tr.selected').data();
+        if(d!= undefined){
+            $('#event_場所コード').val(d[1]);
+            $('.hint-basho-refer').text(d[2]);
+            $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
+            $('#event_場所コード').closest('.form-group').removeClass('has-error');
+        }
+    });
+
+    $('#myjob_sentaku_ok').click(function(){
+        var d = oMyjobTable.row('tr.selected').data();
+        if(d!= undefined){
+            $('#event_JOB').val(d[1]);
+            $('.hint-job-refer').text(d[2]);
+            $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+            $('#event_JOB').closest('.form-group').removeClass('has-error');
+        }
+    });
 
     $('#clear_mybasho').click(function () {
 
-        $('#event_場所コード').val('');
-        $('.hint-basho-refer').text('');
-        $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
-        $('#event_場所コード').closest('.form-group').removeClass('has-error');
         oMybashoTable.$('tr.selected').removeClass('selected');
         oMybashoTable.$('tr.success').removeClass('success');
         $("#mybasho_destroy").attr("disabled", true);
@@ -525,10 +536,7 @@ $(function () {
 
 
     $('#clear_myjob').click(function () {
-        $('#event_JOB').val('');
-        $('.hint-job-refer').text('')
-        $('#event_JOB').closest('.form-group').find('span.help-block').remove();
-        $('#event_JOB').closest('.form-group').removeClass('has-error');
+
         oMyjobTable.$('tr.selected').removeClass('selected');
         oMyjobTable.$('tr.success').removeClass('success');
         $("#myjob_destroy").attr("disabled", true);
@@ -1101,13 +1109,6 @@ $(function(){
     //選択された行を判断
     $('#user_table tbody').on( 'click', 'tr', function () {
 
-        var d = oTable.row(this).data();
-        $('#selected_user').val(d[0]);
-        $('#selected_user_name').val(d[1]);
-        $('#jobmaster_入力社員番号').val(d[0])
-        $('.hint-shain-refer').text(d[1])
-
-
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
@@ -1125,12 +1126,6 @@ $(function(){
 
     $('#mybasho_table tbody').on( 'click', 'tr', function () {
 
-        var d = oMybashoTable.row(this).data();
-        $('#event_場所コード').val(d[1]);
-        //$('#basho_name').text(d[1]);
-        $('.hint-basho-refer').text(d[2]);
-        $('#event_場所コード').closest('.form-group').find('span.help-block').remove()
-        $('#event_場所コード').closest('.form-group').removeClass('has-error')
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
@@ -1196,11 +1191,6 @@ $(function(){
 
     $('#myjob_table tbody').on( 'click', 'tr', function () {
 
-        var d = oMyjobTable.row(this).data();
-        $('#event_JOB').val(d[1]);
-        //$('#job_name').text(d[1]);
-        $('.hint-job-refer').text(d[2])
-
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
@@ -1215,6 +1205,21 @@ $(function(){
         }
 
     } );
+
+    $('#user_refer_sentaku_ok').click(function(){
+        var d = oTable.row('tr.selected').data();
+        if(d!=undefined){
+            $('#jobmaster_入力社員番号').val(d[0])
+            $('.hint-shain-refer').text(d[1])
+        }
+    })
+    $('#user_sentaku_ok').click(function(){
+        var d = oTable.row('tr.selected').data();
+        if(d!=undefined){
+            $('#selected_user').val(d[0]);
+            $('#selected_user_name').val(d[1]);
+        }
+    })
 
 });
 

@@ -1,0 +1,14 @@
+$('#joutai-new-modal').modal('hide');
+var joutai_code = "<%=@joutai.状態コード%>";
+var joutai_name = "<%=@joutai.状態名%>";
+var joutai_check = "<%=@joutai.WEB使用区分%>";
+if( joutai_check == '1'){
+  oJoutaiTable.$('tr.selected').removeClass('selected');
+  oJoutaiTable.$('tr.success').removeClass('success');
+  var table = $('#joutai_table').DataTable();
+  var row = table.row.add( ["<%=@joutai.状態コード%>","<%=@joutai.状態名%>","<%=@joutai.勤怠状態名%>","<%=@joutai.状態区分%>"] ).draw( false ).nodes().to$();
+  row.addClass( 'selected' );
+  row.addClass( 'success' );
+  $("#edit_joutaimaster").attr("disabled", false);
+  $("#destroy_joutaimaster").attr("disabled", false);
+}
