@@ -1,5 +1,5 @@
 $('#kaisha-new-modal').modal('hide')
-$('#bashomaster_会社コード').val('<%= @kaisha.会社コード %>')
+
 oKaisha_modal.$('tr.selected').removeClass('selected');
 oKaisha_modal.$('tr.success').removeClass('success');
 var table = $('#kaisha-table-modal').DataTable();
@@ -9,7 +9,4 @@ row.addClass('selected');
 row.addClass('success');
 $("#edit_kaishamaster").attr("disabled", false);
 $("#destroy_kaishamaster").attr("disabled", false);
-
-$('#jobmaster_ユーザ番号').val("<%=@kaisha.会社コード%>");
-$('#jobmaster_ユーザ名').val("<%=@kaisha.会社名%>");
 

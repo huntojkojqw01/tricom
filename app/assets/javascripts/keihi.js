@@ -254,8 +254,7 @@ $(function(){
         $("#myjob_destroy").attr("disabled", true);
     } );
 
-    $('#koutei_sentaku_ok').click(function(){
-
+    $('#kaisha_sentaku_ok').click(function(){
         var kaisha = oKaisha_search_modal.row('tr.selected').data();
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val(kaisha[1])
         var shain = $('#keihihead_keihibodies_attributes_0_社員番号').val();

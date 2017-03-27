@@ -41,9 +41,30 @@ class JoutaimastersController < ApplicationController
     respond_with @joutaimaster, location: joutaimasters_url
   end
 
+  def create_joutai
+    @joutai = Joutaimaster.new(joutaimaster_params)
+    respond_to do |format|
+      if  @joutai.save
+        format.js { render 'create_joutai'}
+      else
+        format.js { render json: @joutai.errors, status: :unprocessable_entity}
+      end
+    end
+
+  end
+
+  def update_joutai
+    @joutai = Joutaimaster.find(joutaimaster_params[:状態コード])
+    respond_to do |format|
+      if  @joutai.update(joutaimaster_params)
+        format.js { render 'update_joutai'}
+      else
+        format.js { render json: @joutai.errors, status: :unprocessable_entity}
+      end
+    end
+  end
 
   def ajax
-    byebug
     case params[:focus_field]
       when "joutaimaster_削除する"
         params[:joutais].each {|joutai_code|
@@ -95,19 +116,6 @@ class JoutaimastersController < ApplicationController
     end
   end
 
-  def ajax
-    case params[:focus_field]
-      when 'joutaimaster_削除する'
-        joutaiIds = params[:joutais]
-        joutaiIds.each{ |joutaiId|
-          Joutaimaster.find_by(状態コード: joutaiId).destroy
-        }
-        data = {destroy_success: "success"}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
   private
 
   def joutaimaster_params

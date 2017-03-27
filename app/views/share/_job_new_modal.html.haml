@@ -8,7 +8,7 @@
         .editor-datetime
           = simple_form_for @jobmaster, url: create_job_events_path, remote: true, html: {role: :form, 'data-model' => 'jobmaster'} do |f|
             .col-md-4.col-xs-4.col-sm-4.col-lg-4.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
-              = f.input :Job番号 do
+              = f.input :job番号 do
                 = f.input_field :job番号, class: 'form-control', style: 'width:200px'
                 .span.help-block
               = f.input :job名 do

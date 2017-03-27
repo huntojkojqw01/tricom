@@ -77,21 +77,62 @@ $(function () {
     var element2 = $('.search-group').find('#jobmaster_入力社員番号')
     var element3 = $('.search-group').find('#jobmaster_関連Job番号')
 
-    if( $(this).prev().is(element1))
-      $('#kaisha-search-modal').modal('show')
-
-    if( $(this).prev().is(element2))
-      $('#select_user_modal').modal('show')
-
-    if( $(this).prev().is(element3))
-      $('#job_search_in_job_modal').modal('show')
+    if( $(this).prev().is(element1)){
+      $('#kaisha-search-modal').modal('show');
+      if($('#jobmaster_ユーザ番号').val() != ''){
+        oKaisha_modal.rows().every( function( rowIdx, tableLoop, rowLoop ){
+          var data = this.data();
+          if( data[0] == $('#jobmaster_ユーザ番号').val()){
+            oKaisha_modal.$('tr.selected').removeClass('selected');
+            oKaisha_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected')
+            this.nodes().to$().addClass('success')
+          }
+        });
+        var check_select = oKaisha_modal.rows('tr.selected').data();
+        if(check_select == undefined){
+          $("#edit_kaishamaster").attr("disabled", true);
+          $("#destroy_kaishamaster").attr("disabled", true);
+        }else{
+          $("#edit_kaishamaster").attr("disabled", false);
+          $("#destroy_kaishamaster").attr("disabled", false);
+        }
+        oKaisha_modal.page.jumpToData($('#jobmaster_ユーザ番号').val(), 0);
+      }
+    }
+    if( $(this).prev().is(element2)){
+      $('#select_user_modal').modal('show');
+      if($('#jobmaster_入力社員番号').val() != ''){
+        oTable.rows().every( function( rowIdx, tableLoop, rowLoop ){
+          var data = this.data();
+          if( data[0] == $('#jobmaster_入力社員番号').val()){
+            oTable.$('tr.selected').removeClass('selected');
+            oTable.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected')
+            this.nodes().to$().addClass('success')
+          }
+        });
+        oTable.page.jumpToData($('#jobmaster_入力社員番号').val(), 0);
+      }
+    }
+    if( $(this).prev().is(element3)){
+      $('#job_search_in_job_modal').modal('show');
+      if($('#jobmaster_関連Job番号').val() != ''){
+        oJob_Table.rows().every( function( rowIdx, tableLoop, rowLoop ){
+          var data = this.data();
+          if( data[0] == $('#jobmaster_関連Job番号').val()){
+            oJob_Table.$('tr.selected').removeClass('selected');
+            oJob_Table.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected')
+            this.nodes().to$().addClass('success')
+          }
+        });
+        oJob_Table.page.jumpToData($('#jobmaster_関連Job番号').val(), 0);
+      }
+    }
   })
   //JOB選択された行を判断
   $('#job_table tbody').on( 'click', 'tr', function () {
-    var d = oJobTable.row(this).data();
-    $('#event_JOB').val(d[0]);
-    $('.hint-job-refer').text(d[1])
-
     if ( $(this).hasClass('selected') ) {
         $(this).removeClass('selected');
         $(this).removeClass('success');
@@ -111,10 +152,6 @@ $(function () {
 
   $('#job_table_in_job tbody').on( 'click', 'tr', function () {
 
-        var d = oJob_Table.row(this).data();
-
-        $('#jobmaster_関連Job番号').val(d[0])
-        $('.hint-job-refer').text(d[1])
 
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
@@ -128,21 +165,25 @@ $(function () {
         }
 
     } );
-   $('#clear_job').click(function () {
-        $('#event_JOB').val('');
-        $('.hint-job-refer').text('')
-        $('#event_JOB').closest('.form-group').find('span.help-block').remove();
-        $('#event_JOB').closest('.form-group').removeClass('has-error');
-        oJobTable.$('tr.selected').removeClass('selected');
-        oJobTable.$('tr.success').removeClass('success');
-    } );
+  $('#job_sentaku_ok_in_job').click(function(){
+    var d = oJob_Table.row('tr.selected').data();
+    $('#jobmaster_関連Job番号').val(d[0])
+    $('.jobmaster_関連Job番号 .hint-job-refer').text(d[1])
+
+  });
+  $('#clear_job').click(function () {
+    oJobTable.$('tr.selected').removeClass('selected');
+    oJobTable.$('tr.success').removeClass('success');
+    $("#edit_jobmaster").attr("disabled", true);
+    $("#destroy_jobmaster").attr("disabled", true);
+  });
   $('#job_sentaku_ok').click(function(){
 
-        var myjob_id = oJobTable.row('tr.selected').data();
+        var myjob = oJobTable.row('tr.selected').data();
         var shain = $('#event_社員番号').val();
         $.ajax({
             url: '/events/ajax',
-            data: {id: 'job_selected',myjob_id: myjob_id[0],shain: shain},
+            data: {id: 'job_selected',myjob_id: myjob[0],shain: shain},
             type: "POST",
 
             success: function(data) {
@@ -159,6 +200,12 @@ $(function () {
                 console.log("job_selected keydown Unsuccessful");
             }
         });
+        if(myjob!= undefined){
+          $('#event_JOB').val((myjob[0]));
+          $('.hint-job-refer').text((myjob[1]));
+          $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+          $('#event_JOB').closest('.form-group').removeClass('has-error');
+        }
     });
 
 });
@@ -200,9 +247,13 @@ $(function() {
                         swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
+                          var d = oJobTable.row('tr.selected').data();
                           oJobTable.rows('tr.selected').remove().draw();
-                          $('#event_JOB').val('');
-                          $('.hint-job-refer').text('')
+                          if(d[0]==$('#event_JOB').val()){
+                            $('#event_JOB').val('');
+                            $('.hint-job-refer').text('');
+                          }
+
                         }else
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                      },

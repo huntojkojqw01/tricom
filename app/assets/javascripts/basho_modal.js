@@ -42,9 +42,31 @@ $(document).ready(function(){
 
 $(function () {
     $('.search-field').click( function(){
-      var element1 = $('.search-group').find('#bashomaster_会社コード')
-      if( $(this).prev().is(element1))
-        $('#kaisha-search-modal').modal('show')
+        var element1 = $('.search-group').find('#bashomaster_会社コード')
+        if( $(this).prev().is(element1)){
+            $('#kaisha-search-modal').modal('show');
+            var kaisha_code = $(this).prev().val();
+            if(kaisha_code != ''){
+                oKaisha_modal.rows().every( function( rowIdx, tableLoop, rowLoop ){
+                  var data = this.data();
+                  if( data[0] == kaisha_code){
+                    oKaisha_modal.$('tr.selected').removeClass('selected');
+                    oKaisha_modal.$('tr.success').removeClass('success');
+                    this.nodes().to$().addClass('selected')
+                    this.nodes().to$().addClass('success')
+                  }
+                });
+                var check_select = oKaisha_modal.rows('tr.selected').data();
+                if(check_select == undefined){
+                  $("#edit_kaishamaster").attr("disabled", true);
+                  $("#destroy_kaishamaster").attr("disabled", true);
+                }else{
+                  $("#edit_kaishamaster").attr("disabled", false);
+                  $("#destroy_kaishamaster").attr("disabled", false);
+                }
+                oKaisha_modal.page.jumpToData(kaisha_code, 0);
+              }
+        }
     })
     $('.search-plus').click( function(){
       var element1 = $('.search-group').find('#bashomaster_会社コード')
@@ -59,11 +81,6 @@ $(function () {
     //場所選択された行を判断
     $('#basho_table tbody').on( 'click', 'tr', function () {
 
-        var d = oBashoTable.row(this).data();
-        $('#event_場所コード').val(d[0]);
-        $('.hint-basho-refer').text(d[1]);
-        $('#event_場所コード').closest('.form-group').find('.span.help-block').text('')
-        $('#event_場所コード').closest('.form-group').removeClass('has-error')
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
@@ -81,23 +98,19 @@ $(function () {
     } );
     $('#clear_basho').click(function () {
 
-        $('#event_場所コード').val('');
-        $('.hint-basho-refer').text('');
-        $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
-        $('#event_場所コード').closest('.form-group').removeClass('has-error');
         oBashoTable.$('tr.selected').removeClass('selected');
         oBashoTable.$('tr.success').removeClass('success');
         $("#edit_basho").attr("disabled", true);
         $("#destroy_basho").attr("disabled", true);
     });
 
-    $('#koutei_sentaku_ok_basho').click(function(){
+    $('#basho_sentaku_ok').click(function(){
 
-        var mybasho_id = oBashoTable.row('tr.selected').data();
+        var mybasho = oBashoTable.row('tr.selected').data();
         var shain = $('#event_社員番号').val();
         $.ajax({
             url: '/events/ajax',
-            data: {id: 'basho_selected',mybasho_id: mybasho_id[0],shain: shain},
+            data: {id: 'basho_selected',mybasho_id: mybasho[0],shain: shain},
             type: "POST",
 
             success: function(data) {
@@ -114,6 +127,12 @@ $(function () {
                 console.log("basho_selected keydown Unsuccessful");
             }
         });
+        if(mybasho!= undefined){
+            $('#event_場所コード').val(mybasho[0]);
+            $('.hint-basho-refer').text(mybasho[1]);
+            $('#event_場所コード').closest('.form-group').find('.span.help-block').text('')
+            $('#event_場所コード').closest('.form-group').removeClass('has-error')
+        }
     });
 
 });
@@ -155,9 +174,12 @@ $(function() {
                         swal("削除されました!", "", "success");
                         if (data.destroy_success != null){
                           console.log("getAjax destroy_success:"+ data.destroy_success);
+                          var d = oBashoTable.row('tr.selected').data();
                           oBashoTable.rows('tr.selected').remove().draw();
-                          $('#event_場所コード').val('');
-                          $('.hint-basho-refer').text('');
+                          if(d[0]==$('#event_場所コード').val()){
+                            $('#event_場所コード').val('');
+                            $('.hint-basho-refer').text('');
+                          }
                         }else
                           console.log("getAjax destroy_success:"+ data.destroy_success);
                      },
