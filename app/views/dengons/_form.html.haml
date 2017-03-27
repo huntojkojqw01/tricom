@@ -13,4 +13,5 @@
     = f.input :確認, label: (t 'helpers.button.confirm')
     = f.input :送信, label: (t 'title.shousin')
 
-    = f.button :submit, class:'btn btn-primary'
+    = f.button :submit, class:'btn btn-primary', id: 'dengon_touroku'
+    = link_to t('helpers.button.cancel'),dengons_path,class: "btn btn-primary"
