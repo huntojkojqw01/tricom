@@ -14,8 +14,7 @@
       %th Local
       %th Vietnamese Holidays
       %th Turning data
-      %th
-      %th
+
   %tbody
     - @setting.each do |setting|
       %tr
@@ -24,11 +23,9 @@
         %td= setting.local
         %td= setting.select_holiday_vn
         %td= setting.turning_data
-        %td= link_to '編集', edit_setting_path(setting)
-        - msg = t 'app.delete_confirm'
-        %td= link_to '削除', setting, :method => :delete, :data => { :confirm => msg }
 
-= link_to '新規', new_setting_path
+
+= render 'share/new_edit_destroy_buttons',object: 'setting',new_path: new_setting_path
 
 %h4=t 'app.label.import_csv'
 = form_tag import_settings_path,class:'form-inline', multipart: true do

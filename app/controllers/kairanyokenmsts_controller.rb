@@ -96,7 +96,7 @@ class KairanyokenmstsController < ApplicationController
     end
 
   def update_kairanyoken
-    @kairanyokenmst = Kairanyokenmst.find_by(名称: kairanyokenmst_params[:名称])
+    @kairanyokenmst = Kairanyokenmst.find_by(id: kairanyokenmst_params[:id])
     # @eki.update(eki_params)
     # redirect_to ekis_path
     respond_to do |format|
@@ -114,6 +114,6 @@ class KairanyokenmstsController < ApplicationController
     end
 
     def kairanyokenmst_params
-      params.require(:kairanyokenmst).permit(:名称, :備考, :優先さ)
+      params.require(:kairanyokenmst).permit(:名称, :備考, :優先さ, :id)
     end
 end

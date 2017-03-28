@@ -1,5 +1,5 @@
 class Task < ApplicationRecord
-	validates_presence_of :title, :description
+	validates :title, presence: true
 
  	default_scope { order("priority ASC") }
 end

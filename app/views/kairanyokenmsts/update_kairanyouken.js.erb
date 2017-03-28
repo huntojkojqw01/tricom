@@ -3,6 +3,6 @@ $(".kairanyouken-table").dataTable().fnDeleteRow($('.kairanyouken-table').find('
 $(".kairanyouken-table").dataTable().fnDraw()
 
  var table = $('.kairanyouken-table').DataTable();
- table.row.add( ["<%=@kairanyokenmst.名称%>","<%=@kairanyokenmst.備考%>","<%=@kairanyokenmst.優先さ%>"] ).draw( false );
+ table.row.add( ["<%=@kairanyokenmst.名称%>","<%=@kairanyokenmst.備考%>","<%=@kairanyokenmst.優先さ%>","<%=@kairanyokenmst.id%>"] ).draw( false );
 
 

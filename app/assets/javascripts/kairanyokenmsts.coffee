@@ -9,10 +9,11 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "columnDefs": [ {
-      "targets"  : 'no-sort',
-      "orderable": false
-    }]
+    "columnDefs": [             {
+                "targets": [ 3 ],
+                "visible": false,
+                "searchable": false
+            }]
     ,"oSearch": {"sSearch": queryParameters().search},
     "buttons": [{
                 "extend":    'copyHtml5',
@@ -72,9 +73,27 @@ jQuery ->
   $("#edit_kairanyouken").attr("disabled", true);
   $("#destroy_kairanyouken").attr("disabled", true);
 
-  $(document).bind('ajaxError', 'form#new_kairanyouken', (event, jqxhr, settings, exception) ->
+  $(document).bind('ajaxError', 'form#new_kairanyokenmst', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
+
+  $.fn.render_form_errors = (errors) ->
+    $form = this;
+    this.clear_previous_errors();
+    model = this.data('model');
+
+
+    $.each(errors, (field, messages) ->
+      $input = $('input[name="' + model + '[' + field + ']"]');
+      $input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') );
+    );
+
+
+  $.fn.clear_previous_errors = () ->
+    $('.form-group.has-error', this).each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
 
   $('.kairanyouken-table').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
@@ -176,11 +195,17 @@ jQuery ->
       $('.help-block', $(this)).html('');
       $(this).removeClass('has-error');
     );
-
   $('#edit_kairanyouken').click () ->
     kairanyouken_id = oTable.row('tr.selected').data()
-    $('#kairanyouken-edit-modal').modal('show')
-    $('#kairanyokenmst_名称').val(kairanyouken_id[0])
-    $('#kairanyokenmst_備考').val(kairanyouken_id[1])
-    $('#kairanyokenmst_優先さ').val(kairanyouken_id[2])
-
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+    if kairanyouken_id == undefined
+      swal("行を選択してください。")
+    else
+      $('#kairanyouken-edit-modal').modal('show')
+      $('#kairanyokenmst_名称').val(kairanyouken_id[0])
+      $('#kairanyokenmst_備考').val(kairanyouken_id[1])
+      $('#kairanyokenmst_優先さ').val(kairanyouken_id[2])
+      $('#kairanyokenmst_id').val(kairanyouken_id[3])

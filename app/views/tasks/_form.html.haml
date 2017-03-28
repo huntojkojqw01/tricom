@@ -1,8 +1,11 @@
 = simple_form_for(@task) do |f|
-  = f.error_notification
 
   .col-sm-2
-    = f.input :title
-    = f.input :description
+    = f.input :title, label: "タイトル" do
+      = f.input_field :title, class: 'form-control'
+      .span.help-block
+    = f.input "内容" do
+      = f.input_field :description, class: 'form-control'
+      .span.help-block
     = f.button :submit, class: 'btn btn-primary'
 

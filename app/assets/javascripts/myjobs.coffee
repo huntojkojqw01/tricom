@@ -1,5 +1,6 @@
 jQuery ->
   oTable = $('#myjobmaster').DataTable({
+    "dom": 'lBfrtip',
     "scrollX": true,
 #    'scrollY': "300px",
     "pagingType": "full_numbers",
@@ -18,6 +19,60 @@ jQuery ->
       "orderable": false
     }],
     'scrollCollapse': true,
+    "buttons": [{
+                "extend":    'copyHtml5',
+                "text":      '<i class="fa fa-files-o"></i>',
+                "titleAttr": 'Copy'
+            },
+            {
+                "extend":    'excelHtml5',
+                "text":      '<i class="fa fa-file-excel-o"></i>',
+                "titleAttr": 'Excel'
+            },
+            {
+                "extend":    'csvHtml5',
+                "text":      '<i class="fa fa-file-text-o"></i>',
+                "titleAttr": 'CSV'
+            },
+            {
+              "extend": 'selectAll',
+              "action": ( e, dt, node, config ) ->
+                oTable.$('tr').addClass('selected')
+                oTable.$('tr').addClass('success')
+                selects = oTable.rows('tr.selected').data()
+                if selects.length == 0
+                  $("#edit_myjob").attr("disabled", true);
+                  $("#destroy_myjob").attr("disabled", true);
+                else
+                  $("#destroy_myjob").attr("disabled", false);
+                  if selects.length == 1
+                    $("#edit_myjob").attr("disabled", false);
+                  else
+                    $("#edit_myjob").attr("disabled", true);
+                $(".buttons-select-none").removeClass('disabled')
+
+
+
+
+            },
+            {
+              "extend": 'selectNone',
+              "action": ( e, dt, node, config ) ->
+                oTable.$('tr').removeClass('selected')
+                oTable.$('tr').removeClass('success')
+                selects = oTable.rows('tr.selected').data()
+                if selects.length == 0
+                  $("#edit_myjob").attr("disabled", true);
+                  $("#destroy_myjob").attr("disabled", true);
+                else
+                  $("#destroy_myjob").attr("disabled", false);
+                  if selects.length == 1
+                    $("#edit_myjob").attr("disabled", false);
+                  else
+                    $("#edit_myjob").attr("disabled", true);
+                $(".buttons-select-none").addClass('disabled')
+            }
+            ]
 #    'fixedColumns': {
 #      'leftColumns': 0,
 #      'rightColumns': 2,
@@ -250,6 +305,57 @@ jQuery ->
       })
   )
 
+  $(document).bind('ajaxError', 'form#new_myjobmaster', (event, jqxhr, settings, exception) ->
+    $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
+  )
+
+  $.fn.render_form_errors = (errors) ->
+    $form = this;
+    this.clear_previous_errors();
+    model = this.data('model');
+
+
+    $.each(errors, (field, messages) ->
+      $input = $('input[name="' + model + '[' + field + ']"]');
+      $input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') );
+    );
+
+
+  $.fn.clear_previous_errors = () ->
+    $('.form-group.has-error', this).each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+
+  $('#myjobmaster').on( 'click', 'tr',  () ->
+    d = oTable.row(this).data()
+    if d != undefined
+      if $(this).hasClass('selected')
+        $(this).removeClass('selected')
+        $(this).removeClass('success')
+        # $("#edit_myjob").attr("disabled", true);
+        # $("#destroy_myjob").attr("disabled", true);
+      else
+        # oTable.$('tr.selected').removeClass('selected')
+        # oTable.$('tr.success').removeClass('success')
+        $(this).addClass('selected')
+        $(this).addClass('success')
+        # $("#edit_myjob").attr("disabled", false);
+        # $("#destroy_myjob").attr("disabled", false);
+    selects = oTable.rows('tr.selected').data()
+    if selects.length == 0
+      $("#edit_myjob").attr("disabled", true);
+      $("#destroy_myjob").attr("disabled", true);
+      $(".buttons-select-none").addClass('disabled')
+    else
+      $("#destroy_myjob").attr("disabled", false);
+      $(".buttons-select-none").removeClass('disabled')
+      if selects.length == 1
+        $("#edit_myjob").attr("disabled", false);
+      else
+        $("#edit_myjob").attr("disabled", true);
+  )
+
 #  $('#myjobmaster_分類コード').on('change', () ->
 #    switch $(this).val()
 #      when '1'
@@ -261,3 +367,5 @@ jQuery ->
 #      when '4'
 #        $('#myjobmaster_分類名').val('社内業務')
 #  )
+
+
