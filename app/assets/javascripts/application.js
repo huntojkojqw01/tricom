@@ -14,6 +14,7 @@
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
+
 //= require chat
 //= require private_pub
 //= require main
@@ -51,7 +52,7 @@
 //= require jquery-ui
 //= require best_in_place.jquery-ui
 //= require sweetalert2
-
+//= require html.sortable
 // require_tree .
 
 $(document).on('ready', function() {

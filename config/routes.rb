@@ -1,4 +1,11 @@
 Jpt::Application.routes.draw do
+  Rails.application.routes.draw do
+  
+  resources :tasks do
+    put :sort, on: :collection
+    collection {post :change_status}
+  end
+end
   get 'rorumenbas/new'
 
   get 'rorumasters/new'

@@ -321,6 +321,7 @@ ja:
     setsubi: 設備マスタ
     setsubiyoyaku: 設備予約
     shainmaster: 社員マスタ
+    task: メモ帳
     share: TRICOM
     shoninshamst: 承認者マスタ
     shozai: 所在マスタ
@@ -435,3 +436,5 @@ ja:
     search: 検索結果
     keihi_shuppi: 経費出費合計表
     keihi_shuppi_menu: 経理部
+    finished: 完成
+    unfinished: 未完成
