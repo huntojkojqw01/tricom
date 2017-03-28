@@ -1,0 +1,13 @@
+.modal#task-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel= (t 'title.edit')
+      .modal-body
+        = simple_form_for @task, :remote => true, html: {role: :form, 'data-model' => 'task'} do |f| 
+          = f.input "title" do
+            = f.input_field :title, class: 'form-control'
+            .span.help-block
+          = f.input :description,label: "description"
+          = f.button :submit, class: 'btn btn-primary'

@@ -1,0 +1,23 @@
+<div class="panel panel-default" data-id="<%= task.id %>">
+  <div class="panel-heading">
+    <h3 class="panel-title"><%= task.title %></h3>
+  </div>
+  <div class="panel-body">
+    <%= truncate task.description, length: 50 %>
+  </div>
+  <div class="panel-footer" align="right">
+  	<% if task.done == 0%>
+  	<%= link_to (t 'title.finished'), {
+                        :action => "change_status",
+                        :id => task.id,
+                        :decision => "true"}, method: 'post', class: "button btn btn-primary" %>
+    <% elsif task.done == 1 %>
+  	<%= link_to (t 'title.unfinished'), {
+                        :action => "change_status",
+                        :id => task.id,
+                        :decision => "false"}, method: 'post', class: "button btn btn-primary" %>    
+    <% end %>
+  	<%= link_to (t 'title.edit'), edit_task_path(task), { :class=>"button btn btn-primary" } %>
+	<%= link_to '削除', task, method: :delete, data: { confirm: '削除でよろしいですが？' }, :class=>"button btn btn-primary"  %>
+</div>
+</div>

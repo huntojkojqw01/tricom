@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170317053102) do
+ActiveRecord::Schema.define(version: 20170327021603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -78,6 +78,21 @@ ActiveRecord::Schema.define(version: 20170317053102) do
     t.datetime "updated_at",   null: false
     t.index ["recipient_id"], name: "index_conversations_on_recipient_id", using: :btree
     t.index ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+  end
+
+  create_table "delayed_jobs", force: :cascade do |t|
+    t.integer  "priority",   default: 0, null: false
+    t.integer  "attempts",   default: 0, null: false
+    t.text     "handler",                null: false
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
   create_table "events", force: :cascade do |t|
@@ -186,6 +201,11 @@ ActiveRecord::Schema.define(version: 20170317053102) do
     t.index ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
   end
 
+  create_table "mybashomasters", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "paths", force: :cascade do |t|
     t.string   "title_jp"
     t.string   "title_en"
@@ -212,6 +232,15 @@ ActiveRecord::Schema.define(version: 20170317053102) do
     t.string   "local"
     t.string   "select_holiday_vn"
     t.boolean  "turning_data"
+  end
+
+  create_table "tasks", force: :cascade do |t|
+    t.string   "title"
+    t.string   "description"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "priority"
+    t.integer  "done",        default: 0
   end
 
   create_table "temps", force: :cascade do |t|

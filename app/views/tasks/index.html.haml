@@ -1,0 +1,22 @@
+= javascript_include_tag 'task'
+= javascript_include_tag 'tasks'
+= stylesheet_link_tag 'tasks'
+= provide(:title, (t 'title.task'))
+
+
+%button.btn.btn-primary#new_task{type: :button}#{t 'title.new'}
+
+.row
+  .col-md-5.col-md-offset-1.sortable
+
+    %font{:size => "6"}=(t 'title.unfinished')
+    - @tasks = Task.where(done: 0)
+    = render @tasks
+
+
+  .col-md-5.col-md-offset-0.sortable
+    %font{:size => "6"}=(t 'title.finished')
+    - @tasks = Task.where(done: 1)
+    = render @tasks
+
+= render 'task_new_modal'
