@@ -27,7 +27,7 @@ end
     collection {get :export_csv}
   end
   resources :settings do
-    collection {post :import}
+    collection {post :import, :ajax}
     collection {get :export_csv, :setting}
   end
   get 'kanris/index'

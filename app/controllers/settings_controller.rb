@@ -5,7 +5,7 @@ class SettingsController < ApplicationController
   def new
     @shains = Shainmaster.all
     @settings = Setting.new
-    respond_with(@settings)
+    respond_with(@setting, location: settings_url)
   end
 
   def index
@@ -36,7 +36,7 @@ class SettingsController < ApplicationController
   def create
     @setting = Setting.new(setting_params)
     @setting.save
-    respond_with(@setting)
+    respond_with(@setting, location: settings_url)
   end
 
   def update
@@ -87,6 +87,20 @@ class SettingsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv { send_data @settings.to_csv, filename: "Setting.csv" }
+    end
+  end
+
+  def ajax
+    case params[:focus_field]
+      when 'setting_削除する'
+        settingIds = params[:settings]
+        settingIds.each{ |settingId|
+          Setting.find_by(社員番号: settingId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
     end
   end
 

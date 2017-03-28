@@ -435,3 +435,6 @@ en:
     search: Search Results
     keihi_shuppi: Expense Total Table
     keihi_shuppi_menu: Accounting Department
+    finished: Done
+    unfinished: Ongoing
+    task: Task

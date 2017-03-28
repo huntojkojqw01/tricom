@@ -7,18 +7,20 @@
 %table.kairanyouken-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
+      
       %th 名称
       %th 備考
       %th 優先さ
-      
+      %th id
 
   %tbody
     - @kairanyokenmsts.each do |kairanyokenmst|
       %tr
+
         %td= kairanyokenmst.名称
         %td= kairanyokenmst.備考
         %td= kairanyokenmst.優先さ
-
+        %td= kairanyokenmst.id
 %br
 
 = render 'share/new_edit_destroy_buttons',object: 'kairanyouken'

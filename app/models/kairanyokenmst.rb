@@ -2,9 +2,11 @@ class Kairanyokenmst < ActiveRecord::Base
   self.table_name = :回覧用件マスタ
   include PgSearch
   multisearchable :against => %w{名称 備考}
+  validates :名称, presence: true
+  validates :優先さ,   inclusion: {in: proc{Yuusen.pluck(:優先さ)}}, allow_blank: false
   belongs_to :yuusen, foreign_key: :優先さ
 
-  validates :名称, presence: true
+  
   delegate :優先さ, to: :yuusen, allow_nil: true
   def self.import(file)
     # a block that runs through a loop in our CSV data

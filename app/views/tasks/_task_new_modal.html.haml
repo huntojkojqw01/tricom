@@ -6,7 +6,9 @@
         %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
         = simple_form_for (Task.new), :remote => true, html: {role: :form, 'data-model' => 'task'} do |f| 
-          = f.input :title, label: "タイトル", class: 'form-control'
+          = f.input :title, label: "タイトル" do
+            = f.input_field :title, class: 'form-control'
+            .span.help-block
           = f.input "内容" do
             = f.input_field :description, class: 'form-control'
             .span.help-block
