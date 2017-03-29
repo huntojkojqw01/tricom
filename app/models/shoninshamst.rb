@@ -14,7 +14,8 @@ class Shoninshamst < ActiveRecord::Base
   delegate :氏名, to: :shouninsha, prefix: :shouninsha, allow_nil: true
   validate :check_shainmaster_equal
   validates :申請者, uniqueness: { scope: :承認者}
-
+  validates :承認者, uniqueness: { scope: :申請者}
+  
   def self.import(file)
     CSV.foreach(file.path, headers: true) do |row|
       Shoninshamst.create! row.to_hash

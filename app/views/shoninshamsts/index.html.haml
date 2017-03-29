@@ -22,7 +22,7 @@
         %td= shoninshamst.順番
         
 
-= render 'share/new_edit_destroy_buttons',object: 'shonin'
+= render 'share/new_edit_destroy_buttons',object: 'shonin', new_path: new_shoninshamst_path
 %h4=t 'app.label.import_csv'
 = form_tag import_shoninshamsts_path,class:'form-inline', multipart: true do
   .form-group

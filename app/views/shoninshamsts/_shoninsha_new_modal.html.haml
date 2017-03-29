@@ -6,7 +6,9 @@
         %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
         = simple_form_for (Shoninshamst.new), url: create_shonin_shoninshamsts_path, :remote => true, html: {role: :form, 'data-model' => 'shoninshamst'} do |f| 
-          = f.association :shinseisha, label_method: :氏名, value_method: :社員番号, label:'申請者', :selected => session[:current_user_id]
-          = f.association :shouninsha, label_method: :氏名, value_method: :社員番号, label:'承認者', :selected => session[:current_user_id]
+          = f.association :shinseisha, label_method: :氏名, value_method: :社員番号, label:'申請者'
+          .span.help-block
+          = f.association :shouninsha, label_method: :氏名, value_method: :社員番号, label:'承認者'
+          .span.help-block
           = f.input :順番
           = f.button :submit, class: 'btn btn-primary'

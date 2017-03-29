@@ -73,7 +73,7 @@ jQuery ->
   $("#edit_joutai").attr("disabled", true);
   $("#destroy_joutai").attr("disabled", true);
 
-  $(document).bind('ajaxError', 'form#new_joutai', (event, jqxhr, settings, exception) ->
+  $(document).bind('ajaxError', 'form#new_joutaimaster', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
 

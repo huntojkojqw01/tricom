@@ -6,6 +6,8 @@
         %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
         = simple_form_for (Bunrui.new), url: update_bunrui_bunruis_path, :remote => true, html: {role: :form, 'data-model' => 'bunrui'} do |f| 
-          = f.input :分類コード, label: "分類コード", as: :hidden
-          = f.input :分類名, label: "分類名"
+          = f.hidden_field :分類コード
+          = f.input "分類名" do
+            = f.input_field :分類名, class: 'form-control'
+            .span.help-block
           = f.button :submit, class: 'btn btn-primary'

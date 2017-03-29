@@ -73,7 +73,7 @@ jQuery ->
   $("#edit_shonin").attr("disabled", true);
   $("#destroy_shonin").attr("disabled", true);
 
-  $(document).bind('ajaxError', 'form#new_shonin', (event, jqxhr, settings, exception) ->
+  $(document).bind('ajaxError', 'form#new_shoninshamst', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
 
