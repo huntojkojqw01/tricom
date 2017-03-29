@@ -41,7 +41,7 @@
           %td= dengon.to_user_氏名
           %td{:style => "background-color: "+dengon.dengonyouken.try(:yuusen).try(:色).to_s+"; color: Black"}= dengon.youken_種類名
           %td= dengon.kaitou_種類名
-          %td= dengon.伝言内容
+          %td{style: "white-space: pre-line;"}= dengon.伝言内容
           -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
           %td= dengon.確認 == true ? (t 'title.kakuninzu'):'未確認'
           %td= dengon.送信 == true ? (t 'app.label.necessary'):(t 'app.label.unnecessary')
