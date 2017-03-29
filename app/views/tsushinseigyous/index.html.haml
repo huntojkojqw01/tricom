@@ -10,6 +10,7 @@
       %th 社員番号
       %th メール
       %th 送信許可区分
+      %th
 
   %tbody
     - @tsushinseigyous.each do |tsushinseigyou|
@@ -17,7 +18,7 @@
         %td= tsushinseigyou.shain_氏名
         %td= tsushinseigyou.メール
         %td= tsushinseigyou.送信許可区分 == '0' ? '不可' : '許可'
-        
+        %td= link_to '削除', tsushinseigyou, :method => :delete, :data => { :confirm => '削除で宜しいですか。' }
 %br
 
 =render 'share/new_edit_destroy_buttons',object: 'tsushinseigyou'
