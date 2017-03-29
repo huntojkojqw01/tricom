@@ -88,20 +88,20 @@ class DengonkaitousController < ApplicationController
       if  @dengonkaitou.save
         format.js { render 'create_dengonkaitou'}
       else
-        format.js { render json: @dengonkaitous.errors, status: :unprocessable_entity}
+        format.js { render json: @dengonkaitou.errors, status: :unprocessable_entity}
       end
     end
     end
 
   def update_dengonkaitou
-    @dengonkaitou = Dengonkaitou.find_by(種類名: dengonkaitou_params[:種類名])
+    @dengonkaitou = Dengonkaitou.find_by(id: dengonkaitou_params[:id])
     # @eki.update(eki_params)
     # redirect_to ekis_path
     respond_to do |format|
       if  @dengonkaitou.update(dengonkaitou_params)
         format.js { render 'update_dengonkaitou'}
       else
-        format.js { render json: @dengonkaitous.errors, status: :unprocessable_entity}
+        format.js { render json: @dengonkaitou.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -112,6 +112,6 @@ class DengonkaitousController < ApplicationController
     end
 
     def dengonkaitou_params
-      params.require(:dengonkaitou).permit(:種類名, :備考)
+      params.require(:dengonkaitou).permit(:種類名, :備考, :id)
     end
 end

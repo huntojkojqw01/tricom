@@ -3,5 +3,5 @@ $(".dengonkaitoutable").dataTable().fnDeleteRow($('.dengonkaitoutable').find('tr
 $(".dengonkaitoutable").dataTable().fnDraw()
 
  var table = $('.dengonkaitoutable').DataTable();
- table.row.add( ["<%=@dengonkaitou.種類名%>","<%=@dengonkaitou.備考%>"] ).draw( false );
+ table.row.add( ["<%=@dengonkaitou.種類名%>","<%=@dengonkaitou.備考%>","<%=@dengonkaitou.id%>"] ).draw( false );
 

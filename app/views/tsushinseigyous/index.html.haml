@@ -7,7 +7,6 @@
 %table.tsushinseigyotable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
-      %th id
       %th 社員番号
       %th メール
       %th 送信許可区分
@@ -15,7 +14,6 @@
   %tbody
     - @tsushinseigyous.each do |tsushinseigyou|
       %tr
-        %td= tsushinseigyou.id
         %td= tsushinseigyou.shain_氏名
         %td= tsushinseigyou.メール
         %td= tsushinseigyou.送信許可区分 == '0' ? '不可' : '許可'

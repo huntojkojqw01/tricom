@@ -10,8 +10,9 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
     "columnDefs": [ {
-      "targets"  : 'no-sort',
-      "orderable": false
+                "targets": [ 2 ],
+                "visible": false,
+                "searchable": false
     }]
     ,"oSearch": {"sSearch": queryParameters().search},
     "buttons": [{
@@ -196,6 +197,14 @@ jQuery ->
 
   $('#edit_dengonkaitou').click () ->
     dengonkaitou_id = oTable.row('tr.selected').data()
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+    if dengonkaitou_id == undefined
+      swal("行を選択してください。")
+    else
     $('#dengonkaitou-edit-modal').modal('show')
     $('#dengonkaitou_種類名').val(dengonkaitou_id[0])
     $('#dengonkaitou_備考').val(dengonkaitou_id[1])
+    $('#dengonkaitou_id').val(dengonkaitou_id[2])

@@ -3,7 +3,7 @@ class Dengonkaitou < ActiveRecord::Base
   include PgSearch
   multisearchable :against => %w{種類名 備考}
   validates :種類名, presence: true
-
+  validates :種類名, uniqueness: true
   # a class method import, with file passed through as an argument
 
   def self.import(file)
