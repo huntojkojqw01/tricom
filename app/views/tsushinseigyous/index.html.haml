@@ -10,16 +10,17 @@
       %th 社員番号
       %th メール
       %th 送信許可区分
-
+      %th id
   %tbody
     - @tsushinseigyous.each do |tsushinseigyou|
       %tr
         %td= tsushinseigyou.shain_氏名
         %td= tsushinseigyou.メール
         %td= tsushinseigyou.送信許可区分 == '0' ? '不可' : '許可'
+        %td= tsushinseigyou.id
 %br
 
-=render 'share/new_edit_destroy_buttons',object: 'tsushinseigyou'
+=render 'share/new_edit_destroy_buttons',object: 'tsushinseigyou', new_path: new_tsushinseigyou_path
 - if can? :update, @tsushinseigyous
   %h4=t 'app.label.import_csv'
   = form_tag import_tsushinseigyous_path,class:'form-inline', multipart: true do

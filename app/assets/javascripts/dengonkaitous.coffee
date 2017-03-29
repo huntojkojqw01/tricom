@@ -143,7 +143,7 @@ jQuery ->
       }).then(() ->
         len = dengonkaitous.length
         for i in [0...len]
-          dengonkaitouIds[i] = dengonkaitous[i][0]
+          dengonkaitouIds[i] = dengonkaitous[i][2]
 
         $.ajax({
           url: '/dengonkaitous/ajax',

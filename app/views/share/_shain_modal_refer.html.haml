@@ -22,5 +22,6 @@
       .modal-footer
         .pull-left
           = link_to '社員マスタ管理へ',shainmasters_path
+        %button#clear_shain.btn.btn-default{:type => "button"} 選択を解除する
         %button.btn.btn-primary#user_refer_sentaku_ok{type:"button", 'data-dismiss'=>"modal"}　ＯＫ　
         %button.btn.btn-default{type:"button", 'data-dismiss'=>"modal"} 閉じる
