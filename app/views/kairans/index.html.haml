@@ -32,7 +32,7 @@
           %td= kairanshosai.開始
           %td{:style => "background-color: "+kairanshosai.kairan.kairanyokenmst.yuusen.try(:色).to_s+"; color: Black"}= kairanshosai.kairan.kairanyokenmst.try :名称 if kairanshosai.kairan
           %td= kairanshosai.件名
-          %td.breakAll= kairanshosai.内容
+          %td.breakAll{style: "white-space: pre-line;"}= kairanshosai.内容
           - if kairanshosai.状態 == '未確認'
             %td= '未確認'
           - else
