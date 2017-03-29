@@ -704,22 +704,22 @@ sortable.disable = function (sortableElement) {
   _disableSortable(sortableElement)
 }
 
-/* start-testing */
-sortable.__testing = {
-  // add internal methods here for testing purposes
-  _data: _data,
-  _removeSortableEvents: _removeSortableEvents,
-  _removeItemEvents: _removeItemEvents,
-  _removeItemData: _removeItemData,
-  _removeSortableData: _removeSortableData,
-  _listsConnected: _listsConnected,
-  _attachGhost: _attachGhost,
-  _addGhostPos: _addGhostPos,
-  _getGhost: _getGhost,
-  _makeGhost: _makeGhost,
-  _index: _index,
-  _makeEvent: _makeEvent,
-  _debounce: _debounce
-}
-module.exports = sortable
-/* end-testing */
+// /* start-testing */
+// sortable.__testing = {
+//   // add internal methods here for testing purposes
+//   _data: _data,
+//   _removeSortableEvents: _removeSortableEvents,
+//   _removeItemEvents: _removeItemEvents,
+//   _removeItemData: _removeItemData,
+//   _removeSortableData: _removeSortableData,
+//   _listsConnected: _listsConnected,
+//   _attachGhost: _attachGhost,
+//   _addGhostPos: _addGhostPos,
+//   _getGhost: _getGhost,
+//   _makeGhost: _makeGhost,
+//   _index: _index,
+//   _makeEvent: _makeEvent,
+//   _debounce: _debounce
+// }
+// module.exports = sortable
+// /* end-testing */
