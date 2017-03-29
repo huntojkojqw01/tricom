@@ -704,6 +704,7 @@ sortable.disable = function (sortableElement) {
   _disableSortable(sortableElement)
 }
 
+
 // /* start-testing */
 // sortable.__testing = {
 //   // add internal methods here for testing purposes
@@ -723,4 +724,3 @@ sortable.disable = function (sortableElement) {
 // }
 // module.exports = sortable
 // /* end-testing */
-
