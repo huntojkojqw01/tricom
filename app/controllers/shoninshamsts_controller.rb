@@ -26,7 +26,7 @@ class ShoninshamstsController < ApplicationController
     @shoninshamst = Shoninshamst.new(shoninshamst_params)
     if @shoninshamst.save
       flash[:notice] = t 'app.flash.update_success'
-      respond_with(@shoninshamst)
+    respond_with(@shoninshamst, location: shoninshamsts_url)
     else
       render :new
     end
