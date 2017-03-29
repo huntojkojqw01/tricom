@@ -73,7 +73,7 @@ class DengonkaitousController < ApplicationController
       when 'dengonkaitou_削除する'
         dengonkaitouIds = params[:dengonkaitous]
         dengonkaitouIds.each{ |dengonkaitouId|
-          Dengonkaitou.find_by(種類名: dengonkaitouId).destroy
+          Dengonkaitou.find_by(id: dengonkaitouId).destroy
         }
         data = {destroy_success: "success"}
         respond_to do |format|

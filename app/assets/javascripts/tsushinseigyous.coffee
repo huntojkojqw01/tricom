@@ -8,7 +8,12 @@ jQuery ->
     "pagingType": "full_numbers"
     , "oLanguage": {
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-    }
+    },
+    "columnDefs": [             {
+                "targets": [ 3 ],
+                "visible": false,
+                "searchable": false
+            }]
     ,"oSearch": {"sSearch": queryParameters().search},
     "buttons": [{
                 "extend":    'copyHtml5',
@@ -138,7 +143,7 @@ jQuery ->
       }).then(() ->
         len = tsushinseigyous.length
         for i in [0...len]
-          tsushinseigyouIds[i] = tsushinseigyous[i][0]
+          tsushinseigyouIds[i] = tsushinseigyous[i][3]
 
         $.ajax({
           url: '/tsushinseigyous/ajax',
@@ -193,4 +198,4 @@ jQuery ->
 
   $('#edit_tsushinseigyou').click () ->
     tsushinseigyou_id = oTable.row('tr.selected').data()
-    window.location = '/tsushinseigyous/' + tsushinseigyou_id[0] + '/edit?'
+    window.location = '/tsushinseigyous/' + tsushinseigyou_id[3] + '/edit?'

@@ -3,7 +3,7 @@
     .col-sm-4.col-sm-offset-1
       -#= f.input :job番号, disabled: true, hint: 'Job番号自動生成変更無し'
       -#= f.input :job番号, input_html: {style: 'width:100px'} if mode == :new
-      = f.input :job番号, input_html: {style: 'width:100px'}
+      = f.input :job番号, input_html: {style: 'width:100px'} if mode == :new
       = f.input :job名, input_html: {style: 'width:80%'}
       = f.input :開始日, as: :date_picker, input_html: {style: 'width:110px'}
       = f.input :終了日, as: :date_picker, input_html: {style: 'width:110px'}

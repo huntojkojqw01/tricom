@@ -142,12 +142,12 @@ jQuery ->
 
   $('#kaisha-table-modal tbody').on( 'click', 'tr',  () ->
     d = oKaisha_modal.row(this).data()
-    $('#jobmaster_ユーザ番号').val(d[0])
-    $('#jobmaster_ユーザ名').val(d[1])
+  #$('#jobmaster_ユーザ番号').val(d[0])
+  #$('#jobmaster_ユーザ名').val(d[1])
 
     #    remove error if has
-    $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
-    $('#jobmaster_ユーザ番号').closest('.form-group').removeClass('has-error')
+ #  $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
+ #  $('#jobmaster_ユーザ番号').closest('.form-group').removeClass('has-error')
 
     if $(this).hasClass('selected')
       $(this).removeClass('selected')
@@ -161,12 +161,12 @@ jQuery ->
 
   $('#user_table tbody').on( 'click', 'tr',  () ->
     d = oShain_modal.row(this).data()
-    $('#jobmaster_入力社員番号').val(d[0])
-    $('.hint-shain-refer').text(d[1])
+#   $('#jobmaster_入力社員番号').val(d[0])
+#   $('.hint-shain-refer').text(d[1])
 
 #    remove error if has
-    $('#jobmaster_入力社員番号').closest('.form-group').find('span.help-block').remove()
-    $('#jobmaster_入力社員番号').closest('.form-group').removeClass('has-error')
+#   $('#jobmaster_入力社員番号').closest('.form-group').find('span.help-block').remove()
+#   $('#jobmaster_入力社員番号').closest('.form-group').removeClass('has-error')
 
     if $(this).hasClass('selected')
       $(this).removeClass('selected')
@@ -180,12 +180,12 @@ jQuery ->
 
   $('#job_table tbody').on( 'click', 'tr',  () ->
     d = oJob_modal.row(this).data()
-    $('#jobmaster_関連Job番号').val(d[0])
-    $('.hint-job-refer').text(d[1])
+ #  $('#jobmaster_関連Job番号').val(d[0])
+ #  $('.hint-job-refer').text(d[1])
 
     #    remove error if has
-    $('#jobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
-    $('#jobmaster_関連Job番号').closest('.form-group').removeClass('has-error')
+ #  $('#jobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
+ #  $('#jobmaster_関連Job番号').closest('.form-group').removeClass('has-error')
 
     if $(this).hasClass('selected')
       $(this).removeClass('selected')
@@ -199,12 +199,12 @@ jQuery ->
 
   $('.bunrui-table tbody').on( 'click', 'tr',  () ->
     d = oBunrui_modal.row(this).data()
-    $('#jobmaster_分類コード').val(d[0])
-    $('#jobmaster_分類名').val(d[1])
+ #  $('#jobmaster_分類コード').val(d[0])
+ #  $('#jobmaster_分類名').val(d[1])
 
     #    remove error if has
-    $('#jobmaster_分類コード').closest('.form-group').find('span.help-block').remove()
-    $('#jobmaster_分類コード').closest('.form-group').removeClass('has-error')
+ #  $('#jobmaster_分類コード').closest('.form-group').find('span.help-block').remove()
+ #  $('#jobmaster_分類コード').closest('.form-group').removeClass('has-error')
 
     if $(this).hasClass('selected')
       $(this).removeClass('selected')
@@ -296,12 +296,41 @@ jQuery ->
 
     if $(this).prev().is(element1)
       $('#kaisha-search-modal').modal('show')
-
+      if $('#jobmaster_ユーザ番号').val() != ''
+        oKaisha_modal.rows().every( ( rowIdx, tableLoop, rowLoop ) ->
+          data = this.data();
+          if data[0] == $('#jobmaster_ユーザ番号').val()
+            oKaisha_modal.$('tr.selected').removeClass('selected');
+            oKaisha_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected')
+            this.nodes().to$().addClass('success')
+        );
+        oKaisha_modal.page.jumpToData($('#jobmaster_ユーザ番号').val(), 0);
     if $(this).prev().is(element2)
       $('#select_user_modal').modal('show')
+      if $('#jobmaster_入力社員番号').val() != ''
+        oShain_modal.rows().every( ( rowIdx, tableLoop, rowLoop ) ->
+          data = this.data();
+          if data[0] == $('#jobmaster_入力社員番号').val()
+            oShain_modal.$('tr.selected').removeClass('selected');
+            oShain_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected')
+            this.nodes().to$().addClass('success')
+        );
+        oShain_modal.page.jumpToData($('#jobmaster_入力社員番号').val(), 0);
 
     if $(this).prev().is(element3)
       $('#job_search_modal').modal('show')
+      if $('#jobmaster_関連Job番号').val() != ''
+        oJob_modal.rows().every( ( rowIdx, tableLoop, rowLoop ) ->
+          data = this.data();
+          if data[0] == $('#jobmaster_関連Job番号').val()
+            oJob_modal.$('tr.selected').removeClass('selected');
+            oJob_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected')
+            this.nodes().to$().addClass('success')
+        );
+        oJob_modal.page.jumpToData($('#jobmaster_関連Job番号').val(), 0);
   )
 
 #  $('.refer-kaisha').click( () ->
@@ -415,3 +444,40 @@ jQuery ->
   $('#edit_jobmaster').click () ->
     job_id = oTable.row('tr.selected').data()
     window.location = '/jobmasters/' + job_id[0] + '/edit?locale=ja'
+
+  $('#clear_kaisha').click ->
+    oKaisha_modal.$('tr.selected').removeClass 'selected'
+    oKaisha_modal.$('tr.success').removeClass 'success'
+
+  $('#clear_job').click ->
+    oJob_modal.$('tr.selected').removeClass 'selected'
+    oJob_modal.$('tr.success').removeClass 'success'
+
+  $('#clear_shain').click ->
+    oShain_modal.$('tr.selected').removeClass 'selected'
+    oShain_modal.$('tr.success').removeClass 'success'  
+  
+  $('#job_sentaku_ok').click ->
+    d = oJob_modal.row('tr.selected').data()
+    if d != undefined
+      $('#jobmaster_関連Job番号').val d[0]
+      $('.hint-job-refer').val d[1]
+      $('#jobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
+      $('#jobmaster_関連Job番号').closest('.form-group').removeClass 'has-error'
+
+  $('#user_refer_sentaku_ok').click ->
+    d = oShain_modal.row('tr.selected').data()
+    if d != undefined
+      $('#jobmaster_入力社員番号').val d[0]
+      $('.hint-shain-refer').val d[1]
+      $('#jobmaster_入力社員番号').closest('.form-group').find('span.help-block').remove()
+      $('#jobmaster_入力社員番号').closest('.form-group').removeClass 'has-error'
+
+  $('#kaisha_sentaku_ok').click ->
+    d = oKaisha_modal.row('tr.selected').data()
+    if d != undefined
+      $('#jobmaster_ユーザ番号').val d[0]
+      $('#jobmaster_ユーザ名').val d[1]
+      $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
+      $('#jobmaster_ユーザ番号').closest('.form-group').removeClass 'has-error'
+    

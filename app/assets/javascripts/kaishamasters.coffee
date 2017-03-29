@@ -1,5 +1,5 @@
 jQuery ->
-  oTable = $('.kaishatable').DataTable({
+  oKaishaTable = $('.kaishatable').DataTable({
     "dom": 'lBfrtip',
     "pagingType": "simple_numbers"
     ,"oLanguage":{
@@ -33,9 +33,9 @@ jQuery ->
             {
               "extend": 'selectAll',
               "action": ( e, dt, node, config ) ->
-                oTable.$('tr').addClass('selected')
-                oTable.$('tr').addClass('success')
-                selects = oTable.rows('tr.selected').data()
+                oKaishaTable.$('tr').addClass('selected')
+                oKaishaTable.$('tr').addClass('success')
+                selects = oKaishaTable.rows('tr.selected').data()
                 if selects.length == 0
                   $("#edit_kaisha").attr("disabled", true);
                   $("#destroy_kaisha").attr("disabled", true);
@@ -54,9 +54,9 @@ jQuery ->
             {
               "extend": 'selectNone',
               "action": ( e, dt, node, config ) ->
-                oTable.$('tr').removeClass('selected')
-                oTable.$('tr').removeClass('success')
-                selects = oTable.rows('tr.selected').data()
+                oKaishaTable.$('tr').removeClass('selected')
+                oKaishaTable.$('tr').removeClass('success')
+                selects = oKaishaTable.rows('tr.selected').data()
                 if selects.length == 0
                   $("#edit_kaisha").attr("disabled", true);
                   $("#destroy_kaisha").attr("disabled", true);
@@ -99,7 +99,7 @@ jQuery ->
 
 
   $('.kaishatable').on( 'click', 'tr',  () ->
-    d = oTable.row(this).data()
+    d = oKaishaTable.row(this).data()
     if d != undefined
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
@@ -107,14 +107,14 @@ jQuery ->
         # $("#edit_kaisha").attr("disabled", true);
         # $("#destroy_kaisha").attr("disabled", true);
       else
-        # oTable.$('tr.selected').removeClass('selected')
-        # oTable.$('tr.success').removeClass('success')
+        # oKaishaTable.$('tr.selected').removeClass('selected')
+        # oKaishaTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')       
         #$("#edit_kaisha").attr("disabled", true);
         # $("#edit_kaisha").attr("disabled", false);
         # $("#destroy_kaisha").attr("disabled", false);
-    selects = oTable.rows('tr.selected').data()
+    selects = oKaishaTable.rows('tr.selected').data()
     if selects.length == 0
       $("#edit_kaisha").attr("disabled", true);
       $("#destroy_kaisha").attr("disabled", true);
@@ -130,7 +130,7 @@ jQuery ->
   )
 
   $('#destroy_kaisha').click () ->
-    kaishas = oTable.rows('tr.selected').data()
+    kaishas = oKaishaTable.rows('tr.selected').data()
     kaishaIds = new Array();
     if kaishas.length == 0
       swal($('#message_confirm_select').text())
@@ -164,7 +164,7 @@ jQuery ->
             swal("削除されました!", "", "success");
             if data.destroy_success != null
               console.log("getAjax destroy_success:"+ data.destroy_success)
-              oTable.rows('tr.selected').remove().draw()
+              oKaishaTable.rows('tr.selected').remove().draw()
             else
               console.log("getAjax destroy_success:"+ data.destroy_success)
 
@@ -179,7 +179,7 @@ jQuery ->
       ,(dismiss) ->
         if dismiss == 'cancel'
 
-          selects = oTable.rows('tr.selected').data()
+          selects = oKaishaTable.rows('tr.selected').data()
           if selects.length == 0
             $("#edit_kaisha").attr("disabled", true);
             $("#destroy_kaisha").attr("disabled", true);
@@ -200,7 +200,7 @@ jQuery ->
         $('.help-block', $(this)).html('')
         $(this).removeClass('has-error')
   $('#edit_kaisha').click () ->      
-    kaisha = oTable.row('tr.selected').data()
+    kaisha = oKaishaTable.row('tr.selected').data()
     $('.form-group.has-error').each () ->
       $('.help-block', $(this)).html('')
       $(this).removeClass('has-error')
