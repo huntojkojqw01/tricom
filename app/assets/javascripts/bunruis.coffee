@@ -196,6 +196,13 @@ jQuery ->
 
   $('#edit_bunrui').click () ->
     bunrui_id = oTable.row('tr.selected').data()
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+    if bunrui_id == undefined
+      swal("行を選択してください。")
+    else
     $('#bunrui-edit-modal').modal('show')
     $('#bunrui_分類コード').val(bunrui_id[0])
     $('#bunrui_分類名').val(bunrui_id[1])

@@ -1,8 +1,16 @@
+
 = simple_form_for @joutaimaster do |f|
   .row
     .col-md-3.col-xs-9.col-sm-6.col-lg-3.col-md-offset-2.col-xs-offset-1.col-sm-offset-1.col-lg-offset-2
-      = f.input :状態コード if mode == :new
-      = f.input :状態名
+      - if (mode == :new)
+        = f.input "状態コード" do
+          = f.input_field :状態コード, class: 'form-control' 
+          .span.help-block
+      
+      = f.input "状態名" do
+        = f.input_field :状態名, class: 'form-control'
+        .span.help-block
+
       = f.input :状態区分
       = f.input :勤怠状態名
       = f.input :マーク

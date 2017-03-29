@@ -88,7 +88,7 @@ class BunruisController < ApplicationController
       if  @bunrui.save
         format.js { render 'create_bunrui'}
       else
-        format.js { render json: @bunruis.errors, status: :unprocessable_entity}
+        format.js { render json: @bunrui.errors, status: :unprocessable_entity}
       end
     end
     end
@@ -101,7 +101,7 @@ class BunruisController < ApplicationController
       if  @bunrui.update(bunrui_params)
         format.js { render 'update_bunrui'}
       else
-        format.js { render json: @bunruis.errors, status: :unprocessable_entity}
+        format.js { render json: @bunrui.errors, status: :unprocessable_entity}
       end
     end
   end

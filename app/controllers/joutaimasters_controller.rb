@@ -3,7 +3,7 @@ class JoutaimastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :set_joutaimaster, only: [:show, :edit, :update, :destroy]
   load_and_authorize_resource except: :export_csv
-  respond_to :js
+ 
 
   def index
     @joutaimasters = Joutaimaster.all
@@ -23,17 +23,27 @@ class JoutaimastersController < ApplicationController
 
   def create
     @joutaimaster = Joutaimaster.new(joutaimaster_params)
-
-    flash[:notice] = t "app.flash.new_success" if @joutaimaster.save
-    redirect_to joutaimasters_path
-
+    respond_to do |format|
+      if  @joutaimaster.save
+        format.html { respond_with @joutaimaster, location: joutaimasters_url, notice: (t "app.flash.new_success") }
+        format.json { render :show, status: :created, location: @joutaimaster } 
+      else
+        format.html { render :new }
+        format.js { render json: @joutaimaster.errors, status: :unprocessable_entity}
+      end
+    end
   end
 
   def update
-
-    flash[:notice] = t "app.flash.update_success" if @joutaimaster.update joutaimaster_params_for_update
-    redirect_to joutaimasters_path
-
+  respond_to do |format|
+      if @joutaimaster.update joutaimaster_params_for_update
+        format.html { respond_with @joutaimaster, location: joutaimasters_url, notice: (t "app.flash.update_success") }
+        format.json { render :show, status: :ok, location: @joutaimaster }
+      else
+        format.html { render :edit }
+        format.js { render json: @joutaimaster.errors, status: :unprocessable_entity}
+      end
+    end
   end
 
   def destroy
@@ -50,7 +60,6 @@ class JoutaimastersController < ApplicationController
         format.js { render json: @joutai.errors, status: :unprocessable_entity}
       end
     end
-
   end
 
   def update_joutai

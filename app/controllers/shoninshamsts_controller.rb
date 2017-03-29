@@ -88,7 +88,7 @@ class ShoninshamstsController < ApplicationController
     end
   end
 
-    def create_shonin
+  def create_shonin
     @shoninshamst = Shoninshamst.new(shoninshamst_params)
     respond_to do |format|
       if  @shoninshamst.save
@@ -106,6 +106,6 @@ class ShoninshamstsController < ApplicationController
     end
 
     def shoninshamst_params
-      params.require(:shoninshamst).permit(:申請者, :承認者, :順番)
+      params.require(:shoninshamst).permit(:id, :申請者, :承認者, :順番)
     end
 end
