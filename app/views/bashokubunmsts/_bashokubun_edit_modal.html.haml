@@ -6,7 +6,7 @@
         %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
         = simple_form_for (Bashokubunmst.new), url: update_bashokubunmst_bashokubunmsts_path, :remote => true, html: {role: :form, 'data-model' => 'bashokubunmst'} do |f| 
-          = f.input :場所区分コード, label: "場所区分コード", class: 'form-control'
+          = f.hidden_field :場所区分コード
           = f.input "場所区分名" do
             = f.input_field :場所区分名, class: 'form-control'
             .span.help-block

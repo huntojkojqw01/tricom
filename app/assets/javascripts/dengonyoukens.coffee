@@ -5,14 +5,15 @@ jQuery ->
   oTable = $('.dengonyoukentable').DataTable({
     "dom": 'lBfrtip',
     "pagingType": "full_numbers"
-    , "oLanguage": {
+    ,"oLanguage": {
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "columnDefs": [ {
-      "targets"  : 'no-sort',
-      "orderable": false
-    }]
+    "columnDefs": [             {
+                "targets": [ 3 ],
+                "visible": false,
+                "searchable": false
+            }]
     ,"oSearch": {"sSearch": queryParameters().search},
     "buttons": [{
                 "extend":    'copyHtml5',
@@ -93,6 +94,7 @@ jQuery ->
       $('.help-block', $(this)).html('');
       $(this).removeClass('has-error');
     );
+
   $('.dengonyoukentable').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
@@ -197,7 +199,15 @@ jQuery ->
 
   $('#edit_dengonyouken').click () ->
     dengonyouken_id = oTable.row('tr.selected').data()
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+    if dengonyouken_id == undefined
+      swal("行を選択してください。")
+    else
     $('#dengonyouken-edit-modal').modal('show')
     $('#dengonyouken_種類名').val(dengonyouken_id[0])
     $('#dengonyouken_備考').val(dengonyouken_id[1])
     $('#dengonyouken_優先さ').val(dengonyouken_id[2])
+    $('#dengonyouken_id').val(dengonyouken_id[3])

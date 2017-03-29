@@ -89,20 +89,20 @@ class DengonyoukensController < ApplicationController
       if  @dengonyouken.save
         format.js { render 'create_dengonyouken'}
       else
-        format.js { render json: @dengonyoukens.errors, status: :unprocessable_entity}
+        format.js { render json: @dengonyouken.errors, status: :unprocessable_entity}
       end
     end
     end
 
   def update_dengonyouken
-    @dengonyouken = Dengonyouken.find_by(種類名: dengonyouken_params[:種類名])
+    @dengonyouken = Dengonyouken.find_by(id: dengonyouken_params[:id])
     # @eki.update(eki_params)
     # redirect_to ekis_path
     respond_to do |format|
       if  @dengonyouken.update(dengonyouken_params)
         format.js { render 'update_dengonyouken'}
       else
-        format.js { render json: @dengonyoukens.errors, status: :unprocessable_entity}
+        format.js { render json: @dengonyouken.errors, status: :unprocessable_entity}
       end
     end
   end
@@ -113,6 +113,6 @@ class DengonyoukensController < ApplicationController
     end
 
     def dengonyouken_params
-      params.require(:dengonyouken).permit(:種類名, :備考, :優先さ)
+      params.require(:dengonyouken).permit(:種類名, :備考, :優先さ, :id)
     end
 end

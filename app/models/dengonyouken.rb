@@ -2,12 +2,13 @@ class Dengonyouken < ActiveRecord::Base
   self.table_name = :伝言用件マスタ
   include PgSearch
   multisearchable :against => %w{種類名 備考}
+  validates :種類名, presence: true
+  validates :種類名, uniqueness: true
+  validates :優先さ,   inclusion: {in: proc{Yuusen.pluck(:優先さ)}}, allow_blank: false
   belongs_to :yuusen, foreign_key: :優先さ
 
-  validates :種類名, presence: true
-  delegate :優先さ, to: :yuusen, allow_nil: true
 
-  # a class method import, with file passed through as an argument
+  delegate :優先さ, to: :yuusen, allow_nil: true
   def self.import(file)
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|

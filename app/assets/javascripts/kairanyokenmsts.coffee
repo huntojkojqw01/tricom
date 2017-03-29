@@ -195,6 +195,7 @@ jQuery ->
       $('.help-block', $(this)).html('');
       $(this).removeClass('has-error');
     );
+    
   $('#edit_kairanyouken').click () ->
     kairanyouken_id = oTable.row('tr.selected').data()
     $('.form-group.has-error').each( () ->

@@ -10,7 +10,7 @@
       %th= (t 'title.shuruimei')
       %th= (t 'title.bikou')
       %th= (t 'title.yuusensa')
-
+      %th id
 
   %tbody
     - @dengonyoukens.each do |dengonyouken|
@@ -18,7 +18,7 @@
         %td= dengonyouken.種類名
         %td= dengonyouken.備考
         %td= dengonyouken.優先さ
-
+        %td= dengonyouken.id
 
 %br
 

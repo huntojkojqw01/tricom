@@ -8,12 +8,7 @@ jQuery ->
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
-    ,"oSearch": {"sSearch": queryParameters().search}
-    ,
-    "columnDefs": [ {
-      "targets"  : 'no-sort',
-      "orderable": false
-    }],
+    ,"oSearch": {"sSearch": queryParameters().search},
     "buttons": [{
                 "extend":    'copyHtml5',
                 "text":      '<i class="fa fa-files-o"></i>',
@@ -196,6 +191,13 @@ jQuery ->
 
   $('#edit_bashokubunmst').click () ->
     bashokubunmst_id = oTable.row('tr.selected').data()
+    $('.form-group.has-error').each( () ->
+      $('.help-block', $(this)).html('');
+      $(this).removeClass('has-error');
+    );
+    if bashokubunmst_id == undefined
+      swal("行を選択してください。")
+    else
     $('#bashokubunmst-edit-modal').modal('show')
     $('#bashokubunmst_場所区分コード').val(bashokubunmst_id[0])
     $('#bashokubunmst_場所区分名').val(bashokubunmst_id[1])
