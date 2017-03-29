@@ -6,10 +6,13 @@
         %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
         = simple_form_for (Dengonyouken.new), url: update_dengonyouken_dengonyoukens_path, :remote => true, html: {role: :form, 'data-model' => 'dengonyouken'} do |f| 
-          = f.input :種類名, label: "種類名", class: 'form-control'
-          = f.input "備考" do
-            = f.input_field :備考, class: 'form-control'
+          = f.hidden_field :id
+          = f.input :種類名, label: "種類名" do
+            = f.input_field :種類名, class: 'form-control'
             .span.help-block
-          = f.input "優先さ" do
+          = f.input :備考 do
+            = f.input_field :備考, class: 'form-control'
+          = f.input :優先さ do
             = f.number_field :優先さ, class: 'form-control'
+            .span.help-block
           = f.button :submit, class: 'btn btn-primary'

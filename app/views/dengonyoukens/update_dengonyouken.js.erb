@@ -3,5 +3,5 @@ $(".dengonyoukentable").dataTable().fnDeleteRow($('.dengonyoukentable').find('tr
 $(".dengonyoukentable").dataTable().fnDraw()
 
  var table = $('.dengonyoukentable').DataTable();
- table.row.add( ["<%=@dengonyouken.種類名%>","<%=@dengonyouken.備考%>","<%=@dengonyouken.優先さ%>"] ).draw( false );
+ table.row.add( ["<%=@dengonyouken.種類名%>","<%=@dengonyouken.備考%>","<%=@dengonyouken.優先さ%>","<%=@dengonyouken.id%>"] ).draw( false );
 

@@ -89,7 +89,7 @@ class BashokubunmstsController < ApplicationController
       if  @bashokubunmst.save
         format.js { render 'create_bashokubun'}
       else
-        format.js { render json: @bashokubunmsts.errors, status: :unprocessable_entity}
+        format.js { render json: @bashokubunmst.errors, status: :unprocessable_entity}
       end
     end
     end
@@ -102,7 +102,7 @@ class BashokubunmstsController < ApplicationController
       if  @bashokubunmst.update(bashokubunmst_params)
         format.js { render 'update_bashokubun'}
       else
-        format.js { render json: @bashokubunmsts.errors, status: :unprocessable_entity}
+        format.js { render json: @bashokubunmst.errors, status: :unprocessable_entity}
       end
     end
   end

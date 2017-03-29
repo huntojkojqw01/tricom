@@ -9,13 +9,14 @@
     %tr
       %th= (t 'title.shuruimei')
       %th= (t 'title.bikou')
-
+      %th id
 
   %tbody
     - @dengonkaitous.each do |dengonkaitou|
       %tr
         %td= dengonkaitou.種類名
         %td= dengonkaitou.備考
+        %td= dengonkaitou.id
 
 
 %br

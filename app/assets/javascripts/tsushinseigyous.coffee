@@ -10,12 +10,6 @@ jQuery ->
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,"oSearch": {"sSearch": queryParameters().search},
-    "columnDefs": [
-            {
-                "targets": [ 0 ],
-                "visible": false,
-                "searchable": false
-            }],
     "buttons": [{
                 "extend":    'copyHtml5',
                 "text":      '<i class="fa fa-files-o"></i>',

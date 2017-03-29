@@ -3,6 +3,7 @@ class Kairanyokenmst < ActiveRecord::Base
   include PgSearch
   multisearchable :against => %w{名称 備考}
   validates :名称, presence: true
+  validates :名称, uniqueness: true
   validates :優先さ,   inclusion: {in: proc{Yuusen.pluck(:優先さ)}}, allow_blank: false
   belongs_to :yuusen, foreign_key: :優先さ
 
