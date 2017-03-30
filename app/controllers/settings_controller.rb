@@ -118,7 +118,11 @@ class SettingsController < ApplicationController
       end
     when 'select_holiday_vn'
       @setting = Setting.where(社員番号: session[:user]).first
-      @setting.select_holiday_vn = params[:select_holiday_vn]
+      if params[:select_holiday_vn] == "true"
+        @setting.select_holiday_vn = "1"
+      else
+        @setting.select_holiday_vn = "0"
+      end
       @setting.save()
       respond_to do |format|
         format.json {render json: @setting}
