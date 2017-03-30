@@ -50,7 +50,6 @@ class SettingsController < ApplicationController
         flash[:notice] = t "app.flash.update_success" if @setting.update(setting_params)
         respond_with(@setting, location: settings_url)
     end
-
   end
 
   def destroy
@@ -102,6 +101,36 @@ class SettingsController < ApplicationController
         format.json { render json: data}
       end
     end
+    case params[:setting]
+    when 'setting_scrolltime'
+      @setting = Setting.where(社員番号: session[:user]).first
+      @setting.scrolltime = params[:scrolltime]
+      @setting.save()
+      respond_to do |format|
+        format.json {render json: @setting}
+      end
+    when 'setting_local'
+      @setting = Setting.where(社員番号: session[:user]).first
+      @setting.local = params[:local]
+      @setting.save()
+      respond_to do |format|
+        format.json {render json: @setting}
+      end
+    when 'select_holiday_vn'
+      @setting = Setting.where(社員番号: session[:user]).first
+      @setting.select_holiday_vn = params[:select_holiday_vn]
+      @setting.save()
+      respond_to do |format|
+        format.json {render json: @setting}
+      end
+    when 'turning_data'
+      @setting = Setting.where(社員番号: session[:user]).first
+      @setting.turning_data = params[:turning_data]
+      @setting.save()
+      respond_to do |format|
+        format.json {render json: @setting}
+      end
+    end 
   end
 
   private
