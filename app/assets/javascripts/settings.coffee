@@ -190,3 +190,40 @@ jQuery ->
   $('#edit_setting').click () ->
     setting_id = oTable.row('tr.selected').data()
     window.location = '/settings/' + setting_id[0] + '/edit?'
+
+  $('#setting_scrolltime').change ->
+    scrolltime = $('#setting_scrolltime').val()
+    select_holiday_vn = $('#setting_select_holiday_vn').val()
+    $.ajax
+      type: 'POST'
+      url: '/settings/ajax'
+      data: {setting: "setting_scrolltime" ,scrolltime: scrolltime}
+      success: (data) ->
+        console.log data
+
+  $('#setting_local').change ->
+    local = $('#setting_local').val()
+    $.ajax
+      type: 'POST'
+      url: '/settings/ajax'
+      data: {setting: "setting_local" ,local: local}
+      success: (data) ->
+        console.log data
+        location.reload()
+
+
+  $('#setting_select_holiday_vn').change ->
+    $.ajax
+      type: 'POST'
+      url: '/settings/ajax'
+      data: {setting: "select_holiday_vn" ,select_holiday_vn: @checked}
+      success: (data) ->
+        console.log data
+
+  $('#setting_turning_data').change ->
+    $.ajax
+      type: 'POST'
+      url: '/settings/ajax'
+      data: {setting: "turning_data" ,turning_data: @checked}
+      success: (data) ->
+        console.log data
