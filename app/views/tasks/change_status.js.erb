@@ -1,0 +1,11 @@
+
+$('#task<%=@task.id%>').remove();
+done = '<%=@task.done%>'
+if(done == '1'){
+  $('.finished').append("<%= j render @task%>");
+  $('#task<%=@task.id%> .best_in_place').best_in_place();
+}
+else{
+  $('.unfinished').append("<%= j render @task%>");
+  $('#task<%=@task.id%> .best_in_place').best_in_place();
+}

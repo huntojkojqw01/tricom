@@ -9,7 +9,19 @@ set_positions = function(){
 }
 
 ready = function(){
-
+    jQuery(".best_in_place").best_in_place();
+    // var old_value;
+    // $(document).on('change', '.title-edit', function (e) {
+    //     console.log(e.target.value);
+    //     old_value = e.target.value;
+    //     // $(e.target).data('bipOriginalContent', old_value);
+    // });
+    // $(document).on('ajax:error', '.title-edit', function (e) {
+    //     alert("test")
+    //     console.log(e);
+    //     e.target.innerHTML = old_value;
+    //     $(e.target).data('bipOriginalContent', old_value);
+    // });
     // call set_positions function
     set_positions();
 
