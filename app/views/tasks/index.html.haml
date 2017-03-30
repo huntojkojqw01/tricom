@@ -7,14 +7,14 @@
 %button.btn.btn-primary#new_task{type: :button}#{t 'title.new'}
 
 .row
-  .col-md-5.col-md-offset-1.sortable
+  .col-md-5.col-md-offset-1.sortable.unfinished
 
     %font{:size => "6"}=(t 'title.unfinished')
     - @tasks = Task.where(done: 0)
     = render @tasks
 
 
-  .col-md-5.col-md-offset-0.sortable
+  .col-md-5.col-md-offset-0.sortable.finished
     %font{:size => "6"}=(t 'title.finished')
     - @tasks = Task.where(done: 1)
     = render @tasks

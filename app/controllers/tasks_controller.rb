@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html, :js
+  respond_to :html, :json
 
   def index
     @tasks = Task.all
@@ -55,6 +55,29 @@ class TasksController < ApplicationController
     elsif (params[:decision] == "false")
       @task.update(done: 0)
       respond_with(@task, location: tasks_url)
+    end
+  end
+  def ajax
+    case params[:focus_field]
+      when 'task_削除する'
+        task = Task.find(params[:task_id])
+        task.destroy if task
+
+        data = {destroy_success: "success"}
+        respond_to do |format|
+          format.json { render json: data}
+        end
+      when 'change_status'
+        @task = Task.find(params[:task_id])
+        if (@task.done == 0)
+          @task.update(done: 1)
+        elsif (@task.done == 1)
+          @task.update(done: 0)
+        end
+
+        respond_to do |format|
+          format.js { render 'change_status'}
+        end
     end
   end
   private
