@@ -5,14 +5,25 @@
 jQuery ->
 
   $('#new_task').click () ->
-    $('#task-new-modal').modal('show')
-    $('#task_title').val('')
-    $('#task_description').val('')
-    $('.form-group.has-error').each( () ->
-      $('.help-block', $(this)).html('');
-      $(this).removeClass('has-error');
-    );
+    # $('#task-new-modal').modal('show')
+    # $('#task_title').val('')
+    # $('#task_description').val('')
+    # $('.form-group.has-error').each( () ->
+    #   $('.help-block', $(this)).html('');
+    #   $(this).removeClass('has-error');
+    # );
+    $.ajax({
+      url: '/tasks/ajax',
+      data:{
+        focus_field: 'task_create',
+      },
+      type: "POST",
+      success: (data) ->
+        console.log("Successful");
+      failure: () ->
+        console.log("Unsuccessful");
 
+    })
   $('#edit_task').click () ->
     $('#task-edit-modal').modal('show')
 

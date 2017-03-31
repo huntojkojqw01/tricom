@@ -31,13 +31,18 @@
             %span.caret
           %ul.dropdown-menu
             %li= link_to raw("<i class='glyphicon glyphicon-question-sign' style='margin-right:1em;'></i>"+(t 'title.help')), helps_path
-      .search-group.col-md-2.col-xs-6.col-sm-4.col-lg-2
-        .input-group.search-field
-          %span.input-group-addon.search-icon#search_icon
-            %span.glyphicon.glyphicon-search{"aria-hidden" => "true"}
-          %input{type: "text", class: "form-control search-input",id: :search_field, name: :search_field,}
+
 
       %ul.nav.navbar-nav.navbar-right
+        .search-group-select.col-md-2.col-xs-8.col-sm-6.col-lg-2
+          .margin-center
+            %span.glyphicon.glyphicon-search#search_select{"aria-hidden" => "true"}
+        .search-group.col-md-6.col-xs-10.col-sm-8.col-lg-6{"hidden" => "true"}
+          .input-group.search-field
+            %span.input-group-addon.search-icon#search_icon
+              %span.glyphicon.glyphicon-search{"aria-hidden" => "true"}
+            %input{type: "text", class: "form-control search-input",id: :search_field, name: :search_field}
+
         - if current_user
           - kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
           - dengons = Dengon.where(社員番号: session[:user], 確認: false)

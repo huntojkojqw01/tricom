@@ -224,25 +224,38 @@ $(document).ready(function() {
 
 $(document).on('click', function (e) {
     var $menu = $('#search_field');
+    var $search_select = $('#search_select');
+    var search_value = $('#search_field').val();
+
     // If element is opened and click target is outside it, hide it
-    if ($menu.is(':visible') && !$menu.is(e.target) && !$menu.has(e.target).length) {
-      $('.search-group').removeClass('col-md-4 col-xs-10 col-sm-8 col-lg-4');
-      $('.search-group').addClass('col-md-2 col-xs-6 col-sm-4 col-lg-2');
+    if ($menu.is(':visible') && !$menu.is(e.target) && !$menu.has(e.target).length&& !$search_select.is(e.target) && !$search_select.has(e.target).length&&search_value=='') {
+      // $('.search-group').removeClass('col-md-6 col-xs-10 col-sm-8 col-lg-6');
+      // $('.search-group').addClass('col-md-4 col-xs-8 col-sm-6 col-lg-4');
+      $('.search-group').attr('hidden','true');
+      $('.search-group-select').removeAttr('hidden');
 
     }
 });
 $(function(){
+
   $("#search_icon").click(function(){
-    location.href = "/main/search?search="+$("#search_field").val()
+    // location.href = "/main/search?search="+$("#search_field").val()
+    $('.search-group').attr('hidden','true');
+    $('.search-group-select').removeAttr('hidden');
   });
-  $("#search_field").click(function(){
-    $('.search-group').removeClass('col-md-2 col-xs-6 col-sm-4 col-lg-2');
-    $('.search-group').addClass('col-md-4 col-xs-10 col-sm-8 col-lg-4');
-  });
+  // $("#search_field").click(function(){
+  //   $('.search-group').removeClass('col-md-4 col-xs-8 col-sm-6 col-lg-4');
+  //   $('.search-group').addClass('col-md-6 col-xs-10 col-sm-8 col-lg-6');
+  // });
   $('#search_field').keydown( function(e) {
     if (e.keyCode == 13) {
       location.href = "/main/search?search="+$("#search_field").val()
     }
+  });
+  $("#search_select").click(function(){
+    $('.search-group').removeAttr('hidden');
+    $('.search-group-select').attr('hidden','true');
+    $("#search_field").focus();
   });
 });
 //Override the default confirm dialog by rails

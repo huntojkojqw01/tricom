@@ -21,7 +21,7 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-       respond_to do |format|
+    respond_to do |format|
       if  @task.save
         format.js { render 'create_task'}
       else
@@ -77,6 +77,15 @@ class TasksController < ApplicationController
 
         respond_to do |format|
           format.js { render 'change_status'}
+        end
+      when 'task_create'
+        @task = Task.new(title: "タイトル")
+        respond_to do |format|
+          if  @task.save
+            format.js { render 'create_task'}
+          else
+            format.js { render json: @task.errors, status: :unprocessable_entity}
+          end
         end
     end
   end

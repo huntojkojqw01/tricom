@@ -38,12 +38,17 @@
 .search-field{
   margin-top: 10px;
 }
+.margin-center{
+  margin-top: 14px;
+}
 .search-icon{
   background-color: rgb(255, 255, 255);
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
 }
-
+/*.search-group .input-group .form-control {
+  width: 0px;
+}*/
 .search-input{
   border-left-width: 0;
   border-bottom-right-radius: 20px;
@@ -187,7 +192,7 @@ body { padding-top: 70px; }
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 2000 !important; 
+  z-index: 2000 !important;
   float: left;
   display: none;
   min-width: 160px;

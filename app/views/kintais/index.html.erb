@@ -11,7 +11,7 @@
 <%= form_for :kintai, url: kintais_path, html: {class:'form-inline'}, method: :get do |f|%>
 <%= render 'header', f:f %>
 <table  id="kintai-table" class="table  table-bordered table-hover table-height" cellspacing="0" >
-  <thead>
+  <thead class="custom-background">
   <tr>
     <th rowspan="2">日付</th>
     <th rowspan="2">曜日</th>
@@ -106,11 +106,11 @@
           <%end%>
 
           <td id= "taishajikoku_picker_<%= kintai.id %>" style="display:none;">
-            <div class="input-group time">              
+            <div class="input-group time">
               <input  id= "taishajikoku<%= kintai.id %>" type="text" class="form-control input-time" value= <%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %>> <!-- div class="input-group-addon">
                   <span class="glyphicon glyphicon-time"></span>
-              </div> -->             
-              
+              </div> -->
+
             </div>
           </td>
           <td class='kintai-item' style="white-space: pre" id="jitsuroudou<%= kintai.id %>"><%= best_in_place kintai, :実労働時間, :as => :input, activator: '#jitsuroudou' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder4%></td>
