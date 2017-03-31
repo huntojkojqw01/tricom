@@ -46,9 +46,24 @@
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
 }
-/*.search-group .input-group .form-control {
-  width: 0px;
-}*/
+.search-group{
+  width: 500px;
+}
+.link-top {
+
+    background-repeat: no-repeat;
+    border: medium none;
+    bottom: 20px;
+    cursor: pointer;
+    display: none;
+
+    outline: medium none;
+    padding: 0;
+    position: fixed;
+    right: 20px;
+
+    z-index: 9999;
+}
 .search-input{
   border-left-width: 0;
   border-bottom-right-radius: 20px;

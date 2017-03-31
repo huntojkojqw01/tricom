@@ -156,6 +156,22 @@ $(document).on('ready', function() {
   });
 
   }, 6000);
+
+  if($(".link-top").length > 0){
+    $(window).scroll(function () {
+      var e = $(window).scrollTop();
+      if (e > 300) {
+        $(".link-top").show()
+      } else {
+        $(".link-top").hide()
+      }
+    });
+    $(".link-top").click(function () {
+      $('body,html').animate({
+        scrollTop: 0
+      })
+    })
+  }
 });
 
 $(document).ready(function() {
@@ -176,6 +192,7 @@ $(document).ready(function() {
             "sUrl": $path
         }
     });
+
 });
 //get param from Url
 //var roru = getUrlVars()["roru"];
