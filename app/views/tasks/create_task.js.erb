@@ -1,4 +1,3 @@
- $('#task-new-modal').modal('hide');
-
 $('.unfinished').append("<%= j render @task%>")
 $('#task<%=@task.id%> .best_in_place').best_in_place();
+$('#best_in_place_task_<%=@task.id%>_title').trigger('click');
