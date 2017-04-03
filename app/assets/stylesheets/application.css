@@ -24,6 +24,9 @@
 
  *= require sweetalert2
 */
+.float-right >li{
+  float: right;
+}
 .colorpicker {
   z-index: 9999;
 }
@@ -46,7 +49,7 @@
   border-bottom-left-radius: 20px;
   border-top-left-radius: 20px;
 }
-.search-group{
+.search-group-nav{
   width: 500px;
 }
 .link-top {
