@@ -21,7 +21,7 @@
  *= require chat
  * require_tree .
  * require_self
-
+ *= require dropzone
  *= require sweetalert2
 */
 .float-right >li{
@@ -163,8 +163,11 @@
   height: 34px;
   border: solid 1px #ccc;
   border-radius: 5px;
-  padding: 9px;
-
+  padding-bottom: 6px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 6px;
+  margin-bottom: 15px;
 }
 /*.radio_buttons{
   width: 100%;

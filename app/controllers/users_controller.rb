@@ -60,7 +60,7 @@ class UsersController < ApplicationController
       params[:users].each {|user_code|
         user=User.find(user_code)
         user.destroy if user
-      }            
+      }
       data = {destroy_success: "success"}
       respond_to do |format|
         format.json { render json: data}
