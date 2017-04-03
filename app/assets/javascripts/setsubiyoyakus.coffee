@@ -72,7 +72,7 @@ jQuery ->
   $('#kaisha_sentaku_ok').on 'click', ->
     d = oKaishaTable.row('tr.selected').data()
     $('#setsubiyoyaku_相手先').val d[0]
-    $('#kaisha-name').text d[1]    
+    $('.hint-kaisha-refer').text(d[1])    
   $('.refer-kaisha').click ->
     $('#kaisha-search-modal').modal 'show'
     if $('#setsubiyoyaku_相手先').val() != ''
