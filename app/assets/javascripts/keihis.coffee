@@ -153,7 +153,7 @@ jQuery ->
     event.preventDefault
 
   $(document).on 'click', '.atesaki-search', (event) ->
-    $('#kaisha-search-modal').modal('show')
+    $('#kaisha-search-modal').modal('show')    
     event.preventDefault()
 
   $(document).on 'click', '.job-search', (event) ->
@@ -292,6 +292,19 @@ jQuery ->
     $('.shonin').val(d[1])     
   $(document).on 'click', '.shonin-search', (event) ->
     $('#shonin-search-modal').modal('show')
+    tmp = $('.shonin')
+    if tmp.val() != ''
+      oShonin_search_modal.rows().every (rowIdx, tableLoop, rowLoop) ->
+        data = undefined
+        data = @data()
+        if data[1] == tmp.val()
+          oShonin_search_modal.$('tr.selected').removeClass 'selected'
+          oShonin_search_modal.$('tr.success').removeClass 'success'
+          @nodes().to$().addClass 'selected'
+          return @nodes().to$().addClass('success')
+        return
+      oShonin_search_modal.page.jumpToData tmp.val(), 1
+      $('#shonin_sentaku_ok').attr 'disabled', false      
     event.preventDefault()
 
   oShonin_table = $('.shonin-table').DataTable({

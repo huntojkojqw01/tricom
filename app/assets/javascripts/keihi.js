@@ -236,15 +236,19 @@ $(function(){
     });
 
     $('#clear_job').click(function () {
-        $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
+        //$('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
         oJob_search_modal.$('tr.selected').removeClass('selected');
         oJob_search_modal.$('tr.success').removeClass('success');
+        $('#clear_job').attr("disabled", true);
+        $('#job_sentaku_ok').attr("disabled", true);
     } );
     $('#clear_event').click(function () {
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
         oEvent_sanshou_modal.$('tr.selected').removeClass('selected');
         oEvent_sanshou_modal.$('tr.success').removeClass('success');
+        // $('#clear_event').attr("disabled", true);
+        // $('#event_sentaku_ok').attr("disabled", true);
     } );
 
     $('#clear_myjob').click(function () {
@@ -338,10 +342,12 @@ $(function(){
         // $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('')
         oKaisha_search_modal.$('tr.selected').removeClass('selected');
         oKaisha_search_modal.$('tr.success').removeClass('success');
+        $('#clear_kaisha').attr("disabled", true);
+        $('#kaisha_sentaku_ok').attr("disabled", true);
     } );
 
     $('#clear_mykaisha').click(function () {
-        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
+        //$('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
         oMykaishaTable.$('tr.selected').removeClass('selected');
         oMykaishaTable.$('tr.success').removeClass('success');
         $("#mykaisha_destroy").attr("disabled", true);
@@ -463,7 +469,23 @@ $(document).on('click', '.event_sanshou', function(event){
 });
 $(document).on('click', '.keihihead_keihibodies_JOB .search-field', function(event){
 
-    $('#job_search_modal').modal('show')
+    $('#job_search_modal').modal('show');
+    var tmp=$(this).closest('div').find('input');
+    if (tmp.val() != '') {        
+        oJob_search_modal.rows().every(function(rowIdx, tableLoop, rowLoop) {
+          var data;
+          data = this.data();
+          if (data[0] == tmp.val()) {
+            oJob_search_modal.$('tr.selected').removeClass('selected');
+            oJob_search_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected');
+            return this.nodes().to$().addClass('success');
+          }
+        });
+        oJob_search_modal.page.jumpToData(tmp.val(), 0);
+        $('#job_sentaku_ok').attr('disabled', false);
+        return $('#clear_job').attr('disabled', false);
+    }
     event.preventDefault();
 });
 
@@ -481,8 +503,23 @@ $(document).on('click', '.keihihead_keihibodies_JOB .search-history', function(e
 });
 
 $(document).on('click', '.keihihead_keihibodies_相手先 .search-field', function(event){
-
     $('#kaisha-search-modal').modal('show')
+    var tmp=$(this).closest('div').find('input');
+    if (tmp.val() != '') {        
+        oKaisha_search_modal.rows().every(function(rowIdx, tableLoop, rowLoop) {
+          var data;
+          data = this.data();
+          if (data[1] == tmp.val()) {
+            oKaisha_search_modal.$('tr.selected').removeClass('selected');
+            oKaisha_search_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected');
+            return this.nodes().to$().addClass('success');
+          }
+        });
+        oKaisha_search_modal.page.jumpToData(tmp.val(), 1);
+        $('#kaisha_sentaku_ok').attr('disabled', false);
+        return $('#clear_kaisha').attr('disabled', false);
+    }
     event.preventDefault();
 });
 
@@ -502,6 +539,20 @@ $(document).on('click', '.keihihead_keihibodies_相手先 .search-history', func
 $(document).on('click', '.keihihead_keihibodies_機関名 .search-field', function(event){
 
     $('#kikan-search-modal').modal('show')
+    var tmp=$(this).closest('div').find('input');
+    if (tmp.val() != '') {        
+        oKikan_search_modal.rows().every(function(rowIdx, tableLoop, rowLoop) {
+          var data;
+          data = this.data();
+          if (data[1] == tmp.val()) {
+            oKikan_search_modal.$('tr.selected').removeClass('selected');
+            oKikan_search_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected');
+            return this.nodes().to$().addClass('success');
+          }
+        });
+        oKikan_search_modal.page.jumpToData(tmp.val(), 1);        
+    }
     event.preventDefault();
 });
 
@@ -509,6 +560,20 @@ $(document).on('click', '.keihihead_keihibodies_発 .search-field', function(eve
 
     $('#eki-search-modal').modal('show')
     eki_modal = '1'
+    var tmp=$(this).closest('div').find('input');
+    if (tmp.val() != '') {        
+        oEki_search_modal.rows().every(function(rowIdx, tableLoop, rowLoop) {
+          var data;
+          data = this.data();
+          if (data[1] == tmp.val()) {
+            oEki_search_modal.$('tr.selected').removeClass('selected');
+            oEki_search_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected');
+            return this.nodes().to$().addClass('success');
+          }
+        });
+        oEki_search_modal.page.jumpToData(tmp.val(), 1);        
+    }
     event.preventDefault();
 });
 
@@ -516,5 +581,19 @@ $(document).on('click', '.keihihead_keihibodies_着 .search-field', function(eve
 
     $('#eki-search-modal').modal('show')
     eki_modal = '2'
+    var tmp=$(this).closest('div').find('input');
+    if (tmp.val() != '') {        
+        oEki_search_modal.rows().every(function(rowIdx, tableLoop, rowLoop) {
+          var data;
+          data = this.data();
+          if (data[1] == tmp.val()) {
+            oEki_search_modal.$('tr.selected').removeClass('selected');
+            oEki_search_modal.$('tr.success').removeClass('success');
+            this.nodes().to$().addClass('selected');
+            return this.nodes().to$().addClass('success');
+          }
+        });
+        oEki_search_modal.page.jumpToData(tmp.val(), 1);        
+    }
     event.preventDefault();
 });
