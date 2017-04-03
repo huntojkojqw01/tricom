@@ -190,11 +190,15 @@ jQuery ->
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
+      $('#job_sentaku_ok').attr('disabled',true)
+      $('#clear_job').attr('disabled',true)
     else
       oJob_search_modal.$('tr.selected').removeClass('selected')
       oJob_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
+      $('#job_sentaku_ok').attr('disabled',false)
+      $('#clear_job').attr('disabled',false)
 
   $('#myjob_table tbody').on 'click', 'tr', (event) ->
     d = oMyjobTable.row(this).data()
