@@ -41,32 +41,51 @@ jQuery ->
 
   $('#kaisha-table-modal tbody').on 'click', 'tr', (event) ->
     d = oKaishaTable.row(this).data()
-    $('#setsubiyoyaku_相手先').val(d[0])
-    $('.hint-kaisha-refer').text(d[1])
-    $('#kaisha-name').text(d[1])
+    # $('#setsubiyoyaku_相手先').val(d[0])
+    # $('.hint-kaisha-refer').text(d[1])
+    # $('#kaisha-name').text(d[1])
 
-    if ( $(this).hasClass('selected') )
-      $(this).removeClass('selected')
-      $(this).removeClass('success')
+    if $(this).hasClass('selected')
+      $(this).removeClass 'selected'
+      $(this).removeClass 'success'
+      $('#kaisha_sentaku_ok').attr 'disabled', true
+      $('#clear_kaisha').attr 'disabled', true
+      # $('#setsubiyoyaku_相手先').val ''
+      # $('#kaisha-name').text ''
     else
-      oKaishaTable.$('tr.selected').removeClass('selected')
-      oKaishaTable.$('tr.success').removeClass('success')
-      $(this).addClass('selected')
-      $(this).addClass('success')
+      oKaishaTable.$('tr.selected').removeClass 'selected'
+      oKaishaTable.$('tr.success').removeClass 'success'
+      $(this).addClass 'selected'
+      $(this).addClass 'success'
+      $('#kaisha_sentaku_ok').attr 'disabled', false
+      $('#clear_kaisha').attr 'disabled', false
 
   $('#clear_kaisha').click () ->
-    $('#setsubiyoyaku_相手先').val('');
-    $('.hint-kaisha-refer').text('');
+    # $('#setsubiyoyaku_相手先').val('');
+    # $('.hint-kaisha-refer').text('');
     $('#setsubiyoyaku_相手先').closest('.form-group').find('span.help-block').remove();
     $('#setsubiyoyaku_相手先').closest('.form-group').removeClass('has-error');
-    oKaishaTable.$('tr.selected').removeClass('selected');
-    oKaishaTable.$('tr.success').removeClass('success');
-
-
-  $(document).on 'click', '.refer-kaisha', (event) ->
-    $('#kaisha-search-modal').modal('show')
-    event.preventDefault()
-
+    oKaishaTable.$('tr.selected').removeClass 'selected'
+    oKaishaTable.$('tr.success').removeClass 'success'
+    $('#kaisha_sentaku_ok').attr 'disabled', true
+    $('#clear_kaisha').attr 'disabled', true
+  $('#kaisha_sentaku_ok').on 'click', ->
+    d = oKaishaTable.row('tr.selected').data()
+    $('#setsubiyoyaku_相手先').val d[0]
+    $('#kaisha-name').text d[1]    
+  $('.refer-kaisha').click ->
+    $('#kaisha-search-modal').modal 'show'
+    if $('#setsubiyoyaku_相手先').val() != ''
+      oKaishaTable.rows().every (rowIdx, tableLoop, rowLoop) ->
+        data = @data()
+        if data[0] == $('#setsubiyoyaku_相手先').val()
+          oKaishaTable.$('tr.selected').removeClass 'selected'
+          oKaishaTable.$('tr.success').removeClass 'success'
+          @nodes().to$().addClass 'selected'
+          @nodes().to$().addClass 'success'        
+      oKaishaTable.page.jumpToData $('#setsubiyoyaku_相手先').val(), 0
+      $('#kaisha_sentaku_ok').attr 'disabled', false
+      $('#clear_kaisha').attr 'disabled', false
   $(document).ready () ->
     if $('#head_setsubicode').val() != ''
       $('#table-div').hide()

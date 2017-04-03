@@ -335,7 +335,7 @@ $(function(){
     });
 
     $('#clear_kaisha').click(function () {
-        $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('')
+        // $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('')
         oKaisha_search_modal.$('tr.selected').removeClass('selected');
         oKaisha_search_modal.$('tr.success').removeClass('success');
     } );
