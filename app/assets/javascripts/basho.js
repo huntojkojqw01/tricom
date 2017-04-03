@@ -38,8 +38,9 @@ $(function() {
             $(this).removeClass('selected');
             $(this).removeClass('success');
             $('#kaisha_sentaku_ok').attr('disabled',true);
-            $('#bashomaster_会社コード').val('');
-            $('#kaisha-name').text('');           
+            $('#clear_kaisha').attr('disabled',true);
+            // $('#bashomaster_会社コード').val('');
+            // $('#kaisha-name').text('');           
         }
         else {
             oKaishaTable.$('tr.selected').removeClass('selected');
@@ -47,12 +48,17 @@ $(function() {
             $(this).addClass('selected');
             $(this).addClass('success');
             $('#kaisha_sentaku_ok').attr('disabled',false);
+            $('#clear_kaisha').attr('disabled',false);
         }
 
     } );
     $('#clear_kaisha').on( 'click', function () {        
-        $('#bashomaster_会社コード').val('');
-        $('#kaisha-name').text('');
+        oKaishaTable.$('tr.selected').removeClass('selected');
+        oKaishaTable.$('tr.success').removeClass('success');
+        $('#kaisha_sentaku_ok').attr('disabled',true);
+        $('#clear_kaisha').attr('disabled',true);
+        // $('#bashomaster_会社コード').val('');
+        // $('#kaisha-name').text('');
     });
     $('#kaisha_sentaku_ok').on( 'click', function () {        
         var d = oKaishaTable.row('tr.selected').data();
@@ -68,11 +74,13 @@ $(function() {
                 oKaishaTable.$('tr.selected').removeClass('selected');
                 oKaishaTable.$('tr.success').removeClass('success');
                 this.nodes().to$().addClass('selected');
-                this.nodes().to$().addClass('success');
+                this.nodes().to$().addClass('success');                
                 }
             });
             oKaishaTable.page.jumpToData($('#bashomaster_会社コード').val(), 0);
-        }                   
+            $('#kaisha_sentaku_ok').attr('disabled',false);
+            $('#clear_kaisha').attr('disabled',false);
+        }                          
     });
 });
 
