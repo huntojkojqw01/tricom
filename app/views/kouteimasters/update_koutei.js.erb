@@ -1,6 +1,5 @@
 $('#koutei-edit-modal').modal('hide');
-$("#kouteimaster").dataTable().fnDeleteRow($('#kouteimaster').find('tr.selected').remove())
-$("#kouteimaster").dataTable().fnDraw()
+$("#kouteimaster").DataTable().row('tr.selected').remove()
 
 var table = $('#kouteimaster').DataTable()
 table.row.add( ["<%=@kouteimaster.所属コード%>",

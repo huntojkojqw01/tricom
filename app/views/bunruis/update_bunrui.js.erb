@@ -1,6 +1,5 @@
  $('#bunrui-edit-modal').modal('hide');
-$(".bunruistable").dataTable().fnDeleteRow($('.bunruistable').find('tr.selected').remove())
-$(".bunruistable").dataTable().fnDraw()
+$(".bunruistable").DataTable().row('tr.selected').remove()
 
  var table = $('.bunruistable').DataTable();
  table.row.add( ["<%=@bunrui.分類コード%>","<%=@bunrui.分類名%>"] ).draw( false );

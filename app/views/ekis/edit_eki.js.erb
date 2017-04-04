@@ -4,8 +4,7 @@
  //  "<td>test</td><tr>");
 
 
-$(".ekitable").dataTable().fnDeleteRow($('.ekitable').find('tr.selected').remove())
-$(".ekitable").dataTable().fnDraw()
+$(".ekitable").DataTable().row('tr.selected').remove()
 
  var table = $('.ekitable').DataTable();
  table.row.add( ["<%=@eki.id%>","<%=@eki.name%>","<%=@eki.駅名カナ%>"] ).draw( false );
