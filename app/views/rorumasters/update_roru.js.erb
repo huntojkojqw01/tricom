@@ -1,6 +1,5 @@
  $('#roru-edit-modal').modal('hide');
-$(".rorumaster-table").dataTable().fnDeleteRow($('.rorumaster-table').find('tr.selected').remove())
-$(".rorumaster-table").dataTable().fnDraw()
+$(".rorumaster-table").DataTable().row('tr.selected').remove()
 
  var table = $('.rorumaster-table').DataTable();
  table.row.add( ["<%=@rorumaster.ロールコード%>","<%=@rorumaster.ロール名%>","<%=@rorumaster.序列%>"] ).draw( false );

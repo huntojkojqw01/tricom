@@ -1,6 +1,5 @@
  $('#setsubi-edit-modal').modal('hide');
-$(".shonin-table").dataTable().fnDeleteRow($('.shonin-table').find('tr.selected').remove())
-$(".shonin-table").dataTable().fnDraw()
+$(".shonin-table").DataTable().row('tr.selected').remove()
 
  var table = $('.shonin-table').DataTable();
  table.row.add( ["<%=@setsubi.設備コード%>","<%=@setsubi.設備名%>","<%=@setsubi.備考%>"] ).draw( false );

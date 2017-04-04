@@ -1,6 +1,5 @@
  $('#dengonkaitou-edit-modal').modal('hide');
-$(".dengonkaitoutable").dataTable().fnDeleteRow($('.dengonkaitoutable').find('tr.selected').remove())
-$(".dengonkaitoutable").dataTable().fnDraw()
+$(".dengonkaitoutable").DataTable().row('tr.selected').remove()
 
  var table = $('.dengonkaitoutable').DataTable();
  table.row.add( ["<%=@dengonkaitou.種類名%>","<%=@dengonkaitou.備考%>","<%=@dengonkaitou.id%>"] ).draw( false );
