@@ -24,7 +24,7 @@
     = f.label :email, (t 'title.mail')
     = f.input :email, label: false
     - if current_user.admin? || current_user.supervisor?
-      = f.input :admin, as: :boolean, hint:'アドミニストレータユーザーでデータを出力できるし、担当者マスタも管理できます。', hint_html: { style: "width: 500px"}
+      = f.input :admin, as: :boolean, hint:'アドミニストレータユーザーでデータを出力できるし、担当者マスタも管理できます。', hint_html: { style: "width: 600px"}
     = f.button :submit, class: 'btn btn-primary'
   .col-md-4.col-xs-8.col-sm-6.col-lg-3.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
     %table

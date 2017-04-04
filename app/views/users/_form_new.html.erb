@@ -20,7 +20,7 @@
   <%= f.label :email, "メイル" %>
   <%= f.email_field :email , class: 'form-control'%>
   <% if current_user.admin? || current_user.supervisor? %>
-    <%= f.input :admin, as: :boolean, hint:'アドミニストレータユーザーでデータを出力できるし、担当者マスタも管理できます。', hint_html: { style: "width: 500px"} %>
+    <%= f.input :admin, as: :boolean, hint:'アドミニストレータユーザーでデータを出力できるし、担当者マスタも管理できます。', hint_html: { style: "width: 600px"} %>
   <% end %>
   <%= f.button :submit, class: 'btn btn-primary' %>
 <% end %>
