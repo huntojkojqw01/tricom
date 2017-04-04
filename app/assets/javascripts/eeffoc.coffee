@@ -181,5 +181,7 @@ jQuery ->
 		            else
 		              $("#edit_"+object).attr("disabled", true);
 		      );
-	    return oTable   
-	
+	    return oTable
+	$('#import_form').hide()   
+	$('#import_button').click ->
+    	$('#import_form').toggle()

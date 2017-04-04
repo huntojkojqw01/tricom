@@ -25,14 +25,6 @@
 
 =render 'share/new_edit_destroy_buttons', object: "kikan"
 - if can? :update, @kikanmsts
-  %h4=t 'app.label.import_csv'
-  = form_tag import_kikanmsts_path,class:'form-inline', multipart: true do
-    .form-group
-      = label_tag 'selectcsv', nil, class: 'sr-only'
-      = file_field_tag :file , class: 'btn btn-default'
-    .form-group
-      = label_tag 'importcsv', nil, class: 'sr-only'
-      = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
-
+  =render 'share/import_export_buttons',import_path: import_kikanmsts_path
 = render 'kikan_new_modal'
 = render 'kikan_edit_modal'

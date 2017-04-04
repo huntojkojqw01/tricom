@@ -63,16 +63,5 @@
 <button class='btn btn-primary' id='destroy_jobmaster' type= 'button'><%= delete_text %></button>
 
 <% if can? :update, @jobmasters %>
-
-  <h4><%=t 'app.label.import_csv'%></h4>
-  <%= form_tag import_jobmasters_path,class:'form-inline', multipart: true do %>
-      <div class="form-group">
-        <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
-        <%= file_field_tag :file , class: 'btn btn-default' %>
-      </div>
-      <div class="form-group">
-        <%= label_tag 'importcsv', nil, class: 'sr-only' %>
-        <%= submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default' %>
-      </div>
-  <% end %>
+  <%=render 'share/import_export_buttons',import_path: import_jobmasters_path %>
 <% end %>

@@ -80,23 +80,23 @@ jQuery ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
 
-  $.fn.render_form_errors = (errors) ->
-    $form = this;
-    this.clear_previous_errors();
-    model = this.data('model');
+  # $.fn.render_form_errors = (errors) ->
+  #   $form = this;
+  #   this.clear_previous_errors();
+  #   model = this.data('model');
 
 
-    $.each(errors, (field, messages) ->
-      $input = $('input[name="' + model + '[' + field + ']"]');
-      $input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') );
-    );
+  #   $.each(errors, (field, messages) ->
+  #     $input = $('input[name="' + model + '[' + field + ']"]');
+  #     $input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') );
+  #   );
 
 
-  $.fn.clear_previous_errors = () ->
-    $('.form-group.has-error', this).each( () ->
-      $('.help-block', $(this)).html('');
-      $(this).removeClass('has-error');
-    );
+  # $.fn.clear_previous_errors = () ->
+  #   $('.form-group.has-error', this).each( () ->
+  #     $('.help-block', $(this)).html('');
+  #     $(this).removeClass('has-error');
+  #   );
 
 
   $('.usertable').on( 'click', 'tr',  () ->
@@ -196,5 +196,4 @@ jQuery ->
     if new_address == undefined
       swal("行を選択してください。")
     else            
-      window.location = new_address
-   
+      window.location = new_address   

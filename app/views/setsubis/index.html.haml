@@ -31,16 +31,6 @@
 %button.btn.btn-primary#edit_setsubi{type: :button} #{edit_text}
 %button.btn.btn-primary#destroy_setsubi{type: :button} #{delete_text}
 
-%h4=t 'app.label.import_csv'
-= form_tag import_setsubis_path,class:'form-inline', multipart: true do
-  .form-group
-    = label_tag 'selectcsv', nil, class: 'sr-only'
-    = file_field_tag :file , class: 'btn btn-default'
-  .form-group
-    = label_tag 'importcsv', nil, class: 'sr-only'
-    = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
-
-/        %td= link_to '表示', setsubi
-
+=render 'share/import_export_buttons',import_path: import_setsubis_path
 = render 'setsubi_new_modal'
 = render 'setsubi_edit_modal'

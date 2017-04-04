@@ -26,14 +26,6 @@
 = render 'share/new_edit_destroy_buttons',object: 'kairanyouken'
 
 - if can? :update, @kairanyokenmsts
-  %h4=t 'app.label.import_csv'
-  = form_tag import_kairanyokenmsts_path,class:'form-inline', multipart: true do
-    .form-group
-      = label_tag 'selectcsv', nil, class: 'sr-only'
-      = file_field_tag :file , class: 'btn btn-default'
-    .form-group
-      = label_tag 'importcsv', nil, class: 'sr-only'
-      = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
-      
+  =render 'share/import_export_buttons',import_path: import_kairanyokenmsts_path      
 = render 'kairanyouken_new_modal'
 = render 'kairanyouken_edit_modal'
