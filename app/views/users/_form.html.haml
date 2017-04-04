@@ -20,17 +20,18 @@
             %img{:id => "thumb",:width => "100", :height => "100", :src => "/assets/thumb/missing.png"}
         %td
           = f.file_field :avatar
-    %br
-    %table
-      %tr
-        %td
-          .dropzone.dz-clickable#myDrop
-            .dz-default.dz-message{"data-dz-message" => ""}
-        %td
-          %span{class: 'glyphicon glyphicon-arrow-left'} Drop files here (or click) to upload
 
     = f.label :email, (t 'title.mail')
     = f.input :email, label: false
     - if current_user.admin? || current_user.supervisor?
       = f.input :admin, as: :boolean
     = f.button :submit, class: 'btn btn-primary'
+  .col-md-4.col-xs-8.col-sm-6.col-lg-3.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
+    %table
+      %tr
+        %td
+          .dropzone.dz-clickable#myDrop
+            .dz-default.dz-message{"data-dz-message" => ""}
+      %tr
+        %td{style: "text-align: center"}
+          %span Drop files here (or click) to update avatar
