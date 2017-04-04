@@ -7,7 +7,8 @@
       .modal-body
         = simple_form_for @kouteimaster, url: create_koutei_kouteimasters_path, :remote => true, html: {role: :form, 'data-model' => 'kouteimaster'} do |f|          
           = f.input :所属コード, label:'所属名' do
-            = f.select :所属コード, Shozokumaster.all.map { |s| [s.所属名, s.所属コード, { class: '' }] }, {}, {include_blank: true, class: 'form-control'}
+            = f.select :所属コード, Shozokumaster.all.map { |s| [s.所属名, s.所属コード, { class: '' }] }, {}, {include_blank: true, class: 'form-control'}            
+            .span.help-block
           = f.input :工程コード do
             = f.input_field :工程コード, class: 'form-control'
             .span.help-block

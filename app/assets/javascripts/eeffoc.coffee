@@ -13,9 +13,11 @@ jQuery ->
 	    this.clear_previous_errors()
 	    model = this.data('model')
 
-	    $.each(errors, (field, messages) ->
-	      $input = $('input[name="' + model + '[' + field + ']"]')
-	      $input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') )
+	    $.each(errors, (field, messages) ->	    	
+	      	$input = $('input[name="' + model + '[' + field + ']"]')
+	      	$input.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') )
+	      	$select = $('select[name="' + model + '[' + field + ']"]')
+	      	$select.closest('.form-group').addClass('has-error').find('.help-block').html( messages.join(' & ') )
 	    )
 
  	$.fn.clear_previous_errors = () ->
