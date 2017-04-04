@@ -9,17 +9,18 @@
       <% end %>
     <% end %>
   <% end %>
+  <br></br>
   <%= f.input :担当者名称 %>
   <%= f.label :password, "パスワード (4文字以上)" %>
-  <%= f.password_field :password %>
+  <%= f.password_field :password, class: 'form-control' %>
   <%= f.label :password_confirmation, "再パスワード (4文字以上)" %>
-  <%= f.password_field :password_confirmation %>
+  <%= f.password_field :password_confirmation, class: 'form-control' %>
   <%= f.label :avatar, "イメージ" %>
   <%= f.file_field :avatar %>
   <%= f.label :email, "メイル" %>
-  <%= f.email_field :email %>
+  <%= f.email_field :email , class: 'form-control'%>
   <% if current_user.admin? || current_user.supervisor? %>
-    <%= f.input :admin, as: :boolean %>
+    <%= f.input :admin, as: :boolean, hint:'アドミニストレータユーザーでデータを出力できるし、担当者マスタも管理できます。', hint_html: { style: "width: 500px"} %>
   <% end %>
   <%= f.button :submit, class: 'btn btn-primary' %>
 <% end %>
