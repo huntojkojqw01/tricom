@@ -1,0 +1,123 @@
+= simple_form_for @event , url: shutchou_create_events_path do |f|
+  .col-md-11.col-xs-11.col-sm-11.col-lg-11.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
+    - if !request["shain_id"].nil?
+      = f.input :社員番号, label: (t 'title.shainbangou'), input_html: {style: 'width:100px', value: request["shain_id"]}, hint:"#{Shainmaster.find(request["shain_id"]).try :氏名}", hint_html: {class: 'hint-shain-refer'}, readonly: true
+    - else
+      = f.input :社員番号, label: (t 'title.shainbangou'), input_html: {style: 'width:100px'}, hint:"#{@event.shainmaster.try :氏名}", hint_html: {class: 'hint-shain-refer'}, readonly: true
+    / = f.input :社員番号, input_html: {style: 'width:100px'}
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label1',(t 'title.joutai')+'1'
+        = select(:event1, :状態コード, Joutaimaster.where(状態コード: '13').map { |k| [k.状態名, k.状態コード] }, {include_blank: true, selected: event1_joutai}, {class: 'form-control', style: 'width:100px'})
+        %span.help-block
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+        = f.input (t 'title.joutai')+'2' do
+          = f.select :状態コード, Joutaimaster.where(状態コード: '12').map { |k| [k.状態名, k.状態コード] }, {include_blank: false}, {class: 'form-control', style: 'width:100px'}
+          %span.help-block
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label3',(t 'title.joutai')+'3'
+        = select(:event3, :状態コード, Joutaimaster.where(状態コード: '13').map { |k| [k.状態名, k.状態コード] }, {include_blank: true, selected: event3_joutai}, {class: 'form-control', style: 'width:100px'})
+        %span.help-block
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label4',"開始時刻1"
+        .form-inline.event1_start
+          .input-group.datetime
+            = text_field_tag :event1_start, '', class:'form-control', as: :date_time_picker, value: event1_start
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+          %span.help-block
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+        = f.input :開始 do
+          =f.input_field :開始, label: "開始時刻１", as: :date_time_picker
+          %span.help-block
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label4',"開始時刻3"
+        .form-inline.event3_start
+          .input-group.datetime
+            = text_field_tag :event3_start, '', class:'form-control', as: :date_time_picker, value: event3_start
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+          %span.help-block
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label4',"終了時刻1"
+        .form-inline.event1_end
+          .input-group.datetime
+            = text_field_tag :event1_end, '', class:'form-control', value: event1_end
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+          %span.help-block
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+        = f.input :終了 do
+          = f.input_field :終了, label: "終了時刻2", as: :date_time_picker
+          %span.help-block
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label4',"終了時刻3"
+        .form-inline.event3_end
+          .input-group.datetime
+            = text_field_tag :event3_end, '', class:'form-control',value: event3_end
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
+          %span.help-block
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label4',(t 'title.koushuu')
+        = text_field_tag :event1_koushuu, '', class:'form-control', style: 'width:100px', value: event1_koushuu
+        %p{class: 'help-block'}=(t 'title.tani')
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+        = f.input :工数, label: (t 'title.koushuu'), input_html: {style: 'width:100px'}, hint: (t 'title.tani')
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+        = label_tag 'label4',(t 'title.koushuu')
+        = text_field_tag :event3_koushuu, '', class:'form-control', style: 'width:100px', value: event3_koushuu
+        %p{class: 'help-block'}=(t 'title.tani')
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.col-md-offset-3.col-xs-offset-3.col-sm-offset-3.col-lg-offset-3
+        = f.button :button, (t 'title.koushuusaikeisan'), type: :button, id: :koushuu, style: 'width: 450px'
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+        = f.input :場所コード, label: (t 'title.basho'), input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.bashomaster.try :場所名}", hint_html: {class: 'hint-basho-refer'}
+        = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(session[:selected_shain]).所属コード}"}, as: :hidden
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+        = f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.jobmaster.try :job名}", hint_html: {class: 'hint-job-refer'}
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+        = f.input (t 'title.kouteicode') do
+          = f.select :工程コード, @kouteis.map { |k| [k.工程名, k.工程コード] }, {include_blank: true}, {class: 'form-control', style: 'width:180px'}
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.col-md-offset-3.col-xs-offset-3.col-sm-offset-3.col-lg-offset-3
+        = f.input :comment, label: (t 'title.comment'), type: :button, id: :koushuu, style: 'width: 450px'
+
+
+
+    .row
+      .col-md-4.col-xs-4.col-sm-4.col-lg-4.col-md-offset-4.col-xs-offset-4.col-sm-offset-4.col-lg-offset-4
+        - if mode == 'new'
+          - if request["param"] == "timeline"|| param == 'timeline'
+            = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary', id: 'update_shutchou'
+          - else
+            = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'update_shutchou'
+
+
+
+= render 'share/joutai_modal', add_CUD: true
+= render 'share/joutai_edit_modal'
+= render 'share/joutai_new_modal'
+= render 'share/basho_modal', add_CUD: true
+= render 'share/basho_new_modal'
+= render 'share/basho_edit_modal'
+= render 'share/mybasho_modal'
+= render 'share/koutei_modal'
+= render 'share/shozai_modal'
+= render 'share/job_modal', add_CUD: true
+= render 'share/myjob_modal'
+
+
+= render 'share/job_edit_modal'
+= render 'share/job_new_modal'
+= render 'share/kaisha_modal', add_CUD: true
+= render 'share/shain_modal_refer'
+= render 'share/bunrui_modal'
+= render 'share/job_select_modal'
+
+= render 'share/kaisha_new_modal'
+= render 'share/kaisha_edit_modal'

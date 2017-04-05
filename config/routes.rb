@@ -115,8 +115,8 @@ end
   end
 
   resources :events, only: [:index, :new, :create, :edit, :update] do
-		collection {post :ajax, :custom, :create_mybasho,:create_basho,:update_basho, :create_kaisha,:update_kaisha, :create_job, :update_job, :time_line_view, :import}
-    collection {get :time_line_view, :pdf_event_show, :pdf_job_show, :pdf_koutei_show}
+		collection {post :ajax, :custom, :create_mybasho,:create_basho,:update_basho, :create_kaisha,:update_kaisha, :create_job, :update_job, :time_line_view, :import, :shutchou_create}
+    collection {get :time_line_view, :pdf_event_show, :pdf_job_show, :pdf_koutei_show, :shutchou_ikkatsu_new}
     collection {get :export_csv}
 	end
 
