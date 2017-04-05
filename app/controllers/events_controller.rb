@@ -1,7 +1,7 @@
 class EventsController < ApplicationController
   before_action :require_user!
   before_action :set_event, only: [ :show, :edit, :update, :destroy]
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy]
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :shutchou_ikkatsu_new, :shutchou_create]
   # load_and_authorize_resource
   respond_to :json
 
@@ -192,6 +192,85 @@ class EventsController < ApplicationController
     @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
   end
 
+  def shutchou_ikkatsu_new
+    date = Date.today.to_s(:db)
+    vars = request.query_parameters
+    param_date = vars['start_at']
+    @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
+
+  end
+  def shutchou_create
+    attributes = event_params.clone
+    @event = User.find(session[:user]).shainmaster.events.new attributes
+    case params[:commit]
+      when (t 'helpers.submit.create')
+        respond_to do |format|
+          if @event.save
+            if params[:event1][:状態コード]!= ''
+              event1_attr = event_params.clone
+              event1_attr[:開始] = params[:event1_start]
+              event1_attr[:終了] = params[:event1_end]
+              event1_attr[:状態コード] = params[:event1][:状態コード]
+              event1_attr[:工数] = params[:event1_koushuu]
+              event1 = User.find(session[:user]).shainmaster.events.new event1_attr
+              event1.save
+            end
+            if params[:event3][:状態コード]!= ''
+              event3_attr = event_params.clone
+              event3_attr[:開始] = params[:event3_start]
+              event3_attr[:終了] = params[:event3_end]
+              event3_attr[:状態コード] = params[:event3][:状態コード]
+              event3_attr[:工数] = params[:event3_koushuu]
+              event3 = User.find(session[:user]).shainmaster.events.new event3_attr
+              event3.save
+            end
+            flash[:notice] = t 'app.flash.new_success'
+            format.html { redirect_to time_line_view_events_url }
+            format.xml { render xml: @event, status: :created, location: @event }
+          else
+            format.html {render action: 'shutchou_ikkatsu_new',
+              locals: { param: 'timeline',
+                event1_joutai: params[:event1][:状態コード], event1_start: params[:event1_start], event1_end: params[:event1_end],
+                event3_joutai: params[:event3][:状態コード], event3_start: params[:event3_start], event3_end: params[:event3_end],
+                event1_koushuu: params[:event1_koushuu], event3_koushuu: params[:event3_koushuu]}}
+            format.xml { render xml: @event.errors, status: :unprocessable_entity }
+          end
+        end
+      when (t 'helpers.submit.create_other')
+        respond_to do |format|
+          if @event.save
+            if params[:event1][:状態コード]!= ''
+              event1_attr = event_params.clone
+              event1_attr[:開始] = params[:event1_start]
+              event1_attr[:終了] = params[:event1_end]
+              event1_attr[:状態コード] = params[:event1][:状態コード]
+              event1_attr[:工数] = params[:event1_koushuu]
+              event1 = User.find(session[:user]).shainmaster.events.new event1_attr
+              event1.save
+            end
+            if params[:event3][:状態コード]!= ''
+              event3_attr = event_params.clone
+              event3_attr[:開始] = params[:event3_start]
+              event3_attr[:終了] = params[:event3_end]
+              event3_attr[:状態コード] = params[:event3][:状態コード]
+              event3_attr[:工数] = params[:event3_koushuu]
+              event3 = User.find(session[:user]).shainmaster.events.new event3_attr
+              event3.save
+            end
+            flash[:notice] = t 'app.flash.new_success'
+            format.html { redirect_to events_url }
+            format.xml { render xml: @event, status: :created, location: @event }
+          else
+            format.html {render action: 'shutchou_ikkatsu_new',
+              locals: { param: 'event',
+                event1_joutai: params[:event1][:状態コード], event1_start: params[:event1_start], event1_end: params[:event1_end],
+                event3_joutai: params[:event3][:状態コード], event3_start: params[:event3_start], event3_end: params[:event3_end],
+                event1_koushuu: params[:event1_koushuu], event3_koushuu: params[:event3_koushuu]}}
+            format.xml { render xml: @event.errors, status: :unprocessable_entity }
+          end
+        end
+    end
+  end
   def create_kaisha
     @kaisha = Kaishamaster.new(kaisha_params)
     if @kaisha.save == false

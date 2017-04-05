@@ -177,6 +177,10 @@ $(function () {
     $("#edit_jobmaster").attr("disabled", true);
     $("#destroy_jobmaster").attr("disabled", true);
   });
+  $('#clear_shain').click(function () {
+    oTable.$('tr.selected').removeClass( 'selected');
+    oTable.$('tr.success').removeClass( 'success');
+  });
   $('#job_sentaku_ok').click(function(){
 
         var myjob = oJobTable.row('tr.selected').data();

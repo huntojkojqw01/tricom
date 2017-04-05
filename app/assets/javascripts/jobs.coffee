@@ -455,8 +455,8 @@ jQuery ->
 
   $('#clear_shain').click ->
     oShain_modal.$('tr.selected').removeClass 'selected'
-    oShain_modal.$('tr.success').removeClass 'success'  
-  
+    oShain_modal.$('tr.success').removeClass 'success'
+
   $('#job_sentaku_ok').click ->
     d = oJob_modal.row('tr.selected').data()
     if d != undefined
@@ -480,4 +480,4 @@ jQuery ->
       $('#jobmaster_ユーザ名').val d[1]
       $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
       $('#jobmaster_ユーザ番号').closest('.form-group').removeClass 'has-error'
-    
+

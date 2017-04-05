@@ -1,0 +1,19 @@
+<%= javascript_include_tag 'shutchou_ikkatsu' %>
+<%= javascript_include_tag 'shutchou_ikkatsus' %>
+<%= javascript_include_tag 'job_modal' %>
+<%= javascript_include_tag 'kaisha_modal' %>
+<%= javascript_include_tag 'basho_modal' %>
+<%= javascript_include_tag 'joutai_modal' %>
+<ol class="breadcrumb">
+  <li><%= link_to (t 'title.menu'), main_path %></li>
+  <%if request["param"] == "timeline"|| local_assigns[:param] == 'timeline'%>
+    <li><%= link_to (t 'title.time_line_view'), time_line_view_events_path %></li>
+    <%provide(:title, (t 'title.time_line_view'))%>
+  <%else %>
+    <li><%= link_to (t 'title.event'), events_path %></li>
+    <%provide(:title, (t 'title.event'))%>
+  <%end%>
+  <li class="active"><%=(t 'title.ibento')%></li>
+</ol>
+
+<%= render 'form_shutchou_ikkatsu', mode: 'new', param: local_assigns[:param], event1_joutai: local_assigns[:event1_joutai], event1_start: local_assigns[:event1_start], event1_end: local_assigns[:event1_end], event3_joutai: local_assigns[:event3_joutai], event3_start: local_assigns[:event3_start], event3_end: local_assigns[:event3_end],event1_koushuu: local_assigns[:event1_koushuu], event3_koushuu: local_assigns[:event3_koushuu]%>
