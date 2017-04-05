@@ -8,7 +8,7 @@
       = f.select :local, options_for_select(["ja", "en","vi"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
     = f.label (t 'app.label.select_vn_holiday')
     .space
-    = f.check_box :select_holiday_vn
+    = f.check_box :select_holiday_vn    
     .space
     = f.label (t 'app.label.turning_data')
     .space

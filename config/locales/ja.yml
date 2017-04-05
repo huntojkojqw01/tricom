@@ -257,7 +257,7 @@ ja:
       send_mail: パスワードをメールに送りました。メールをチェックしてください。
     model:
       check_data_input: は開始日以上の値にしてください。
-      schedule: すでに他のスケジュールがあります。
+      schedule: すでに他のスケジュ➖ルがあります。
       check_kubun:
         shoninsha: 承認者を入力してください
         seisanyoteibi: 清算予定日を入力してください
@@ -266,7 +266,7 @@ ja:
       check_time_attendance: は出勤時刻以上の値にしてください。
       check_time: は22時間より小さい値にしてください。
     label:
-      import_csv: CSVでのデータをインポート!
+      import_csv: CSVでのデ➖タをインポ➖ト!
       reference: 照会
       export_pdf: 印刷する
       pdf_event: 就業報告表
@@ -276,7 +276,9 @@ ja:
       necessary: 要
       unnecessary: 不要
       select_vn_holiday: ベトナムの祝日
-      turning_data: ターニングデータ
+      select_vn_holiday_descr: カレンダーにベトナムの祝日を表示
+      turning_data: タ➖ニングデ➖タ
+      turning_data_descr: 3ヶ月よりの勤務・経費・エベント等のデータを削除
       text_descript_drag: ファイルをドラグエンドドロップ
   export: 輸出
   title:
@@ -291,7 +293,7 @@ ja:
     employer: MultiSelect
     event: カレンダー
     time_line_view: タイムライン
-    export_csv: データをエクスポート
+    export_csv: データ出力
     jobmaster: JOBマスタ
     jobshinki: JOB新規
     jobhenshyuu: JOB編集

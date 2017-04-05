@@ -28,11 +28,4 @@
 
 = link_to '新規', new_path_path
 
-%h4=t 'app.label.import_csv'
-= form_tag import_paths_path,class:'form-inline', multipart: true do
-  .form-group
-    = label_tag 'selectcsv', nil, class: 'sr-only'
-    = file_field_tag :file , class: 'btn btn-default'
-  .form-group
-    = label_tag 'importcsv', nil, class: 'sr-only'
-    = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+=render 'share/import_export_buttons',import_path: import_paths_path

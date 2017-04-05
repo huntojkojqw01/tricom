@@ -1,0 +1,12 @@
+- import_path||=nil
+
+%span#import_button.btn.btn-primary.glyphicon.glyphicon-import
+.spacer
+= form_tag import_path, multipart: true, id: "import_form" do
+  .form-group
+    = label_tag 'importcsv', nil, class: 'sr-only'
+    = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+  .form-group
+    = label_tag 'selectcsv', nil, class: 'sr-only'
+    = file_field_tag :file , class: 'btn btn-default'
+  

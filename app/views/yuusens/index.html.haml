@@ -27,11 +27,4 @@
 = render 'share/new_edit_destroy_buttons',object: 'yuusen',new_path: new_yuusen_path
 
 - if can? :update, @yuusens
-  %h4=t 'app.label.import_csv'
-  = form_tag import_yuusens_path,class:'form-inline', multipart: true do
-    .form-group
-      = label_tag 'selectcsv', nil, class: 'sr-only'
-      = file_field_tag :file , class: 'btn btn-default'
-    .form-group
-      = label_tag 'importcsv', nil, class: 'sr-only'
-      = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default'
+  =render 'share/import_export_buttons',import_path: import_yuusens_path

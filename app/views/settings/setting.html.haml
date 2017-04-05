@@ -32,6 +32,7 @@
     .row
       .col-md-1.col-xs-1.col-sm-1.col-lg-1
       .col-md-10.col-xs-10.col-sm-10.col-lg-10
+        %h6=(t 'app.label.select_vn_holiday_descr')
         = f.check_box :select_holiday_vn
     .space
     = f.label (t 'app.label.turning_data')
@@ -39,4 +40,5 @@
     .row
       .col-md-1.col-xs-1.col-sm-1.col-lg-1
       .col-md-10.col-xs-10.col-sm-10.col-lg-10
+        %h6=(t 'app.label.turning_data_descr')
         = f.check_box :turning_data

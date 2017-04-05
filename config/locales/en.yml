@@ -276,7 +276,9 @@ en:
       necessary: Necessary
       unnecessary: Unnecessary
       select_vn_holiday: Vietnamese Holidays
+      select_vn_holiday_descr: Show Vietnam holidays on calendar
       turning_data: Turning Data
+      turning_data_descr: Remove all user's data. Only save data 3 months ago
       text_descript_drag: Drop files here (or click) to update avatar
   export: 輸出
   title:
