@@ -13,7 +13,7 @@
     <li><%= link_to (t 'title.event'), events_path %></li>
     <%provide(:title, (t 'title.event'))%>
   <%end%>
-  <li class="active"><%=(t 'title.ibento')%></li>
+  <li class="active"><%=(t 'title.shutchou_ikkatsu')%></li>
 </ol>
 
 <%= render 'form_shutchou_ikkatsu', mode: 'new', param: local_assigns[:param], event1_joutai: local_assigns[:event1_joutai], event1_start: local_assigns[:event1_start], event1_end: local_assigns[:event1_end], event1_umu: local_assigns[:event1_umu], event3_joutai: local_assigns[:event3_joutai], event3_start: local_assigns[:event3_start], event3_end: local_assigns[:event3_end],event1_koushuu: local_assigns[:event1_koushuu], event3_koushuu: local_assigns[:event3_koushuu], event3_umu: local_assigns[:event3_umu]%>
