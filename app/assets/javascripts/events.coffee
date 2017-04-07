@@ -194,4 +194,77 @@ jQuery ->
     if basho_code
       $('#event_場所コード').val(basho_code)
       $('.hint-basho-refer').text($('#mybashomaster_場所名').val())
-)
+  )
+  currentDate = new Date();
+  startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
+  endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
+  $("#modal_date_start_input").val(startOfWeek);
+  $("#modal_date_end_input").val(endOfWeek);
+  $('.modal_date_start_select').datetimepicker({
+    format: 'YYYY/MM/DD'
+  });
+  $('.modal_date_end_select').datetimepicker({
+    format: 'YYYY/MM/DD'
+  });
+  $('#modal_print_event').click( () ->
+    $('#print_modal').modal('show')
+  )
+  $('#modal_pdf_event').click( () ->
+    if !$(this).hasClass('active')
+      $(this).addClass('active');
+      $('#modal_pdf_event_job').removeClass('active');
+      $('#modal_pdf_event_koutei').removeClass('active');
+      $("#modal_print_pdf_event").css('display', '');
+      $("#modal_print_pdf_job").css('display', 'none');
+      $("#modal_print_pdf_koutei").css('display', 'none');
+      currentDate = new Date();
+      startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
+      endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
+      $("#modal_date_start_input").val(startOfWeek);
+      $("#modal_date_end_input").val(endOfWeek);
+  );
+
+  $('#modal_pdf_event_job').click( () ->
+    if !$(this).hasClass('active')
+      $(this).addClass('active');
+      $('#modal_pdf_event').removeClass('active');
+      $('#modal_pdf_event_koutei').removeClass('active');
+      $("#modal_print_pdf_event").css('display', 'none');
+      $("#modal_print_pdf_job").css('display', '');
+      $("#modal_print_pdf_koutei").css('display', 'none');
+      currentDate = new Date();
+      startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
+      endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
+      $("#modal_date_start_input").val(startOfWeek);
+      $("#modal_date_end_input").val(endOfWeek);
+  );
+
+  $('#modal_pdf_event_koutei').click( () ->
+    if !$(this).hasClass('active')
+      $(this).addClass('active');
+      $('#modal_pdf_event').removeClass('active');
+      $('#modal_pdf_event_job').removeClass('active');
+      $("#modal_print_pdf_event").css('display', 'none');
+      $("#modal_print_pdf_job").css('display', 'none');
+      $("#modal_print_pdf_koutei").css('display', '');
+      currentDate = new Date();
+      startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
+      endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
+      $("#modal_date_start_input").val(startOfWeek);
+      $("#modal_date_end_input").val(endOfWeek);
+  );
+  $('#modal_print_pdf_event').click( () ->
+    window.open('/events/pdf_event_show.pdf?locale=ja&date_start='+$("#modal_date_start_input").val()+'&date_end='+$("#modal_date_end_input").val());
+  );
+  $('#modal_print_pdf_job').click( () ->
+    window.open('/events/pdf_job_show.pdf?locale=ja&date_start='+$("#modal_date_start_input").val()+'&date_end='+$("#modal_date_end_input").val());
+  );
+  $('#modal_print_pdf_koutei').click( () ->
+    window.open('/events/pdf_koutei_show.pdf?locale=ja&date_start='+$("#modal_date_start_input").val()+'&date_end='+$("#modal_date_end_input").val());
+  );
+  $('#modal_date_start_input').click( () ->
+    $('.modal_date_start_select').data("DateTimePicker").toggle();
+  );
+  $('#modal_date_end_input').click( () ->
+    $('.modal_date_end_select').data("DateTimePicker").toggle();
+  );
