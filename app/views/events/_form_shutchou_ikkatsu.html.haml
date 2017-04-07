@@ -28,8 +28,8 @@
               %span.glyphicon.glyphicon-calendar
           %span.help-block
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
-        = f.input :開始 do
-          =f.input_field :開始, label: "開始時刻１", as: :date_time_picker
+        = f.input :開始 , label: "開始時刻2" do
+          =f.input_field :開始, as: :date_time_picker
           %span.help-block
       .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
         = label_tag 'label4',"開始時刻3"
@@ -49,8 +49,8 @@
               %span.glyphicon.glyphicon-calendar
           %span.help-block
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
-        = f.input :終了 do
-          = f.input_field :終了, label: "終了時刻2", as: :date_time_picker
+        = f.input :終了, label: "終了時刻2" do
+          = f.input_field :終了, as: :date_time_picker
           %span.help-block
       .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
         = label_tag 'label4',"終了時刻3"
@@ -65,7 +65,7 @@
         = label_tag 'label3',(t 'title.kisha')+'1'
         = select(:event1, :有無, options_for_select(["帰社", "直帰", "連続"], :selected => event1_umu), {include_blank: true },{ class: 'form-control', style: 'width:100px'})
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
-        = f.input (t 'title.kisha')+'1' do
+        = f.input (t 'title.kisha')+'2' do
           = f.select :有無, options_for_select(["帰社", "直帰", "連続"], :selected => @event.有無), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
         = label_tag 'label3',(t 'title.kisha')+'3'
