@@ -228,11 +228,13 @@ class EventsController < ApplicationController
             format.html { redirect_to time_line_view_events_url }
             format.xml { render xml: @event, status: :created, location: @event }
           else
+            byebug
             format.html {render action: 'shutchou_ikkatsu_new',
               locals: { param: 'timeline',
                 event1_joutai: params[:event1][:状態コード], event1_start: params[:event1_start], event1_end: params[:event1_end],
+                event1_koushuu: params[:event1_koushuu], event1_umu: params[:event1][:有無],
                 event3_joutai: params[:event3][:状態コード], event3_start: params[:event3_start], event3_end: params[:event3_end],
-                event1_koushuu: params[:event1_koushuu], event3_koushuu: params[:event3_koushuu]}}
+                event3_koushuu: params[:event3_koushuu], event3_umu: params[:event3][:有無]}}
             format.xml { render xml: @event.errors, status: :unprocessable_entity }
           end
         end
@@ -264,8 +266,9 @@ class EventsController < ApplicationController
             format.html {render action: 'shutchou_ikkatsu_new',
               locals: { param: 'event',
                 event1_joutai: params[:event1][:状態コード], event1_start: params[:event1_start], event1_end: params[:event1_end],
+                event1_koushuu: params[:event1_koushuu], event1_umu: params[:event1][:有無],
                 event3_joutai: params[:event3][:状態コード], event3_start: params[:event3_start], event3_end: params[:event3_end],
-                event1_koushuu: params[:event1_koushuu], event3_koushuu: params[:event3_koushuu]}}
+                event3_koushuu: params[:event3_koushuu], event3_umu: params[:event3][:有無]}}
             format.xml { render xml: @event.errors, status: :unprocessable_entity }
           end
         end
