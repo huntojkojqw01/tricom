@@ -268,7 +268,7 @@ ja:
     label:
       import_csv: CSVでのデ➖タをインポ➖ト!
       reference: 照会
-      export_pdf: 印刷する
+      export_pdf: 印刷
       pdf_event: 就業報告表
       pdf_event_job: '就業合計表(JOB単位）'
       pdf_event_koutei: '就業合計表(工程単位）'
