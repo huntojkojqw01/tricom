@@ -9,10 +9,22 @@
       <li><%= link_to (t 'title.menu'), main_path %></li>
       <li><%= link_to (t 'title.event'), events_path %></li>
       <li class="active"><%=(t 'title.time_line_view')%></li>
+      <div class= 'pull-right'>
+        <div class="navbar-right" style="margin-right: 10px">
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"></a>
+              <span><i class="glyphicon glyphicon-option-horizontal fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
+            <ul class="dropdown-menu">
+              <li><%= link_to raw("<i class='glyphicon glyphicon-new-window' style='margin-right:1em;'></i>"+(t 'title.shutchou_ikkatsu')), "/events/shutchou_ikkatsu_new?param=timeline&shain_id="+session[:user] %></li>
+              <li id="modal_print_event"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
+            </ul>
+          </li>
+        </div>
+      </div>
     </ol>
   </div>
 </div>
-
+<%= render 'print_modal' %>
 <%= simple_form_for :timeline, url: time_line_view_events_path, method: :post do |f| %>
 
 <div class="row">
