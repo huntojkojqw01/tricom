@@ -1,162 +1,26 @@
 <%= javascript_include_tag('helps.js') %>
 <%= provide(:title, (t 'title.help')) %>
 <%= stylesheet_link_tag 'helps' %>
-<div class="fixed"><a href="#back-to-top-of-guide" class="glyphicon glyphicon-arrow-up back-to-top"></a></div>
-<div class="row wraper-content">
-	<div class="col-sm-4 menu-content">
-	</div>
-	<div class="col-sm-8">
-		<article>
-			<h1 style="text-align: center;"><strong>ミスズの案内</strong></h1>
-			<div class="all-questions">
-				<div id="one" class="guide-item" >
-					<div class="guide-content">
-						<h3>1. ログイン画面</h3>
-					</div>
-				</div>
-				<div  id="two" class="guide-item" >
-					<div class="guide-content">
-						<h3>2. タイムライン画面</h3>
-						<p>そのボタンをクリックして</p>
-					</div>
-				</div>
-				<div  id="three" class="guide-item" >
-					<div class="guide-content">
-						<h3>3. ログアウト</h3>
-					</div>
-				</div>
-				<div id="four" class="guide-item" >
-					<div class="guide-content">
-						<h3>4. プロファイル変更</h3>
-						<p>イメージを変更する</p>
-						<p>勤務管理システム</p>
-					</div>
-				</div>
-				<div id="five" class="guide-item" >
-					<div class="guide-content">
-						<h3>5. データをエクスポート画面</h3>
-					</div>
-				</div>
-				<div id="six" class="guide-item" >
-					<div class="guide-content">
-						<h3>6. 管理G画面</h3>
-					</div>
-				</div>
-				<div id="sixone" class="guide-item" >
-					<div class="guide-content">
-						<h3>6.1. 勤怠画面</h3>
-					</div>
-				</div>
-				<div id="sixtwo" class="guide-item" >
-					<div class="guide-content">
-						<h3>6.2. 勤怠検索画面</h3>
-					</div>
-				</div>
-				<div id="sixthree" class="guide-item" >
-					<div class="guide-content">
-						<h3>6.3. 経費画面</h3>
-					</div>
-				</div>
-				<div id="sixfour" class="guide-item" >
-					<div class="guide-content">
-						<h3>6.4. 勤怠検索画面</h3>
-					</div>
-				</div>
-				<div id="seven" class="guide-item" >
-					<div class="guide-content">
-						<h3>7. 名前をクリックする</h3>
-					</div>
-				</div>
-				<div id="sevenone" class="guide-item" >
-					<div class="guide-content">
-						<h3>7.1. 結果はプロファイル変更画面</h3>
-					</div>
-				</div>
-				<div id="eight" class="guide-item" >
-					<div class="guide-content">
-						<h3>8. 勤務管理システムをクリックする</h3>
-					</div>
-				</div>
-				<div id="eightone" class="guide-item" >
-					<div class="guide-content">
-						<h3>8.1. 勤務管理システ画面</h3>
-					</div>
-				</div>
-				<div id="eighttwo" class="guide-item" >
-					<div class="guide-content">
-						<h3>8.2.カレンダ画面</h3>
-					</div>
-				</div>
-				<div id="eightthree" class="guide-item" >
-					<div class="guide-content">
-						<h3>8.3. 新規エベント</h3>
-					</div>
-				</div>
-				<div id="eightfour" class="guide-item" >
-					<div class="guide-content">
-						<h3>8.4. 経費承認一覧画面　（管理の確認</h3>
-					</div>
-				</div>
-				<div id="eightfive" class="guide-item" >
-					<div class="guide-content">
-						<h3>8.5. 伝言一覧</h3>
-					</div>
-				</div>
-				<div id="eightsix" class="guide-item" >
-					<div class="guide-content">
-						<h3>8.6. 新規　（新しい伝言を作る)</h3>
-					</div>
-				</div>
-				<div id="nine" class="guide-item" >
-					<div class="guide-content">
-						<h3>9. マスタ管理</h3>
-					</div>
-				</div>
-				<div id="ten" class="guide-item" >
-					<div class="guide-content">
-						<h3>10. 勤怠画面</h3>
-						<p>タイムライン画面で勤務ボタンをクリックする</p>
-						<br />
-						<p>結果は勤怠画面</p>
-						<br />
-						<p>このテキストフィルドをクリックして、日を選らぶ。</p>
-						<br />
-						<p>勤怠検索ボタンをクリックする。</p>
-						<br />
-						<p>これは結果。</p>
-						<br />
-						<p>編集ボタンをクリックする。</p>
-						<p>タイムライン画面で勤務ボタンをクリックする<br/>結果は勤怠画面<br/>このテキストフィルドをクリックして、日を選らぶ。<br/>勤怠検索ボタンをクリックする。<br/>これは結果。<br/>編集ボタンをクリックする。 <br/>結果は編集画面<br/>勤務タイプをえらんで、出勤時刻をえらんで、退社時刻をえらんで、実労働時間再計算ボタンをクリックして、結果はに実労働時間フィルドを表示する。実労働時間フィルドは後で編集もできる<br/>保守携帯フィルドをえらぶ<br/>状態１フィルドは　　アイコンをクリック<br/>結果は状態選択ポップアップ<br/>件表示フィルドは各ページで最も多いライン数が見えるのことを選ぶ<br/>検索フィルドは何を入力することで検索する<br/>これは結果<br/>備考フィルドに入力して、実労働時間フィルドに入力して、実労働時間フィルドに入力して、遅刻/早退時間フィルドに入力して、普通残業時間フィルドに入力して、深夜残業時間フィルドに入力して、普通保守時間フィルドに入力して、深夜保守時間フィルドに入力して、　ボタンをクリックする<br/>これは結果<br/>入力済ボタンをクリックする<br/>結果は </p>
-					</div>
-				</div>
-				<div id="eleven" class="guide-item" >
-					<div class="guide-content">
-						<h3>11. 経費画面</h3>
-						<p>タイムライン画面で経費ボタンをクリックする 結果は経費画面</p>
-						<p>結果は経費画面</p>
-					</div>
-				</div>
-				<div id="twelve" class="guide-item" >
-					<div class="guide-content">
-						<h3>12. 承認画面</h3>
-					</div>
-				</div>
-				<div id="thirteen" class="guide-item" >
-					<div class="guide-content">
-						<h3>13. 回覧画面</h3>
-					</div>
-				</div>
-				<div id="thirteenone" class="guide-item" >
-					<div class="guide-content">
-						<h3>13.1. 新規</h3>
-					</div>
-				</div>
-				<div id="thirteentwo" class="guide-item" >
-					<div class="guide-content">
-						<h3>13.2. 送回覧</h3></h3>
-					</div>
-				</div>
-			</div>
-		</article>
-	</div>
+<div class="row">
+  <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+    <ol class="breadcrumb">
+      <li><%= link_to (t 'title.menu'), main_path %></li>
+      <li class="active"><%= link_to (t 'title.help'), events_path %></li>
+    </ol>
+  </div>
 </div>
+<div class="row wraper-content">
+  <div class="col-md-2 col-xs-4 col-sm-4 col-lg-2 menu-content">
+    <%= link_to '1. ログイン画面', '#', class: 'show_pdf_help', data: 'Tricom.pdf#page=1' %><br>
+    <%= link_to '2. プロファイル編集', '#', class: 'show_pdf_help', data: 'Tricom.pdf#page=3' %>
+  </div>
+  <div class="col-md-10 col-xs-12 col-sm-12 col-lg-10">
+    <iframe src="../../assets/images/Tricom.pdf#page=1" height="800px" width="100%" id="view_pdf">
+      This browser does not support PDFs. Please download the PDF to view it: <a href=<%= "#{Rails.root}/app/assets/images/Tricom.pdf" %>>Download PDF</a>
+    </iframe>
+
+  </div>
+</div>
+
+
+

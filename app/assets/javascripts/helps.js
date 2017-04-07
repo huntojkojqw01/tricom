@@ -36,4 +36,8 @@ $(document).on('ready', function() {
     // $(.gui)
     // $(".guide-title").css("height",$(".guide-title").closest(".guide-contenti").height-76+"px")
     // $(".guide-item").css("height","24px")
+
+    $('.show_pdf_help').click(function(){
+      $('#view_pdf').attr('src','"../../assets/images/'+$(this).attr('data'));
+    })
 });
