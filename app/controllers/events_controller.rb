@@ -228,7 +228,6 @@ class EventsController < ApplicationController
             format.html { redirect_to time_line_view_events_url }
             format.xml { render xml: @event, status: :created, location: @event }
           else
-            byebug
             format.html {render action: 'shutchou_ikkatsu_new',
               locals: { param: 'timeline',
                 event1_joutai: params[:event1][:状態コード], event1_start: params[:event1_start], event1_end: params[:event1_end],
