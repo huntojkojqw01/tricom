@@ -61,16 +61,25 @@
               %span.glyphicon.glyphicon-calendar
           %span.help-block
     .row
-      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+      .col-md-2.col-xs-4.col-sm-3.col-lg-2.form-group
         = label_tag 'label4',(t 'title.koushuu')
         = text_field_tag :event1_koushuu, '', class:'form-control', style: 'width:100px', value: event1_koushuu
         %p{class: 'help-block'}=(t 'title.tani')
-      .col-md-4.col-xs-4.col-sm-4.col-lg-4
+      .col-md-2.col-xs-4.col-sm-3.col-lg-2
+        = label_tag 'label3',(t 'title.kisha')+'1'
+        = select(:event1, :有無, options_for_select(["帰社", "直帰", "連続"], :selected => event1_umu), {include_blank: true },{ class: 'form-control', style: 'width:100px'})
+      .col-md-2.col-xs-4.col-sm-3.col-lg-2
         = f.input :工数, label: (t 'title.koushuu'), input_html: {style: 'width:100px'}, hint: (t 'title.tani')
-      .col-md-4.col-xs-4.col-sm-4.col-lg-4.form-group
+      .col-md-2.col-xs-4.col-sm-3.col-lg-2
+        = f.input (t 'title.kisha')+'1' do
+          = f.select :有無, options_for_select(["帰社", "直帰", "連続"], :selected => @event.有無), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
+      .col-md-2.col-xs-4.col-sm-3.col-lg-2.form-group
         = label_tag 'label4',(t 'title.koushuu')
         = text_field_tag :event3_koushuu, '', class:'form-control', style: 'width:100px', value: event3_koushuu
         %p{class: 'help-block'}=(t 'title.tani')
+      .col-md-2.col-xs-4.col-sm-3.col-lg-2
+        = label_tag 'label3',(t 'title.kisha')+'3'
+        = select(:event3, :有無, options_for_select(["帰社", "直帰", "連続"], :selected => event3_umu), {include_blank: true },{ class: 'form-control', style: 'width:100px'})
     .row
       .col-md-4.col-xs-4.col-sm-4.col-lg-4.col-md-offset-3.col-xs-offset-3.col-sm-offset-3.col-lg-offset-3
         = f.button :button, (t 'title.koushuusaikeisan'), type: :button, id: :koushuu, style: 'width: 450px'

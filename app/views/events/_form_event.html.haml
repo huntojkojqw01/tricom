@@ -43,18 +43,19 @@
         = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline',data: {confirm: (t 'app.delete_confirm')}
       - else
         = f.button :submit, (t 'helpers.submit.destroy_other'), class: 'btn btn-primary', id: 'event', data: {confirm: (t 'app.delete_confirm')}
-  .col-md-2.col-xs-2.col-sm-2.col-lg-2{id: "selectShozai"}
+  .col-md-2.col-xs-2.col-sm-2.col-lg-2
     - if mode == 'new'
       - param = request["param"].nil?? param: request["param"]
       - param = 'event' if param.nil?
       - shain_id = request["shain_id"].nil?? @event.社員番号: request["shain_id"]
       = link_to (t 'title.shutchou_ikkatsu'), "/events/shutchou_ikkatsu_new?param="+param+"&shain_id="+shain_id, class: 'btn btn-primary'
       .spacer
-    = label_tag (t 'app.label.calendar_genzai')
-    - if !request["shain_id"].nil?
-      = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(request["shain_id"]).所在コード, include_blank: true }, class: 'form-control', style: 'width:150px')
-    - else
-      = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(@event.社員番号).所在コード, include_blank: true }, class: 'form-control', style: 'width:150px' )
+    #selectShozai
+      = label_tag (t 'app.label.calendar_genzai')
+      - if !request["shain_id"].nil?
+        = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(request["shain_id"]).所在コード, include_blank: true }, class: 'form-control', style: 'width:150px')
+      - else
+        = select(:head, :shozaicode, Shozai.all.order(:所在コード).collect {|p| [ p.所在名, p.所在コード ] } , {selected: Shainmaster.find(@event.社員番号).所在コード, include_blank: true }, class: 'form-control', style: 'width:150px' )
 
 = render 'share/joutai_modal', add_CUD: true
 = render 'share/joutai_edit_modal'
