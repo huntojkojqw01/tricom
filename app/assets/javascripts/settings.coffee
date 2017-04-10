@@ -213,8 +213,9 @@ jQuery ->
         location.reload()
       failure: () ->
         console.log 'Update setting local Unsuccessful'
-
-
+  $('#setting_local option:eq(1)').prepend('<img src="/assets/jp.jpeg" height="18" width="22">')
+  $('#setting_local option:eq(2)').prepend('<img src="/assets/en.jpeg" height="18" width="22">')
+  $('#setting_local option:eq(3)').prepend('<img src="/assets/vn.jpeg" height="18" width="22">')
   $('#setting_select_holiday_vn').change ->
     $.ajax
       type: 'POST'
