@@ -185,3 +185,4 @@ jQuery ->
 	$('#import_form').hide()   
 	$('#import_button').click ->
     	$('#import_form').toggle()
+    

@@ -98,8 +98,6 @@
     display: block;
 
 }
-
-
 .dropdown:hover .dropdown-menu {
     display: block;
 }
@@ -258,4 +256,7 @@ body { padding-top: 70px; }
     }
   }
 }
-
+.navbar-inverse .navbar-nav > .open > a:focus {
+    background-color: inherit;
+    color: #fff;
+}
