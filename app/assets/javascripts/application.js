@@ -174,6 +174,63 @@ $(document).on('ready', function() {
   }
 });
 
+$(window).on('load', function() {
+  var title = $(document).find("title").text();
+
+  jQuery.ajax({
+      url: '/main/ajax',
+      data: {id: 'check_title',title: title},
+      type: "POST",
+      success: function(data) {
+
+        $('#search_field').autocomplete({
+          source: function( request, response ) {
+              response(data.source);
+          }
+        }).focus(function() {
+          $('#search_field').autocomplete('search'," ")
+        });
+          // if (data.include == "true"){
+          //   check_exit = false;
+          //   for (var i = 0; i < number_url; i++) {
+          //     if($.cookie('previousUrl'+i) == title){
+          //       check_exit = true;
+          //       break;
+          //     }
+          //   }
+          //   if(check_exit == false){
+          //     alert("set:"+index_url+";"+title);
+          //     $.cookie('previousUrl'+index_url,null);
+          //     $.cookie('previousUrl'+index_url,title);
+          //     if(number_url<5){
+          //       number_url = number_url+1;
+          //       $.cookie('number_url',null);
+          //       $.cookie('number_url',number_url);
+          //     }
+          //     if(index_url<5){
+          //       index_url = index_url+1;
+          //       $.cookie('index_url',null);
+          //       $.cookie('index_url',index_url);
+          //     }else{
+          //       $.cookie('index_url',null);
+          //       $.cookie('index_url',0);
+          //     }
+          //   }
+          // }
+      },
+      failure: function() {
+          console.log("Unsuccessful");
+      }
+  });
+  // var index_url = parseInt($.cookie('index_url'));
+  // var number_url = parseInt($.cookie('number_url'));
+  // alert("index="+index_url+";"+"number="+number_url);
+  // for (var i = 0; i < 5; i++) {
+  //   alert($.cookie('previousUrl'+i));
+  // }
+});
+
+
 $(document).ready(function() {
   $path = "../../assets/resource/dataTable_"+$('#language').text()+".txt"
   $('#export_table').DataTable({"pagingType": "full_numbers"
@@ -233,10 +290,12 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+
 $(document).ready(function() {
     $("#user_avatar").change(function(){
         readURL(this);
     });
+
 });
 
 $(document).on('click', function (e) {
@@ -267,6 +326,20 @@ $(function(){
   $('#search_field').keydown( function(e) {
     if (e.keyCode == 13) {
       location.href = "/main/search?search="+$("#search_field").val()
+    }else{
+      $("#search_field").autocomplete("option", "source", function( request, response ) {
+          var search = $("#search_field").val();
+          return $.ajax({
+            type: "GET",
+            url: "/main/search.json",
+            data: {search: search},
+            success: function(data){
+              console.log(data);
+              response(data);
+            }
+          });
+        }
+      );
     }
   });
   $("#search_select").click(function(){
@@ -305,19 +378,19 @@ $.rails.showConfirmationDialog = function(link){
   });
 };
 
-jQuery(function(){
-  return $("#search_field").autocomplete({
-    source: function( request, response ) {
-      var search = $("#search_field").val()
-      return $.ajax({
-        type: "GET",
-        url: "/main/search.json",
-        data: {search: search},
-        success: function(data){
-          console.log(data);
-          response(data);
-        }
-      });
-    }
-  });
-});
+// jQuery(function(){
+//   return $("#search_field").autocomplete("option", "source", function( request, response ) {
+//       var search = $("#search_field").val();
+//       alert("test");
+//       return $.ajax({
+//         type: "GET",
+//         url: "/main/search.json",
+//         data: {search: search},
+//         success: function(data){
+//           console.log(data);
+//           response(data);
+//         }
+//       });
+//     }
+//   );
+// });

@@ -74,6 +74,7 @@ end
 
   resources :main, only: [:index] do
     collection {get :search}
+    collection {post :ajax}
   end
 
   get "login" => "sessions#new"

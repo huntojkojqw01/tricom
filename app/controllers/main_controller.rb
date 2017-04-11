@@ -46,4 +46,22 @@ class MainController < ApplicationController
       end
     end
   end
+  def ajax
+    case params[:id]
+      when 'check_title'
+        title = params[:title]
+        @masters = Path.where('title_jp LIKE ?','%'+title+'%')
+                        .or(Path.where('title_en LIKE ?','%'+title+'%'))
+        @masters.update_all(updated_at: Time.now)
+        @all_paths = Path.all.order(updated_at: :desc).limit(5)
+        if(I18n.locale.to_s == 'ja')
+          data = {include: "true", source: @all_paths.map(&:title_jp)}
+        else
+          data = {include: "true", source: @all_paths.map(&:title_en)}
+        end
+        respond_to do |format|
+          format.json { render json: data}
+        end
+    end
+  end
 end
