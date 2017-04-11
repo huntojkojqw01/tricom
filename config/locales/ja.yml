@@ -283,14 +283,14 @@ ja:
       shousai_event: 詳細一覧
   export: 輸出
   title:
-    bashokubunmst: 場所区分一覧
+    bashokubunmst: 場所区分マスタ
     bashokubunmaster: 場所区分マスタ
     bashomaster: 場所マスタ
-    bunrui: 分類一覧
+    bunrui: 分類マスタ
     dengonkaitou: 伝言回答マスタ
-    dengon: 伝言一覧
+    dengon: 伝言マスタ
     dengonyouken: 伝言用件マスタ
-    eki: 駅一覧
+    eki: 駅マスタ
     employer: MultiSelect
     event: カレンダー
     time_line_view: タイムライン
@@ -313,7 +313,7 @@ ja:
     keihihead: 経費入力管理
     keihi_pdf: 経費出費明細
     shonin_search: 経費承認一覧
-    kikanmst: 機関一覧
+    kikanmst: 機関マスタ
     kintai: 勤怠
     kouteimaster: 工程マスタ
     layout: TRICOM
