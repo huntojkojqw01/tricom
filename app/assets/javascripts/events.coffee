@@ -209,6 +209,9 @@ jQuery ->
   $('#modal_print_event').click( () ->
     $('#print_modal').modal('show')
   )
+  $('#modal_shousai_event').click( () ->
+    $('#shousai_modal').modal('show')
+  )
   $('#modal_pdf_event').click( () ->
     if !$(this).hasClass('active')
       $(this).addClass('active');
