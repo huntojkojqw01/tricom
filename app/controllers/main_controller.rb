@@ -50,8 +50,8 @@ class MainController < ApplicationController
     case params[:id]
       when 'check_title'
         title = params[:title]
-        @masters = Path.where('title_jp LIKE ?','%'+title+'%')
-                        .or(Path.where('title_en LIKE ?','%'+title+'%'))
+        @masters = Path.where(title_jp: title)
+                        .or(Path.where(title_en: title))
         @masters.update_all(updated_at: Time.now)
         @all_paths = Path.all.order(updated_at: :desc).limit(5)
         if(I18n.locale.to_s == 'ja')
