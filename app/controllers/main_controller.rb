@@ -53,11 +53,16 @@ class MainController < ApplicationController
         @masters = Path.where(title_jp: title)
                         .or(Path.where(title_en: title))
         @masters.update_all(updated_at: Time.now)
+        data = "Success"
+        respond_to do |format|
+          format.json { render json: data}
+        end
+      when 'get_source'
         @all_paths = Path.all.order(updated_at: :desc).limit(5)
         if(I18n.locale.to_s == 'ja')
-          data = {include: "true", source: @all_paths.map(&:title_jp)}
+          data = {source: @all_paths.map(&:title_jp)}
         else
-          data = {include: "true", source: @all_paths.map(&:title_en)}
+          data = {source: @all_paths.map(&:title_en)}
         end
         respond_to do |format|
           format.json { render json: data}
