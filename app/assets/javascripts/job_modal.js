@@ -2,7 +2,7 @@ $(document).ready(function(){
     $("#edit_jobmaster").attr("disabled", true);
     $("#destroy_jobmaster").attr("disabled", true);
     oJobTable = $('#job_table').DataTable({
-        "pagingType": "simple_numbers2"
+        "pagingType": "simple_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
