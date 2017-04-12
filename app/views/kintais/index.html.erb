@@ -1,13 +1,32 @@
 <%= javascript_include_tag 'kintais' %>
 <%= stylesheet_link_tag 'kintais' %>
 <%provide(:title, (t 'title.kintai'))%>
-<ol class="breadcrumb">
-  <li><%= link_to 'メニュー', main_path %></li>
-  <!-- <li><a href="#">基準情報</a></li> -->
-  <!-- <li><a href="#">セキュリティ管理</a></li> -->
-  <li><%= link_to 'カレンダー', events_path %></li>
-  <li class="active">勤怠</li>
-</ol>
+<div class="row">
+  <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+    <ol class="breadcrumb">
+      <li><%= link_to (t 'title.menu'), main_path %></li>
+      <li><%= link_to 'カレンダー', events_path %></li>
+      <li class="active">勤怠</li>
+      <div class= 'pull-right'>
+        <div class="navbar-right" style="margin-right: 10px">
+          <li class="dropdown">
+            <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <span><i class="glyphicon glyphicon-option-horizontal fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
+            </a>
+            <ul class="dropdown-menu">
+              <% if !(@kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?) %>
+                <li id="modal_print_kintai"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
+              <% end %>
+              <li id="import_kintai"><%= link_to raw("<i class='glyphicon glyphicon-upload' style='margin-right:1em;'></i>"+(t 'app.label.import_data')), "#" %></li>
+              <li id="export_kintai"><%= link_to raw("<i class='glyphicon glyphicon-download' style='margin-right:1em;'></i>"+(t 'title.export_csv')), "#" %></li>
+            </ul>
+          </li>
+        </div>
+      </div>
+    </ol>
+  </div>
+</div>
+<%= render 'import_modal' %>
 <%= form_for :kintai, url: kintais_path, html: {class:'form-inline'}, method: :get do |f|%>
 <%= render 'header', f:f %>
 <table  id="kintai-table" class="table  table-bordered table-hover table-height" cellspacing="0" >
@@ -161,33 +180,3 @@
 <%= render 'footer', f: f%>
 
 <% end %>
-
-<div class="row">
-  <div class="spacer">
-  </div>
-</div>
-<legend></legend>
-
-<h4><%=t 'app.label.import_csv'%></h4>
-<%= form_tag import_kintais_path,class:'form-inline', multipart: true do %>
-    <div class="form-group">
-      <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
-      <%= file_field_tag :file , class: 'btn btn-default' %>
-    </div>
-    <div class="form-group">
-      <%= label_tag 'importcsv', nil, class: 'sr-only' %>
-      <%= submit_tag (t 'title.import_csv_btn') , class: 'btn btn-default' %>
-    </div>
-<% end %>
-
-<div class="row">
-  <div class="spacer">
-  </div>
-</div>
-<legend></legend>
-
-<button class='btn btn-primary' id='export_kintai' type= 'button'><%=(t 'title.export_csv')%></button>
-<div class="row">
-  <div class="spacer">
-  </div>
-</div>
