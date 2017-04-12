@@ -1,4 +1,5 @@
 <%= javascript_include_tag 'time_line_view.js' %>
+<%= javascript_include_tag 'event' %>
 <%= javascript_include_tag 'events' %>
 <%= javascript_include_tag 'resource/ja' %>
 <%= stylesheet_link_tag 'events' %>
@@ -18,6 +19,7 @@
             <ul class="dropdown-menu">
               <li><%= link_to raw("<i class='glyphicon glyphicon-new-window' style='margin-right:1em;'></i>"+(t 'title.shutchou_ikkatsu')), "/events/shutchou_ikkatsu_new?param=timeline&shain_id="+session[:user] %></li>
               <li id="modal_print_event"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
+              <li id="modal_shousai_event"><%= link_to raw("<i class='glyphicon glyphicon-book' style='margin-right:1em;'></i>"+(t 'app.label.shousai_event')), "#" %></li>
             </ul>
           </li>
         </div>
@@ -26,8 +28,8 @@
   </div>
 </div>
 <%= render 'print_modal' %>
+<%= render 'shousai_modal' %>
 <%= simple_form_for :timeline, url: time_line_view_events_path, method: :post do |f| %>
-
 <div class="row">
   <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
     <div class="timeline-view">
