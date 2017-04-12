@@ -385,3 +385,183 @@ function updateEvent(the_event){
 //     });
 //     return vars;
 //   }
+$(function(){
+  oEventTable = $('#event_table').DataTable({
+        "dom": 'lBfrtip',
+        "pagingType": "full_numbers",
+        "oLanguage":{"sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"},
+        "aoColumnDefs": [
+            {"aTargets": [1], "mRender": function (data, type, full) {
+                return '<a href="/events/' + data + '/edit">詳細</a>';
+                }
+            },
+            {"aTargets": [2,3], "mRender": function (data, type, full) {
+                var time_format = moment(data, 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm');
+                if (time_format !== 'Invalid date'){
+                    return time_format;
+                    }else return '';
+                }
+            },
+            { "bSortable": false, "aTargets": [ 0,1 ]},
+            {"targets": [ 0,1 ],"searchable": false},
+            {"targets": [ 0 ],"visible": false }
+            //{"targets": [1,2], "width": '11%'},
+            //{"targets": [0], "width": '3%'},
+            //{"targets": [7,8], "width": '6%'},
+            //{"targets": [5], "width": '8%'}
+        ],
+
+        "order": [],
+        "columnDefs": [
+            {"targets" : 'no-sort', "orderable": false}
+        ],
+        "oSearch": {"sSearch": queryParameters().search},
+        "autoWidth": true,
+        "buttons": [{
+            "extend":    'copyHtml5',
+            "text":      '<i class="fa fa-files-o"></i>',
+            "titleAttr": 'Copy',
+            "exportOptions": {
+                "columns": [2,3,4,5,6,7,8,9]
+            }
+        },
+        {
+            "extend":    'excelHtml5',
+            "text":      '<i class="fa fa-file-excel-o"></i>',
+            "titleAttr": 'Excel',
+            "exportOptions": {
+                "columns": [2,3,4,5,6,7,8,9]
+            }
+        },
+        {
+            "extend":    'csvHtml5',
+            "text":      '<i class="fa fa-file-text-o"></i>',
+            "titleAttr": 'CSV',
+            "exportOptions": {
+                "columns": [2,3,4,5,6,7,8,9]
+            }
+        },
+        {
+          "extend": 'selectAll',
+          "action": function( e, dt, node, config ){
+            oEventTable.$('tr').addClass('selected');
+            oEventTable.$('tr').addClass('success');
+            var selects = oEventTable.rows('tr.selected').data();
+            if (selects.length == 0){
+                $("#destroy_event").attr("disabled", true);
+            }else{
+                $("#destroy_event").attr("disabled", false);
+            }
+
+            $(".buttons-select-none").removeClass('disabled');
+          }
+        },
+        {
+          "extend": 'selectNone',
+          "action": function( e, dt, node, config ){
+            oEventTable.$('tr').removeClass('selected');
+            oEventTable.$('tr').removeClass('success');
+            var selects = oEventTable.rows('tr.selected').data();
+            if( selects.length == 0){
+                $("#destroy_event").attr("disabled", true);
+            }else{
+                $("#destroy_event").attr("disabled", false);
+            }
+            $(".buttons-select-none").addClass('disabled');
+          }
+
+        }
+
+        ]
+    });
+
+    $('#event_table').on( 'click', 'tr', function () {
+
+        var d = oEventTable.row(this).data();
+        if(d != undefined){
+            if($(this).hasClass('selected')){
+                $(this).removeClass('selected');
+                $(this).removeClass('success');
+
+            }else{
+                $(this).addClass('selected');
+                $(this).addClass('success');
+            }
+        }
+        var selects = oEventTable.rows('tr.selected').data();
+        if( selects.length == 0){
+          $("#destroy_event").attr("disabled", true);
+          $(".buttons-select-none").addClass('disabled')
+        }else{
+          $("#destroy_event").attr("disabled", false);
+          $(".buttons-select-none").removeClass('disabled');
+        }
+    });
+    $("#destroy_event").attr("disabled", true);
+    $('#destroy_event').click(function(){
+        var events = oEventTable.rows('tr.selected').data();
+        var eventIds = new Array();
+        if( events.length == 0)
+          swal($('#message_confirm_select').text());
+        else{
+            swal({
+                title: $('#message_confirm_delete').text(),
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "キャンセル",
+                closeOnConfirm: false,
+                closeOnCancel: false
+            }).then(function() {
+                var len = events.length;
+                var i=0;
+                for(i=0;i<len;i++)
+                  eventIds[i] = events[i][0];
+
+                $.ajax({
+                  url: '/events/ajax',
+                  data:{
+                    id: 'event_destroy',
+                    events: eventIds
+                  },
+
+                  type: "POST",
+
+                  success: function(data){
+                    swal("削除されました!", "", "success");
+                    if (data.destroy_success != null){
+                        console.log("getAjax destroy_success:"+ data.destroy_success);
+                        oEventTable.rows('tr.selected').remove().draw();
+                        // $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
+                        // $("#event_table").dataTable().fnDraw();
+                        for(i=0;i<len;i++)
+                            $('#calendar-month-view').fullCalendar('removeEvents',eventIds[i]);
+
+                    }else
+                        console.log("getAjax destroy_success:"+ data.destroy_success);
+                    },
+                  failure: function(){
+                    console.log("event_destroy keydown Unsuccessful");
+                  }
+
+                });
+
+                $("#destroy_event").attr("disabled", true);
+            }, function(dismiss) {
+                if (dismiss === 'cancel') {
+
+                    var selects = oEventTable.rows('tr.selected').data();
+                    if( selects.length == 0)
+                      $("#destroy_event").attr("disabled", true);
+                    else
+                      $("#destroy_event").attr("disabled", false);
+                }
+            });
+        }
+    });
+    $('#export_event').click(function(){
+        location.href='/events/export_csv.csv?locale=ja';
+     });
+});
