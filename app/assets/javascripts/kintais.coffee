@@ -487,7 +487,7 @@ jQuery ->
     location.href='/kintais/export_csv.csv?locale=ja';
   )
 
-  $('#export_pdf').click( () ->
+  $('#modal_print_kintai').click( () ->
     window.open('/kintais/pdf_show.pdf?locale=ja&search='+$("#search").val());
   )
   $('.time').datetimepicker({
@@ -918,3 +918,6 @@ jQuery ->
       failure: () ->
         console.log("update_endtime field")
     })
+  $('#import_kintai').click( () ->
+    $('#import_kintais_modal').modal('show')
+    )

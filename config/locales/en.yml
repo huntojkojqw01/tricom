@@ -266,6 +266,7 @@ en:
       check_time_attendance: は出勤時刻以上の値にしてください。
       check_time: は22時間より小さい値にしてください。
     label:
+      import_data: Import data
       import_csv: Import data with CSV!
       reference: Reference
       export_pdf: Export data with PDF!
