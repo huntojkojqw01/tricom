@@ -40,11 +40,7 @@
   <% end %>
   </tbody>
 </table>
-<span id="message_confirm_select" hidden="true"><%=t "app.select_confirm"%></span>
-<span id="message_confirm_delete" hidden="true"><%=t "app.delete_confirm"%></span>
-<%=link_to t("title.new"),new_mybashomaster_path,class: "btn btn-primary",id: "new_mybasho"%>
-<button id="edit_mybasho" class="btn btn-primary"><%=t "title.edit"%></button>
-<button id="destroy_mybasho" class="btn btn-primary"><%=t "title.delete"%></button>
+<%=render 'share/new_edit_destroy_buttons',object: 'mybasho',new_path: new_mybashomaster_path%>
 <% if can? :update, @mybashomasters %>
   <%=render 'share/import_export_buttons',import_path: import_mybashomasters_path%>
 <% end %>

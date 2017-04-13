@@ -18,9 +18,7 @@
         %td= bashokubunmst.場所区分名
        
 
-%br
 = render 'share/new_edit_destroy_buttons',object: 'bashokubunmst'
-
 - if can? :update, @bashokubunmsts
   =render 'share/import_export_buttons',import_path: import_bashokubunmsts_path
 = render 'bashokubun_new_modal'

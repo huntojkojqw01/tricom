@@ -35,7 +35,6 @@
   <% end %>
   </tbody>
 </table>
-
 <%=render 'share/new_edit_destroy_buttons',object: 'user',new_path: new_user_path%>
 <% if can? :manage, User %>  
   <%=render 'share/import_export_buttons',import_path: import_users_path %>

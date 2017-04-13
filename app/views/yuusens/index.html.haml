@@ -7,24 +7,15 @@
 %table.yuusen-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
-      
       %th 優先さ
       %th 色
       %th 備考
-      
-
   %tbody
     - @yuusens.each do |yuusen|
-      %tr
-        
+      %tr        
         %td= yuusen.優先さ
         %td{:style => "background-color:"+yuusen.try(:色).to_s}= yuusen.色
         %td= yuusen.備考
-        
-
-%br
-
 = render 'share/new_edit_destroy_buttons',object: 'yuusen',new_path: new_yuusen_path
-
 - if can? :update, @yuusens
   =render 'share/import_export_buttons',import_path: import_yuusens_path
