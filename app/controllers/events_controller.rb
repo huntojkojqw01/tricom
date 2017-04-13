@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   def index
     @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))
-    @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).all
+    @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).where(社員番号: User.all.ids)
     @holidays = JptHolidayMst.all
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Shainmaster.find(session[:selected_shain]).events.
@@ -176,7 +176,8 @@ class EventsController < ApplicationController
           @shains = Shainmaster.where(タイムライン区分: false,所在コード: vars['joutai']).joins(:rorumenbas).where(ロールメンバ: {ロールコード: vars['roru']}).reorder('ロールメンバ.ロールコード asc,ロールメンバ.ロール内序列 asc')
         end
       end
-
+      @events = Event.where(社員番号: @shains.ids).where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db)).
+      order(開始: :desc)
     end
     rescue
       @events = Shainmaster.take.events
