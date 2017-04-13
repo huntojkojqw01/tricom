@@ -20,18 +20,7 @@
         %td= rorumaster.ロール名
         %td= rorumaster.序列
         
-
-- msg_select = t 'app.select_confirm'
-- msg_confirm = t 'app.delete_confirm'
-- new_text = t 'title.new'
-- edit_text = t 'title.edit'
-- delete_text = t 'title.delete'
-.span#message_confirm_select{hidden: :true} #{msg_select}
-.span#message_confirm_delete{hidden: :true} #{msg_confirm}
-%button.btn.btn-primary#new_rorumaster{type: :button} #{new_text}
-%button.btn.btn-primary#edit_rorumaster{type: :button} #{edit_text}
-%button.btn.btn-primary#destroy_rorumaster{type: :button} #{delete_text}
-
-=render 'share/import_export_buttons',import_path: import_rorumasters_path
+= render 'share/new_edit_destroy_buttons',object: "rorumaster"
+= render 'share/import_export_buttons',import_path: import_rorumasters_path
 = render 'roru_new_modal'
 = render 'roru_edit_modal'

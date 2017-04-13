@@ -51,10 +51,5 @@
   <% end %>
   </tbody>
 </table>
-<span id="message_confirm_select" hidden="true"><%=t "app.select_confirm"%></span>
-<span id="message_confirm_delete" hidden="true"><%=t "app.delete_confirm"%></span>
-<%=link_to t("title.new"),new_shainmaster_path,class: "btn btn-primary",id: "new_shain" if current_user.admin? %>
-<button id="edit_shain" class="btn btn-primary"><%=t "title.edit"%></button>
-<button id="destroy_shain" class="btn btn-primary"><%=t "title.delete"%></button>
-
+<%=render 'share/new_edit_destroy_buttons',object: 'shain',new_path: new_shainmaster_path%>
 <%=render 'share/import_export_buttons',import_path:  import_shainmasters_path %>

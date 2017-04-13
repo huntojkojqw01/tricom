@@ -49,19 +49,7 @@
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<% msg_select = t 'app.select_confirm' %>
-<% msg_confirm = t 'app.delete_confirm' %>
-<% new_text = t 'title.new' %>
-<% edit_text = t 'title.edit' %>
-<% delete_text = t 'title.delete' %>
-
-<%= link_to new_text, new_jobmaster_path , { :class=>"button btn btn-primary" }%>
-<button class='btn btn-primary' id='edit_jobmaster' type= 'button'><%= edit_text %></button>
-<button class='btn btn-primary' id='destroy_jobmaster' type= 'button'><%= delete_text %></button>
-
+<%= render 'share/new_edit_destroy_buttons',object: 'jobmaster',new_path: new_jobmaster_path %>
 <% if can? :update, @jobmasters %>
   <%=render 'share/import_export_buttons',import_path: import_jobmasters_path %>
 <% end %>

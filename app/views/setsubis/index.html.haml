@@ -18,19 +18,7 @@
         %td= setsubi.設備コード
         %td= setsubi.設備名
         %td= setsubi.備考
-        
-
-- msg_select = t 'app.select_confirm'
-- msg_confirm = t 'app.delete_confirm'
-- new_text = t 'title.new'
-- edit_text = t 'title.edit'
-- delete_text = t 'title.delete'
-.span#message_confirm_select{hidden: :true} #{msg_select}
-.span#message_confirm_delete{hidden: :true} #{msg_confirm}
-%button.btn.btn-primary#new_setsubi{type: :button} #{new_text}
-%button.btn.btn-primary#edit_setsubi{type: :button} #{edit_text}
-%button.btn.btn-primary#destroy_setsubi{type: :button} #{delete_text}
-
-=render 'share/import_export_buttons',import_path: import_setsubis_path
+= render 'share/new_edit_destroy_buttons',object: 'setsubi'
+= render 'share/import_export_buttons',import_path: import_setsubis_path
 = render 'setsubi_new_modal'
 = render 'setsubi_edit_modal'

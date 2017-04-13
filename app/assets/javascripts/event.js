@@ -994,23 +994,24 @@ $(function(){
     });
 
     oEventTable = $('#event_table').DataTable({
-        "dom": 'lBfrtip',
+        "dom": 'lBfrtip',        
+        //"scrollX": true,
         "pagingType": "full_numbers",
         "oLanguage":{"sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"},
         "aoColumnDefs": [
-            {"aTargets": [1], "mRender": function (data, type, full) {
-                return '<a href="/events/' + data + '/edit">詳細</a>';
-                }
-            },
-            {"aTargets": [2,3], "mRender": function (data, type, full) {
+            // {"aTargets": [1], "mRender": function (data, type, full) {
+            //     return '<a href="/events/' + data + '/edit">詳細</a>';
+            //     }
+            // },
+            {"aTargets": [1,2], "mRender": function (data, type, full) {
                 var time_format = moment(data, 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm');
                 if (time_format !== 'Invalid date'){
                     return time_format;
                     }else return '';
                 }
             },
-            { "bSortable": false, "aTargets": [ 0,1 ]},
-            {"targets": [ 0,1 ],"searchable": false},
+            { "bSortable": false, "aTargets": [ 0,9 ]},
+            {"targets": [ 0,9 ],"searchable": false},
             {"targets": [ 0 ],"visible": false }
             //{"targets": [1,2], "width": '11%'},
             //{"targets": [0], "width": '3%'},
@@ -1018,18 +1019,18 @@ $(function(){
             //{"targets": [5], "width": '8%'}
         ],
 
-        "order": [],
+        // "order": [],
         "columnDefs": [
             {"targets" : 'no-sort', "orderable": false}
         ],
         "oSearch": {"sSearch": queryParameters().search},
-        "autoWidth": true,
+        "autoWidth": false,
         "buttons": [{
             "extend":    'copyHtml5',
             "text":      '<i class="fa fa-files-o"></i>',
             "titleAttr": 'Copy',
             "exportOptions": {
-                "columns": [2,3,4,5,6,7,8,9]
+                "columns": [1,2,3,4,5,6,7,8]
             }
         },
         {
@@ -1037,7 +1038,7 @@ $(function(){
             "text":      '<i class="fa fa-file-excel-o"></i>',
             "titleAttr": 'Excel',
             "exportOptions": {
-                "columns": [2,3,4,5,6,7,8,9]
+                "columns": [1,2,3,4,5,6,7,8]
             }
         },
         {
@@ -1045,7 +1046,7 @@ $(function(){
             "text":      '<i class="fa fa-file-text-o"></i>',
             "titleAttr": 'CSV',
             "exportOptions": {
-                "columns": [2,3,4,5,6,7,8,9]
+                "columns": [1,2,3,4,5,6,7,8]
             }
         },
         {
