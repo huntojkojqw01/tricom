@@ -3,6 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "font-awesome";
 
+.kintai-table { overflow-x: scroll; display: block;}
 .set-width{
   width: 100%;
 }
@@ -36,12 +37,12 @@ tr [colspan="6"] {
 }
 
 .table-height td {
-  height: 50px;
+  height: 55px;
 
 }
 
 .table-width {
-  width: 150px;
+  width: 100px;
 
 }
 

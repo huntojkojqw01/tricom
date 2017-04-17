@@ -149,8 +149,182 @@
 
     <input type="hidden" name="selected_user" id="selected_user"/>
     <input type="hidden" name="selected_user_name" id="selected_user_name"/>
+    <div class="spacer"></div>
+    <div class="row">
+      <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+        <button id="show_event_button" class="btn btn-primary" type="button">詳細一覧</button>
+        <button id="hide_event_button" class="btn btn-primary" type="button">詳細一覧</button>
+      </div>
+    </div>
 </div>
+<div id="after_div">
 
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+        <div class="spacer">
+        </div>
+      </div>
+    </div>
+    <legend></legend>
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+
+        <table id="event_table_footer" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+          <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th><%=(t 'title.kaishijikoku')%></th>
+            <th><%=(t 'title.shyuuryoujikoku')%></th>
+            <th><%=(t 'title.joutai')%></th>
+            <th><%=(t 'title.basho')%></th>
+            <th>JOB</th>
+            <th><%=(t 'title.kouteimei')%></th>
+            <th><%=(t 'title.koushuu')%></th>
+            <th><%=(t 'title.keijyou')%></th>
+          </tr>
+          </thead>
+
+          <tbody>
+          <% @events.each do |event| %>
+              <tr>
+                <td><%= event.id %></td>
+                <td><%= event.id %></td>
+                <td><%= event.開始 %></td>
+                <td><%= event.終了 %></td>
+                <td><%= event.joutaimaster.try :name %></td>
+                <!--<td><%# event.shozai.try :所在名 %></td>-->
+                <!--<td><%# event.場所名 %></td>-->
+                <%
+                   if event.bashomaster
+                     basho_name = event.bashomaster.name
+                     basho_name = event.bashomaster.kaisha_name if event.bashomaster.場所区分 == '2'
+                   end
+                %>
+                <td><%= basho_name %></td>
+                <td><%= event.job_job名 %></td>
+                <td><%= event.koutei_工程名 %></td>
+                <td><%= event.工数 %></td>
+                <td><%= event.計上 %></td>
+                <!--<td><%# event.joutaimaster.状態名 %></td>-->
+              </tr>
+          <% end %>
+
+
+          <%# @events.each do |event| %>
+          <%# render partial: 'table_row', locals: {event: event} %>
+          <%# end %>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+        <% msg_select = t 'app.select_confirm' %>
+        <% msg_confirm = t 'app.delete_confirm' %>
+        <span id='message_confirm_select' hidden='true'><%=msg_select%></span>
+        <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
+        <a href=<%=new_event_path%> ><button class='btn btn-primary' type= 'button'><%=(t 'title.new')%></button></a>
+        <button class='btn btn-primary' id='destroy_event_footer' type= 'button'><%=(t 'title.delete')%></button>
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+        <div class="spacer">
+        </div>
+      </div>
+    </div>
+    <legend></legend>
+
+    <div class="row">
+      <div class="col-md-6 col-xs-8 col-sm-8 col-lg-6 col-md-offset-4 col-xs-offset-2 col-sm-offset-3 col-lg-offset-4">
+        <button class='btn btn-primary' id='print_event_footer' type= 'button'><%=(t 'app.label.pdf_event')%></button>
+        <button class='btn btn-primary' id='print_event_job_footer' type= 'button'><%=(t 'app.label.pdf_event_job')%></button>
+        <button class='btn btn-primary' id='print_event_koutei_footer' type= 'button'><%=(t 'app.label.pdf_event_koutei')%></button>
+      </div>
+    </div>
+
+    <div id="selectDay_footer" style="display: none">
+      <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+          <div class="spacer">
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 col-md-offset-4 col-xs-offset-1 col-sm-offset-3 col-lg-offset-4">
+          <label>開始</label>
+          <div class="input-group date_start_select_footer">
+            <input type='text' class="form-control" id="date_start_input_footer" name="date_start_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_start" aria-hidden="true"></span>
+            </span>
+
+          </div>
+
+        </div>
+        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 ">
+          <label>終了</label>
+          <div class="input-group date_end_select_footer">
+            <input type='text' class="form-control" id="date_end_input_footer" name="date_end_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_end" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
+          <label>&nbsp;</label>
+          <div>
+            <button id="print_pdf_event_footer" class="btn btn-default" type="button"><%=(t 'app.label.export_pdf')%></button>
+            <button id="print_pdf_job_footer" class="btn btn-default" type="button"><%=(t 'app.label.export_pdf')%></button>
+            <button id="print_pdf_koutei_footer" class="btn btn-default" type="button"><%=(t 'app.label.export_pdf')%></button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="row" style="display: none;">
+        <%= form_tag import_events_path,class:'form-inline', multipart: true do %>
+        <% end %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+        <div class="spacer">
+        </div>
+      </div>
+    </div>
+    <legend></legend>
+
+    <div class="row">
+      <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 ">
+        <%= form_tag import_events_path,class:'form-inline', multipart: true do %>
+          <div>
+            <%= submit_tag (t 'title.import_csv_btn') , class: 'btn btn-primary' %>
+            <button class='btn btn-primary' id='export_event_footer' type= 'button'><%=(t 'title.export_csv')%></button>
+          </div>
+          <div class="spacer">
+          </div>
+          <div class="form-group">
+            <%= label_tag 'selectcsv', nil, class: 'sr-only' %>
+            <%= file_field_tag :file , class: 'btn btn-default' %>
+          </div>
+          <div class="form-group">
+            <%= label_tag 'importcsv', nil, class: 'sr-only' %>
+
+          </div>
+        <% end %>
+      </div>
+    </div>
+</div>
   <!--   <div class="row">
       <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
         <div class="spacer">
