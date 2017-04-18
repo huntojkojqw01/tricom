@@ -1,19 +1,57 @@
 = simple_form_for(@setting) do |f|
   = f.error_notification
-  .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
-    = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label:'社員番号' if mode == :new
-    = f.input :scrolltime , label: 'ScrollTime'do
-      = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
-    = f.input :local , label: 'Local'do
-      = f.select :local, options_for_select(["ja", "en","vi"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
-    = f.label (t 'app.label.select_vn_holiday')
-    .space
-    = f.check_box :select_holiday_vn    
-    .space
-    = f.label (t 'app.label.turning_data')
-    .space
-    = f.check_box :turning_data
+  / .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
+  /   = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label:'社員番号' if mode == :new
+  /   = f.input :scrolltime , label: 'ScrollTime'do
+  /     = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
+  /   = f.input :local , label: 'Local'do
+  /     = f.select :local, options_for_select(["ja", "en","vi"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
+  /   = f.label (t 'app.label.select_vn_holiday')
+  /   .space
+  /   = f.check_box :select_holiday_vn
+  /   .space
+  /   = f.label (t 'app.label.turning_data')
+  /   .space
+  /   = f.check_box :turning_data
+  /   .row
+  /     .col-md-12.col-xs-12.col-sm-12.col-lg-12
+  /       .spacer
+  /   = f.button :submit, class:'btn btn-primary'
+
+  .col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
     .row
       .col-md-12.col-xs-12.col-sm-12.col-lg-12
         .spacer
+    = f.label '社員番号' if mode == :new
+    .row
+      .col-md-1.col-xs-1.col-sm-1.col-lg-1
+      .col-md-10.col-xs-10.col-sm-10.col-lg-10
+        = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label: false, input_html:{style: 'width:120px'} if mode == :new
+    = f.label (t 'title.scrolltime')
+    .row
+      .col-md-1.col-xs-1.col-sm-1.col-lg-1
+      .col-md-10.col-xs-10.col-sm-10.col-lg-10
+        = f.input :scrolltime, label: false do
+          = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:120px'}
+    .spacer
+    = f.label (t 'title.local')
+    .row
+      .col-md-1.col-xs-1.col-sm-1.col-lg-1
+      .col-md-10.col-xs-10.col-sm-10.col-lg-10
+        = f.input :local, label: false do
+          = f.select :local, options_for_select([["日本語","ja"],["English","en"],["Tiếng Việt","vi"]], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:120px'}
+    .spacer
+    = f.label (t 'app.label.select_vn_holiday')
+    %p.help-block=t 'app.label.select_vn_holiday_descr'
+    .row
+      .col-md-1.col-xs-1.col-sm-1.col-lg-1
+      .col-md-10.col-xs-10.col-sm-10.col-lg-10
+        = f.check_box :select_holiday_vn
+    .spacer
+    = f.label (t 'app.label.turning_data')
+    %p.help-block=t 'app.label.turning_data_descr'
+    .row
+      .col-md-1.col-xs-1.col-sm-1.col-lg-1
+      .col-md-10.col-xs-10.col-sm-10.col-lg-10
+        = f.check_box :turning_data
     = f.button :submit, class:'btn btn-primary'
