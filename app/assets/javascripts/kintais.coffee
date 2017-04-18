@@ -39,7 +39,7 @@ jQuery ->
     $('#joutai_search_modal').modal('show')
 #    status = 1
     event.preventDefault()
-    
+
   $('#kinmu_refer').hide()
   $('.kinmu-hide').hide()
   $(document).on 'click', '.kinmu-hide', (event) ->
@@ -486,7 +486,9 @@ jQuery ->
   $('#export_kintai').click( () ->
     location.href='/kintais/export_csv.csv?locale=ja';
   )
-
+  $('#export_pdf').click( () ->
+    window.open('/kintais/pdf_show.pdf?locale=ja&search='+$("#search").val());
+  )
   $('#modal_print_kintai').click( () ->
     window.open('/kintais/pdf_show.pdf?locale=ja&search='+$("#search").val());
   )
@@ -497,7 +499,7 @@ jQuery ->
     sideBySide: true,
     toolbarPlacement: 'top',
     keyBinds: false,
-    focusOnShow: false     
+    focusOnShow: false
   }).on("dp.hide", (e) ->
     idRow = $(this).find('.input-time').attr('id')
     idKintai = idRow.substring(12,idRow.length)
@@ -509,7 +511,7 @@ jQuery ->
   $('.input-time').datetimepicker({
       format: 'HH:mm'
     })
-  $('.input-time').click( () ->    
+  $('.input-time').click( () ->
     $(this).closest('.time').data("DateTimePicker").toggle();
   );
 
