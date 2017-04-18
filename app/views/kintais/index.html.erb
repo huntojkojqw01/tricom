@@ -14,7 +14,9 @@
               <span><i class="glyphicon glyphicon-option-horizontal fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
             </a>
             <ul class="dropdown-menu">
-              <li id="modal_print_kintai"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
+              <% if !(@kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?) %>
+                <li id="modal_print_kintai"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
+              <% end %>
               <li id="import_kintai"><%= link_to raw("<i class='glyphicon glyphicon-upload' style='margin-right:1em;'></i>"+(t 'app.label.import_data')), "#" %></li>
               <li id="export_kintai"><%= link_to raw("<i class='glyphicon glyphicon-download' style='margin-right:1em;'></i>"+(t 'title.export_csv')), "#" %></li>
             </ul>
