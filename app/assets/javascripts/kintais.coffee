@@ -3,12 +3,15 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
   $('.best_in_place').best_in_place()
+  now = new Date();
+  current = new Date(now.getFullYear(), now.getMonth()+1, 1);
 
   $('.date-search').datetimepicker({
     format: 'YYYY/MM',
     viewMode: 'months',
     keyBinds: false,
-    focusOnShow: false
+    focusOnShow: false,
+    maxDate: moment(current).format('YYYY/MM/DD'),
   }).on('dp.show', () ->
     $('.date-search').data("DateTimePicker").viewMode("months")
   );
