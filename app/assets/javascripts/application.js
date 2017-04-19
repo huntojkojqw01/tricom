@@ -158,14 +158,14 @@ $(document).on('ready', function() {
   }, 6000);
 
   if($(".link-top").length > 0){
-    // $(window).scroll(function () {
-    //   var e = $(window).scrollTop();
-    //   if (e > 300) {
-    //     $(".link-top").show()
-    //   } else {
-    //     $(".link-top").hide()
-    //   }
-    // });
+    $(window).scroll(function () {
+      var e = $(window).scrollTop();
+      if (e > 300) {
+        $(".link-top").show()
+      } else {
+        $(".link-top").hide()
+      }
+    });
     $(".link-top").click(function () {
       $('body,html').animate({
         scrollTop: 0
