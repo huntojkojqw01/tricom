@@ -96,6 +96,11 @@ jQuery ->
       $('#hide_table_button').hide()
       $('#show_table_button').hide()
 
+    if getUrlVars()["all_day"] == "true"
+      $("#select_allday").prop('checked', true);
+    else
+      $("#select_allday").prop('checked', false);
+
   $('#hide_table_button').click () ->
     $('#hide_table_button').hide()
     $('#show_table_button').show()
@@ -107,9 +112,14 @@ jQuery ->
     $('#table-div').show()
 
   $("#select_allday").change ->
+    date = moment().format("YYYY/MM/DD");
+
+    if getUrlVars()["start_at"]!= undefined && getUrlVars()["start_at"]!=""
+      date = getUrlVars()["start_at"];
+
     if $(this).is(":checked")
-      $('#setsubiyoyaku_開始').val(moment(getUrlVars()["start_at"]+" 00:00").format("YYYY/MM/DD HH:mm"))
-      $('#setsubiyoyaku_終了').val(moment(getUrlVars()["start_at"]+" 24:00").format("YYYY/MM/DD HH:mm"))
+      $('#setsubiyoyaku_開始').val(moment(date+" 00:00").format("YYYY/MM/DD HH:mm"))
+      $('#setsubiyoyaku_終了').val(moment(date+" 24:00").format("YYYY/MM/DD HH:mm"))
     else
-      $('#setsubiyoyaku_開始').val(moment(getUrlVars()["start_at"]+" 09:00").format("YYYY/MM/DD HH:mm"))
-      $('#setsubiyoyaku_終了').val(moment(getUrlVars()["start_at"]+" 18:00").format("YYYY/MM/DD HH:mm"))
+      $('#setsubiyoyaku_開始').val(moment(date+" 09:00").format("YYYY/MM/DD HH:mm"))
+      $('#setsubiyoyaku_終了').val(moment(date+" 18:00").format("YYYY/MM/DD HH:mm"))
