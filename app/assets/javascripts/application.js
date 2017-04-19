@@ -156,7 +156,7 @@ $(document).on('ready', function() {
   });
 
   }, 6000);
-
+  $(".link-top").hide();
   if($(".link-top").length > 0){
     $(window).scroll(function () {
       var e = $(window).scrollTop();
