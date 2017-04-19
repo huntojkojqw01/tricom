@@ -31,7 +31,7 @@ class SetsubiyoyakusController < ApplicationController
     vars = request.query_parameters
     param_date = vars['start_at']
     param_setsubi = vars['setsubi_code']
-
+    param_allday = vars['all_day']
     if(param_date.nil?)
       date = Date.today.to_s(:db)
     else
@@ -44,8 +44,11 @@ class SetsubiyoyakusController < ApplicationController
       setsubi = param_setsubi
     end
 
-
-    @setsubiyoyaku = Setsubiyoyaku.new(予約者: session[:user],設備コード: setsubi,開始: "#{date} 09:00", 終了: "#{date} 18:00")
+    if param_allday == "true"
+      @setsubiyoyaku = Setsubiyoyaku.new(予約者: session[:user],設備コード: setsubi,開始: "#{date} 00:00", 終了: "#{date} 24:00")
+    else
+      @setsubiyoyaku = Setsubiyoyaku.new(予約者: session[:user],設備コード: setsubi,開始: "#{date} 09:00", 終了: "#{date} 18:00")
+    end
 
 
 
