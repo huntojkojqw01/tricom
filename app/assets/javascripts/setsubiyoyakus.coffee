@@ -72,7 +72,7 @@ jQuery ->
   $('#kaisha_sentaku_ok').on 'click', ->
     d = oKaishaTable.row('tr.selected').data()
     $('#setsubiyoyaku_相手先').val d[0]
-    $('.hint-kaisha-refer').text(d[1])    
+    $('.hint-kaisha-refer').text(d[1])
   $('.refer-kaisha').click ->
     $('#kaisha-search-modal').modal 'show'
     if $('#setsubiyoyaku_相手先').val() != ''
@@ -82,7 +82,7 @@ jQuery ->
           oKaishaTable.$('tr.selected').removeClass 'selected'
           oKaishaTable.$('tr.success').removeClass 'success'
           @nodes().to$().addClass 'selected'
-          @nodes().to$().addClass 'success'        
+          @nodes().to$().addClass 'success'
       oKaishaTable.page.jumpToData $('#setsubiyoyaku_相手先').val(), 0
       $('#kaisha_sentaku_ok').attr 'disabled', false
       $('#clear_kaisha').attr 'disabled', false
@@ -106,3 +106,10 @@ jQuery ->
     $('#show_table_button').hide()
     $('#table-div').show()
 
+  $("#select_allday").change ->
+    if $(this).is(":checked")
+      $('#setsubiyoyaku_開始').val(moment(getUrlVars()["start_at"]+" 00:00").format("YYYY/MM/DD HH:mm"))
+      $('#setsubiyoyaku_終了').val(moment(getUrlVars()["start_at"]+" 24:00").format("YYYY/MM/DD HH:mm"))
+    else
+      $('#setsubiyoyaku_開始').val(moment(getUrlVars()["start_at"]+" 09:00").format("YYYY/MM/DD HH:mm"))
+      $('#setsubiyoyaku_終了').val(moment(getUrlVars()["start_at"]+" 18:00").format("YYYY/MM/DD HH:mm"))
