@@ -152,7 +152,8 @@ $(document).on('ready', function() {
       },
       failure: function() {
           console.log("Unsuccessful");
-      }
+      },
+      global: false
   });
 
   }, 6000);
@@ -295,7 +296,18 @@ $(document).ready(function() {
     $("#user_avatar").change(function(){
         readURL(this);
     });
-
+    $('.loader').hide();
+    $(document).ajaxStart(function(){        
+        $('.loader').show();
+    })
+    $(document).ajaxStop(function(){
+        setTimeout(function() 
+            {  
+              $('.loader').hide();              
+            },
+            1000
+        );                
+    });
 });
 
 $(document).on('click', function (e) {
