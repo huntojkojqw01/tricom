@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170327021603) do
+ActiveRecord::Schema.define(version: 20170420070854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -482,7 +482,7 @@ ActiveRecord::Schema.define(version: 20170327021603) do
     t.datetime "updated_at",                 null: false
     t.decimal  "有給残数"
     t.string   "残業区分"
-    t.string   "勤務タイプ"
+    t.string   "勤務タイプ",      default: "005"
     t.boolean  "区分",         default: false
     t.boolean  "タイムライン区分",   default: false
     t.date     "login_time"
