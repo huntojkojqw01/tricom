@@ -13,6 +13,24 @@ class Setsubiyoyaku < ActiveRecord::Base
   delegate :会社名, to: :kaishamaster, prefix: :kaisha, allow_nil: true
 
   validate :check_date_input
+  def self.import(file)
+    # a block that runs through a loop in our CSV data
+    CSV.foreach(file.path, headers: true) do |row|
+      # creates a user for each row in the CSV file
+      Setsubiyoyaku.create! row.to_hash
+    end
+  end
+  def self.to_csv
+    attributes = %w{設備コード 予約者 相手先 開始 終了 用件}
+
+    CSV.generate(headers: true) do |csv|
+      csv << attributes
+
+      all.each do |setsubiyoyaku|
+        csv << attributes.map{ |attr| setsubiyoyaku.send(attr) }
+      end
+    end
+  end
   # Naive approach
   def self.rebuild_pg_search_documents
     find_each { |record| record.update_pg_search_document }

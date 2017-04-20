@@ -109,10 +109,48 @@ class SetsubiyoyakusController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
-
+      when 'setsubiyoyaku_削除する'
+        setsubiyoyakuIds = params[:setsubiyoyakus]
+        setsubiyoyakuIds.each{ |setsubiyoyakuId|
+          Setsubiyoyaku.find_by(id: setsubiyoyakuId).destroy
+        }
+        data = {destroy_success: "success"}
+        respond_to do |format|
+        format.json { render json: data}
+      end
+    end
+  end
+  def import
+    if params[:file].nil?
+      flash[:alert] = t "app.flash.file_nil"
+      redirect_to setsubiyoyakus_path
+    elsif File.extname(params[:file].original_filename) != ".csv"
+      flash[:danger] = t "app.flash.file_format_invalid"
+      redirect_to setsubiyoyakus_path
+    else
+      begin
+        Setsubiyoyaku.transaction do
+          Setsubiyoyaku.delete_all
+          Setsubiyoyaku.reset_pk_sequence
+          Setsubiyoyaku.import(params[:file])
+          notice = t 'app.flash.import_csv'
+          redirect_to :back, notice: notice
+        end
+      rescue => err
+        flash[:danger] = err.to_s
+        redirect_to setsubiyoyakus_path
+      end
     end
   end
 
+  def export_csv
+    @setsubiyoyakus = Setsubiyoyaku.all
+
+    respond_to do |format|
+      format.html
+      format.csv { send_data @setsubiyoyakus.to_csv, filename: "設備予約.csv" }
+    end
+  end
   private
   def set_setsubiyoyaku
     @setsubiyoyaku = Setsubiyoyaku.find(params[:id])
