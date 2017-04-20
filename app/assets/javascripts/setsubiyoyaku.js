@@ -45,6 +45,7 @@ $(document).ready(function() {
 
 
                   element.find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
+                  // element.closest('.fc-content').css("margin-bottom","100px");
                     // var date = event.start.getDate();
                     // alert(date);
                     // $('.fc-time-area tr[data-resource-id="_fc'+date+'"] ').find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
@@ -70,6 +71,17 @@ $(document).ready(function() {
                     // element.append('<a href="/setsubiyoyakus/new?start_at='+date.format()+'&all_day=true&setsubi_code='+setsubiCode+
                     //     '" style="" class= ""><span class="glyphicon glyphicon-time" aria-hidden="true"></span></a>');
                             // el.html('<a href="/events/new?shain_id='+resources.shainid+'"></a>');
+
+                },
+                eventAfterRender: function(event, element, view){
+
+                    // var bottom = parseInt(element.closest('.fc-time-grid-event').css("bottom"),10);
+                    // var top = parseInt(element.closest('.fc-time-grid-event').css("top"),10);
+                    // var margin = (-(top + bottom)/2).toString()+"px";
+                    var height = parseInt(element.closest('.fc-time-grid-event').css("height"),10);
+                    var contentHeight = parseInt(element.find('.fc-content').css("height"),10);
+                    var margin = ((height - contentHeight)/2).toString()+"px";
+                    element.find('.fc-content').css("margin-top",margin);
 
                 }
             }

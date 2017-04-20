@@ -68,7 +68,7 @@ class SetsubiyoyakusController < ApplicationController
     @kaishamasters = Kaishamaster.all
     @setsubiyoyaku = Setsubiyoyaku.new setsubiyoyaku_params
     @setsubiyoyaku.save
-    respond_with @setsubiyoyaku, location: setsubiyoyakus_url
+    respond_with @setsubiyoyaku, location: setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
   end
 
   def update
@@ -81,7 +81,7 @@ class SetsubiyoyakusController < ApplicationController
     # end
     if @setsubiyoyaku.update_attributes(setsubiyoyaku_params)
       flash[:notice] = t "app.flash.update_success"
-      redirect_to setsubiyoyakus_url
+      redirect_to setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
     else
       @kaishamasters = Kaishamaster.all
       render :edit
@@ -90,8 +90,9 @@ class SetsubiyoyakusController < ApplicationController
   end
 
   def destroy
+    setsubicode = @setsubiyoyaku.設備コード
     @setsubiyoyaku.destroy
-    respond_with(@setsubiyoyaku)
+    respond_with @setsubiyoyaku, location: setsubiyoyakus_url(:head => {setsubicode: setsubicode})
     end
 
   def ajax
