@@ -280,6 +280,8 @@ vi:
       select_vn_holiday_descr: Hiển thị cả các ngày nghỉ lễ của Việt Nam trên lịch
       turning_data: Xóa dữ liệu
       turning_data_descr: Xóa dữ liệu cũ của người dùng, chỉ lưu lại dữ liệu 3 tháng gần nhất
+      hinemosu: Cả ngày
+      hinemosu_descr: Thiết lập thời gian bắt đầu là 0h00 và thời gian kết thúc là 24h00, mặc định là từ 9h00 đến 18h00
       text_descript_drag: Có thể kéo thả (hoặc nhấp chuột) để thay đổi avatar
       shousai_event: Danh sách chi tiết
   export: Xuất

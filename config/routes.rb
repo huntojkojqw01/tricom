@@ -195,7 +195,8 @@ end
   end
 
   resources :setsubiyoyakus do
-    collection {post :ajax}
+    collection {post :import,:ajax}
+    collection {get :export_csv}
   end
 
   resources :rorumasters do

@@ -3,23 +3,162 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
   oTable = $('.setsubiyoyaku-table').DataTable({
+    "dom": 'lBfrtip',
     "pagingType": "full_numbers",
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     "aoColumnDefs": [
-        { "bSortable": false, "aTargets": [ 5,6 ]},
+        { "bSortable": false, "aTargets": [ 6,7 ]},
         {
-            "targets": [5,6],
+            "targets": [6,7],
             "width": '7%'
+        },
+        {
+          "targets": 0,
+          "visible": false
         }
     ],
     "columnDefs": [ {
         "targets"  : 'no-sort',
         "orderable": false
-    }]
+    }],
+    "oSearch": {"sSearch": queryParameters().search},
+    "buttons": [{
+            "extend":    'copyHtml5',
+            "text":      '<i class="fa fa-files-o"></i>',
+            "titleAttr": 'Copy',
+            "exportOptions": {
+                "columns": [1,2,3,4,5]
+            }
+        },
+        {
+            "extend":    'excelHtml5',
+            "text":      '<i class="fa fa-file-excel-o"></i>',
+            "titleAttr": 'Excel',
+            "exportOptions": {
+                "columns": [1,2,3,4,5]
+            }
+        },
+        {
+            "extend":    'csvHtml5',
+            "text":      '<i class="fa fa-file-text-o"></i>',
+            "titleAttr": 'CSV',
+            "exportOptions": {
+                "columns": [1,2,3,4,5]
+            }
+        },
+        {
+          "extend": 'selectAll',
+          "action": ( e, dt, node, config )->
+            oTable.$('tr').addClass('selected')
+            oTable.$('tr').addClass('success')
+            selects = oTable.rows('tr.selected').data()
+            if (selects.length == 0)
+              $("#destroy_setsubiyoyaku").attr("disabled", true)
+            else
+              $("#destroy_setsubiyoyaku").attr("disabled", false)
+            $(".buttons-select-none").removeClass('disabled')
+          
+        },
+        {
+          "extend": 'selectNone',
+          "action": ( e, dt, node, config )->
+            oTable.$('tr').removeClass('selected')
+            oTable.$('tr').removeClass('success')
+            selects = oTable.rows('tr.selected').data()
+            if( selects.length == 0)
+              $("#destroy_setsubiyoyaku").attr("disabled", true)
+            else
+              $("#destroy_setsubiyoyaku").attr("disabled", false)           
+            $(".buttons-select-none").addClass('disabled')         
+        }
+      ]
   })
+  $("#destroy_setsubiyoyaku").attr("disabled", true);
+  $('.setsubiyoyaku-table').on( 'click', 'tr',  () ->    
+    d = oTable.row(this).data()
+    if d != undefined
+      if $(this).hasClass('selected')
+        $(this).removeClass('selected')
+        $(this).removeClass('success')
+        # $("#edit_eki").attr("disabled", true);
+        # $("#destroy_eki").attr("disabled", true);
+      else
+        # oTable.$('tr.selected').removeClass('selected')
+        # oTable.$('tr.success').removeClass('success')
+        $(this).addClass('selected')
+        $(this).addClass('success')
+        # $("#edit_eki").attr("disabled", false);
+        # $("#destroy_eki").attr("disabled", false);
+    selects = oTable.rows('tr.selected').data()
+    if selects.length == 0      
+      $("#destroy_setsubiyoyaku").attr("disabled", true);
+      $(".buttons-select-none").addClass('disabled')
+    else
+      $("#destroy_setsubiyoyaku").attr("disabled", false);
+      $(".buttons-select-none").removeClass('disabled')
+      
 
+  )
+
+  $('#destroy_setsubiyoyaku').click () ->
+    setsubiyoyakus = oTable.rows('tr.selected').data()
+    setsubiyoyakuIds = new Array();
+    if setsubiyoyakus.length == 0
+      swal($('#message_confirm_select').text())
+    else
+
+      swal({
+        title: $('#message_confirm_delete').text(),
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        cancelButtonText: "キャンセル",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then(() ->
+        len = setsubiyoyakus.length
+        for i in [0...len]
+          setsubiyoyakuIds[i] = setsubiyoyakus[i][0]
+
+        $.ajax({
+          url: '/setsubiyoyakus/ajax',
+          data:{
+            focus_field: 'setsubiyoyaku_削除する',
+            setsubiyoyakus: setsubiyoyakuIds
+          },
+
+          type: "POST",
+
+          success: (data) ->
+            swal("削除されました!", "", "success");
+            if data.destroy_success != null
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+              oTable.rows('tr.selected').remove().draw()
+            else
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+
+
+          failure: () ->
+            console.log("setsubiyoyaku_削除する keydown Unsuccessful")
+
+        })        
+        $("#destroy_setsubiyoyaku").attr("disabled", true);
+
+      ,(dismiss) ->
+        if dismiss == 'cancel'
+
+          selects = oTable.rows('tr.selected').data()
+          if selects.length == 0            
+            $("#destroy_setsubiyoyaku").attr("disabled", true);
+          else
+            $("#destroy_setsubiyoyaku").attr("disabled", false);            
+      );
+  $('#export_setsubiyoyaku').click ()->
+    location.href='/setsubiyoyakus/export_csv.csv?locale=ja'
   $('.datetime').datetimepicker({
     format: 'YYYY/MM/DD HH:mm',
     showTodayButton: true,

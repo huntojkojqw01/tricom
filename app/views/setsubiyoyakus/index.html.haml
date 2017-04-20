@@ -1,5 +1,5 @@
-= javascript_include_tag 'setsubiyoyakus'
 = javascript_include_tag 'setsubiyoyaku'
+= javascript_include_tag 'setsubiyoyakus'
 = javascript_include_tag 'resource/ja'
 = stylesheet_link_tag 'setsubiyoyakus'
 = provide(:title, (t 'title.setsubiyoyaku'))
@@ -20,21 +20,19 @@
 %button.btn.btn-primary#show_table_button{type: :button} 詳細一覧
 %button.btn.btn-primary#hide_table_button{type: :button} 詳細一覧
 
-.spacer
-
-
-
-
 #table-div
 
   / = form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
   /   = render 'header', f:f
-
-  %br
-
+  
+  .row
+    .col-md-12.col-xs-12.col-sm-12.col-lg-12.col-xs-12.col-sm-12.col-lg-12
+      .spacer
+  %legend
   %table.setsubiyoyaku-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
     %thead
       %tr
+        %th ID
         %th 開始時刻
         %th 終了時刻
         %th 予約者
@@ -45,6 +43,7 @@
     %tbody
       - @setsubiyoyaku.each do |setsubiyoyaku|
         %tr
+          %td= setsubiyoyaku.id
           %td= setsubiyoyaku.開始
           %td= setsubiyoyaku.終了
           %td= setsubiyoyaku.shainmaster.氏名
@@ -53,7 +52,26 @@
           %td= link_to '編集', edit_setsubiyoyaku_path(setsubiyoyaku)
           - msg = t 'app.delete_confirm'
           %td= link_to '削除', setsubiyoyaku, :method => :delete, :data => { :confirm => msg }
-  - if request[:head].present?
-    = link_to '新規', new_setsubiyoyaku_path(:setsubi_code => request[:head][:setsubicode])
-  - else
-    = link_to '新規', new_setsubiyoyaku_path
+  
+  .row
+    .col-md-4.col-xs-4.col-sm-4.col-lg-4     
+      %span#message_confirm_select{:hidden => "true"}= t 'app.select_confirm'
+      %span#message_confirm_delete{:hidden => "true"}= t 'app.delete_confirm'
+      - if request[:head].present?
+        = link_to (t 'title.new'), new_setsubiyoyaku_path(:setsubi_code => request[:head][:setsubicode]),class: "btn btn-primary glyphicon"
+      - else
+        = link_to (t 'title.new'), new_setsubiyoyaku_path,class: "btn btn-primary glyphicon"
+      %button#destroy_setsubiyoyaku.btn.btn-primary.glyphicon=t "title.delete"
+      %span#import_button.btn.btn-primary.glyphicon.glyphicon-import      
+      %span#export_setsubiyoyaku.btn.btn-primary.glyphicon.glyphicon-export
+      .spacer
+      = form_tag import_setsubiyoyakus_path,id: 'import_form',class:'form-inline', multipart: true do
+        %div
+          = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-primary'
+          
+        .spacer
+        .form-group
+          = label_tag 'selectcsv', nil, class: 'sr-only'
+          = file_field_tag :file , class: 'btn btn-default'
+        .form-group
+          = label_tag 'importcsv', nil, class: 'sr-only'

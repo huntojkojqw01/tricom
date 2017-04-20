@@ -280,6 +280,8 @@ en:
       select_vn_holiday_descr: Show Vietnam holidays on calendar
       turning_data: Turning Data
       turning_data_descr: Remove all user's data. Only save data 3 months ago
+      hinemosu: All day
+      hinemosu_descr: It automatically becomes 00:00 at the start time and 24:00 at the end time. Other than that, the start time is 9:00, the end time is 18:00
       text_descript_drag: Drop files here (or click) to update avatar
       shousai_event: Detailed list
   export: 輸出
