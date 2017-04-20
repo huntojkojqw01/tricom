@@ -14,6 +14,32 @@
     <%provide(:title, (t 'title.event'))%>
   <%end%>
   <li class="active"><%=(t 'title.shutchou_ikkatsu')%></li>
+  <div class= 'pull-right'>
+    <div class="navbar-right" style="margin-right: 5px">
+      <li class="dropdown">
+        <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+          <span><i class="glyphicon glyphicon-question-sign fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
+        </a>
+        <ul class="dropdown-menu" style="width: 350px">
+          <li style="margin-left: 20px;margin-right: 10px;">出張には、以下のパターンが、あります。（３パターン）</li>
+          <br>
+          <li style="margin-left: 20px;margin-right: 10px;">① 出張移動 出張 出張移動</li>
+          <li style="margin-left: 20px;margin-right: 10px;">② 出張移動 出張</li>
+          <li style="margin-left: 20px;margin-right: 10px;">③ 出張 出張移動</li>
+          <br style="margin-left: 20px;margin-right: 10px;">
+          <li style="margin-left: 20px;margin-right: 10px;">①　出張の一括入力画面です。登録モードのみです。修正、削除の機能は、いりません。</li>
+          <li style="margin-left: 20px;margin-right: 10px;">②　イベント画面より、「出張一括入力」ボタンを押すことで、起動します。戻り先は、カレンダー画面より起動した時は、カレンダー画面へ。タイムライン画面より、起動した場合は、タイムライン画面へ戻ります。</li>
+          <li style="margin-left: 20px;margin-right: 10px;">③　状態１は、空白（未入力）OR　「出張移動」のみが入力可能です。</li>
+          <li style="margin-left: 20px;margin-right: 10px;">④　状態２は、「出張」のみが入力可能で、実際は入力しません。表示のみで、「出張」を表示。</li>
+          <li style="margin-left: 20px;margin-right: 10px;">⑤　状態３は、空白（未入力）OR　「出張移動」のみが入力可能です。</li>
+          <li style="margin-left: 20px;margin-right: 10px;">⑥　「開始時刻１」「終了時刻１」は、「状態１」が入力されていれば、入力は、OKです。</li>
+          <li style="margin-left: 20px;margin-right: 10px;">⑦　「終了時刻１」＝「開始時刻２」なので、終了時刻１が入力されている時は、自動的に「開始時刻２」を表示。</li>
+          <li style="margin-left: 20px;margin-right: 10px;">⑧　「終了時刻２」＝「開始時刻３」なので、「状態３」が、入力されている時は、自動的に表示。</li>
+          <li style="margin-left: 20px;margin-right: 10px;"></li>
+        </ul>
+      </li>
+    </div>
+  </div>
 </ol>
 
 <%= render 'form_shutchou_ikkatsu', mode: 'new', param: local_assigns[:param], event1_joutai: local_assigns[:event1_joutai], event1_start: local_assigns[:event1_start], event1_end: local_assigns[:event1_end], event1_umu: local_assigns[:event1_umu], event3_joutai: local_assigns[:event3_joutai], event3_start: local_assigns[:event3_start], event3_end: local_assigns[:event3_end],event1_koushuu: local_assigns[:event1_koushuu], event3_koushuu: local_assigns[:event3_koushuu], event3_umu: local_assigns[:event3_umu]%>

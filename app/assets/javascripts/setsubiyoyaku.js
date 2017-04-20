@@ -65,8 +65,8 @@ $(document).ready(function() {
                     // element.append("<button id='bt-new-"+date.format()+"' onclick='showModal(\""+date.format()+"\"); return false;' "+
                     //                 "value=1 class='btn btn-primary' type='button'>新規</button>");
                     element.append('<div class= "click-able"><a href="/setsubiyoyakus/new?start_at='+date.format()+'&setsubi_code='+setsubiCode+
-                        '" style="margin-right: 10px" class= ""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>'+'<a href="/setsubiyoyakus/new?start_at='+date.format()+'&all_day=true&setsubi_code='+setsubiCode+
-                        '" style="" class= ""><span class="glyphicon glyphicon-time" aria-hidden="true"></span></a></div>');
+                        '" style="margin-right: 10px" class= "nomal"><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>'+'<a href="/setsubiyoyakus/new?start_at='+date.format()+'&all_day=true&setsubi_code='+setsubiCode+
+                        '" style="" class= "full-day"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></a></div>');
                     // element.append('<a href="/setsubiyoyakus/new?start_at='+date.format()+'&all_day=true&setsubi_code='+setsubiCode+
                     //     '" style="" class= ""><span class="glyphicon glyphicon-time" aria-hidden="true"></span></a>');
                             // el.html('<a href="/events/new?shain_id='+resources.shainid+'"></a>');
@@ -76,7 +76,43 @@ $(document).ready(function() {
         );
     });
 
+    //Add tooltip
+    $(document).on('mouseover','.nomal',function(e){
+        var tooltip = '<div class="tooltipevent hover-end"><div>普通時間</div></div>'
+        $("body").append(tooltip);
+        $(this).mouseover(function(e) {
+            $(this).css('z-index', 10000);
+            $('.tooltipevent').fadeIn('500');
+            $('.tooltipevent').fadeTo('10', 1.9);
+        }).mousemove(function(e) {
+            $('.tooltipevent').css('top', e.pageY + 10);
+            $('.tooltipevent').css('left', e.pageX + 20);
+        });
+    });
+    $(document).on('mouseout','.nomal',function(e){
+        $(this).css('z-index', 8);
+        $('.tooltipevent').remove();
 
+    });
+
+    //Add tooltip
+    $(document).on('mouseover','.full-day',function(e){
+        var tooltip = '<div class="tooltipevent hover-end"><div>終日時間</div></div>'
+        $("body").append(tooltip);
+        $(this).mouseover(function(e) {
+            $(this).css('z-index', 10000);
+            $('.tooltipevent').fadeIn('500');
+            $('.tooltipevent').fadeTo('10', 1.9);
+        }).mousemove(function(e) {
+            $('.tooltipevent').css('top', e.pageY + 10);
+            $('.tooltipevent').css('left', e.pageX + 20);
+        });
+    });
+    $(document).on('mouseout','.full-day',function(e){
+        $(this).css('z-index', 8);
+        $('.tooltipevent').remove();
+
+    });
    // $('html, body').animate({scrollTop:$(document).height()/2});
 
 });
