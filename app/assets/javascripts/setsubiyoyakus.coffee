@@ -59,7 +59,7 @@ jQuery ->
             else
               $("#destroy_setsubiyoyaku").attr("disabled", false)
             $(".buttons-select-none").removeClass('disabled')
-          
+
         },
         {
           "extend": 'selectNone',
@@ -70,13 +70,13 @@ jQuery ->
             if( selects.length == 0)
               $("#destroy_setsubiyoyaku").attr("disabled", true)
             else
-              $("#destroy_setsubiyoyaku").attr("disabled", false)           
-            $(".buttons-select-none").addClass('disabled')         
+              $("#destroy_setsubiyoyaku").attr("disabled", false)
+            $(".buttons-select-none").addClass('disabled')
         }
       ]
   })
   $("#destroy_setsubiyoyaku").attr("disabled", true);
-  $('.setsubiyoyaku-table').on( 'click', 'tr',  () ->    
+  $('.setsubiyoyaku-table').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
       if $(this).hasClass('selected')
@@ -92,13 +92,13 @@ jQuery ->
         # $("#edit_eki").attr("disabled", false);
         # $("#destroy_eki").attr("disabled", false);
     selects = oTable.rows('tr.selected').data()
-    if selects.length == 0      
+    if selects.length == 0
       $("#destroy_setsubiyoyaku").attr("disabled", true);
       $(".buttons-select-none").addClass('disabled')
     else
       $("#destroy_setsubiyoyaku").attr("disabled", false);
       $(".buttons-select-none").removeClass('disabled')
-      
+
 
   )
 
@@ -145,17 +145,17 @@ jQuery ->
           failure: () ->
             console.log("setsubiyoyaku_削除する keydown Unsuccessful")
 
-        })        
+        })
         $("#destroy_setsubiyoyaku").attr("disabled", true);
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
-          if selects.length == 0            
+          if selects.length == 0
             $("#destroy_setsubiyoyaku").attr("disabled", true);
           else
-            $("#destroy_setsubiyoyaku").attr("disabled", false);            
+            $("#destroy_setsubiyoyaku").attr("disabled", false);
       );
   $('#export_setsubiyoyaku').click ()->
     location.href='/setsubiyoyakus/export_csv.csv?locale=ja'
@@ -255,7 +255,8 @@ jQuery ->
 
     if getUrlVars()["start_at"]!= undefined && getUrlVars()["start_at"]!=""
       date = getUrlVars()["start_at"];
-
+    if $('#time_start').text() != ''
+      date = $('#time_start').text()[0..9]
     if $(this).is(":checked")
       $('#setsubiyoyaku_開始').val(moment(date+" 00:00").format("YYYY/MM/DD HH:mm"))
       $('#setsubiyoyaku_終了').val(moment(date+" 24:00").format("YYYY/MM/DD HH:mm"))
