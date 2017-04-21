@@ -24,6 +24,11 @@
  *= require dropzone
  *= require sweetalert2
 */
+.help-question >li{
+  margin-left: 20px;
+  margin-right: 10px;
+  margin-top: 5px
+}
 .float-right >li{
   float: right;
 }
