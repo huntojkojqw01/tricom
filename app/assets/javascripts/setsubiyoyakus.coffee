@@ -257,6 +257,7 @@ jQuery ->
       date = getUrlVars()["start_at"];
     if $('#time_start').text() != ''
       date = $('#time_start').text()[0..9]
+    date = date.split("/").join("-")
     if $(this).is(":checked")
       $('#setsubiyoyaku_開始').val(moment(date+" 00:00").format("YYYY/MM/DD HH:mm"))
       $('#setsubiyoyaku_終了').val(moment(date+" 24:00").format("YYYY/MM/DD HH:mm"))
