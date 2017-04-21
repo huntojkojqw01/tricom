@@ -34,6 +34,7 @@
         <div class="pull-left">
           <%= link_to '社員マスタ管理へ',shainmasters_path %>
         </div>
+        <%= f.submit current_user.担当者名称, class: 'btn btn-default', id:'current_user_button', style: "display:none" %>
         <%= f.submit (t 'helpers.submit.ok'), class: 'btn btn-default', id:'user_sentaku_ok'%>
         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
       </div>
