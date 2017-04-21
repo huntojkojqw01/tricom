@@ -1748,3 +1748,6 @@ function updateEvent(the_event){
 
 
 }
+$(function(){
+    $('#current_user_button').show();
+});

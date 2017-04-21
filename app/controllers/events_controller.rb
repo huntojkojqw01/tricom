@@ -480,10 +480,9 @@ class EventsController < ApplicationController
         redirect_to kairans_url
       when (t 'helpers.submit.redirect_to_setsubiyoyaku')
         redirect_to setsubiyoyakus_url
-
-
-
-
+      when current_user.担当者名称
+        session[:selected_shain] = current_user.id
+        respond_with @event, location: events_url
     end
   end
 
