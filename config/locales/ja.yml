@@ -139,8 +139,8 @@ ja:
       create_other: '登録する '
       submit: 保存する
       update: 更新する
-      destroy: 削除する
-      destroy_other: '削除する '
+      destroy: 削除
+      destroy_other: '削除 '
       setting: 設定
       ok: '　ＯＫ　'
       redirect_to_timeline: 一覧
