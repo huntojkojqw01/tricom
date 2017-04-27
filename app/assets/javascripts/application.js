@@ -297,19 +297,27 @@ $(document).ready(function() {
         readURL(this);
     });
     $('.loader').hide();
-    $(document).ajaxStart(function(){        
+    $(document).ajaxStart(function(){
         $('.loader').show();
     })
     $(document).ajaxStop(function(){
-        setTimeout(function() 
-            {  
-              $('.loader').hide();              
+        setTimeout(function()
+            {
+              $('.loader').hide();
             },
             1000
-        );                
+        );
     });
 });
+jQuery(window).load(function () {
+    setTimeout(function()
+            {
+              $('.loader').hide();
+            },
+            1000
+        );
 
+});
 $(document).on('click', function (e) {
     var $menu = $('#search_field');
     var $search_select = $('#search_select');
