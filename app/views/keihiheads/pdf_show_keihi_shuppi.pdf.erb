@@ -21,7 +21,9 @@
               <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">小計</td>
               <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000; border-top: 1px solid #000">その他</td>
             </tr>
-            <% shain = @keihibodies.first.keihi_社員番号 %>
+            <% shain = @keihibodies.first.keihi_社員番号
+                shain_name = (Shainmaster.find_by id: shain).try(:氏名).nil?? "":(Shainmaster.find_by id: shain).try(:氏名)
+            %>
             <% check = true
               koutsuhi = 0
               nitto = 0
@@ -30,7 +32,7 @@
               sonota = 0
             %>
             <tr style="page-break-inside: avoid;">
-              <td rowspan="<%= @keihi_body_shain.where('keihi_heads.社員番号 = '+'\''+shain+'\'').count %>" style="border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= shain+ " "+(Shainmaster.find_by id: shain).try(:氏名) unless shain.empty? %></td>
+              <td rowspan="<%= @keihi_body_shain.where('keihi_heads.社員番号 = '+'\''+shain+'\'').count %>" style="border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= shain+ " "+shain_name %></td>
             <% @keihibodies.each do |body| %>
               <% if body.keihi_社員番号 != shain%>
                 <tr style="page-break-inside: avoid; background-color: rgb(221, 221, 221)">
@@ -153,7 +155,8 @@
               <% if check == false %>
                 <tr style="page-break-inside: avoid;">
               <%end%>
-                <td style="text-align: left; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.keihi_社員番号 + " " + (Shainmaster.find_by id: body.keihi_社員番号).try(:氏名) unless body.keihi_社員番号.empty? %></td>
+                <% shain_name = (Shainmaster.find_by id: body.keihi_社員番号).try(:氏名).nil?? "":(Shainmaster.find_by id: body.keihi_社員番号).try(:氏名)%>
+                <td style="text-align: left; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000;"><%= body.keihi_社員番号 + " " + shain_name %></td>
                 <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;">¥<%= number_with_delimiter(body.try(:交通費)) %></td>
                 <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;">¥<%= number_with_delimiter(body.try(:日当)) %></td>
                 <td style="text-align: right; border-right: 1px solid #000; border-bottom: 1px solid #000;">¥<%= number_with_delimiter(body.try(:宿泊費)) %></td>

@@ -77,7 +77,8 @@ end %>
               <% if check == false %>
                 <tr>
               <%end%>
-              <td style="text-align: left; "><%= body.keihi_社員番号 + " " + (Shainmaster.find_by id: body.keihi_社員番号).try(:氏名) unless body.keihi_社員番号.empty? %></td>
+                <% shain_name = (Shainmaster.find_by id: body.keihi_社員番号).try(:氏名).nil?? "":(Shainmaster.find_by id: body.keihi_社員番号).try(:氏名)%>
+              <td style="text-align: left; "><%= body.keihi_社員番号 + " " + shain_name %></td>
                 <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:交通費)) %></td>
                 <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:日当)) %></td>
                 <td style="text-align: right; ">¥<%= number_with_delimiter(body.try(:宿泊費) )%></td>
@@ -136,7 +137,8 @@ end %>
               <td style="text-align: center; ">小計</td>
               <td style="text-align: center; ">その他</td>
             </tr>
-            <% shain = @keihibodies.first.keihi_社員番号 %>
+            <% shain = @keihibodies.first.keihi_社員番号
+            shain_name = (Shainmaster.find_by id: shain).try(:氏名).nil?? "":(Shainmaster.find_by id: shain).try(:氏名)%>
             <% check = true
               koutsuhi = 0
               nitto = 0
@@ -145,7 +147,7 @@ end %>
               sonota = 0
             %>
             <tr>
-              <td rowspan="<%= @keihi_body_shain.where('keihi_heads.社員番号 = '+'\''+shain+'\'').count %>"><%= shain+ " "+(Shainmaster.find_by id: shain).try(:氏名) unless shain.empty?  %></td>
+              <td rowspan="<%= @keihi_body_shain.where('keihi_heads.社員番号 = '+'\''+shain+'\'').count %>"><%= shain+ " "+shain_name  %></td>
             <% @keihibodies.each do |body| %>
               <% if body.keihi_社員番号 != shain%>
                 <tr>
