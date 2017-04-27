@@ -3,6 +3,26 @@
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active= (t 'title.dengon')
+  .navbar-nav.navbar-right
+    %li.dropdown{:style => "margin-right: 20px"}
+      %a.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :href => "#", :role => "button"}
+        %span
+          %i.glyphicon.glyphicon-question-sign.fa-1x{:style => "color: rgb(76, 76, 76); font-size: 20px"}
+      %ul.dropdown-menu.help-question{:style => "width: 500px"}
+        %li{:style => "text-align: center; font-size: 20px"}
+          %b 伝言
+        %li ☆　社員が自分に来た伝言を確認できるようにする。
+        %li ☆　未確認の伝言がある場合、カレンダー画面の伝言欄にその件数が表示される。
+        %li 相手先：通常は、相手先の会社名などを入力
+        %li 名前：相手先の名前
+        %li 日付：電話がかかってきた日付と時刻（タイムスタンプ）
+        %li 入力者：この伝言を記入している社員の社員番号
+        %li 社員：伝言の相手先の社員番号（社員マスタから選択入力）
+        %li 用件：伝言用件マスタから選択入力
+        %li 回答：伝言回答マスタからの選択入力
+        %li 伝言内容：伝言内容（メモ内容）を入力
+        %li 確認：toの社員が伝言内容を確認したときにチェックを入力
+        %li 送信： "伝言管理マスタの送信区分が""1""（送信OK)の場合に自動的にチェックを入れる。後で見直して、送信済みを確認するため。"
 
 -#.row
   -#.col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-4.col-xs-offset-4.col-sm-offset-4.col-lg-offset-4
