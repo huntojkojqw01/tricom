@@ -40,4 +40,5 @@ $(document).on('ready', function() {
     $('.show_pdf_help').click(function(){
       $('#view_pdf').attr('src','"../../assets/images/'+$(this).attr('data'));
     })
+    $('#view_pdf').css("height", $(document).height()+'px');
 });
