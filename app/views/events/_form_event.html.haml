@@ -48,7 +48,8 @@
       - param = request["param"].nil?? param: request["param"]
       - param = 'event' if param.nil?
       - shain_id = request["shain_id"].nil?? @event.社員番号: request["shain_id"]
-      = link_to (t 'title.shutchou_ikkatsu'), "/events/shutchou_ikkatsu_new?param="+param+"&shain_id="+shain_id, class: 'btn btn-primary'
+      - date_param = request["start_at"].nil?? @event.開始: request["start_at"]
+      = link_to (t 'title.shutchou_ikkatsu'), "/events/shutchou_ikkatsu_new?param="+param+"&shain_id="+shain_id+"&start_at="+date_param, class: 'btn btn-primary'
       .spacer
     #selectShozai
       = label_tag (t 'app.label.calendar_genzai')
