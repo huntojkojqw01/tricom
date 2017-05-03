@@ -8,7 +8,7 @@ class Joutaimaster < ActiveRecord::Base
   validates :状態コード, :状態名, presence: true
   validates :状態コード, uniqueness: true
 
-  has_many :event, foreign_key: :状態コード
+  has_many :event, foreign_key: :状態コード, dependent: :destroy
   has_many :kintais, foreign_key: :状態1, dependent: :nullify
 
   alias_attribute :id, :状態コード

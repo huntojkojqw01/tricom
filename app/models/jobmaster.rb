@@ -13,7 +13,7 @@ class Jobmaster < ActiveRecord::Base
   validates :分類コード, inclusion: {in: proc{Bunrui.pluck(:分類コード)}}, allow_blank: true
   validate :check_input
 
-  has_one :event, foreign_key: :JOB
+  has_one :event, foreign_key: :JOB, dependent: :destroy
   belongs_to :kaishamaster, class_name: :Kaishamaster, foreign_key: :ユーザ番号
   belongs_to :bunrui,foreign_key: :分類コード
   has_many :myjobmaster, dependent: :destroy, foreign_key: :job番号

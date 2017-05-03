@@ -723,12 +723,13 @@ private
     @joutais = Joutaimaster.web_use.all
     @joutaimaster = Joutaimaster.new
     # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
-    @kouteis = Shainmaster.find(session[:selected_shain]).shozokumaster.kouteimasters
+    vars = request.query_parameters
+    shain = vars['shain_id'] || session[:selected_shain]
+    @kouteis = Shainmaster.find(shain).shozokumaster.kouteimasters
     @basho = Bashomaster.new
 
     @kaisha = Kaishamaster.new
     @kaishamasters = Kaishamaster.all
-    vars = request.query_parameters
     if vars['shain_id'].nil?
       @mybashos = Mybashomaster.where(社員番号: session[:selected_shain]).all.order("updated_at desc")
       @myjobs = Myjobmaster.where(社員番号: session[:selected_shain]).all.order("updated_at desc")

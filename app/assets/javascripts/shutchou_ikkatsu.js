@@ -4,6 +4,11 @@
 
 //toggle_calendar
 $(function () {
+    if($('#event_終了').val() != ''){
+        $('#event3_状態コード').val(13);
+        $('#event3_start').val($('#event_終了').val());
+    }
+
     if($('#event1_状態コード').val() == ''){
         $('#event1_start').prop('disabled',true);
         $('#event1_end').prop('disabled',true);
@@ -178,6 +183,10 @@ $(function () {
 
 //date field click handler
 $(function () {
+    var defaultDate = getUrlVars()["start_at"];
+    if (defaultDate == ''|| defaultDate == undefined){
+        defaultDate = moment().format('YYYY/MM/DD HH:mm');
+    }
 
     $('.datetime').datetimepicker({
         format: 'YYYY/MM/DD HH:mm',
@@ -187,7 +196,10 @@ $(function () {
         calendarWeeks: true,
         toolbarPlacement: 'top',
         keyBinds: false,
-        focusOnShow: false
+        focusOnShow: false,
+        useCurrent: false
+    }).on('dp.show', function() {
+      return $(this).data('DateTimePicker').defaultDate(defaultDate);
     });
 });
 
