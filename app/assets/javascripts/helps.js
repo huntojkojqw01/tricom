@@ -38,7 +38,8 @@ $(document).on('ready', function() {
     // $(".guide-item").css("height","24px")
 
     $('.show_pdf_help').click(function(){
-      $('#view_pdf').attr('src','"../../assets/images/'+$(this).attr('data'));
+      // $('#view_pdf').attr('src','"../../assets/images/'+$(this).attr('data'));
+      $("#view_pdf").animate({scrollTop: $("#view_pdf").height()*parseInt($(this).attr('data'))}, 500);
     })
     $('#view_pdf').css("height", $(document).height()+'px');
 });
