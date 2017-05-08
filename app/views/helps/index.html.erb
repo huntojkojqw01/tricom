@@ -10,18 +10,24 @@
   </div>
 </div>
 <div class="row wraper-content">
-  <!-- <div class="col-md-2 col-xs-4 col-sm-4 col-lg-2 menu-content">
-    <%= link_to '1. ログイン画面', '#', class: 'show_pdf_help', data: '#:0.page.1' %><br>
-    <%= link_to '2. プロファイル編集', '#', class: 'show_pdf_help', data: '#:0.page.2' %>
-  </div> -->
+  <div class="col-md-2 col-xs-4 col-sm-4 col-lg-2 menu-content">
+    <%= link_to '1. ログイン画面', '#', class: 'show_pdf_help', data: '#page=1' %><br>
+    <%= link_to '2. プロファイル編集', '#', class: 'show_pdf_help', data: '#page=3' %><br>
+    <%= link_to '3. タイムライン', '#', class: 'show_pdf_help', data: '#page=4' %><br>
+    <%= link_to '4. カレンダー', '#', class: 'show_pdf_help', data: '#page=6' %><br>
+    <%= link_to '5. エベント編集画面', '#', class: 'show_pdf_help', data: '#page=13' %><br>
+    <%= link_to '6. 出張の一括入力画面', '#', class: 'show_pdf_help', data: '#page=15' %><br>
+    <%= link_to '7. 経費・新規', '#', class: 'show_pdf_help', data: '#page=18' %><br>
+  </div>
   <div class="col-md-10 col-xs-12 col-sm-12 col-lg-10">
     <!-- <iframe src="../../assets/images/Tricom.pdf#page=1" height="800px" width="100%" id="view_pdf">
       This browser does not support PDFs. Please download the PDF to view it: <a href=<%= "#{Rails.root}/app/assets/images/Tricom.pdf" %>>Download PDF</a>
     </iframe> -->
 
-    <!-- <object style="width: 100%; height: 820px" data="../../assets/images/Tricom.pdf#page=1" type="application/pdf" id="view_pdf"></object> -->
+    <object style="width: 100%; height: 820px" data="../../assets/images/Tricom.pdf#page=1" type="application/pdf" id="view_pdf"></object>
 
-    <object style="width: 100%; height: 820px" data="https://docs.google.com/document/d/1Dd5B6v0HUrymshOC-Cp5NvBGUl-SeTsOILHrfrQHNYQ/edit?usp=sharing" id="view_pdf"></object>
+   <!--  <object style="width: 100%; height: 820px" data="https://docs.google.com/document/d/1Dd5B6v0HUrymshOC-Cp5NvBGUl-SeTsOILHrfrQHNYQ/edit?usp=sharing" id="view_pdf"></object> -->
+
 
   </div>
 
