@@ -131,6 +131,7 @@ class EventsController < ApplicationController
 
     @role = Rorumaster.all
     @joutai = Joutaimaster.all
+    @joutaiDefault = Joutaimaster.find_by(状態コード: "00")
     @roru = Shainmaster.find(session[:user]).rorumaster
     @setting = Setting.where(社員番号: session[:user]).first
     @events = Shainmaster.find(session[:selected_shain]).events.
@@ -653,6 +654,16 @@ class EventsController < ApplicationController
         respond_to do |format|
           format.json { render json: data}
         end
+     # when "event_drag_check"
+     #    event = Event.find(params[:eventId])
+     #    if event.社員番号 == params[:shainId]
+     #      data = {check: "OK"}
+     #    else
+     #      data = {check: "NOT OK"}
+     #    end
+     #    respond_to do |format|
+     #      format.json { render json: data}
+     #    end
      when 'event_destroy'
         eventIds = params[:events]
         eventIds.each{ |eventId|
