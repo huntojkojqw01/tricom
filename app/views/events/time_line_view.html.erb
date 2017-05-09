@@ -42,11 +42,7 @@
         weekday[5] = "金"
         weekday[6] = "土"
         time = Time.new
-        minutes = time.min
-        minutes = minutes > 9 ? minutes : "0#{minutes}"
-        hours = time.hour
-        hours = hours > 9 ? hours : "0#{hours}"
-        timeText = "#{time.year}年#{time.month}月#{time.day}日(#{weekday[time.wday]}) #{hours}:#{minutes}"
+        timeText = "#{time.year}年#{time.month}月#{time.day}日(#{weekday[time.wday]}) #{time.strftime("%H:%M")}"
      %>
     <span style="font-size: 30px" id="timeline_time"><%=timeText%></span>
     <input type="hidden" id="user_login" value=<%= session[:user] %> />
