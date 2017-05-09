@@ -30,10 +30,27 @@
 <%= render 'shousai_modal' %>
 <%= simple_form_for :timeline, url: time_line_view_events_path, method: :post do |f| %>
 <!--  Show time on top -->
-<div class="row" style="display:none">
-  <div class="col-md-4 col-xs-8 col-sm-8 col-lg-3 col-md-offset-5 col-xs-offset-3 col-sm-offset-4 col-lg-offset-5">
-    <span style="font-size: 30px" id="timeline_time">2017年5月8日(今日)</span>
+<div class="row">
+  <div class="col-md-6 col-xs-8 col-sm-8 col-lg-4 col-md-offset-5 col-xs-offset-3 col-sm-offset-4 col-lg-offset-5">
+    <%
+        weekday = Array.new
+        weekday[0] =  "日"
+        weekday[1] = "月"
+        weekday[2] = "火"
+        weekday[3] = "水"
+        weekday[4] = "木"
+        weekday[5] = "金"
+        weekday[6] = "土"
+        time = Time.new
+        minutes = time.min
+        minutes = minutes > 9 ? minutes : '0' + minutes
+        hours = time.hour
+        hours = hours > 9 ? hours : '0' + hours
+        timeText = time.year.to_s+"年"+time.month.to_s+"月"+time.day.to_s+"日"+"("+weekday[time.wday]+")  "+hours.to_s+":"+minutes.to_s
+     %>
+    <span style="font-size: 30px" id="timeline_time"><%=timeText%></span>
     <input type="hidden" id="user_login" value=<%= session[:user] %> />
+
   </div>
 </div>
 <!-- end -->
@@ -67,6 +84,9 @@
           </td>
           <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 15px;margin-left:15px">検索</button></td>
  -->
+          <td>
+            <button class="btn btn-primary" id="reload_button" type="button" style="margin-bottom: 0px;margin-right:15px" ><%=(t 'app.label.reload')%></button>
+          </td>
           <td>
             <bold style="line-height:40px;margin-right:15px;font-weight:bold;"><%=(t 'title.busho')%></bold>
           </td>

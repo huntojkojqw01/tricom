@@ -261,11 +261,11 @@ $(document).ready(function() {
         hours = hours > 9 ? hours : '0' + hours;
 
         var date = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日";
-        $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日) '+hours+":"+minutes+'</h2></div>');
+        $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
         calendar.find('.fc-today-button').click(function(){
             var currentDate = new Date();
             var date = currentDate.getFullYear()+"年"+(currentDate.getMonth()+1)+"月"+currentDate.getDate()+"日";
-            $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日) '+hours+":"+minutes+'</h2></div>');
+            $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
             $('.fc-resource-area col:nth-child(2),.fc-resource-area td:nth-child(2),.fc-resource-area th:nth-child(2)').show();
             $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
             $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
@@ -298,7 +298,7 @@ $(document).ready(function() {
         var hours = calDate.getHours();
         hours = hours > 9 ? hours : '0' + hours;
 
-        var time = d.year()+"年"+(d.month()+1)+"月"+d.date()+"日"+"("+weekday[d.day()]+")  "+hours+":"+minutes;
+        var time = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日"+"("+weekday[calDate.getDay()]+")  "+hours+":"+minutes;
         $('#timeline_time').text(time);
         var currentTimeText = d.year()+"/"+(d.month()+1)+"/"+d.date()+"/"+hours+":"+minutes;
         var currentTime = moment(currentTimeText,'YYYY/MM/DD HH:mm');
@@ -337,14 +337,14 @@ $(document).ready(function() {
             var hours = calDate.getHours();
             hours = hours > 9 ? hours : '0' + hours;
 
-            var time = d.year()+"年"+(d.month()+1)+"月"+d.date()+"日"+"("+weekday[d.day()]+")  "+hours+":"+minutes;
+            var time = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日"+"("+weekday[calDate.getDay()]+")  "+hours+":"+minutes;
             var date = d.year()+"年"+(d.month()+1)+"月"+d.date()+"日"
             $('#timeline_time').text(time);
             var currentTimeText = d.year()+"/"+(d.month()+1)+"/"+d.date()+"/"+hours+":"+minutes;
             var currentTime = moment(currentTimeText,'YYYY/MM/DD HH:mm');
-            if(calDate.getDate()==d.date()&&calDate.getMonth()==d.month()&&calDate.getFullYear()==d.year()){
-                $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日) '+hours+":"+minutes+'</h2></div>');
-            }
+            // if(calDate.getDate()==d.date()&&calDate.getMonth()==d.month()&&calDate.getFullYear()==d.year()){
+            //     $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日) '+hours+":"+minutes+'</h2></div>');
+            // }
 
             //update joutai
             var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
@@ -408,7 +408,7 @@ $(document).on("click", ".fc-next-button", function(){
     hours = hours > 9 ? hours : '0' + hours;
     var date = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日";
     if(calDate.getDate()==currentDate.getDate()&&calDate.getMonth()==currentDate.getMonth()&&calDate.getFullYear()==currentDate.getFullYear()){
-        $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日) '+hours+":"+minutes+'</h2></div>');
+        $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
         $('.fc-resource-area col:nth-child(2),.fc-resource-area td:nth-child(2),.fc-resource-area th:nth-child(2)').show();
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
@@ -447,7 +447,7 @@ $(document).on("click", ".fc-prev-button", function(){
     hours = hours > 9 ? hours : '0' + hours;
     var date = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日";
     if(calDate.getDate()==currentDate.getDate()&&calDate.getMonth()==currentDate.getMonth()&&calDate.getFullYear()==currentDate.getFullYear()){
-        $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日) '+hours+":"+minutes+'</h2></div>');
+        $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日)</h2></div>');
         $('.fc-resource-area col:nth-child(2),.fc-resource-area td:nth-child(2),.fc-resource-area th:nth-child(2)').show();
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
@@ -478,6 +478,9 @@ $(function(){
         }
         // window.open('/events/time_line_view?roru='+roru+'&joutai='+joutai);
     });
+    $('#reload_button').click(function(){
+        location.reload()
+    })
 
 
 });

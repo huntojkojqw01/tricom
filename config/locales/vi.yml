@@ -284,6 +284,7 @@ vi:
       hinemosu_descr: Thiết lập thời gian bắt đầu là 0h00 và thời gian kết thúc là 24h00, mặc định là từ 9h00 đến 18h00
       text_descript_drag: Có thể kéo thả (hoặc nhấp chuột) để thay đổi avatar
       shousai_event: Danh sách chi tiết
+      reload: Refresh
   export: Xuất
   title:
     bashokubunmst: Phân loại địa điểm
