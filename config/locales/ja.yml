@@ -284,6 +284,7 @@ ja:
       hinemosu_descr: 自動的に開始時刻に00：00、終了時刻に24：00がセットされるようになります。それ以外は、開始時刻に9：00、終了時刻に18：00
       text_descript_drag: ファイルをドラグエンドドロップ
       shousai_event: 詳細一覧
+      reload: リフレシュ
   export: 輸出
   title:
     bashokubunmst: 場所区分マスタ

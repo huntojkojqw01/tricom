@@ -284,6 +284,7 @@ en:
       hinemosu_descr: It automatically becomes 00:00 at the start time and 24:00 at the end time. Other than that, the start time is 9:00, the end time is 18:00
       text_descript_drag: Drop files here (or click) to update avatar
       shousai_event: Detailed list
+      reload: Refresh
   export: 輸出
   title:
     bashokubunmst: Location classification list
