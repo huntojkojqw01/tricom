@@ -121,6 +121,40 @@ $(function () {
         }
     });
 
+    $('#joutai_table tbody').on( 'dblclick', 'tr', function () {
+        $(this).addClass('selected');
+        $(this).addClass('success');
+        var d = oJoutaiTable.row('tr.selected').data();
+        if(d!= undefined){
+            $('#event_状態コード').val(d[0]);
+            $('.hint-joutai-refer').text(d[1]);
+            if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
+                $('.event_帰社').show();
+            else
+                $('.event_帰社').hide();
+            $('#event_状態コード').closest('.form-group').find('span.help-block').remove();
+            $('#event_状態コード').closest('.form-group').removeClass('has-error');
+            //check if that day missing
+            var strtime = new Date($("#event_開始").val());
+            if (d[0] == "30" || (d[0] == "60" && strtime.getHours() >= 9)){
+                $('#event_場所コード').prop( "disabled", true );
+                $('#event_JOB').prop( "disabled", true );
+                $('#event_工程コード').prop( "disabled", true );
+                $('#basho_search').prop( "disabled", true );
+                $('#koutei_search').prop( "disabled", true );
+            }else{
+                $('#event_場所コード').prop( "disabled", false );
+                $('#event_JOB').prop( "disabled", false );
+                $('#event_工程コード').prop( "disabled", false );
+                $('#basho_search').prop( "disabled", false );
+                $('#koutei_search').prop( "disabled", false );
+            }
+        }
+        $('#job_search_modal').modal('hide')
+    });
+
+
+
     $('#clear_joutai').click(function () {
 
         oJoutaiTable.$('tr.selected').removeClass('selected');

@@ -101,7 +101,7 @@ $(function () {
       }
     }
     if( $(this).prev().is(element2)){
-      $('#select_user_modal').modal('show');
+      $('#select_user_modal_refer').modal('show');
       if($('#jobmaster_入力社員番号').val() != ''){
         oTable.rows().every( function( rowIdx, tableLoop, rowLoop ){
           var data = this.data();
@@ -171,6 +171,19 @@ $(function () {
     $('.jobmaster_関連Job番号 .hint-job-refer').text(d[1])
 
   });
+
+
+  $('#job_table_in_job tbody').on( 'dblclick', 'tr', function () {
+    $(this).addClass('selected');
+    $(this).addClass('success');
+    var d = oJob_Table.row('tr.selected').data();
+    $('#jobmaster_関連Job番号').val(d[0])
+    $('.jobmaster_関連Job番号 .hint-job-refer').text(d[1])
+    $('#job_search_in_job_modal').modal('hide');
+  });
+
+
+
   $('#clear_job').click(function () {
     oJobTable.$('tr.selected').removeClass('selected');
     oJobTable.$('tr.success').removeClass('success');
@@ -211,6 +224,39 @@ $(function () {
           $('#event_JOB').closest('.form-group').removeClass('has-error');
         }
     });
+
+  $('#job_table tbody').on( 'dblclick', 'tr', function () {
+    $(this).addClass('selected');
+    $(this).addClass('success');
+    var myjob = oJobTable.row('tr.selected').data();
+        var shain = $('#event_社員番号').val();
+        $.ajax({
+            url: '/events/ajax',
+            data: {id: 'job_selected',myjob_id: myjob[0],shain: shain},
+            type: "POST",
+
+            success: function(data) {
+               if(data.myjob_id != null){
+                    console.log("getAjax myjob_id:"+ data.myjob_id);
+
+                }
+                else{
+
+                    console.log("getAjax myjob_id:"+ data.myjob_id);
+                }
+            },
+            failure: function() {
+                console.log("job_selected keydown Unsuccessful");
+            }
+        });
+        if(myjob!= undefined){
+          $('#event_JOB').val((myjob[0]));
+          $('.hint-job-refer').text((myjob[1]));
+          $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+          $('#event_JOB').closest('.form-group').removeClass('has-error');
+        }
+    $('#job_search_modal').modal('hide ')
+  });
 
 });
 

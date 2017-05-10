@@ -78,6 +78,23 @@ $(function () {
     }
   })
 
+  $('#kaisha-table-modal tbody').on( 'dblclick', 'tr', function () {
+    $(this).addClass('selected');
+    $(this).addClass('success');
+    var kaisha = oKaisha_modal.row('tr.selected').data();
+    if(kaisha!= undefined){
+      $('#jobmaster_ユーザ番号').val(kaisha[0]);
+        $('#jobmaster_ユーザ名').val(kaisha[1]);
+        $('#jobmaster_ユーザ番号').closest('.form-group').find('.span.help-block').text('');
+        $('#jobmaster_ユーザ番号').closest('.form-group').removeClass('has-error');
+
+        $('#bashomaster_会社コード').val(kaisha[0]);
+        $('#bashomaster_会社コード').closest('.form-group').find('.span.help-block').text('');
+        $('#bashomaster_会社コード').closest('.form-group').removeClass('has-error');
+    }
+    $('#kaisha-search-modal').modal('hide');
+  });
+
 });
 
 

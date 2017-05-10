@@ -5,7 +5,7 @@ class Yuusen < ActiveRecord::Base
   multisearchable :against => %w{優先さ 備考 色}
   validates :優先さ, presence: true
   validates :優先さ, uniqueness: true
-	has_many :kairanyokenmsts, foreign_key: :優先さ
+	has_many :kairanyokenmsts, foreign_key: :優先さ, dependent: :nullify
 	has_many :dengonyokens, foreign_key: :優先さ
 
   def self.import(file)
