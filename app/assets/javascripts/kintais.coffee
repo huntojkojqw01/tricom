@@ -74,19 +74,25 @@ jQuery ->
     }})
 
   joutaikubun = ''
+  fukyu_code = ''
+  fukyu_name = ''
   $('#joutai_table tbody').on 'click', 'tr', (event) ->
     d = oJoutai_search_modal.row(this).data()
-    $('#kintai_状態1').val(d[0])
-    $('.joutai-code-hint').text(d[1])
-    joutaikubun = d[3]
-    if d[0] == '30' #有給
-      $('#kintai_出勤時刻_4i').val('00')
-      $('#kintai_出勤時刻_5i').val('00')
-      $('#kintai_退社時刻_4i').val('00')
-      $('#kintai_退社時刻_5i').val('00')
-    if d[1] == '振休'
+    if d[0] == '105' #振休
+      fukyu_code = d[0]
+      fukyu_name = d[1]
       $('#joutai_search_modal').modal('hide')
       $('#daikyu_search_modal').modal('show')
+    else
+      $('#kintai_状態1').val(d[0])
+      $('.joutai-code-hint').text(d[1])
+      joutaikubun = d[3]
+      if d[0] == '30' #有給
+        $('#kintai_出勤時刻_4i').val('00')
+        $('#kintai_出勤時刻_5i').val('00')
+        $('#kintai_退社時刻_4i').val('00')
+        $('#kintai_退社時刻_5i').val('00')
+
 
     #    switch status
 #      when 1 then $('.status1-code').val(d[0])
@@ -220,18 +226,30 @@ jQuery ->
   $('.daikyutable tbody').on 'click', 'tr', (event) ->
     d = oDaikyuTable.row(this).data()
     $('#kintai_代休相手日付').val(d[0])
-    $('#kintai_代休取得区分').val('1')
     $('#kintai_備考').val(d[0] + 'の振休')
 
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
+      $('#kintai_状態1').val('')
+      $('.joutai-code-hint').text('')
+      $('#kintai_代休相手日付').val('')
+      $('#kintai_備考').val('')
     else
       oDaikyuTable.$('tr.selected').removeClass('selected')
       oDaikyuTable.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
+      $('#kintai_状態1').val(fukyu_code)
+      $('.joutai-code-hint').text(fukyu_name)
+      $('#kintai_代休相手日付').val(d[0])
+      $('#kintai_備考').val(d[0] + 'の振休')
 
+  $('#kintai_submit').on('click', (e) ->
+    if $('#kintai_状態1').val() == "105" && $('#kintai_代休相手日付').val() == ''
+      swal("振休の状態で代休相手日付を選択しなければなりません。")
+      e.preventDefault()
+  )
   kousu = []
   countup = 0
   until countup > 1000

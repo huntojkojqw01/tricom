@@ -41,11 +41,11 @@
       = f.input :普通保守時間
       = f.input :深夜保守時間
     .col-sm-1.col-sm-offset-1
-      = f.button :submit, class: 'btn btn-primary'
+      = f.button :submit, class: 'btn btn-primary', id: "kintai_submit"
     .col-sm-3
       .pull-right
         = render 'kinmu_refer'
-    = f.input :代休相手日付, as: :hidden, input_html: { value: '' }
+    = f.input :代休相手日付, as: :hidden
     = f.input :代休取得区分, as: :hidden
     = render 'share/joutai_modal'
     = render 'share/daikyu_modal'
