@@ -145,13 +145,39 @@ class KintaisController < ApplicationController
 
   def update
     if kintai_params[:状態1].in?(['103']) #振出
-      params[:kintai][:代休相手日付] = @kintai.日付
-      params[:kintai][:代休取得区分] = '0'
+      if kintai_params[:代休取得区分] == ''
+        params[:kintai][:代休相手日付] = ''
+        params[:kintai][:代休取得区分] = '0'
+      end
+    elsif kintai_params[:状態1].in?(['105']) #振休
+      if kintai_params[:代休相手日付] != ''
+        furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
+        furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の振出') if furishutsu
+      end
+    else
+      if kintai_params[:代休相手日付] != ''
+        furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
+        if furishutsu
+          if furishutsu.代休取得区分 == '1'
+            furishutsu.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+          end
+          if furishutsu.代休取得区分 == ''
+            furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
+          end
+        end
+      end
+      params[:kintai][:代休相手日付] = ''
+      params[:kintai][:代休取得区分] = ''
     end
-    if kintai_params[:状態1].in?(['105']) #振休
-      furishutsu = Kintai.current_month(session[:user]).find_by(代休相手日付: kintai_params[:代休相手日付])
-      furishutsu.update(代休取得区分: '1', 備考: @kintai.日付.to_s + 'の振出') if furishutsu
-    end
+
+    # if kintai_params[:状態1].in?(['105']) #振出
+    #   params[:kintai][:代休相手日付] = @kintai.日付
+    #   params[:kintai][:代休取得区分] = '0'
+    # end
+    # if kintai_params[:状態1].in?(['103']) #振休
+    #   furishutsu = Kintai.current_user(session[:user]).find_by(代休相手日付: kintai_params[:代休相手日付])
+    #   furishutsu.update(代休取得区分: '1', 備考: @kintai.日付.to_s + 'の振出') if furishutsu
+    # end
 
     flash[:notice] = t 'app.flash.update_success' if @kintai.update(kintai_params)
     respond_with(@kintai, location: kintais_url)
@@ -269,7 +295,7 @@ class KintaisController < ApplicationController
 
   private
     def set_kintai
-      @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:代休相手日付)
+      @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)
       @kintai = Kintai.find(params[:id])
 
       kubunlist = []
