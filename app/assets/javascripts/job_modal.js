@@ -255,7 +255,7 @@ $(function () {
           $('#event_JOB').closest('.form-group').find('span.help-block').remove();
           $('#event_JOB').closest('.form-group').removeClass('has-error');
         }
-    $('#job_search_modal').modal('hide ')
+    $('#job_search_modal').modal('hide')
   });
 
 });
