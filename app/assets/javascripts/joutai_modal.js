@@ -150,7 +150,7 @@ $(function () {
                 $('#koutei_search').prop( "disabled", false );
             }
         }
-        $('#job_search_modal').modal('hide')
+        $('#joutai_search_modal').modal('hide')
     });
 
 
