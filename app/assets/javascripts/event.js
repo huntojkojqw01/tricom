@@ -515,6 +515,19 @@ $(function () {
         }
     });
 
+    $('#mybasho_table tbody').on( 'dblclick', 'tr', function () {
+        $(this).addClass('selected');
+        $(this).addClass('success');
+        var d = oMybashoTable.row('tr.selected').data();
+        if(d!= undefined){
+            $('#event_場所コード').val(d[1]);
+            $('.hint-basho-refer').text(d[2]);
+            $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
+            $('#event_場所コード').closest('.form-group').removeClass('has-error');
+        }
+        $('#mybasho_search_modal').modal('hide')
+    });
+
     $('#myjob_sentaku_ok').click(function(){
         var d = oMyjobTable.row('tr.selected').data();
         if(d!= undefined){
@@ -523,6 +536,19 @@ $(function () {
             $('#event_JOB').closest('.form-group').find('span.help-block').remove();
             $('#event_JOB').closest('.form-group').removeClass('has-error');
         }
+    });
+
+    $('#myjob_table tbody').on( 'dblclick', 'tr', function () {
+        $(this).addClass('selected');
+        $(this).addClass('success');
+        var d = oMyjobTable.row('tr.selected').data();
+        if(d!= undefined){
+            $('#event_JOB').val(d[1]);
+            $('.hint-job-refer').text(d[2]);
+            $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+            $('#event_JOB').closest('.form-group').removeClass('has-error');
+        }
+        $('#myjob_search_modal').modal('hide')
     });
 
     $('#clear_mybasho').click(function () {
@@ -1495,6 +1521,20 @@ $(function(){
             $('.hint-shain-refer').text(d[1])
         }
     })
+
+    $('#select_user_modal_refer,#user_table tbody').on( 'dblclick', 'tr', function () {
+        $(this).addClass('selected');
+        $(this).addClass('success');
+        var d = oTable.row('tr.selected').data();
+        if(d!=undefined){
+            $('#jobmaster_入力社員番号').val(d[0])
+            $('.hint-shain-refer').text(d[1])
+        }
+        $('#select_user_modal_refer').modal('hide');
+    });
+
+
+
     $('#user_sentaku_ok').click(function(){
         var d = oTable.row('tr.selected').data();
         if(d!=undefined){

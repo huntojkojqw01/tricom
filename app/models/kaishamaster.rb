@@ -8,7 +8,7 @@ class Kaishamaster < ActiveRecord::Base
   validates :会社コード, uniqueness: true
 
   has_one :bashomaster, dependent: :destroy, foreign_key: :会社コード
-  has_one :jobmaster, foreign_key: :ユーザ番号
+  has_one :jobmaster, foreign_key: :ユーザ番号, dependent: :nullify
   has_many :setsubiyoyaku, dependent: :destroy, foreign_key: :相手先
   has_many :mykaishamaster, dependent: :destroy, foreign_key: :会社コード
   alias_attribute :id, :会社コード
