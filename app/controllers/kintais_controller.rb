@@ -144,7 +144,7 @@ class KintaisController < ApplicationController
   # end
 
   def update
-    if kintai_params[:状態1].in?(['103']) #振出
+    if kintai_params[:状態1].in?(['103','107','111']) #振出
       if kintai_params[:代休取得区分] == ''
         params[:kintai][:代休相手日付] = ''
         params[:kintai][:代休取得区分] = '0'
@@ -153,6 +153,16 @@ class KintaisController < ApplicationController
       if kintai_params[:代休相手日付] != ''
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の振出') if furishutsu
+      end
+    elsif kintai_params[:状態1].in?(['109']) #午前振出
+      if kintai_params[:代休相手日付] != ''
+        furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
+        furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の午前振出') if furishutsu
+      end
+    elsif kintai_params[:状態1].in?(['113']) #午後振出
+      if kintai_params[:代休相手日付] != ''
+        furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
+        furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の午後振出') if furishutsu
       end
     else
       if kintai_params[:代休相手日付] != ''
@@ -186,6 +196,19 @@ class KintaisController < ApplicationController
 
   def ajax
     case params[:id]
+      when 'get_kintais'
+        if params[:joutai] == '105'
+          joutai_aite = '103'
+        elsif params[:joutai] == '109'
+          joutai_aite = '107'
+        elsif params[:joutai] == '113'
+          joutai_aite = '111'
+        end
+        @kintais = Kintai.current_user(session[:user]).where(代休取得区分: '0',状態1: joutai_aite ).select(:日付)
+        respond_to do |format|
+          # format.json { render json: "data"}
+          format.js { render 'reset_daikyu_modal'}
+        end
       when 'update_time'
         time_start = params[:timeStart]
         time_end = params[:timeEnd]

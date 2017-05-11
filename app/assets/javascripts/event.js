@@ -1543,6 +1543,17 @@ $(function(){
         }
     })
 
+    $('#select_user_modal,#user_table tbody').on( 'dblclick', 'tr', function () {
+        $(this).addClass('selected');
+        $(this).addClass('success');
+        var d = oTable.row('tr.selected').data();
+        if(d!=undefined){
+            $('#selected_user').val(d[0]);
+            $('#selected_user_name').val(d[1]);
+        }
+        $("#user_sentaku_ok").trigger('click');
+    });
+
 });
 
 
