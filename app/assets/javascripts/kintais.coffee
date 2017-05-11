@@ -78,11 +78,18 @@ jQuery ->
   fukyu_name = ''
   $('#joutai_table tbody').on 'click', 'tr', (event) ->
     d = oJoutai_search_modal.row(this).data()
-    if d[0] == '105' #振休
+    if d[0] == '105' || d[0] == '109' || d[0] == '113' #振替勤務, 午前振出, 午後振出
       fukyu_code = d[0]
       fukyu_name = d[1]
       $('#joutai_search_modal').modal('hide')
-      $('#daikyu_search_modal').modal('show')
+      jQuery.ajax({
+        url: '/kintais/ajax',
+        data: {id: 'get_kintais', joutai: d[0]},
+        type: "POST",
+        success: (data) ->
+          console.log("OK");
+        failure: () ->
+      })
     else
       $('#kintai_状態1').val(d[0])
       $('.joutai-code-hint').text(d[1])
@@ -225,8 +232,6 @@ jQuery ->
 
   $('.daikyutable tbody').on 'click', 'tr', (event) ->
     d = oDaikyuTable.row(this).data()
-    $('#kintai_代休相手日付').val(d[0])
-    $('#kintai_備考').val(d[0] + 'の振休')
 
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
@@ -243,10 +248,17 @@ jQuery ->
       $('#kintai_状態1').val(fukyu_code)
       $('.joutai-code-hint').text(fukyu_name)
       $('#kintai_代休相手日付').val(d[0])
-      $('#kintai_備考').val(d[0] + 'の振休')
+
+      if fukyu_code == '105'
+        $('#kintai_備考').val(d[0] + 'の振休')
+      else if fukyu_code == '109'
+        $('#kintai_備考').val(d[0] + 'の午前振休')
+      else if fukyu_code == '113'
+        $('#kintai_備考').val(d[0] + 'の午後振休')
 
   $('#kintai_submit').on('click', (e) ->
-    if $('#kintai_状態1').val() == "105" && $('#kintai_代休相手日付').val() == ''
+    joutai = $('#kintai_状態1').val()
+    if (joutai == "105"|| joutai == "109" || joutai == "113")&& $('#kintai_代休相手日付').val() == ''
       swal("振休の状態で代休相手日付を選択しなければなりません。")
       e.preventDefault()
   )
