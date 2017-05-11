@@ -151,16 +151,46 @@ class KintaisController < ApplicationController
       end
     elsif kintai_params[:状態1].in?(['105']) #振休
       if kintai_params[:代休相手日付] != ''
+        old_furishutsu = Kintai.current_user(session[:user]).find_by(日付: @kintai.代休相手日付)
+        if old_furishutsu
+          if old_furishutsu.代休取得区分 == '1'
+            old_furishutsu.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+          end
+          if old_furishutsu.代休取得区分 == ''
+            old_furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
+          end
+        end
+
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の振出') if furishutsu
       end
     elsif kintai_params[:状態1].in?(['109']) #午前振出
       if kintai_params[:代休相手日付] != ''
+        old_furishutsu = Kintai.current_user(session[:user]).find_by(日付: @kintai.代休相手日付)
+        if old_furishutsu
+          if old_furishutsu.代休取得区分 == '1'
+            old_furishutsu.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+          end
+          if old_furishutsu.代休取得区分 == ''
+            old_furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
+          end
+        end
+
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の午前振出') if furishutsu
       end
     elsif kintai_params[:状態1].in?(['113']) #午後振出
       if kintai_params[:代休相手日付] != ''
+        old_furishutsu = Kintai.current_user(session[:user]).find_by(日付: @kintai.代休相手日付)
+        if old_furishutsu
+          if old_furishutsu.代休取得区分 == '1'
+            old_furishutsu.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+          end
+          if old_furishutsu.代休取得区分 == ''
+            old_furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
+          end
+        end
+
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の午後振出') if furishutsu
       end
