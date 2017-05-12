@@ -35,6 +35,7 @@ end
   get 'kanri/index'
   get 'main/search'
   get 'helps' => 'helps#index'
+  get 'edit_help' => 'helps#edit_help'
 
   resources :kairans do
     collection {post :confirm, :kaitou_create}

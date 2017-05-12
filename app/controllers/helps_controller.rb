@@ -4,4 +4,7 @@ class HelpsController < ApplicationController
   def index
 
   end
+  def edit_help
+
+  end
 end

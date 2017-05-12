@@ -194,7 +194,15 @@ class EventsController < ApplicationController
     vars = request.query_parameters
     param_date = vars['start_at'] || Date.today.to_s
     # @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{date} 09:00", 終了: "#{date} 18:00")
-    @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
+    param_shain = vars['shain_id'] || Shainmaster.find(session[:selected_shain]).id
+    event = Event.where(社員番号: param_shain).where.not(終了: '').where("Date(終了) = ?",param_date.to_date.to_s(:db))
+
+    if event.count > 0
+      event = event.order(終了: :desc).first
+      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: event.終了, 終了: "#{param_date} 18:00")
+    else
+      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
+    end
   end
 
   def shutchou_ikkatsu_new
