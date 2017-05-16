@@ -10,18 +10,31 @@
       <li><%= link_to (t 'title.event'), events_path %></li>
       <li class="active"><%=(t 'title.time_line_view')%></li>
       <div class= 'pull-right'>
-        <div class="navbar-nav navbar-right" >
-          <li class="dropdown" style="margin-right: 10px">
+        <div class="navbar-nav navbar-right">
+            <li class="dropdown" style="margin-right: 20px">
+              <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                <span><i class="glyphicon glyphicon-option-horizontal fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to raw("<i class='glyphicon glyphicon-new-window' style='margin-right:1em;'></i>"+(t 'title.shutchou_ikkatsu')), "/events/shutchou_ikkatsu_new?param=timeline&shain_id="+session[:user] %></li>
+                <li id="modal_print_event"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
+                <li id="modal_shousai_event"><%= link_to raw("<i class='glyphicon glyphicon-book' style='margin-right:1em;'></i>"+(t 'app.label.shousai_event')), "#" %></li>
+              </ul>
+            </li>
+            <li class="dropdown" style="margin-right: 20px">
             <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <span><i class="glyphicon glyphicon-option-horizontal fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
+              <span><i class="glyphicon glyphicon-question-sign fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
             </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to raw("<i class='glyphicon glyphicon-new-window' style='margin-right:1em;'></i>"+(t 'title.shutchou_ikkatsu')), "/events/shutchou_ikkatsu_new?param=timeline&shain_id="+session[:user] %></li>
-              <li id="modal_print_event"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
-              <li id="modal_shousai_event"><%= link_to raw("<i class='glyphicon glyphicon-book' style='margin-right:1em;'></i>"+(t 'app.label.shousai_event')), "#" %></li>
+            <ul class="dropdown-menu help-question" style="width: 500px">
+              <li style="text-align: center; font-size: 20px"><b>タイムライン</b></li>
+              <li>マウスでイベントをドラックすることは、可能ですが、竹中のイベントをドラックして藤井の所へ移動できるのをふせぐことになります。</li>
+              <li>竹中のイベントは、竹中のエリアだけ、移動できる。または、変更することができるようにする。</li>
+
+              <li>①画面の上に現在の時刻を表示する。そして、画面の「リフレシュ」用のボタンをせってする。</li>
+
+              <li>②そしてその時刻で、イベントを精査して、画面のイベントを読み取り、状態を更新します。対象のイベントが、無い場合、「不在」になります。</li>
             </ul>
           </li>
-          
         </div>
       </div>
     </ol>
