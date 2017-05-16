@@ -347,19 +347,26 @@ $(window).on('load', function() {
     $('#goto-date-input').val(moment().format('YYYY/MM/DD'));
     var strtime = new Date($("#event_開始").val());
 
-    if ($('#event_状態コード').val() == "30" || ($('#event_状態コード').val() == "60" && strtime.getHours() >= 9)){
-        $('#event_場所コード').prop( "disabled", true );
-        $('#event_JOB').prop( "disabled", true );
-        $('#event_工程コード').prop( "disabled", true );
-        $('#basho_search').prop( "disabled", true );
-        $('#koutei_search').prop( "disabled", true );
-
-    }else{
+    var joutai = $('#event_状態コード').val()
+    var joutai_kubun = ''
+    oJoutaiTable.rows().every( function( rowIdx, tableLoop, rowLoop ){
+        var data = this.data();
+        if( data[0] == joutai){
+            joutai_kubun = data[3]
+        }
+    });
+    if (joutai_kubun == '1' || joutai_kubun == '5' || ($('#event_状態コード').val() == "60" && strtime.getHours() < 9)) {
         $('#event_場所コード').prop( "disabled", false );
         $('#event_JOB').prop( "disabled", false );
         $('#event_工程コード').prop( "disabled", false );
         $('#basho_search').prop( "disabled", false );
         $('#koutei_search').prop( "disabled", false )
+    }else {
+        $('#event_場所コード').prop( "disabled", true );
+        $('#event_JOB').prop( "disabled", true );
+        $('#event_工程コード').prop( "disabled", true );
+        $('#basho_search').prop( "disabled", true );
+        $('#koutei_search').prop( "disabled", true );
     }
 
 });
@@ -1027,19 +1034,18 @@ $(function () {
         {
             $("#selectShozai").css('display', 'none');
         }
-        if ($('#event_状態コード').val() == "30" || ($('#event_状態コード').val() == "60" && strtime.getHours() >= 9)){
-            $('#event_場所コード').prop( "disabled", true );
-            $('#event_JOB').prop( "disabled", true );
-            $('#event_工程コード').prop( "disabled", true );
-            $('#basho_search').prop( "disabled", true );
-            $('#koutei_search').prop( "disabled", true );
-
-        }else{
+        if (d[3] == '1' || d[3] == '5' || ($('#event_状態コード').val() == "60" && strtime.getHours() < 9)) {
             $('#event_場所コード').prop( "disabled", false );
             $('#event_JOB').prop( "disabled", false );
             $('#event_工程コード').prop( "disabled", false );
             $('#basho_search').prop( "disabled", false );
             $('#koutei_search').prop( "disabled", false )
+        }else {
+            $('#event_場所コード').prop( "disabled", true );
+            $('#event_JOB').prop( "disabled", true );
+            $('#event_工程コード').prop( "disabled", true );
+            $('#basho_search').prop( "disabled", true );
+            $('#koutei_search').prop( "disabled", true );
         }
     });
 

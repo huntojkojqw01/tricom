@@ -105,18 +105,18 @@ $(function () {
             $('#event_状態コード').closest('.form-group').removeClass('has-error');
             //check if that day missing
             var strtime = new Date($("#event_開始").val());
-            if (d[0] == "30" || (d[0] == "60" && strtime.getHours() >= 9)){
+            if (d[3] == '1' || d[3] == '5' || ($('#event_状態コード').val() == "60" && strtime.getHours() < 9)) {
+                $('#event_場所コード').prop( "disabled", false );
+                $('#event_JOB').prop( "disabled", false );
+                $('#event_工程コード').prop( "disabled", false );
+                $('#basho_search').prop( "disabled", false );
+                $('#koutei_search').prop( "disabled", false )
+            }else {
                 $('#event_場所コード').prop( "disabled", true );
                 $('#event_JOB').prop( "disabled", true );
                 $('#event_工程コード').prop( "disabled", true );
                 $('#basho_search').prop( "disabled", true );
                 $('#koutei_search').prop( "disabled", true );
-            }else{
-                $('#event_場所コード').prop( "disabled", false );
-                $('#event_JOB').prop( "disabled", false );
-                $('#event_工程コード').prop( "disabled", false );
-                $('#basho_search').prop( "disabled", false );
-                $('#koutei_search').prop( "disabled", false );
             }
         }
     });
