@@ -48,13 +48,13 @@ class ShainmastersController < ApplicationController
     respond_with @shainmaster, location: shainmasters_url
   end
   def multi_delete
-    case params[:focus_field]     
+    case params[:focus_field]
       when 'shain_削除する'
         shainIds = params[:shains]
         shainIds.each{ |shainId|
           shain=Shainmaster.find(shainId)
-          shain.destroy unless current_user== shain.user || shain==nil      
-        }        
+          shain.destroy unless current_user== shain.user || shain==nil
+        }
         data = {destroy_success: "success"}
         respond_to do |format|
           format.json { render json: data}
@@ -96,12 +96,12 @@ class ShainmastersController < ApplicationController
   private
   def shainmaster_params
     params.require(:shainmaster).permit :序列, :社員番号, :連携用社員番号, :氏名,
-      :所属コード, :直間区分, :役職コード, :内線電話番号, :有給残数, :区分, :タイムライン区分, :デフォルトロール
+      :所属コード, :直間区分, :役職コード, :内線電話番号, :有給残数, :区分, :タイムライン区分, :デフォルトロール, :残業区分
   end
 
   def shainmaster_params_for_update
     params.require(:shainmaster).permit :序列, :連携用社員番号, :氏名, :所属コード,
-      :直間区分, :役職コード, :内線電話番号, :有給残数, :区分, :タイムライン区分, :デフォルトロール
+      :直間区分, :役職コード, :内線電話番号, :有給残数, :区分, :タイムライン区分, :デフォルトロール, :残業区分
   end
 
   def set_reference
