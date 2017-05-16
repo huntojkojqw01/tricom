@@ -11,6 +11,8 @@
     = f.association :rorumaster, label_method: :ロール名, value_method: :ロールコード, label:'デフォルトロール'
     = f.input :内線電話番号
     = f.input :有給残数
+    - show_in = %w(はい いいえ)
+    = f.input :残業区分, collection: (1..2).map {|i| [show_in[i-1], i ]}, input_html: {style: 'width:100px'}
     - if current_user.admin? || current_user.supervisor?
       = f.label :区分, '区分(勤怠管理をしない.)'
       = f.input :区分, as: :boolean
