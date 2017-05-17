@@ -285,6 +285,12 @@ vi:
       text_descript_drag: Có thể kéo thả (hoặc nhấp chuột) để thay đổi avatar
       shousai_event: Danh sách chi tiết
       reload: Refresh
+      shain_zangyoukubun: 残業管理
+      shain_zangyoukubun_descr: 勤怠画面に普通残業、深夜残業が制御区分です。
+      shain_kubun: 勤怠管理
+      shain_kubun_descr: 勤怠管理しない社員です。
+      shain_timelinekubun: タイムライン表示
+      shain_timelinekubun_descr: タイムラインに表示するか制御区分です。
   export: Xuất
   title:
     bashokubunmst: Phân loại địa điểm
