@@ -307,7 +307,7 @@ jQuery ->
         );
         oKaisha_modal.page.jumpToData($('#jobmaster_ユーザ番号').val(), 0);
     if $(this).prev().is(element2)
-      $('#select_user_modal').modal('show')
+      $('#select_user_modal_refer').modal('show')
       if $('#jobmaster_入力社員番号').val() != ''
         oShain_modal.rows().every( ( rowIdx, tableLoop, rowLoop ) ->
           data = this.data();
@@ -338,7 +338,7 @@ jQuery ->
 #  )
 #
 #  $('.refer-shain').click( () ->
-#    $('#select_user_modal').modal('show')
+#    $('#select_user_modal_refer').modal('show')
 #  )
 #
 #  $('.refer-job').click( () ->
@@ -465,6 +465,17 @@ jQuery ->
       $('#jobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
       $('#jobmaster_関連Job番号').closest('.form-group').removeClass 'has-error'
 
+  $('#job_table tbody').on( 'dblclick', 'tr', ()->
+    $(this).addClass('selected');
+    $(this).addClass('success');
+    d = oJob_modal.row('tr.selected').data()
+    if d != undefined
+      $('#jobmaster_関連Job番号').val d[0]
+      $('.hint-job-refer').val d[1]
+      $('#jobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
+      $('#jobmaster_関連Job番号').closest('.form-group').removeClass 'has-error'
+    $('#job_search_modal').modal('hide')
+  )
   $('#user_refer_sentaku_ok').click ->
     d = oShain_modal.row('tr.selected').data()
     if d != undefined
@@ -473,6 +484,18 @@ jQuery ->
       $('#jobmaster_入力社員番号').closest('.form-group').find('span.help-block').remove()
       $('#jobmaster_入力社員番号').closest('.form-group').removeClass 'has-error'
 
+  
+  $('#user_table tbody').on( 'dblclick', 'tr', ()->
+    $(this).addClass('selected');
+    $(this).addClass('success');
+    d = oShain_modal.row('tr.selected').data()
+    if d != undefined
+      $('#jobmaster_入力社員番号').val d[0]
+      $('.hint-shain-refer').val d[1]
+      $('#jobmaster_入力社員番号').closest('.form-group').find('span.help-block').remove()
+      $('#jobmaster_入力社員番号').closest('.form-group').removeClass 'has-error'
+    $('#select_user_modal_refer').modal('hide')
+  )
   $('#kaisha_sentaku_ok').click ->
     d = oKaisha_modal.row('tr.selected').data()
     if d != undefined
@@ -480,4 +503,15 @@ jQuery ->
       $('#jobmaster_ユーザ名').val d[1]
       $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
       $('#jobmaster_ユーザ番号').closest('.form-group').removeClass 'has-error'
-
+  
+  $('#kaisha-table-modal tbody').on( 'dblclick', 'tr', ()->
+    $(this).addClass('selected');
+    $(this).addClass('success');
+    d = oKaisha_modal.row('tr.selected').data()
+    if d != undefined
+      $('#jobmaster_ユーザ番号').val d[0]
+      $('#jobmaster_ユーザ名').val d[1]
+      $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
+      $('#jobmaster_ユーザ番号').closest('.form-group').removeClass 'has-error'
+    $('#kaisha-search-modal').modal('hide')
+  )

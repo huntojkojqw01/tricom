@@ -65,6 +65,14 @@ $(function() {
         $('#bashomaster_会社コード').val(d[0]);
         $('#kaisha-name').text(d[1]);
     });
+    $('#kaisha-table-modal').on( 'dblclick', 'tr', function () {
+        $(this).addClass('selected');
+        $(this).addClass('success');
+        var d = oKaishaTable.row('tr.selected').data();
+        $('#bashomaster_会社コード').val(d[0]);
+        $('#kaisha-name').text(d[1]);
+        $('#kaisha-search-modal').modal('hide');
+      });
     $('.refer-kaisha').click(function(){
         $('#kaisha-search-modal').modal('show');
         if ($('#bashomaster_会社コード').val() != ''){
