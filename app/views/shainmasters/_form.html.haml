@@ -1,5 +1,5 @@
 = simple_form_for @shainmaster do |f|
-  .col-sm-4.col-sm-offset-3
+  .col-md-3.col-xs-4.col-sm-4.col-lg-3.col-md-offset-3.col-xs-offset-3.col-sm-offset-3.col-lg-offset-3
     = f.input :序列
     = f.input :社員番号 if mode == :new
     = f.input :連携用社員番号
@@ -17,13 +17,16 @@
       %p.help-block=t 'app.label.shain_zangyoukubun_descr'
       = f.check_box :残業区分
       %br
+      %br
       = f.label (t 'app.label.shain_kubun')
       %p.help-block=t 'app.label.shain_kubun_descr'
       = f.check_box :区分
       %br
+      %br
       = f.label (t 'app.label.shain_timelinekubun')
       %p.help-block=t 'app.label.shain_timelinekubun_descr'
       = f.check_box :タイムライン区分
+      %br
       %br
       / = f.label :残業区分, '残業区分(残業管理)'
       / = f.input :残業区分, as: :boolean
