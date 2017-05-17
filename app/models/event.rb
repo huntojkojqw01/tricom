@@ -37,10 +37,11 @@ class Event < ActiveRecord::Base
   alias_attribute :shozai_code, :所在コード
 
   def doUpdateKintai
+    ApplicationController.helpers.check_kintai_at_day_by_user(self.社員番号, self.開始.to_date)
     kintai = Kintai.where("Date(日付) = Date(?)",self.開始).where(社員番号: self.社員番号).first
     if !kintai.nil?
       kinmu_type = Shainmaster.find(self.社員番号).勤務タイプ
-      events = Event.where("Date(開始) = Date(?)",self.開始).joins(:joutaimaster).where(状態マスタ: {状態区分: "1"})
+      events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where(状態マスタ: {状態区分: "1"})
       if events.count > 0
         time_start = events.order(開始: :asc).first.開始
         time_end = events.order(終了: :desc).first.終了
