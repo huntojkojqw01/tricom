@@ -13,10 +13,22 @@
     = f.input :有給残数
 
     - if current_user.admin? || current_user.supervisor?
-      = f.label :残業区分, '残業区分(残業管理)'
-      = f.input :残業区分, as: :boolean
-      = f.label :区分, '区分(勤怠管理をしない.)'
-      = f.input :区分, as: :boolean
-      = f.label :タイムライン区分, 'タイムライン区分(タイムラインに表示したくない.)'
-      = f.input :タイムライン区分, as: :boolean
+      = f.label (t 'app.label.shain_zangyoukubun')
+      %p.help-block=t 'app.label.shain_zangyoukubun_descr'
+      = f.check_box :残業区分
+      %br
+      = f.label (t 'app.label.shain_kubun')
+      %p.help-block=t 'app.label.shain_kubun_descr'
+      = f.check_box :区分
+      %br
+      = f.label (t 'app.label.shain_timelinekubun')
+      %p.help-block=t 'app.label.shain_timelinekubun_descr'
+      = f.check_box :タイムライン区分
+      %br
+      / = f.label :残業区分, '残業区分(残業管理)'
+      / = f.input :残業区分, as: :boolean
+      / = f.label :区分, '区分(勤怠管理をしない.)'
+      / = f.input :区分, as: :boolean
+      / = f.label :タイムライン区分, 'タイムライン区分(タイムラインに表示したくない.)'
+      / = f.input :タイムライン区分, as: :boolean
     = f.button :submit, class: 'btn btn-primary'
