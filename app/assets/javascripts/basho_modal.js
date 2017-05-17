@@ -131,7 +131,7 @@ $(function () {
         if(mybasho!= undefined){
             $('#event_場所コード').val(mybasho[0]);
             $('.hint-basho-refer').text(mybasho[1]);
-            $('#event_場所コード').closest('.form-group').find('.span.help-block').text('')
+            $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error')
         }
         $('#basho_search_modal').modal('hide')
@@ -162,8 +162,9 @@ $(function () {
         if(mybasho!= undefined){
             $('#event_場所コード').val(mybasho[0]);
             $('.hint-basho-refer').text(mybasho[1]);
-            $('#event_場所コード').closest('.form-group').find('.span.help-block').text('')
+            $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error')
+
         }
     });
 
