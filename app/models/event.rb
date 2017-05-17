@@ -184,9 +184,16 @@ class Event < ActiveRecord::Base
         else
           chikoku_soutai = 0
         end
-        Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-        退社時刻: time_end, 実労働時間: real_hours_total, 遅刻時間: chikoku, 早退時間: soutai,
-        普通残業時間: fustu_zangyo_total, 深夜残業時間: shinya_zangyou_total)
+        zangyou_kubun = Shainmaster.find(self.社員番号).残業区分
+        if zangyou_kubun == "1"
+          Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
+          退社時刻: time_end, 実労働時間: real_hours_total, 遅刻時間: chikoku, 早退時間: soutai,
+          普通残業時間: fustu_zangyo_total, 深夜残業時間: shinya_zangyou_total)
+        else
+          Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
+          退社時刻: time_end, 実労働時間: real_hours_total, 遅刻時間: chikoku, 早退時間: soutai,
+          普通残業時間: '', 深夜残業時間: '')
+        end
       else
         kintai.update(勤務タイプ: kinmu_type, 出勤時刻: '', 退社時刻: '',
         実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '')
