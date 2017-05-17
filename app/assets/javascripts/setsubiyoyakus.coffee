@@ -197,8 +197,7 @@ jQuery ->
       $(this).addClass 'selected'
       $(this).addClass 'success'
       $('#kaisha_sentaku_ok').attr 'disabled', false
-      $('#clear_kaisha').attr 'disabled', false
-
+      $('#clear_kaisha').attr 'disabled', false  
   $('#clear_kaisha').click () ->
     # $('#setsubiyoyaku_相手先').val('');
     # $('.hint-kaisha-refer').text('');
@@ -212,6 +211,14 @@ jQuery ->
     d = oKaishaTable.row('tr.selected').data()
     $('#setsubiyoyaku_相手先').val d[0]
     $('.hint-kaisha-refer').text(d[1])
+  $('#kaisha-table-modal').on( 'dblclick', 'tr', ()->
+    $(this).addClass('selected')
+    $(this).addClass('success')
+    d = oKaishaTable.row('tr.selected').data()
+    $('#setsubiyoyaku_相手先').val d[0]
+    $('.hint-kaisha-refer').text(d[1])
+    $('#kaisha-search-modal').modal('hide')
+  )
   $('.refer-kaisha').click ->
     $('#kaisha-search-modal').modal 'show'
     if $('#setsubiyoyaku_相手先').val() != ''
