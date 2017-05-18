@@ -99,41 +99,41 @@ en:
   errors: &errors
     format: ! '%{attribute}%{dengon_menu}'
     dengon_menus:
-      accepted: を受諾してください。
-      current_password_incorrect: 現在パスワードが間違いました。
-      wrong_mail_form: 正しくメールフォマットを入力してください。
-      blank: を入力してください。
-      present: は入力しないでください。
-      confirmation: と%{attribute}の入力が一致しません。
-      empty: を入力してください。
-      equal_to: は%{count}にしてください。
-      even: は偶数にしてください。
-      exclusion: は予約されています。
-      greater_than: は%{count}より大きい値にしてください。
-      greater_than_or_equal_to: は%{count}以上の値にしてください。
-      inclusion: は一覧にありません。
-      invalid: は不正な値です。
-      less_than: は%{count}より小さい値にしてください。
-      less_than_or_equal_to: は%{count}以下の値にしてください。
-      not_a_number: は数値で入力してください。
-      not_an_integer: は整数で入力してください。
-      odd: は奇数にしてください。
-      record_invalid: バリデーションに失敗しました。 %{errors}
-      restrict_dependent_destroy: ! '%{record}が存在しているので削除できません。'
-      taken: はすでに存在します。
-      too_long: は%{count}文字以内で入力してください。
-      too_short: は%{count}文字以上で入力してください。
-      wrong_length: は%{count}文字で入力してください。
-      other_than: "は%{count}以外の値にしてください。"
+      accepted: Please accept
+      current_password_incorrect: The current password is incorrect
+      wrong_mail_form: Please enter the correct email format
+      blank: Please enter
+      present: Please do not enter
+      confirmation: And input of %{attribute} does not match
+      empty: Please enter
+      equal_to: Please set it to %{count}
+      even: Please set it to an even number
+      exclusion: Is reserved
+      greater_than: Must be greater than %{count}
+      greater_than_or_equal_to: Must be greater than or equal to %{count}
+      inclusion: There is no list 
+      invalid: This is an invalid value
+      less_than: Must be less than %{count}
+      less_than_or_equal_to: Should be less than or equal to % {count}.
+      not_a_number: Please enter a numeric value
+      not_an_integer: Must be an integer 
+      odd: Enter an odd number 
+      record_invalid: Validation failed %{errors}
+      restrict_dependent_destroy: It cannot be deleted 
+      taken: Already exists
+      too_long: Please enter within %{count} character
+      too_short: Please enter %{count} character or more 
+      wrong_length: Please enter %{count} character
+      other_than: Should be a value other than %{count}
       delete_association: 'The data you want to delete is used for other places. Is it OK to delete?'
     template:
-      body: 次の項目を確認してください。
+      body: Please check the following items
       header:
-        one: ! '%{model}にエラーが発生しました。'
-        other: ! '%{model}に%{count}個のエラーが発生しました。'
+        one: ! 'An error occured in %{model}'
+        other: ! '%{count} errors occured in %{model}
   helpers:
     select:
-      prompt: 選択してください。
+      prompt: Please select 
     submit:
       create: Register
       create_other: 'Register '
@@ -191,11 +191,11 @@ en:
       storage_units:
         format: ! '%n%u'
         units:
-          byte: バイト
-          gb: ギガバイト
-          kb: キロバイト
-          mb: メガバイト
-          tb: テラバイト
+          byte: byte
+          gb: gigabyte
+          kb: kilobytes
+          mb: megabyte
+          tb: terabyte
     percentage:
       format:
         delimiter: ''
@@ -224,56 +224,55 @@ en:
       <<: *errors
   app:
     delete_confirm: Do you want to delete?
-    delete_data_in_month_confirm: 当月の勤務データを削除されます。削除でよろしいでしょうか。
-    select_confirm: 行を選択してください。
+    delete_data_in_month_confirm: The work data for current month will be deleted. Would you want to delete it?
+    select_confirm: Please select a line 
     forgot_password: Forgot password?
-    update_pass_success: パスワードを更新できました。
+    update_pass_success: Successfully update password。
     flash:
-      kintai_finish_input: 入力済みとなりました。今後当月データの編集不可となっております。
-      import_csv: It was able to load from the CSV file!
-      record_not_found: 該当情報が見つかりませんでした！
-      record_not_existing: 参照情報が存在していない！
-      new_success: 新規作成出来ました。
-      update_success: 更新成功出来ました。
-      delete_success: 削除成功出来ました。
-      login_field: 正しい情報で入力してください。
-      login_new: 担当者コードが正しくないです。
-      login_existing: ユーザーが既に登録されました。
-      access_denied: あなたはアクセス権限ではありません！
-      mail_to: 社員のメールアドレスを登録していません。
-      mail_send_field: エラーが発生する為、メールを送信できませんでした！
-      kairan_confirm: チェックされた回覧を確認済み
-      wellcome_to: よろこそ！
-      file_nil: ファイルが存在していない！
-      file_format_invalid: ファイルのフォマットを正しく選択してください。
-      not_attributes: " アトリビュートが存在していない！"
-      unsucess: "全部フィールドがエンプティーを入力しないでください！"
-      let_login_with_code: Let login with your code!
+      kintai_finish_input: You have entered data. Editing data of the current month is imps
+      import_csv: Successfully loaded from the CSV file!
+      record_not_found: No corresponding information found
+      record_not_existing: Reference information does not exist!
+      new_success: Successfully created new data below
+      update_success: Update succeeded
+      delete_success: Delete succeeded
+      login_field: Please enter the correct information
+      login_new: The contact code is incorrect
+      login_existing: Login account already created
+      access_denied: You do not have access right!
+      mail_to: Employee's email address is not registered
+      mail_send_field: Email couldn't be sent due to an error
+      kairan_confirm: Confirmed checked circulation
+      wellcome_to: Nice to see you! 
+      file_nil: The file does not exist!
+      file_format_invalid: Please correctly select the file format
+      not_attributes: Attributes do not exists
+      unsucess: Please do not leave fields empty
+      let_login_with_code: Let's login with your code!
     login:
-      let_login: ログインしてください。
-      logged_in: ログインしました。
+      let_login: Please login 
+      logged_in: You are now logged in
       let_input_mail: Enter your mail!
       let_login_with_code: Let login with your code!
-      send_mail: パスワードをメールに送りました。メールをチェックしてください。
+      send_mail: Password has been sent to your email. Please check your email
     model:
-      check_data_input: は開始日以上の値にしてください。
-      schedule: すでに他のスケジュールがあります。
+      check_data_input: Has to be at least the start date
+      schedule: Another schedule already exist 
       check_kubun:
-        shoninsha: 承認者を入力してください
-        seisanyoteibi: 清算予定日を入力してください
-      check_shainmaster_equal: 申請者と承認者が一緒しています
-      check_joutai1: 状態が存在していない
-      check_time_attendance: は出勤時刻以上の値にしてください。
-      check_time: は22時間より小さい値にしてください。
-    label:
+        shoninsha: Please enter approval
+        seisanyoteibi: Please enter the scheduled liquidation date
+      check_shainmaster_equal:  Applicant and approver have to be the same
+      check_joutai1: State does not exist 
+      check_time_attendance: Please be at least attendance time
+      check_time: Should be less than 22 hours
       import_data: Import data
       import_csv: Import data with CSV!
       reference: Reference
       export_pdf: Export data with PDF!
-      pdf_event: 就業報告表
-      pdf_event_job: '就業合計表(JOB単位）'
-      pdf_event_koutei: '就業合計表(工程単位）'
-      calendar_genzai: 現在
+      pdf_event: Employment report table
+      pdf_event_job: 'Work Summary Table(JOB Unit）'
+      pdf_event_koutei: 'Total employment table (process unit)'
+      calendar_genzai: Current
       necessary: Necessary
       unnecessary: Unnecessary
       select_vn_holiday: Vietnamese Holidays
@@ -285,12 +284,12 @@ en:
       text_descript_drag: Drop files here (or click) to update avatar
       shousai_event: Detailed list
       reload: Refresh
-      shain_zangyoukubun: 残業管理
-      shain_zangyoukubun_descr: 勤怠画面に普通残業、深夜残業が制御区分です。
-      shain_kubun: 勤怠管理
-      shain_kubun_descr: 勤怠管理しない社員です。
-      shain_timelinekubun: タイムライン表示
-      shain_timelinekubun_descr: タイムラインに表示するか制御区分です。
+      shain_zangyoukubun: Overtime management are control categories on the attendance screen
+      shain_zangyoukubun_descr: Overtime work overtime 
+      shain_kubun: attendance management
+      shain_kubun_descr: An employee does not pay attention to attendance
+      shain_timelinekubun: Timeline display 
+      shain_timelinekubun_descr: Control division to be displayed on the timeline
   export: 輸出
   title:
     bashokubunmst: Location classification list
@@ -311,19 +310,19 @@ en:
     joutaimaster: State master
     jpt_hokiday_mst: Jupiter Holiday
     kairan: Circulation
-    shokairan: 送回覧
+    shokairan: Tranmission circulation
     kaitou: Response
     kairanyoukenmst: Circulation master
     kaishamaster: Company master
     kanri:
       keihihead: Expenses
       kintai: Attendance
-      main: 管理G メインメニュー
+      main: Management G Main Menu
     keihibodie: TRICOM
-    keihihead: 経費入力管理
-    keihi_pdf: 経費出費明細
-    shonin_search: 経費承認一覧
-    kikanmst: 機関一覧
+    keihihead: Expense input management
+    keihi_pdf: Expense line
+    shonin_search: Expense approval list
+    kikanmst: Institution list
     kintai: Attendance
     kouteimaster: Process master
     layout: TRICOM
@@ -340,7 +339,7 @@ en:
     shozokumaster: Affiliation master
     tsushinseigyou: Communication control master
     user:
-      change_pass: パスワード変更
+      change_pass: change password
       tantousha: Contact person master
     yakushokumaster: Position master
     yuusen: Priority
@@ -393,7 +392,7 @@ en:
     nyuuryokusha: Input person
     delete_confirm: Do you want to delete?
     shain: Employee
-    youken: Bussiness
+    youken: Business
     kaiou: Reply
     kensaku: Search
     dengoichiran: Message list
@@ -444,7 +443,7 @@ en:
     kairanshyousaimaster: Circulation detail master
     yuusen: Priority
     kakuninmeru: Confirm with mail
-    yuukyuu_kyuuka: 有給休暇履歴
+    yuukyuu_kyuuka: Paid leave history
     path: Path
     search: Search Results
     keihi_shuppi: Expense Total Table
@@ -452,4 +451,4 @@ en:
     finished: Done
     unfinished: Ongoing
     task: Task
-    shutchou_ikkatsu: 出張一括入力
+    shutchou_ikkatsu: All input data for business trips
