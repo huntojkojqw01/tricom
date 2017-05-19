@@ -111,18 +111,18 @@ en:
       exclusion: Is reserved
       greater_than: Must be greater than %{count}
       greater_than_or_equal_to: Must be greater than or equal to %{count}
-      inclusion: There is no list 
+      inclusion: There is no list
       invalid: This is an invalid value
       less_than: Must be less than %{count}
       less_than_or_equal_to: Should be less than or equal to % {count}.
       not_a_number: Please enter a numeric value
-      not_an_integer: Must be an integer 
-      odd: Enter an odd number 
+      not_an_integer: Must be an integer
+      odd: Enter an odd number
       record_invalid: Validation failed %{errors}
-      restrict_dependent_destroy: It cannot be deleted 
+      restrict_dependent_destroy: It cannot be deleted
       taken: Already exists
       too_long: Please enter within %{count} character
-      too_short: Please enter %{count} character or more 
+      too_short: Please enter %{count} character or more
       wrong_length: Please enter %{count} character
       other_than: Should be a value other than %{count}
       delete_association: 'The data you want to delete is used for other places. Is it OK to delete?'
@@ -130,10 +130,10 @@ en:
       body: Please check the following items
       header:
         one: ! 'An error occured in %{model}'
-        other: ! '%{count} errors occured in %{model}
+        other: ! '%{count} errors occured in %{model}'
   helpers:
     select:
-      prompt: Please select 
+      prompt: Please select
     submit:
       create: Register
       create_other: 'Register '
@@ -225,7 +225,7 @@ en:
   app:
     delete_confirm: Do you want to delete?
     delete_data_in_month_confirm: The work data for current month will be deleted. Would you want to delete it?
-    select_confirm: Please select a line 
+    select_confirm: Please select a line
     forgot_password: Forgot password?
     update_pass_success: Successfully update password。
     flash:
@@ -243,26 +243,26 @@ en:
       mail_to: Employee's email address is not registered
       mail_send_field: Email couldn't be sent due to an error
       kairan_confirm: Confirmed checked circulation
-      wellcome_to: Nice to see you! 
+      wellcome_to: Nice to see you!
       file_nil: The file does not exist!
       file_format_invalid: Please correctly select the file format
       not_attributes: Attributes do not exists
       unsucess: Please do not leave fields empty
       let_login_with_code: Let's login with your code!
     login:
-      let_login: Please login 
+      let_login: Please login
       logged_in: You are now logged in
       let_input_mail: Enter your mail!
       let_login_with_code: Let login with your code!
       send_mail: Password has been sent to your email. Please check your email
     model:
       check_data_input: Has to be at least the start date
-      schedule: Another schedule already exist 
+      schedule: Another schedule already exist
       check_kubun:
         shoninsha: Please enter approval
         seisanyoteibi: Please enter the scheduled liquidation date
       check_shainmaster_equal:  Applicant and approver have to be the same
-      check_joutai1: State does not exist 
+      check_joutai1: State does not exist
       check_time_attendance: Please be at least attendance time
       check_time: Should be less than 22 hours
       import_data: Import data
@@ -285,10 +285,10 @@ en:
       shousai_event: Detailed list
       reload: Refresh
       shain_zangyoukubun: Overtime management are control categories on the attendance screen
-      shain_zangyoukubun_descr: Overtime work overtime 
+      shain_zangyoukubun_descr: Overtime work overtime
       shain_kubun: attendance management
       shain_kubun_descr: An employee does not pay attention to attendance
-      shain_timelinekubun: Timeline display 
+      shain_timelinekubun: Timeline display
       shain_timelinekubun_descr: Control division to be displayed on the timeline
   export: 輸出
   title:
