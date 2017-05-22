@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170420070854) do
+ActiveRecord::Schema.define(version: 20170522035720) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,38 @@ ActiveRecord::Schema.define(version: 20170420070854) do
     t.datetime "退社時刻"
     t.decimal  "遅刻時間"
     t.decimal  "早退時間"
+  end
+
+  create_table "kintaiteburus", force: :cascade do |t|
+    t.string   "勤務タイプ"
+    t.time     "出勤時刻"
+    t.time     "退社時刻"
+    t.float    "昼休憩時間"
+    t.float    "夜休憩時間"
+    t.float    "深夜休憩時間"
+    t.float    "早朝休憩時間"
+    t.float    "実労働時間"
+    t.float    "早朝残業時間"
+    t.float    "残業時間"
+    t.float    "深夜残業時間"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "kintaiteeburus", force: :cascade do |t|
+    t.string   "勤務タイプ"
+    t.time     "出勤時刻"
+    t.time     "退社時刻"
+    t.float    "昼休憩時間"
+    t.float    "夜休憩時間"
+    t.float    "深夜休憩時間"
+    t.float    "早朝休憩時間"
+    t.float    "実労働時間"
+    t.float    "早朝残業時間"
+    t.float    "残業時間"
+    t.float    "深夜残業時間"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "messages", force: :cascade do |t|

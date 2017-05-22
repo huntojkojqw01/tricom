@@ -1,0 +1,9 @@
+<%=form_for @kintaiteeburu do |f|%>
+	<%= f.label :勤務タイプ %>
+	<%= f.select :勤務タイプ, ["001","002"], include_blank: false %><br>
+	<%= f.label :出勤時刻%>
+	<%= f.time_select :出勤時刻%><br>
+	<%= f.label :退社時刻%>
+	<%= f.time_select :退社時刻%><br>
+  	<%= f.submit %>
+<% end %>

@@ -34,7 +34,7 @@ Jpt::Application.configure do
   I18n.enforce_available_locales = true
 
   config.active_record.raise_in_transactional_callbacks = true
-
+  config.active_record.time_zone_aware_types = [:datetime, :time]
   # Paperclip::Attachment.default_options[:path] = "#{Rails.root}/public/assets/system/:class/avatars/:id_partition/:style/:filename"
   # Paperclip::Attachment.default_options[:url] = "/public/assets/system/:class/avatars/:id_partition/:style/:filename"
   # Paperclip::Attachment.default_options[:path] = "#{Rails.root}/app/assets/images/system/:class/avatars/:id_partition/:style/:filename.:extension"
