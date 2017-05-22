@@ -375,7 +375,7 @@ class KeihiheadsController < ApplicationController
       when 'get_events'
         @events =  Shainmaster.find(params[:shain]).events.joins(:joutaimaster)
         .where("Date(開始) >= ?",params[:date_input])
-        .where('状態マスタ.状態区分 = \'1\'').order(開始: :desc)
+        .where('状態マスタ.状態コード = \'10\' or 状態マスタ.状態コード = \'11\' or 状態マスタ.状態コード = \'12\'').order(開始: :desc)
         respond_to do |format|
           # format.json { render json: "data"}
           format.js { render 'reset_event_modal'}
