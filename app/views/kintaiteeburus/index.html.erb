@@ -13,14 +13,14 @@
       <th>勤務タイプ</th>
       <th>出勤時刻</th>
       <th>退社時刻</th>
-      <th>昼休憩時間</th>
-      <th>夜休憩時間</th>
-      <th>深夜休憩時間</th>
-      <th>早朝休憩時間</th>
+      <th>昼休憩時間<br>12:00~13:00</th>
+      <th>夜休憩時間<br>18:00~19:00</th>
+      <th>深夜休憩時間<br>23:00~24:00</th>
+      <th>早朝休憩時間<br>4:00~6:00</th>
       <th>実労働時間</th>
-      <th>早朝残業時間</th>
-      <th>残業時間</th>
-      <th>深夜残業時間</th>
+      <th>早朝残業時間<br>6:00~9:00</th>
+      <th>残業時間<br>19:00~22:00</th>
+      <th>深夜残業時間<br>22:00~</th>
     </tr>
   </thead>
 
@@ -29,8 +29,8 @@
       <tr id="kintaiteeburu_<%= kintaiteeburu.id %>">
         <td><%= kintaiteeburu.id %></td>
         <td><%= kintaiteeburu.勤務タイプ %></td>
-        <td><%= kintaiteeburu.出勤時刻 %></td>
-        <td><%= kintaiteeburu.退社時刻 %></td>
+        <td><%= kintaiteeburu.出勤時刻.strftime("%H:%M") %></td>
+        <td><%= kintaiteeburu.退社時刻.strftime("%H:%M") %></td>
         <td><%= kintaiteeburu.昼休憩時間 %></td>
         <td><%= kintaiteeburu.夜休憩時間 %></td>
         <td><%= kintaiteeburu.深夜休憩時間 %></td>

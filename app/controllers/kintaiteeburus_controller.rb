@@ -1,5 +1,4 @@
-class KintaiteeburusController < ApplicationController
-	after_action :calc_attributes, only: [:create,:update]
+class KintaiteeburusController < ApplicationController	
 	def index
 		@kintaiteeburus=Kintaiteeburu.all
 	end
@@ -7,9 +6,9 @@ class KintaiteeburusController < ApplicationController
 		@kintaiteeburu=Kintaiteeburu.new
 	end
 	def create
-		@kintaiteeburu=Kintaiteeburu.new(kintaiteeburu_params)
+		@kintaiteeburu=Kintaiteeburu.new(kintaiteeburu_params)		
 		respond_to do |format|
-			if @kintaiteeburu.save
+			if @kintaiteeburu.save				
 				format.html {redirect_to kintaiteeburus_path, notice: t("app.flash.new_success")}
 				format.js				
 			else
@@ -22,13 +21,12 @@ class KintaiteeburusController < ApplicationController
 		redirect_to root_path unless @kintaiteeburu
 	end
 	def update
-		@kintaiteeburu=Kintaiteeburu.find_by(id: params[:id])
+		@kintaiteeburu=Kintaiteeburu.find_by(id: params[:id])		
 		if @kintaiteeburu
-			if @kintaiteeburu.update(kintaiteeburu_params)
+			if @kintaiteeburu.update(kintaiteeburu_params)												
 				flash[:notice] = t "app.flash.update_success"
 				redirect_to kintaiteeburus_path
 			else
-				flash[:danger]="Failed"
 				render 'edit'
 			end
 		else
@@ -59,9 +57,8 @@ class KintaiteeburusController < ApplicationController
 	      begin
 	        Kintaiteeburu.transaction do
 	          Kintaiteeburu.delete_all	          
-	          Kintaiteeburu.import(params[:file])
-	          notice = t 'app.flash.import_csv'
-	          redirect_to :back, notice: notice
+	          Kintaiteeburu.import(params[:file])	          
+	          redirect_back fallback_location: kintaiteeburus_path,notice: t('app.flash.import_csv')
 	        end
 	      rescue => err
 	        flash[:danger] = err.to_s
@@ -71,9 +68,6 @@ class KintaiteeburusController < ApplicationController
 	end
 	private
 	def kintaiteeburu_params
-      params.require(:kintaiteeburu).permit :勤務タイプ, :出勤時刻, :退社時刻
-    end
-    def calc_attributes
-    	# thuc hien tinh gia tri cac column con lai cua table Kintaiteeburu
-    end
+      	params.require(:kintaiteeburu).permit(:勤務タイプ,:出勤時刻,:退社時刻,:昼休憩時間,:夜休憩時間,:深夜休憩時間,:早朝休憩時間,:実労働時間,:早朝残業時間,:残業時間,:深夜残業時間)     	
+    end    
 end

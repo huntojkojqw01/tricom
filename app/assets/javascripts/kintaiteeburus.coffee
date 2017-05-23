@@ -11,6 +11,7 @@ jQuery ->
     ,
     "aoColumnDefs": [ 
       { "bSortable": false, "aTargets": [ 0,12 ]},
+      { "bSearchable": false, "aTargets": [ 0,12 ]},
       {
         "aTargets": [0,12],
         "visible": false
@@ -169,4 +170,6 @@ jQuery ->
       swal("行を選択してください。")
     else            
       window.location = new_address
-   
+  $('.datetime').datetimepicker({
+    format: 'HH:mm'    
+  })
