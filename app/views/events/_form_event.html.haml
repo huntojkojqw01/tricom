@@ -19,7 +19,10 @@
     -#= select(:event, :工程コード, kouteis.collect {|k| [ k.工程名, k.工程コード ] }, { include_blank: true }, {class: 'form-control'})
     = f.input (t 'title.kouteicode') do
       = f.select :工程コード, @kouteis.map { |k| [k.工程名, k.工程コード] }, {include_blank: true}, {class: 'form-control', style: 'width:180px'}
-    = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(session[:selected_shain]).所属コード}"}, as: :hidden
+    - if !request["shain_id"].nil?
+      = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(request["shain_id"]).所属コード}"}, as: :hidden
+    - else
+      = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(@event.shainmaster.id).所属コード}"}, as: :hidden
   .col-md-4.col-xs-4.col-sm-4.col-lg-4
     = f.input :開始, label: (t 'title.kaishi'), as: :date_time_picker
     = f.input :終了, label: (t 'title.shyuuryou'), as: :date_time_picker

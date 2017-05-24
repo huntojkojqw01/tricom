@@ -7,6 +7,18 @@
   <li><%= link_to 'カレンダー', events_path %></li>
   <li><%= link_to '経費入力管理', keihiheads_path %></li>
   <li class="active">経費・編集</li>
+  <div class="navbar-nav navbar-right">
+    <li class="dropdown" style="margin-right: 20px">
+      <a class="dropdown-toggle" href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+        <span><i class="glyphicon glyphicon-question-sign fa-1x" style="color: rgb(76, 76, 76); font-size: 20px"></i></span>
+      </a>
+      <ul class="dropdown-menu help-question" style="width: 500px">
+        <li style="text-align: center; font-size: 20px"><b>経費入力管理</b></li>
+        <li>MYJOBマスタの検索を開いた時に、現在は、状態区分="1"のレコード検索していただいていましが、追加で、状態コード＝”10”（直行）、"11"（外出）、"12"（出張）に限定していただきます。</li>
+        <li>本社内で働く時は、経費が発生せず、社外に行くときのみ、経費が発生するのに対応するためです。</li>
+      </ul>
+    </li>
+  </div>
 </ol>
 
 <%= render 'form', mode: :edit %>
