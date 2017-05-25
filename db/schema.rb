@@ -175,7 +175,7 @@ ActiveRecord::Schema.define(version: 20170522035720) do
     t.decimal  "遅刻時間"
     t.decimal  "早退時間"
   end
-  
+
   create_table "kintaiteeburus", force: :cascade do |t|
     t.string   "勤務タイプ"
     t.time     "出勤時刻"
