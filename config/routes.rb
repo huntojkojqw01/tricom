@@ -232,5 +232,8 @@ end
     end
     resources :keihiheads, only: :index
   end
+  resources :kintaiteeburus do
+    collection {post :import,:ajax}
+  end
   root to: 'main#index'
 end
