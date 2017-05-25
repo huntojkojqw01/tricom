@@ -225,6 +225,9 @@ $(document).ready(function() {
                         width: 18,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
+                            if(resources.dengon.length>0){
+                                el.html('<a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'" style="color: black">'+resources.dengon+'</a>');
+                            }
                         }
 
                     },
@@ -234,6 +237,9 @@ $(document).ready(function() {
                         width: 18,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
+                            if(resources.kairan.length>0){
+                                el.html('<a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'" style="color: black">'+resources.kairan+'</a>');
+                            }
                         }
 
                     },
