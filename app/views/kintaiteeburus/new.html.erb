@@ -1,1 +1,7 @@
+<%provide(:title, (t 'title.new'))%>
+<ol class="breadcrumb">
+  <li><%= link_to 'メニュー', main_path %></li>
+  <li><%= link_to t('title.kintaiteeburu'), kintaiteeburus_path %></li>  
+  <li class="active"><%=t 'title.new'%></li>
+</ol>
 <%=render 'form',object: @kintaiteeburu %>

@@ -1,11 +1,12 @@
+<%= javascript_include_tag 'kintaiteeburus' %>
 <div class="container">
     <div class="row">
         <div class='col-sm-8 col-md-8 col-lg-8 col-md-offset-2 col-lg-offset-2'>
 		<%= simple_form_for @kintaiteeburu do |f|%>
 			<div class="col-md-4">
 				<%= f.input :勤務タイプ, include_blank: false, collection: [ "001","002","003","004","005","006","007","008","009"],input_html: { style: 'width:40%' } %>		    
-			    <%= f.input :出勤時刻, as: :time,minute_step: 30,:default => Time.new(2000,1,1,9,0)%>
-			    <%= f.input :退社時刻, as: :time,minute_step: 30,:default => Time.new(2000,1,1,18,0)%>	
+			    <%= f.input :出勤時刻, as: :time,minute_step: 30,:default => Time.new(2000,1,1,7,0)%>
+			    <%= f.input :退社時刻, as: :time,minute_step: 30,:default => Time.new(2000,1,1,16,0)%>	
 			    <%= f.input :実労働時間, include_blank: false, collection: (0..20).map{|i| 8+0.5*i},input_html: { style: 'width:40%' }%>
 			</div>
 			<div class="col-md-4 col-lg-4">

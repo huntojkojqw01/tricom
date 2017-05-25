@@ -169,7 +169,60 @@ jQuery ->
     if new_address == undefined
       swal("行を選択してください。")
     else            
-      window.location = new_address
-  $('.datetime').datetimepicker({
-    format: 'HH:mm'    
-  })
+      window.location = new_address  
+  $("#kintaiteeburu_勤務タイプ").change ()->    
+    switch($(this).val())
+      when "001"
+        $("#kintaiteeburu_出勤時刻_4i").val("07")        
+        $("#kintaiteeburu_出勤時刻_5i").val("00")
+        
+        $("#kintaiteeburu_退社時刻_4i").val("16")        
+        $("#kintaiteeburu_退社時刻_5i").val("00")
+      when "002"
+        $("#kintaiteeburu_出勤時刻_4i").val("07")        
+        $("#kintaiteeburu_出勤時刻_5i").val("30")
+
+        $("#kintaiteeburu_退社時刻_4i").val("16")        
+        $("#kintaiteeburu_退社時刻_5i").val("30")
+      when "003"
+        $("#kintaiteeburu_出勤時刻_4i").val("08")        
+        $("#kintaiteeburu_出勤時刻_5i").val("00")
+
+        $("#kintaiteeburu_退社時刻_4i").val("17")        
+        $("#kintaiteeburu_退社時刻_5i").val("00")
+      when "004"
+        $("#kintaiteeburu_出勤時刻_4i").val("08")        
+        $("#kintaiteeburu_出勤時刻_5i").val("30")
+
+        $("#kintaiteeburu_退社時刻_4i").val("17")        
+        $("#kintaiteeburu_退社時刻_5i").val("30")
+      when "005"
+        $("#kintaiteeburu_出勤時刻_4i").val("09")        
+        $("#kintaiteeburu_出勤時刻_5i").val("00")
+
+        $("#kintaiteeburu_退社時刻_4i").val("18")        
+        $("#kintaiteeburu_退社時刻_5i").val("00")
+      when "006"
+        $("#kintaiteeburu_出勤時刻_4i").val("09")        
+        $("#kintaiteeburu_出勤時刻_5i").val("30")
+
+        $("#kintaiteeburu_退社時刻_4i").val("19")        
+        $("#kintaiteeburu_退社時刻_5i").val("30")
+      when "007"
+        $("#kintaiteeburu_出勤時刻_4i").val("10")        
+        $("#kintaiteeburu_出勤時刻_5i").val("00")
+
+        $("#kintaiteeburu_退社時刻_4i").val("20")        
+        $("#kintaiteeburu_退社時刻_5i").val("00")
+      when "008"
+        $("#kintaiteeburu_出勤時刻_4i").val("10")        
+        $("#kintaiteeburu_出勤時刻_5i").val("30")
+
+        $("#kintaiteeburu_退社時刻_4i").val("20")        
+        $("#kintaiteeburu_退社時刻_5i").val("30")
+      when "009"
+        $("#kintaiteeburu_出勤時刻_4i").val("11")        
+        $("#kintaiteeburu_出勤時刻_5i").val("00")
+
+        $("#kintaiteeburu_退社時刻_4i").val("21")        
+        $("#kintaiteeburu_退社時刻_5i").val("00")      

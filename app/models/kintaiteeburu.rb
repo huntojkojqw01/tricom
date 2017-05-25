@@ -6,9 +6,9 @@ class Kintaiteeburu < ApplicationRecord
 	    CSV.foreach(file.path, headers: true) do |row|
 	       	hash=row.to_hash
 	       	start=hash["出勤時刻"].split(':')
-	       	hash["出勤時刻"]=Time.new(2000,1,1,start.first,start.last)-2.hours
+	       	hash["出勤時刻"]=Time.new(2000,1,1,start.first,start.last)
 	       	finish=hash["退社時刻"].split(':')
-	       	hash["退社時刻"]=Time.new(2000,1,1,finish.first,finish.last)-2.hours       		       	
+	       	hash["退社時刻"]=Time.new(2000,1,1,finish.first,finish.last)       		       	
 	      	Kintaiteeburu.create(
 	      						勤務タイプ: hash["勤務タイプ"],
 	      						出勤時刻: hash["出勤時刻"],
