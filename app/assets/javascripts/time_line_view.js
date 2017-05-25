@@ -302,32 +302,34 @@ $(document).ready(function() {
         $('#timeline_time').text(time);
         var currentTimeText = d.year()+"/"+(d.month()+1)+"/"+d.date()+"/"+hours+":"+minutes;
         var currentTime = moment(currentTimeText,'YYYY/MM/DD HH:mm');
-
+        var shozai = $('#timeline_所在コード').val();
         //update joutai
         var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
         for (var j = 0; j < listShain.length; j++) {
-            var check_exist = false;
-            var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
-            for (var i = 0; i < listEvents.length; i++) {
+            if (shozai==''|| listShain[j].id != $('#user_login').val() ) {
+                var check_exist = false;
+                var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
+                for (var i = 0; i < listEvents.length; i++) {
 
-                var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
-                var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
-                // alert(start_diff+"\n"+end_diff)
-                if (start_diff>0 && end_diff<0) {
-                    check_exist = true;
-                    $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
-                    $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').text(listEvents[i].joutai);
+                    var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
+                    var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
+                    // alert(start_diff+"\n"+end_diff)
+                    if (start_diff>0 && end_diff<0) {
+                        check_exist = true;
+                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
+                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').text(listEvents[i].joutai);
+                    }
+
                 }
-
-            }
-            if(!check_exist){
-                $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').css('color',data.default.textColor).css('background-color',data.default.color);
-                $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').text(data.default.joutai);
+                if(!check_exist){
+                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').css('color',data.default.textColor).css('background-color',data.default.color);
+                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').text(data.default.joutai);
+                }
             }
         }
 
         setInterval(function() {
-
+            var shozai = $('#timeline_所在コード').val();
             //update time
             var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
             var d = moment(selectedDate);
@@ -349,24 +351,27 @@ $(document).ready(function() {
             //update joutai
             var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
             for (var j = 0; j < listShain.length; j++) {
-                var check_exist = false;
-                var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
-                for (var i = 0; i < listEvents.length; i++) {
+                if (shozai==''|| listShain[j].id != $('#user_login').val() ) {
+                    var check_exist = false;
+                    var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
+                    for (var i = 0; i < listEvents.length; i++) {
 
-                    var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
-                    var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
-                    // alert(start_diff+"\n"+end_diff)
-                    if (start_diff>0 && end_diff<0) {
-                        check_exist = true;
-                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
-                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').text(listEvents[i].joutai);
+                        var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
+                        var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
+                        // alert(start_diff+"\n"+end_diff)
+                        if (start_diff>0 && end_diff<0) {
+                            check_exist = true;
+                            $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
+                            $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').text(listEvents[i].joutai);
+                        }
+
                     }
+                    if(!check_exist){
+                        $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').css('color',data.default.textColor).css('background-color',data.default.color);
+                        $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').text(data.default.joutai);
+                    }
+                }
 
-                }
-                if(!check_exist){
-                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').css('color',data.default.textColor).css('background-color',data.default.color);
-                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').text(data.default.joutai);
-                }
             }
         }, 3000);
 
