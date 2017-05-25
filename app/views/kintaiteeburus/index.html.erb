@@ -1,8 +1,8 @@
 <%= javascript_include_tag 'kintaiteeburus' %>
-<%provide(:title, "kintaiteeburu")%>
+<%provide(:title, (t 'title.kintaiteeburu'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>  
-  <li class="active">kintaiteeburu</li>
+  <li class="active"><%=t 'title.kintaiteeburu'%></li>
 </ol>
 
 <table id="kintaiteeburu_table" class="kintaiteeburutable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
