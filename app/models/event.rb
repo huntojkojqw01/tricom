@@ -45,6 +45,26 @@ class Event < ActiveRecord::Base
       if events.count > 0
         time_start = events.order(開始: :asc).first.開始
         time_end = events.order(終了: :desc).first.終了
+        # hh_mm = time_start[11,15]
+        # if hh_mm < "07:30"
+        #   kinmu_type = "001"
+        # elsif hh_mm >= "07:30" && hh_mm < "08:00"
+        #   kinmu_type = "002"
+        # elsif hh_mm >= "08:00" && hh_mm < "08:30"
+        #   kinmu_type = "003"
+        # elsif hh_mm >= "08:30" && hh_mm < "09:00"
+        #   kinmu_type = "004"
+        # elsif hh_mm >= "09:00" && hh_mm < "09:30"
+        #   kinmu_type = "005"
+        # elsif hh_mm >= "09:30" && hh_mm < "10:00"
+        #   kinmu_type = "006"
+        # elsif hh_mm >= "10:00" && hh_mm < "10:30"
+        #   kinmu_type = "007"
+        # elsif hh_mm >= "10:30" && hh_mm < "11:00"
+        #   kinmu_type = "008"
+        # elsif hh_mm >= "11:00"
+        #   kinmu_type = "009"
+        # end
         real_hours_total = 0
         fustu_zangyo_total = 0
         shinya_zangyou_total = 0
@@ -166,16 +186,16 @@ class Event < ActiveRecord::Base
             end_time_default += ' 18:00'
           when '006'
             start_time_default += ' 09:30'
-            end_time_default += ' 18:30'
+            end_time_default += ' 19:30'
           when '007'
             start_time_default += ' 10:00'
-            end_time_default += ' 19:00'
+            end_time_default += ' 20:00'
           when '008'
             start_time_default += ' 10:30'
-            end_time_default += ' 19:30'
+            end_time_default += ' 20:30'
           when '009'
             start_time_default += ' 11:00'
-            end_time_default += ' 20:00'
+            end_time_default += ' 21:00'
         end
         if kinmu_type != ''
           chikoku = get_time_diff(start_time_default, time_start)
