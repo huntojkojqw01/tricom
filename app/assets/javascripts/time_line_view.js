@@ -322,14 +322,14 @@ $(document).ready(function() {
                     // alert(start_diff+"\n"+end_diff)
                     if (start_diff>0 && end_diff<0) {
                         check_exist = true;
-                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
-                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').text(listEvents[i].joutai);
+                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
+                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
                     }
 
                 }
                 if(!check_exist){
-                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').css('color',data.default.textColor).css('background-color',data.default.color);
-                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').text(data.default.joutai);
+                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
+                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content>span').text(data.default.joutai);
                 }
             }
         }
@@ -367,14 +367,14 @@ $(document).ready(function() {
                         // alert(start_diff+"\n"+end_diff)
                         if (start_diff>0 && end_diff<0) {
                             check_exist = true;
-                            $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
-                            $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3)').text(listEvents[i].joutai);
+                            $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
+                            $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
                         }
 
                     }
                     if(!check_exist){
-                        $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').css('color',data.default.textColor).css('background-color',data.default.color);
-                        $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3)').text(data.default.joutai);
+                        $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
+                        $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content>span').text(data.default.joutai);
                     }
                 }
 

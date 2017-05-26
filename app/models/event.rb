@@ -45,26 +45,26 @@ class Event < ActiveRecord::Base
       if events.count > 0
         time_start = events.order(開始: :asc).first.開始
         time_end = events.order(終了: :desc).first.終了
-        # hh_mm = time_start[11,15]
-        # if hh_mm < "07:30"
-        #   kinmu_type = "001"
-        # elsif hh_mm >= "07:30" && hh_mm < "08:00"
-        #   kinmu_type = "002"
-        # elsif hh_mm >= "08:00" && hh_mm < "08:30"
-        #   kinmu_type = "003"
-        # elsif hh_mm >= "08:30" && hh_mm < "09:00"
-        #   kinmu_type = "004"
-        # elsif hh_mm >= "09:00" && hh_mm < "09:30"
-        #   kinmu_type = "005"
-        # elsif hh_mm >= "09:30" && hh_mm < "10:00"
-        #   kinmu_type = "006"
-        # elsif hh_mm >= "10:00" && hh_mm < "10:30"
-        #   kinmu_type = "007"
-        # elsif hh_mm >= "10:30" && hh_mm < "11:00"
-        #   kinmu_type = "008"
-        # elsif hh_mm >= "11:00"
-        #   kinmu_type = "009"
-        # end
+        hh_mm = time_start[11,15]
+        if hh_mm <= "07:00"
+          kinmu_type = "001"
+        elsif hh_mm > "07:00" && hh_mm <= "07:30"
+          kinmu_type = "002"
+        elsif hh_mm > "07:30" && hh_mm <= "08:00"
+          kinmu_type = "003"
+        elsif hh_mm > "08:00" && hh_mm <= "08:30"
+          kinmu_type = "004"
+        elsif hh_mm > "08:30" && hh_mm <= "09:00"
+          kinmu_type = "005"
+        elsif hh_mm > "09:00" && hh_mm <= "09:30"
+          kinmu_type = "006"
+        elsif hh_mm > "09:30" && hh_mm <= "10:00"
+          kinmu_type = "007"
+        elsif hh_mm > "10:00" && hh_mm <= "10:30"
+          kinmu_type = "008"
+        elsif hh_mm > "10:30"
+          kinmu_type = "009"
+        end
         real_hours_total = 0
         fustu_zangyo_total = 0
         shinya_zangyou_total = 0
