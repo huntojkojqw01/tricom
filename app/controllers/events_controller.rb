@@ -694,9 +694,7 @@ class EventsController < ApplicationController
          format.json { render json: data}
        end
      when 'create_kitaku_event'
-      time_start = Time.now.in_time_zone.strftime("%Y/%m/%d %H:%M")
-      time_end = (Time.now + 300).in_time_zone.strftime("%Y/%m/%d %H:%M")
-      event = Event.create(社員番号: session[:user], 開始: time_start, 終了: time_end, 状態コード: '99')
+      event = Event.create(社員番号: session[:user], 開始: params[:time_start], 終了: params[:time_end], 状態コード: '99')
       data = {event: event}
       respond_to do |format|
          format.json { render json: data}
