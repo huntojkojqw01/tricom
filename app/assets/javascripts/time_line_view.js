@@ -312,7 +312,7 @@ $(document).ready(function() {
         //update joutai
         var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
         for (var j = 0; j < listShain.length; j++) {
-            if (shozai==''|| listShain[j].id != $('#user_login').val() ) {
+            // if (shozai==''|| listShain[j].id != $('#user_login').val() ) {
                 var check_exist = false;
                 var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
                 for (var i = 0; i < listEvents.length; i++) {
@@ -331,7 +331,7 @@ $(document).ready(function() {
                     $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
                     $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content>span').text(data.default.joutai);
                 }
-            }
+            // }
         }
 
         setInterval(function() {
@@ -357,7 +357,7 @@ $(document).ready(function() {
             //update joutai
             var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
             for (var j = 0; j < listShain.length; j++) {
-                if (shozai==''|| listShain[j].id != $('#user_login').val() ) {
+                // if (shozai==''|| listShain[j].id != $('#user_login').val() ) {
                     var check_exist = false;
                     var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
                     for (var i = 0; i < listEvents.length; i++) {
@@ -376,7 +376,7 @@ $(document).ready(function() {
                         $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
                         $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content>span').text(data.default.joutai);
                     }
-                }
+                // }
 
             }
         }, 3000);
