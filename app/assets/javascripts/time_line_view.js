@@ -493,9 +493,12 @@ $(function(){
         location.reload()
     })
     $('#create_kitaku_button').click(function(){
+        var time_start = moment().format('YYYY/MM/DD HH:mm');
+        var time_end = moment().add('m',5).format('YYYY/MM/DD HH:mm');
+
         jQuery.ajax({
         url: '/events/ajax',
-        data: {id: 'create_kitaku_event'},
+        data: {id: 'create_kitaku_event',time_start: time_start, time_end: time_end},
         type: "POST",
 
         success: function(data) {
