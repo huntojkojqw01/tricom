@@ -291,6 +291,7 @@ vi:
       shain_kubun_descr: 勤怠管理しない社員です。
       shain_timelinekubun: タイムライン表示
       shain_timelinekubun_descr: タイムラインに表示するか制御区分です。
+      create_kitaku: Về nhà
   export: Xuất
   title:
     bashokubunmst: Phân loại địa điểm

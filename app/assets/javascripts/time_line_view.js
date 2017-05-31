@@ -320,7 +320,7 @@ $(document).ready(function() {
                     var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
                     var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
                     // alert(start_diff+"\n"+end_diff)
-                    if (start_diff>0 && end_diff<0) {
+                    if (start_diff>=0 && end_diff<=0) {
                         check_exist = true;
                         $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
                         $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
@@ -365,7 +365,7 @@ $(document).ready(function() {
                         var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
                         var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
                         // alert(start_diff+"\n"+end_diff)
-                        if (start_diff>0 && end_diff<0) {
+                        if (start_diff>=0 && end_diff<=0) {
                             check_exist = true;
                             $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
                             $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
@@ -491,6 +491,22 @@ $(function(){
     });
     $('#reload_button').click(function(){
         location.reload()
+    })
+    $('#create_kitaku_button').click(function(){
+        jQuery.ajax({
+        url: '/events/ajax',
+        data: {id: 'create_kitaku_event'},
+        type: "POST",
+
+        success: function(data) {
+                console.log("Create success");
+            location.reload();
+        },
+        failure: function() {
+            console.log("Update unsuccessful");
+        }
+    })
+
     })
 
 

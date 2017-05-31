@@ -23,7 +23,7 @@ json.events @all_events do |event|
       umu_flag = ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-top"></span>'
   end
   comment = ''
-  comment = event.try(:comment)
+  comment = event.try(:comment) if event.try(:comment)
   title =''
   title = event.joutaimaster.try(:name) if event.joutaimaster
   json.joutai title
