@@ -94,9 +94,17 @@
           </td>
           <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 15px;margin-left:15px">検索</button></td>
  -->
-          <td>
-            <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px" ><%=(t 'app.label.create_kitaku')%></button>
-          </td>
+          <% if @kitaku_event.count > 0 %>
+            <td>
+              <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px" disabled="true"><%=(t 'app.label.create_kitaku')%></button>
+            </td>
+          <%else%>
+            <td>
+              <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px"><%=(t 'app.label.create_kitaku')%></button>
+            </td>
+          <%end
+          %>
+
           <td>
             <button class="btn btn-primary" id="reload_button" type="button" style="margin-bottom: 0px;margin-right:15px" ><%=(t 'app.label.reload')%></button>
           </td>

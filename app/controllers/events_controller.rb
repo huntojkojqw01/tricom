@@ -137,6 +137,9 @@ class EventsController < ApplicationController
     @events = Shainmaster.find(session[:selected_shain]).events.
       where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db)).
       order(開始: :desc)
+    @kitaku_event = Shainmaster.find(session[:user]).events.
+      where("Date(開始) = ?",(Date.today).to_s(:db)).
+      where(状態コード: "99")
     if request.post?
       case params[:commit]
         when (t 'helpers.submit.redirect_to_timeline')
