@@ -1,4 +1,4 @@
-en:  
+en:
   date:
     abbr_day_names:
     - Sun
@@ -291,6 +291,7 @@ en:
       shain_kubun_descr: An employee does not pay attention to attendance
       shain_timelinekubun: Timeline display
       shain_timelinekubun_descr: Control division to be displayed on the timeline
+      create_kitaku: Go Home
   export: 輸出
   title:
     bashokubunmst: Location classification list
