@@ -183,6 +183,11 @@ class EventsController < ApplicationController
       @events = Event.where(社員番号: @shains.ids).where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db)).
       order(開始: :desc)
     end
+    @shains.each do |shainmaster|
+      @kairanCount = Kairanshosai.where(対象者: shainmaster.社員番号, 状態: 0).count
+      @dengonCount = Dengon.where(社員番号: shainmaster.社員番号, 確認: false).count
+      shainmaster.update(伝言件数: @dengonCount, 回覧件数: @kairanCount)
+    end
     rescue
       @events = Shainmaster.take.events
     # @all_events = Event.where("Date(開始) = ?", Date.today.to_s(:db))

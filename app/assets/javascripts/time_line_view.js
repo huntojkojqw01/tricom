@@ -225,9 +225,9 @@ $(document).ready(function() {
                         width: 18,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
-                            if(parseInt(resources.dengon)>0){
-                                el.html('<a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'">'+resources.dengon+'</a>');
-                            }
+
+                            el.html('<div align="right"><a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'"><span>'+resources.dengon+'</span><i class="glyphicon glyphicon-comment" aria-hidden="true" ></i></a></div>');
+
                         }
 
                     },
@@ -237,9 +237,9 @@ $(document).ready(function() {
                         width: 18,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
-                            if(parseInt(resources.kairan)>0){
-                                el.html('<a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'">'+resources.kairan+'</a>');
-                            }
+
+                            el.html('<div align="right"><a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'"><span>'+resources.kairan+'</span><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>');
+
                         }
 
                     },

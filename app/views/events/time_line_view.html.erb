@@ -45,7 +45,25 @@
 <%= simple_form_for :timeline, url: time_line_view_events_path, method: :post do |f| %>
 <!--  Show time on top -->
 <div class="row">
-  <div class="col-md-6 col-xs-8 col-sm-8 col-lg-4 col-md-offset-5 col-xs-offset-3 col-sm-offset-4 col-lg-offset-5">
+  <div class="col-md-2 col-xs-6 col-sm-3 col-lg-2">
+    <table class="pull-left">
+    <% if @kitaku_event.count > 0 %>
+            <td>
+              <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px" disabled="true"><%=(t 'app.label.create_kitaku')%></button>
+            </td>
+          <%else%>
+            <td>
+              <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px"><%=(t 'app.label.create_kitaku')%></button>
+            </td>
+          <%end
+          %>
+
+          <td>
+            <button class="btn btn-primary" id="reload_button" type="button" style="margin-bottom: 0px;margin-right:15px" ><%=(t 'app.label.reload')%></button>
+          </td>
+    </table>
+  </div>
+  <div class="col-md-6 col-xs-8 col-sm-8 col-lg-4 col-md-offset-3 col-xs-offset-0 col-sm-offset-0 col-lg-offset-3">
     <%
         weekday = Array.new
         weekday[0] =  "日"
@@ -94,20 +112,6 @@
           </td>
           <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 15px;margin-left:15px">検索</button></td>
  -->
-          <% if @kitaku_event.count > 0 %>
-            <td>
-              <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px" disabled="true"><%=(t 'app.label.create_kitaku')%></button>
-            </td>
-          <%else%>
-            <td>
-              <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px"><%=(t 'app.label.create_kitaku')%></button>
-            </td>
-          <%end
-          %>
-
-          <td>
-            <button class="btn btn-primary" id="reload_button" type="button" style="margin-bottom: 0px;margin-right:15px" ><%=(t 'app.label.reload')%></button>
-          </td>
           <td>
             <bold style="line-height:40px;margin-right:15px;font-weight:bold;"><%=(t 'title.busho')%></bold>
           </td>
