@@ -502,8 +502,12 @@ $(function(){
         type: "POST",
 
         success: function(data) {
-                console.log("Create success");
-            location.reload();
+            if (data.create_message=="OK") {
+                location.reload();
+            }else{
+                swal("当時にエベントが有りまして、帰宅ができなくなります。\n エベントを調整し、再度行ってください。")
+            }
+
         },
         failure: function() {
             console.log("Update unsuccessful");
