@@ -702,8 +702,16 @@ class EventsController < ApplicationController
          format.json { render json: data}
        end
      when 'create_kitaku_event'
-      event = Event.create(社員番号: session[:user], 開始: params[:time_start], 終了: params[:time_end], 状態コード: '99')
-      data = {event: event}
+      @kitaku_events = Shainmaster.find(session[:user]).events.
+      where("開始 <= ?",DateTime.parse(params[:time_start]).to_s(:db)).
+      where("終了 >= ?",DateTime.parse(params[:time_start]).to_s(:db))
+      # where("DateTime(終了) <= ?",params[:time_start].to_date.to_s(:db))
+      if @kitaku_events.count > 0
+        data = {create_message: "FAIL"}
+      else
+        event = Event.create(社員番号: session[:user], 開始: params[:time_start], 終了: params[:time_end], 状態コード: '99')
+        data = {create_message: "OK"}
+      end
       respond_to do |format|
          format.json { render json: data}
       end
