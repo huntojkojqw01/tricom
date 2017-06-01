@@ -42,6 +42,7 @@ class Event < ActiveRecord::Base
     if !kintai.nil?
       kinmu_type = Shainmaster.find(self.社員番号).勤務タイプ
       events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where(状態マスタ: {状態区分: "1"})
+      .where.not(開始: '').where.not(終了: '')
       if events.count > 0
         time_start = events.order(開始: :asc).first.開始
         time_end = events.order(終了: :desc).first.終了
