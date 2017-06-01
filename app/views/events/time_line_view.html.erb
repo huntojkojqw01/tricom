@@ -81,7 +81,7 @@
               <%= f.select :所在コード, Shozai.all.order(所在コード: :asc).map { |s| [s.name, s.id, { class: '' }] }, {:selected => Shainmaster.find(session[:user]).try(:所在コード),include_blank: true},{ class: 'form-control'} %>
           <% end %>
         </div> -->
-        <table class="pull-right">
+        <table class="pull-left">
          <!--  <td>
             <%= f.input :ロールコード, label:'部署' do %>
               <%= f.select :ロールコード, @role.map { |k| [k.ロール名, k.ロールコード]}, {:selected => @roru.try(:ロールコード), include_blank: true},{class: 'form-control'}%>
