@@ -226,7 +226,7 @@ $(document).ready(function() {
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
 
-                            el.html('<div align="right"><a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'"><span>'+resources.dengon+'</span><i class="glyphicon glyphicon-comment" aria-hidden="true" ></i></a></div>');
+                            el.html('<div align="right"><span style="margin-right:10px">'+resources.dengon+'</span><a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'"><i class="glyphicon glyphicon-comment" aria-hidden="true" ></i></a></div>');
 
                         }
 
@@ -238,7 +238,7 @@ $(document).ready(function() {
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
 
-                            el.html('<div align="right"><a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'"><span>'+resources.kairan+'</span><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>');
+                            el.html('<div align="right"><span style="margin-right:10px">'+resources.kairan+'</span><a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>');
 
                         }
 
@@ -505,7 +505,7 @@ $(function(){
             if (data.create_message=="OK") {
                 location.reload();
             }else{
-                swal("当時にエベントが有りまして、帰宅ができなくなります。\n エベントを調整し、再度行ってください。")
+                swal("","現時間にエベントが有りまして、帰宅ができなくなります。\n エベントを調整し、再度行ってください。")
             }
 
         },
