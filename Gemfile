@@ -57,7 +57,7 @@ gem 'holidays', '~> 2.2.0'
 gem 'bootstrap-colorpicker-rails'
 gem 'simple_form', '~> 3.2.1'
 
-gem 'composite_primary_keys'
+gem 'composite_primary_keys', '9.0.4'
 # gem 'jquery-datatables-rails'
 
 gem 'execjs'
