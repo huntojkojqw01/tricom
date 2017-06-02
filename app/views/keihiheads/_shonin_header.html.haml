@@ -19,6 +19,7 @@
           %span.input-group-addon#search_date_icon
             %span.glyphicon.glyphicon-calendar#search_date_shonin{"aria-hidden" => "true"}
         = f.button :submit, '検索する'
+        = submit_tag '更新する', class: 'btn btn-primary'
         -#= f.input_field :清算予定日
         -#= f.hint '清算予定日付の入力'
     -#=.col-md-3.col-xs-3.col-sm-3.col-lg-3
@@ -28,4 +29,4 @@
       -#= f.button :submit, '検索する'
       -#= submit_tag '検索する', class: 'btn btn-default search-shonin'
     .col-md-1.col-xs-1.col-sm-1.col-lg-1.pull-right
-      = submit_tag '更新する', class: 'btn btn-primary pull-right'
+      / = submit_tag '更新する', class: 'btn btn-primary pull-right'
