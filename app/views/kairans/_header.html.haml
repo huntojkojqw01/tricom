@@ -1,5 +1,12 @@
 .row-fruid
   .form-inline
+    .form-group
+      = link_to '新規', new_kairan_path, class: 'btn btn-primary'
+      = link_to '送信一覧', shokairan_kairans_path, class: 'btn btn-primary'
+      = button_tag (t 'helpers.button.confirm'), name: 'button', id: :kakunin, value: (t 'helpers.button.confirm'), class: 'btn btn-primary'
+.spacer
+.row-fruid
+  .form-inline
     / .form-group
     /   = label_tag :社員
     /   = select(:head, :shainbango, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @shain_param, include_blank: true }, {class: 'form-control',disabled: true})
