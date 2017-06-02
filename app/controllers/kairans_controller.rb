@@ -69,18 +69,19 @@ class KairansController < ApplicationController
     end
 
     @kairanShoshais = Kairanshosai.all
-    if params[:head].present?
-      @shain_param = params[:head][:shainbango]
-    else
-      @shain_param = session[:user]
-    end
+    # if params[:head].present?
+    #   @shain_param = params[:head][:shainbango]
+    # else
+    #   @shain_param = session[:user]
+    # end
+    @shain_param = session[:user]
     @yoken = params[:head][:youken] if params[:head].present?
     arrKairanId = Kairan.where(要件: @yoken).ids if @yoken.present?
     vars = request.query_parameters
-    @kairanShoshais = @kairanShoshais.where(対象者: @shain_param) if @shain_param.present? && vars["search"].nil?
-    if !vars["search"].nil?
-      @shain_param = ''
-    end
+    @kairanShoshais = @kairanShoshais.where(対象者: @shain_param) if @shain_param.present?
+    # if !vars["search"].nil?
+    #   @shain_param = ''
+    # end
     @kairanShoshais = @kairanShoshais.where(回覧コード: arrKairanId) if @yoken.present?
 
     old_kairan_process()
