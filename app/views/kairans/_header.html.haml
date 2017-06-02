@@ -2,7 +2,7 @@
   .form-inline
     .form-group
       = label_tag :社員
-      = select(:head, :shainbango, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @shain_param, include_blank: true }, class: 'form-control')
+      = select(:head, :shainbango, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @shain_param, include_blank: true }, {class: 'form-control',disabled: true})
     .form-group
       = label_tag :要件
       = select(:head, :youken, Kairanyokenmst.all.collect {|p| [ p.名称, p.id, {:style => "background-color: "+p.yuusen.try(:色).to_s+"; color: Black"} ] }, {selected: @yoken , include_blank: true }, class: 'form-control')

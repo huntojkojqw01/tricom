@@ -66,7 +66,7 @@ json.shains @shains do |shain|
   json.yakushoku shain.yakushokumaster.try(:役職名) if shain.yakushokumaster
   dengon = shain.try(:伝言件数) == '0' ? '' : shain.try(:伝言件数)
   json.dengon dengon
-  kairan = shain.try(:回覧件数) == '0' ? '' : shain.try(:回覧件数)
+  kairan = (shain.try(:回覧件数) == '0' || shain.id != session[:user])? '' : shain.try(:回覧件数)
   json.kairan kairan
   background_color = ''
   background_color = shain.shozai.try :background_color if shain.shozai

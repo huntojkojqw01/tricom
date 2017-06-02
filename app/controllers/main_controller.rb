@@ -31,11 +31,17 @@ class MainController < ApplicationController
     @masters = @masters.where.not(model_name_field: (@paths.map(&:model_name_field)))
     @event = Event.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Event")).map(&:searchable_id)).where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db))
     @kintai = Kintai.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Kintai")).map(&:searchable_id)).where(社員番号: session[:user])
+    @kairan = Kairan.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%')
+      .where(searchable_type: "Kairan")).map(&:searchable_id))
+      .where(id: Kairanshosai.where(対象者: session[:user]).map(&:回覧コード))
     if @event.first.nil?
       @paths = @paths.where.not(title_jp: (t 'title.event')).where.not(model_name_field: ['Event'])
     end
     if @kintai.first.nil?
       @paths = @paths.where.not(model_name_field: ['Kintai'])
+    end
+    if @kairan.first.nil?
+      @paths = @paths.where.not(model_name_field: ['Kairan'])
     end
     respond_to do |format|
       format.html

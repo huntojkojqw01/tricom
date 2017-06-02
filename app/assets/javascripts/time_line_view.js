@@ -237,9 +237,9 @@ $(document).ready(function() {
                         width: 18,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
-
-                            el.html('<div align="right"><span style="margin-right:10px">'+resources.kairan+'</span><a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>');
-
+                            if (resources.shainid == $('#user_login').val()) {
+                                el.html('<div align="right"><span style="margin-right:10px">'+resources.kairan+'</span><a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>');
+                            }
                         }
 
                     },
