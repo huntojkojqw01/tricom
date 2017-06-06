@@ -377,7 +377,7 @@ class EventsController < ApplicationController
 
     # end
     # if attributes[:開始]!= '' && attributes[:終了]!= ''&&attributes[:工数]== ''
-    #   attributes[:工数]= get_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
+    #   attributes[:工数]= caculate_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
     # end
 
     @event = User.find(session[:user]).shainmaster.events.new attributes
@@ -433,7 +433,7 @@ class EventsController < ApplicationController
 
     # end
     # if attributes[:開始]!= '' && attributes[:終了]!= '' && attributes[:工数]== ''
-    #   attributes[:工数]= get_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
+    #   attributes[:工数]= caculate_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
     # end
 
     case params[:commit]

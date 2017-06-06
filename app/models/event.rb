@@ -7,6 +7,8 @@ class Event < ActiveRecord::Base
   after_update :doUpdateKintai
   after_create :doUpdateKintai
   after_destroy :doUpdateKintai
+  before_update :doCaculateKousu
+  before_create :doCaculateKousu
   validates :社員番号, :開始, :状態コード, presence: true
   validates :工程コード, :場所コード, :JOB, presence: true, if: Proc.new{|event| event.joutaimaster.try(:状態区分) == '1' && !(event.joutaimaster.try(:状態コード) == '60' && Time.parse(event.開始).hour >= 9)}
   validate :check_date_input
@@ -36,6 +38,11 @@ class Event < ActiveRecord::Base
   alias_attribute :kousuu, :工数
   alias_attribute :shozai_code, :所在コード
 
+
+  def doCaculateKousu
+    kousu = ApplicationController.helpers.caculate_koushuu(self.開始, self.終了)
+    self.工数 = kousu.to_f.round(2)
+  end
   def doUpdateKintai
     ApplicationController.helpers.check_kintai_at_day_by_user(self.社員番号, self.開始.to_date)
     kintai = Kintai.where("Date(日付) = Date(?)",self.開始).where(社員番号: self.社員番号).first
