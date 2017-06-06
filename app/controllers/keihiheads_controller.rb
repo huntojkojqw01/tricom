@@ -171,7 +171,7 @@ class KeihiheadsController < ApplicationController
       flash[:notice] = t 'app.flash.new_success'
       redirect_to keihiheads_url
     else
-      flash[:danger] = t 'app.flash.unsucess'
+      # flash[:danger] = t 'app.flash.unsucess'
       render :new
     end
   end
@@ -185,7 +185,7 @@ class KeihiheadsController < ApplicationController
           redirect_to keihiheads_url
 
         else
-          flash[:danger] = t 'app.flash.unsucess'
+          # flash[:danger] = t 'app.flash.unsucess'
           render :edit
 
         end
@@ -198,7 +198,7 @@ class KeihiheadsController < ApplicationController
           # render :js => "window.location = '/keihiheads/pdf_show.pdf?locale=ja&keihiheadId="+@keihi.申請番号+"'"
           # render 'open_pdf', format: :js
         else
-          flash[:danger] = t 'app.flash.unsucess'
+          # flash[:danger] = t 'app.flash.unsucess'
           render :edit
         end
 
