@@ -36,7 +36,7 @@
   <tbody>
     <% sumJob = 0 %>
     <% @eventKoutei.each do |event| %>
-      <% if event.JOB != '' %>
+      <% if event.JOB != '' && !event.JOB.nil?%>
         <% sumJob = sumJob + event.sum_job %>
         <tr style="page-break-inside: avoid;" >
           <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= Jobmaster.find(event.JOB).ユーザ名 if event.JOB!=''%></td>

@@ -41,7 +41,7 @@
 
   <tbody>
     <% @events.each do |event| %>
-      <% if event.JOB != '' %>
+      <% if event.JOB != '' && !event.JOB.nil?%>
         <tr style="page-break-inside: avoid;" >
           <td style="text-align: center; border-left: 1px solid #000;border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.開始).strftime("%d")%></td>
           <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%=l(event.開始.to_date, format: :day) %></td>
