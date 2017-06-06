@@ -286,7 +286,7 @@ ja:
       shousai_event: 詳細一覧
       reload: リフレシュ
       shain_zangyoukubun: 残業管理
-      shain_zangyoukubun_descr: 勤怠画面に普通残業、深夜残業が制御区分です。
+      shain_zangyoukubun_descr: 普通残業、深夜残業を計算する社員です。
       shain_kubun: 勤怠管理
       shain_kubun_descr: 勤怠管理しない社員です。
       shain_timelinekubun: タイムライン表示
