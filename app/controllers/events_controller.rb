@@ -715,6 +715,12 @@ class EventsController < ApplicationController
       respond_to do |format|
          format.json { render json: data}
       end
+     when 'get_kousuu'
+      kousuu = caculate_koushuu(params[:start_time], params[:end_time]).to_f.round(2)
+      data = {kousuu: kousuu}
+      respond_to do |format|
+         format.json { render json: data}
+      end
    end
   end
 

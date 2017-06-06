@@ -28,7 +28,7 @@
     = f.input :終了, label: (t 'title.shyuuryou'), as: :date_time_picker
     = f.input :工数, label: (t 'title.koushuu'), input_html: {style: 'width:100px'}, hint: (t 'title.tani'), readonly: true
     -#= text_field_tag :kyukei, '', placeholder: '休憩時間', style: 'width:100px'
-    -#= f.button :button, (t 'title.koushuusaikeisan'), type: :button, id: :koushuu
+    = f.button :button, (t 'title.koushuusaikeisan'), type: :button, id: :koushuu
     = f.input :comment, label: (t 'title.comment')
 
     - if mode == 'new'

@@ -40,8 +40,11 @@ class Event < ActiveRecord::Base
 
 
   def doCaculateKousu
-    kousu = ApplicationController.helpers.caculate_koushuu(self.開始, self.終了)
-    self.工数 = kousu.to_f.round(2)
+    if self.開始 != '' && self.終了 != ''
+      kousu = ApplicationController.helpers.caculate_koushuu(self.開始, self.終了)
+      self.工数 = kousu.to_f.round(2)
+    end
+
   end
   def doUpdateKintai
     ApplicationController.helpers.check_kintai_at_day_by_user(self.社員番号, self.開始.to_date)
