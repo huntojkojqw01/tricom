@@ -8,16 +8,22 @@ jQuery ->
   $('#koushuu').click (event) ->
     start_time = $('#event_開始').val()
     end_time = $('#event_終了').val()
-    diff = moment(end_time,'YYYY/MM/DD HH:mm').diff(moment(start_time,'YYYY/MM/DD HH:mm'),'hours', true)
-
-#    kyukei = $('#kyukei').val()
-#    if(!isNaN(kyukei) && kyukei.length != 0) then diff -= parseFloat(kyukei)
-
-    for num in kousu
-      if num > diff && num > 0
-        $('#event_工数').val(num-0.25)
-        break
-
+    #diff = moment(end_time,'YYYY/MM/DD HH:mm').diff(moment(start_time,'YYYY/MM/DD HH:mm'),'hours', true)
+    #for num in kousu
+    #  if num > diff && num > 0
+    #    $('#event_工数').val(num-0.25)
+    #    break
+    if start_time!= '' && end_time!= ''
+      jQuery.ajax({
+        url: '/events/ajax',
+        data: {id: 'get_kousuu', start_time: start_time, end_time: end_time},
+        type: "POST",
+        success: (data) ->
+          if data.kousuu != ''
+            $('#event_工数').val(data.kousuu)
+        failure: () ->
+          console.log("save-kinmu-type field")
+      })
 #  保留中 →
   $('.add-row').click () ->
     val = []
