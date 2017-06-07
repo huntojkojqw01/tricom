@@ -32,6 +32,18 @@ class Kintai < ActiveRecord::Base
   validates :普通保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
   validates :深夜保守時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
   delegate :状態名, to: :joutaimaster, prefix: :joutai, allow_nil: true
+
+  before_update :check_joutai_to_update_kinmutype
+
+  def check_joutai_to_update_kinmutype
+    if 状態1.present?
+      joutaikubun = Joutaimaster.find_by(状態コード: 状態1).try(:状態区分)
+      if joutaikubun == '2'
+        self.勤務タイプ = ''
+      end
+    end
+
+  end
   def self.import(file)
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|

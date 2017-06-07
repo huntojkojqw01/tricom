@@ -56,6 +56,7 @@ class Event < ActiveRecord::Base
       if events.count > 0
         time_start = events.order(開始: :asc).first.開始
         time_end = events.order(終了: :desc).first.終了
+        joutai_first = events.order(開始: :asc).first.状態コード
         hh_mm = time_start[11,15]
         if hh_mm <= "07:00"
           kinmu_type = "001"
@@ -219,15 +220,15 @@ class Event < ActiveRecord::Base
         if zangyou_kubun == "1"
           Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
           退社時刻: time_end, 実労働時間: real_hours_total, 遅刻時間: chikoku, 早退時間: soutai,
-          普通残業時間: fustu_zangyo_total, 深夜残業時間: shinya_zangyou_total)
+          普通残業時間: fustu_zangyo_total, 深夜残業時間: shinya_zangyou_total, 状態1: joutai_first)
         else
           Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
           退社時刻: time_end, 実労働時間: real_hours_total, 遅刻時間: chikoku, 早退時間: soutai,
-          普通残業時間: '', 深夜残業時間: '')
+          普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
         end
       else
-        kintai.update(勤務タイプ: kinmu_type, 出勤時刻: '', 退社時刻: '',
-        実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '')
+        kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
+        実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: '')
       end
     end
 
