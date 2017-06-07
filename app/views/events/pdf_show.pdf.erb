@@ -47,8 +47,8 @@
           <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%=l(event.開始.to_date, format: :day) %></td>
           <td style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= Jobmaster.find(event.JOB).ユーザ名 if event.JOB!=''%></td>
           <td style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.JOB %> &nbsp;&nbsp; <%=event.job_job名 %></td>
-          <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.開始).strftime("%H:%m") %></td>
-          <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.終了).strftime("%H:%m") %></td>
+          <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.開始).strftime("%H:%M") %></td>
+          <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.終了).strftime("%H:%M") %></td>
 
           <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= get_koushuu(event.開始, event.終了) %></td>
 
