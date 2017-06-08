@@ -50,7 +50,7 @@
           <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.開始).strftime("%H:%M") %></td>
           <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= DateTime.parse(event.終了).strftime("%H:%M") %></td>
 
-          <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= get_koushuu(event.開始, event.終了) %></td>
+          <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= caculate_koushuu(event.開始, event.終了) %></td>
 
           <td style="text-align: center; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.koutei_工程名 %></td>
           <td colspan="3" style="text-align: left; border-right: 1px solid #000; border-bottom: 1px solid #000"><%= event.comment %></td>

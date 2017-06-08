@@ -52,7 +52,7 @@ class EventsController < ApplicationController
       where("Date(終了) <= ?",@date_end.to_date.to_s(:db)).
       order(開始: :asc)
     @events.each{ |event|
-        Event.find_by(id: event.id).update(工数: get_koushuu(event.開始, event.終了))
+        Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
     }
     @shain = Shainmaster.find(session[:selected_shain])
     date = @date_start.to_date
@@ -78,7 +78,7 @@ class EventsController < ApplicationController
       where("Date(開始) >= ?",@date_start.to_date.to_s(:db)).
       where("Date(終了) <= ?",@date_end.to_date.to_s(:db))
     @events.each{ |event|
-        Event.find_by(id: event.id).update(工数: get_koushuu(event.開始, event.終了))
+        Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
     }
     # 'JOB, 工数'
     @eventJOB = @events.select('JOB','SUM(CAST(工数 AS DECIMAL)) AS sum_job').group(:JOB).order(:JOB)
@@ -108,7 +108,7 @@ class EventsController < ApplicationController
       where("Date(開始) >= ?",@date_start.to_date.to_s(:db)).
       where("Date(終了) <= ?",@date_end.to_date.to_s(:db))
     @events.each{ |event|
-        Event.find_by(id: event.id).update(工数: get_koushuu(event.開始, event.終了))
+        Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
     }
     # 'JOB, 工数'
     @eventKoutei = @events.select('JOB','工程コード','SUM(CAST(工数 AS DECIMAL)) AS sum_job').group(:JOB,:工程コード).order(:JOB)
