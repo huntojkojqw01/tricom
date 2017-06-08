@@ -52,6 +52,7 @@ $(function(){
                 //minTime: '00:00:00',
                 //maxTime: '24:00:00',
                 //eventOverlap: false,
+                nowIndicator: true,
                 googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
                 eventSources: myEventSourses,
                 schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
