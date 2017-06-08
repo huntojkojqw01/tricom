@@ -1035,20 +1035,6 @@ $(function () {
         {
             $("#selectShozai").css('display', 'none');
         }
-         // ($('#event_状態コード').val() == "60" && strtime.getHours() < 9)
-        if (d[3] == '1' || d[3] == '5') {
-            $('#event_場所コード').prop( "disabled", false );
-            $('#event_JOB').prop( "disabled", false );
-            $('#event_工程コード').prop( "disabled", false );
-            $('#basho_search').prop( "disabled", false );
-            $('#koutei_search').prop( "disabled", false )
-        }else {
-            $('#event_場所コード').prop( "disabled", true );
-            $('#event_JOB').prop( "disabled", true );
-            $('#event_工程コード').prop( "disabled", true );
-            $('#basho_search').prop( "disabled", true );
-            $('#koutei_search').prop( "disabled", true );
-        }
     });
 
     //$("#event_終了").on("dp.change", function (e) {
