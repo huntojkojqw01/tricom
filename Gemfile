@@ -82,14 +82,16 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'axlsx', '~> 2.0'
 gem 'axlsx_rails'
 
-group :development, :test do
+group :development, :test do 
  gem 'better_errors'
  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
  gem 'hub', :require=>nil
  #gem 'quiet_assets'
  gem 'rails_layout'
  gem 'rspec-rails'
+ gem 'capybara'
  gem 'byebug'
- gem 'web-console', '~> 2.0'
+ #gem 'web-console', '~> 2.0'
  gem 'spring'
 end
+gem 'web-console', group: :development

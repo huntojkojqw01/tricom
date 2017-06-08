@@ -1,0 +1,10 @@
+one:
+  担当者コード: "81000"
+  担当者名称: "竹中 雄二"
+  admin: true
+  avatar_file_name: "Logo_Image_01.png"
+  avatar_content_type: "image/png"
+  avatar_file_size: 3196
+  email: "hung@gmail.com"
+  password_digest: "$2a$10$ec8iyFiJjX1Ia.XsBpjZ3eeNLMF841sBYq4HeLT.AcI9cxx7qyVQ."  
+  supervisor: false
