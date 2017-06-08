@@ -24,6 +24,9 @@ json.events @all_events do |event|
   end
   comment = ''
   comment = event.try(:comment) if event.try(:comment)
+  if comment == ''
+    comment = Jobmaster.find_by(job番号: event.try(:JOB)).job名 if Jobmaster.find_by(job番号: event.try(:JOB))
+  end
   title =''
   title = event.joutaimaster.try(:name) if event.joutaimaster
   json.joutai title

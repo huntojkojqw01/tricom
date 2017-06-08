@@ -29,7 +29,7 @@ $(document).ready(function() {
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
                 slotLabelFormat: ['HH : mm'],
-
+                nowIndicator: true,
                 //slotDuration: moment.duration(0.5, 'hours'),
                 //minTime: '00:00:00',
                 //maxTime: '24:00:00',
