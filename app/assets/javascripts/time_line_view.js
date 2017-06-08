@@ -70,6 +70,7 @@ $(document).ready(function() {
                     // (Monday-Freeday in this example)
                 },
                 firstDay: 1,
+                nowIndicator: true,
                 //editable: true,
                 aspectRatio: 1.5,
                 resourceAreaWidth: '30%',
