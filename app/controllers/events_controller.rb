@@ -364,6 +364,14 @@ class EventsController < ApplicationController
       attributes[:終了] = "#{date} 18:00"
     end
     dateCheck = event_params[:開始].to_date
+        if attributes[:状態コード] != '' && !attributes[:状態コード].nil?
+      joutai_kubun = Joutaimaster.find_by(状態コード: attributes[:状態コード]).状態区分
+      if joutai_kubun != '1' && joutai_kubun != '5'
+        attributes[:場所コード] = ''
+        attributes[:JOB] = ''
+        attributes[:工程コード] = ''
+      end
+    end
     # if event_params[:開始] != '' && dateCheck == Date.today
     #     shozai_id = params[:head][:shozaicode]
     #     shain = Shainmaster.find(event_params[:社員番号])
@@ -420,6 +428,15 @@ class EventsController < ApplicationController
       attributes[:終了] = "#{date} 18:00"
     end
     dateCheck = event_params[:開始].to_date
+    if attributes[:状態コード] != '' && !attributes[:状態コード].nil?
+      joutai_kubun = Joutaimaster.find_by(状態コード: attributes[:状態コード]).状態区分
+      if joutai_kubun != '1' && joutai_kubun != '5'
+        attributes[:場所コード] = ''
+        attributes[:JOB] = ''
+        attributes[:工程コード] = ''
+      end
+    end
+
     # if event_params[:開始] != '' && dateCheck == Date.today && params[:commit] != (t 'helpers.submit.destroy_other') && params[:commit] != (t 'helpers.submit.destroy')
     #     shozai_id = params[:head][:shozaicode]
     #     shain = Shainmaster.find(event_params[:社員番号])
