@@ -390,6 +390,14 @@ class KeihiheadsController < ApplicationController
           # format.json { render json: "data"}
           format.json { render json: data}
         end
+      when 'get_keihis'
+        @keihis = Keihihead.where(社員番号: params[:shain]).joins(:keihibodies)
+        .where("Date(keihi_bodies.日付) >= ?",params[:date_input])
+        @keihibodys = Keihibody.where(申請番号: @keihis.map(&:申請番号)).order('日付 asc')
+        respond_to do |format|
+          # format.json { render json: "data"}
+          format.js { render 'reset_keihi_modal'}
+        end
     end
   end
 
@@ -449,7 +457,9 @@ class KeihiheadsController < ApplicationController
     @jobs = Jobmaster.all
     @myjobs = Myjobmaster.where(社員番号: session[:user]).all.order("updated_at desc")
     @mykaishamasters = Mykaishamaster.where(社員番号: session[:user]).all.order("updated_at desc")
-    @events
+    @keihis = Keihihead.where(社員番号: params[:shain]).joins(:keihibodies)
+        .where("Date(keihi_bodies.日付) >= ?",(Date.today).to_s(:db))
+    @keihibodys = Keihibody.where(申請番号: @keihis.map(&:申請番号)).order('日付 asc')
   end
 
   def keihi_params
