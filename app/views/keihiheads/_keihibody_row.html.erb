@@ -1,5 +1,8 @@
 <tr>
-  <td><%= f.text_field :日付, class: 'form-control datepicker', size: 8 %></td>
+  <td>
+    <%= f.text_field :日付, class: 'form-control datepicker', size: 8 %>
+    <%= f.button :button, "", class: 'btn btn-default keihi_sanshou glyphicon glyphicon-tasks', type: 'button', html: {width: "100px"}%>
+  </td>
   <!-- <td><%= f.text_area_search :相手先, {}, class_field: 'atesaki-name', class_search: 'atesaki-search', size: '60x2' %></td> -->
   <td align="right">
     <%= f.button :button, "", class: 'btn btn-default event_sanshou glyphicon glyphicon-tasks', type: 'button', html: {width: "100px"}%>
@@ -23,7 +26,7 @@
     <% array_value = [['往路',1], ['復路',2], ['往復',3]] %>
     <%# select(:keihibody, :発着kubun, array_value, {}, {class: 'form-control'}) %>
     <%= f.text_field :交通費, class: 'form-control koutsuhi', size: 4  %>
-    <%= f.select :発着kubun, array_value, {},{class: 'form-control'} %>
+    <%= f.select :発着kubun, array_value, {},{class: 'form-control hatchaku-kubun'} %>
   </td>
   <td>
     <%= f.text_field :日当, class: 'form-control nittou', size:4 %>
@@ -34,8 +37,8 @@
   <!-- <td><%= f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history,label: false%></td> -->
 
 
-  <td><%= f.text_area :備考, class: 'form-control', size: '10x2'  %></td>
-  <td><%= f.check_box :領収書kubun, class: 'form-control'  %></td>
+  <td><%= f.text_area :備考, class: 'form-control biko', size: '10x2'  %></td>
+  <td><%= f.check_box :領収書kubun, class: 'form-control ryoushuusho-kubun'  %></td>
 
   <% shainbango = @keihi.社員番号 %>
   <%= f.hidden_field :社員番号, value: shainbango %>

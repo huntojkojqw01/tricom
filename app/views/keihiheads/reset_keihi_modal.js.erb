@@ -1,0 +1,7 @@
+var table = $('#keihi_sanshou_table').DataTable();
+table.clear().draw();
+<% @keihibodys.each do |body|%>
+  table.row.add( ["<%=body.日付%>","<%=body.相手先%>","<%=body.JOB%>","<%=body.機関名%>","<%=body.発%>","<%=body.着%>","<%=body.交通費%>","<%=body.発着kubun%>","<%= body.日当 %>","<%=body.宿泊費%>","<%=body.その他%>","<%=body.備考%>","<%=body.領収書kubun%>"] ).draw( false );
+<%end%>
+
+$('#keihi_sanshou_modal').modal('show');
