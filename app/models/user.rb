@@ -10,8 +10,7 @@ class User < ActiveRecord::Base
   # validates :email_confirmation, presence: true
   # has_attached_file :avatar, styles: { medium: "300x300>", thumb: "50x50>" }, default_url: "images/:style/missing.png"
   has_attached_file :avatar,  default_url: "/assets/:style/missing.png",
-  :storage => :dropbox, :dropbox_credentials => "#{Rails.root}/config/dropbox.yml",styles: {original: "50x50#"},:dropbox_visibility => 'private',
-  :dropbox_options => {:path => proc {"Avatar_Misuzu/#{id}_#{avatar.original_filename}" }}
+  :storage => :cloudinary, :path => 'tricom/:id/:filename',styles: {original: "50x50#"}
   belongs_to :shainmaster, foreign_key: :担当者コード
   has_many :conversations, :foreign_key => :sender_id
   alias_attribute :id, :担当者コード

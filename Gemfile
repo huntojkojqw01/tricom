@@ -15,7 +15,7 @@ gem 'sweetalert2'
 # for avatar, upload picture
 gem 'paperclip', '4.3.7'
 gem 'bcrypt', '~> 3.1.7'
-gem 'paperclip-dropbox', '1.3.2'
+gem 'paperclip-cloudinary'
 # gem 'active_decorator'
 # gem 'cells'
 #for create seed file
