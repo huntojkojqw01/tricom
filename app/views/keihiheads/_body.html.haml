@@ -20,7 +20,7 @@
         = render 'keihibody_row', f: body
 = link_to_add_row "行追加", f, :keihibodies
 
-= f.button :button, ' 全行複写 ', class: 'copy-all', type: 'button', id: 'copy-all'
+= f.button :button, ' 前行複写 ', class: 'copy-all', type: 'button', id: 'copy-all'
 .delete-all
   = f.button :button, ' 全行削除 ', class: 'delete-all', type: 'button', id: 'delete-all'
 .spacer
