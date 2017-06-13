@@ -105,22 +105,24 @@ jQuery ->
       $('#keihihead_合計').val(0)
       $('#keihihead_過不足').val(0)
       $('#keihihead_仮払金').val(0)
-    rowCount = $('#keihi-table tbody tr:visible').length
-    if rowCount <= 3
-      $('.copy-all').hide()
-    else
-      $('.copy-all').show()
+    # rowCount = $('#keihi-table tbody tr:visible').length
+    # if rowCount <= 3
+    #   $('.copy-all').hide()
+    # else
+    #   $('.copy-all').show()
     event.preventDefault()
 
-  rowCount = $('#keihi-table tbody tr:visible').length
-  if rowCount <= 3
-    $('.copy-all').hide()
-  else
-    $('.copy-all').show()
+  # rowCount = $('#keihi-table tbody tr:visible').length
+  # if rowCount <= 3
+  #   $('.copy-all').hide()
+  # else
+  #   $('.copy-all').show()
 
   $(document).on 'click', '#copy-all', (event) ->
+
+    $('.add_row').trigger('click')
     rowCount = $('#keihi-table tbody tr:visible').length
-    if rowCount > 3
+    if rowCount > 2
       date = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.datepicker').val();
       job = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.keihihead_keihibodies_JOB').find('input').val();
       aitesaki = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.keihihead_keihibodies_相手先').find('input').val();
@@ -155,44 +157,44 @@ jQuery ->
   $(document).on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
     $(this).closest('fieldset').hide()
-    rowCount = $('#keihi-table tbody tr:visible').length
-    if rowCount <= 3
-      $('.copy-all').hide()
-    else
-      $('.copy-all').show()
+    # rowCount = $('#keihi-table tbody tr:visible').length
+    # if rowCount <= 3
+    #   $('.copy-all').hide()
+    # else
+    #   $('.copy-all').show()
 #    $(this).closest('fieldset').remove()
     event.preventDefault()
 
   $(document).on 'click', '.remove_row', (event) ->
     $(this).closest('tr').find('.check-remove').val('1')
     $(this).closest('tr').hide()
-    rowCount = $('#keihi-table tbody tr:visible').length
-    if rowCount <= 3
-      $('.copy-all').hide()
-    else
-      $('.copy-all').show()
+    # rowCount = $('#keihi-table tbody tr:visible').length
+    # if rowCount <= 3
+    #   $('.copy-all').hide()
+    # else
+    #   $('.copy-all').show()
     event.preventDefault()
 
   $(document).on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
-    rowCount = $('#keihi-table tbody tr:visible').length
-    if rowCount <= 3
-      $('.copy-all').hide()
-    else
-      $('.copy-all').show()
+    # rowCount = $('#keihi-table tbody tr:visible').length
+    # if rowCount <= 3
+    #   $('.copy-all').hide()
+    # else
+    #   $('.copy-all').show()
     event.preventDefault()
 
   $(document).on 'click', '.add_row', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $('#keihi-table').find('tr').last().after($(this).data('fields').replace(regexp, time))
-    rowCount = $('#keihi-table tbody tr:visible').length
-    if rowCount <= 3
-      $('.copy-all').hide()
-    else
-      $('.copy-all').show()
+    # rowCount = $('#keihi-table tbody tr:visible').length
+    # if rowCount <= 3
+    #   $('.copy-all').hide()
+    # else
+    #   $('.copy-all').show()
     event.preventDefault()
 
   $(document).on 'focus', '.datepicker', (event) ->
