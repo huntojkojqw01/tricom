@@ -105,29 +105,94 @@ jQuery ->
       $('#keihihead_合計').val(0)
       $('#keihihead_過不足').val(0)
       $('#keihihead_仮払金').val(0)
+    rowCount = $('#keihi-table tbody tr:visible').length
+    if rowCount <= 3
+      $('.copy-all').hide()
+    else
+      $('.copy-all').show()
+    event.preventDefault()
+
+  rowCount = $('#keihi-table tbody tr:visible').length
+  if rowCount <= 3
+    $('.copy-all').hide()
+  else
+    $('.copy-all').show()
+
+  $(document).on 'click', '#copy-all', (event) ->
+    rowCount = $('#keihi-table tbody tr:visible').length
+    if rowCount > 3
+      date = $('#keihi-table').find('tbody tr:last').prev().find('.datepicker').val();
+      job = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_JOB').find('input').val();
+      aitesaki = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_相手先').find('input').val();
+      kikan = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_機関名').find('input').val();
+      hatsu = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_発').find('input').val();
+      chaku = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_着').find('input').val();
+      koutsuhi = $('#keihi-table').find('tbody tr:last').prev().find('.koutsuhi').val();
+      hatchaku = $('#keihi-table').find('tbody tr:last').prev().find('.hatchaku-kubun').val();
+      nittou = $('#keihi-table').find('tbody tr:last').prev().find('.nittou').val();
+      shukuhaku = $('#keihi-table').find('tbody tr:last').prev().find('.shukuhaku').val();
+      sonotha = $('#keihi-table').find('tbody tr:last').prev().find('.sonotha').val();
+      biko = $('#keihi-table').find('tbody tr:last').prev().find('.biko').val();
+      ryoushuusho = $('#keihi-table').find('tbody tr:last').prev().find('.ryoushuusho-kubun').prop('checked');
+
+      $('#keihi-table').find('tbody tr:last').each () ->
+        $(this).find('.datepicker').val(date);
+        $(this).find('.keihihead_keihibodies_JOB').find('input').val(job);
+        $(this).find('.keihihead_keihibodies_相手先').find('input').val(aitesaki);
+        $(this).find('.keihihead_keihibodies_機関名').find('input').val(kikan);
+        $(this).find('.keihihead_keihibodies_発').find('input').val(hatsu);
+        $(this).find('.keihihead_keihibodies_着').find('input').val(chaku);
+        $(this).find('.koutsuhi').val(koutsuhi);
+        $(this).find('.hatchaku-kubun').val(hatchaku);
+        $(this).find('.nittou').val(nittou);
+        $(this).find('.shukuhaku').val(shukuhaku);
+        $(this).find('.sonotha').val(sonotha);
+        $(this).find('.biko').val(biko);
+        $(this).find('.ryoushuusho-kubun').prop('checked',ryoushuusho);
+
     event.preventDefault()
 
   $(document).on 'click', '.remove_fields', (event) ->
     $(this).prev('input[type=hidden]').val('1')
     $(this).closest('fieldset').hide()
+    rowCount = $('#keihi-table tbody tr:visible').length
+    if rowCount <= 3
+      $('.copy-all').hide()
+    else
+      $('.copy-all').show()
 #    $(this).closest('fieldset').remove()
     event.preventDefault()
 
   $(document).on 'click', '.remove_row', (event) ->
     $(this).closest('tr').find('.check-remove').val('1')
     $(this).closest('tr').hide()
+    rowCount = $('#keihi-table tbody tr:visible').length
+    if rowCount <= 3
+      $('.copy-all').hide()
+    else
+      $('.copy-all').show()
     event.preventDefault()
 
   $(document).on 'click', '.add_fields', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $(this).before($(this).data('fields').replace(regexp, time))
+    rowCount = $('#keihi-table tbody tr:visible').length
+    if rowCount <= 3
+      $('.copy-all').hide()
+    else
+      $('.copy-all').show()
     event.preventDefault()
 
   $(document).on 'click', '.add_row', (event) ->
     time = new Date().getTime()
     regexp = new RegExp($(this).data('id'), 'g')
     $('#keihi-table').find('tr').last().after($(this).data('fields').replace(regexp, time))
+    rowCount = $('#keihi-table tbody tr:visible').length
+    if rowCount <= 3
+      $('.copy-all').hide()
+    else
+      $('.copy-all').show()
     event.preventDefault()
 
   $(document).on 'focus', '.datepicker', (event) ->
