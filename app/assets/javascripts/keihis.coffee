@@ -121,21 +121,21 @@ jQuery ->
   $(document).on 'click', '#copy-all', (event) ->
     rowCount = $('#keihi-table tbody tr:visible').length
     if rowCount > 3
-      date = $('#keihi-table').find('tbody tr:last').prev().find('.datepicker').val();
-      job = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_JOB').find('input').val();
-      aitesaki = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_相手先').find('input').val();
-      kikan = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_機関名').find('input').val();
-      hatsu = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_発').find('input').val();
-      chaku = $('#keihi-table').find('tbody tr:last').prev().find('.keihihead_keihibodies_着').find('input').val();
-      koutsuhi = $('#keihi-table').find('tbody tr:last').prev().find('.koutsuhi').val();
-      hatchaku = $('#keihi-table').find('tbody tr:last').prev().find('.hatchaku-kubun').val();
-      nittou = $('#keihi-table').find('tbody tr:last').prev().find('.nittou').val();
-      shukuhaku = $('#keihi-table').find('tbody tr:last').prev().find('.shukuhaku').val();
-      sonotha = $('#keihi-table').find('tbody tr:last').prev().find('.sonotha').val();
-      biko = $('#keihi-table').find('tbody tr:last').prev().find('.biko').val();
-      ryoushuusho = $('#keihi-table').find('tbody tr:last').prev().find('.ryoushuusho-kubun').prop('checked');
+      date = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.datepicker').val();
+      job = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.keihihead_keihibodies_JOB').find('input').val();
+      aitesaki = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.keihihead_keihibodies_相手先').find('input').val();
+      kikan = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.keihihead_keihibodies_機関名').find('input').val();
+      hatsu = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.keihihead_keihibodies_発').find('input').val();
+      chaku = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.keihihead_keihibodies_着').find('input').val();
+      koutsuhi = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.koutsuhi').val();
+      hatchaku = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.hatchaku-kubun').val();
+      nittou = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.nittou').val();
+      shukuhaku = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.shukuhaku').val();
+      sonotha = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.sonotha').val();
+      biko = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.biko').val();
+      ryoushuusho = $('#keihi-table').find('tbody tr:visible:last').prevAll(':visible:first').find('.ryoushuusho-kubun').prop('checked');
 
-      $('#keihi-table').find('tbody tr:last').each () ->
+      $('#keihi-table').find('tbody tr:visible:last').each () ->
         $(this).find('.datepicker').val(date);
         $(this).find('.keihihead_keihibodies_JOB').find('input').val(job);
         $(this).find('.keihihead_keihibodies_相手先').find('input').val(aitesaki);
