@@ -54,6 +54,8 @@ class KintaisController < ApplicationController
         end
     end
     @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
+    joutai_array = ["12","15","30","31","32","33","38","103","105","107","109","111","113"]
+    @joutais = Joutaimaster.where(状態コード: joutai_array).order('CAST(状態コード AS DECIMAL) asc')
   end
 
   def search
@@ -362,7 +364,9 @@ class KintaisController < ApplicationController
             kubunlist = ['1','2','6']
           end
       end
-      @joutais = Joutaimaster.active(kubunlist)
+      # @joutais = Joutaimaster.active(kubunlist)
+      joutai_array = ["12","15","30","31","32","33","38","103","105","107","109","111","113"]
+      @joutais = Joutaimaster.where(状態コード: joutai_array).order('CAST(状態コード AS DECIMAL) asc')
     end
 
     def kintai_params
