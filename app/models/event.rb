@@ -53,10 +53,16 @@ class Event < ActiveRecord::Base
       kinmu_type = Shainmaster.find(self.社員番号).勤務タイプ
       events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where(状態マスタ: {状態区分: "1"})
       .where.not(開始: '').where.not(終了: '')
+      joutai_array = ["12","15","30","31","32","33","38","103","105","107","109","111","113"]
+      joutaiEvents = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).where(状態コード: joutai_array).where.not(開始: '').where.not(終了: '')
+      joutai_first = ''
+      if joutaiEvents.count > 0
+        joutai_first = joutaiEvents.order(開始: :asc).first.状態コード
+      end
       if events.count > 0
         time_start = events.order(開始: :asc).first.開始
         time_end = events.order(終了: :desc).first.終了
-        joutai_first = events.order(開始: :asc).first.状態コード
+        # joutai_first = events.order(開始: :asc).first.状態コード
         hh_mm = time_start[11,15]
         if hh_mm <= "07:00"
           kinmu_type = "001"
@@ -228,7 +234,7 @@ class Event < ActiveRecord::Base
         end
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
-        実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: '')
+        実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
       end
     end
 

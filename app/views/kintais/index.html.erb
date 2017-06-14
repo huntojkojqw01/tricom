@@ -165,7 +165,7 @@
           <td class='kintai-item' style="white-space: pre" id="fushuuhoshu<%= kintai.id %>"><%= best_in_place kintai, :普通保守時間, :as => :input, activator: '#fushuuhoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder8,inner_class: "set-width"%></td>
           <td class='kintai-item' style="white-space: pre" id="shinyahoshu<%= kintai.id %>"><%= best_in_place kintai, :深夜保守時間, :as => :input, activator: '#shinyahoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder9, readonly: true,inner_class: "set-width"%></td>
           <td class='kintai-item' style="white-space: pre" id="hoshukeitai<%= kintai.id %>" ><%= best_in_place kintai, :保守携帯回数, :as => :select, :collection => [["", ""], [1, "1:保守携帯"]], activator: '#hoshukeitai' + kintai.id.to_s,:place_holder => place_holder10, :inner_class => 'form_control set-width'%></td>
-          <!-- <td class='kintai-item' style="white-space: pre" id="joutai<%= kintai.id %>" ><%= best_in_place kintai, :状態1, :as => :select, collection: @joutais.map { |k| [k.状態コード, k.状態名] }, activator: '#joutai' + kintai.id.to_s,:place_holder => place_holder11, :inner_class => 'form_control set-width'%></td> -->
+          <td class='kintai-item' style="white-space: pre" id="joutai<%= kintai.id %>" ><%= best_in_place kintai, :状態1, :as => :select, collection: @joutais.map { |k| [k.状態コード, k.状態名] }, activator: '#joutai' + kintai.id.to_s,:place_holder => place_holder11, :inner_class => 'form_control set-width'%></td>
         <% else %>
           <td><%= kintai.勤務タイプ %></td>
           <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
@@ -177,15 +177,15 @@
           <td><%= kintai.普通保守時間 %></td>
           <td><%= kintai.深夜保守時間 %></td>
           <td> <% if kintai.保守携帯回数 == 1 %> 1:保守携帯 <% end %></td>
-          <!-- <td id="joutai<%= kintai.id %>" value = <%= kintai.状態1 %> ><% if !kintai.状態1.nil? %>
+          <td id="joutai<%= kintai.id %>" value = <%= kintai.状態1 %> ><% if !kintai.状態1.nil? %>
             <%= kintai.joutaimaster.try(:状態名) %>
             <% end %>
-          </td> -->
+          </td>
         <% end %>
-        <td id="joutai<%= kintai.id %>" value = <%= kintai.状態1 %> ><% if !kintai.状態1.nil? %>
+        <!-- <td id="joutai<%= kintai.id %>" value = <%= kintai.状態1 %> ><% if !kintai.状態1.nil? %>
           <%= kintai.joutaimaster.try(:状態名) %>
           <% end %>
-        </td>
+        </td> -->
         <td>
           <% if !kintai.備考.nil? && kintai.備考.length > 20%>
             <div class = "div_scoll"><%= kintai.備考 %></div>
