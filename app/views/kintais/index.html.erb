@@ -107,6 +107,7 @@
             place_holder8 = "&nbsp;"
             place_holder9 = "&nbsp;"
             place_holder10 = "<i class='fa fa-sort-desc'></i>"
+            place_holder11 = "<i class='fa fa-sort-desc'></i>"
 
           else
             place_holder1 = "<span class='text-gray'>タイプ</span>"
@@ -119,6 +120,7 @@
             place_holder8 = "<span class='text-gray'>普通保守</span>"
             place_holder9 = "<span class='text-gray'>深夜保守</span>"
             place_holder10 = "<span class='text-gray'>保守携帯</span>"
+            place_holder11 = "<span class='text-gray'>状態1</span>"
 
           end%>
           <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => place_holder1, :inner_class => 'form_control kinmutype set-width', id: kintai.id.to_s%></td>
@@ -163,6 +165,7 @@
           <td class='kintai-item' style="white-space: pre" id="fushuuhoshu<%= kintai.id %>"><%= best_in_place kintai, :普通保守時間, :as => :input, activator: '#fushuuhoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder8,inner_class: "set-width"%></td>
           <td class='kintai-item' style="white-space: pre" id="shinyahoshu<%= kintai.id %>"><%= best_in_place kintai, :深夜保守時間, :as => :input, activator: '#shinyahoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder9, readonly: true,inner_class: "set-width"%></td>
           <td class='kintai-item' style="white-space: pre" id="hoshukeitai<%= kintai.id %>" ><%= best_in_place kintai, :保守携帯回数, :as => :select, :collection => [["", ""], [1, "1:保守携帯"]], activator: '#hoshukeitai' + kintai.id.to_s,:place_holder => place_holder10, :inner_class => 'form_control set-width'%></td>
+          <!-- <td class='kintai-item' style="white-space: pre" id="joutai<%= kintai.id %>" ><%= best_in_place kintai, :状態1, :as => :select, collection: @joutais.map { |k| [k.状態コード, k.状態名] }, activator: '#joutai' + kintai.id.to_s,:place_holder => place_holder11, :inner_class => 'form_control set-width'%></td> -->
         <% else %>
           <td><%= kintai.勤務タイプ %></td>
           <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
@@ -174,6 +177,10 @@
           <td><%= kintai.普通保守時間 %></td>
           <td><%= kintai.深夜保守時間 %></td>
           <td> <% if kintai.保守携帯回数 == 1 %> 1:保守携帯 <% end %></td>
+          <!-- <td id="joutai<%= kintai.id %>" value = <%= kintai.状態1 %> ><% if !kintai.状態1.nil? %>
+            <%= kintai.joutaimaster.try(:状態名) %>
+            <% end %>
+          </td> -->
         <% end %>
         <td id="joutai<%= kintai.id %>" value = <%= kintai.状態1 %> ><% if !kintai.状態1.nil? %>
           <%= kintai.joutaimaster.try(:状態名) %>
