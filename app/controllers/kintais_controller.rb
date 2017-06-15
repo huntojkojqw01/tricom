@@ -31,7 +31,7 @@ class KintaisController < ApplicationController
         else
           @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param)
           if @yuukyuu_kyuuka_rireki.nil?
-            @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.new(:社員番号 => session[:user], :年月  => params[:search],:月初有給残  => params[:gesshozan], :月末有給残  =>  getsumatsuzan)
+            @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.new(:社員番号 => session[:user], :年月  => params[:search],:月初有給残  => params[:gesshozan].to_f, :月末有給残  =>  getsumatsuzan)
             @yuukyuu_kyuuka_rireki.save
           else
             @yuukyuu_kyuuka_rireki.update(:社員番号  => session[:user], :年月  => params[:search],:月初有給残  => params[:gesshozan], :月末有給残  => getsumatsuzan)
@@ -54,8 +54,8 @@ class KintaisController < ApplicationController
         end
     end
     @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
-    joutai_array = ["12","15","30","31","32","33","38","103","105","107","109","111","113"]
-    @joutais = Joutaimaster.where(状態コード: joutai_array).order('CAST(状態コード AS DECIMAL) asc')
+    # joutai_array = ["12","15","30","31","32","33","38","103","105","107","109","111","113"]
+    @joutais = Joutaimaster.where(勤怠使用区分: "1").order('CAST(状態コード AS DECIMAL) asc')
   end
 
   def search
@@ -270,41 +270,120 @@ class KintaisController < ApplicationController
         kinmutype = params[:kinmutype]
         kintai = Kintai.find_by(id: params[:idKintai])
         date = params[:date]
-      case kinmutype
-        when '001'
-          starttime = date + ' 07:00:00'
-          text_time = '07:00'
+        case kinmutype
+          when '001'
+            starttime = date + ' 07:00:00'
+            text_time = '07:00'
 
-        when '002'
-          starttime = date + ' 07:30:00'
-          text_time = '07:30'
-        when '003'
-          starttime = date + ' 08:00:00'
-          text_time = '08:00'
-        when '004'
-          starttime = date + ' 08:30:00'
-          text_time = '08:30'
-        when '005'
-          starttime = date + ' 09:00:00'
-          text_time = '09:00'
-        when '006'
-          starttime = date + ' 09:30:00'
-          text_time = '09:30'
-        when '007'
-          starttime = date + ' 10:00:00'
-          text_time = '10:00'
-        when '008'
-          starttime = date + ' 10:30:00'
-          text_time = '10:30'
-        when '009'
-          starttime = date + ' 11:00:00'
-          text_time = '11:00'
-        when ''
-          starttime = ''
-          text_time = ''
-      end
+          when '002'
+            starttime = date + ' 07:30:00'
+            text_time = '07:30'
+          when '003'
+            starttime = date + ' 08:00:00'
+            text_time = '08:00'
+          when '004'
+            starttime = date + ' 08:30:00'
+            text_time = '08:30'
+          when '005'
+            starttime = date + ' 09:00:00'
+            text_time = '09:00'
+          when '006'
+            starttime = date + ' 09:30:00'
+            text_time = '09:30'
+          when '007'
+            starttime = date + ' 10:00:00'
+            text_time = '10:00'
+          when '008'
+            starttime = date + ' 10:30:00'
+            text_time = '10:30'
+          when '009'
+            starttime = date + ' 11:00:00'
+            text_time = '11:00'
+          when ''
+            starttime = ''
+            text_time = ''
+        end
         kintai.update(出勤時刻: starttime, 退社時刻: '', 実労働時間: '', 普通残業時間: '', 深夜残業時間: '', 普通保守時間: '', 深夜保守時間: '', 遅刻時間: '' )
         data = {starttime: text_time,endtime: ''}
+        respond_to do |format|
+         format.json { render json: data}
+        end
+      when 'gesshozan_calculate'
+        zengetsu = params[:zengetsu]
+        tougetsu = params[:tougetsu]
+        zan_yuukyu_kyuka = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: zengetsu)
+        tou_yuukyu_kyuka = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: tougetsu)
+
+        if !zan_yuukyu_kyuka.nil? && !tou_yuukyu_kyuka.nil?
+          date = (tougetsu+"/01").to_date
+          @kintais = Kintai.selected_month(session[:user], date).order(:日付)
+          yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
+          getsumatsuzan =  tou_yuukyu_kyuka.月初有給残.to_f- yukyu
+          tou_yuukyu_kyuka.update(月末有給残: getsumatsuzan)
+
+        elsif !zan_yuukyu_kyuka.nil? && tou_yuukyu_kyuka.nil?
+          date = (tougetsu+"/01").to_date
+          @kintais = Kintai.selected_month(session[:user], date).order(:日付)
+          yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
+          getsumatsuzan =  zan_yuukyu_kyuka.月末有給残.to_f- yukyu
+          YuukyuuKyuukaRireki.create(社員番号: session[:user], 年月: tougetsu,月初有給残: zan_yuukyu_kyuka.月末有給残.to_f,月末有給残: getsumatsuzan)
+
+        elsif zan_yuukyu_kyuka.nil? && !tou_yuukyu_kyuka.nil?
+
+          date = (tougetsu+"/01").to_date
+          @kintais = Kintai.selected_month(session[:user], date).order(:日付)
+          yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
+          getsumatsuzan =  tou_yuukyu_kyuka.月初有給残.to_f- yukyu
+          tou_yuukyu_kyuka.update(月末有給残: getsumatsuzan)
+
+          date = zengetsu+"/01"
+          date = date.to_date
+          @kintais = Kintai.selected_month(session[:user], date).order(:日付)
+          yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
+          gesshozan =  tou_yuukyu_kyuka.月初有給残.to_f+ yukyu
+
+          YuukyuuKyuukaRireki.create(社員番号: session[:user], 年月: zengetsu,月初有給残: gesshozan,月末有給残: tou_yuukyu_kyuka.月初有給残.to_f)
+
+        elsif zan_yuukyu_kyuka.nil? && tou_yuukyu_kyuka.nil?
+          yuukyu_kyuka = YuukyuuKyuukaRireki.where(社員番号: session[:user]).order(年月: :desc).first
+          first_month = tougetsu[0..3]+'/01'
+
+          if !yuukyu_kyuka.nil?
+            if yuukyu_kyuka.年月 >= first_month
+              date = yuukyu_kyuka.年月 + "/01"
+              senzengetsu = (zengetsu+"/01").to_date.prev_month.end_of_month
+              @kintais_to_zengetsu = Kintai.where( 社員番号: session[:user], 日付: date.to_date.next_month.beginning_of_month..senzengetsu)
+              yukyu_to_zengetsu = @kintais_to_zengetsu.day_off.count + @kintais_to_zengetsu.morning_off.count*0.5 + @kintais_to_zengetsu.afternoon_off.count*0.5
+              gesshozan_zengetsu = yuukyu_kyuka.月末有給残.to_f - yukyu_to_zengetsu
+            else
+              date = (first_month+"/01").to_date
+              senzengetsu = (zengetsu+"/01").to_date.prev_month.end_of_month
+              @kintais_to_zengetsu = Kintai.where( 社員番号: session[:user], 日付: date.beginning_of_year..senzengetsu)
+              yukyu_to_zengetsu = @kintais_to_zengetsu.day_off.count + @kintais_to_zengetsu.morning_off.count*0.5 + @kintais_to_zengetsu.afternoon_off.count*0.5
+              gesshozan_zengetsu = 12 - yukyu_to_zengetsu
+            end
+          else
+
+            date = (first_month+"/01").to_date
+            senzengetsu = (zengetsu+"/01").to_date.prev_month.end_of_month
+            @kintais_to_zengetsu = Kintai.where( 社員番号: session[:user], 日付: date.beginning_of_year..senzengetsu)
+            yukyu_to_zengetsu = @kintais_to_zengetsu.day_off.count + @kintais_to_zengetsu.morning_off.count*0.5 + @kintais_to_zengetsu.afternoon_off.count*0.5
+            gesshozan_zengetsu = 12 - yukyu_to_zengetsu
+
+          end
+          date = (zengetsu+"/01").to_date
+          @kintais_zengetsu = Kintai.selected_month(session[:user], date).order(:日付)
+          yukyu_zengetsu = @kintais_zengetsu.day_off.count + @kintais_zengetsu.morning_off.count*0.5 + @kintais_zengetsu.afternoon_off.count*0.5
+          getsumatsu_zengetsu = gesshozan_zengetsu - yukyu_zengetsu
+          YuukyuuKyuukaRireki.create(社員番号: session[:user], 年月: zengetsu,月初有給残: gesshozan_zengetsu,月末有給残: getsumatsu_zengetsu)
+          date = (tougetsu+"/01").to_date
+          @kintais_tougetsu = Kintai.selected_month(session[:user], date).order(:日付)
+          yukyu_tougetsu = @kintais_tougetsu.day_off.count + @kintais_tougetsu.morning_off.count*0.5 + @kintais_tougetsu.afternoon_off.count*0.5
+          getsumatsu_tougetsu = getsumatsu_zengetsu - yukyu_tougetsu
+          YuukyuuKyuukaRireki.create(社員番号: session[:user], 年月: tougetsu,月初有給残: getsumatsu_zengetsu,月末有給残: getsumatsu_tougetsu)
+        end
+        tou_yuukyu_kyuka = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: tougetsu)
+        data = {gesshozan: tou_yuukyu_kyuka.月初有給残,getsumatsuzan: tou_yuukyu_kyuka.月末有給残}
         respond_to do |format|
          format.json { render json: data}
         end
@@ -365,8 +444,8 @@ class KintaisController < ApplicationController
           end
       end
       # @joutais = Joutaimaster.active(kubunlist)
-      joutai_array = ["12","15","30","31","32","33","38","103","105","107","109","111","113"]
-      @joutais = Joutaimaster.where(状態コード: joutai_array).order('CAST(状態コード AS DECIMAL) asc')
+      # joutai_array = ["12","15","30","31","32","33","38","103","105","107","109","111","113"]
+      @joutais = Joutaimaster.where(勤怠使用区分: "1").order('CAST(状態コード AS DECIMAL) asc')
     end
 
     def kintai_params

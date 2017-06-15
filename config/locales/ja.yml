@@ -292,6 +292,7 @@ ja:
       shain_timelinekubun: タイムライン表示
       shain_timelinekubun_descr: タイムラインに表示するか制御区分です。
       create_kitaku: 帰宅
+      gesshozan_btn: 月初残
   export: 輸出
   title:
     bashokubunmst: 場所区分マスタ

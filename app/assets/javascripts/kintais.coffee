@@ -171,7 +171,26 @@ jQuery ->
   $('.kintai-item').on('change',() ->
     if $(this).next('.kintai-item').length == 0
       $(this).parent().next().find('.kintai-item').first().trigger('click')
+    $('.summary').trigger('click')
   )
+
+  $('#gesshozan_btn').click () ->
+    date = $('#search').val()
+    if date == ''
+      date = moment()
+    else
+      date = moment(date+"/01")
+    tougetsu = date.format('YYYY/MM')
+    jQuery.ajax({
+      url: '/kintais/ajax',
+      data: {id: 'gesshozan_calculate', zengetsu: date.subtract('months',1).format('YYYY/MM'),tougetsu: tougetsu},
+      type: "POST",
+      success: (data) ->
+        $('.sum-yuukyu').text(data.getsumatsuzan)
+        $('.input-number').val(data.gesshozan)
+      failure: () ->
+    })
+
 
   $('#kintai_勤務タイプ').on('change',() ->
     fill_time2()
@@ -669,7 +688,7 @@ jQuery ->
       $('.sum6').text(data.summary.sum6)
       $('.sum7').text(data.summary.sum7)
       $('.sum8').text(data.summary.sum8)
-
+      summary()
     )
   );
 
