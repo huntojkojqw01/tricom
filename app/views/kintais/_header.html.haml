@@ -1,14 +1,14 @@
 - user = Shainmaster.find(session[:user])
-.row
-  .col-md-8.col-xs-8.col-sm-8.col-lg-8
-    .form-group
-      - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
-        %button#export_pdf.btn.btn-primary{:disabled => "true", :type => "button"}= (t 'app.label.export_pdf')
-        = f.submit (t 'helpers.submit.entered'), class: 'btn btn-primary'
-      - else
-        %button#export_pdf.btn.btn-primary{:type => "button"}= (t 'app.label.export_pdf')
-        = f.submit (t 'helpers.submit.input'), class: 'btn btn-primary'
-      = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
+.row-fuid
+  - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
+    %button#export_pdf.btn.btn-primary{:disabled => "true", :type => "button"}= (t 'app.label.export_pdf')
+    = f.submit (t 'helpers.submit.entered'), class: 'btn btn-primary'
+  - else
+    %button#export_pdf.btn.btn-primary{:type => "button"}= (t 'app.label.export_pdf')
+    = f.submit (t 'helpers.submit.input'), class: 'btn btn-primary'
+  = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
+  .pull-right
+    %button#gesshozan_btn.btn.btn-primary{:type => "button"}= (t 'app.label.gesshozan_btn')
 .spacer
   .row
 
