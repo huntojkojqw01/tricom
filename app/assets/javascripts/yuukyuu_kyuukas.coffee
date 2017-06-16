@@ -7,15 +7,22 @@ jQuery ->
     }
     ,
     "aoColumnDefs": [ 
-      { "bSortable": false, "aTargets": [ 4,5 ]},
+      { "bSortable": false, "aTargets": [ 5,6 ]},
       {
-        "targets": [4,5],
+        "targets": [5,6],
         "width": '5%'
       }
       {
         "targets": 0,
         "visible": false
       }
+    ],
+    "columns":[
+      { "width" : "20%" },
+      { "width" : "20%" },
+      { "width" : "20%" },
+      { "width" : "20%" },
+      { "width" : "20%" }
     ],
     "oSearch": {"sSearch": queryParameters().search},
 
@@ -50,10 +57,6 @@ jQuery ->
                   else
                     $("#edit_ykkkre").attr("disabled", true);
                 $(".buttons-select-none").removeClass('disabled')
-
-
-
-
             },
             {
               "extend": 'selectNone',
