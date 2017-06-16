@@ -318,8 +318,8 @@ class KintaisController < ApplicationController
           date = (tougetsu+"/01").to_date
           @kintais = Kintai.selected_month(session[:user], date).order(:日付)
           yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
-          getsumatsuzan =  tou_yuukyu_kyuka.月初有給残.to_f- yukyu
-          tou_yuukyu_kyuka.update(月末有給残: getsumatsuzan)
+          getsumatsuzan =  zan_yuukyu_kyuka.月末有給残.to_f- yukyu
+          tou_yuukyu_kyuka.update(月初有給残: zan_yuukyu_kyuka.月末有給残.to_f,月末有給残: getsumatsuzan)
 
         elsif !zan_yuukyu_kyuka.nil? && tou_yuukyu_kyuka.nil?
           date = (tougetsu+"/01").to_date
