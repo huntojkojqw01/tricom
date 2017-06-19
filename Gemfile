@@ -90,7 +90,8 @@ group :development, :test do
  gem 'rails_layout'
  gem 'rspec-rails'
  gem 'capybara'
- gem 'byebug'
+ gem 'poltergeist'
+  gem 'byebug'
  #gem 'web-console', '~> 2.0'
  gem 'spring'
 end
