@@ -82,7 +82,7 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 gem 'axlsx', '~> 2.0'
 gem 'axlsx_rails'
 
-group :development, :test do 
+group :development, :test do
  gem 'better_errors'
  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
  gem 'hub', :require=>nil
@@ -96,3 +96,7 @@ group :development, :test do
  gem 'spring'
 end
 gem 'web-console', group: :development
+group :test do
+  gem 'shoulda', '~> 3.5'
+  gem 'shoulda-matchers', '~> 2.0'
+end

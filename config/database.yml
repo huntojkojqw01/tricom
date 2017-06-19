@@ -30,8 +30,8 @@ development:
 test:
   <<: *default
   host: <%= ENV["host"] %>
-  database: jpt_test
-  username: hero
+  database: jpt
+  username: anhmt
   password: jpt
 
 production:
