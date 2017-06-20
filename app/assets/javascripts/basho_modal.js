@@ -131,6 +131,9 @@ $(function () {
         if(mybasho!= undefined){
             $('#event_場所コード').val(mybasho[0]);
             $('.hint-basho-refer').text(mybasho[1]);
+            if(mybasho[0]==999){
+                $('.hint-basho-refer').append("<br>999の場合は、コメント欄に記載");
+            }
             $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error')
         }
@@ -162,6 +165,9 @@ $(function () {
         if(mybasho!= undefined){
             $('#event_場所コード').val(mybasho[0]);
             $('.hint-basho-refer').text(mybasho[1]);
+            if(mybasho[0]==999){
+                $('.hint-basho-refer').append("<br>999の場合は、コメント欄に記載");
+            }
             $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error')
 
