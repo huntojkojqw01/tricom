@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do 
+  fixtures :users
 	# thiết lập cho biến user nhận giá trị này: 
   let(:user) { User.new(email: "nguyendinhhung") }
 
@@ -22,6 +23,12 @@ RSpec.describe User, type: :model do
       expect(user).not_to be_valid
       # mong đợi là sau khi thay đổi email đúng format, lỗi sẽ ko còn chứa email nữa:
       expect(user.errors[:email].join('')).to eq("")      
+    end
+    it "dem user" do
+      total=User.count
+      expect(total).to eq(36)  
+      x=users(:user_33)
+      expect(x.email).to eq(User.find_by(担当者コード: "10002").email)    
     end
   end
 end
