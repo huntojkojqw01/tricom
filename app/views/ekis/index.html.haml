@@ -22,7 +22,6 @@
         / %td= link_to '編集', edit_eki_path(eki)
         / - msg = t 'app.delete_confirm'
         / %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
-
 =render "share/new_edit_destroy_buttons", object: "eki"
 - if can? :update, @ekis
   =render 'share/import_export_buttons',import_path: import_ekis_path

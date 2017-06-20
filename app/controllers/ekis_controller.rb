@@ -1,7 +1,7 @@
 class EkisController < ApplicationController
   before_action :require_user!
   before_action :set_eki, only: [:show, :edit, :update, :destroy]
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
+  before_action :eki_params, only: [ :create, :update]
   load_and_authorize_resource except: :export_csv
 
   respond_to :json, :js
@@ -20,7 +20,7 @@ class EkisController < ApplicationController
     respond_with(@eki)
   end
 
-  def edit
+  def edit   
   end
 
   def create
@@ -34,8 +34,8 @@ class EkisController < ApplicationController
     respond_with(@eki)
   end
 
-  def destroy
-    @eki.destroy
+  def destroy    
+    @eki.destroy    
     respond_with(@eki)
   end
 
@@ -115,12 +115,7 @@ class EkisController < ApplicationController
     def set_eki
       @eki = Eki.find(params[:id])
     end
-
     def eki_params
       params.require(:eki).permit(:駅コード, :駅名, :駅名カナ)
     end
-    def set_param
-      @eki = Eki.new
-    end
-
 end

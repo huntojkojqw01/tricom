@@ -1,0 +1,45 @@
+setting_0:
+ id: 91045
+ 社員番号: 91045
+ scrolltime: 04:00
+ created_at: 2017-04-13 16:17:28 +0900
+ updated_at: 2017-04-13 16:17:59 +0900
+ local: en
+ select_holiday_vn: 0
+ turning_data: false
+setting_1:
+ id: 107109
+ 社員番号: 107109
+ scrolltime: 00:00
+ created_at: 2017-04-13 16:23:08 +0900
+ updated_at: 2017-04-13 16:23:08 +0900
+ local: en
+ select_holiday_vn: 0
+ turning_data: false
+setting_2:
+ id: 92056
+ 社員番号: 92056
+ scrolltime: 03:00
+ created_at: 2017-04-13 16:42:24 +0900
+ updated_at: 2017-04-13 16:42:24 +0900
+ local: en
+ select_holiday_vn: 1
+ turning_data: false
+setting_3:
+ id: 10002
+ 社員番号: 10002
+ scrolltime: 04:00
+ created_at: 2016-12-09 11:57:26 +0900
+ updated_at: 2017-04-13 17:24:30 +0900
+ local: ja
+ select_holiday_vn: 0
+ turning_data: false
+setting_4:
+ id: 81000
+ 社員番号: 81000
+ scrolltime: 
+ created_at: 2017-05-23 18:08:14 +0900
+ updated_at: 2017-05-24 20:50:04 +0900
+ local: ja
+ select_holiday_vn: 
+ turning_data: 

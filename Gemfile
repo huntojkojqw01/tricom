@@ -88,9 +88,12 @@ group :development, :test do
  gem 'hub', :require=>nil
  #gem 'quiet_assets'
  gem 'rails_layout'
+
  gem 'rspec-rails'
  gem 'capybara'
  gem 'poltergeist'
+ gem 'rails-controller-testing'
+ 
   gem 'byebug'
  #gem 'web-console', '~> 2.0'
  gem 'spring'
@@ -100,4 +103,3 @@ group :test do
   gem 'shoulda', '~> 3.5'
   gem 'shoulda-matchers', '~> 2.0'
 end
-gem 'rails-controller-testing'
