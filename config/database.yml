@@ -30,7 +30,7 @@ development:
 test:
   <<: *default
   host: <%= ENV["host"] %>
-  database: jpt
+  database: jpt_test
   username: anhmt
   password: jpt
 

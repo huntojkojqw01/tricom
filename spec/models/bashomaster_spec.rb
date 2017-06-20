@@ -37,6 +37,10 @@ RSpec.describe Bashomaster, type: :model do
       subject.会社コード = nil
       expect(subject).to_not be_valid
     end
+    it "is not valid with 会社コード not inclusion in Kaishamaster " do
+      subject.会社コード = "test"
+      expect(subject).to_not be_valid
+    end
   end
   describe "Associations" do
     it "has many events" do
@@ -51,4 +55,26 @@ RSpec.describe Bashomaster, type: :model do
     it {should belong_to(:kaishamaster)}
     it {should belong_to(:bashokubunmst)}
   end
+  describe "#basho_kubun?" do
+    it "check 場所区分 is 2" do
+      basho = described_class.new(場所コード: 1122334455,場所名: "test 場所名",場所名カナ: "test 場所名カナ",SUB: "test",場所区分: '2',会社コード: "90000")
+      expect(subject.basho_kubun?).to eq(false)
+      expect(basho.basho_kubun?).to eq(true)
+
+    end
+  end
+
+  describe "After Update" do
+    it "update Mybashomaster corresponding" do
+      basho = described_class.create(場所コード: 1122334455,場所名: "test 場所名",場所名カナ: "test 場所名カナ",SUB: "test",場所区分: '2',会社コード: "90000")
+      mybasho = Mybashomaster.create(社員番号: 10029, 場所コード: basho.場所コード,
+        場所名: basho.場所名, 場所名カナ: basho.場所名カナ, SUB: basho.SUB,
+        場所区分: basho.場所区分, 会社コード: basho.会社コード)
+      basho.update(場所名カナ: "MTA")
+      mybasho = Mybashomaster.find_by(社員番号: 10029, 場所コード: basho.場所コード)
+      expect(mybasho.場所名カナ).to eq("MTA")
+
+    end
+  end
+
 end
