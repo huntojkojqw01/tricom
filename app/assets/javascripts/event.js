@@ -518,6 +518,9 @@ $(function () {
         if(d!= undefined){
             $('#event_場所コード').val(d[1]);
             $('.hint-basho-refer').text(d[2]);
+            if(d[1]==999){
+                $('.hint-basho-refer').append("<br>999の場合は、コメント欄に記載");
+            }
             $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error');
         }
@@ -527,9 +530,12 @@ $(function () {
         $(this).addClass('selected');
         $(this).addClass('success');
         var d = oMybashoTable.row('tr.selected').data();
-        if(d!= undefined){
+        if(d!= undefined){            
             $('#event_場所コード').val(d[1]);
             $('.hint-basho-refer').text(d[2]);
+            if(d[1]==999){
+                $('.hint-basho-refer').append("<br>999の場合は、コメント欄に記載");
+            }
             $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error');
         }
