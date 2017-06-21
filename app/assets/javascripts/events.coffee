@@ -129,7 +129,7 @@ jQuery ->
           $("#destroy_joutaimaster").attr("disabled", false);
         oJoutaiTable.page.jumpToData($('#event_状態コード').val(), 0);
 
-    if $(this).prev().is(element2)
+    if $(this).prev().is(element2)&&!$(element2).is(':disabled')      
       $('#basho_search_modal').modal('show')
       if $('#event_場所コード').val() != ''
         oBashoTable.rows().every( ( rowIdx, tableLoop, rowLoop ) ->
@@ -149,7 +149,7 @@ jQuery ->
           $("#destroy_basho").attr("disabled", false);
         oBashoTable.page.jumpToData($('#event_場所コード').val(), 0);
 
-    if $(this).prev().is(element3)
+    if $(this).prev().is(element3)&&!$(element3).is(':disabled')
       $('#job_search_modal').modal('show')
       if $('#event_JOB').val() != ''
         oJobTable.rows().every( ( rowIdx, tableLoop, rowLoop ) ->
@@ -179,14 +179,14 @@ jQuery ->
   $('.search-history').click( () ->
     element1 = $('.search-group').find('#event_場所コード')
     element2 = $('.search-group').find('#event_JOB')
-    if $(this).prev().prev().is(element1)
+    if $(this).prev().prev().is(element1)&&!$(element1).is(':disabled')
       $('#mybasho_search_modal').modal('show')
       mybasho = oMybashoTable.row('tr.selected').data();
       if mybasho == undefined
         $("#mybasho_destroy").attr("disabled", true);
       else
         $("#mybasho_destroy").attr("disabled", false);
-    if $(this).prev().prev().is(element2)
+    if $(this).prev().prev().is(element2)&&!$(element2).is(':disabled')
       $('#myjob_search_modal').modal('show')
       myjob = oMyjobTable.row('tr.selected').data();
       if myjob == undefined
