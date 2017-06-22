@@ -226,7 +226,7 @@ class KeihiheadsController < ApplicationController
       @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
         .where.not(JOB: '')
         .joins(:keihihead)
-        .select('JOB','keihi_heads.社員番号 AS keihi_社員番号','SUM(CASE WHEN (交通費 IS NULL OR 交通費 = '') THEN 0 ELSE CAST(交通費 AS DECIMAL) END) AS 交通費','SUM(CASE WHEN (日当 IS NULL OR 日当 = '') THEN 0 ELSE CAST(日当 AS DECIMAL) END) AS 日当','SUM(CASE WHEN (宿泊費 IS NULL OR 宿泊費 = '') THEN 0 ELSE CAST(宿泊費 AS DECIMAL) END) AS 宿泊費','SUM(CASE WHEN (その他 IS NULL OR その他 = '') THEN 0 ELSE CAST(その他 AS DECIMAL) END) AS その他')
+        .select('JOB',"keihi_heads.社員番号 AS keihi_社員番号","SUM(CASE WHEN (交通費 IS NULL OR 交通費 = '') THEN 0 ELSE CAST(交通費 AS DECIMAL) END) AS 交通費","SUM(CASE WHEN (日当 IS NULL OR 日当 = '') THEN 0 ELSE CAST(日当 AS DECIMAL) END) AS 日当","SUM(CASE WHEN (宿泊費 IS NULL OR 宿泊費 = '') THEN 0 ELSE CAST(宿泊費 AS DECIMAL) END) AS 宿泊費","SUM(CASE WHEN (その他 IS NULL OR その他 = '') THEN 0 ELSE CAST(その他 AS DECIMAL) END) AS その他")
         .group(:JOB,'keihi_社員番号')
       @keihi_body = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
         .where.not(JOB: '')
@@ -249,9 +249,11 @@ class KeihiheadsController < ApplicationController
       format.pdf do
         render  pdf: 'keihihead_pdf',
                 template: 'keihiheads/pdf_show_keihi_shuppi.pdf.erb',
+                :margin => {:top => 20, :bottom =>20 },
                 encoding: 'utf8',
                 orientation: 'Landscape',
-                title: (t 'title.keihi_pdf')
+                title: (t 'title.keihi_pdf'),
+                header: { right: '[page] / [topage]' }
       end
     end
   end
@@ -270,7 +272,7 @@ class KeihiheadsController < ApplicationController
       @keihibodies = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
         .where.not(JOB: '')
         .joins(:keihihead)
-        .select('JOB','keihi_heads.社員番号 AS keihi_社員番号','SUM(CASE WHEN (交通費 IS NULL OR 交通費 = '') THEN 0 ELSE CAST(交通費 AS DECIMAL) END) AS 交通費','SUM(CASE WHEN (日当 IS NULL OR 日当 = '') THEN 0 ELSE CAST(日当 AS DECIMAL) END) AS 日当','SUM(CASE WHEN (宿泊費 IS NULL OR 宿泊費 = '') THEN 0 ELSE CAST(宿泊費 AS DECIMAL) END) AS 宿泊費','SUM(CASE WHEN (その他 IS NULL OR その他 = '') THEN 0 ELSE CAST(その他 AS DECIMAL) END) AS その他')
+        .select('JOB','keihi_heads.社員番号 AS keihi_社員番号',"SUM(CASE WHEN (交通費 IS NULL OR 交通費 = '') THEN 0 ELSE CAST(交通費 AS DECIMAL) END) AS 交通費","SUM(CASE WHEN (日当 IS NULL OR 日当 = '') THEN 0 ELSE CAST(日当 AS DECIMAL) END) AS 日当","SUM(CASE WHEN (宿泊費 IS NULL OR 宿泊費 = '') THEN 0 ELSE CAST(宿泊費 AS DECIMAL) END) AS 宿泊費","SUM(CASE WHEN (その他 IS NULL OR その他 = '') THEN 0 ELSE CAST(その他 AS DECIMAL) END) AS その他")
         .group(:JOB,'keihi_社員番号')
       @keihi_body = Keihibody.all.where(申請番号: (@keihiheads.map(&:申請番号)))
         .where.not(JOB: '')
