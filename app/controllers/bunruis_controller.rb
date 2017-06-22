@@ -13,8 +13,7 @@ class BunruisController < ApplicationController
   end
 
   def new
-    @bunrui = Bunrui.new
-    respond_with(@bunrui)
+    @bunrui = Bunrui.new    
   end
 
   def edit

@@ -20,7 +20,7 @@ class JobmastersController < ApplicationController
 
   # GET /jobmasters/new
   def new
-    max_job = Jobmaster.pluck(:job番号).map {|i| i.to_i}.max + 1
+    max_job = Jobmaster.pluck(:job番号).map {|i| i.to_i}.max.to_i + 1
     # max_job = Jobmaster.maximum(:job番号) + 1
     max_job = 100001 if max_job < 100001
     @jobmaster = Jobmaster.new(job番号: max_job)

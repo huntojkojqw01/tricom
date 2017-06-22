@@ -7,10 +7,12 @@ if table!=nil && filename!=nil && filename!=""
         table.constantize.all.each.with_index do |element,i|
             f.write "#{table.downcase}_#{i}:\n"
             table.constantize.column_names.each.with_index do |name,i|
-                if table.constantize.column_for_attribute(name).type== "string".to_sym
-                    f.write " #{name}: \"#{element.send(name)}\"\n"
-                else
-                    f.write " #{name}: #{element.send(name)}\n"
+                if name!="id"&&name!="created_at"&&name!="updated_at"
+                    if table.constantize.column_for_attribute(name).type== "string".to_sym||table.constantize.column_for_attribute(name).type== "text".to_sym
+                        f.write " #{name}: \"#{element.send(name)}\"\n"
+                    else
+                        f.write " #{name}: #{element.send(name)}\n"
+                    end
                 end
             end
         end

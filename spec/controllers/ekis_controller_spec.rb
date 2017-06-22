@@ -4,7 +4,7 @@ require 'rails_helper'
 # + các action đó sẽ redirect hoặc là render đến file template nào, đúng mong đợi không.
 RSpec.describe EkisController, type: :controller do
   # fixtures này có tác dụng lamf mới các bản ghi trong bảng ekis với dữ liệu lấy từ file ekis.yml  
-  fixtures :ekis
+  fixtures :ekis,:users
   
   # Để test action Create ta cần các thuộc tính cho Eki mới, nên ta cần chuẩn bị các thứ sau:
   # ta thiết lập một hash chứa các thuộc tính hợp lệ:
@@ -70,7 +70,7 @@ RSpec.describe EkisController, type: :controller do
         post :create,params: {:eki => valid_attributes},session: valid_session
         # sau khi create xong, thường ta sẽ redirect đến trang của cái bản ghi vừa tạo,
         # thế nên ta có code test như sau:
-        expect(response).to redirect_to(Eki.last)
+        expect(response).to redirect_to(Eki.order("created_at").last)
       end
     end
 
