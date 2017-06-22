@@ -21,12 +21,12 @@ class YuukyuuKyuukaRirekisController < ApplicationController
 
   def create
     @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.new(yuukyuu_kyuuka_rireki_params)
-    flash[:notice] = t "app.flash.new_success" if @yuukyuu_kyuuka_rireki.save
+    flash[:notice] = t 'app.flash.new_success' if @yuukyuu_kyuuka_rireki.save
     respond_with(@yuukyuu_kyuuka_rireki, location: yuukyuu_kyuuka_rirekis_url)
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @yuukyuu_kyuuka_rireki.update(yuukyuu_kyuuka_rireki_params)
+    flash[:notice] = t 'app.flash.update_success' if @yuukyuu_kyuuka_rireki.update(yuukyuu_kyuuka_rireki_params)
     respond_with(@yuukyuu_kyuuka_rireki, location: yuukyuu_kyuuka_rirekis_url)
   end
 
@@ -42,7 +42,7 @@ class YuukyuuKyuukaRirekisController < ApplicationController
         ykkkreIds.each{ |ykkkreId|
           YuukyuuKyuukaRireki.find(ykkkreId).destroy          
         }        
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
@@ -50,10 +50,10 @@ class YuukyuuKyuukaRirekisController < ApplicationController
   end
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to yuukyuu_kyuuka_rirekis_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to yuukyuu_kyuuka_rirekis_path
     else
       begin
@@ -75,7 +75,7 @@ class YuukyuuKyuukaRirekisController < ApplicationController
     @yuukyuu_kyuuka_rirekis = YuukyuuKyuukaRireki.all
     respond_to do |format|
       format.html
-      format.csv { send_data @yuukyuu_kyuuka_rirekis.to_csv, filename: "有給休暇履歴.csv" }
+      format.csv { send_data @yuukyuu_kyuuka_rirekis.to_csv, filename: '有給休暇履歴.csv' }
     end
   end
 

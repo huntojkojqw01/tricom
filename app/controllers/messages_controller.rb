@@ -6,8 +6,8 @@ class MessagesController < ApplicationController
     @message = @conversation.messages.build(message_params)
     @message.user = current_user
     @message.save!
-    @path = "/conversations/"+params[:conversation_id]
-    @path_notifi = "/messages/new"
+    @path = '/conversations/'+params[:conversation_id]
+    @path_notifi = '/messages/new'
   end
 
   private

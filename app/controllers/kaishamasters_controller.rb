@@ -25,12 +25,12 @@ class KaishamastersController < ApplicationController
 
   def create
     @kaishamaster = Kaishamaster.new(kaishamaster_params)
-    flash[:notice] = t "app.flash.new_success" if @kaishamaster.save
+    flash[:notice] = t 'app.flash.new_success' if @kaishamaster.save
     respond_with(@kaishamaster)
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @kaishamaster.update(kaishamaster_params)
+    flash[:notice] = t 'app.flash.update_success' if @kaishamaster.update(kaishamaster_params)
     respond_with(@kaishamaster)
   end
 
@@ -41,10 +41,10 @@ class KaishamastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to kaishamasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to kaishamasters_path
     else
       begin
@@ -67,7 +67,7 @@ class KaishamastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kaishamasters.to_csv, filename: "会社マスタ.csv" }
+      format.csv { send_data @kaishamasters.to_csv, filename: '会社マスタ.csv' }
     end
   end
 
@@ -78,16 +78,16 @@ class KaishamastersController < ApplicationController
           kaisha = Kaishamaster.find(kaisha_code)
           kaisha.destroy if kaisha
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
-      when "kaishamaster_削除する"
+      when 'kaishamaster_削除する'
         kaishaIds = params[:kaishas]
         kaishaIds.each{ |kaishaId|
           Kaishamaster.find(kaishaId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end

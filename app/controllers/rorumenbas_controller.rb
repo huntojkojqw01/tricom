@@ -36,7 +36,7 @@ class RorumenbasController < ApplicationController
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @rorumenba.update(rorumenba_params)
+    flash[:notice] = t 'app.flash.update_success' if @rorumenba.update(rorumenba_params)
     respond_with(@rorumenba, location: rorumenbas_url)
   end
 
@@ -48,10 +48,10 @@ class RorumenbasController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to rorumenbas_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to rorumenbas_path
     else
       begin
@@ -73,7 +73,7 @@ class RorumenbasController < ApplicationController
     @rorumenbas = Rorumenba.all
     respond_to do |format|
       format.html
-      format.csv { send_data @rorumenbas.to_csv, filename: "ロールメンバ.csv" }
+      format.csv { send_data @rorumenbas.to_csv, filename: 'ロールメンバ.csv' }
     end
   end
 

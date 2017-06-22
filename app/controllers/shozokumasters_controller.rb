@@ -19,13 +19,13 @@ class ShozokumastersController < ApplicationController
   end
 
   def create
-    flash[:notice] = t "app.flash.new_success" if @shozokumaster.save
+    flash[:notice] = t 'app.flash.new_success' if @shozokumaster.save
     respond_with @shozokumaster
 
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @shozokumaster.
+    flash[:notice] = t 'app.flash.update_success' if @shozokumaster.
       update_attributes shozokumaster_params
     respond_with @shozokumaster
   end
@@ -37,10 +37,10 @@ class ShozokumastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to shozokumasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to shozokumasters_path
     else
       begin
@@ -63,7 +63,7 @@ class ShozokumastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @shozokumasters.to_csv, filename: "所属マスタ.csv" }
+      format.csv { send_data @shozokumasters.to_csv, filename: '所属マスタ.csv' }
     end
   end
 
@@ -75,7 +75,7 @@ class ShozokumastersController < ApplicationController
           shozoku=Shozokumaster.find(shozokuId)
           shozoku.destroy unless shozoku==nil      
         }        
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end

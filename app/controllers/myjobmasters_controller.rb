@@ -10,7 +10,7 @@ class MyjobmastersController < ApplicationController
   # GET /jobmasters
   # GET /jobmasters.json
   def index
-    @myjobmasters = Myjobmaster.all.order("updated_at desc")
+    @myjobmasters = Myjobmaster.all.order('updated_at desc')
   end
 
   # GET /jobmasters/1
@@ -35,14 +35,14 @@ class MyjobmastersController < ApplicationController
     # max_job = 100001 if max_job < 100001
     # jobmaster_params[:job番号] = max_job
     @myjobmaster = Myjobmaster.new(myjobmaster_params)
-    flash[:notice] = t "app.flash.new_success" if @myjobmaster.save
+    flash[:notice] = t 'app.flash.new_success' if @myjobmaster.save
     respond_with @myjobmaster, location: myjobmasters_url
   end
 
   # PATCH/PUT /jobmasters/1
   # PATCH/PUT /jobmasters/1.json
   def update
-    flash[:notice] = t "app.flash.update_success" if @myjobmaster.update(myjobmaster_params)
+    flash[:notice] = t 'app.flash.update_success' if @myjobmaster.update(myjobmaster_params)
     respond_with @myjobmaster, location: myjobmasters_url
   end
 
@@ -55,7 +55,7 @@ class MyjobmastersController < ApplicationController
 
   def ajax
     case params[:focus_field]
-      when "myjobmaster_ユーザ番号"
+      when 'myjobmaster_ユーザ番号'
         kaisha_name = Kaishamaster.find(params[:kaisha_code]).try :name
         data = {kaisha_name: kaisha_name}
         respond_to do |format|
@@ -66,10 +66,10 @@ class MyjobmastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to myjobmasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to myjobmasters_path
     else
       begin
@@ -92,7 +92,7 @@ class MyjobmastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @myjobs.to_csv, filename: "myjobマスタ.csv" }
+      format.csv { send_data @myjobs.to_csv, filename: 'myjobマスタ.csv' }
     end
   end
 

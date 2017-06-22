@@ -37,14 +37,14 @@ class JobmastersController < ApplicationController
     # max_job = 100001 if max_job < 100001
     # jobmaster_params[:job番号] = max_job
     @jobmaster = Jobmaster.new(jobmaster_params)
-    flash[:notice] = t "app.flash.new_success" if @jobmaster.save
+    flash[:notice] = t 'app.flash.new_success' if @jobmaster.save
     respond_with @jobmaster, location: jobmasters_url
   end
 
   # PATCH/PUT /jobmasters/1
   # PATCH/PUT /jobmasters/1.json
   def update
-    flash[:notice] = t "app.flash.update_success" if @jobmaster.update(jobmaster_params)
+    flash[:notice] = t 'app.flash.update_success' if @jobmaster.update(jobmaster_params)
     respond_with @jobmaster, location: jobmasters_url
   end
 
@@ -57,19 +57,19 @@ class JobmastersController < ApplicationController
 
   def ajax
     case params[:focus_field]
-      when "jobmaster_ユーザ番号"
+      when 'jobmaster_ユーザ番号'
         kaisha_name = Kaishamaster.find(params[:kaisha_code]).try :name
         data = {kaisha_name: kaisha_name}
         respond_to do |format|
           format.json { render json: data}
         end
-      when "jobmaster_削除する"
+      when 'jobmaster_削除する'
         jobIds = params[:jobs]
         jobIds.each{ |jobId|
           Jobmaster.find_by(job番号: jobId).destroy
         }
         # eki = Eki.find_by(駅コード: params[:eki_id]).destroy
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
@@ -78,10 +78,10 @@ class JobmastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to jobmasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to jobmasters_path
     else
       begin
@@ -104,7 +104,7 @@ class JobmastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @jobs.to_csv, filename: "jobマスタ.csv" }
+      format.csv { send_data @jobs.to_csv, filename: 'jobマスタ.csv' }
     end
   end
 

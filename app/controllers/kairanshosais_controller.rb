@@ -9,7 +9,7 @@ class KairanshosaisController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kairanshosais.to_csv, filename: "回覧詳細.csv" }
+      format.csv { send_data @kairanshosais.to_csv, filename: '回覧詳細.csv' }
     end
   end
 

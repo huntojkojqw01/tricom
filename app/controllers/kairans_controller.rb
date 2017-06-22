@@ -36,7 +36,7 @@ class KairansController < ApplicationController
     arrSelected.each do |kairanShoshaiId|
       Kairanshosai.find(kairanShoshaiId).update(状態: 1)
     end
-    flash[:notice] = t "app.flash.kairan_confirm"
+    flash[:notice] = t 'app.flash.kairan_confirm'
     redirect_to kairans_url
   end
 
@@ -63,7 +63,7 @@ class KairansController < ApplicationController
         end
         shain = Shainmaster.find session[:user]
         update_kairanshosai_counter shain
-        flash[:notice] = t "app.flash.kairan_confirm"
+        flash[:notice] = t 'app.flash.kairan_confirm'
       # redirect_to kairans_url
 
     end
@@ -79,7 +79,7 @@ class KairansController < ApplicationController
     arrKairanId = Kairan.where(要件: @yoken).ids if @yoken.present?
     vars = request.query_parameters
     @kairanShoshais = @kairanShoshais.where(対象者: @shain_param) if @shain_param.present?
-    # if !vars["search"].nil?
+    # if !vars['search'].nil?
     #   @shain_param = ''
     # end
     @kairanShoshais = @kairanShoshais.where(回覧コード: arrKairanId) if @yoken.present?
@@ -113,14 +113,14 @@ class KairansController < ApplicationController
     # kairan_params[:発行者] = session[:user]
     kairan_params[:状態] = 0
     @kairan = Kairan.new(kairan_params)
-    flash[:notice] = t "app.flash.new_success" if @kairan.save
+    flash[:notice] = t 'app.flash.new_success' if @kairan.save
     updateKairanDetail(@kairan.id, params[:shain])
     respond_with(@kairan, location: kairans_url)
   end
 
   def update
     updateKairanDetail(@kairan.id, params[:shain])
-    flash[:notice] = t "app.flash.update_success" if @kairan.update(kairan_params)
+    flash[:notice] = t 'app.flash.update_success' if @kairan.update(kairan_params)
     respond_with(@kairan, location: kairans_url)
   end
 
@@ -134,7 +134,7 @@ class KairansController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kairans.to_csv, filename: "回覧.csv" }
+      format.csv { send_data @kairans.to_csv, filename: '回覧.csv' }
     end
   end
 

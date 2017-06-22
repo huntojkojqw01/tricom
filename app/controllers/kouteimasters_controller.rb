@@ -32,7 +32,7 @@ class KouteimastersController < ApplicationController
   # POST /kouteimasters.json
   def create
     @kouteimaster = Kouteimaster.new kouteimaster_params
-    flash[:notice] = t "app.flash.new_success" if @kouteimaster.save
+    flash[:notice] = t 'app.flash.new_success' if @kouteimaster.save
     respond_with @kouteimaster
   end
 
@@ -40,7 +40,7 @@ class KouteimastersController < ApplicationController
   # PATCH/PUT /kouteimasters/1
   # PATCH/PUT /kouteimasters/1.json
   def update
-    flash[:notice] = t "app.flash.update_success" if @kouteimaster.update kouteimaster_params
+    flash[:notice] = t 'app.flash.update_success' if @kouteimaster.update kouteimaster_params
     respond_with @kouteimaster
   end
   def create_koutei
@@ -57,7 +57,7 @@ class KouteimastersController < ApplicationController
 
   def update_koutei
     koutei=kouteimaster_params    
-    @kouteimaster = Kouteimaster.find("#{koutei[:工程コード]},#{koutei[:所属コード]}")    
+    @kouteimaster = Kouteimaster.find('#{koutei[:工程コード]},#{koutei[:所属コード]}')    
     respond_to do |format|
       if  @kouteimaster.update(koutei)
         format.js { render 'update_koutei'}
@@ -75,7 +75,7 @@ class KouteimastersController < ApplicationController
 
   def ajax
     case params[:id]
-      when "kouteimaster_所属コード"
+      when 'kouteimaster_所属コード'
         shozoku = Shozokumaster.find_by 所属コード: params[:kouteimaster_shozoku_code]
         shozoku_name = shozoku.try(:所属名)
         data = {shozoku_name: shozoku_name}
@@ -92,7 +92,7 @@ class KouteimastersController < ApplicationController
           koutei=Kouteimaster.find(kouteiId)
           koutei.destroy if koutei          
         }        
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
@@ -101,10 +101,10 @@ class KouteimastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to kouteimasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to kouteimasters_path
     else
       begin
@@ -127,7 +127,7 @@ class KouteimastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kouteimasters.to_csv, filename: "工程マスタ.csv" }
+      format.csv { send_data @kouteimasters.to_csv, filename: '工程マスタ.csv' }
     end
   end
 

@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     user = User.find_by(担当者コード: params[:session][:担当者コード], email: params[:session][:email])
 
     if user
-    #   options = { :address              => "smtp.gmail.com",
+    #   options = { :address              => 'smtp.gmail.com',
     #               :port                 => 587,
     #               :domain               => 'heroku.com',
     #               :user_name            => 'anhmt212@gmail.com',
@@ -27,21 +27,21 @@ class SessionsController < ApplicationController
       ses = session[:code]
       if user.update(password: ses,flag_reset_password: true)
         Mail.deliver do
-          to "#{user.try(:email)}"
+          to '#{user.try(:email)}'
           from 'hminhduc@gmail.com'
           subject '【勤務システム】'
-          body "担当者コード : 【#{user.try(:担当者コード)}】。新しいパスワード: 【"+ses+"】。"
+          body '担当者コード : 【#{user.try(:担当者コード)}】。新しいパスワード: 【'+ses+'】。'
         end
-        flash[:notice] = t "app.login.send_mail"
+        flash[:notice] = t 'app.login.send_mail'
         redirect_to login_path
       else
-        flash[:danger] = t "app.flash.login_field"
-        render "send_mail"
+        flash[:danger] = t 'app.flash.login_field'
+        render 'send_mail'
       end
 
     else
-      flash[:danger] = t "app.flash.login_field"
-      render "send_mail"
+      flash[:danger] = t 'app.flash.login_field'
+      render 'send_mail'
     end
   end
 
@@ -54,22 +54,22 @@ class SessionsController < ApplicationController
   def login_code_confirm
     user = User.find_by 担当者コード:params[:session][:担当者コード]
     if user && !session[:code].nil? && params[:session][:code] == session[:code] && !session[:user_code].nil? && params[:session][:担当者コード] == session[:user_code]
-      flash[:notice] = t "app.flash.wellcome_to"
+      flash[:notice] = t 'app.flash.wellcome_to'
       log_in user
     else
-      flash[:danger] = t "app.flash.login_field"
-      render "login_code"
+      flash[:danger] = t 'app.flash.login_field'
+      render 'login_code'
     end
   end
 
   def create
     user = User.find_by 担当者コード:params[:session][:担当者コード]
     if user && (user.authenticate params[:session][:password])
-      flash[:notice] = t "app.flash.wellcome_to"
+      flash[:notice] = t 'app.flash.wellcome_to'
       log_in user
     else
-      flash[:danger] = t "app.flash.login_field"
-      render "new"
+      flash[:danger] = t 'app.flash.login_field'
+      render 'new'
     end
   end
 
@@ -81,7 +81,7 @@ class SessionsController < ApplicationController
   private
   def check_login
     if logged_in?
-      flash[:notice] = t "app.login.logged_in"
+      flash[:notice] = t 'app.login.logged_in'
       redirect_to main_path
     end
   end

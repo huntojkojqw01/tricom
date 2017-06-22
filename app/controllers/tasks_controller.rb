@@ -49,10 +49,10 @@ class TasksController < ApplicationController
 
   def change_status
     @task = Task.find(params[:id])
-    if (params[:decision] == "true")
+    if (params[:decision] == 'true')
       @task.update(done: 1)
       respond_with(@task, location: tasks_url)
-    elsif (params[:decision] == "false")
+    elsif (params[:decision] == 'false')
       @task.update(done: 0)
       respond_with(@task, location: tasks_url)
     end
@@ -63,7 +63,7 @@ class TasksController < ApplicationController
         task = Task.find(params[:task_id])
         task.destroy if task
 
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
@@ -79,7 +79,7 @@ class TasksController < ApplicationController
           format.js { render 'change_status'}
         end
       when 'task_create'
-        @task = Task.new(title: "タイトル")
+        @task = Task.new(title: 'タイトル')
         respond_to do |format|
           if  @task.save
             format.js { render 'create_task'}

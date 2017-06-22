@@ -33,10 +33,10 @@ class PathsController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to paths_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to paths_path
     else
       begin
@@ -58,7 +58,7 @@ class PathsController < ApplicationController
     @paths = Path.all
     respond_to do |format|
       format.html
-      format.csv { send_data @paths.to_csv, filename: "Path.csv" }
+      format.csv { send_data @paths.to_csv, filename: 'Path.csv' }
     end
   end
 

@@ -26,10 +26,10 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     if @user.save
-      flash[:notice] = t "app.flash.new_success"
+      flash[:notice] = t 'app.flash.new_success'
       redirect_to users_path
     else
-      flash[:notice] = t "app.flash.new_success"
+      flash[:notice] = t 'app.flash.new_success'
       @shainmasters = Shainmaster.all.has_not_tantousha
       render :new
     end
@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     if @user.update_attributes user_params_for_update
-      flash[:notice] = t "app.flash.update_success"
+      flash[:notice] = t 'app.flash.update_success'
       redirect_to root_url
     else
       respond_with @user
@@ -61,7 +61,7 @@ class UsersController < ApplicationController
         user=User.find(user_code)
         user.destroy if user
       }
-      data = {destroy_success: "success"}
+      data = {destroy_success: 'success'}
       respond_to do |format|
         format.json { render json: data}
       end
@@ -81,14 +81,14 @@ class UsersController < ApplicationController
         if new_pass == params[:user][:renew_password]
           flash[:notice] = t 'app.flash.update_success' if @user.update(password: new_pass, email: email, avatar: avatar)
           Mail.deliver do
-            to "#{email}"
+            to '#{email}'
             from 'hminhduc@gmail.com'
             subject '【勤務システム】ログインパスワード変更'
-            body "パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！"
+            body 'パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！'
           end
           redirect_to root_url
         else
-          flash[:notice] = t "app.update_pass_success"
+          flash[:notice] = t 'app.update_pass_success'
           redirect_to :back
         end
       else
@@ -102,16 +102,16 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @users.to_csv, filename: "担当者マスタ.csv" }
+      format.csv { send_data @users.to_csv, filename: '担当者マスタ.csv' }
     end
   end
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to users_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to users_path
     else
       begin

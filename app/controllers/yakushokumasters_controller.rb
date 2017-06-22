@@ -22,13 +22,13 @@ class YakushokumastersController < ApplicationController
 
   def create
     @yakushokumaster = Yakushokumaster.new(yakushokumaster_params)
-    flash[:notice] = t "app.flash.new_success" if @yakushokumaster.save
+    flash[:notice] = t 'app.flash.new_success' if @yakushokumaster.save
     respond_with @yakushokumaster
   end
 
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @yakushokumaster.update yakushokumaster_params_for_update
+    flash[:notice] = t 'app.flash.update_success' if @yakushokumaster.update yakushokumaster_params_for_update
     respond_with @yakushokumaster
 
   end
@@ -40,10 +40,10 @@ class YakushokumastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to yakushokumasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to yakushokumasters_path
     else
       begin
@@ -66,7 +66,7 @@ class YakushokumastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @yakushokumasters.to_csv, filename: "役職マスタ.csv" }
+      format.csv { send_data @yakushokumasters.to_csv, filename: '役職マスタ.csv' }
     end
   end
 
@@ -77,7 +77,7 @@ class YakushokumastersController < ApplicationController
           yakushoku=Yakushokumaster.find(yakushoku_code)
           yakushoku.destroy if yakushoku
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end

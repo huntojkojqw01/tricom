@@ -38,10 +38,10 @@ class DengonkaitousController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to dengonkaitous_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to dengonkaitous_path
     else
       begin
@@ -64,7 +64,7 @@ class DengonkaitousController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @dengonkaitous.to_csv, filename: "伝言回答マスタ.csv" }
+      format.csv { send_data @dengonkaitous.to_csv, filename: '伝言回答マスタ.csv' }
     end
   end
 
@@ -75,7 +75,7 @@ class DengonkaitousController < ApplicationController
         dengonkaitouIds.each{ |dengonkaitouId|
           Dengonkaitou.find_by(id: dengonkaitouId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end

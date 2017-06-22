@@ -46,7 +46,7 @@ class Kanris::KintaisController < ApplicationController
     end
     respond_to do |format|
       format.html
-      format.xlsx {render xlsx: 'export_excel', filename: "管理G_勤怠_#{@date}.xlsx"}
+      format.xlsx {render xlsx: 'export_excel', filename: '管理G_勤怠_#{@date}.xlsx'}
     end
   end
 end
