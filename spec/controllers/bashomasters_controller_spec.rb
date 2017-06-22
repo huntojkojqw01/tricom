@@ -25,7 +25,7 @@ RSpec.describe BashomastersController, type: :controller do
       SUB: "test updated",場所区分: '2',
       会社コード: "90000"}
   }
-  fixtures :bashomasters
+  fixtures :bashomasters, :users
   render_views
   before :each do
     user= User.find(10029)
