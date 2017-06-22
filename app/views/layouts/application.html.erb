@@ -13,12 +13,12 @@
 	</head>
 
 	<body>
-        <div style="display:none" id="language"><%=I18n.locale%></div>        
+        <div style="display:none" id="language"><%=I18n.locale%></div>
         <%= render 'layouts/navigation_links' %>
 
         <div class="container-fluid">
           <div class="row-fluid">
-            <%= render 'share/messages' %>            
+            <%= render 'share/messages' %>
             <%= yield %>
           </div>
         </div>
