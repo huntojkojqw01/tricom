@@ -101,7 +101,7 @@ jQuery ->
     focusOnShow: false
 #    defaultDate: '2016/03/14 09:00'
   })
-
+  $("#999").appendTo(".form-group.search_history.optional.event_場所コード .form-inline");
   $('.search-field').click( () ->
     element1 = $('.search-group').find('#event_状態コード')
     element2 = $('.search-group').find('#event_場所コード')
