@@ -25,7 +25,7 @@ class ShainmastersController < ApplicationController
       shainmaster_params[:役職コード]
     @shainmaster.rorumaster = Rorumaster.find_by ロールコード:
       shainmaster_params[:デフォルトロール]
-    flash[:notice] = t "app.flash.new_success" if @shainmaster.save
+    flash[:notice] = t 'app.flash.new_success' if @shainmaster.save
     respond_with @shainmaster
   end
 
@@ -36,7 +36,7 @@ class ShainmastersController < ApplicationController
       shainmaster_params[:役職コード]
     @shainmaster.rorumaster = Rorumaster.find_by ロールコード:
       shainmaster_params[:デフォルトロール]
-    flash[:notice] = t "app.flash.update_success" if
+    flash[:notice] = t 'app.flash.update_success' if
       @shainmaster.update_attributes shainmaster_params_for_update
     respond_with @shainmaster
   end
@@ -55,7 +55,7 @@ class ShainmastersController < ApplicationController
           shain=Shainmaster.find(shainId)
           shain.destroy unless current_user== shain.user || shain==nil
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
@@ -63,10 +63,10 @@ class ShainmastersController < ApplicationController
   end
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to shainmasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to shainmasters_path
     else
       begin
@@ -89,7 +89,7 @@ class ShainmastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @shainmasters.to_csv, filename: "社員マスタ.csv" }
+      format.csv { send_data @shainmasters.to_csv, filename: '社員マスタ.csv' }
     end
   end
 

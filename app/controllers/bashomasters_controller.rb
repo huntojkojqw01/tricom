@@ -24,12 +24,12 @@ class BashomastersController < ApplicationController
 
   def create
     @bashomaster = Bashomaster.new(bashomaster_params)
-    flash[:notice] = t "app.flash.new_success" if @bashomaster.save
+    flash[:notice] = t 'app.flash.new_success' if @bashomaster.save
     respond_with @bashomaster
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @bashomaster.update bashomaster_params
+    flash[:notice] = t 'app.flash.update_success' if @bashomaster.update bashomaster_params
     respond_with @bashomaster
   end
 
@@ -40,18 +40,18 @@ class BashomastersController < ApplicationController
 
   def ajax
     case params[:focus_field]
-      when "bashomaster_会社コード"
+      when 'bashomaster_会社コード'
         kaisha_name = Kaishamaster.find_by(code: params[:kaisha_code]).try :name
         data = {kaisha_name: kaisha_name}
         respond_to do |format|
           format.json { render json: data}
         end
-      when "basho_削除する"
+      when 'basho_削除する'
         params[:bashos].each {|basho_code|
           basho=Bashomaster.find(basho_code)
           basho.destroy if basho
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
@@ -61,10 +61,10 @@ class BashomastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to bashomasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to bashomasters_path
     else
       begin
@@ -87,7 +87,7 @@ class BashomastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @bashomasters.to_csv, filename: "場所マスタ.csv" }
+      format.csv { send_data @bashomasters.to_csv, filename: '場所マスタ.csv' }
     end
   end
 

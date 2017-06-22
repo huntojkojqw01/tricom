@@ -43,11 +43,11 @@ class SettingsController < ApplicationController
     case params[:commit]
 
       when (t 'helpers.submit.setting')
-        notice = t "app.flash.update_success" if @setting.update(setting_params)
+        notice = t 'app.flash.update_success' if @setting.update(setting_params)
         #redirect_to :back, notice: notice
         redirect_to(session[:return_to])
       when (t 'helpers.submit.update')
-        flash[:notice] = t "app.flash.update_success" if @setting.update(setting_params)
+        flash[:notice] = t 'app.flash.update_success' if @setting.update(setting_params)
         respond_with(@setting, location: settings_url)
     end
   end
@@ -60,10 +60,10 @@ class SettingsController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to settings_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to settings_path
     else
       begin
@@ -85,7 +85,7 @@ class SettingsController < ApplicationController
     @settings = Setting.all
     respond_to do |format|
       format.html
-      format.csv { send_data @settings.to_csv, filename: "Setting.csv" }
+      format.csv { send_data @settings.to_csv, filename: 'Setting.csv' }
     end
   end
 
@@ -96,7 +96,7 @@ class SettingsController < ApplicationController
         settingIds.each{ |settingId|
           Setting.find_by(社員番号: settingId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end
@@ -118,10 +118,10 @@ class SettingsController < ApplicationController
       end
     when 'select_holiday_vn'
       @setting = Setting.where(社員番号: session[:user]).first
-      if params[:select_holiday_vn] == "true"
-        @setting.select_holiday_vn = "1"
+      if params[:select_holiday_vn] == 'true'
+        @setting.select_holiday_vn = '1'
       else
-        @setting.select_holiday_vn = "0"
+        @setting.select_holiday_vn = '0'
       end
       @setting.save()
       respond_to do |format|

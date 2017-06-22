@@ -16,8 +16,8 @@ class DengonsController < ApplicationController
     @yoken = params[:head][:youken] if params[:head].present?
     @kaitou = params[:head][:kaitou] if params[:head].present?
 
-    @dengons = @dengons.where("社員番号 = ?", @shain_param) if @shain_param.present? && vars["search"].nil?
-    if !vars["search"].nil?
+    @dengons = @dengons.where('社員番号 = ?', @shain_param) if @shain_param.present? && vars['search'].nil?
+    if !vars['search'].nil?
       @shain_param = ''
     end
     @dengons = @dengons.where(用件: @yoken) if @yoken.present?
@@ -47,9 +47,9 @@ class DengonsController < ApplicationController
     # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:notice] = t "app.flash.mail_to"
+    flash[:notice] = t 'app.flash.mail_to'
   rescue Net::SMTPFatalError
-    flash[:notice] = t "app.flash.mail_send_field"
+    flash[:notice] = t 'app.flash.mail_send_field'
   ensure
     redirect_to dengons_url
   end
@@ -62,9 +62,9 @@ class DengonsController < ApplicationController
     # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
 
   rescue ActiveRecord::RecordNotFound
-    flash[:notice] = t "app.flash.mail_to"
+    flash[:notice] = t 'app.flash.mail_to'
   rescue Net::SMTPFatalError
-    flash[:notice] = t "app.flash.mail_send_field"
+    flash[:notice] = t 'app.flash.mail_send_field'
   ensure
     redirect_to dengons_url
   end
@@ -81,7 +81,7 @@ class DengonsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @dengons.to_csv, filename: "伝言.csv" }
+      format.csv { send_data @dengons.to_csv, filename: '伝言.csv' }
     end
   end
 

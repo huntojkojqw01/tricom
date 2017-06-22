@@ -23,13 +23,13 @@ class YuusensController < ApplicationController
 
   def create
     @yuusen = Yuusen.new(yuusen_params)
-    flash[:notice] = t "app.flash.new_success" if @yuusen.save
+    flash[:notice] = t 'app.flash.new_success' if @yuusen.save
     respond_with(@yuusen, location: yuusens_url)
 
   end
 
   def update
-    flash[:nitice] = t "app.flash.update_success" if @yuusen.update(yuusen_params)
+    flash[:nitice] = t 'app.flash.update_success' if @yuusen.update(yuusen_params)
     respond_with(@yuusen, location: yuusens_url)
   end
 
@@ -40,10 +40,10 @@ class YuusensController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to yuusens_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to yuusens_path
     else
       begin
@@ -68,7 +68,7 @@ class YuusensController < ApplicationController
         yuusenIds.each{ |yuusenId|
           Yuusen.find_by(優先さ: yuusenId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end
@@ -80,7 +80,7 @@ class YuusensController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @yuusens.to_csv, filename: "優先.csv" }
+      format.csv { send_data @yuusens.to_csv, filename: '優先.csv' }
     end
   end
 

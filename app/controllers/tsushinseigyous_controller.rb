@@ -37,10 +37,10 @@ class TsushinseigyousController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to tsushinseigyous_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to tsushinseigyous_path
     else
       begin
@@ -63,7 +63,7 @@ class TsushinseigyousController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @tsushinseigyous.to_csv, filename: "通信制御マスタ.csv" }
+      format.csv { send_data @tsushinseigyous.to_csv, filename: '通信制御マスタ.csv' }
     end
   end
 
@@ -74,7 +74,7 @@ class TsushinseigyousController < ApplicationController
         tsushinseigyouIds.each{ |tsushinseigyouId|
           Tsushinseigyou.find_by(id: tsushinseigyouId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end

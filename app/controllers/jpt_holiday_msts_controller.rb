@@ -25,12 +25,12 @@ class JptHolidayMstsController < ApplicationController
 
   def create
     @jpt_holiday_mst = JptHolidayMst.new(jpt_holiday_mst_params)
-    flash[:notice] = t "app.flash.new_success" if @jpt_holiday_mst.save
+    flash[:notice] = t 'app.flash.new_success' if @jpt_holiday_mst.save
     respond_with(@jpt_holiday_mst)
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @jpt_holiday_mst.update(jpt_holiday_mst_params)
+    flash[:notice] = t 'app.flash.update_success' if @jpt_holiday_mst.update(jpt_holiday_mst_params)
     respond_with(@jpt_holiday_mst)
   end
 
@@ -45,7 +45,7 @@ class JptHolidayMstsController < ApplicationController
           holiday=JptHolidayMst.find(holiday_code)
           holiday.destroy if holiday
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end        
@@ -53,10 +53,10 @@ class JptHolidayMstsController < ApplicationController
   end
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to jpt_holiday_msts_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to jpt_holiday_msts_path
     else
       begin
@@ -78,7 +78,7 @@ class JptHolidayMstsController < ApplicationController
     @jpt_holidays = JptHolidayMst.all
     respond_to do |format|
       format.html
-      format.csv { send_data @jpt_holidays.to_csv, filename: "ジュピター休日.csv" }
+      format.csv { send_data @jpt_holidays.to_csv, filename: 'ジュピター休日.csv' }
     end
   end
 

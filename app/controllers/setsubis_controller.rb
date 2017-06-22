@@ -42,10 +42,10 @@ class SetsubisController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to setsubis_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to setsubis_path
     else
       begin
@@ -68,7 +68,7 @@ class SetsubisController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @setsubis.to_csv, filename: "設備マスタ.csv" }
+      format.csv { send_data @setsubis.to_csv, filename: '設備マスタ.csv' }
     end
   end
 
@@ -79,7 +79,7 @@ class SetsubisController < ApplicationController
         setsubiIds.each{ |setsubiId|
           Setsubi.find_by(設備コード: setsubiId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end

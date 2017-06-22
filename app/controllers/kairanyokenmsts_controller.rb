@@ -23,13 +23,13 @@ class KairanyokenmstsController < ApplicationController
 
   def create
     @kairanyokenmst = Kairanyokenmst.new(kairanyokenmst_params)
-    flash[:notice] = t "app.flash.new_success" if @kairanyokenmst.save
+    flash[:notice] = t 'app.flash.new_success' if @kairanyokenmst.save
     respond_with(@kairanyokenmst, location: kairanyokenmsts_url)
 
   end
 
   def update
-    flash[:nitice] = t "app.flash.update_success" if @kairanyokenmst.update(kairanyokenmst_params)
+    flash[:nitice] = t 'app.flash.update_success' if @kairanyokenmst.update(kairanyokenmst_params)
     respond_with(@kairanyokenmst, location: kairanyokenmsts_url)
   end
 
@@ -40,10 +40,10 @@ class KairanyokenmstsController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to kairanyokenmsts_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to kairanyokenmsts_path
     else
       begin
@@ -66,7 +66,7 @@ class KairanyokenmstsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kairanyokens.to_csv, filename: "回覧用件マスタ.csv" }
+      format.csv { send_data @kairanyokens.to_csv, filename: '回覧用件マスタ.csv' }
     end
   end
 
@@ -77,7 +77,7 @@ class KairanyokenmstsController < ApplicationController
         kairanyoukenIds.each{ |kairanyoukenId|
           Kairanyokenmst.find_by(名称: kairanyoukenId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end

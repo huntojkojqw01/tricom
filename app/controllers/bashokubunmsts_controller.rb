@@ -39,10 +39,10 @@ class BashokubunmstsController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to bashokubunmsts_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to bashokubunmsts_path
     else
       begin
@@ -65,7 +65,7 @@ class BashokubunmstsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @bashokubunmsts.to_csv, filename: "場所区分マスタ.csv" }
+      format.csv { send_data @bashokubunmsts.to_csv, filename: '場所区分マスタ.csv' }
     end
   end
 
@@ -76,7 +76,7 @@ class BashokubunmstsController < ApplicationController
         bashokubunmstIds.each{ |bashokubunmstId|
           Bashokubunmst.find_by(場所区分コード: bashokubunmstId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end

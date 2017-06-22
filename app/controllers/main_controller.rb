@@ -15,7 +15,7 @@ class MainController < ApplicationController
     @users = User.all
 
     @messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil)
-    .joins(:user).where("担当者マスタ.担当者コード!= ?",current_user.id).order(created_at: :desc)
+    .joins(:user).where('担当者マスタ.担当者コード!= ?',current_user.id).order(created_at: :desc)
   end
   def search
     vars = request.query_parameters
@@ -29,10 +29,10 @@ class MainController < ApplicationController
     .or(Path.where('title_en LIKE ?','%'+@search+'%'))
     .or(Path.where('model_name_field LIKE ?','%'+@search+'%'))
     @masters = @masters.where.not(model_name_field: (@paths.map(&:model_name_field)))
-    @event = Event.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Event")).map(&:searchable_id)).where("Date(開始) >= ?",(Date.today - 1.month).to_s(:db))
-    @kintai = Kintai.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: "Kintai")).map(&:searchable_id)).where(社員番号: session[:user])
+    @event = Event.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: 'Event')).map(&:searchable_id)).where('Date(開始) >= ?',(Date.today - 1.month).to_s(:db))
+    @kintai = Kintai.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%').where(searchable_type: 'Kintai')).map(&:searchable_id)).where(社員番号: session[:user])
     @kairan = Kairan.all.where(id: (PgSearch::Document.where('content LIKE ?','%'+@search+'%')
-      .where(searchable_type: "Kairan")).map(&:searchable_id))
+      .where(searchable_type: 'Kairan')).map(&:searchable_id))
       .where(id: Kairanshosai.where(対象者: session[:user]).map(&:回覧コード))
     if @event.first.nil?
       @paths = @paths.where.not(title_jp: (t 'title.event')).where.not(model_name_field: ['Event'])
@@ -59,7 +59,7 @@ class MainController < ApplicationController
         @masters = Path.where(title_jp: title)
                         .or(Path.where(title_en: title))
         @masters.update_all(updated_at: Time.now)
-        data = "Success"
+        data = 'Success'
         respond_to do |format|
           format.json { render json: data}
         end

@@ -7,7 +7,7 @@ class MybashomastersController < ApplicationController
   respond_to :js
 
   def index
-    @mybashomasters = Mybashomaster.all.order("updated_at desc")
+    @mybashomasters = Mybashomaster.all.order('updated_at desc')
   end
 
 
@@ -24,13 +24,13 @@ class MybashomastersController < ApplicationController
 
   def create
     @mybashomaster = Mybashomaster.new(mybashomaster_params)
-    flash[:notice] = t "app.flash.new_success" if @mybashomaster.save
+    flash[:notice] = t 'app.flash.new_success' if @mybashomaster.save
     respond_with @mybashomaster
 
   end
 
   def update
-    flash[:notice] = t "app.flash.update_success" if @mybashomaster.update mybashomaster_params
+    flash[:notice] = t 'app.flash.update_success' if @mybashomaster.update mybashomaster_params
     respond_with @mybashomaster
   end
 
@@ -41,18 +41,18 @@ class MybashomastersController < ApplicationController
 
   def ajax
     case params[:focus_field]
-      when "mybashomaster_会社コード"
+      when 'mybashomaster_会社コード'
         kaisha_name = Kaishamaster.find_by(code: params[:kaisha_code]).try :name
         data = {kaisha_name: kaisha_name}
         respond_to do |format|
           format.json { render json: data}
         end
-      when "mybasho_削除する"
+      when 'mybasho_削除する'
         mybashoIds = params[:mybashos]
         mybashoIds.each{ |mybashoId|
           Mybashomaster.find(mybashoId).destroy          
         }        
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end
@@ -62,10 +62,10 @@ class MybashomastersController < ApplicationController
 
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to mybashomasters_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to mybashomasters_path
     else
       begin
@@ -88,7 +88,7 @@ class MybashomastersController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @mybashomasters.to_csv, filename: "MY場所マスタ.csv" }
+      format.csv { send_data @mybashomasters.to_csv, filename: 'MY場所マスタ.csv' }
     end
   end
 

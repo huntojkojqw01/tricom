@@ -46,7 +46,7 @@ class KikanmstsController < ApplicationController
           kikan=Kikanmst.find(kikan_code)
           kikan.destroy if kikan
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
         end        
@@ -54,10 +54,10 @@ class KikanmstsController < ApplicationController
   end
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to kikanmsts_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to kikanmsts_path
     else
       begin
@@ -80,7 +80,7 @@ class KikanmstsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @kikanmsts.to_csv, filename: "機関マスタ.csv" }
+      format.csv { send_data @kikanmsts.to_csv, filename: '機関マスタ.csv' }
     end
   end  
 

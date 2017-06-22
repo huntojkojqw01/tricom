@@ -5,7 +5,7 @@ class KeihibodiesController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @keihibodies.to_csv, filename: "経費ボディ.csv" }
+      format.csv { send_data @keihibodies.to_csv, filename: '経費ボディ.csv' }
     end
   end
 end

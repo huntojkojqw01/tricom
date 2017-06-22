@@ -44,18 +44,18 @@ class SetsubiyoyakusController < ApplicationController
       setsubi = param_setsubi
     end
 
-    if param_allday == "true"
-      @setsubiyoyaku = Setsubiyoyaku.new(予約者: session[:user],設備コード: setsubi,開始: "#{date} 00:00", 終了: "#{date} 24:00")
+    if param_allday == 'true'
+      @setsubiyoyaku = Setsubiyoyaku.new(予約者: session[:user],設備コード: setsubi,開始: '#{date} 00:00', 終了: '#{date} 24:00')
     else
-      @setsubiyoyaku = Setsubiyoyaku.new(予約者: session[:user],設備コード: setsubi,開始: "#{date} 09:00", 終了: "#{date} 18:00")
+      @setsubiyoyaku = Setsubiyoyaku.new(予約者: session[:user],設備コード: setsubi,開始: '#{date} 09:00', 終了: '#{date} 18:00')
     end
 
 
 
     # if(!param_date.nil?)
-    #   @setsubiyoyaku = Setsubiyoyaku.new(開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
+    #   @setsubiyoyaku = Setsubiyoyaku.new(開始: '#{param_date} 09:00', 終了: '#{param_date} 18:00')
     # else
-    #   @setsubiyoyaku = Setsubiyoyaku.new(開始: "#{date} 09:00", 終了: "#{date} 18:00")
+    #   @setsubiyoyaku = Setsubiyoyaku.new(開始: '#{date} 09:00', 終了: '#{date} 18:00')
     # end
     respond_with(@setsubiyoyaku)
   end
@@ -80,7 +80,7 @@ class SetsubiyoyakusController < ApplicationController
         # setsubiyoyaku_params['設備コーchanged']=true
     # end
     if @setsubiyoyaku.update_attributes(setsubiyoyaku_params)
-      flash[:notice] = t "app.flash.update_success"
+      flash[:notice] = t 'app.flash.update_success'
       redirect_to setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
     else
       @kaishamasters = Kaishamaster.all
@@ -97,13 +97,13 @@ class SetsubiyoyakusController < ApplicationController
 
   def ajax
     case params[:focus_field]
-      when "setsubiyoyaku_相手先"
+      when 'setsubiyoyaku_相手先'
         kaisha_name = Kaishamaster.find_by(code: params[:kaisha_code]).try :name
         data = {kaisha_name: kaisha_name}
         respond_to do |format|
           format.json { render json: data}
         end
-      when "setsubiyoyaku_update"
+      when 'setsubiyoyaku_update'
         setsubiyoyaku = Setsubiyoyaku.find(params[:eventId])
         setsubiyoyaku.update(開始: params[:event_start], 終了: params[:event_end])
         data = {setsubiyoyaku: setsubiyoyaku.id}
@@ -115,7 +115,7 @@ class SetsubiyoyakusController < ApplicationController
         setsubiyoyakuIds.each{ |setsubiyoyakuId|
           Setsubiyoyaku.find_by(id: setsubiyoyakuId).destroy
         }
-        data = {destroy_success: "success"}
+        data = {destroy_success: 'success'}
         respond_to do |format|
         format.json { render json: data}
       end
@@ -123,10 +123,10 @@ class SetsubiyoyakusController < ApplicationController
   end
   def import
     if params[:file].nil?
-      flash[:alert] = t "app.flash.file_nil"
+      flash[:alert] = t 'app.flash.file_nil'
       redirect_to setsubiyoyakus_path
-    elsif File.extname(params[:file].original_filename) != ".csv"
-      flash[:danger] = t "app.flash.file_format_invalid"
+    elsif File.extname(params[:file].original_filename) != '.csv'
+      flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to setsubiyoyakus_path
     else
       begin
@@ -149,7 +149,7 @@ class SetsubiyoyakusController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.csv { send_data @setsubiyoyakus.to_csv, filename: "設備予約.csv" }
+      format.csv { send_data @setsubiyoyakus.to_csv, filename: '設備予約.csv' }
     end
   end
   private
