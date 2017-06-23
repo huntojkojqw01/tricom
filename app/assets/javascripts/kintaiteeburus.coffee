@@ -3,13 +3,17 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
   oTable = $('.kintaiteeburutable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 0,12 ]},
       { "bSearchable": false, "aTargets": [ 0,12 ]},
       {
@@ -84,10 +88,10 @@ jQuery ->
     if d != undefined
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
-        $(this).removeClass('success')        
-      else       
+        $(this).removeClass('success')
+      else
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
       $("#edit_kintaiteeburu").attr("disabled", true);
@@ -163,66 +167,66 @@ jQuery ->
               $("#edit_kintaiteeburu").attr("disabled", false);
             else
               $("#edit_kintaiteeburu").attr("disabled", true);
-      ); 
-  $('#edit_kintaiteeburu').click ->      
-    new_address = oTable.row('tr.selected').data()[12].split("\"")[1]    
+      );
+  $('#edit_kintaiteeburu').click ->
+    new_address = oTable.row('tr.selected').data()[12].split("\"")[1]
     if new_address == undefined
       swal("行を選択してください。")
-    else            
-      window.location = new_address  
-  $("#kintaiteeburu_勤務タイプ").change ()->    
+    else
+      window.location = new_address
+  $("#kintaiteeburu_勤務タイプ").change ()->
     switch($(this).val())
       when "001"
-        $("#kintaiteeburu_出勤時刻_4i").val("07")        
+        $("#kintaiteeburu_出勤時刻_4i").val("07")
         $("#kintaiteeburu_出勤時刻_5i").val("00")
-        
-        $("#kintaiteeburu_退社時刻_4i").val("16")        
+
+        $("#kintaiteeburu_退社時刻_4i").val("16")
         $("#kintaiteeburu_退社時刻_5i").val("00")
       when "002"
-        $("#kintaiteeburu_出勤時刻_4i").val("07")        
+        $("#kintaiteeburu_出勤時刻_4i").val("07")
         $("#kintaiteeburu_出勤時刻_5i").val("30")
 
-        $("#kintaiteeburu_退社時刻_4i").val("16")        
+        $("#kintaiteeburu_退社時刻_4i").val("16")
         $("#kintaiteeburu_退社時刻_5i").val("30")
       when "003"
-        $("#kintaiteeburu_出勤時刻_4i").val("08")        
+        $("#kintaiteeburu_出勤時刻_4i").val("08")
         $("#kintaiteeburu_出勤時刻_5i").val("00")
 
-        $("#kintaiteeburu_退社時刻_4i").val("17")        
+        $("#kintaiteeburu_退社時刻_4i").val("17")
         $("#kintaiteeburu_退社時刻_5i").val("00")
       when "004"
-        $("#kintaiteeburu_出勤時刻_4i").val("08")        
+        $("#kintaiteeburu_出勤時刻_4i").val("08")
         $("#kintaiteeburu_出勤時刻_5i").val("30")
 
-        $("#kintaiteeburu_退社時刻_4i").val("17")        
+        $("#kintaiteeburu_退社時刻_4i").val("17")
         $("#kintaiteeburu_退社時刻_5i").val("30")
       when "005"
-        $("#kintaiteeburu_出勤時刻_4i").val("09")        
+        $("#kintaiteeburu_出勤時刻_4i").val("09")
         $("#kintaiteeburu_出勤時刻_5i").val("00")
 
-        $("#kintaiteeburu_退社時刻_4i").val("18")        
+        $("#kintaiteeburu_退社時刻_4i").val("18")
         $("#kintaiteeburu_退社時刻_5i").val("00")
       when "006"
-        $("#kintaiteeburu_出勤時刻_4i").val("09")        
+        $("#kintaiteeburu_出勤時刻_4i").val("09")
         $("#kintaiteeburu_出勤時刻_5i").val("30")
 
-        $("#kintaiteeburu_退社時刻_4i").val("19")        
+        $("#kintaiteeburu_退社時刻_4i").val("19")
         $("#kintaiteeburu_退社時刻_5i").val("30")
       when "007"
-        $("#kintaiteeburu_出勤時刻_4i").val("10")        
+        $("#kintaiteeburu_出勤時刻_4i").val("10")
         $("#kintaiteeburu_出勤時刻_5i").val("00")
 
-        $("#kintaiteeburu_退社時刻_4i").val("20")        
+        $("#kintaiteeburu_退社時刻_4i").val("20")
         $("#kintaiteeburu_退社時刻_5i").val("00")
       when "008"
-        $("#kintaiteeburu_出勤時刻_4i").val("10")        
+        $("#kintaiteeburu_出勤時刻_4i").val("10")
         $("#kintaiteeburu_出勤時刻_5i").val("30")
 
-        $("#kintaiteeburu_退社時刻_4i").val("20")        
+        $("#kintaiteeburu_退社時刻_4i").val("20")
         $("#kintaiteeburu_退社時刻_5i").val("30")
       when "009"
-        $("#kintaiteeburu_出勤時刻_4i").val("11")        
+        $("#kintaiteeburu_出勤時刻_4i").val("11")
         $("#kintaiteeburu_出勤時刻_5i").val("00")
 
-        $("#kintaiteeburu_退社時刻_4i").val("21")        
-        $("#kintaiteeburu_退社時刻_5i").val("00")      
+        $("#kintaiteeburu_退社時刻_4i").val("21")
+        $("#kintaiteeburu_退社時刻_5i").val("00")

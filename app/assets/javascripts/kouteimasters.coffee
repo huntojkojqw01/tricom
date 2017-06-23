@@ -1,12 +1,16 @@
 jQuery ->
   oTable = $('.kouteitable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 4,5]},
       {
         "targets": [4,5],
@@ -15,7 +19,7 @@ jQuery ->
       {
         "targets": 0,
         "visible": false
-      }      
+      }
     ],
     "oSearch": {"sSearch": queryParameters().search},
 
@@ -83,7 +87,7 @@ jQuery ->
   $(document).bind('ajaxError', 'form#new_kouteimaster', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
-  
+
   $('.kouteitable').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
@@ -96,7 +100,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')        
+        $(this).addClass('success')
         #$("#edit_koutei").attr("disabled", true);
         # $("#edit_koutei").attr("disabled", false);
         # $("#destroy_koutei").attr("disabled", false);
@@ -116,7 +120,7 @@ jQuery ->
   )
 
   $('#destroy_koutei').click () ->
-    kouteis = oTable.rows('tr.selected').data()    
+    kouteis = oTable.rows('tr.selected').data()
     kouteiIds = new Array();
     if kouteis.length == 0
       swal($('#message_confirm_select').text())
@@ -134,7 +138,7 @@ jQuery ->
         closeOnCancel: false
       }).then(() ->
         len = kouteis.length
-        for i in [0...len]          
+        for i in [0...len]
           kouteiIds[i] = kouteis[i][4].split('/')[2]
 
         $.ajax({
@@ -175,16 +179,16 @@ jQuery ->
               $("#edit_koutei").attr("disabled", false);
             else
               $("#edit_koutei").attr("disabled", true);
-      ); 
+      );
   $('#new_koutei').click ()->
-      $('#koutei-new-modal').modal('show')      
+      $('#koutei-new-modal').modal('show')
       $('#kouteimaster_所属コード').val('')
       $('#kouteimaster_工程コード').val('')
       $('#kouteimaster_工程名').val('')
       $('.form-group.has-error').each ()->
         $('.help-block', $(this)).html('')
         $(this).removeClass('has-error')
-  $('#edit_koutei').click () ->      
+  $('#edit_koutei').click () ->
     koutei = oTable.row('tr.selected').data()
     $('.form-group.has-error').each () ->
       $('.help-block', $(this)).html('')

@@ -1,12 +1,16 @@
 jQuery ->
   oTable = $('.yakushokutable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       # { "bSortable": false, "aTargets": [ 2,3 ]},
       # {
       #   "targets": [2,3],
@@ -70,9 +74,9 @@ jQuery ->
             }
 
             ]
-  })  
+  })
   $("#edit_yakushoku").attr("disabled", true);
-  $("#destroy_yakushoku").attr("disabled", true); 
+  $("#destroy_yakushoku").attr("disabled", true);
 
 
   $(document).bind('ajaxError', 'form#new_yakushokumaster', (event, jqxhr, settings, exception) ->
@@ -91,7 +95,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
         #$("#edit_yakushoku").attr("disabled", true);
         # $("#edit_yakushoku").attr("disabled", false);
         # $("#destroy_yakushoku").attr("disabled", false);
@@ -179,7 +183,7 @@ jQuery ->
       $('.form-group.has-error').each ()->
         $('.help-block', $(this)).html('')
         $(this).removeClass('has-error')
-  $('#edit_yakushoku').click () ->      
+  $('#edit_yakushoku').click () ->
     yakushoku = oTable.row('tr.selected').data()
     $('.form-group.has-error').each () ->
       $('.help-block', $(this)).html('')
@@ -189,4 +193,4 @@ jQuery ->
     else
       $('#yakushoku-edit-modal').modal('show')
       $('#yakushokumaster_役職コード').val(yakushoku[0])
-      $('#yakushokumaster_役職名').val(yakushoku[1])    
+      $('#yakushokumaster_役職名').val(yakushoku[1])

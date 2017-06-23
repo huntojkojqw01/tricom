@@ -1,12 +1,16 @@
 jQuery ->
   oKaishaTable = $('.kaishatable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       # { "bSortable": false, "aTargets": [ 2,3 ]},
       # {
       #   "targets": [2,3],
@@ -70,9 +74,9 @@ jQuery ->
             }
 
             ]
-  })  
+  })
   $("#edit_kaisha").attr("disabled", true);
-  $("#destroy_kaisha").attr("disabled", true); 
+  $("#destroy_kaisha").attr("disabled", true);
 
 
   $(document).bind('ajaxError', 'form#new_kaishamaster', (event, jqxhr, settings, exception) ->
@@ -110,7 +114,7 @@ jQuery ->
         # oKaishaTable.$('tr.selected').removeClass('selected')
         # oKaishaTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
         #$("#edit_kaisha").attr("disabled", true);
         # $("#edit_kaisha").attr("disabled", false);
         # $("#destroy_kaisha").attr("disabled", false);
@@ -199,7 +203,7 @@ jQuery ->
       $('.form-group.has-error').each ()->
         $('.help-block', $(this)).html('')
         $(this).removeClass('has-error')
-  $('#edit_kaisha').click () ->      
+  $('#edit_kaisha').click () ->
     kaisha = oKaishaTable.row('tr.selected').data()
     $('.form-group.has-error').each () ->
       $('.help-block', $(this)).html('')
@@ -210,4 +214,4 @@ jQuery ->
       $('#kaisha-edit-modal').modal('show')
       $('#kaishamaster_会社コード').val(kaisha[0])
       $('#kaishamaster_会社名').val(kaisha[1])
-      $('#kaishamaster_備考').val(kaisha[2])   
+      $('#kaishamaster_備考').val(kaisha[2])

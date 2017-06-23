@@ -1,6 +1,10 @@
 jQuery ->
   oTable = $('#jobmaster').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "scrollX": true,
 #    'scrollY': "300px",
     "pagingType": "full_numbers",
@@ -484,7 +488,7 @@ jQuery ->
       $('#jobmaster_入力社員番号').closest('.form-group').find('span.help-block').remove()
       $('#jobmaster_入力社員番号').closest('.form-group').removeClass 'has-error'
 
-  
+
   $('#user_table tbody').on( 'dblclick', 'tr', ()->
     $(this).addClass('selected');
     $(this).addClass('success');
@@ -503,7 +507,7 @@ jQuery ->
       $('#jobmaster_ユーザ名').val d[1]
       $('#jobmaster_ユーザ番号').closest('.form-group').find('span.help-block').remove()
       $('#jobmaster_ユーザ番号').closest('.form-group').removeClass 'has-error'
-  
+
   $('#kaisha-table-modal tbody').on( 'dblclick', 'tr', ()->
     $(this).addClass('selected');
     $(this).addClass('success');
