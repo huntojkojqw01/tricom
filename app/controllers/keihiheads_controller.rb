@@ -110,6 +110,50 @@ class KeihiheadsController < ApplicationController
     end
   end
 
+  def pdf_show_index
+    vars = request.query_parameters
+    date = vars['date']
+    shain = vars['shain']
+    shonin = vars['shonin']
+    if date.nil? && shain.nil? && shonin.nil?
+      @keihiheads = Keihihead.where(社員番号: session[:user], 清算予定日: Date.today).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+    elsif shonin == ''
+      if date == '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain == ''
+        @keihiheads = Keihihead.where(清算予定日: date).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      elsif date == '' && shain ==''
+        @keihiheads = Keihihead.all.order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      end
+    elsif shonin != ''
+      if shonin == '未承認'
+        shonin = nil
+      elsif shonin == '承認済'
+        shonin = 1
+      end
+      if date == '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain,承認済区分: shonin).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain == ''
+        @keihiheads = Keihihead.where(清算予定日: date,承認済区分: shonin).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      elsif date == '' && shain ==''
+        @keihiheads = Keihihead.where(承認済区分: shonin).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      elsif date != '' && shain != ''
+        @keihiheads = Keihihead.where(社員番号: shain, 清算予定日: date,承認済区分: shonin).order(清算予定日: :desc, 社員番号: :asc, 日付: :asc)
+      end
+    end
+    respond_to do |format|
+      format.pdf do
+        render  pdf: 'keihihead_pdf',
+                template: 'keihiheads/pdf_show_index.pdf.erb',
+                encoding: 'utf8',
+                orientation: 'Landscape',
+                title: (t 'title.keihi_pdf')
+      end
+    end
+  end
+
   def new
     week_start = Date.current.wday > 2 ? Date.current.next_week : Date.current.beginning_of_week
     seisan_yoteibi = week_start.advance(days: 1)

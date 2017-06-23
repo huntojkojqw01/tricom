@@ -791,3 +791,9 @@ jQuery ->
   $('#pdf_show_keihihead').click () ->
     keihiheadId = $('#keihihead_id').val()
     window.open('/keihiheads/pdf_show.pdf?locale=ja&keihiheadId=' +keihiheadId)
+
+  $('#print_index').click () ->
+    shain = $('#keihihead_対象者').val()
+    date =  $('.datepicker_search').val()
+    shonin = $('#keihihead_承認済区分').val()
+    window.open('/keihiheads/pdf_show_index.pdf?locale=ja&date=' +date+'&shain='+shain+'&shonin='+shonin)
