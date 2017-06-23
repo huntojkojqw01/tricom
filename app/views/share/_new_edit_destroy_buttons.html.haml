@@ -2,8 +2,8 @@
 %span#message_confirm_select{hidden: true}=t "app.select_confirm"
 %span#message_confirm_delete{hidden: true}=t "app.delete_confirm"
 -if new_path
-	=link_to t("title.new"),new_path,class: "btn btn-primary glyphicon"
+	=link_to t("title.new"),new_path,class: "btn btn-primary new-btn btn-custom-datatable dt-button", title: t("title.new")
 -else
-	%button.btn.btn-primary.glyphicon{id: "new_#{object}"}=t "title.new"
-%button.btn.btn-primary.glyphicon{id: "edit_#{object}"}=t "title.edit"
-%button.btn.btn-primary.glyphicon{id: "destroy_#{object}"}=t "title.delete"
+	%button.btn.btn-primary.new-btn.btn-custom-datatable.dt-button{id: "new_#{object}",title: t("title.new")}=t "title.new"
+%button.btn.btn-primary.edit-btn.btn-custom-datatable.dt-button{id: "edit_#{object}",title: t("title.edit")}=t "title.edit"
+%button.btn.btn-primary.delete-btn.btn-custom-datatable.dt-button{id: "destroy_#{object}",title: t("title.delete")}=t "title.delete"

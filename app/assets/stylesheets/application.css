@@ -24,6 +24,17 @@
  *= require dropzone
  *= require sweetalert2
 */
+.btn-custom-datatable:hover {
+  color: black;
+}
+.btn-custom-datatable{
+
+  margin-bottom: 25px;
+  margin-right: 0.333em;
+  padding-bottom: 0.5em;
+  padding-top: 0.5em;
+
+}
 .comment-text {
   margin-left: 5px;
   color: rgb(115, 115, 115)
