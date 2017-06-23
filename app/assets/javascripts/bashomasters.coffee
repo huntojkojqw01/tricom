@@ -1,12 +1,12 @@
 jQuery ->
   oTable = $('.bashotable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-12'l>><'row'<'col-md-7'B><'col-md-2'f><'col-md-3'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 6,7 ]},
       {
         "targets": [6,7],
@@ -80,17 +80,17 @@ jQuery ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
 
-  
+
 
   $('.bashotable').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
-        $(this).removeClass('success')        
-      else       
+        $(this).removeClass('success')
+      else
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
       $("#edit_basho").attr("disabled", true);
@@ -166,11 +166,10 @@ jQuery ->
               $("#edit_basho").attr("disabled", false);
             else
               $("#edit_basho").attr("disabled", true);
-      ); 
-  $('#edit_basho').click ->      
-    new_address = oTable.row('tr.selected').data()[6].split("\"")[1]    
+      );
+  $('#edit_basho').click ->
+    new_address = oTable.row('tr.selected').data()[6].split("\"")[1]
     if new_address == undefined
       swal("行を選択してください。")
-    else            
+    else
       window.location = new_address
-   
