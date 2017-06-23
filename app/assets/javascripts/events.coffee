@@ -129,7 +129,7 @@ jQuery ->
           $("#destroy_joutaimaster").attr("disabled", false);
         oJoutaiTable.page.jumpToData($('#event_状態コード').val(), 0);
 
-    if $(this).prev().is(element2)&&!$(element2).is(':disabled')      
+    if $(this).prev().is(element2)&&!$(element2).is(':disabled')
       $('#basho_search_modal').modal('show')
       if $('#event_場所コード').val() != ''
         oBashoTable.rows().every( ( rowIdx, tableLoop, rowLoop ) ->
