@@ -1,12 +1,12 @@
 jQuery ->
   oTable = $('.usertable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-12'l>><'row'<'col-md-7'B><'col-md-2'f><'col-md-3'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>"
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 3,4 ]},
       {
         "targets": [3,4],
@@ -111,7 +111,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
         #$("#edit_user").attr("disabled", true);
         # $("#edit_user").attr("disabled", false);
         # $("#destroy_user").attr("disabled", false);
@@ -190,10 +190,10 @@ jQuery ->
               $("#edit_user").attr("disabled", false);
             else
               $("#edit_user").attr("disabled", true);
-      ); 
-  $('#edit_user').click ->      
-    new_address = oTable.row('tr.selected').data()[3].split("\"")[1]    
+      );
+  $('#edit_user').click ->
+    new_address = oTable.row('tr.selected').data()[3].split("\"")[1]
     if new_address == undefined
       swal("行を選択してください。")
-    else            
-      window.location = new_address   
+    else
+      window.location = new_address

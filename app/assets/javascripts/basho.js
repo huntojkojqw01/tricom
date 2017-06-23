@@ -30,7 +30,7 @@ $(function() {
     //選択された行を判断
     $('#kaisha-table-modal tbody').on( 'click', 'tr', function () {
 
-        var d = oKaishaTable.row(this).data();        
+        var d = oKaishaTable.row(this).data();
         //$('#bashomaster_会社コード').val(d[0]);
         //$('#kaisha-name').text(d[1]);
 
@@ -40,7 +40,7 @@ $(function() {
             $('#kaisha_sentaku_ok').attr('disabled',true);
             $('#clear_kaisha').attr('disabled',true);
             // $('#bashomaster_会社コード').val('');
-            // $('#kaisha-name').text('');           
+            // $('#kaisha-name').text('');
         }
         else {
             oKaishaTable.$('tr.selected').removeClass('selected');
@@ -52,7 +52,7 @@ $(function() {
         }
 
     } );
-    $('#clear_kaisha').on( 'click', function () {        
+    $('#clear_kaisha').on( 'click', function () {
         oKaishaTable.$('tr.selected').removeClass('selected');
         oKaishaTable.$('tr.success').removeClass('success');
         $('#kaisha_sentaku_ok').attr('disabled',true);
@@ -60,7 +60,7 @@ $(function() {
         // $('#bashomaster_会社コード').val('');
         // $('#kaisha-name').text('');
     });
-    $('#kaisha_sentaku_ok').on( 'click', function () {        
+    $('#kaisha_sentaku_ok').on( 'click', function () {
         var d = oKaishaTable.row('tr.selected').data();
         $('#bashomaster_会社コード').val(d[0]);
         $('#kaisha-name').text(d[1]);
@@ -82,20 +82,20 @@ $(function() {
                 oKaishaTable.$('tr.selected').removeClass('selected');
                 oKaishaTable.$('tr.success').removeClass('success');
                 this.nodes().to$().addClass('selected');
-                this.nodes().to$().addClass('success');                
+                this.nodes().to$().addClass('success');
                 }
             });
             oKaishaTable.page.jumpToData($('#bashomaster_会社コード').val(), 0);
             $('#kaisha_sentaku_ok').attr('disabled',false);
             $('#clear_kaisha').attr('disabled',false);
-        }                          
+        }
     });
 });
 
 //button handle
 // $(function(){
 //     $('.refer-kaisha').click(function(){
-//         $('#kaisha-search-modal').modal('show');        
+//         $('#kaisha-search-modal').modal('show');
 //     });
 
 // });
