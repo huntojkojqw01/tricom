@@ -12,7 +12,7 @@
         = f.input (t 'title.kisha') do
           = f.select :有無, options_for_select(["帰社", "直帰", "連続"], :selected => @event.有無), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
     = f.input :場所コード, label: (t 'title.basho'), input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.bashomaster.try :場所名}", hint_html: {class: 'hint-basho-refer'}
-    %span#999= t 'title.basho999'    
+    %span.comment-text#999= t 'title.basho999'
     = f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.jobmaster.try :job名}", hint_html: {class: 'hint-job-refer'}
     -#= f.input :工程コード, label: '工程', input_html: {style: 'width:100px'}, as: :search_field, hint:"#{@event.kouteimaster.try :工程名}", hint_html: {class: 'hint-koutei-refer'}
     -#- shozoku = get_shozoku(session[:user]).所属コード
