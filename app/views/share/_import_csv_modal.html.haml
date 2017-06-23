@@ -1,0 +1,15 @@
+.modal#import-csv-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content{style: 'height: 200px'}
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel= (t 'app.label.import_data')
+      .modal-body
+        .spacer
+        = form_tag import_path, multipart: true, id: "import_form" do
+          .form-group
+            = label_tag 'selectcsv', nil, class: 'sr-only'
+            = file_field_tag :file , class: 'btn btn-default form-control'
+          .form-group
+            = label_tag 'importcsv', nil, class: 'sr-only'
+            = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-primary'
