@@ -26,7 +26,7 @@ RSpec.describe "Bashomasters management", type: :request do
   fixtures :bashomasters, :users
   before :each do
     @user= User.find(10029)
-    post login_path, {:session => {担当者コード: @user.id, password: 10029}}
+    post login_path, params: {:session => {担当者コード: @user.id, password: 10029}}
   end
 
   it "list all Bashomasters!" do
@@ -38,7 +38,7 @@ RSpec.describe "Bashomasters management", type: :request do
     get "/bashomasters/new"
     expect(response).to render_template(:new)
 
-    post "/bashomasters", {:bashomaster => valid_attributes}
+    post "/bashomasters",params: {:bashomaster => valid_attributes}
 
     expect(response).to redirect_to(assigns(:bashomaster))
     follow_redirect!
@@ -57,7 +57,7 @@ RSpec.describe "Bashomasters management", type: :request do
     get edit_bashomaster_path(bashomaster)
     expect(response).to render_template(:edit)
 
-    put bashomaster_path(bashomaster), {:bashomaster => new_attributes}
+    put bashomaster_path(bashomaster),params: {:bashomaster => new_attributes}
 
     expect(response).to redirect_to(assigns(:bashomaster))
     follow_redirect!
