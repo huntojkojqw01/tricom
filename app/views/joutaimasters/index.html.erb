@@ -46,5 +46,5 @@
 <%=render 'share/new_edit_destroy_buttons', object: "joutai",new_path: new_joutaimaster_path%>
 
 <% if can? :update, @joutaimasters %>
-  <%=render 'share/import_export_buttons',import_path: import_joutaimasters_path%>
+  <%=render 'share/import_csv_modal',import_path: import_joutaimasters_path%>
 <% end %>

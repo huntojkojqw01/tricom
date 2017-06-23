@@ -21,6 +21,6 @@
 
 =render 'share/new_edit_destroy_buttons', object: "yakushoku"
 - if can? :update, @yakushokumasters
-  =render 'share/import_export_buttons',import_path: import_yakushokumasters_path
+  =render 'share/import_csv_modal',import_path: import_yakushokumasters_path
 = render 'yakushoku_new_modal'
 = render 'yakushoku_edit_modal'

@@ -39,7 +39,7 @@
 </table>
 <%=render 'share/new_edit_destroy_buttons',object: 'koutei'%>
 <% if can? :update, @kouteimasters %>  
-  <%=render 'share/import_export_buttons',import_path: import_kouteimasters_path %>
+  <%=render 'share/import_csv_modal',import_path: import_kouteimasters_path %>
 <% end %>
 <%= render 'koutei_new_modal' %>
 <%= render 'koutei_edit_modal' %>

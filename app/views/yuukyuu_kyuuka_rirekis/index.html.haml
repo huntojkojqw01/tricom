@@ -28,4 +28,4 @@
         - msg = t 'app.delete_confirm'
         %td= link_to '削除', yuukyuu_kyuuka_rireki, :method => :delete, :data => { :confirm => msg }
 =render 'share/new_edit_destroy_buttons', object: "ykkkre",new_path: new_yuukyuu_kyuuka_rireki_path
-=render 'share/import_export_buttons',import_path: import_yuukyuu_kyuuka_rirekis_path
+=render 'share/import_csv_modal',import_path: import_yuukyuu_kyuuka_rirekis_path

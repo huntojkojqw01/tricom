@@ -18,4 +18,4 @@
         %td= yuusen.備考
 = render 'share/new_edit_destroy_buttons',object: 'yuusen',new_path: new_yuusen_path
 - if can? :update, @yuusens
-  =render 'share/import_export_buttons',import_path: import_yuusens_path
+  =render 'share/import_csv_modal',import_path: import_yuusens_path

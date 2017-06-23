@@ -36,7 +36,7 @@
 </table>
 <%=render 'share/new_edit_destroy_buttons', object: "holiday"%>
 <% if can? :update, @jpt_holiday_msts %>
-  <%=render 'share/import_export_buttons',import_path: import_jpt_holiday_msts_path%>
+  <%=render 'share/import_csv_modal',import_path: import_jpt_holiday_msts_path%>
 <% end %>
 <%= render 'holiday_edit_modal' %>
 <%= render 'holiday_new_modal' %>

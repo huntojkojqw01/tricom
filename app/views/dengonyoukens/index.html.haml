@@ -25,6 +25,7 @@
 = render 'share/new_edit_destroy_buttons',object: 'dengonyouken'
 
 - if can? :update, @dengonyoukens
-  =render 'share/import_export_buttons',import_path: import_dengonyoukens_path
+  //=render 'share/import_export_buttons',import_path: import_dengonyoukens_path
+  =render 'share/import_csv_modal',import_path: import_dengonyoukens_path
 = render 'dengonyouken_new_modal'
 = render 'dengonyouken_edit_modal'
