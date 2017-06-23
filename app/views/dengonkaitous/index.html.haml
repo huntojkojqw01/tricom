@@ -23,6 +23,7 @@
 
 = render 'share/new_edit_destroy_buttons',object: 'dengonkaitou'
 - if can? :update, @dengonkaitous
-  =render 'share/import_export_buttons',import_path: import_dengonkaitous_path
+//  =render 'share/import_export_buttons',import_path: import_dengonkaitous_path
+    =render 'share/import_csv_modal',import_path: import_dengonkaitous_path
 = render 'dengonkaitou_new_modal'
 = render 'dengonkaitou_edit_modal'

@@ -62,16 +62,17 @@
       - else
         = link_to (t 'title.new'), new_setsubiyoyaku_path,class: "btn btn-primary glyphicon"
       %button#destroy_setsubiyoyaku.btn.btn-primary.glyphicon=t "title.delete"
-      %span#import_button.btn.btn-primary.glyphicon.glyphicon-import      
+      //%span#import_button.btn.btn-primary.glyphicon.glyphicon-import      
       %span#export_setsubiyoyaku.btn.btn-primary.glyphicon.glyphicon-export
       .spacer
-      = form_tag import_setsubiyoyakus_path,id: 'import_form',class:'form-inline', multipart: true do
-        %div
-          = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-primary'
+      = render 'share/import_csv_modal',import_path: import_setsubiyoyakus_path
+      / = form_tag import_setsubiyoyakus_path,id: 'import_form',class:'form-inline', multipart: true do
+      /   %div
+      /     = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-primary'
           
-        .spacer
-        .form-group
-          = label_tag 'selectcsv', nil, class: 'sr-only'
-          = file_field_tag :file , class: 'btn btn-default'
-        .form-group
-          = label_tag 'importcsv', nil, class: 'sr-only'
+      /   .spacer
+      /   .form-group
+      /     = label_tag 'selectcsv', nil, class: 'sr-only'
+      /     = file_field_tag :file , class: 'btn btn-default'
+      /   .form-group
+      /     = label_tag 'importcsv', nil, class: 'sr-only'

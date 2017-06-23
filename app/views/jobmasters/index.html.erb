@@ -51,5 +51,5 @@
 </table>
 <%= render 'share/new_edit_destroy_buttons',object: 'jobmaster',new_path: new_jobmaster_path %>
 <% if can? :update, @jobmasters %>
-  <%=render 'share/import_export_buttons',import_path: import_jobmasters_path %>
+  <%=render 'share/import_csv_modal',import_path: import_jobmasters_path %>
 <% end %>

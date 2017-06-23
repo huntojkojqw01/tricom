@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
+  $.fn.dataTable.ext.buttons.import =
+  className: 'buttons-import'
+  action: (e, dt, node, config) ->
+    $('#import-csv-modal').modal('show')
   oTable = $('.setting-table').DataTable({
     "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     "fnDrawCallback": (oSettings) ->
@@ -30,6 +34,11 @@ jQuery ->
                 "extend":    'csvHtml5',
                 "text":      '<i class="fa fa-file-text-o"></i>',
                 "titleAttr": 'CSV'
+            },
+            {
+                "extend":    'import',
+                "text":      '<i class="glyphicon glyphicon-import"></i>',
+                "titleAttr": 'Import'
             },
             {
               "extend": 'selectAll',

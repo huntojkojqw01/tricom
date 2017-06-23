@@ -22,6 +22,6 @@
 
 =render 'share/new_edit_destroy_buttons',object: 'tsushinseigyou', new_path: new_tsushinseigyou_path
 - if can? :update, @tsushinseigyous
-  =render 'share/import_export_buttons',import_path: import_tsushinseigyous_path
+  =render 'share/import_csv_modal',import_path: import_tsushinseigyous_path
 = render 'tsushinseigyou_new_modal'
 = render 'tsushinseigyou_edit_modal'

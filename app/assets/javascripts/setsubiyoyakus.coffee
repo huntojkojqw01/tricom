@@ -2,6 +2,10 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
+  $.fn.dataTable.ext.buttons.import =
+  className: 'buttons-import'
+  action: (e, dt, node, config) ->
+    $('#import-csv-modal').modal('show')
   oTable = $('.setsubiyoyaku-table').DataTable({
     "dom": 'lBfrtip',
     "pagingType": "full_numbers",
@@ -48,6 +52,11 @@ jQuery ->
                 "columns": [1,2,3,4,5]
             }
         },
+        {
+                "extend":    'import',
+                "text":      '<i class="glyphicon glyphicon-import"></i>',
+                "titleAttr": 'Import'
+            },
         {
           "extend": 'selectAll',
           "action": ( e, dt, node, config )->

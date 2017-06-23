@@ -35,5 +35,5 @@
 </table>
 <%=render 'share/new_edit_destroy_buttons', object: "shozai",new_path: new_shozai_path%>
 <% if can? :update, @shozais %>
-  <%=render 'share/import_export_buttons',import_path: import_shozais_path %>
+  <%=render 'share/import_csv_modal',import_path: import_shozais_path %>
 <% end %>

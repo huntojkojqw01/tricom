@@ -564,6 +564,12 @@ function updateEvent(the_event){
 //     });
 //     return vars;
 //   }
+$.fn.dataTable.ext.buttons.import = {
+    className: 'buttons-import',
+    action: function ( e, dt, node, config ) {
+        $('#import-csv-modal').modal('show');
+    }
+};
 $(function(){
   oEventTable = $('#event_table').DataTable({
         "dom": 'lBfrtip',
@@ -619,6 +625,11 @@ $(function(){
             "exportOptions": {
                 "columns": [2,3,4,5,6,7,8,9]
             }
+        },
+        {
+                "extend":    'import',
+                "text":      '<i class="glyphicon glyphicon-import"></i>',
+                "titleAttr": 'Import'
         },
         {
           "extend": 'selectAll',

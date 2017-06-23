@@ -1132,6 +1132,12 @@ $(function(){
 });
 
 // init search table
+$.fn.dataTable.ext.buttons.import = {
+    className: 'buttons-import',
+    action: function ( e, dt, node, config ) {
+        $('#import-csv-modal').modal('show');
+    }
+};
 $(function(){
     oTable = $('#user_table').DataTable({
         "pagingType": "simple_numbers"
@@ -1236,6 +1242,11 @@ $(function(){
             "exportOptions": {
                 "columns": [1,2,3,4,5,6,7,8]
             }
+        },
+        {
+                "extend":    'import',
+                "text":      '<i class="glyphicon glyphicon-import"></i>',
+                "titleAttr": 'Import'
         },
         {
           "extend": 'selectAll',

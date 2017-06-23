@@ -445,7 +445,11 @@ jQuery ->
       mm='0'+mm;
     date =yyyy+mm+dd
 
-
+  $.fn.dataTable.ext.buttons.import =
+  className: 'buttons-import'
+  action: (e, dt, node, config) ->
+    $('#import-csv-modal').modal('show')
+    
   oKeihiheadTable = $('.keihihead-table').DataTable({
     "dom": 'lBfrtip',
     "pagingType": "simple_numbers"
@@ -493,6 +497,11 @@ jQuery ->
                 },
                 "filename": '経費出費明細_'+getDate()
             },
+            # {
+            #     "extend":    'import',
+            #     "text":      '<i class="glyphicon glyphicon-import"></i>',
+            #     "titleAttr": 'Import'
+            # },
             {
               "extend": 'selectAll',
               "action": ( e, dt, node, config ) ->

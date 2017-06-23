@@ -42,5 +42,5 @@
 </table>
 <%=render 'share/new_edit_destroy_buttons',object: 'mybasho',new_path: new_mybashomaster_path%>
 <% if can? :update, @mybashomasters %>
-  <%=render 'share/import_export_buttons',import_path: import_mybashomasters_path%>
+  <%=render 'share/import_csv_modal',import_path: import_mybashomasters_path%>
 <% end %>

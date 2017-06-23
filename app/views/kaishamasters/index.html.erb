@@ -33,7 +33,7 @@
 </table>
 <%=render 'share/new_edit_destroy_buttons', object: "kaisha"%>
 <% if can? :update, @kaishamasters %>
-  <%=render 'share/import_export_buttons',import_path: import_kaishamasters_path%>
+  <%=render 'share/import_csv_modal',import_path: import_kaishamasters_path%>
 <% end %>
 
 <%= render 'kaisha_new_modal' %>

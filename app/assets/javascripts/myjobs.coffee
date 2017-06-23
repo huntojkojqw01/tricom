@@ -1,4 +1,8 @@
 jQuery ->
+  $.fn.dataTable.ext.buttons.import =
+  className: 'buttons-import'
+  action: (e, dt, node, config) ->
+    $('#import-csv-modal').modal('show')
   oTable = $('#myjobmaster').DataTable({
     "dom": 'lBfrtip',
     "scrollX": true,
@@ -33,6 +37,11 @@ jQuery ->
                 "extend":    'csvHtml5',
                 "text":      '<i class="fa fa-file-text-o"></i>',
                 "titleAttr": 'CSV'
+            },
+            {
+                "extend":    'import',
+                "text":      '<i class="glyphicon glyphicon-import"></i>',
+                "titleAttr": 'Import'
             },
             {
               "extend": 'selectAll',
