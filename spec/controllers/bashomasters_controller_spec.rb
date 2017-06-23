@@ -51,12 +51,12 @@ RSpec.describe BashomastersController, type: :controller do
   describe "GET #show" do
     it "assigns the requested contact to @bashomaster" do
       bashomaster = bashomasters(:bashomaster_0)
-      get :show, id: bashomaster
+      get :show, params: {id: bashomaster}
       expect(assigns(:bashomaster)).to eq(bashomaster)
     end
 
     it "renders the #show view" do
-      get :show, id: bashomasters(:bashomaster_0)
+      get :show, params: {id: bashomasters(:bashomaster_0)}
       expect(response).to render_template :show
     end
   end
@@ -71,7 +71,7 @@ RSpec.describe BashomastersController, type: :controller do
   describe "GET #edit" do
     it "assigns the requested bashomaster as @bashomaster" do
       bashomaster = Bashomaster.create! valid_attributes
-      get :edit, {:id => bashomaster.id}
+      get :edit,params: {:id => bashomaster.id}
       expect(assigns(:bashomaster)).to eq(bashomaster)
     end
   end
@@ -80,18 +80,18 @@ RSpec.describe BashomastersController, type: :controller do
     context "with valid attributes" do
       it "creates a new bashomaster" do
         expect{
-          post :create, {:bashomaster => valid_attributes}
+          post :create,params: {:bashomaster => valid_attributes}
         }.to change(Bashomaster,:count).by(1)
         expect(flash[:notice]).to be_present
       end
       it "assigns a newly created bashomaster as @bashomaster" do
-        post :create, {:bashomaster => valid_attributes}
+        post :create,params: {:bashomaster => valid_attributes}
         expect(assigns(:bashomaster)).to be_a(Bashomaster)
         expect(assigns(:bashomaster)).to be_persisted
         expect(flash[:notice]).to be_present
       end
       it "redirects to the created bashomaster" do
-        post :create, {:bashomaster => valid_attributes}
+        post :create,params: {:bashomaster => valid_attributes}
         expect(response).to redirect_to Bashomaster.find_by(場所コード: 1122334455)
         expect(flash[:notice]).to be_present
       end
@@ -100,12 +100,12 @@ RSpec.describe BashomastersController, type: :controller do
     context "with invalid attributes" do
       it "does not save the new bashomaster" do
         expect{
-          post :create, {:bashomaster => invalid_attributes}
+          post :create,params: {:bashomaster => invalid_attributes}
         }.to_not change(Bashomaster,:count)
       end
 
       it "re-renders the new method" do
-        post :create, {:bashomaster => invalid_attributes}
+        post :create,params: {:bashomaster => invalid_attributes}
         expect(response).to render_template :new
       end
     end
@@ -118,7 +118,7 @@ RSpec.describe BashomastersController, type: :controller do
 
     context "valid attributes" do
       it "updates the requested bashomaster" do
-        put :update, {:id => @bashomaster.id, :bashomaster => new_attributes}
+        put :update,params: {:id => @bashomaster.id, :bashomaster => new_attributes}
         @bashomaster.reload
         expect(@bashomaster.場所名).to eq("test 場所名 updated")
         expect(@bashomaster.場所名カナ).to eq("test 場所名カナ updated")
@@ -128,13 +128,13 @@ RSpec.describe BashomastersController, type: :controller do
       end
 
       it "assigns the requested bashomaster as @bashomaster" do
-        put :update, {:id => @bashomaster.id, :bashomaster => valid_attributes}
+        put :update,params: {:id => @bashomaster.id, :bashomaster => valid_attributes}
         expect(assigns(:bashomaster)).to eq(@bashomaster)
         expect(flash[:notice]).to be_present
       end
 
       it "redirects to the bashomaster" do
-        put :update, {:id => @bashomaster.id, :bashomaster => valid_attributes}
+        put :update,params: {:id => @bashomaster.id, :bashomaster => valid_attributes}
         expect(response).to redirect_to(@bashomaster)
         expect(flash[:notice]).to be_present
       end
@@ -142,12 +142,12 @@ RSpec.describe BashomastersController, type: :controller do
 
     context "invalid attributes" do
       it "locates the requested @bashomaster" do
-        put :update, {:id => @bashomaster.id, :bashomaster => invalid_attributes}
+        put :update,params: {:id => @bashomaster.id, :bashomaster => invalid_attributes}
         expect(assigns(:bashomaster)).to eq(@bashomaster)
       end
 
       it "re-renders the edit method" do
-        put :update, {:id => @bashomaster.id, :bashomaster => invalid_attributes}
+        put :update,params: {:id => @bashomaster.id, :bashomaster => invalid_attributes}
         expect(response).to render_template :edit
       end
     end
@@ -159,12 +159,12 @@ RSpec.describe BashomastersController, type: :controller do
     end
     it "destroys the requested bashomaster" do
       expect {
-        delete :destroy, {:id => @bashomaster.id}
+        delete :destroy,params: {:id => @bashomaster.id}
       }.to change(Bashomaster, :count).by(-1)
     end
 
     it "redirects to the bashomasters list" do
-      delete :destroy, {:id => @bashomaster.id}
+      delete :destroy,params: {:id => @bashomaster.id}
       expect(response).to redirect_to(bashomasters_url)
     end
   end

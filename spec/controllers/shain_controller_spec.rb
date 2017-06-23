@@ -1,11 +1,11 @@
 require 'rails_helper'
 
-RSpec.describe ShainController, type: :controller do
-
+RSpec.describe ShainmastersController, type: :controller do
+	fixtures :users
   describe "GET #index" do
     it "returns http success" do
-      get :index_old
-      expect(response).to have_http_status(:success)
+      get :index
+      expect(response).to have_http_status(302)
     end
   end
 

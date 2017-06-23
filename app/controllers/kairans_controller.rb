@@ -1,6 +1,6 @@
 class KairansController < ApplicationController
   before_action :require_user!
-  before_action :set_kairan, only: [:update, :destroy]
+  before_action :set_kairan, only: [:update, :destroy,:show]
 
   respond_to :json
 
@@ -125,7 +125,7 @@ class KairansController < ApplicationController
   end
 
   def destroy
-    @kairanShoshai.destroy
+    @kairanShoshai.destroy if @kairanShosai
     respond_with(@kairanShoshai, location: kairans_url)
   end
 
@@ -140,8 +140,8 @@ class KairansController < ApplicationController
 
   private
   def set_kairan
-    @kairan = Kairan.find(params[:id])
-    @kairanShoshai = Kairanshosai.find(params[:id])
+    @kairan = Kairan.find_by(id: params[:id])
+    @kairanShoshai = Kairanshosai.find_by(id: params[:id])
   end
 
   def kairan_params

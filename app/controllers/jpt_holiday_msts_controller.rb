@@ -1,7 +1,6 @@
 class JptHolidayMstsController < ApplicationController
   before_action :require_user!
-  before_action :set_jpt_holiday_mst, only: [:show, :edit, :update, :destroy]
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
+  before_action :set_jpt_holiday_mst, only: [:show, :edit, :update, :destroy]  
   load_and_authorize_resource except: :export_csv
 
   respond_to :js,:html
@@ -115,9 +114,5 @@ class JptHolidayMstsController < ApplicationController
 
   def jpt_holiday_mst_params
     params.require(:jpt_holiday_mst).permit(:id, :event_date, :title, :description)
-  end
-
-  def set_param
-      @jpt_holiday_mst = JptHolidayMst.new
   end
 end
