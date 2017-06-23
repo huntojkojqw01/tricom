@@ -3,8 +3,7 @@ require 'rails_helper'
 RSpec.describe "ekis/edit", type: :view do
   before(:each) do
     @eki = assign(:eki, Eki.create!(
-      :first_name => "MyString",
-      :last_name => "MyString"
+      駅コード: "12345", 駅名: "県庁前", 駅名カナ: "ｹﾝﾁｮｳﾏｴ"
     ))
   end
 
@@ -13,9 +12,9 @@ RSpec.describe "ekis/edit", type: :view do
 
     assert_select "form[action=?][method=?]", eki_path(@eki), "post" do
 
-      assert_select "input#eki_first_name[name=?]", "eki[first_name]"
+      assert_select "input#eki_駅名カナ[name=?]", "eki[駅名カナ]"
 
-      assert_select "input#eki_last_name[name=?]", "eki[last_name]"
+      assert_select "input#eki_駅名[name=?]", "eki[駅名]"
     end
   end
 end

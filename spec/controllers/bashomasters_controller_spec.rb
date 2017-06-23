@@ -1,6 +1,5 @@
 require 'rails_helper'
 include SessionsHelper
-RSpec.configure {|c| c.before { expect(controller).not_to be_nil }}
 
 RSpec.describe BashomastersController, type: :controller do
   let(:valid_attributes) {
