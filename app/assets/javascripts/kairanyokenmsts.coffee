@@ -3,7 +3,11 @@
 # You can use CoffeeScript in this file: http://coffeescript.org/
 jQuery ->
   oTable = $('.kairanyouken-table').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
@@ -185,7 +189,7 @@ jQuery ->
             else
               $("#edit_kairanyouken").attr("disabled", true);
       );
-  
+
   $('#new_kairanyouken').click () ->
     $('#kairanyouken-new-modal').modal('show')
     $('#kairanyokenmst_名称').val('')
@@ -195,7 +199,7 @@ jQuery ->
       $('.help-block', $(this)).html('');
       $(this).removeClass('has-error');
     );
-    
+
   $('#edit_kairanyouken').click () ->
     kairanyouken_id = oTable.row('tr.selected').data()
     $('.form-group.has-error').each( () ->

@@ -1,12 +1,16 @@
 jQuery ->
   oTable = $('.kikantable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       # { "bSortable": false, "aTargets": [ 2,3 ]},
       # {
       #   "targets": [2,3],
@@ -70,16 +74,16 @@ jQuery ->
             }
 
             ]
-  })  
+  })
   $("#edit_kikan").attr("disabled", true);
-  $("#destroy_kikan").attr("disabled", true); 
+  $("#destroy_kikan").attr("disabled", true);
 
 
   $(document).bind('ajaxError', 'form#new_kikanmst', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
   )
 
-  
+
   $('.kikantable').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
@@ -92,7 +96,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
         #$("#edit_kikan").attr("disabled", true);
         # $("#edit_kikan").attr("disabled", false);
         # $("#destroy_kikan").attr("disabled", false);
@@ -181,7 +185,7 @@ jQuery ->
     $('.form-group.has-error').each ()->
       $('.help-block', $(this)).html('')
       $(this).removeClass('has-error')
-  $('#edit_kikan').click () ->      
+  $('#edit_kikan').click () ->
     kikan = oTable.row('tr.selected').data()
     $('.form-group.has-error').each () ->
       $('.help-block', $(this)).html('')
@@ -192,4 +196,4 @@ jQuery ->
       $('#kikan-edit-modal').modal('show')
       $('#kikanmst_機関コード').val(kikan[0])
       $('#kikanmst_機関名').val(kikan[1])
-      $('#kikanmst_備考').val(kikan[2])    
+      $('#kikanmst_備考').val(kikan[2])

@@ -1,12 +1,16 @@
 jQuery ->
   oTable = $('.shaintable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 10,11 ]},
       {
         "targets": [10,11],
@@ -111,7 +115,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
         #$("#edit_shain").attr("disabled", true);
         # $("#edit_shain").attr("disabled", false);
         # $("#destroy_shain").attr("disabled", false);
@@ -191,9 +195,9 @@ jQuery ->
             else
               $("#edit_shain").attr("disabled", true);
       );
-  $('#edit_shain').click ->      
-    new_address = oTable.row('tr.selected').data()[10].split("\"")[1]    
+  $('#edit_shain').click ->
+    new_address = oTable.row('tr.selected').data()[10].split("\"")[1]
     if new_address == undefined
       swal("行を選択してください。")
-    else            
+    else
       window.location = new_address

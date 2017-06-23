@@ -1,12 +1,16 @@
 jQuery ->
   oTable = $('.ykkkretable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 5,6 ]},
       {
         "targets": [5,6],
@@ -99,7 +103,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')        
+        $(this).addClass('success')
         #$("#edit_ykkkre").attr("disabled", true);
         # $("#edit_ykkkre").attr("disabled", false);
         # $("#destroy_ykkkre").attr("disabled", false);
@@ -119,7 +123,7 @@ jQuery ->
   )
 
   $('#destroy_ykkkre').click () ->
-    ykkkres = oTable.rows('tr.selected').data()    
+    ykkkres = oTable.rows('tr.selected').data()
     ykkkreIds = new Array();
     if ykkkres.length == 0
       swal($('#message_confirm_select').text())
@@ -137,7 +141,7 @@ jQuery ->
         closeOnCancel: false
       }).then(() ->
         len = ykkkres.length
-        for i in [0...len]          
+        for i in [0...len]
           ykkkreIds[i] = ykkkres[i][0]
 
         $.ajax({
@@ -178,12 +182,12 @@ jQuery ->
               $("#edit_ykkkre").attr("disabled", false);
             else
               $("#edit_ykkkre").attr("disabled", true);
-      ); 
-  $('#edit_ykkkre').click ->      
-    new_address = oTable.row('tr.selected').data()[5].split("\"")[1]    
+      );
+  $('#edit_ykkkre').click ->
+    new_address = oTable.row('tr.selected').data()[5].split("\"")[1]
     if new_address == undefined
       swal("行を選択してください。")
-    else            
+    else
       window.location = new_address
   $('.datetime').datetimepicker({
     format: 'YYYY/MM',

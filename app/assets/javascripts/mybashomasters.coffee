@@ -1,12 +1,16 @@
 jQuery ->
   oTable = $('.mybashotable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       { "bSortable": false, "aTargets": [ 8,9 ]},
       {
         "targets": [8,9],
@@ -111,7 +115,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')        
+        $(this).addClass('success')
         #$("#edit_mybasho").attr("disabled", true);
         # $("#edit_mybasho").attr("disabled", false);
         # $("#destroy_mybasho").attr("disabled", false);
@@ -131,7 +135,7 @@ jQuery ->
   )
 
   $('#destroy_mybasho').click () ->
-    mybashos = oTable.rows('tr.selected').data()    
+    mybashos = oTable.rows('tr.selected').data()
     mybashoIds = new Array();
     if mybashos.length == 0
       swal($('#message_confirm_select').text())
@@ -149,7 +153,7 @@ jQuery ->
         closeOnCancel: false
       }).then(() ->
         len = mybashos.length
-        for i in [0...len]          
+        for i in [0...len]
           mybashoIds[i] = mybashos[i][8].split('/')[2]
 
         $.ajax({
@@ -190,10 +194,10 @@ jQuery ->
               $("#edit_mybasho").attr("disabled", false);
             else
               $("#edit_mybasho").attr("disabled", true);
-      ); 
-  $('#edit_mybasho').click ->      
-    new_address = oTable.row('tr.selected').data()[8].split("\"")[1]    
+      );
+  $('#edit_mybasho').click ->
+    new_address = oTable.row('tr.selected').data()[8].split("\"")[1]
     if new_address == undefined
       swal("行を選択してください。")
-    else            
+    else
       window.location = new_address

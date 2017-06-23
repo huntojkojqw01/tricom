@@ -1,12 +1,16 @@
 jQuery ->
   oTable = $('.shozokutable').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
     ,
-    "aoColumnDefs": [ 
+    "aoColumnDefs": [
       # { "bSortable": false, "aTargets": [ 2,3 ]},
       # {
       #   "targets": [2,3],
@@ -70,9 +74,9 @@ jQuery ->
             }
 
             ]
-  })  
+  })
   $("#edit_shozoku").attr("disabled", true);
-  $("#destroy_shozoku").attr("disabled", true); 
+  $("#destroy_shozoku").attr("disabled", true);
 
 
   $(document).bind('ajaxError', 'form#new_shozokumaster', (event, jqxhr, settings, exception) ->
@@ -110,7 +114,7 @@ jQuery ->
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
-        $(this).addClass('success')       
+        $(this).addClass('success')
         #$("#edit_shozoku").attr("disabled", true);
         # $("#edit_shozoku").attr("disabled", false);
         # $("#destroy_shozoku").attr("disabled", false);
@@ -198,7 +202,7 @@ jQuery ->
       $('.form-group.has-error').each ()->
         $('.help-block', $(this)).html('')
         $(this).removeClass('has-error')
-  $('#edit_shozoku').click () ->      
+  $('#edit_shozoku').click () ->
     shozoku = oTable.row('tr.selected').data()
     $('.form-group.has-error').each () ->
       $('.help-block', $(this)).html('')
@@ -208,4 +212,4 @@ jQuery ->
     else
       $('#shozoku-edit-modal').modal('show')
       $('#shozokumaster_所属コード').val(shozoku[0])
-      $('#shozokumaster_所属名').val(shozoku[1])    
+      $('#shozokumaster_所属名').val(shozoku[1])
