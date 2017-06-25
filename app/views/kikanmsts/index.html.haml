@@ -25,7 +25,7 @@
 
 =render 'share/new_edit_destroy_buttons', object: "kikan"
 - if can? :update, @kikanmsts
-//  =render 'share/import_export_buttons',import_path: import_kikanmsts_path
+  //=render 'share/import_export_buttons',import_path: import_kikanmsts_path
   =render 'share/import_csv_modal',import_path: import_kikanmsts_path
 = render 'kikan_new_modal'
 = render 'kikan_edit_modal'
