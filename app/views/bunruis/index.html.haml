@@ -24,7 +24,7 @@
 = render 'share/new_edit_destroy_buttons',object: 'bunrui'
 
 - if can? :update, @bunruis
-//  =render 'share/import_export_buttons',import_path: import_bunruis_path
+  //=render 'share/import_export_buttons',import_path: import_bunruis_path
   =render 'share/import_csv_modal',import_path: import_bunruis_path
 = render 'bunrui_new_modal'
 = render 'bunrui_edit_modal'
