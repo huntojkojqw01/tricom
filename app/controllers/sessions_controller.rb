@@ -27,10 +27,10 @@ class SessionsController < ApplicationController
       ses = session[:code]
       if user.update(password: ses,flag_reset_password: true)
         Mail.deliver do
-          to '#{user.try(:email)}'
+          to "#{user.try(:email)}"
           from 'hminhduc@gmail.com'
           subject '【勤務システム】'
-          body '担当者コード : 【#{user.try(:担当者コード)}】。新しいパスワード: 【'+ses+'】。'
+          body "担当者コード : 【#{user.try(:担当者コード)}】。新しいパスワード: 【"+ses+"】。"
         end
         flash[:notice] = t 'app.login.send_mail'
         redirect_to login_path

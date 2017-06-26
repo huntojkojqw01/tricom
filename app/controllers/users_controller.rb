@@ -81,10 +81,10 @@ class UsersController < ApplicationController
         if new_pass == params[:user][:renew_password]
           flash[:notice] = t 'app.flash.update_success' if @user.update(password: new_pass, email: email, avatar: avatar)
           Mail.deliver do
-            to '#{email}'
+            to "#{email}"
             from 'hminhduc@gmail.com'
             subject '【勤務システム】ログインパスワード変更'
-            body 'パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！'
+            body "パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！"
           end
           redirect_to root_url
         else

@@ -207,9 +207,9 @@ class EventsController < ApplicationController
 
     if event.count > 0
       event = event.order(終了: :desc).first
-      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: event.終了, 終了: '#{param_date} 18:00')
+      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: event.終了, 終了: "#{param_date} 18:00")
     else
-      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: '#{param_date} 09:00', 終了: '#{param_date} 18:00')
+      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
     end
   end
 
@@ -218,7 +218,7 @@ class EventsController < ApplicationController
     vars = request.query_parameters
     # param_date = vars['start_at']
     param_date = vars['start_at'] || Date.today.to_s
-    @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: '#{param_date} 09:00', 終了: '#{param_date} 18:00')
+    @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
 
   end
   def shutchou_create
@@ -361,7 +361,7 @@ class EventsController < ApplicationController
     attributes = event_params.clone
     if event_params[:終了] == '' && event_params[:開始] != ''
       date = Time.now.strftime('%Y/%m/%d')
-      attributes[:終了] = '#{date} 18:00'
+      attributes[:終了] = "#{date} 18:00"
     end
     dateCheck = event_params[:開始].to_date
         if attributes[:状態コード] != '' && !attributes[:状態コード].nil?
@@ -425,7 +425,7 @@ class EventsController < ApplicationController
     attributes = event_params.clone
     if event_params[:終了] == '' && event_params[:開始] != ''
       date = Time.now.strftime('%Y/%m/%d')
-      attributes[:終了] = '#{date} 18:00'
+      attributes[:終了] = "#{date} 18:00"
     end
     dateCheck = event_params[:開始].to_date
     if attributes[:状態コード] != '' && !attributes[:状態コード].nil?
