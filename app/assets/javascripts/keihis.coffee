@@ -10,7 +10,7 @@ jQuery ->
     summary()
   $(document).on 'click', '.summary', (event) ->
     summary()
-  $("#destroy_keihihead").attr("disabled", true);
+  $("#destroy_keihihead").addClass("disabled");
 #  sonotha_sum, koutsuhi_sum, nittou_sum, shukuhaku_sum, shinsheino
   summary = () ->
     sonotha_sum = 0
@@ -253,37 +253,37 @@ jQuery ->
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
-      $('#kaisha_sentaku_ok').attr('disabled',true)
-      $('#clear_kaisha').attr('disabled',true)
+      $('#kaisha_sentaku_ok').addClass("disabled");
+      $('#clear_kaisha').addClass("disabled");
     else
       oKaisha_search_modal.$('tr.selected').removeClass('selected')
       oKaisha_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
-      $('#kaisha_sentaku_ok').attr('disabled',false)
-      $('#clear_kaisha').attr('disabled',false)
+      $('#kaisha_sentaku_ok').removeClass("disabled");
+      $('#clear_kaisha').removeClass("disabled");
 
   $('#job_table tbody').on 'click', 'tr', (event) ->
     d = oJob_search_modal.row(this).data()
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
-      $('#job_sentaku_ok').attr('disabled',true)
-      $('#clear_job').attr('disabled',true)
+      $('#job_sentaku_ok').addClass("disabled");
+      $('#clear_job').addClass("disabled");
     else
       oJob_search_modal.$('tr.selected').removeClass('selected')
       oJob_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
-      $('#job_sentaku_ok').attr('disabled',false)
-      $('#clear_job').attr('disabled',false)
+      $('#job_sentaku_ok').removeClass("disabled");
+      $('#clear_job').removeClass("disabled");
 
   $('#myjob_table tbody').on 'click', 'tr', (event) ->
     d = oMyjobTable.row(this).data()
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
-      $("#myjob_destroy").attr("disabled", true);
+      $("#myjob_destroy").addClass("disabled");
     else
       oMyjobTable.$('tr.selected').removeClass('selected')
       oMyjobTable.$('tr.success').removeClass('success')
@@ -296,7 +296,7 @@ jQuery ->
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
-      $("#mykaisha_destroy").attr("disabled", true);
+      $("#mykaisha_destroy").addClass("disabled");
     else
       oMykaishaTable.$('tr.selected').removeClass('selected')
       oMykaishaTable.$('tr.success').removeClass('success')
@@ -362,13 +362,13 @@ jQuery ->
     if ( $(this).hasClass('selected') )
       $(this).removeClass('selected')
       $(this).removeClass('success')
-      $('#shonin_sentaku_ok').attr('disabled',true)
+      $('#shonin_sentaku_ok').addClass("disabled");
     else
       oShonin_search_modal.$('tr.selected').removeClass('selected')
       oShonin_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
-      $('#shonin_sentaku_ok').attr('disabled',false)
+      $('#shonin_sentaku_ok').removeClass("disabled");
   $('#shonin_sentaku_ok').on 'click', () ->
     d = oShonin_search_modal.row('tr.selected').data()
     $('.shonin').val(d[1])
@@ -449,10 +449,13 @@ jQuery ->
   className: 'buttons-import'
   action: (e, dt, node, config) ->
     $('#import-csv-modal').modal('show')
-    
   oKeihiheadTable = $('.keihihead-table').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     "pagingType": "simple_numbers"
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
@@ -509,7 +512,7 @@ jQuery ->
                 oKeihiheadTable.$('tr').addClass('success')
                 selects = oKeihiheadTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#destroy_keihihead").attr("disabled", true);
+                  $("#destroy_keihihead").addClass("disabled");
                 else
                   $("#destroy_keihihead").attr("disabled", false);
                 $(".buttons-select-none").removeClass('disabled')
@@ -525,7 +528,7 @@ jQuery ->
                 oKeihiheadTable.$('tr').removeClass('success')
                 selects = oKeihiheadTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#destroy_keihihead").attr("disabled", true);
+                  $("#destroy_keihihead").addClass("disabled");
                 else
                   $("#destroy_keihihead").attr("disabled", false);
                 $(".buttons-select-none").addClass('disabled')
@@ -632,7 +635,7 @@ jQuery ->
 
       selects = oKeihiheadTable.rows('tr.selected').data()
       if selects.length == 0
-        $("#destroy_keihihead").attr("disabled", true);
+        $("#destroy_keihihead").addClass("disabled");
         $(".buttons-select-none").addClass('disabled')
       else
         $("#destroy_keihihead").attr("disabled", false);
@@ -715,12 +718,12 @@ jQuery ->
                 if $(thisRow).hasClass('selected')
                   $(thisRow).removeClass('selected')
                   $(thisRow).removeClass('success')
-        $("#destroy_keihihead").attr("disabled", true);
+        $("#destroy_keihihead").addClass("disabled");
       ,(dismiss) ->
         if dismiss == 'cancel'
           selects = oKeihiheadTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#destroy_keihihead").attr("disabled", true);
+            $("#destroy_keihihead").addClass("disabled");
           else
             $("#destroy_keihihead").attr("disabled", false);
       );
@@ -783,11 +786,11 @@ jQuery ->
       #           if $(thisRow).hasClass('selected')
       #             $(thisRow).removeClass('selected')
       #             $(thisRow).removeClass('success')
-      #   $("#destroy_keihihead").attr("disabled", true);
+      #   $("#destroy_keihihead").addClass("disabled");
       # else
       #   selects = oKeihiheadTable.rows('tr.selected').data()
       #   if selects.length == 0
-      #     $("#destroy_keihihead").attr("disabled", true);
+      #     $("#destroy_keihihead").addClass("disabled");
       #   else
       #     $("#destroy_keihihead").attr("disabled", false);
 

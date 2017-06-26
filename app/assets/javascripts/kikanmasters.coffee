@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kikan").attr("disabled", true);
-                  $("#destroy_kikan").attr("disabled", true);
+                  $("#edit_kikan").addClass("disabled");
+                  $("#destroy_kikan").addClass("disabled");
                 else
-                  $("#destroy_kikan").attr("disabled", false);
+                  $("#destroy_kikan").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kikan").attr("disabled", false);
+                    $("#edit_kikan").removeClass("disabled");
                   else
-                    $("#edit_kikan").attr("disabled", true);
+                    $("#edit_kikan").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,21 +71,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kikan").attr("disabled", true);
-                  $("#destroy_kikan").attr("disabled", true);
+                  $("#edit_kikan").addClass("disabled");
+                  $("#destroy_kikan").addClass("disabled");
                 else
-                  $("#destroy_kikan").attr("disabled", false);
+                  $("#destroy_kikan").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kikan").attr("disabled", false);
+                    $("#edit_kikan").removeClass("disabled");
                   else
-                    $("#edit_kikan").attr("disabled", true);
+                    $("#edit_kikan").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
-  $("#edit_kikan").attr("disabled", true);
-  $("#destroy_kikan").attr("disabled", true);
+  $("#edit_kikan").addClass("disabled");
+  $("#destroy_kikan").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_kikanmst', (event, jqxhr, settings, exception) ->
@@ -99,28 +99,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_kikan").attr("disabled", true);
-        # $("#destroy_kikan").attr("disabled", true);
+        # $("#edit_kikan").addClass("disabled");
+        # $("#destroy_kikan").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_kikan").attr("disabled", true);
-        # $("#edit_kikan").attr("disabled", false);
-        # $("#destroy_kikan").attr("disabled", false);
+        #$("#edit_kikan").addClass("disabled");
+        # $("#edit_kikan").removeClass("disabled");
+        # $("#destroy_kikan").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_kikan").attr("disabled", true);
-      $("#destroy_kikan").attr("disabled", true);
+      $("#edit_kikan").addClass("disabled");
+      $("#destroy_kikan").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_kikan").attr("disabled", false);
+      $("#destroy_kikan").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_kikan").attr("disabled", false);
+        $("#edit_kikan").removeClass("disabled");
       else
-        $("#edit_kikan").attr("disabled", true);
+        $("#edit_kikan").addClass("disabled");
 
   )
 
@@ -168,22 +168,22 @@ jQuery ->
             console.log("kikan_削除する keydown Unsuccessful")
 
         })
-        $("#edit_kikan").attr("disabled", true);
-        $("#destroy_kikan").attr("disabled", true);
+        $("#edit_kikan").addClass("disabled");
+        $("#destroy_kikan").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_kikan").attr("disabled", true);
-            $("#destroy_kikan").attr("disabled", true);
+            $("#edit_kikan").addClass("disabled");
+            $("#destroy_kikan").addClass("disabled");
           else
-            $("#destroy_kikan").attr("disabled", false);
+            $("#destroy_kikan").removeClass("disabled");
             if selects.length == 1
-              $("#edit_kikan").attr("disabled", false);
+              $("#edit_kikan").removeClass("disabled");
             else
-              $("#edit_kikan").attr("disabled", true);
+              $("#edit_kikan").addClass("disabled");
       );
   $('#new_kikan').click ()->
     $('#kikan-new-modal').modal('show')

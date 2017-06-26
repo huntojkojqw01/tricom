@@ -50,14 +50,14 @@ jQuery ->
                 oKaishaTable.$('tr').addClass('success')
                 selects = oKaishaTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kaisha").attr("disabled", true);
-                  $("#destroy_kaisha").attr("disabled", true);
+                  $("#edit_kaisha").addClass("disabled");
+                  $("#destroy_kaisha").addClass("disabled");
                 else
-                  $("#destroy_kaisha").attr("disabled", false);
+                  $("#destroy_kaisha").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kaisha").attr("disabled", false);
+                    $("#edit_kaisha").removeClass("disabled");
                   else
-                    $("#edit_kaisha").attr("disabled", true);
+                    $("#edit_kaisha").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,21 +71,21 @@ jQuery ->
                 oKaishaTable.$('tr').removeClass('success')
                 selects = oKaishaTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kaisha").attr("disabled", true);
-                  $("#destroy_kaisha").attr("disabled", true);
+                  $("#edit_kaisha").addClass("disabled");
+                  $("#destroy_kaisha").addClass("disabled");
                 else
-                  $("#destroy_kaisha").attr("disabled", false);
+                  $("#destroy_kaisha").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kaisha").attr("disabled", false);
+                    $("#edit_kaisha").removeClass("disabled");
                   else
-                    $("#edit_kaisha").attr("disabled", true);
+                    $("#edit_kaisha").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
-  $("#edit_kaisha").attr("disabled", true);
-  $("#destroy_kaisha").attr("disabled", true);
+  $("#edit_kaisha").addClass("disabled");
+  $("#destroy_kaisha").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_kaishamaster', (event, jqxhr, settings, exception) ->
@@ -117,28 +117,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_kaisha").attr("disabled", true);
-        # $("#destroy_kaisha").attr("disabled", true);
+        # $("#edit_kaisha").addClass("disabled");
+        # $("#destroy_kaisha").addClass("disabled");
       else
         # oKaishaTable.$('tr.selected').removeClass('selected')
         # oKaishaTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_kaisha").attr("disabled", true);
-        # $("#edit_kaisha").attr("disabled", false);
-        # $("#destroy_kaisha").attr("disabled", false);
+        #$("#edit_kaisha").addClass("disabled");
+        # $("#edit_kaisha").removeClass("disabled");
+        # $("#destroy_kaisha").removeClass("disabled");
     selects = oKaishaTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_kaisha").attr("disabled", true);
-      $("#destroy_kaisha").attr("disabled", true);
+      $("#edit_kaisha").addClass("disabled");
+      $("#destroy_kaisha").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_kaisha").attr("disabled", false);
+      $("#destroy_kaisha").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_kaisha").attr("disabled", false);
+        $("#edit_kaisha").removeClass("disabled");
       else
-        $("#edit_kaisha").attr("disabled", true);
+        $("#edit_kaisha").addClass("disabled");
 
   )
 
@@ -186,22 +186,22 @@ jQuery ->
             console.log("kaisha_削除する keydown Unsuccessful")
 
         })
-        $("#edit_kaisha").attr("disabled", true);
-        $("#destroy_kaisha").attr("disabled", true);
+        $("#edit_kaisha").addClass("disabled");
+        $("#destroy_kaisha").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oKaishaTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_kaisha").attr("disabled", true);
-            $("#destroy_kaisha").attr("disabled", true);
+            $("#edit_kaisha").addClass("disabled");
+            $("#destroy_kaisha").addClass("disabled");
           else
-            $("#destroy_kaisha").attr("disabled", false);
+            $("#destroy_kaisha").removeClass("disabled");
             if selects.length == 1
-              $("#edit_kaisha").attr("disabled", false);
+              $("#edit_kaisha").removeClass("disabled");
             else
-              $("#edit_kaisha").attr("disabled", true);
+              $("#edit_kaisha").addClass("disabled");
       );
   $('#new_kaisha').click ()->
       $('#kaisha-new-modal').modal('show')

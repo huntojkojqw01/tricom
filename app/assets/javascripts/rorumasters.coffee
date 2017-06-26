@@ -48,14 +48,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_rorumaster").attr("disabled", true);
-                  $("#destroy_rorumaster").attr("disabled", true);
+                  $("#edit_rorumaster").addClass("disabled");
+                  $("#destroy_rorumaster").addClass("disabled");
                 else
-                  $("#destroy_rorumaster").attr("disabled", false);
+                  $("#destroy_rorumaster").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_rorumaster").attr("disabled", false);
+                    $("#edit_rorumaster").removeClass("disabled");
                   else
-                    $("#edit_rorumaster").attr("disabled", true);
+                    $("#edit_rorumaster").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -69,22 +69,22 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_rorumaster").attr("disabled", true);
-                  $("#destroy_rorumaster").attr("disabled", true);
+                  $("#edit_rorumaster").addClass("disabled");
+                  $("#destroy_rorumaster").addClass("disabled");
                 else
-                  $("#destroy_rorumaster").attr("disabled", false);
+                  $("#destroy_rorumaster").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_rorumaster").attr("disabled", false);
+                    $("#edit_rorumaster").removeClass("disabled");
                   else
-                    $("#edit_rorumaster").attr("disabled", true);
+                    $("#edit_rorumaster").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
 
 
-  $("#edit_rorumaster").attr("disabled", true);
-  $("#destroy_rorumaster").attr("disabled", true);
+  $("#edit_rorumaster").addClass("disabled");
+  $("#destroy_rorumaster").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_rorumaster', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -113,27 +113,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_rorumaster").attr("disabled", true);
-        # $("#destroy_rorumaster").attr("disabled", true);
+        # $("#edit_rorumaster").addClass("disabled");
+        # $("#destroy_rorumaster").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_rorumaster").attr("disabled", false);
-        # $("#destroy_rorumaster").attr("disabled", false);
+        # $("#edit_rorumaster").removeClass("disabled");
+        # $("#destroy_rorumaster").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_rorumaster").attr("disabled", true);
-      $("#destroy_rorumaster").attr("disabled", true);
+      $("#edit_rorumaster").addClass("disabled");
+      $("#destroy_rorumaster").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_rorumaster").attr("disabled", false);
+      $("#destroy_rorumaster").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_rorumaster").attr("disabled", false);
+        $("#edit_rorumaster").removeClass("disabled");
       else
-        $("#edit_rorumaster").attr("disabled", true);
+        $("#edit_rorumaster").addClass("disabled");
   )
 
   $('#destroy_rorumaster').click () ->
@@ -181,22 +181,22 @@ jQuery ->
             console.log("rorumaster_削除する keydown Unsuccessful")
 
         })
-        $("#edit_rorumaster").attr("disabled", true);
-        $("#destroy_rorumaster").attr("disabled", true);
+        $("#edit_rorumaster").addClass("disabled");
+        $("#destroy_rorumaster").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_rorumaster").attr("disabled", true);
-            $("#destroy_rorumaster").attr("disabled", true);
+            $("#edit_rorumaster").addClass("disabled");
+            $("#destroy_rorumaster").addClass("disabled");
           else
-            $("#destroy_rorumaster").attr("disabled", false);
+            $("#destroy_rorumaster").removeClass("disabled");
             if selects.length == 1
-              $("#edit_rorumaster").attr("disabled", false);
+              $("#edit_rorumaster").removeClass("disabled");
             else
-              $("#edit_rorumaster").attr("disabled", true);
+              $("#edit_rorumaster").addClass("disabled");
       );
 
   $('#new_rorumaster').click () ->

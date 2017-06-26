@@ -83,10 +83,10 @@ $(function () {
                         console.log("mybasho_削除する keydown Unsuccessful");
                     }
                 });
-                $("#mybasho_destroy").attr("disabled", true);
+                $("#mybasho_destroy").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
-                    $("#myjob_destroy").attr("disabled", false);
+                    $("#myjob_destroy").removeClass("disabled");
                 }
             });
         }
@@ -130,11 +130,11 @@ $(function () {
                         console.log("myjob_削除する keydown Unsuccessful");
                     }
                 });
-                $("#myjob_destroy").attr("disabled", true);
+                $("#myjob_destroy").addClass("disabled");
 
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
-                    $("#myjob_destroy").attr("disabled", false);
+                    $("#myjob_destroy").removeClass("disabled");
                 }
             });
         }
@@ -165,7 +165,7 @@ $(function () {
 
         oMybashoTable.$('tr.selected').removeClass('selected');
         oMybashoTable.$('tr.success').removeClass('success');
-        $("#mybasho_destroy").attr("disabled", true);
+        $("#mybasho_destroy").addClass("disabled");
 
     } );
 
@@ -175,7 +175,7 @@ $(function () {
 
         oMyjobTable.$('tr.selected').removeClass('selected');
         oMyjobTable.$('tr.success').removeClass('success');
-        $("#myjob_destroy").attr("disabled", true);
+        $("#myjob_destroy").addClass("disabled");
     } );
 
 
@@ -262,14 +262,14 @@ $(function(){
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
-            $("#mybasho_destroy").attr("disabled", true);
+            $("#mybasho_destroy").addClass("disabled");
         }
         else {
             oMybashoTable.$('tr.selected').removeClass('selected');
             oMybashoTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
-            $("#mybasho_destroy").attr("disabled", false);
+            $("#mybasho_destroy").removeClass("disabled");
         }
     } );
 
@@ -279,14 +279,14 @@ $(function(){
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
-            $("#myjob_destroy").attr("disabled", true);
+            $("#myjob_destroy").addClass("disabled");
         }
         else {
             oMyjobTable.$('tr.selected').removeClass('selected');
             oMyjobTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
-            $("#myjob_destroy").attr("disabled", false);
+            $("#myjob_destroy").removeClass("disabled");
         }
 
     } );

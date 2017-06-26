@@ -48,14 +48,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_bunrui").attr("disabled", true);
-                  $("#destroy_bunrui").attr("disabled", true);
+                  $("#edit_bunrui").addClass("disabled");
+                  $("#destroy_bunrui").addClass("disabled");
                 else
-                  $("#destroy_bunrui").attr("disabled", false);
+                  $("#destroy_bunrui").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_bunrui").attr("disabled", false);
+                    $("#edit_bunrui").removeClass("disabled");
                   else
-                    $("#edit_bunrui").attr("disabled", true);
+                    $("#edit_bunrui").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -69,21 +69,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_bunrui").attr("disabled", true);
-                  $("#destroy_bunrui").attr("disabled", true);
+                  $("#edit_bunrui").addClass("disabled");
+                  $("#destroy_bunrui").addClass("disabled");
                 else
-                  $("#destroy_bunrui").attr("disabled", false);
+                  $("#destroy_bunrui").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_bunrui").attr("disabled", false);
+                    $("#edit_bunrui").removeClass("disabled");
                   else
-                    $("#edit_bunrui").attr("disabled", true);
+                    $("#edit_bunrui").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
 
-  $("#edit_bunrui").attr("disabled", true);
-  $("#destroy_bunrui").attr("disabled", true);
+  $("#edit_bunrui").addClass("disabled");
+  $("#destroy_bunrui").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_bunrui', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -112,27 +112,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_bunrui").attr("disabled", true);
-        # $("#destroy_bunrui").attr("disabled", true);
+        # $("#edit_bunrui").addClass("disabled");
+        # $("#destroy_bunrui").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_bunrui").attr("disabled", false);
-        # $("#destroy_bunrui").attr("disabled", false);
+        # $("#edit_bunrui").removeClass("disabled");
+        # $("#destroy_bunrui").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_bunrui").attr("disabled", true);
-      $("#destroy_bunrui").attr("disabled", true);
+      $("#edit_bunrui").addClass("disabled");
+      $("#destroy_bunrui").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_bunrui").attr("disabled", false);
+      $("#destroy_bunrui").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_bunrui").attr("disabled", false);
+        $("#edit_bunrui").removeClass("disabled");
       else
-        $("#edit_bunrui").attr("disabled", true);
+        $("#edit_bunrui").addClass("disabled");
   )
 
   $('#destroy_bunrui').click () ->
@@ -180,22 +180,22 @@ jQuery ->
             console.log("bunrui_削除する keydown Unsuccessful")
 
         })
-        $("#edit_bunrui").attr("disabled", true);
-        $("#destroy_bunrui").attr("disabled", true);
+        $("#edit_bunrui").addClass("disabled");
+        $("#destroy_bunrui").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_bunrui").attr("disabled", true);
-            $("#destroy_bunrui").attr("disabled", true);
+            $("#edit_bunrui").addClass("disabled");
+            $("#destroy_bunrui").addClass("disabled");
           else
-            $("#destroy_bunrui").attr("disabled", false);
+            $("#destroy_bunrui").removeClass("disabled");
             if selects.length == 1
-              $("#edit_bunrui").attr("disabled", false);
+              $("#edit_bunrui").removeClass("disabled");
             else
-              $("#edit_bunrui").attr("disabled", true);
+              $("#edit_bunrui").addClass("disabled");
       );
 
   $('#new_bunrui').click () ->

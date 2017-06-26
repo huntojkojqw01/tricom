@@ -60,11 +60,11 @@ jQuery ->
         );
         check_select = oJoutaiTable.rows('tr.selected').data();
         if check_select == undefined
-          $("#edit_joutaimaster").attr("disabled", true);
-          $("#destroy_joutaimaster").attr("disabled", true);
+          $("#edit_joutaimaster").addClass("disabled");
+          $("#destroy_joutaimaster").addClass("disabled");
         else
-          $("#edit_joutaimaster").attr("disabled", false);
-          $("#destroy_joutaimaster").attr("disabled", false);
+          $("#edit_joutaimaster").removeClass("disabled");
+          $("#destroy_joutaimaster").removeClass("disabled");
         oJoutaiTable.page.jumpToData($('#event_状態コード').val(), 0);
 
     if $(this).prev().is(element2)
@@ -80,11 +80,11 @@ jQuery ->
         );
         check_select = oBashoTable.rows('tr.selected').data();
         if check_select == undefined
-          $("#edit_basho").attr("disabled", true);
-          $("#destroy_basho").attr("disabled", true);
+          $("#edit_basho").addClass("disabled");
+          $("#destroy_basho").addClass("disabled");
         else
-          $("#edit_basho").attr("disabled", false);
-          $("#destroy_basho").attr("disabled", false);
+          $("#edit_basho").removeClass("disabled");
+          $("#destroy_basho").removeClass("disabled");
         oBashoTable.page.jumpToData($('#event_場所コード').val(), 0);
 
     if $(this).prev().is(element3)
@@ -100,11 +100,11 @@ jQuery ->
         );
         check_select = oJobTable.rows('tr.selected').data();
         if check_select == undefined
-          $("#edit_jobmaster").attr("disabled", true);
-          $("#destroy_jobmaster").attr("disabled", true);
+          $("#edit_jobmaster").addClass("disabled");
+          $("#destroy_jobmaster").addClass("disabled");
         else
-          $("#edit_jobmaster").attr("disabled", false);
-          $("#destroy_jobmaster").attr("disabled", false);
+          $("#edit_jobmaster").removeClass("disabled");
+          $("#destroy_jobmaster").removeClass("disabled");
         oJobTable.page.jumpToData($('#event_JOB').val(), 0);
 
     if $(this).prev().is(element4)
@@ -121,14 +121,14 @@ jQuery ->
       $('#mybasho_search_modal').modal('show')
       mybasho = oMybashoTable.row('tr.selected').data();
       if mybasho == undefined
-        $("#mybasho_destroy").attr("disabled", true);
+        $("#mybasho_destroy").addClass("disabled");
       else
-        $("#mybasho_destroy").attr("disabled", false);
+        $("#mybasho_destroy").removeClass("disabled");
     if $(this).prev().prev().is(element2)
       $('#myjob_search_modal').modal('show')
       myjob = oMyjobTable.row('tr.selected').data();
       if myjob == undefined
-        $("#myjob_destroy").attr("disabled", true);
+        $("#myjob_destroy").addClass("disabled");
       else
-        $("#myjob_destroy").attr("disabled", false);
+        $("#myjob_destroy").removeClass("disabled");
   )

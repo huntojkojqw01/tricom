@@ -61,14 +61,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_jobmaster").attr("disabled", true);
-                  $("#destroy_jobmaster").attr("disabled", true);
+                  $("#edit_jobmaster").addClass("disabled");
+                  $("#destroy_jobmaster").addClass("disabled");
                 else
-                  $("#destroy_jobmaster").attr("disabled", false);
+                  $("#destroy_jobmaster").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_jobmaster").attr("disabled", false);
+                    $("#edit_jobmaster").removeClass("disabled");
                   else
-                    $("#edit_jobmaster").attr("disabled", true);
+                    $("#edit_jobmaster").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -82,20 +82,20 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_jobmaster").attr("disabled", true);
-                  $("#destroy_jobmaster").attr("disabled", true);
+                  $("#edit_jobmaster").addClass("disabled");
+                  $("#destroy_jobmaster").addClass("disabled");
                 else
-                  $("#destroy_jobmaster").attr("disabled", false);
+                  $("#destroy_jobmaster").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_jobmaster").attr("disabled", false);
+                    $("#edit_jobmaster").removeClass("disabled");
                   else
-                    $("#edit_jobmaster").attr("disabled", true);
+                    $("#edit_jobmaster").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
-  $("#edit_jobmaster").attr("disabled", true);
-  $("#destroy_jobmaster").attr("disabled", true);
+  $("#edit_jobmaster").addClass("disabled");
+  $("#destroy_jobmaster").addClass("disabled");
 
   $('#jobmaster').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
@@ -103,27 +103,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_jobmaster").attr("disabled", true);
-        # $("#destroy_jobmaster").attr("disabled", true);
+        # $("#edit_jobmaster").addClass("disabled");
+        # $("#destroy_jobmaster").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_jobmaster").attr("disabled", false);
-        # $("#destroy_jobmaster").attr("disabled", false);
+        # $("#edit_jobmaster").removeClass("disabled");
+        # $("#destroy_jobmaster").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_jobmaster").attr("disabled", true);
-      $("#destroy_jobmaster").attr("disabled", true);
+      $("#edit_jobmaster").addClass("disabled");
+      $("#destroy_jobmaster").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_jobmaster").attr("disabled", false);
+      $("#destroy_jobmaster").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_jobmaster").attr("disabled", false);
+        $("#edit_jobmaster").removeClass("disabled");
       else
-        $("#edit_jobmaster").attr("disabled", true);
+        $("#edit_jobmaster").addClass("disabled");
   )
   oKaisha_modal = $('#kaisha-table-modal').DataTable({
     "pagingType": "full_numbers"
@@ -435,22 +435,22 @@ jQuery ->
             console.log("job_削除する keydown Unsuccessful")
 
         })
-        $("#edit_jobmaster").attr("disabled", true);
-        $("#destroy_jobmaster").attr("disabled", true);
+        $("#edit_jobmaster").addClass("disabled");
+        $("#destroy_jobmaster").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_jobmaster").attr("disabled", true);
-            $("#destroy_jobmaster").attr("disabled", true);
+            $("#edit_jobmaster").addClass("disabled");
+            $("#destroy_jobmaster").addClass("disabled");
           else
-            $("#destroy_jobmaster").attr("disabled", false);
+            $("#destroy_jobmaster").removeClass("disabled");
             if selects.length == 1
-              $("#edit_jobmaster").attr("disabled", false);
+              $("#edit_jobmaster").removeClass("disabled");
             else
-              $("#edit_jobmaster").attr("disabled", true);
+              $("#edit_jobmaster").addClass("disabled");
 
       );
 

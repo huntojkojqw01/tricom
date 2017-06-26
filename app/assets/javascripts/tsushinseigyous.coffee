@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_tsushinseigyou").attr("disabled", true);
-                  $("#destroy_tsushinseigyou").attr("disabled", true);
+                  $("#edit_tsushinseigyou").addClass("disabled");
+                  $("#destroy_tsushinseigyou").addClass("disabled");
                 else
-                  $("#destroy_tsushinseigyou").attr("disabled", false);
+                  $("#destroy_tsushinseigyou").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_tsushinseigyou").attr("disabled", false);
+                    $("#edit_tsushinseigyou").removeClass("disabled");
                   else
-                    $("#edit_tsushinseigyou").attr("disabled", true);
+                    $("#edit_tsushinseigyou").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,20 +71,20 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_tsushinseigyou").attr("disabled", true);
-                  $("#destroy_tsushinseigyou").attr("disabled", true);
+                  $("#edit_tsushinseigyou").addClass("disabled");
+                  $("#destroy_tsushinseigyou").addClass("disabled");
                 else
-                  $("#destroy_tsushinseigyou").attr("disabled", false);
+                  $("#destroy_tsushinseigyou").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_tsushinseigyou").attr("disabled", false);
+                    $("#edit_tsushinseigyou").removeClass("disabled");
                   else
-                    $("#edit_tsushinseigyou").attr("disabled", true);
+                    $("#edit_tsushinseigyou").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
-  $("#edit_tsushinseigyou").attr("disabled", true);
-  $("#destroy_tsushinseigyou").attr("disabled", true);
+  $("#edit_tsushinseigyou").addClass("disabled");
+  $("#destroy_tsushinseigyou").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_tsushinseigyou', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -113,27 +113,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_tsushinseigyou").attr("disabled", true);
-        # $("#destroy_tsushinseigyou").attr("disabled", true);
+        # $("#edit_tsushinseigyou").addClass("disabled");
+        # $("#destroy_tsushinseigyou").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_tsushinseigyou").attr("disabled", false);
-        # $("#destroy_tsushinseigyou").attr("disabled", false);
+        # $("#edit_tsushinseigyou").removeClass("disabled");
+        # $("#destroy_tsushinseigyou").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_tsushinseigyou").attr("disabled", true);
-      $("#destroy_tsushinseigyou").attr("disabled", true);
+      $("#edit_tsushinseigyou").addClass("disabled");
+      $("#destroy_tsushinseigyou").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_tsushinseigyou").attr("disabled", false);
+      $("#destroy_tsushinseigyou").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_tsushinseigyou").attr("disabled", false);
+        $("#edit_tsushinseigyou").removeClass("disabled");
       else
-        $("#edit_tsushinseigyou").attr("disabled", true);
+        $("#edit_tsushinseigyou").addClass("disabled");
   )
 
   $('#destroy_tsushinseigyou').click () ->
@@ -181,22 +181,22 @@ jQuery ->
             console.log("tsushinseigyou_削除する keydown Unsuccessful")
 
         })
-        $("#edit_tsushinseigyou").attr("disabled", true);
-        $("#destroy_tsushinseigyou").attr("disabled", true);
+        $("#edit_tsushinseigyou").addClass("disabled");
+        $("#destroy_tsushinseigyou").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_tsushinseigyou").attr("disabled", true);
-            $("#destroy_tsushinseigyou").attr("disabled", true);
+            $("#edit_tsushinseigyou").addClass("disabled");
+            $("#destroy_tsushinseigyou").addClass("disabled");
           else
-            $("#destroy_tsushinseigyou").attr("disabled", false);
+            $("#destroy_tsushinseigyou").removeClass("disabled");
             if selects.length == 1
-              $("#edit_tsushinseigyou").attr("disabled", false);
+              $("#edit_tsushinseigyou").removeClass("disabled");
             else
-              $("#edit_tsushinseigyou").attr("disabled", true);
+              $("#edit_tsushinseigyou").addClass("disabled");
       );
 
   $('#new_tsushinseigyou').click () ->

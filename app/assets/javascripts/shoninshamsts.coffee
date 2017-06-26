@@ -49,14 +49,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_shonin").attr("disabled", true);
-                  $("#destroy_shonin").attr("disabled", true);
+                  $("#edit_shonin").addClass("disabled");
+                  $("#destroy_shonin").addClass("disabled");
                 else
-                  $("#destroy_shonin").attr("disabled", false);
+                  $("#destroy_shonin").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_shonin").attr("disabled", false);
+                    $("#edit_shonin").removeClass("disabled");
                   else
-                    $("#edit_shonin").attr("disabled", true);
+                    $("#edit_shonin").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -70,21 +70,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_shonin").attr("disabled", true);
-                  $("#destroy_shonin").attr("disabled", true);
+                  $("#edit_shonin").addClass("disabled");
+                  $("#destroy_shonin").addClass("disabled");
                 else
-                  $("#destroy_shonin").attr("disabled", false);
+                  $("#destroy_shonin").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_shonin").attr("disabled", false);
+                    $("#edit_shonin").removeClass("disabled");
                   else
-                    $("#edit_shonin").attr("disabled", true);
+                    $("#edit_shonin").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
 
-  $("#edit_shonin").attr("disabled", true);
-  $("#destroy_shonin").attr("disabled", true);
+  $("#edit_shonin").addClass("disabled");
+  $("#destroy_shonin").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_shoninshamst', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -113,27 +113,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_shonin").attr("disabled", true);
-        # $("#destroy_shonin").attr("disabled", true);
+        # $("#edit_shonin").addClass("disabled");
+        # $("#destroy_shonin").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_shonin").attr("disabled", false);
-        # $("#destroy_shonin").attr("disabled", false);
+        # $("#edit_shonin").removeClass("disabled");
+        # $("#destroy_shonin").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_shonin").attr("disabled", true);
-      $("#destroy_shonin").attr("disabled", true);
+      $("#edit_shonin").addClass("disabled");
+      $("#destroy_shonin").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_shonin").attr("disabled", false);
+      $("#destroy_shonin").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_shonin").attr("disabled", false);
+        $("#edit_shonin").removeClass("disabled");
       else
-        $("#edit_shonin").attr("disabled", true);
+        $("#edit_shonin").addClass("disabled");
   )
 
   $('#destroy_shonin').click () ->
@@ -181,22 +181,22 @@ jQuery ->
             console.log("shonin_削除する keydown Unsuccessful")
 
         })
-        $("#edit_shonin").attr("disabled", true);
-        $("#destroy_shonin").attr("disabled", true);
+        $("#edit_shonin").addClass("disabled");
+        $("#destroy_shonin").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_shonin").attr("disabled", true);
-            $("#destroy_shonin").attr("disabled", true);
+            $("#edit_shonin").addClass("disabled");
+            $("#destroy_shonin").addClass("disabled");
           else
-            $("#destroy_shonin").attr("disabled", false);
+            $("#destroy_shonin").removeClass("disabled");
             if selects.length == 1
-              $("#edit_shonin").attr("disabled", false);
+              $("#edit_shonin").removeClass("disabled");
             else
-              $("#edit_shonin").attr("disabled", true);
+              $("#edit_shonin").addClass("disabled");
       );
 
   $('#new_shonin').click () ->

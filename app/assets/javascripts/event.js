@@ -455,10 +455,10 @@ $(function () {
                         console.log("mybasho_削除する keydown Unsuccessful");
                     }
                 });
-                $("#mybasho_destroy").attr("disabled", true);
+                $("#mybasho_destroy").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
-                    $("#myjob_destroy").attr("disabled", false);
+                    $("#myjob_destroy").removeClass("disabled");
                 }
             });
         }
@@ -502,11 +502,11 @@ $(function () {
                         console.log("myjob_削除する keydown Unsuccessful");
                     }
                 });
-                $("#myjob_destroy").attr("disabled", true);
+                $("#myjob_destroy").addClass("disabled");
 
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
-                    $("#myjob_destroy").attr("disabled", false);
+                    $("#myjob_destroy").removeClass("disabled");
                 }
             });
         }
@@ -563,7 +563,7 @@ $(function () {
 
         oMybashoTable.$('tr.selected').removeClass('selected');
         oMybashoTable.$('tr.success').removeClass('success');
-        $("#mybasho_destroy").attr("disabled", true);
+        $("#mybasho_destroy").addClass("disabled");
 
     } );
 
@@ -573,7 +573,7 @@ $(function () {
 
         oMyjobTable.$('tr.selected').removeClass('selected');
         oMyjobTable.$('tr.success').removeClass('success');
-        $("#myjob_destroy").attr("disabled", true);
+        $("#myjob_destroy").addClass("disabled");
     } );
 
     $('#destroy_event').click(function(){
@@ -627,15 +627,15 @@ $(function () {
 
                 });
 
-                $("#destroy_event").attr("disabled", true);
+                $("#destroy_event").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
 
                     var selects = oEventTable.rows('tr.selected').data();
                     if( selects.length == 0)
-                      $("#destroy_event").attr("disabled", true);
+                      $("#destroy_event").addClass("disabled", true);
                     else
-                      $("#destroy_event").attr("disabled", false);
+                      $("#destroy_event").removeClass("disabled");
                 }
             });
           // var response = confirm($('#message_confirm_delete').text());
@@ -672,13 +672,13 @@ $(function () {
 
           //   });
 
-          //   $("#destroy_event").attr("disabled", true);
+          //   $("#destroy_event").addClass("disabled");
           // }else{
           //   var selects = oEventTable.rows('tr.selected').data();
           //   if( selects.length == 0)
-          //     $("#destroy_event").attr("disabled", true);
+          //     $("#destroy_event").addClass("disabled");
           //   else
-          //     $("#destroy_event").attr("disabled", false);
+          //     $("#destroy_event").removeClass("disabled");
           // }
         }
     });
@@ -734,15 +734,15 @@ $(function () {
 
     //             });
 
-    //             $("#destroy_event_footer").attr("disabled", true);
+    //             $("#destroy_event_footer").addClass("disabled");
     //         }, function(dismiss) {
     //             if (dismiss === 'cancel') {
 
     //                 var selects = oEventTable_Footer.rows('tr.selected').data();
     //                 if( selects.length == 0)
-    //                   $("#destroy_event_footer").attr("disabled", true);
+    //                   $("#destroy_event_footer").addClass("disabled");
     //                 else
-    //                   $("#destroy_event_footer").attr("disabled", false);
+    //                   $("#destroy_event_footer").removeClass("disabled");
     //             }
     //         });
     //     }
@@ -755,8 +755,8 @@ $(function () {
     $('#print_event').click(function(){
         if( $("#selectDay").css('display') == 'none'){
             $("#selectDay").css('display', '');
-            $("#print_event_job").attr("disabled", true);
-            $("#print_event_koutei").attr("disabled", true);
+            $("#print_event_job").addClass("disabled");
+            $("#print_event_koutei").addClass("disabled");
             $("#print_pdf_event").css('display', '');
             $("#print_pdf_job").css('display', 'none');
             $("#print_pdf_koutei").css('display', 'none');
@@ -779,15 +779,15 @@ $(function () {
         }
         else{
             $("#selectDay").css('display', 'none');
-            $("#print_event_job").attr("disabled", false);
-            $("#print_event_koutei").attr("disabled", false);
+            $("#print_event_job").removeClass("disabled");
+            $("#print_event_koutei").removeClass("disabled");
         }
     });
     $('#print_event_job').click(function(){
         if( $("#selectDay").css('display') == 'none'){
             $("#selectDay").css('display', '');
-            $("#print_event").attr("disabled", true);
-            $("#print_event_koutei").attr("disabled", true);
+            $("#print_event").addClass("disabled");
+            $("#print_event_koutei").addClass("disabled");
             $("#print_pdf_event").css('display', 'none');
             $("#print_pdf_job").css('display', '');
             $("#print_pdf_koutei").css('display', 'none');
@@ -799,15 +799,15 @@ $(function () {
         }
         else{
             $("#selectDay").css('display', 'none');
-            $("#print_event").attr("disabled", false);
-            $("#print_event_koutei").attr("disabled", false);
+            $("#print_event").removeClass("disabled");
+            $("#print_event_koutei").removeClass("disabled");
         }
     });
     $('#print_event_koutei').click(function(){
         if( $("#selectDay").css('display') == 'none'){
             $("#selectDay").css('display', '');
-            $("#print_event").attr("disabled", true);
-            $("#print_event_job").attr("disabled", true);
+            $("#print_event").addClass("disabled");
+            $("#print_event_job").addClass("disabled");
             $("#print_pdf_event").css('display', 'none');
             $("#print_pdf_job").css('display', 'none');
             $("#print_pdf_koutei").css('display', '');
@@ -819,8 +819,8 @@ $(function () {
         }
         else{
             $("#selectDay").css('display', 'none');
-            $("#print_event").attr("disabled", false);
-            $("#print_event_job").attr("disabled", false);
+            $("#print_event").removeClass("disabled");
+            $("#print_event_job").removeClass("disabled");
         }
     });
     $('#print_pdf_event').click(function(){
@@ -849,8 +849,8 @@ $(function () {
     // $('#print_event_footer').click(function(){
     //     if( $("#selectDay_footer").css('display') == 'none'){
     //         $("#selectDay_footer").css('display', '');
-    //         $("#print_event_job_footer").attr("disabled", true);
-    //         $("#print_event_koutei_footer").attr("disabled", true);
+    //         $("#print_event_job_footer").addClass("disabled");
+    //         $("#print_event_koutei_footer").addClass("disabled");
     //         $("#print_pdf_event_footer").css('display', '');
     //         $("#print_pdf_job_footer").css('display', 'none');
     //         $("#print_pdf_koutei_footer").css('display', 'none');
@@ -873,15 +873,15 @@ $(function () {
     //     }
     //     else{
     //         $("#selectDay_footer").css('display', 'none');
-    //         $("#print_event_job_footer").attr("disabled", false);
-    //         $("#print_event_koutei_footer").attr("disabled", false);
+    //         $("#print_event_job_footer").removeClass("disabled");
+    //         $("#print_event_koutei_footer").removeClass("disabled");
     //     }
     // });
     // $('#print_event_job_footer').click(function(){
     //     if( $("#selectDay_footer").css('display') == 'none'){
     //         $("#selectDay_footer").css('display', '');
-    //         $("#print_event_footer").attr("disabled", true);
-    //         $("#print_event_koutei_footer").attr("disabled", true);
+    //         $("#print_event_footer").addClass("disabled");
+    //         $("#print_event_koutei_footer").addClass("disabled");
     //         $("#print_pdf_event_footer").css('display', 'none');
     //         $("#print_pdf_job_footer").css('display', '');
     //         $("#print_pdf_koutei_footer").css('display', 'none');
@@ -893,15 +893,15 @@ $(function () {
     //     }
     //     else{
     //         $("#selectDay_footer").css('display', 'none');
-    //         $("#print_event_footer").attr("disabled", false);
-    //         $("#print_event_koutei_footer").attr("disabled", false);
+    //         $("#print_event_footer").removeClass("disabled");
+    //         $("#print_event_koutei_footer").removeClass("disabled");
     //     }
     // });
     // $('#print_event_koutei_footer').click(function(){
     //     if( $("#selectDay_footer").css('display') == 'none'){
     //         $("#selectDay_footer").css('display', '');
-    //         $("#print_event_footer").attr("disabled", true);
-    //         $("#print_event_job_footer").attr("disabled", true);
+    //         $("#print_event_footer").addClass("disabled");
+    //         $("#print_event_job_footer").addClass("disabled");
     //         $("#print_pdf_event_footer").css('display', 'none');
     //         $("#print_pdf_job_footer").css('display', 'none');
     //         $("#print_pdf_koutei_footer").css('display', '');
@@ -913,8 +913,8 @@ $(function () {
     //     }
     //     else{
     //         $("#selectDay_footer").css('display', 'none');
-    //         $("#print_event_footer").attr("disabled", false);
-    //         $("#print_event_job_footer").attr("disabled", false);
+    //         $("#print_event_footer").removeClass("disabled");
+    //         $("#print_event_job_footer").removeClass("disabled");
     //     }
     // });
     // $('#print_pdf_event_footer').click(function(){
@@ -1188,9 +1188,14 @@ $(function(){
     });
     // Event table in shousai modal
     oEventTable = $('#event_table').DataTable({
-        "dom": 'lBfrtip',
         //"scrollX": true,
+        "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
         "pagingType": "full_numbers",
+        "fnDrawCallback": function( oSettings ) {
+            $('.new-btn').appendTo($('.dt-buttons'));
+            $('.edit-btn').appendTo($('.dt-buttons'));
+            $('.delete-btn').appendTo($('.dt-buttons'));
+        },
         "oLanguage":{"sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"},
         "aoColumnDefs": [
             // {"aTargets": [1], "mRender": function (data, type, full) {
@@ -1255,9 +1260,9 @@ $(function(){
             oEventTable.$('tr').addClass('success');
             var selects = oEventTable.rows('tr.selected').data();
             if (selects.length == 0){
-                $("#destroy_event").attr("disabled", true);
+                $("#destroy_event").addClass("disabled");
             }else{
-                $("#destroy_event").attr("disabled", false);
+                $("#destroy_event").removeClass("disabled");
             }
 
             $(".buttons-select-none").removeClass('disabled');
@@ -1270,9 +1275,9 @@ $(function(){
             oEventTable.$('tr').removeClass('success');
             var selects = oEventTable.rows('tr.selected').data();
             if( selects.length == 0){
-                $("#destroy_event").attr("disabled", true);
+                $("#destroy_event").addClass("disabled");
             }else{
-                $("#destroy_event").attr("disabled", false);
+                $("#destroy_event").removeClass("disabled");
             }
             $(".buttons-select-none").addClass('disabled');
           }
@@ -1297,10 +1302,10 @@ $(function(){
         }
         var selects = oEventTable.rows('tr.selected').data();
         if( selects.length == 0){
-          $("#destroy_event").attr("disabled", true);
+          $("#destroy_event").addClass("disabled");
           $(".buttons-select-none").addClass('disabled')
         }else{
-          $("#destroy_event").attr("disabled", false);
+          $("#destroy_event").removeClass("disabled");
           $(".buttons-select-none").removeClass('disabled');
         }
     });
@@ -1369,9 +1374,9 @@ $(function(){
 //             oEventTable_Footer.$('tr').addClass('success');
 //             var selects = oEventTable_Footer.rows('tr.selected').data();
 //             if (selects.length == 0){
-//                 $("#destroy_event_footer").attr("disabled", true);
+//                 $("#destroy_event_footer").addClass("disabled");
 //             }else{
-//                 $("#destroy_event_footer").attr("disabled", false);
+//                 $("#destroy_event_footer").removeClass("disabled");
 //             }
 
 //             $(".buttons-select-none").removeClass('disabled');
@@ -1384,9 +1389,9 @@ $(function(){
 //             oEventTable_Footer.$('tr').removeClass('success');
 //             var selects = oEventTable_Footer.rows('tr.selected').data();
 //             if( selects.length == 0){
-//                 $("#destroy_event_footer").attr("disabled", true);
+//                 $("#destroy_event_footer").addClass("disabled");
 //             }else{
-//                 $("#destroy_event_footer").attr("disabled", false);
+//                 $("#destroy_event_footer").removeClass("disabled");
 //             }
 //             $(".buttons-select-none").addClass('disabled');
 //           }
@@ -1411,10 +1416,10 @@ $(function(){
 //         }
 //         var selects = oEventTable_Footer.rows('tr.selected').data();
 //         if( selects.length == 0){
-//           $("#destroy_event_footer").attr("disabled", true);
+//           $("#destroy_event_footer").addClass("disabled");
 //           $(".buttons-select-none").addClass('disabled')
 //         }else{
-//           $("#destroy_event_footer").attr("disabled", false);
+//           $("#destroy_event_footer").removeClass("disabled");
 //           $(".buttons-select-none").removeClass('disabled');
 //         }
 // });
@@ -1442,14 +1447,14 @@ $(function(){
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
-            $("#mybasho_destroy").attr("disabled", true);
+            $("#mybasho_destroy").addClass("disabled");
         }
         else {
             oMybashoTable.$('tr.selected').removeClass('selected');
             oMybashoTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
-            $("#mybasho_destroy").attr("disabled", false);
+            $("#mybasho_destroy").removeClass("disabled");
         }
     } );
 
@@ -1507,14 +1512,14 @@ $(function(){
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
-            $("#myjob_destroy").attr("disabled", true);
+            $("#myjob_destroy").addClass("disabled");
         }
         else {
             oMyjobTable.$('tr.selected').removeClass('selected');
             oMyjobTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
-            $("#myjob_destroy").attr("disabled", false);
+            $("#myjob_destroy").removeClass("disabled");
         }
 
     } );
@@ -1746,7 +1751,7 @@ $(function(){
     if (s == '10' || s == '11' || s == '12' || s == '13'){
         $('.event_帰社').show();
     }
-    $("#destroy_event").attr("disabled", true);
+    $("#destroy_event").addClass("disabled");
 });
 function showModal(date,hoshukeitai) {
 

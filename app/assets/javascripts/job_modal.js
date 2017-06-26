@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("#edit_jobmaster").attr("disabled", true);
-    $("#destroy_jobmaster").attr("disabled", true);
+    $("#edit_jobmaster").addClass("disabled");
+    $("#destroy_jobmaster").addClass("disabled");
     oJobTable = $('#job_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
@@ -91,11 +91,11 @@ $(function () {
         });
         var check_select = oKaisha_modal.rows('tr.selected').data();
         if(check_select == undefined){
-          $("#edit_kaishamaster").attr("disabled", true);
-          $("#destroy_kaishamaster").attr("disabled", true);
+          $("#edit_kaishamaster").addClass("disabled");
+          $("#destroy_kaishamaster").addClass("disabled");
         }else{
-          $("#edit_kaishamaster").attr("disabled", false);
-          $("#destroy_kaishamaster").attr("disabled", false);
+          $("#edit_kaishamaster").removeClass("disabled");
+          $("#destroy_kaishamaster").removeClass("disabled");
         }
         oKaisha_modal.page.jumpToData($('#jobmaster_ユーザ番号').val(), 0);
       }
@@ -136,16 +136,16 @@ $(function () {
     if ( $(this).hasClass('selected') ) {
         $(this).removeClass('selected');
         $(this).removeClass('success');
-        $("#edit_jobmaster").attr("disabled", true);
-        $("#destroy_jobmaster").attr("disabled", true);
+        $("#edit_jobmaster").addClass("disabled");
+        $("#destroy_jobmaster").addClass("disabled");
     }
     else {
         oJobTable.$('tr.selected').removeClass('selected');
         oJobTable.$('tr.success').removeClass('success');
         $(this).addClass('selected');
         $(this).addClass('success');
-        $("#edit_jobmaster").attr("disabled", false);
-        $("#destroy_jobmaster").attr("disabled", false);
+        $("#edit_jobmaster").removeClass("disabled");
+        $("#destroy_jobmaster").removeClass("disabled");
     }
 
   });
@@ -187,8 +187,8 @@ $(function () {
   $('#clear_job').click(function () {
     oJobTable.$('tr.selected').removeClass('selected');
     oJobTable.$('tr.success').removeClass('success');
-    $("#edit_jobmaster").attr("disabled", true);
-    $("#destroy_jobmaster").attr("disabled", true);
+    $("#edit_jobmaster").addClass("disabled");
+    $("#destroy_jobmaster").addClass("disabled");
   });
   $('#clear_shain').click(function () {
     oTable.$('tr.selected').removeClass( 'selected');
@@ -313,8 +313,8 @@ $(function() {
 
 
                 });
-                $("#edit_jobmaster").attr("disabled", true);
-                $("#destroy_jobmaster").attr("disabled", true);
+                $("#edit_jobmaster").addClass("disabled");
+                $("#destroy_jobmaster").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
 

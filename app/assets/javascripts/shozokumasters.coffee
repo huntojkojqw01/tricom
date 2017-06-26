@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_shozoku").attr("disabled", true);
-                  $("#destroy_shozoku").attr("disabled", true);
+                  $("#edit_shozoku").addClass("disabled");
+                  $("#destroy_shozoku").addClass("disabled");
                 else
-                  $("#destroy_shozoku").attr("disabled", false);
+                  $("#destroy_shozoku").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_shozoku").attr("disabled", false);
+                    $("#edit_shozoku").removeClass("disabled");
                   else
-                    $("#edit_shozoku").attr("disabled", true);
+                    $("#edit_shozoku").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,21 +71,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_shozoku").attr("disabled", true);
-                  $("#destroy_shozoku").attr("disabled", true);
+                  $("#edit_shozoku").addClass("disabled");
+                  $("#destroy_shozoku").addClass("disabled");
                 else
-                  $("#destroy_shozoku").attr("disabled", false);
+                  $("#destroy_shozoku").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_shozoku").attr("disabled", false);
+                    $("#edit_shozoku").removeClass("disabled");
                   else
-                    $("#edit_shozoku").attr("disabled", true);
+                    $("#edit_shozoku").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
-  $("#edit_shozoku").attr("disabled", true);
-  $("#destroy_shozoku").attr("disabled", true);
+  $("#edit_shozoku").addClass("disabled");
+  $("#destroy_shozoku").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_shozokumaster', (event, jqxhr, settings, exception) ->
@@ -117,28 +117,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_shozoku").attr("disabled", true);
-        # $("#destroy_shozoku").attr("disabled", true);
+        # $("#edit_shozoku").addClass("disabled");
+        # $("#destroy_shozoku").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_shozoku").attr("disabled", true);
-        # $("#edit_shozoku").attr("disabled", false);
-        # $("#destroy_shozoku").attr("disabled", false);
+        #$("#edit_shozoku").addClass("disabled");
+        # $("#edit_shozoku").removeClass("disabled");
+        # $("#destroy_shozoku").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_shozoku").attr("disabled", true);
-      $("#destroy_shozoku").attr("disabled", true);
+      $("#edit_shozoku").addClass("disabled");
+      $("#destroy_shozoku").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_shozoku").attr("disabled", false);
+      $("#destroy_shozoku").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_shozoku").attr("disabled", false);
+        $("#edit_shozoku").removeClass("disabled");
       else
-        $("#edit_shozoku").attr("disabled", true);
+        $("#edit_shozoku").addClass("disabled");
 
   )
 
@@ -186,22 +186,22 @@ jQuery ->
             console.log("shozoku_削除する keydown Unsuccessful")
 
         })
-        $("#edit_shozoku").attr("disabled", true);
-        $("#destroy_shozoku").attr("disabled", true);
+        $("#edit_shozoku").addClass("disabled");
+        $("#destroy_shozoku").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_shozoku").attr("disabled", true);
-            $("#destroy_shozoku").attr("disabled", true);
+            $("#edit_shozoku").addClass("disabled");
+            $("#destroy_shozoku").addClass("disabled");
           else
-            $("#destroy_shozoku").attr("disabled", false);
+            $("#destroy_shozoku").removeClass("disabled");
             if selects.length == 1
-              $("#edit_shozoku").attr("disabled", false);
+              $("#edit_shozoku").removeClass("disabled");
             else
-              $("#edit_shozoku").attr("disabled", true);
+              $("#edit_shozoku").addClass("disabled");
       );
   $('#new_shozoku').click ()->
       $('#shozoku-new-modal').modal('show')

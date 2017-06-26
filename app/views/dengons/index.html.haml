@@ -30,8 +30,6 @@
       -#= "#{Time.now.strftime('%F %H:%M %A')}"
       -#= "#{Time.current.in_time_zone('').strftime('%F %H:%M %A')}"
       -#= "#{Date.current.in_time_zone.strftime('%F %H:%M %A')}"
-%br
-
 = form_for :dengon, url: dengons_path, html: {class:'form-inline'}, method: :get do |f|
   = render 'header', f:f
   %br

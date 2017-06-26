@@ -5,9 +5,12 @@
 jQuery ->
   shokairan_table = $('.shokairan-table').DataTable({
     "pagingType": "simple_numbers"
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     columnDefs: [
       { "width": "15%", "targets": 0 },
       { "width": "10%", "targets": 1 },
@@ -15,11 +18,19 @@ jQuery ->
       { "width": "50%", "targets": 3 }
       { "width": "5%", "targets": 4 }
     ],
+    buttons: [
+      'selectAll',
+      'selectNone'
+    ],
     order: [[ 0, 'des' ]]
   })
 
   kairan_table = $('.kairan-table').DataTable({
     "pagingType": "simple_numbers"
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
@@ -43,7 +54,7 @@ jQuery ->
       selector: 'td:last-child'
     },
     order: [[ 0, 'des' ]],
-    dom: 'Bfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     buttons: [
       'selectAll',
       'selectNone'
@@ -72,7 +83,7 @@ jQuery ->
     ]
   })
 
-  $('#kakunin').prop('disabled',true)
+  $('#kakunin').addClass('disabled')
   kairan_table.on( 'select', ( e, dt, type, indexes )->
     row = kairan_table[ type ]( indexes ).nodes().to$()
     data = kairan_table.row( indexes ).data()
@@ -87,9 +98,9 @@ jQuery ->
   $('.kairan-table tbody').on( 'click', 'tr', () ->
     d = kairan_table.row('tr.selected').data()
     if d!= undefined
-      $('#kakunin').prop('disabled',false)
+      $('#kakunin').removeClass('disabled')
     else
-      $('#kakunin').prop('disabled',true)
+      $('#kakunin').addClass('disabled')
   )
 
   $('.datetime').datetimepicker({

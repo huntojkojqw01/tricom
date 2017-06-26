@@ -47,14 +47,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_setting").attr("disabled", true);
-                  $("#destroy_setting").attr("disabled", true);
+                  $("#edit_setting").addClass("disabled");
+                  $("#destroy_setting").addClass("disabled");
                 else
-                  $("#destroy_setting").attr("disabled", false);
+                  $("#destroy_setting").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_setting").attr("disabled", false);
+                    $("#edit_setting").removeClass("disabled");
                   else
-                    $("#edit_setting").attr("disabled", true);
+                    $("#edit_setting").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -68,21 +68,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_setting").attr("disabled", true);
-                  $("#destroy_setting").attr("disabled", true);
+                  $("#edit_setting").addClass("disabled");
+                  $("#destroy_setting").addClass("disabled");
                 else
-                  $("#destroy_setting").attr("disabled", false);
+                  $("#destroy_setting").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_setting").attr("disabled", false);
+                    $("#edit_setting").removeClass("disabled");
                   else
-                    $("#edit_setting").attr("disabled", true);
+                    $("#edit_setting").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
 
   })
-  $("#edit_setting").attr("disabled", true);
-  $("#destroy_setting").attr("disabled", true);
+  $("#edit_setting").addClass("disabled");
+  $("#destroy_setting").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_setting', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -111,27 +111,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_setting").attr("disabled", true);
-        # $("#destroy_setting").attr("disabled", true);
+        # $("#edit_setting").addClass("disabled");
+        # $("#destroy_setting").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_setting").attr("disabled", false);
-        # $("#destroy_setting").attr("disabled", false);
+        # $("#edit_setting").removeClass("disabled");
+        # $("#destroy_setting").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_setting").attr("disabled", true);
-      $("#destroy_setting").attr("disabled", true);
+      $("#edit_setting").addClass("disabled");
+      $("#destroy_setting").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_setting").attr("disabled", false);
+      $("#destroy_setting").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_setting").attr("disabled", false);
+        $("#edit_setting").removeClass("disabled");
       else
-        $("#edit_setting").attr("disabled", true);
+        $("#edit_setting").addClass("disabled");
   )
 
   $('#destroy_setting').click () ->
@@ -179,22 +179,22 @@ jQuery ->
             console.log("setting_削除する keydown Unsuccessful")
 
         })
-        $("#edit_setting").attr("disabled", true);
-        $("#destroy_setting").attr("disabled", true);
+        $("#edit_setting").addClass("disabled");
+        $("#destroy_setting").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_setting").attr("disabled", true);
-            $("#destroy_setting").attr("disabled", true);
+            $("#edit_setting").addClass("disabled");
+            $("#destroy_setting").addClass("disabled");
           else
-            $("#destroy_setting").attr("disabled", false);
+            $("#destroy_setting").removeClass("disabled");
             if selects.length == 1
-              $("#edit_setting").attr("disabled", false);
+              $("#edit_setting").removeClass("disabled");
             else
-              $("#edit_setting").attr("disabled", true);
+              $("#edit_setting").addClass("disabled");
       );
 
   $('#new_setting').click () ->

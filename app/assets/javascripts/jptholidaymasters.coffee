@@ -55,14 +55,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_holiday").attr("disabled", true);
-                  $("#destroy_holiday").attr("disabled", true);
+                  $("#edit_holiday").addClass("disabled");
+                  $("#destroy_holiday").addClass("disabled");
                 else
-                  $("#destroy_holiday").attr("disabled", false);
+                  $("#destroy_holiday").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_holiday").attr("disabled", false);
+                    $("#edit_holiday").removeClass("disabled");
                   else
-                    $("#edit_holiday").attr("disabled", true);
+                    $("#edit_holiday").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -76,21 +76,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_holiday").attr("disabled", true);
-                  $("#destroy_holiday").attr("disabled", true);
+                  $("#edit_holiday").addClass("disabled");
+                  $("#destroy_holiday").addClass("disabled");
                 else
-                  $("#destroy_holiday").attr("disabled", false);
+                  $("#destroy_holiday").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_holiday").attr("disabled", false);
+                    $("#edit_holiday").removeClass("disabled");
                   else
-                    $("#edit_holiday").attr("disabled", true);
+                    $("#edit_holiday").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
-  $("#edit_holiday").attr("disabled", true);
-  $("#destroy_holiday").attr("disabled", true);
+  $("#edit_holiday").addClass("disabled");
+  $("#destroy_holiday").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_jpt_holiday_mst', (event, jqxhr, settings, exception) ->
@@ -104,28 +104,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_holiday").attr("disabled", true);
-        # $("#destroy_holiday").attr("disabled", true);
+        # $("#edit_holiday").addClass("disabled");
+        # $("#destroy_holiday").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_holiday").attr("disabled", true);
-        # $("#edit_holiday").attr("disabled", false);
-        # $("#destroy_holiday").attr("disabled", false);
+        #$("#edit_holiday").addClass("disabled");
+        # $("#edit_holiday").removeClass("disabled");
+        # $("#destroy_holiday").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_holiday").attr("disabled", true);
-      $("#destroy_holiday").attr("disabled", true);
+      $("#edit_holiday").addClass("disabled");
+      $("#destroy_holiday").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_holiday").attr("disabled", false);
+      $("#destroy_holiday").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_holiday").attr("disabled", false);
+        $("#edit_holiday").removeClass("disabled");
       else
-        $("#edit_holiday").attr("disabled", true);
+        $("#edit_holiday").addClass("disabled");
 
   )
 
@@ -173,22 +173,22 @@ jQuery ->
             console.log("holiday_削除する keydown Unsuccessful")
 
         })
-        $("#edit_holiday").attr("disabled", true);
-        $("#destroy_holiday").attr("disabled", true);
+        $("#edit_holiday").addClass("disabled");
+        $("#destroy_holiday").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_holiday").attr("disabled", true);
-            $("#destroy_holiday").attr("disabled", true);
+            $("#edit_holiday").addClass("disabled");
+            $("#destroy_holiday").addClass("disabled");
           else
-            $("#destroy_holiday").attr("disabled", false);
+            $("#destroy_holiday").removeClass("disabled");
             if selects.length == 1
-              $("#edit_holiday").attr("disabled", false);
+              $("#edit_holiday").removeClass("disabled");
             else
-              $("#edit_holiday").attr("disabled", true);
+              $("#edit_holiday").addClass("disabled");
       );
   $('#new_holiday').click ()->
     $('#holiday-new-modal').modal('show')

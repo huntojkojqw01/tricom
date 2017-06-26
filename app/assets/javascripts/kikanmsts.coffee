@@ -15,8 +15,8 @@ jQuery ->
     ,"oSearch": {"sSearch": queryParameters().search}
   })
 
-  $("#edit_kikan").attr("disabled", true);
-  $("#destroy_kikan").attr("disabled", true);
+  $("#edit_kikan").addClass("disabled");
+  $("#destroy_kikan").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_kikanmst', (event, jqxhr, settings, exception) ->
@@ -48,15 +48,15 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        $("#edit_kikan").attr("disabled", true);
-        $("#destroy_kikan").attr("disabled", true);
+        $("#edit_kikan").addClass("disabled");
+        $("#destroy_kikan").addClass("disabled");
       else
         oKikanTable.$('tr.selected').removeClass('selected')
         oKikanTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        $("#edit_kikan").attr("disabled", false);
-        $("#destroy_kikan").attr("disabled", false);
+        $("#edit_kikan").removeClass("disabled");
+        $("#destroy_kikan").removeClass("disabled");
   )
 
   $('#destroy_kikan').click () ->
@@ -92,12 +92,12 @@ jQuery ->
               oKikanTable.rows('tr.selected').remove().draw();
               # $(".kikantable").dataTable().fnDeleteRow($('.kikantable').find('tr.selected').remove())
               # $(".kikantable").dataTable().fnDraw()
-              $("#edit_kikan").attr("disabled", true);
-              $("#destroy_kikan").attr("disabled", true);
+              $("#edit_kikan").addClass("disabled");
+              $("#destroy_kikan").addClass("disabled");
           failure: () ->
             console.log("kikan_削除する keydown Unsuccessful")
-            $("#edit_kikan").attr("disabled", false);
-            $("#destroy_kikan").attr("disabled", false);
+            $("#edit_kikan").removeClass("disabled");
+            $("#destroy_kikan").removeClass("disabled");
 
         })
       ,(dismiss) ->
@@ -121,12 +121,12 @@ jQuery ->
       #         console.log("getAjax destroy_success:"+ data.destroy_success)
       #         $(".kikantable").dataTable().fnDeleteRow($('.kikantable').find('tr.selected').remove())
       #         $(".kikantable").dataTable().fnDraw()
-      #         $("#edit_kikan").attr("disabled", true);
-      #         $("#destroy_kikan").attr("disabled", true);
+      #         $("#edit_kikan").addClass("disabled");
+      #         $("#destroy_kikan").addClass("disabled");
       #     failure: () ->
       #       console.log("kikan_削除する keydown Unsuccessful")
-      #       $("#edit_kikan").attr("disabled", false);
-      #       $("#destroy_kikan").attr("disabled", false);
+      #       $("#edit_kikan").removeClass("disabled");
+      #       $("#destroy_kikan").removeClass("disabled");
 
       #   })
 
