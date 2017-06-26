@@ -5,13 +5,9 @@
   .span#message_confirm_select{hidden: :true} #{msg_select}
   .span#message_confirm_delete{hidden: :true} #{msg_confirm}
   - if request['shain'].nil?
-    %a{href: new_keihihead_path(shain: session[:user])}
-      %a.new-btn.dt-button#new_keihihead{type: :button} #{(t 'title.new')}
+    = link_to (t 'title.new'), new_keihihead_path(shain: session[:user]), class: 'new-btn dt-button'
   - else
-    %a{href: new_keihihead_path(shain: request['shain'])}
-      %a.new-btn.dt-button#new_keihihead{type: :button} #{(t 'title.new')}
-  / %a{href: new_keihihead_path}
-  /   %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
+    = link_to (t 'title.new'), new_keihihead_path(shain: request['shain']), class: 'new-btn dt-button'
   %a.edit-btn.dt-button#destroy_keihihead{type: :button} #{delete_text}
   %a.delete-btn.dt-button#print_index{type: :button} #{(t 'app.label.export_pdf')}
 .row-fruid
