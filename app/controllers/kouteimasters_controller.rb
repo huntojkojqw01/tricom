@@ -56,8 +56,8 @@ class KouteimastersController < ApplicationController
   end
 
   def update_koutei
-    koutei=kouteimaster_params    
-    @kouteimaster = Kouteimaster.find('#{koutei[:工程コード]},#{koutei[:所属コード]}')    
+    koutei=kouteimaster_params
+    @kouteimaster = Kouteimaster.find("#{koutei[:工程コード]},#{koutei[:所属コード]}")
     respond_to do |format|
       if  @kouteimaster.update(koutei)
         format.js { render 'update_koutei'}
@@ -81,17 +81,17 @@ class KouteimastersController < ApplicationController
         data = {shozoku_name: shozoku_name}
         respond_to do |format|
           format.json { render json: data}
-        end      
-      else    
+        end
+      else
     end
   end
   def multi_delete
-    case params[:focus_field]     
-      when 'koutei_削除する'        
+    case params[:focus_field]
+      when 'koutei_削除する'
         params[:kouteis].each{ |kouteiId|
           koutei=Kouteimaster.find(kouteiId)
-          koutei.destroy if koutei          
-        }        
+          koutei.destroy if koutei
+        }
         data = {destroy_success: 'success'}
         respond_to do |format|
           format.json { render json: data}
