@@ -56,6 +56,7 @@ class KintaisController < ApplicationController
     @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
     # joutai_array = ['12','15','30','31','32','33','38','103','105','107','109','111','113']
     @joutais = Joutaimaster.where(勤怠使用区分: '1').order('CAST(状態コード AS DECIMAL) asc')
+    @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)
   end
 
   def search
@@ -146,6 +147,14 @@ class KintaisController < ApplicationController
   # end
 
   def update
+
+    # if params[:ignore][:状態1] != ''
+    #   byebug
+    #   respond_to do |format|
+    #     data = {ok: 'ok'}
+    #     format.json { respond_with_bip(@kintai) }
+    #   end
+    # end
     if kintai_params[:状態1].in?(['103','107','111']) #振出
       if kintai_params[:代休取得区分] == ''
         params[:kintai][:代休相手日付] = ''
@@ -445,7 +454,7 @@ class KintaisController < ApplicationController
       end
       # @joutais = Joutaimaster.active(kubunlist)
       # joutai_array = ['12','15','30','31','32','33','38','103','105','107','109','111','113']
-      @joutais = Joutaimaster.where(勤怠使用区分: '1').order('CAST(状態コード AS DECIMAL) asc')
+      @joutais = Joutaimaster.active(kubunlist).order('CAST(状態コード AS DECIMAL) asc')
     end
 
     def kintai_params

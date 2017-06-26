@@ -160,6 +160,62 @@ jQuery ->
 #    fill_time()
 
 
+  joutai_index = ''
+  id_kintai = ''
+  select_daikyu = false
+  $('.hoshukeitai-edit').on 'ajax:success', (event, data, status, xhr) ->
+    # newValue = $('.hoshukeitai-edit').html # could also use .attr() here
+
+  # $('.best_in_place[data-bip-attribute="状態1"]').on('change', (e) ->
+    joutai = $(this).attr("data-bip-value")
+    id_kintai = $(this).attr('id').split('_')[4]
+    joutai_index = joutai
+    if joutai == '105' || joutai == '109' || joutai == '113'
+      jQuery.ajax({
+          url: '/kintais/ajax',
+          data: {id: 'get_kintais', joutai: joutai},
+          type: "POST",
+          success: (data) ->
+            console.log("OK");
+          failure: () ->
+        })
+
+  $('#daikyu_index_sentaku_ok').click () ->
+    d = oDaikyuTable.row('tr.selected').data()
+    bikou = ''
+    if d != undefined
+      select_daikyu = true
+      if joutai_index == '105'
+        bikou = d[0] + 'の振休'
+      else if fukyu_code == '109'
+        bikou = d[0] + 'の午前振休'
+      else if fukyu_code == '113'
+        bikou = d[0] + 'の午後振休'
+      $.ajax({
+        type: 'PUT',
+        url:  '/kintais/'+id_kintai,
+        data: {kintai: {状態1: joutai_index,代休相手日付: d[0],備考: bikou}},
+        dataType: "JSON",
+        success: (data) ->
+          alert("test")
+      });
+
+
+  $(document).on('hide.bs.modal','#daikyu_index_search_modal', () ->
+    # if !select_daikyu
+    #   $.ajax({
+    #     type: 'PUT',
+    #     url:  '/kintais/'+id_kintai,
+    #     data: {kintai: {状態1: ''}},
+    #     dataType: "JSON",
+    #     success: (data) ->
+    #       swal("振休の状態で代休相手日付を選択しなければなりません。")
+
+    #       # $('#daikyu_index_search_modal').modal('hide');
+    #   });
+    # select_daikyu = false
+  );
+
   $('.kintai-item').on 'keydown', '.best_in_place', (e) ->
     keyCode = e.keyCode || e.which
     if keyCode == 9 || keyCode == 13
