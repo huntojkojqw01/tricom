@@ -261,11 +261,11 @@ $(function(){
                         console.log("myjob_destroy keydown Unsuccessful");
                     }
                 });
-                $("#myjob_destroy").attr("disabled", true);
+                $("#myjob_destroy").addClass("disabled");
 
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
-                    $("#myjob_destroy").attr("disabled", false);
+                    $("#myjob_destroy").removeClass("disabled");
                 }
             });
         }
@@ -288,16 +288,16 @@ $(function(){
         //$('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
         oJob_search_modal.$('tr.selected').removeClass('selected');
         oJob_search_modal.$('tr.success').removeClass('success');
-        $('#clear_job').attr("disabled", true);
-        $('#job_sentaku_ok').attr("disabled", true);
+        $('#clear_job').addClass("disabled");
+        $('#job_sentaku_ok').addClass("disabled");
     } );
     $('#clear_event').click(function () {
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
         oEvent_sanshou_modal.$('tr.selected').removeClass('selected');
         oEvent_sanshou_modal.$('tr.success').removeClass('success');
-        // $('#clear_event').attr("disabled", true);
-        // $('#event_sentaku_ok').attr("disabled", true);
+        // $('#clear_event').addClass("disabled");
+        // $('#event_sentaku_ok').addClass("disabled");
     } );
     $('#clear_keihi').click(function () {
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
@@ -320,7 +320,7 @@ $(function(){
         $('#keihi-table tr.selected').find('.keihihead_keihibodies_JOB').find('input').val('');
         oMyjobTable.$('tr.selected').removeClass('selected');
         oMyjobTable.$('tr.success').removeClass('success');
-        $("#myjob_destroy").attr("disabled", true);
+        $("#myjob_destroy").addClass("disabled");
     } );
 
     $('#kaisha_sentaku_ok').click(function(){
@@ -422,11 +422,11 @@ $(function(){
                         console.log("mykaisha_destroy keydown Unsuccessful");
                     }
                 });
-                $("#mykaisha_destroy").attr("disabled", true);
+                $("#mykaisha_destroy").addClass("disabled");
 
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
-                    $("#mykaisha_destroy").attr("disabled", false);
+                    $("#mykaisha_destroy").removeClass("disabled");
                 }
             });
         }
@@ -449,15 +449,15 @@ $(function(){
         // $('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('')
         oKaisha_search_modal.$('tr.selected').removeClass('selected');
         oKaisha_search_modal.$('tr.success').removeClass('success');
-        $('#clear_kaisha').attr("disabled", true);
-        $('#kaisha_sentaku_ok').attr("disabled", true);
+        $('#clear_kaisha').addClass("disabled");
+        $('#kaisha_sentaku_ok').addClass("disabled");
     } );
 
     $('#clear_mykaisha').click(function () {
         //$('#keihi-table tr.selected').find('.keihihead_keihibodies_相手先').find('input').val('');
         oMykaishaTable.$('tr.selected').removeClass('selected');
         oMykaishaTable.$('tr.success').removeClass('success');
-        $("#mykaisha_destroy").attr("disabled", true);
+        $("#mykaisha_destroy").addClass("disabled");
     } );
     $('#event_sentaku_ok').click(function(){
 
@@ -726,9 +726,9 @@ $(document).on('click', '.keihihead_keihibodies_JOB .search-history', function(e
     $('#myjob_search_modal').modal('show')
     var myjob = oMyjobTable.row('tr.selected').data();
     if( myjob == undefined){
-        $("#myjob_destroy").attr("disabled", true);
+        $("#myjob_destroy").addClass("disabled");
     }else{
-        $("#myjob_destroy").attr("disabled", false);
+        $("#myjob_destroy").removeClass("disabled");
 
     }
     event.preventDefault();
@@ -760,9 +760,9 @@ $(document).on('click', '.keihihead_keihibodies_相手先 .search-history', func
     $('#mykaisha_search_modal').modal('show')
     var mykaisha = oMykaishaTable.row('tr.selected').data();
     if( mykaisha == undefined){
-        $("#mykaisha_destroy").attr("disabled", true);
+        $("#mykaisha_destroy").addClass("disabled");
     }else{
-        $("#mykaisha_destroy").attr("disabled", false);
+        $("#mykaisha_destroy").removeClass("disabled");
 
     }
     event.preventDefault();

@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_user").attr("disabled", true);
-                  $("#destroy_user").attr("disabled", true);
+                  $("#edit_user").addClass("disabled");
+                  $("#destroy_user").addClass("disabled");
                 else
-                  $("#destroy_user").attr("disabled", false);
+                  $("#destroy_user").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_user").attr("disabled", false);
+                    $("#edit_user").removeClass("disabled");
                   else
-                    $("#edit_user").attr("disabled", true);
+                    $("#edit_user").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,22 +71,22 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_user").attr("disabled", true);
-                  $("#destroy_user").attr("disabled", true);
+                  $("#edit_user").addClass("disabled");
+                  $("#destroy_user").addClass("disabled");
                 else
-                  $("#destroy_user").attr("disabled", false);
+                  $("#destroy_user").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_user").attr("disabled", false);
+                    $("#edit_user").removeClass("disabled");
                   else
-                    $("#edit_user").attr("disabled", true);
+                    $("#edit_user").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
 
-  $("#edit_user").attr("disabled", true);
-  $("#destroy_user").attr("disabled", true);
+  $("#edit_user").addClass("disabled");
+  $("#destroy_user").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_user', (event, jqxhr, settings, exception) ->
@@ -118,28 +118,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_user").attr("disabled", true);
-        # $("#destroy_user").attr("disabled", true);
+        # $("#edit_user").addClass("disabled");
+        # $("#destroy_user").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_user").attr("disabled", true);
-        # $("#edit_user").attr("disabled", false);
-        # $("#destroy_user").attr("disabled", false);
+        #$("#edit_user").addClass("disabled");
+        # $("#edit_user").removeClass("disabled");
+        # $("#destroy_user").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_user").attr("disabled", true);
-      $("#destroy_user").attr("disabled", true);
+      $("#edit_user").addClass("disabled");
+      $("#destroy_user").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_user").attr("disabled", false);
+      $("#destroy_user").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_user").attr("disabled", false);
+        $("#edit_user").removeClass("disabled");
       else
-        $("#edit_user").attr("disabled", true);
+        $("#edit_user").addClass("disabled");
 
   )
 
@@ -187,22 +187,22 @@ jQuery ->
             console.log("user_削除する keydown Unsuccessful")
 
         })
-        $("#edit_user").attr("disabled", true);
-        $("#destroy_user").attr("disabled", true);
+        $("#edit_user").addClass("disabled");
+        $("#destroy_user").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_user").attr("disabled", true);
-            $("#destroy_user").attr("disabled", true);
+            $("#edit_user").addClass("disabled");
+            $("#destroy_user").addClass("disabled");
           else
-            $("#destroy_user").attr("disabled", false);
+            $("#destroy_user").removeClass("disabled");
             if selects.length == 1
-              $("#edit_user").attr("disabled", false);
+              $("#edit_user").removeClass("disabled");
             else
-              $("#edit_user").attr("disabled", true);
+              $("#edit_user").addClass("disabled");
       );
   $('#edit_user').click ->
     new_address = oTable.row('tr.selected').data()[3].split("\"")[1]

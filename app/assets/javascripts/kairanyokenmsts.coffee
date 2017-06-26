@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kairanyouken").attr("disabled", true);
-                  $("#destroy_kairanyouken").attr("disabled", true);
+                  $("#edit_kairanyouken").addClass("disabled");
+                  $("#destroy_kairanyouken").addClass("disabled");
                 else
-                  $("#destroy_kairanyouken").attr("disabled", false);
+                  $("#destroy_kairanyouken").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kairanyouken").attr("disabled", false);
+                    $("#edit_kairanyouken").removeClass("disabled");
                   else
-                    $("#edit_kairanyouken").attr("disabled", true);
+                    $("#edit_kairanyouken").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,20 +71,20 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kairanyouken").attr("disabled", true);
-                  $("#destroy_kairanyouken").attr("disabled", true);
+                  $("#edit_kairanyouken").addClass("disabled");
+                  $("#destroy_kairanyouken").addClass("disabled");
                 else
-                  $("#destroy_kairanyouken").attr("disabled", false);
+                  $("#destroy_kairanyouken").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kairanyouken").attr("disabled", false);
+                    $("#edit_kairanyouken").removeClass("disabled");
                   else
-                    $("#edit_kairanyouken").attr("disabled", true);
+                    $("#edit_kairanyouken").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
-  $("#edit_kairanyouken").attr("disabled", true);
-  $("#destroy_kairanyouken").attr("disabled", true);
+  $("#edit_kairanyouken").addClass("disabled");
+  $("#destroy_kairanyouken").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_kairanyokenmst', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -114,27 +114,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_kairanyouken").attr("disabled", true);
-        # $("#destroy_kairanyouken").attr("disabled", true);
+        # $("#edit_kairanyouken").addClass("disabled");
+        # $("#destroy_kairanyouken").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_kairanyouken").attr("disabled", false);
-        # $("#destroy_kairanyouken").attr("disabled", false);
+        # $("#edit_kairanyouken").removeClass("disabled");
+        # $("#destroy_kairanyouken").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_kairanyouken").attr("disabled", true);
-      $("#destroy_kairanyouken").attr("disabled", true);
+      $("#edit_kairanyouken").addClass("disabled");
+      $("#destroy_kairanyouken").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_kairanyouken").attr("disabled", false);
+      $("#destroy_kairanyouken").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_kairanyouken").attr("disabled", false);
+        $("#edit_kairanyouken").removeClass("disabled");
       else
-        $("#edit_kairanyouken").attr("disabled", true);
+        $("#edit_kairanyouken").addClass("disabled");
   )
 
   $('#destroy_kairanyouken').click () ->
@@ -181,22 +181,22 @@ jQuery ->
             console.log("kairanyouken_削除する keydown Unsuccessful")
 
         })
-        $("#edit_kairanyouken").attr("disabled", true);
-        $("#destroy_kairanyouken").attr("disabled", true);
+        $("#edit_kairanyouken").addClass("disabled");
+        $("#destroy_kairanyouken").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_kairanyouken").attr("disabled", true);
-            $("#destroy_kairanyouken").attr("disabled", true);
+            $("#edit_kairanyouken").addClass("disabled");
+            $("#destroy_kairanyouken").addClass("disabled");
           else
-            $("#destroy_kairanyouken").attr("disabled", false);
+            $("#destroy_kairanyouken").removeClass("disabled");
             if selects.length == 1
-              $("#edit_kairanyouken").attr("disabled", false);
+              $("#edit_kairanyouken").removeClass("disabled");
             else
-              $("#edit_kairanyouken").attr("disabled", true);
+              $("#edit_kairanyouken").addClass("disabled");
       );
 
   $('#new_kairanyouken').click () ->

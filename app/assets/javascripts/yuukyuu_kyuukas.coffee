@@ -61,14 +61,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_ykkkre").attr("disabled", true);
-                  $("#destroy_ykkkre").attr("disabled", true);
+                  $("#edit_ykkkre").addClass("disabled");
+                  $("#destroy_ykkkre").addClass("disabled");
                 else
-                  $("#destroy_ykkkre").attr("disabled", false);
+                  $("#destroy_ykkkre").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_ykkkre").attr("disabled", false);
+                    $("#edit_ykkkre").removeClass("disabled");
                   else
-                    $("#edit_ykkkre").attr("disabled", true);
+                    $("#edit_ykkkre").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
             },
             {
@@ -78,22 +78,22 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_ykkkre").attr("disabled", true);
-                  $("#destroy_ykkkre").attr("disabled", true);
+                  $("#edit_ykkkre").addClass("disabled");
+                  $("#destroy_ykkkre").addClass("disabled");
                 else
-                  $("#destroy_ykkkre").attr("disabled", false);
+                  $("#destroy_ykkkre").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_ykkkre").attr("disabled", false);
+                    $("#edit_ykkkre").removeClass("disabled");
                   else
-                    $("#edit_ykkkre").attr("disabled", true);
+                    $("#edit_ykkkre").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
 
-  $("#edit_ykkkre").attr("disabled", true);
-  $("#destroy_ykkkre").attr("disabled", true);
+  $("#edit_ykkkre").addClass("disabled");
+  $("#destroy_ykkkre").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_ykkkre', (event, jqxhr, settings, exception) ->
@@ -106,28 +106,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_ykkkre").attr("disabled", true);
-        # $("#destroy_ykkkre").attr("disabled", true);
+        # $("#edit_ykkkre").addClass("disabled");
+        # $("#destroy_ykkkre").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_ykkkre").attr("disabled", true);
-        # $("#edit_ykkkre").attr("disabled", false);
-        # $("#destroy_ykkkre").attr("disabled", false);
+        #$("#edit_ykkkre").addClass("disabled");
+        # $("#edit_ykkkre").removeClass("disabled");
+        # $("#destroy_ykkkre").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_ykkkre").attr("disabled", true);
-      $("#destroy_ykkkre").attr("disabled", true);
+      $("#edit_ykkkre").addClass("disabled");
+      $("#destroy_ykkkre").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_ykkkre").attr("disabled", false);
+      $("#destroy_ykkkre").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_ykkkre").attr("disabled", false);
+        $("#edit_ykkkre").removeClass("disabled");
       else
-        $("#edit_ykkkre").attr("disabled", true);
+        $("#edit_ykkkre").addClass("disabled");
 
   )
 
@@ -175,22 +175,22 @@ jQuery ->
             console.log("ykkkre_削除する keydown Unsuccessful")
 
         })
-        $("#edit_ykkkre").attr("disabled", true);
-        $("#destroy_ykkkre").attr("disabled", true);
+        $("#edit_ykkkre").addClass("disabled");
+        $("#destroy_ykkkre").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_ykkkre").attr("disabled", true);
-            $("#destroy_ykkkre").attr("disabled", true);
+            $("#edit_ykkkre").addClass("disabled");
+            $("#destroy_ykkkre").addClass("disabled");
           else
-            $("#destroy_ykkkre").attr("disabled", false);
+            $("#destroy_ykkkre").removeClass("disabled");
             if selects.length == 1
-              $("#edit_ykkkre").attr("disabled", false);
+              $("#edit_ykkkre").removeClass("disabled");
             else
-              $("#edit_ykkkre").attr("disabled", true);
+              $("#edit_ykkkre").addClass("disabled");
       );
   $('#edit_ykkkre').click ->
     new_address = oTable.row('tr.selected').data()[5].split("\"")[1]

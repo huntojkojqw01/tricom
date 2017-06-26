@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("#edit_kaishamaster").attr("disabled", true);
-    $("#destroy_kaishamaster").attr("disabled", true);
+    $("#edit_kaishamaster").addClass("disabled");
+    $("#destroy_kaishamaster").addClass("disabled");
     oKaisha_modal = $('#kaisha-table-modal').DataTable({
       "pagingType": "simple_numbers"
       ,"oLanguage":{
@@ -44,15 +44,15 @@ $(function () {
     if( $(this).hasClass('selected')){
       $(this).removeClass('selected');
       $(this).removeClass('success');
-      $("#edit_kaishamaster").attr("disabled", true);
-      $("#destroy_kaishamaster").attr("disabled", true);
+      $("#edit_kaishamaster").addClass("disabled");
+      $("#destroy_kaishamaster").addClass("disabled");
     }else{
       oKaisha_modal.$('tr.selected').removeClass('selected');
       oKaisha_modal.$('tr.success').removeClass('success');
       $(this).addClass('selected');
       $(this).addClass('success');
-      $("#edit_kaishamaster").attr("disabled", false);
-      $("#destroy_kaishamaster").attr("disabled", false);
+      $("#edit_kaishamaster").removeClass("disabled");
+      $("#destroy_kaishamaster").removeClass("disabled");
     }
 
   });
@@ -61,8 +61,8 @@ $(function () {
 
         oKaisha_modal.$('tr.selected').removeClass('selected');
         oKaisha_modal.$('tr.success').removeClass('success');
-        $("#edit_kaishamaster").attr("disabled", true);
-        $("#destroy_kaishamaster").attr("disabled", true);
+        $("#edit_kaishamaster").addClass("disabled");
+        $("#destroy_kaishamaster").addClass("disabled");
     });
   $('#kaisha_sentaku_ok').click(function(){
     var kaisha = oKaisha_modal.row('tr.selected').data();
@@ -153,8 +153,8 @@ $(function() {
 
 
                 });
-                $("#edit_kaishamaster").attr("disabled", true);
-                $("#destroy_kaishamaster").attr("disabled", true);
+                $("#edit_kaishamaster").addClass("disabled");
+                $("#destroy_kaishamaster").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
 

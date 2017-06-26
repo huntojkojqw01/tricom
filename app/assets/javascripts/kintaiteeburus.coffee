@@ -54,14 +54,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kintaiteeburu").attr("disabled", true);
-                  $("#destroy_kintaiteeburu").attr("disabled", true);
+                  $("#edit_kintaiteeburu").addClass("disabled");
+                  $("#destroy_kintaiteeburu").addClass("disabled");
                 else
-                  $("#destroy_kintaiteeburu").attr("disabled", false);
+                  $("#destroy_kintaiteeburu").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kintaiteeburu").attr("disabled", false);
+                    $("#edit_kintaiteeburu").removeClass("disabled");
                   else
-                    $("#edit_kintaiteeburu").attr("disabled", true);
+                    $("#edit_kintaiteeburu").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -75,22 +75,22 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_kintaiteeburu").attr("disabled", true);
-                  $("#destroy_kintaiteeburu").attr("disabled", true);
+                  $("#edit_kintaiteeburu").addClass("disabled");
+                  $("#destroy_kintaiteeburu").addClass("disabled");
                 else
-                  $("#destroy_kintaiteeburu").attr("disabled", false);
+                  $("#destroy_kintaiteeburu").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_kintaiteeburu").attr("disabled", false);
+                    $("#edit_kintaiteeburu").removeClass("disabled");
                   else
-                    $("#edit_kintaiteeburu").attr("disabled", true);
+                    $("#edit_kintaiteeburu").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
 
-  $("#edit_kintaiteeburu").attr("disabled", true);
-  $("#destroy_kintaiteeburu").attr("disabled", true);
+  $("#edit_kintaiteeburu").addClass("disabled");
+  $("#destroy_kintaiteeburu").addClass("disabled");
 
   $('.kintaiteeburutable').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
@@ -103,16 +103,16 @@ jQuery ->
         $(this).addClass('success')
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_kintaiteeburu").attr("disabled", true);
-      $("#destroy_kintaiteeburu").attr("disabled", true);
+      $("#edit_kintaiteeburu").addClass("disabled");
+      $("#destroy_kintaiteeburu").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_kintaiteeburu").attr("disabled", false);
+      $("#destroy_kintaiteeburu").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_kintaiteeburu").attr("disabled", false);
+        $("#edit_kintaiteeburu").removeClass("disabled");
       else
-        $("#edit_kintaiteeburu").attr("disabled", true);
+        $("#edit_kintaiteeburu").addClass("disabled");
 
   )
 
@@ -160,22 +160,22 @@ jQuery ->
             console.log("kintaiteeburu_削除する keydown Unsuccessful")
 
         })
-        $("#edit_kintaiteeburu").attr("disabled", true);
-        $("#destroy_kintaiteeburu").attr("disabled", true);
+        $("#edit_kintaiteeburu").addClass("disabled");
+        $("#destroy_kintaiteeburu").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_kintaiteeburu").attr("disabled", true);
-            $("#destroy_kintaiteeburu").attr("disabled", true);
+            $("#edit_kintaiteeburu").addClass("disabled");
+            $("#destroy_kintaiteeburu").addClass("disabled");
           else
-            $("#destroy_kintaiteeburu").attr("disabled", false);
+            $("#destroy_kintaiteeburu").removeClass("disabled");
             if selects.length == 1
-              $("#edit_kintaiteeburu").attr("disabled", false);
+              $("#edit_kintaiteeburu").removeClass("disabled");
             else
-              $("#edit_kintaiteeburu").attr("disabled", true);
+              $("#edit_kintaiteeburu").addClass("disabled");
       );
   $('#edit_kintaiteeburu').click ->
     new_address = oTable.row('tr.selected').data()[12].split("\"")[1]

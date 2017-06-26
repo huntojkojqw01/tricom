@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("#edit_basho").attr("disabled", true);
-    $("#destroy_basho").attr("disabled", true);
+    $("#edit_basho").addClass("disabled");
+    $("#destroy_basho").addClass("disabled");
     oBashoTable = $('#basho_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
@@ -58,11 +58,11 @@ $(function () {
                 });
                 var check_select = oKaisha_modal.rows('tr.selected').data();
                 if(check_select == undefined){
-                  $("#edit_kaishamaster").attr("disabled", true);
-                  $("#destroy_kaishamaster").attr("disabled", true);
+                  $("#edit_kaishamaster").addClass("disabled");
+                  $("#destroy_kaishamaster").addClass("disabled");
                 }else{
-                  $("#edit_kaishamaster").attr("disabled", false);
-                  $("#destroy_kaishamaster").attr("disabled", false);
+                  $("#edit_kaishamaster").removeClass("disabled");
+                  $("#destroy_kaishamaster").removeClass("disabled");
                 }
                 oKaisha_modal.page.jumpToData(kaisha_code, 0);
               }
@@ -84,24 +84,24 @@ $(function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
-            $("#edit_basho").attr("disabled", true);
-            $("#destroy_basho").attr("disabled", true);
+            $("#edit_basho").addClass("disabled");
+            $("#destroy_basho").addClass("disabled");
         }
         else {
             oBashoTable.$('tr.selected').removeClass('selected');
             oBashoTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
-            $("#edit_basho").attr("disabled", false);
-            $("#destroy_basho").attr("disabled", false);
+            $("#edit_basho").removeClass("disabled");
+            $("#destroy_basho").removeClass("disabled");
         }
     } );
     $('#clear_basho').click(function () {
 
         oBashoTable.$('tr.selected').removeClass('selected');
         oBashoTable.$('tr.success').removeClass('success');
-        $("#edit_basho").attr("disabled", true);
-        $("#destroy_basho").attr("disabled", true);
+        $("#edit_basho").addClass("disabled");
+        $("#destroy_basho").addClass("disabled");
     });
 
     $('#basho_table tbody').on( 'dblclick', 'tr', function () {
@@ -222,8 +222,8 @@ $(function() {
 
 
                 });
-                $("#edit_basho").attr("disabled", true);
-                $("#destroy_basho").attr("disabled", true);
+                $("#edit_basho").addClass("disabled");
+                $("#destroy_basho").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
 

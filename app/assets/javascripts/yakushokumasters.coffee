@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_yakushoku").attr("disabled", true);
-                  $("#destroy_yakushoku").attr("disabled", true);
+                  $("#edit_yakushoku").addClass("disabled");
+                  $("#destroy_yakushoku").addClass("disabled");
                 else
-                  $("#destroy_yakushoku").attr("disabled", false);
+                  $("#destroy_yakushoku").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_yakushoku").attr("disabled", false);
+                    $("#edit_yakushoku").removeClass("disabled");
                   else
-                    $("#edit_yakushoku").attr("disabled", true);
+                    $("#edit_yakushoku").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,21 +71,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_yakushoku").attr("disabled", true);
-                  $("#destroy_yakushoku").attr("disabled", true);
+                  $("#edit_yakushoku").addClass("disabled");
+                  $("#destroy_yakushoku").addClass("disabled");
                 else
-                  $("#destroy_yakushoku").attr("disabled", false);
+                  $("#destroy_yakushoku").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_yakushoku").attr("disabled", false);
+                    $("#edit_yakushoku").removeClass("disabled");
                   else
-                    $("#edit_yakushoku").attr("disabled", true);
+                    $("#edit_yakushoku").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
-  $("#edit_yakushoku").attr("disabled", true);
-  $("#destroy_yakushoku").attr("disabled", true);
+  $("#edit_yakushoku").addClass("disabled");
+  $("#destroy_yakushoku").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_yakushokumaster', (event, jqxhr, settings, exception) ->
@@ -98,28 +98,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_yakushoku").attr("disabled", true);
-        # $("#destroy_yakushoku").attr("disabled", true);
+        # $("#edit_yakushoku").addClass("disabled");
+        # $("#destroy_yakushoku").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_yakushoku").attr("disabled", true);
-        # $("#edit_yakushoku").attr("disabled", false);
-        # $("#destroy_yakushoku").attr("disabled", false);
+        #$("#edit_yakushoku").addClass("disabled");
+        # $("#edit_yakushoku").removeClass("disabled");
+        # $("#destroy_yakushoku").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_yakushoku").attr("disabled", true);
-      $("#destroy_yakushoku").attr("disabled", true);
+      $("#edit_yakushoku").addClass("disabled");
+      $("#destroy_yakushoku").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_yakushoku").attr("disabled", false);
+      $("#destroy_yakushoku").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_yakushoku").attr("disabled", false);
+        $("#edit_yakushoku").removeClass("disabled");
       else
-        $("#edit_yakushoku").attr("disabled", true);
+        $("#edit_yakushoku").addClass("disabled");
 
   )
 
@@ -167,22 +167,22 @@ jQuery ->
             console.log("yakushoku_削除する keydown Unsuccessful")
 
         })
-        $("#edit_yakushoku").attr("disabled", true);
-        $("#destroy_yakushoku").attr("disabled", true);
+        $("#edit_yakushoku").addClass("disabled");
+        $("#destroy_yakushoku").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_yakushoku").attr("disabled", true);
-            $("#destroy_yakushoku").attr("disabled", true);
+            $("#edit_yakushoku").addClass("disabled");
+            $("#destroy_yakushoku").addClass("disabled");
           else
-            $("#destroy_yakushoku").attr("disabled", false);
+            $("#destroy_yakushoku").removeClass("disabled");
             if selects.length == 1
-              $("#edit_yakushoku").attr("disabled", false);
+              $("#edit_yakushoku").removeClass("disabled");
             else
-              $("#edit_yakushoku").attr("disabled", true);
+              $("#edit_yakushoku").addClass("disabled");
       );
   $('#new_yakushoku').click ()->
       $('#yakushoku-new-modal').modal('show')

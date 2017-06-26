@@ -25,15 +25,15 @@ $(function() {
             if($(this).hasClass('selected')){
                 $(this).removeClass('selected');
                 $(this).removeClass('success');
-                $("#edit_holiday").attr("disabled", true);
-                $("#destroy_holiday").attr("disabled", true);
+                $("#edit_holiday").addClass("disabled");
+                $("#destroy_holiday").addClass("disabled");
             }else{
                 oTable.$('tr.selected').removeClass('selected');
                 oTable.$('tr.success').removeClass('success');
                 $(this).addClass('selected');
                 $(this).addClass('success');
-                $("#edit_holiday").attr("disabled", false);
-                $("#destroy_holiday").attr("disabled", false);
+                $("#edit_holiday").removeClass("disabled");
+                $("#destroy_holiday").removeClass("disabled");
             }
         }
     });
@@ -41,8 +41,8 @@ $(function() {
 
 });
 $(document).ready(function(){
-    $("#edit_holiday").attr("disabled", true);
-    $("#destroy_holiday").attr("disabled", true);
+    $("#edit_holiday").addClass("disabled");
+    $("#destroy_holiday").addClass("disabled");
     $(document).bind('ajaxError', 'form#new_jpt_holiday_mst', function(event, jqxhr, settings, exception){
         $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
     });
@@ -120,8 +120,8 @@ $(function() {
 
 
                 });
-                $("#edit_holiday").attr("disabled", true);
-                $("#destroy_holiday").attr("disabled", true);
+                $("#edit_holiday").addClass("disabled");
+                $("#destroy_holiday").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
 
@@ -155,8 +155,8 @@ $(function() {
 
 
             //     });
-            //     $("#edit_holiday").attr("disabled", true);
-            //     $("#destroy_holiday").attr("disabled", true);
+            //     $("#edit_holiday").addClass("disabled");
+            //     $("#destroy_holiday").addClass("disabled");
 
             // }else{
             //     $("#edit_holiday").attr("disabled", false)

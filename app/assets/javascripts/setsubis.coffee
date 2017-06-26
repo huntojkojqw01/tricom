@@ -48,14 +48,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_setsubi").attr("disabled", true);
-                  $("#destroy_setsubi").attr("disabled", true);
+                  $("#edit_setsubi").addClass("disabled");
+                  $("#destroy_setsubi").addClass("disabled");
                 else
-                  $("#destroy_setsubi").attr("disabled", false);
+                  $("#destroy_setsubi").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_setsubi").attr("disabled", false);
+                    $("#edit_setsubi").removeClass("disabled");
                   else
-                    $("#edit_setsubi").attr("disabled", true);
+                    $("#edit_setsubi").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -69,20 +69,20 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_setsubi").attr("disabled", true);
-                  $("#destroy_setsubi").attr("disabled", true);
+                  $("#edit_setsubi").addClass("disabled");
+                  $("#destroy_setsubi").addClass("disabled");
                 else
-                  $("#destroy_setsubi").attr("disabled", false);
+                  $("#destroy_setsubi").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_setsubi").attr("disabled", false);
+                    $("#edit_setsubi").removeClass("disabled");
                   else
-                    $("#edit_setsubi").attr("disabled", true);
+                    $("#edit_setsubi").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
-  $("#edit_setsubi").attr("disabled", true);
-  $("#destroy_setsubi").attr("disabled", true);
+  $("#edit_setsubi").addClass("disabled");
+  $("#destroy_setsubi").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_setsubi', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -112,27 +112,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_setsubi").attr("disabled", true);
-        # $("#destroy_setsubi").attr("disabled", true);
+        # $("#edit_setsubi").addClass("disabled");
+        # $("#destroy_setsubi").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_setsubi").attr("disabled", false);
-        # $("#destroy_setsubi").attr("disabled", false);
+        # $("#edit_setsubi").removeClass("disabled");
+        # $("#destroy_setsubi").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_setsubi").attr("disabled", true);
-      $("#destroy_setsubi").attr("disabled", true);
+      $("#edit_setsubi").addClass("disabled");
+      $("#destroy_setsubi").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_setsubi").attr("disabled", false);
+      $("#destroy_setsubi").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_setsubi").attr("disabled", false);
+        $("#edit_setsubi").removeClass("disabled");
       else
-        $("#edit_setsubi").attr("disabled", true);
+        $("#edit_setsubi").addClass("disabled");
   )
 
   $('#destroy_setsubi').click () ->
@@ -180,22 +180,22 @@ jQuery ->
             console.log("setsubi_削除する keydown Unsuccessful")
 
         })
-        $("#edit_setsubi").attr("disabled", true);
-        $("#destroy_setsubi").attr("disabled", true);
+        $("#edit_setsubi").addClass("disabled");
+        $("#destroy_setsubi").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_setsubi").attr("disabled", true);
-            $("#destroy_setsubi").attr("disabled", true);
+            $("#edit_setsubi").addClass("disabled");
+            $("#destroy_setsubi").addClass("disabled");
           else
-            $("#destroy_setsubi").attr("disabled", false);
+            $("#destroy_setsubi").removeClass("disabled");
             if selects.length == 1
-              $("#edit_setsubi").attr("disabled", false);
+              $("#edit_setsubi").removeClass("disabled");
             else
-              $("#edit_setsubi").attr("disabled", true);
+              $("#edit_setsubi").addClass("disabled");
       );
 
   $('#new_setsubi').click () ->

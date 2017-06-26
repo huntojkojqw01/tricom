@@ -4,6 +4,9 @@
 jQuery ->
   oTable = $('.rorumenba-table').DataTable({
     "pagingType": "full_numbers",
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     }
@@ -18,7 +21,11 @@ jQuery ->
         "targets"  : 'no-sort',
         "orderable": false
     }]
-    ,"oSearch": {"sSearch": queryParameters().search}
+    ,"oSearch": {"sSearch": queryParameters().search},
+    buttons: [
+      'selectAll',
+      'selectNone'
+    ],
   })
 
   $('#rorumenba').click () ->

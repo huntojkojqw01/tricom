@@ -7,7 +7,7 @@ jQuery ->
   action: (e, dt, node, config) ->
     $('#import-csv-modal').modal('show')
   oTable = $('.setsubiyoyaku-table').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     "pagingType": "full_numbers",
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
@@ -84,28 +84,28 @@ jQuery ->
         }
       ]
   })
-  $("#destroy_setsubiyoyaku").attr("disabled", true);
+  $("#destroy_setsubiyoyaku").addClass("disabled");
   $('.setsubiyoyaku-table').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_eki").attr("disabled", true);
-        # $("#destroy_eki").attr("disabled", true);
+        # $("#edit_eki").addClass("disabled");
+        # $("#destroy_eki").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_eki").attr("disabled", false);
-        # $("#destroy_eki").attr("disabled", false);
+        # $("#edit_eki").removeClass("disabled");
+        # $("#destroy_eki").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#destroy_setsubiyoyaku").attr("disabled", true);
+      $("#destroy_setsubiyoyaku").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_setsubiyoyaku").attr("disabled", false);
+      $("#destroy_setsubiyoyaku").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
 
 
@@ -155,16 +155,16 @@ jQuery ->
             console.log("setsubiyoyaku_削除する keydown Unsuccessful")
 
         })
-        $("#destroy_setsubiyoyaku").attr("disabled", true);
+        $("#destroy_setsubiyoyaku").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#destroy_setsubiyoyaku").attr("disabled", true);
+            $("#destroy_setsubiyoyaku").addClass("disabled");
           else
-            $("#destroy_setsubiyoyaku").attr("disabled", false);
+            $("#destroy_setsubiyoyaku").removeClass("disabled");
       );
   $('#export_setsubiyoyaku').click ()->
     location.href='/setsubiyoyakus/export_csv.csv?locale=ja'

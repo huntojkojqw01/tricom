@@ -4,8 +4,10 @@ jQuery ->
   action: (e, dt, node, config) ->
     $('#import-csv-modal').modal('show')
   oTable = $('#myjobmaster').DataTable({
-    "dom": 'lBfrtip',
+    "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     "scrollX": true,
+    "fnDrawCallback": (oSettings) ->
+      $('.new-btn').appendTo($('.dt-buttons'));
 #    'scrollY': "300px",
     "pagingType": "full_numbers",
     "oLanguage": {
@@ -50,14 +52,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_myjob").attr("disabled", true);
-                  $("#destroy_myjob").attr("disabled", true);
+                  $("#edit_myjob").addClass("disabled");
+                  $("#destroy_myjob").addClass("disabled");
                 else
-                  $("#destroy_myjob").attr("disabled", false);
+                  $("#destroy_myjob").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_myjob").attr("disabled", false);
+                    $("#edit_myjob").removeClass("disabled");
                   else
-                    $("#edit_myjob").attr("disabled", true);
+                    $("#edit_myjob").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,14 +73,14 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_myjob").attr("disabled", true);
-                  $("#destroy_myjob").attr("disabled", true);
+                  $("#edit_myjob").addClass("disabled");
+                  $("#destroy_myjob").addClass("disabled");
                 else
-                  $("#destroy_myjob").attr("disabled", false);
+                  $("#destroy_myjob").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_myjob").attr("disabled", false);
+                    $("#edit_myjob").removeClass("disabled");
                   else
-                    $("#edit_myjob").attr("disabled", true);
+                    $("#edit_myjob").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
@@ -321,27 +323,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_myjob").attr("disabled", true);
-        # $("#destroy_myjob").attr("disabled", true);
+        # $("#edit_myjob").addClass("disabled");
+        # $("#destroy_myjob").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_myjob").attr("disabled", false);
-        # $("#destroy_myjob").attr("disabled", false);
+        # $("#edit_myjob").removeClass("disabled");
+        # $("#destroy_myjob").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_myjob").attr("disabled", true);
-      $("#destroy_myjob").attr("disabled", true);
+      $("#edit_myjob").addClass("disabled");
+      $("#destroy_myjob").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_myjob").attr("disabled", false);
+      $("#destroy_myjob").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_myjob").attr("disabled", false);
+        $("#edit_myjob").removeClass("disabled");
       else
-        $("#edit_myjob").attr("disabled", true);
+        $("#edit_myjob").addClass("disabled");
   )
 
 #  $('#myjobmaster_分類コード').on('change', () ->

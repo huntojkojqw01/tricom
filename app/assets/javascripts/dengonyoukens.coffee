@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_dengonyouken").attr("disabled", true);
-                  $("#destroy_dengonyouken").attr("disabled", true);
+                  $("#edit_dengonyouken").addClass("disabled");
+                  $("#destroy_dengonyouken").addClass("disabled");
                 else
-                  $("#destroy_dengonyouken").attr("disabled", false);
+                  $("#destroy_dengonyouken").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_dengonyouken").attr("disabled", false);
+                    $("#edit_dengonyouken").removeClass("disabled");
                   else
-                    $("#edit_dengonyouken").attr("disabled", true);
+                    $("#edit_dengonyouken").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,20 +71,20 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_dengonyouken").attr("disabled", true);
-                  $("#destroy_dengonyouken").attr("disabled", true);
+                  $("#edit_dengonyouken").addClass("disabled");
+                  $("#destroy_dengonyouken").addClass("disabled");
                 else
-                  $("#destroy_dengonyouken").attr("disabled", false);
+                  $("#destroy_dengonyouken").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_dengonyouken").attr("disabled", false);
+                    $("#edit_dengonyouken").removeClass("disabled");
                   else
-                    $("#edit_dengonyouken").attr("disabled", true);
+                    $("#edit_dengonyouken").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
-  $("#edit_dengonyouken").attr("disabled", true);
-  $("#destroy_dengonyouken").attr("disabled", true);
+  $("#edit_dengonyouken").addClass("disabled");
+  $("#destroy_dengonyouken").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_dengonyouken', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -114,27 +114,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_dengonyouken").attr("disabled", true);
-        # $("#destroy_dengonyouken").attr("disabled", true);
+        # $("#edit_dengonyouken").addClass("disabled");
+        # $("#destroy_dengonyouken").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_dengonyouken").attr("disabled", false);
-        # $("#destroy_dengonyouken").attr("disabled", false);
+        # $("#edit_dengonyouken").removeClass("disabled");
+        # $("#destroy_dengonyouken").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_dengonyouken").attr("disabled", true);
-      $("#destroy_dengonyouken").attr("disabled", true);
+      $("#edit_dengonyouken").addClass("disabled");
+      $("#destroy_dengonyouken").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_dengonyouken").attr("disabled", false);
+      $("#destroy_dengonyouken").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_dengonyouken").attr("disabled", false);
+        $("#edit_dengonyouken").removeClass("disabled");
       else
-        $("#edit_dengonyouken").attr("disabled", true);
+        $("#edit_dengonyouken").addClass("disabled");
   )
 
   $('#destroy_dengonyouken').click () ->
@@ -182,22 +182,22 @@ jQuery ->
             console.log("dengonyouken_削除する keydown Unsuccessful")
 
         })
-        $("#edit_dengonyouken").attr("disabled", true);
-        $("#destroy_dengonyouken").attr("disabled", true);
+        $("#edit_dengonyouken").addClass("disabled");
+        $("#destroy_dengonyouken").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_dengonyouken").attr("disabled", true);
-            $("#destroy_dengonyouken").attr("disabled", true);
+            $("#edit_dengonyouken").addClass("disabled");
+            $("#destroy_dengonyouken").addClass("disabled");
           else
-            $("#destroy_dengonyouken").attr("disabled", false);
+            $("#destroy_dengonyouken").removeClass("disabled");
             if selects.length == 1
-              $("#edit_dengonyouken").attr("disabled", false);
+              $("#edit_dengonyouken").removeClass("disabled");
             else
-              $("#edit_dengonyouken").attr("disabled", true);
+              $("#edit_dengonyouken").addClass("disabled");
       );
 
   $('#new_dengonyouken').click () ->

@@ -52,14 +52,14 @@ jQuery ->
                 oEkiTable.$('tr').addClass('success')
                 selects = oEkiTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_eki").attr("disabled", true);
-                  $("#destroy_eki").attr("disabled", true);
+                  $("#edit_eki").addClass("disabled");
+                  $("#destroy_eki").addClass("disabled");
                 else
-                  $("#destroy_eki").attr("disabled", false);
+                  $("#destroy_eki").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_eki").attr("disabled", false);
+                    $("#edit_eki").removeClass("disabled");
                   else
-                    $("#edit_eki").attr("disabled", true);
+                    $("#edit_eki").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -73,22 +73,22 @@ jQuery ->
                 oEkiTable.$('tr').removeClass('success')
                 selects = oEkiTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_eki").attr("disabled", true);
-                  $("#destroy_eki").attr("disabled", true);
+                  $("#edit_eki").addClass("disabled");
+                  $("#destroy_eki").addClass("disabled");
                 else
-                  $("#destroy_eki").attr("disabled", false);
+                  $("#destroy_eki").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_eki").attr("disabled", false);
+                    $("#edit_eki").removeClass("disabled");
                   else
-                    $("#edit_eki").attr("disabled", true);
+                    $("#edit_eki").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
 
-  $("#edit_eki").attr("disabled", true);
-  $("#destroy_eki").attr("disabled", true);
+  $("#edit_eki").addClass("disabled");
+  $("#destroy_eki").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_eki', (event, jqxhr, settings, exception) ->
@@ -120,27 +120,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_eki").attr("disabled", true);
-        # $("#destroy_eki").attr("disabled", true);
+        # $("#edit_eki").addClass("disabled");
+        # $("#destroy_eki").addClass("disabled");
       else
         # oEkiTable.$('tr.selected').removeClass('selected')
         # oEkiTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_eki").attr("disabled", false);
-        # $("#destroy_eki").attr("disabled", false);
+        # $("#edit_eki").removeClass("disabled");
+        # $("#destroy_eki").removeClass("disabled");
     selects = oEkiTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_eki").attr("disabled", true);
-      $("#destroy_eki").attr("disabled", true);
+      $("#edit_eki").addClass("disabled");
+      $("#destroy_eki").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_eki").attr("disabled", false);
+      $("#destroy_eki").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_eki").attr("disabled", false);
+        $("#edit_eki").removeClass("disabled");
       else
-        $("#edit_eki").attr("disabled", true);
+        $("#edit_eki").addClass("disabled");
 
   )
 
@@ -188,22 +188,22 @@ jQuery ->
             console.log("eki_削除する keydown Unsuccessful")
 
         })
-        $("#edit_eki").attr("disabled", true);
-        $("#destroy_eki").attr("disabled", true);
+        $("#edit_eki").addClass("disabled");
+        $("#destroy_eki").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oEkiTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_eki").attr("disabled", true);
-            $("#destroy_eki").attr("disabled", true);
+            $("#edit_eki").addClass("disabled");
+            $("#destroy_eki").addClass("disabled");
           else
-            $("#destroy_eki").attr("disabled", false);
+            $("#destroy_eki").removeClass("disabled");
             if selects.length == 1
-              $("#edit_eki").attr("disabled", false);
+              $("#edit_eki").removeClass("disabled");
             else
-              $("#edit_eki").attr("disabled", true);
+              $("#edit_eki").addClass("disabled");
       );
   $('#new_eki').click () ->
     $('#eki-new-modal').modal('show')

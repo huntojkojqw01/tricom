@@ -43,14 +43,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_yuusen").attr("disabled", true);
-                  $("#destroy_yuusen").attr("disabled", true);
+                  $("#edit_yuusen").addClass("disabled");
+                  $("#destroy_yuusen").addClass("disabled");
                 else
-                  $("#destroy_yuusen").attr("disabled", false);
+                  $("#destroy_yuusen").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_yuusen").attr("disabled", false);
+                    $("#edit_yuusen").removeClass("disabled");
                   else
-                    $("#edit_yuusen").attr("disabled", true);
+                    $("#edit_yuusen").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -64,21 +64,21 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_yuusen").attr("disabled", true);
-                  $("#destroy_yuusen").attr("disabled", true);
+                  $("#edit_yuusen").addClass("disabled");
+                  $("#destroy_yuusen").addClass("disabled");
                 else
-                  $("#destroy_yuusen").attr("disabled", false);
+                  $("#destroy_yuusen").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_yuusen").attr("disabled", false);
+                    $("#edit_yuusen").removeClass("disabled");
                   else
-                    $("#edit_yuusen").attr("disabled", true);
+                    $("#edit_yuusen").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
 
-  $("#edit_yuusen").attr("disabled", true);
-  $("#destroy_yuusen").attr("disabled", true);
+  $("#edit_yuusen").addClass("disabled");
+  $("#destroy_yuusen").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_yuusen', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -107,27 +107,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_yuusen").attr("disabled", true);
-        # $("#destroy_yuusen").attr("disabled", true);
+        # $("#edit_yuusen").addClass("disabled");
+        # $("#destroy_yuusen").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_yuusen").attr("disabled", false);
-        # $("#destroy_yuusen").attr("disabled", false);
+        # $("#edit_yuusen").removeClass("disabled");
+        # $("#destroy_yuusen").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_yuusen").attr("disabled", true);
-      $("#destroy_yuusen").attr("disabled", true);
+      $("#edit_yuusen").addClass("disabled");
+      $("#destroy_yuusen").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_yuusen").attr("disabled", false);
+      $("#destroy_yuusen").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_yuusen").attr("disabled", false);
+        $("#edit_yuusen").removeClass("disabled");
       else
-        $("#edit_yuusen").attr("disabled", true);
+        $("#edit_yuusen").addClass("disabled");
   )
 
   $('#destroy_yuusen').click () ->
@@ -175,22 +175,22 @@ jQuery ->
             console.log("yuusen_削除する keydown Unsuccessful")
 
         })
-        $("#edit_yuusen").attr("disabled", true);
-        $("#destroy_yuusen").attr("disabled", true);
+        $("#edit_yuusen").addClass("disabled");
+        $("#destroy_yuusen").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_yuusen").attr("disabled", true);
-            $("#destroy_yuusen").attr("disabled", true);
+            $("#edit_yuusen").addClass("disabled");
+            $("#destroy_yuusen").addClass("disabled");
           else
-            $("#destroy_yuusen").attr("disabled", false);
+            $("#destroy_yuusen").removeClass("disabled");
             if selects.length == 1
-              $("#edit_yuusen").attr("disabled", false);
+              $("#edit_yuusen").removeClass("disabled");
             else
-              $("#edit_yuusen").attr("disabled", true);
+              $("#edit_yuusen").addClass("disabled");
       );
 
   $('#edit_yuusen').click () ->

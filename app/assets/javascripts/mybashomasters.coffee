@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_mybasho").attr("disabled", true);
-                  $("#destroy_mybasho").attr("disabled", true);
+                  $("#edit_mybasho").addClass("disabled");
+                  $("#destroy_mybasho").addClass("disabled");
                 else
-                  $("#destroy_mybasho").attr("disabled", false);
+                  $("#destroy_mybasho").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_mybasho").attr("disabled", false);
+                    $("#edit_mybasho").removeClass("disabled");
                   else
-                    $("#edit_mybasho").attr("disabled", true);
+                    $("#edit_mybasho").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,22 +71,22 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_mybasho").attr("disabled", true);
-                  $("#destroy_mybasho").attr("disabled", true);
+                  $("#edit_mybasho").addClass("disabled");
+                  $("#destroy_mybasho").addClass("disabled");
                 else
-                  $("#destroy_mybasho").attr("disabled", false);
+                  $("#destroy_mybasho").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_mybasho").attr("disabled", false);
+                    $("#edit_mybasho").removeClass("disabled");
                   else
-                    $("#edit_mybasho").attr("disabled", true);
+                    $("#edit_mybasho").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
 
-  $("#edit_mybasho").attr("disabled", true);
-  $("#destroy_mybasho").attr("disabled", true);
+  $("#edit_mybasho").addClass("disabled");
+  $("#destroy_mybasho").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_mybashomaster', (event, jqxhr, settings, exception) ->
@@ -118,28 +118,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_mybasho").attr("disabled", true);
-        # $("#destroy_mybasho").attr("disabled", true);
+        # $("#edit_mybasho").addClass("disabled");
+        # $("#destroy_mybasho").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_mybasho").attr("disabled", true);
-        # $("#edit_mybasho").attr("disabled", false);
-        # $("#destroy_mybasho").attr("disabled", false);
+        #$("#edit_mybasho").addClass("disabled");
+        # $("#edit_mybasho").removeClass("disabled");
+        # $("#destroy_mybasho").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_mybasho").attr("disabled", true);
-      $("#destroy_mybasho").attr("disabled", true);
+      $("#edit_mybasho").addClass("disabled");
+      $("#destroy_mybasho").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_mybasho").attr("disabled", false);
+      $("#destroy_mybasho").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_mybasho").attr("disabled", false);
+        $("#edit_mybasho").removeClass("disabled");
       else
-        $("#edit_mybasho").attr("disabled", true);
+        $("#edit_mybasho").addClass("disabled");
 
   )
 
@@ -187,22 +187,22 @@ jQuery ->
             console.log("mybasho_削除する keydown Unsuccessful")
 
         })
-        $("#edit_mybasho").attr("disabled", true);
-        $("#destroy_mybasho").attr("disabled", true);
+        $("#edit_mybasho").addClass("disabled");
+        $("#destroy_mybasho").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_mybasho").attr("disabled", true);
-            $("#destroy_mybasho").attr("disabled", true);
+            $("#edit_mybasho").addClass("disabled");
+            $("#destroy_mybasho").addClass("disabled");
           else
-            $("#destroy_mybasho").attr("disabled", false);
+            $("#destroy_mybasho").removeClass("disabled");
             if selects.length == 1
-              $("#edit_mybasho").attr("disabled", false);
+              $("#edit_mybasho").removeClass("disabled");
             else
-              $("#edit_mybasho").attr("disabled", true);
+              $("#edit_mybasho").addClass("disabled");
       );
   $('#edit_mybasho').click ->
     new_address = oTable.row('tr.selected').data()[8].split("\"")[1]

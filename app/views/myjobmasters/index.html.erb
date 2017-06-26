@@ -56,7 +56,7 @@
 
 <br>
 
-<%= link_to '新規', new_myjobmaster_path %>
+<%= link_to '新規', new_myjobmaster_path, class: 'btn btn-primary new-btn btn-custom-datatable dt-button'%>
 
 <% if can? :update, @myjobmasters %>
   <%=render 'share/import_csv_modal',import_path: import_myjobmasters_path%>

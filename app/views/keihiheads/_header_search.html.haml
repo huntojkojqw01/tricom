@@ -1,5 +1,4 @@
 .row-fruid
-  %br
   - msg_select = t 'app.select_confirm'
   - msg_confirm = t 'app.delete_confirm'
   - delete_text = t 'title.delete'
@@ -7,15 +6,14 @@
   .span#message_confirm_delete{hidden: :true} #{msg_confirm}
   - if request['shain'].nil?
     %a{href: new_keihihead_path(shain: session[:user])}
-      %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
+      %a.new-btn.dt-button#new_keihihead{type: :button} #{(t 'title.new')}
   - else
     %a{href: new_keihihead_path(shain: request['shain'])}
-      %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
+      %a.new-btn.dt-button#new_keihihead{type: :button} #{(t 'title.new')}
   / %a{href: new_keihihead_path}
   /   %button.btn.btn-primary#new_keihihead{type: :button} #{(t 'title.new')}
-  %button.btn.btn-primary#destroy_keihihead{type: :button} #{delete_text}
-  %button.btn.btn-primary#print_index{type: :button} #{(t 'app.label.export_pdf')}
-%br
+  %a.edit-btn.dt-button#destroy_keihihead{type: :button} #{delete_text}
+  %a.delete-btn.dt-button#print_index{type: :button} #{(t 'app.label.export_pdf')}
 .row-fruid
   .form-inline
     .form-group

@@ -1,6 +1,6 @@
 $(document).ready(function(){
-    $("#edit_joutaimaster").attr("disabled", true);
-    $("#destroy_joutaimaster").attr("disabled", true);
+    $("#edit_joutaimaster").addClass("disabled");
+    $("#destroy_joutaimaster").addClass("disabled");
     oJoutaiTable = $('#joutai_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
@@ -79,16 +79,16 @@ $(function () {
         if ( $(this).hasClass('selected') ) {
             $(this).removeClass('selected');
             $(this).removeClass('success');
-            $("#edit_joutaimaster").attr("disabled", true);
-            $("#destroy_joutaimaster").attr("disabled", true);
+            $("#edit_joutaimaster").addClass("disabled");
+            $("#destroy_joutaimaster").addClass("disabled");
         }
         else {
             oJoutaiTable.$('tr.selected').removeClass('selected');
             oJoutaiTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
-            $("#edit_joutaimaster").attr("disabled", false);
-            $("#destroy_joutaimaster").attr("disabled", false);
+            $("#edit_joutaimaster").removeClass("disabled");
+            $("#destroy_joutaimaster").removeClass("disabled");
         }
 
     } );
@@ -173,8 +173,8 @@ $(function () {
 
         oJoutaiTable.$('tr.selected').removeClass('selected');
         oJoutaiTable.$('tr.success').removeClass('success');
-        $("#edit_joutaimaster").attr("disabled", true);
-        $("#destroy_joutaimaster").attr("disabled", true);
+        $("#edit_joutaimaster").addClass("disabled");
+        $("#destroy_joutaimaster").addClass("disabled");
 
     });
 
@@ -223,8 +223,8 @@ $(function() {
                             $('.event_帰社').hide();
                               $('#event_状態コード').val('');
                               $('.hint-joutai-refer').text('');
-                              $("#edit_joutaimaster").attr("disabled", true);
-                              $("#destroy_joutaimaster").attr("disabled", true);
+                              $("#edit_joutaimaster").addClass("disabled");
+                              $("#destroy_joutaimaster").addClass("disabled");
                               $('#event_場所コード').prop( "disabled", false );
                               $('#event_JOB').prop( "disabled", false );
                               $('#event_工程コード').prop( "disabled", false );
@@ -241,8 +241,8 @@ $(function() {
 
 
                 });
-                $("#edit_joutaimaster").attr("disabled", true);
-                $("#destroy_joutaimaster").attr("disabled", true);
+                $("#edit_joutaimaster").addClass("disabled");
+                $("#destroy_joutaimaster").addClass("disabled");
             }, function(dismiss) {
                 if (dismiss === 'cancel') {
 

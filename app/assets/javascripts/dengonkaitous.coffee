@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_dengonkaitou").attr("disabled", true);
-                  $("#destroy_dengonkaitou").attr("disabled", true);
+                  $("#edit_dengonkaitou").addClass("disabled");
+                  $("#destroy_dengonkaitou").addClass("disabled");
                 else
-                  $("#destroy_dengonkaitou").attr("disabled", false);
+                  $("#destroy_dengonkaitou").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_dengonkaitou").attr("disabled", false);
+                    $("#edit_dengonkaitou").removeClass("disabled");
                   else
-                    $("#edit_dengonkaitou").attr("disabled", true);
+                    $("#edit_dengonkaitou").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,20 +71,20 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_dengonkaitou").attr("disabled", true);
-                  $("#destroy_dengonkaitou").attr("disabled", true);
+                  $("#edit_dengonkaitou").addClass("disabled");
+                  $("#destroy_dengonkaitou").addClass("disabled");
                 else
-                  $("#destroy_dengonkaitou").attr("disabled", false);
+                  $("#destroy_dengonkaitou").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_dengonkaitou").attr("disabled", false);
+                    $("#edit_dengonkaitou").removeClass("disabled");
                   else
-                    $("#edit_dengonkaitou").attr("disabled", true);
+                    $("#edit_dengonkaitou").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
   })
-  $("#edit_dengonkaitou").attr("disabled", true);
-  $("#destroy_dengonkaitou").attr("disabled", true);
+  $("#edit_dengonkaitou").addClass("disabled");
+  $("#destroy_dengonkaitou").addClass("disabled");
 
   $(document).bind('ajaxError', 'form#new_dengonkaitou', (event, jqxhr, settings, exception) ->
     $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
@@ -113,27 +113,27 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_dengonkaitou").attr("disabled", true);
-        # $("#destroy_dengonkaitou").attr("disabled", true);
+        # $("#edit_dengonkaitou").addClass("disabled");
+        # $("#destroy_dengonkaitou").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        # $("#edit_dengonkaitou").attr("disabled", false);
-        # $("#destroy_dengonkaitou").attr("disabled", false);
+        # $("#edit_dengonkaitou").removeClass("disabled");
+        # $("#destroy_dengonkaitou").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_dengonkaitou").attr("disabled", true);
-      $("#destroy_dengonkaitou").attr("disabled", true);
+      $("#edit_dengonkaitou").addClass("disabled");
+      $("#destroy_dengonkaitou").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_dengonkaitou").attr("disabled", false);
+      $("#destroy_dengonkaitou").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_dengonkaitou").attr("disabled", false);
+        $("#edit_dengonkaitou").removeClass("disabled");
       else
-        $("#edit_dengonkaitou").attr("disabled", true);
+        $("#edit_dengonkaitou").addClass("disabled");
   )
 
   $('#destroy_dengonkaitou').click () ->
@@ -181,22 +181,22 @@ jQuery ->
             console.log("dengonkaitou_削除する keydown Unsuccessful")
 
         })
-        $("#edit_dengonkaitou").attr("disabled", true);
-        $("#destroy_dengonkaitou").attr("disabled", true);
+        $("#edit_dengonkaitou").addClass("disabled");
+        $("#destroy_dengonkaitou").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_dengonkaitou").attr("disabled", true);
-            $("#destroy_dengonkaitou").attr("disabled", true);
+            $("#edit_dengonkaitou").addClass("disabled");
+            $("#destroy_dengonkaitou").addClass("disabled");
           else
-            $("#destroy_dengonkaitou").attr("disabled", false);
+            $("#destroy_dengonkaitou").removeClass("disabled");
             if selects.length == 1
-              $("#edit_dengonkaitou").attr("disabled", false);
+              $("#edit_dengonkaitou").removeClass("disabled");
             else
-              $("#edit_dengonkaitou").attr("disabled", true);
+              $("#edit_dengonkaitou").addClass("disabled");
       );
 
   $('#new_dengonkaitou').click () ->

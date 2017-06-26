@@ -50,14 +50,14 @@ jQuery ->
                 oTable.$('tr').addClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_shain").attr("disabled", true);
-                  $("#destroy_shain").attr("disabled", true);
+                  $("#edit_shain").addClass("disabled");
+                  $("#destroy_shain").addClass("disabled");
                 else
-                  $("#destroy_shain").attr("disabled", false);
+                  $("#destroy_shain").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_shain").attr("disabled", false);
+                    $("#edit_shain").removeClass("disabled");
                   else
-                    $("#edit_shain").attr("disabled", true);
+                    $("#edit_shain").addClass("disabled");
                 $(".buttons-select-none").removeClass('disabled')
 
 
@@ -71,22 +71,22 @@ jQuery ->
                 oTable.$('tr').removeClass('success')
                 selects = oTable.rows('tr.selected').data()
                 if selects.length == 0
-                  $("#edit_shain").attr("disabled", true);
-                  $("#destroy_shain").attr("disabled", true);
+                  $("#edit_shain").addClass("disabled");
+                  $("#destroy_shain").addClass("disabled");
                 else
-                  $("#destroy_shain").attr("disabled", false);
+                  $("#destroy_shain").removeClass("disabled");
                   if selects.length == 1
-                    $("#edit_shain").attr("disabled", false);
+                    $("#edit_shain").removeClass("disabled");
                   else
-                    $("#edit_shain").attr("disabled", true);
+                    $("#edit_shain").addClass("disabled");
                 $(".buttons-select-none").addClass('disabled')
             }
 
             ]
   })
 
-  $("#edit_shain").attr("disabled", true);
-  $("#destroy_shain").attr("disabled", true);
+  $("#edit_shain").addClass("disabled");
+  $("#destroy_shain").addClass("disabled");
 
 
   $(document).bind('ajaxError', 'form#new_shain', (event, jqxhr, settings, exception) ->
@@ -118,28 +118,28 @@ jQuery ->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
         $(this).removeClass('success')
-        # $("#edit_shain").attr("disabled", true);
-        # $("#destroy_shain").attr("disabled", true);
+        # $("#edit_shain").addClass("disabled");
+        # $("#destroy_shain").addClass("disabled");
       else
         # oTable.$('tr.selected').removeClass('selected')
         # oTable.$('tr.success').removeClass('success')
         $(this).addClass('selected')
         $(this).addClass('success')
-        #$("#edit_shain").attr("disabled", true);
-        # $("#edit_shain").attr("disabled", false);
-        # $("#destroy_shain").attr("disabled", false);
+        #$("#edit_shain").addClass("disabled");
+        # $("#edit_shain").removeClass("disabled");
+        # $("#destroy_shain").removeClass("disabled");
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
-      $("#edit_shain").attr("disabled", true);
-      $("#destroy_shain").attr("disabled", true);
+      $("#edit_shain").addClass("disabled");
+      $("#destroy_shain").addClass("disabled");
       $(".buttons-select-none").addClass('disabled')
     else
-      $("#destroy_shain").attr("disabled", false);
+      $("#destroy_shain").removeClass("disabled");
       $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
-        $("#edit_shain").attr("disabled", false);
+        $("#edit_shain").removeClass("disabled");
       else
-        $("#edit_shain").attr("disabled", true);
+        $("#edit_shain").addClass("disabled");
 
   )
 
@@ -187,22 +187,22 @@ jQuery ->
             console.log("shain_削除する keydown Unsuccessful")
 
         })
-        $("#edit_shain").attr("disabled", true);
-        $("#destroy_shain").attr("disabled", true);
+        $("#edit_shain").addClass("disabled");
+        $("#destroy_shain").addClass("disabled");
 
       ,(dismiss) ->
         if dismiss == 'cancel'
 
           selects = oTable.rows('tr.selected').data()
           if selects.length == 0
-            $("#edit_shain").attr("disabled", true);
-            $("#destroy_shain").attr("disabled", true);
+            $("#edit_shain").addClass("disabled");
+            $("#destroy_shain").addClass("disabled");
           else
-            $("#destroy_shain").attr("disabled", false);
+            $("#destroy_shain").removeClass("disabled");
             if selects.length == 1
-              $("#edit_shain").attr("disabled", false);
+              $("#edit_shain").removeClass("disabled");
             else
-              $("#edit_shain").attr("disabled", true);
+              $("#edit_shain").addClass("disabled");
       );
   $('#edit_shain').click ->
     new_address = oTable.row('tr.selected').data()[10].split("\"")[1]
