@@ -73,7 +73,7 @@
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-              - if current_user.avatar.exists?
+              - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
                 - image_path_origin = current_user.avatar.url
                 %span= image_tag image_path_origin, size: "30x30"
               - else
@@ -81,7 +81,7 @@
               / %span= image_tag "/assets/thumb/missing.png", size: "30x30"
             %ul.dropdown-menu.center
 
-              - if current_user.avatar.exists?
+              - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
                 - image_path_origin = current_user.avatar.url
                 %li= image_tag image_path_origin, size: "30x30"
               - else
