@@ -56,6 +56,7 @@ class KintaisController < ApplicationController
     @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
     # joutai_array = ['12','15','30','31','32','33','38','103','105','107','109','111','113']
     @joutais = Joutaimaster.where(勤怠使用区分: '1').order('CAST(状態コード AS DECIMAL) asc')
+    @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)
   end
 
   def search
@@ -146,10 +147,42 @@ class KintaisController < ApplicationController
   # end
 
   def update
+
+    # if params[:ignore][:状態1] != ''
+    #   byebug
+    #   respond_to do |format|
+    #     data = {ok: 'ok'}
+    #     format.json { respond_with_bip(@kintai) }
+    #   end
+    # end
+    related_kintai ={id: '', joutai: '', bikou: ''}
+    related_kintai2 ={id: '', joutai: '', bikou: ''}
     if kintai_params[:状態1].in?(['103','107','111']) #振出
       if kintai_params[:代休取得区分] == ''
         params[:kintai][:代休相手日付] = ''
         params[:kintai][:代休取得区分] = '0'
+      #truong hop input truc tiep hoac chuyen tu mot trang thai 振出 khac sang
+      else
+        if @kintai.状態1 != kintai_params[:状態1]
+          if @kintai.代休相手日付 != ''
+            furishutsu = Kintai.current_user(session[:user]).find_by(日付: @kintai.代休相手日付)
+            if furishutsu
+              if furishutsu.代休取得区分 == '1'
+                furishutsu.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+              end
+              if furishutsu.代休取得区分 == ''
+                furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
+              end
+              related_kintai[:id] = furishutsu.id
+              related_kintai[:joutai] = furishutsu.状態1
+              related_kintai[:bikou] = furishutsu.備考
+              related_kintai[:joutaimei] = urishutsu.joutai_状態名
+              byebug
+            end
+          end
+          params[:kintai][:代休相手日付] = ''
+          params[:kintai][:代休取得区分] = '0'
+        end
       end
     elsif kintai_params[:状態1].in?(['105']) #振休
       if kintai_params[:代休相手日付] != ''
@@ -161,10 +194,21 @@ class KintaisController < ApplicationController
           if old_furishutsu.代休取得区分 == ''
             old_furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
           end
+          related_kintai[:id] = old_furishutsu.id
+          related_kintai[:joutai] = old_furishutsu.状態1
+          related_kintai[:bikou] = old_furishutsu.備考
+          related_kintai[:joutaimei] = old_furishutsu.joutai_状態名
         end
 
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の振出') if furishutsu
+        if furishutsu
+          related_kintai2[:id] = furishutsu.id
+          related_kintai2[:joutai] = furishutsu.状態1
+          related_kintai2[:bikou] = furishutsu.備考
+          related_kintai2[:joutaimei] = furishutsu.joutai_状態名
+        end
+
       end
     elsif kintai_params[:状態1].in?(['109']) #午前振出
       if kintai_params[:代休相手日付] != ''
@@ -176,10 +220,20 @@ class KintaisController < ApplicationController
           if old_furishutsu.代休取得区分 == ''
             old_furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
           end
+          related_kintai[:id] = old_furishutsu.id
+          related_kintai[:joutai] = old_furishutsu.状態1
+          related_kintai[:bikou] = old_furishutsu.備考
+          related_kintai[:joutaimei] = old_furishutsu.joutai_状態名
         end
 
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の午前振出') if furishutsu
+        if furishutsu
+          related_kintai2[:id] = furishutsu.id
+          related_kintai2[:joutai] = furishutsu.状態1
+          related_kintai2[:bikou] = furishutsu.備考
+          related_kintai2[:joutaimei] = furishutsu.joutai_状態名
+        end
       end
     elsif kintai_params[:状態1].in?(['113']) #午後振出
       if kintai_params[:代休相手日付] != ''
@@ -191,13 +245,39 @@ class KintaisController < ApplicationController
           if old_furishutsu.代休取得区分 == ''
             old_furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
           end
+          related_kintai[:id] = old_furishutsu.id
+          related_kintai[:joutai] = old_furishutsu.状態1
+          related_kintai[:bikou] = old_furishutsu.備考
+          related_kintai[:joutaimei] = old_furishutsu.joutai_状態名
         end
 
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         furishutsu.update(代休取得区分: '1', 代休相手日付: @kintai.日付, 備考: @kintai.日付.to_s + 'の午後振出') if furishutsu
+        if furishutsu
+          related_kintai2[:id] = furishutsu.id
+          related_kintai2[:joutai] = furishutsu.状態1
+          related_kintai2[:bikou] = furishutsu.備考
+          related_kintai2[:joutaimei] = furishutsu.joutai_状態名
+        end
       end
-    else
-      if kintai_params[:代休相手日付] != ''
+    elsif !kintai_params[:状態1].nil?
+      if kintai_params[:代休相手日付].nil?
+        if @kintai.代休相手日付 != ''
+          furishutsu = Kintai.current_user(session[:user]).find_by(日付: @kintai.代休相手日付)
+          if furishutsu
+            if furishutsu.代休取得区分 == '1'
+              furishutsu.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+            end
+            if furishutsu.代休取得区分 == ''
+              furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
+            end
+            related_kintai[:id] = furishutsu.id
+            related_kintai[:joutai] = furishutsu.状態1
+            related_kintai[:bikou] = furishutsu.備考
+            related_kintai[:joutaimei] = furishutsu.joutai_状態名
+          end
+        end
+      elsif kintai_params[:代休相手日付] != ''
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         if furishutsu
           if furishutsu.代休取得区分 == '1'
@@ -206,6 +286,10 @@ class KintaisController < ApplicationController
           if furishutsu.代休取得区分 == ''
             furishutsu.update(状態1: '', 代休相手日付: '', 備考: '')
           end
+          related_kintai[:id] = furishutsu.id
+          related_kintai[:joutai] = furishutsu.状態1
+          related_kintai[:bikou] = furishutsu.備考
+          related_kintai[:joutaimei] = furishutsu.joutai_状態名
         end
       end
       params[:kintai][:代休相手日付] = ''
@@ -221,8 +305,20 @@ class KintaisController < ApplicationController
     #   furishutsu.update(代休取得区分: '1', 備考: @kintai.日付.to_s + 'の振出') if furishutsu
     # end
 
-    flash[:notice] = t 'app.flash.update_success' if @kintai.update(kintai_params)
-    respond_with(@kintai, location: kintais_url)
+    # flash[:notice] = t 'app.flash.update_success' if @kintai.update(kintai_params)
+
+    respond_to do |format|
+      if @kintai.update(kintai_params)
+        flash[:notice] = t 'app.flash.update_success'
+        current_kintai = {id: @kintai.id, joutai: @kintai.状態1,joutaimei: @kintai.joutai_状態名, bikou: @kintai.備考}
+        format.html { redirect_to kintais_url }
+        format.json { render :json => {"current_kintai" => current_kintai, "related_kintai" => related_kintai,"related_kintai2" => related_kintai2}}
+      else
+        format.html { render :action => "edit" }
+        format.json { render :json => {"current_kintai" => current_kintai, "related_kintai" => related_kintai,"related_kintai2" => related_kintai2}}
+      end
+    end
+    # respond_with(@kintai, location: kintais_url)
   end
 
 
@@ -445,7 +541,7 @@ class KintaisController < ApplicationController
       end
       # @joutais = Joutaimaster.active(kubunlist)
       # joutai_array = ['12','15','30','31','32','33','38','103','105','107','109','111','113']
-      @joutais = Joutaimaster.where(勤怠使用区分: '1').order('CAST(状態コード AS DECIMAL) asc')
+      @joutais = Joutaimaster.active(kubunlist).order('CAST(状態コード AS DECIMAL) asc')
     end
 
     def kintai_params
