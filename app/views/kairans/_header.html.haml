@@ -1,10 +1,7 @@
-.row-fruid
-  .form-inline
-    .form-group
-      = link_to '新規', new_kairan_path, class: 'new-btn dt-button'
-      = link_to '送信一覧', shokairan_kairans_path, class: 'edit-btn dt-button'
-      //= button_tag (t 'helpers.button.confirm'), name: 'button', id: :kakunin, value: (t 'helpers.button.confirm'), class: 'btn btn-primary delete-btn btn-custom-datatable dt-button'
-      %a#kakunin.delete-btn.dt-button= (t 'helpers.button.confirm')
+= link_to '新規', new_kairan_path, class: 'new-btn dt-button'
+= link_to '送信一覧', shokairan_kairans_path, class: 'edit-btn dt-button'
+= button_tag (t 'helpers.button.confirm'), name: 'button', id: :kakunin, value: (t 'helpers.button.confirm'), class: 'btn btn-primary delete-btn btn-custom-datatable dt-button'
+//%a#kakunin.delete-btn.dt-button= (t 'helpers.button.confirm')
 .spacer
 .row-fruid
   .form-inline
@@ -19,5 +16,4 @@
     -#.form-group
     -#  = label_tag :回答
     -#  = select(:head, :kaitou, Dengonkaitou.all.collect {|p| [ p.種類名, p.id ] }, {selected: @kaitou, include_blank: true }, class: 'form-control')
-
       -#= button_tag '送回覧', name: 'button', id: :createdkairan, value: '送回覧', class: 'btn btn-primary'
