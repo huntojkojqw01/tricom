@@ -162,7 +162,7 @@ jQuery ->
 
   joutai_index = ''
   id_kintai = ''
-  select_daikyu = false
+  select_daikyu = 'false'
   $('.hoshukeitai-edit').on 'ajax:success', (event, data, status, xhr) ->
     # newValue = $('.hoshukeitai-edit').html # could also use .attr() here
 
@@ -170,6 +170,7 @@ jQuery ->
     joutai = $(this).attr("data-bip-value")
     id_kintai = $(this).attr('id').split('_')[4]
     joutai_index = joutai
+
     if joutai == '105' || joutai == '109' || joutai == '113'
       jQuery.ajax({
           url: '/kintais/ajax',
@@ -179,17 +180,67 @@ jQuery ->
             console.log("OK");
           failure: () ->
         })
+    else
+      result = $.parseJSON(data);
+
+      if result.current_kintai.joutaimei == null
+        current_joutaimei = ''
+      else
+        current_joutaimei = result.current_kintai.joutaimei
+
+      if result.current_kintai.bikou == null
+        current_bikou = ''
+      else
+        current_bikou = result.current_kintai.bikou
+
+      if result.related_kintai.joutaimei == null
+        related_joutaimei = ''
+      else
+        related_joutaimei = result.related_kintai.joutaimei
+
+      if result.related_kintai.bikou == null
+        related_bikou = ''
+      else
+        related_bikou = result.related_kintai.bikou
+
+      if result.related_kintai2.joutaimei == null
+        related_joutaimei2 = ''
+      else
+        related_joutaimei2 = result.related_kintai2.joutaimei
+
+      if result.related_kintai2.bikou == null
+        related_bikou2 = ''
+      else
+        related_bikou2 = result.related_kintai2.bikou
+
+      if result.current_kintai.id != ''
+        $('#best_in_place_kintai_'+result.current_kintai.id+'_状態1').text(current_joutaimei)
+        $('#best_in_place_kintai_'+result.current_kintai.id+'_状態1').val(result.current_kintai.joutai)
+        $('#bikou_'+result.current_kintai.id).text(current_bikou)
+
+      if result.related_kintai.id != ''
+        $('#best_in_place_kintai_'+result.related_kintai.id+'_状態1').text(related_joutaimei)
+        $('#best_in_place_kintai_'+result.related_kintai.id+'_状態1').val(result.related_kintai.joutai)
+        $('#bikou_'+result.related_kintai.id).text(related_bikou)
+      if result.related_kintai2.id != ''
+        $('#best_in_place_kintai_'+result.related_kintai2.id+'_状態1').text(related_joutaimei2)
+        $('#best_in_place_kintai_'+result.related_kintai2.id+'_状態1').val(result.related_kintai2.joutai)
+        $('#bikou_'+result.related_kintai2.id).text(related_bikou2)
+      # alert(result.current_kintai.id+"\n"+result.current_kintai.joutai+"\n"+result.current_kintai.bikou+"\n"+result.related_kintai.id)
+      # alert(result.current_kintai.id+"\n"+result.current_kintai.joutai+"\n"+result.current_kintai.bikou+"\n"+result.related_kintai.id+"\n"+result.related_kintai.joutai+"\n"+result.related_kintai.bikou+"\n")
+      # location.reload()
+
 
   $('#daikyu_index_sentaku_ok').click () ->
     d = oDaikyuTable.row('tr.selected').data()
     bikou = ''
     if d != undefined
-      select_daikyu = true
+      select_daikyu = 'true'
       if joutai_index == '105'
         bikou = d[0] + 'の振休'
-      else if fukyu_code == '109'
+      else if joutai_index == '109'
         bikou = d[0] + 'の午前振休'
-      else if fukyu_code == '113'
+      else if joutai_index == '113'
         bikou = d[0] + 'の午後振休'
       $.ajax({
         type: 'PUT',
@@ -197,23 +248,114 @@ jQuery ->
         data: {kintai: {状態1: joutai_index,代休相手日付: d[0],備考: bikou}},
         dataType: "JSON",
         success: (data) ->
-          alert("test")
+          # $('#daikyu_index_search_modal').modal('hide');
+
+          if data.current_kintai.joutaimei == null
+            current_joutaimei = ''
+          else
+            current_joutaimei = data.current_kintai.joutaimei
+
+          if data.current_kintai.bikou == null
+            current_bikou = ''
+          else
+            current_bikou = data.current_kintai.bikou
+
+          if data.related_kintai.joutaimei == null
+            related_joutaimei = ''
+          else
+            related_joutaimei = data.related_kintai.joutaimei
+
+          if data.related_kintai.bikou == null
+            related_bikou = ''
+          else
+            related_bikou = data.related_kintai.bikou
+
+          if data.related_kintai2.joutaimei == null
+            related_joutaimei2 = ''
+          else
+            related_joutaimei2 = data.related_kintai2.joutaimei
+
+          if data.related_kintai2.bikou == null
+            related_bikou2 = ''
+          else
+            related_bikou2 = data.related_kintai2.bikou
+
+          if data.current_kintai.id != ''
+            $('#best_in_place_kintai_'+data.current_kintai.id+'_状態1').text(current_joutaimei)
+            $('#best_in_place_kintai_'+data.current_kintai.id+'_状態1').val(data.current_kintai.joutai)
+            $('#bikou_'+data.current_kintai.id).text(current_bikou)
+          if data.related_kintai.id != ''
+            $('#best_in_place_kintai_'+data.related_kintai.id+'_状態1').text(related_joutaimei)
+            $('#best_in_place_kintai_'+data.related_kintai.id+'_状態1').val(data.related_kintai.joutai)
+            $('#bikou_'+data.related_kintai.id).text(related_bikou)
+          if data.related_kintai2.id != ''
+            $('#best_in_place_kintai_'+data.related_kintai2.id+'_状態1').text(related_joutaimei2)
+            $('#best_in_place_kintai_'+data.related_kintai2.id+'_状態1').val(data.related_kintai2.joutai)
+            $('#bikou_'+data.related_kintai2.id).text(related_bikou2)
+          # alert(data.current_kintai.id+"\n"+data.current_kintai.joutai+"\n"+data.current_kintai.bikou+"\n"+data.related_kintai.id+"\n"+data.related_kintai.joutai+"\n"+data.related_kintai.bikou+"\n")
+
+          # location.reload()
       });
 
 
   $(document).on('hide.bs.modal','#daikyu_index_search_modal', () ->
-    # if !select_daikyu
-    #   $.ajax({
-    #     type: 'PUT',
-    #     url:  '/kintais/'+id_kintai,
-    #     data: {kintai: {状態1: ''}},
-    #     dataType: "JSON",
-    #     success: (data) ->
-    #       swal("振休の状態で代休相手日付を選択しなければなりません。")
+    if select_daikyu == 'false'
+      $.ajax({
+        type: 'PUT',
+        url:  '/kintais/'+id_kintai,
+        data: {kintai: {状態1: ''}},
+        dataType: "JSON",
+        success: (data) ->
+          swal("振休の状態で代休相手日付を選択しなければなりません。")
 
-    #       # $('#daikyu_index_search_modal').modal('hide');
-    #   });
-    # select_daikyu = false
+
+          if data.current_kintai.joutaimei == null
+            current_joutaimei = ''
+          else
+            current_joutaimei = data.current_kintai.joutaimei
+          if data.current_kintai.bikou == null
+            current_bikou = ''
+          else
+            current_bikou = data.current_kintai.bikou
+
+          if data.related_kintai.joutaimei == null
+            related_joutaimei = ''
+          else
+            related_joutaimei = data.related_kintai.joutaimei
+
+          if data.related_kintai.bikou == null
+            related_bikou = ''
+          else
+            related_bikou = data.related_kintai.bikou
+
+          if data.related_kintai2.joutaimei == null
+            related_joutaimei2 = ''
+          else
+            related_joutaimei2 = data.related_kintai2.joutaimei
+
+          if data.related_kintai2.bikou == null
+            related_bikou2 = ''
+          else
+            related_bikou2 = data.related_kintai2.bikou
+          if data.current_kintai.id != ''
+            $('#best_in_place_kintai_'+data.current_kintai.id+'_状態1').text(current_joutaimei)
+            $('#best_in_place_kintai_'+data.current_kintai.id+'_状態1').val(data.current_kintai.joutai)
+            $('#bikou_'+data.current_kintai.id).text(current_bikou)
+          if data.related_kintai.id != ''
+            $('#best_in_place_kintai_'+data.related_kintai.id+'_状態1').text(related_joutaimei)
+            $('#best_in_place_kintai_'+data.related_kintai.id+'_状態1').val(data.related_kintai.joutai)
+            $('#bikou_'+data.related_kintai.id).text(related_bikou)
+          if data.related_kintai2.id != ''
+            $('#best_in_place_kintai_'+data.related_kintai2.id+'_状態1').text(related_joutaimei2)
+            $('#best_in_place_kintai_'+data.related_kintai2.id+'_状態1').val(data.related_kintai2.joutai)
+            $('#bikou_'+data.related_kintai2.id).text(related_bikou2)
+          # alert(data.current_kintai.id+"\n"+data.current_kintai.joutai+"\n"+data.current_kintai.bikou+"\n"+data.related_kintai.id+"\n"+data.related_kintai.joutai+"\n"+data.related_kintai.bikou+"\n")
+
+          # location.reload()
+          # $('#daikyu_index_search_modal').modal('hide');
+      });
+    else
+      select_daikyu = 'false';
   );
 
   $('.kintai-item').on 'keydown', '.best_in_place', (e) ->

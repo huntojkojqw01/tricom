@@ -204,9 +204,9 @@
         </td> -->
         <td>
           <% if !kintai.備考.nil? && kintai.備考.length > 20%>
-            <div class = "div_scoll"><%= kintai.備考 %></div>
+            <div id="bikou_<%= kintai.id %>" class = "div_scoll"><%= kintai.備考 %></div>
           <% else %>
-            <div><%= kintai.備考 %></div>
+            <div id="bikou_<%= kintai.id %>"><%= kintai.備考 %></div>
           <% end %>
         </td>
         <!--<td><%# link_to '詳細', kintai %></td>-->
