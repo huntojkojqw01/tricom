@@ -126,9 +126,29 @@ jQuery ->
     for row in selected_rows
       shainNo.push(row[1])
     $('#shain').val(shainNo.toString())
-    if $('#kairan_開始').val() == '' && $('#kairan_終了').val() == '' && $('#kairan_件名').val() == ''&& $('#kairan_件名').val() == ''&& $('#shain').val() == ''
+    if $('#kairan_開始').val() == ''
+      today = new Date
+      DD = today.getDate()
+      MM = today.getMonth() + 1
+      YYYY = today.getFullYear()
+      HH = today.getHours()
+      mm = today.getMinutes()
+      if DD < 10
+        DD = '0' + DD
+      if MM < 10
+        MM = '0' + MM
+      if HH< 10
+        HH = '0' + HH
+      if mm < 10
+        mm = '0' + mm
+      today = YYYY + '/' + MM + '/' + DD + ' '+HH+':'+mm
+      $("#kairan_開始").val(today)
+    if $('#kairan_件名').val() == ''
       e.preventDefault()
-      swal("入力してください。")
+      swal("件名を入力してください。")
+    if $('#shain').val() == ''
+      e.preventDefault()
+      swal("社員を選択してください。")
 
   $('#kakunin').click () ->
     selected_rows = kairan_table.rows( { selected: true } ).data()
