@@ -176,9 +176,11 @@ class KintaisController < ApplicationController
               related_kintai[:id] = furishutsu.id
               related_kintai[:joutai] = furishutsu.状態1
               related_kintai[:bikou] = furishutsu.備考
-              related_kintai[:joutaimei] = urishutsu.joutai_状態名
-              byebug
+              related_kintai[:joutaimei] = furishutsu.joutai_状態名
             end
+          end
+          if kintai_params[:代休取得区分].nil?
+            params[:kintai][:備考] = ''
           end
           params[:kintai][:代休相手日付] = ''
           params[:kintai][:代休取得区分] = '0'
@@ -277,6 +279,7 @@ class KintaisController < ApplicationController
             related_kintai[:joutaimei] = furishutsu.joutai_状態名
           end
         end
+        params[:kintai][:備考] = ''
       elsif kintai_params[:代休相手日付] != ''
         furishutsu = Kintai.current_user(session[:user]).find_by(日付: kintai_params[:代休相手日付])
         if furishutsu
