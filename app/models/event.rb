@@ -49,6 +49,7 @@ class Event < ActiveRecord::Base
   def doUpdateKintai
     ApplicationController.helpers.check_kintai_at_day_by_user(self.社員番号, self.開始.to_date)
     kintai = Kintai.where("Date(日付) = Date(?)",self.開始).where(社員番号: self.社員番号).first
+    old_joutai = kintai.状態1
     if !kintai.nil?
       kinmu_type = Shainmaster.find(self.社員番号).勤務タイプ
       events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where(状態マスタ: {状態区分: "1"})
@@ -234,6 +235,26 @@ class Event < ActiveRecord::Base
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
         実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
+      end
+
+      @kintai = Kintai.find(kintai.id)
+      if old_joutai != joutai_first
+        if @kintai.代休相手日付 != ''
+          daikyu_aite_hidzuke = Kintai.current_user(self.社員番号).find_by(日付: @kintai.代休相手日付)
+          if daikyu_aite_hidzuke
+            if daikyu_aite_hidzuke.代休取得区分 == '1'
+              daikyu_aite_hidzuke.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+            end
+            if daikyu_aite_hidzuke.代休取得区分 == ''
+              daikyu_aite_hidzuke.update(状態1: '', 代休相手日付: '', 備考: '')
+            end
+          end
+        end
+        if joutai_first.in?(['103','107','111']) #振出
+          @kintai.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+        elsif !joutai_first.nil?
+          @kintai.update(代休取得区分: '', 代休相手日付: '', 備考: '')
+        end
       end
     end
 

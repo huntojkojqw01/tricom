@@ -447,6 +447,7 @@ jQuery ->
     }
   })
 
+
   $('.daikyutable tbody').on 'click', 'tr', (event) ->
     d = oDaikyuTable.row(this).data()
 
