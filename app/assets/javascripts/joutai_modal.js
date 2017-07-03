@@ -126,6 +126,27 @@ $(function () {
 
             }
         }
+
+        if (d[0] == '105' || d[0] == '109' || d[0] == '113') {
+            $.ajax({
+                url: '/events/ajax',
+                data:{
+                    id: 'get_kintais',
+                    joutai: d[0],
+                    shain: $('#event_社員番号').val()
+                },
+                type: "POST",
+                success: function(data){
+                    console.log("OK");
+                 },
+                 failure: function(){
+                    console.log("Unsuccessful");
+                 }
+
+
+            });
+        }else
+            $('#kintai_daikyu').val("");
     });
 
     $('#joutai_table tbody').on( 'dblclick', 'tr', function () {
@@ -164,6 +185,26 @@ $(function () {
 
             }
         }
+        if (d[0] == '105' || d[0] == '109' || d[0] == '113') {
+            $.ajax({
+                url: '/events/ajax',
+                data:{
+                    id: 'get_kintais',
+                    joutai: d[0],
+                    shain: $('#event_社員番号').val()
+                },
+                type: "POST",
+                success: function(data){
+                    console.log("OK");
+                 },
+                 failure: function(){
+                    console.log("Unsuccessful");
+                 }
+
+
+            });
+        }else
+            $('#kintai_daikyu').val("");
         $('#joutai_search_modal').modal('hide')
     });
 

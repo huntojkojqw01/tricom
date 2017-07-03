@@ -34,15 +34,15 @@
 
     - if mode == 'new'
       - if request["param"] == "timeline"|| param == 'timeline'
-        = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary', id: 'timeline'
+        = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary submit-button', id: 'timeline'
       - else
-        = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'event'
+        = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary submit-button', id: 'event'
 
     - if @event.計上 != '済' && mode == 'edit'
       - if request["param"] == "timeline"|| param == 'timeline'
-        = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary', id: 'timeline'
+        = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary submit-button', id: 'timeline'
       - else
-        = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary', id: 'event'
+        = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary submit-button', id: 'event'
       - if request["param"] == "timeline"|| param == 'timeline'
         = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline',data: {confirm: (t 'app.delete_confirm')}
       - else
@@ -55,6 +55,8 @@
       - date_param = request["start_at"].nil?? @event.開始: request["start_at"]
       = link_to (t 'title.shutchou_ikkatsu'), "/events/shutchou_ikkatsu_new?param="+param+"&shain_id="+shain_id+"&start_at="+date_param, class: 'btn btn-primary'
       .spacer
+    = hidden_field_tag :kintai_daikyu
+    = hidden_field_tag :old_joutai, @event.状態コード
     / #selectShozai
     /   = label_tag (t 'app.label.calendar_genzai')
     /   - if !request["shain_id"].nil?
@@ -84,3 +86,4 @@
 
 = render 'share/kaisha_new_modal'
 = render 'share/kaisha_edit_modal'
+= render 'share/daikyu_modal'

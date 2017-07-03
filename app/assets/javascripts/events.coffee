@@ -277,3 +277,35 @@ jQuery ->
   $('#modal_date_end_input').click( () ->
     $('.modal_date_end_select').data("DateTimePicker").toggle();
   );
+
+  oDaikyuTable = $('.daikyutable').DataTable({
+    "pagingType": "simple_numbers"
+    ,"oLanguage":{
+      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+    }
+  })
+
+  $('.daikyutable tbody').on 'click', 'tr', (event) ->
+    d = oDaikyuTable.row(this).data()
+
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oDaikyuTable.$('tr.selected').removeClass('selected')
+      oDaikyuTable.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+
+  $('#daikyu_sentaku_ok').click () ->
+    d = oDaikyuTable.row('tr.selected').data()
+    if d != undefined
+      $('#kintai_daikyu').val(d[0])
+
+  $('.daikyutable tbody').on( 'dblclick', 'tr', () ->
+    $(this).addClass('selected');
+    d = oDaikyuTable.row('tr.selected').data()
+    if d != undefined
+      $('#kintai_daikyu').val(d[0])
+    $('#daikyu_search_modal').modal('hide')
+  )

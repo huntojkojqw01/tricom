@@ -517,7 +517,7 @@ $(function () {
         var d = oMybashoTable.row('tr.selected').data();
         if(d!= undefined){
             $('#event_場所コード').val(d[1]);
-            $('.hint-basho-refer').text(d[2]);            
+            $('.hint-basho-refer').text(d[2]);
             $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error');
         }
@@ -527,9 +527,9 @@ $(function () {
         $(this).addClass('selected');
         $(this).addClass('success');
         var d = oMybashoTable.row('tr.selected').data();
-        if(d!= undefined){            
+        if(d!= undefined){
             $('#event_場所コード').val(d[1]);
-            $('.hint-basho-refer').text(d[2]);            
+            $('.hint-basho-refer').text(d[2]);
             $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
             $('#event_場所コード').closest('.form-group').removeClass('has-error');
         }
@@ -1811,4 +1811,29 @@ function updateEvent(the_event){
 }
 $(function(){
     $('#current_user_button').show();
+    //when click create
+    $('.submit-button').click(function(e){
+        var joutai = $('#event_状態コード').val();
+        if( joutai == '105' || joutai == '109' || joutai == '113'){
+            $('.form-group.has-error').each(function(){
+              $('.help-block', $(this)).html('');
+              $(this).removeClass('has-error');
+            });
+            var kintai_daikyu = $('#kintai_daikyu').val();
+            var old_joutai = $('#old_joutai').val();
+            if ((old_joutai == '')||((old_joutai != '')&&(old_joutai != joutai))) {
+                if(kintai_daikyu == ''){
+                    $('#event_状態コード').val("");
+                    swal("振休の状態で代休相手日付を選択しなければなりません。")
+                    $input = $('#event_状態コード');
+                    $input.closest('.form-group').addClass('has-error').find('.help-block').text("を入力してください。");
+
+                    e.preventDefault();
+                }
+            }
+        }
+
+
+    })
+
 });
