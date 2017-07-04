@@ -52,7 +52,7 @@ class Event < ActiveRecord::Base
     old_joutai = kintai.状態1
     if !kintai.nil?
       kinmu_type = Shainmaster.find(self.社員番号).勤務タイプ
-      events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where(状態マスタ: {状態区分: "1"})
+      events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where("状態マスタ.状態区分 = ? or 状態マスタ.状態区分 = ?","1","5")
       .where.not(開始: '').where.not(終了: '')
       joutaiEvents = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where(状態マスタ: {勤怠使用区分: "1"}).where.not(開始: '').where.not(終了: '')
       joutai_first = ''
