@@ -184,57 +184,33 @@ class Event < ActiveRecord::Base
         if fustu_zangyo_total < 0
           fustu_zangyo_total = 0
         end
-        start_time_default = time_start[0,10]
-        end_time_default = time_start[0,10]
-        case kinmu_type
-          when '001'
-            start_time_default += ' 07:00'
-            end_time_default += ' 16:00'
-          when '002'
-            start_time_default += ' 07:30'
-            end_time_default += ' 16:30'
-          when '003'
-            start_time_default += ' 08:00'
-            end_time_default += ' 17:00'
-          when '004'
-            start_time_default += ' 08:30'
-            end_time_default += ' 17:30'
-          when '005'
-            start_time_default += ' 09:00'
-            end_time_default += ' 18:00'
-          when '006'
-            start_time_default += ' 09:30'
-            end_time_default += ' 19:30'
-          when '007'
-            start_time_default += ' 10:00'
-            end_time_default += ' 20:00'
-          when '008'
-            start_time_default += ' 10:30'
-            end_time_default += ' 20:30'
-          when '009'
-            start_time_default += ' 11:00'
-            end_time_default += ' 21:00'
-        end
-        if kinmu_type != ''
-          chikoku = get_time_diff(start_time_default, time_start)
-          soutai = get_time_diff(time_end,end_time_default)
-          chikoku_soutai = soutai + chikoku
-        else
-          chikoku_soutai = 0
-        end
+
         zangyou_kubun = Shainmaster.find(self.社員番号).残業区分
         if zangyou_kubun == "1"
           Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-          退社時刻: time_end, 実労働時間: real_hours_total, 遅刻時間: chikoku, 早退時間: soutai,
-          普通残業時間: fustu_zangyo_total, 深夜残業時間: shinya_zangyou_total, 状態1: joutai_first)
+          退社時刻: time_end, 実労働時間: real_hours_total, 普通残業時間: fustu_zangyo_total,
+          深夜残業時間: shinya_zangyou_total, 状態1: joutai_first)
         else
           Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-          退社時刻: time_end, 実労働時間: real_hours_total, 遅刻時間: chikoku, 早退時間: soutai,
-          普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
+          退社時刻: time_end, 実労働時間: real_hours_total,普通残業時間: '',
+          深夜残業時間: '', 状態1: joutai_first)
         end
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
         実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
+      end
+      # tinh toan su kien di muon ve som
+      chikoku_soutai_events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where("状態マスタ.状態区分 = ?","3")
+      .where.not(開始: '').where.not(終了: '')
+      if chikoku_soutai_events.count > 0
+        chikoku_total = 0
+        chikoku_soutai_events.each do |event|
+          chikoku = get_time_diff(event.開始,event.終了)
+          chikoku_total += chikoku
+        end
+        kintai.update(遅刻時間: chikoku_total)
+      else
+        kintai.update(遅刻時間: 0)
       end
 
       @kintai = Kintai.find(kintai.id)
