@@ -210,7 +210,7 @@ class Event < ActiveRecord::Base
         end
         kintai.update(遅刻時間: chikoku_total)
       else
-        kintai.update(遅刻時間: 0)
+        kintai.update(遅刻時間: '')
       end
 
       @kintai = Kintai.find(kintai.id)
