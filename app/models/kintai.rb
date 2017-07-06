@@ -38,7 +38,7 @@ class Kintai < ActiveRecord::Base
   def check_joutai_to_update_kinmutype
     if 状態1.present?
       joutaikubun = Joutaimaster.find_by(状態コード: 状態1).try(:状態区分)
-      if joutaikubun == '2'
+      if joutaikubun == '2' || joutaikubun == '6'
         self.勤務タイプ = ''
       end
     end
