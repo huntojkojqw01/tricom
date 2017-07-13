@@ -61,102 +61,102 @@ $(document).on('ready', function() {
     $('.alert').fadeOut('normal');
   }, 6000);
 
-  setInterval(function() {
-    jQuery.ajax({
-      url: '/main.json',
-      dataType: "JSON",
-      method: "GET",
-      success: function(data) {
-        // if(data.notification.kairanCount > 0){
-        //   if($('.glyphicon-envelope').hasClass('text-red') == false){
-        //     $('.glyphicon-envelope').addClass('text-red');
-        //     $('.kairan-count').addClass('text-red');
-        //   }
-        //   $(".kairan-count").text(data.notification.kairanCount)
-        //   $(".kairan-count-main").text(data.notification.kairanCount)
-        //   $(".kairan-item").css("display","")
-        //   var items = ''
-        //   for (var i = 0; i < data.notification.kairanCount ; i++) {
-        //     items = items + data.my_kairans[i].item
-        //   }
-        //   $(".kairan-item").html(items)
-        // }else{
-        //   if($('.glyphicon-envelope').hasClass('text-red')){
-        //     $('.glyphicon-envelope').removeClass('text-red');
-        //     $('.kairan-count').removeClass('text-red');
-        //   }
-        //   $(".kairan-item").css("display","none")
-        //   $(".kairan-count").text('')
-        //   $(".kairan-count-main").text('')
-        //   $(".kairan-item").html('')
-        // }
-        // if(data.notification.dengonCount > 0){
-        //    if($('.glyphicon-comment').hasClass('text-red') == false){
-        //     $('.glyphicon-comment').addClass('text-red');
-        //     $('.dengon-count').addClass('text-red');
-        //   }
-        //   $(".dengon-count").text(data.notification.dengonCount)
-        //   $(".dengon-count-main").text(data.notification.dengonCount)
-        //   $(".dengon-item").css("display","")
-        //   var items = ''
-        //   for (var i = 0; i < data.notification.dengonCount ; i++) {
-        //     items = items + data.my_dengons[i].item
-        //   }
-        //   $(".dengon-item").html(items)
-        // }else{
-        //   if($('.glyphicon-comment').hasClass('text-red')){
-        //     $('.glyphicon-comment').removeClass('text-red');
-        //     $('.dengon-count').removeClass('text-red');
-        //   }
-        //   $(".dengon-item").css("display","none")
-        //   $(".dengon-count").text('')
-        //   $(".dengon-count-main").text('')
-        //   $(".dengon-item").html('')
-        // }
-        if(data.notification.totalCount > 0){
-          if($('.glyphicon-bell').hasClass('text-red') == false){
-            $('.glyphicon-bell').addClass('text-red');
-            $('.message-count').addClass('text-red');
-          }
-          $(".message-count").text(data.notification.totalCount)
-          $(".message-item").css("display","")
-          var items = ''
-          for (var i = 0; i < data.notification.messageCount ; i++) {
-            items = items + data.my_messages[i].item
-          }
-          if (data.notification.messageCount > 0 && data.notification.kairanCount){
-            items = items + "<legend class='menu'></legend>"
-          }
-          for (var i = 0; i < data.notification.kairanCount ; i++) {
-            items = items + data.my_kairans[i].item
-          }
-          if ((data.notification.messageCount > 0 || data.notification.kairanCount > 0) && data.notification.dengonCount >0){
-            items = items + "<legend class='menu'></legend>"
-          }
-          for (var i = 0; i < data.notification.dengonCount ; i++) {
-            items = items + data.my_dengons[i].item
-          }
+  // setInterval(function() {
+  //   jQuery.ajax({
+  //     url: '/main.json',
+  //     dataType: "JSON",
+  //     method: "GET",
+  //     success: function(data) {
+  //       // if(data.notification.kairanCount > 0){
+  //       //   if($('.glyphicon-envelope').hasClass('text-red') == false){
+  //       //     $('.glyphicon-envelope').addClass('text-red');
+  //       //     $('.kairan-count').addClass('text-red');
+  //       //   }
+  //       //   $(".kairan-count").text(data.notification.kairanCount)
+  //       //   $(".kairan-count-main").text(data.notification.kairanCount)
+  //       //   $(".kairan-item").css("display","")
+  //       //   var items = ''
+  //       //   for (var i = 0; i < data.notification.kairanCount ; i++) {
+  //       //     items = items + data.my_kairans[i].item
+  //       //   }
+  //       //   $(".kairan-item").html(items)
+  //       // }else{
+  //       //   if($('.glyphicon-envelope').hasClass('text-red')){
+  //       //     $('.glyphicon-envelope').removeClass('text-red');
+  //       //     $('.kairan-count').removeClass('text-red');
+  //       //   }
+  //       //   $(".kairan-item").css("display","none")
+  //       //   $(".kairan-count").text('')
+  //       //   $(".kairan-count-main").text('')
+  //       //   $(".kairan-item").html('')
+  //       // }
+  //       // if(data.notification.dengonCount > 0){
+  //       //    if($('.glyphicon-comment').hasClass('text-red') == false){
+  //       //     $('.glyphicon-comment').addClass('text-red');
+  //       //     $('.dengon-count').addClass('text-red');
+  //       //   }
+  //       //   $(".dengon-count").text(data.notification.dengonCount)
+  //       //   $(".dengon-count-main").text(data.notification.dengonCount)
+  //       //   $(".dengon-item").css("display","")
+  //       //   var items = ''
+  //       //   for (var i = 0; i < data.notification.dengonCount ; i++) {
+  //       //     items = items + data.my_dengons[i].item
+  //       //   }
+  //       //   $(".dengon-item").html(items)
+  //       // }else{
+  //       //   if($('.glyphicon-comment').hasClass('text-red')){
+  //       //     $('.glyphicon-comment').removeClass('text-red');
+  //       //     $('.dengon-count').removeClass('text-red');
+  //       //   }
+  //       //   $(".dengon-item").css("display","none")
+  //       //   $(".dengon-count").text('')
+  //       //   $(".dengon-count-main").text('')
+  //       //   $(".dengon-item").html('')
+  //       // }
+  //       if(data.notification.totalCount > 0){
+  //         if($('.glyphicon-bell').hasClass('text-red') == false){
+  //           $('.glyphicon-bell').addClass('text-red');
+  //           $('.message-count').addClass('text-red');
+  //         }
+  //         $(".message-count").text(data.notification.totalCount)
+  //         $(".message-item").css("display","")
+  //         var items = ''
+  //         for (var i = 0; i < data.notification.messageCount ; i++) {
+  //           items = items + data.my_messages[i].item
+  //         }
+  //         if (data.notification.messageCount > 0 && data.notification.kairanCount){
+  //           items = items + "<legend class='menu'></legend>"
+  //         }
+  //         for (var i = 0; i < data.notification.kairanCount ; i++) {
+  //           items = items + data.my_kairans[i].item
+  //         }
+  //         if ((data.notification.messageCount > 0 || data.notification.kairanCount > 0) && data.notification.dengonCount >0){
+  //           items = items + "<legend class='menu'></legend>"
+  //         }
+  //         for (var i = 0; i < data.notification.dengonCount ; i++) {
+  //           items = items + data.my_dengons[i].item
+  //         }
 
-          $(".message-item").html(items)
-        }else{
-          if($('.glyphicon-bell').hasClass('text-red')){
-            $('.glyphicon-bell').removeClass('text-red');
-            $('.message-count').removeClass('text-red');
-          }
-          $(".message-item").css("display","none")
-          $(".message-count").text('')
-          $(".kairan-item").html('')
-        }
+  //         $(".message-item").html(items)
+  //       }else{
+  //         if($('.glyphicon-bell').hasClass('text-red')){
+  //           $('.glyphicon-bell').removeClass('text-red');
+  //           $('.message-count').removeClass('text-red');
+  //         }
+  //         $(".message-item").css("display","none")
+  //         $(".message-count").text('')
+  //         $(".kairan-item").html('')
+  //       }
 
-        // alert(data.notification.kairanCount)
-      },
-      failure: function() {
-          console.log("Unsuccessful");
-      },
-      global: false
-  });
+  //       // alert(data.notification.kairanCount)
+  //     },
+  //     failure: function() {
+  //         console.log("Unsuccessful");
+  //     },
+  //     global: false
+  // });
 
-  }, 6000);
+  // }, 6000);
   $(".link-top").hide();
   if($(".link-top").length > 0){
     $(window).scroll(function () {

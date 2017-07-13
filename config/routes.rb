@@ -111,7 +111,7 @@ end
   end
 
   resources :kintais do
-    collection {get :search,:pdf_show}
+    collection {get :search,:pdf_show,:sumikakunin}
     collection {post :import, :ajax}
     collection {get :export_csv}
   end
