@@ -526,7 +526,7 @@ class KintaisController < ApplicationController
     end
   end
   def sumikakunin
-    
+    @kintais=Kintai.where('extract(day from 日付) = ?', 1).includes(:shainmaster)
   end
   private
     def set_kintai
