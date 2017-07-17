@@ -525,8 +525,19 @@ class KintaisController < ApplicationController
       format.csv { send_data @kintais.to_csv, filename: '勤怠.csv' }
     end
   end
-  def sumikakunin
-    @kintais=Kintai.where('extract(day from 日付) = ?', 1).includes(:shainmaster)
+  def sumikakunin    
+    if params[:date]
+      tmp=params[:date].split('-')
+      @date=Date.new(tmp[0].to_i,tmp[1].to_i,1)
+    else
+      @date=Date.today
+    end
+    @kintais=[]
+    Shainmaster.all.each do |shain|
+      kintai=shain.kintais.where('日付 = ?',@date).first
+      @kintais<<{氏名: shain.氏名,社員番号: shain.社員番号,日付: @date,入力済: kintai.try(:入力済)}
+      
+    end
   end
   private
     def set_kintai
