@@ -525,7 +525,9 @@ class KintaisController < ApplicationController
       format.csv { send_data @kintais.to_csv, filename: '勤怠.csv' }
     end
   end
-
+  def sumikakunin
+    @kintais=Kintai.where('extract(day from 日付) = ?', 1).includes(:shainmaster)
+  end
   private
     def set_kintai
       @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)

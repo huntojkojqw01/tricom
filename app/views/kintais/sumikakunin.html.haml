@@ -1,0 +1,36 @@
+=javascript_include_tag 'kintaisumikakunin'
+-provide(:title,t('title.kintaisumikakunin'))
+%ol.breadcrumb
+  %li= link_to (t 'title.menu'), main_path
+  %li= link_to (t 'title.kintai'), kintais_path
+  %li.active=t('title.kintaisumikakunin')
+.row  
+  .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2    
+    .row
+      %form.form-inline
+        .col-md-3.col-xs-6.col-sm-6.col-lg-3.col-md-offset-2.col-lg-offset-2
+          = label_tag t('title.hidzuke')
+          .form-group
+            .input-group.date-search          
+              = text_field_tag :search,Date.today.strftime("%Y-%m"),placeholder: t('title.hidzuke'),class: "form-control",size: 6
+              %span.input-group-addon
+                %span.glyphicon.glyphicon-calendar              
+        / .col-md-3.col-xs-5.col-sm-5.col-lg-3   
+        /   = label_tag '社員名'
+        /   = select(:shain, :name, @kintais.pluck(:氏名),{:include_blank => '全て'},{:style => "height:30px"})
+        #search_btn.btn.btn-primary=t('helpers.button.search')     
+    %table#kintaisumikakunin.table.table-striped.table-bordered
+      %thead
+        %tr
+          %th=t('title.shain')         
+          %th=t('title.shainbangou')
+          %th=t('title.hidzuke')
+          %th=t('title.joutai')      
+      %tbody
+        -joutai_hash={'0': "入力中",'1': '入力済'}
+        -@kintais.each do |kintai|
+          %tr            
+            %td=kintai.shainmaster.氏名      
+            %td=kintai.社員番号
+            %td=kintai.日付.strftime("%Y-%m")
+            %td=joutai_hash[kintai.入力済.to_sym] if kintai.入力済  

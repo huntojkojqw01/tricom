@@ -323,10 +323,11 @@ vi:
       main: Menu chính
     keihibodie: TRICOM
     keihihead: Quản lý kinh phí
-    keihi_pdf: 経費出費明細
+    keihi_pdf: Chi tiết kinh phí
     shonin_search: Danh sách xác nhận chi phí
     kikanmst: Danh sách đại lý
     kintai: Tham dự
+    kintaisumikakunin: Xác nhận tham dự
     kouteimaster: Tiến trình (master)
     layout: TRICOM
     main: Main Menu
