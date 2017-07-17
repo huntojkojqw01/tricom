@@ -12,7 +12,7 @@
           = label_tag t('title.hidzuke')
           .form-group
             .input-group.date-search          
-              = text_field_tag :search,Date.today.strftime("%Y-%m"),placeholder: t('title.hidzuke'),class: "form-control",size: 6
+              = text_field_tag :search,@date.strftime("%Y-%m"),placeholder: t('title.hidzuke'),class: "form-control",size: 6
               %span.input-group-addon
                 %span.glyphicon.glyphicon-calendar              
         / .col-md-3.col-xs-5.col-sm-5.col-lg-3   
@@ -30,7 +30,7 @@
         -joutai_hash={'0': "入力中",'1': '入力済'}
         -@kintais.each do |kintai|
           %tr            
-            %td=kintai.shainmaster.氏名      
-            %td=kintai.社員番号
-            %td=kintai.日付.strftime("%Y-%m")
-            %td=joutai_hash[kintai.入力済.to_sym] if kintai.入力済  
+            %td=kintai[:氏名]      
+            %td=kintai[:社員番号]
+            %td=kintai[:日付].strftime("%Y-%m")
+            %td=joutai_hash[kintai[:入力済].to_sym] if kintai[:入力済]

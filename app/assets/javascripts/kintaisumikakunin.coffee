@@ -56,6 +56,4 @@ jQuery ->
     if e.keyCode==13      
       return false  
   $('#search_btn').click ()->
-    oTable.columns(2).search($('#search').val()).draw()
-  $(document).on 'ready',()->
-    oTable.columns(2).search($('#search').val()).draw()
+    window.location="/kintais/sumikakunin?date="+ $('#search').val()
