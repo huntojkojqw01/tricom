@@ -97,8 +97,8 @@ vi:
       second: giây
       year: năm
   errors: &errors
-    format: ! '%{attribute}%{dengon_menu}'
-    dengon_menus:
+    format: ! '%{attribute}%{message}'
+    messages:
       accepted: Làm ơn hãy xác nhận.
       current_password_incorrect: Mật khẩu hiện tại không dúng.
       wrong_mail_form: Hãy nhập đúng dạng của email.
@@ -309,7 +309,7 @@ vi:
     export_csv: Xuất dữ liệu
     jobmaster:  Công việc (master)
     jobshinki: Công việc mới
-    ekihenshyuu: Chỉnh sửa công việc
+    jobhenshyuu: Chỉnh sửa công việc
     joutaimaster: Trạng thái (master)
     jpt_hokiday_mst: Ngày lễ của Jupiter
     kairan:  Thư
@@ -406,7 +406,7 @@ vi:
     shuruimei: Tên loại
     bikou: Chú thích
     kakuninzu: Xác nhận
-    kyoka: Cho phép
+    kyouka: Cho phép
     yuusensa: Độ ưu tiên
     import_csv_btn: Nhập CSV
     ekicode: Mã nhà ga

@@ -97,8 +97,8 @@ en:
       second: second
       year: year
   errors: &errors
-    format: ! '%{attribute}%{dengon_menu}'
-    dengon_menus:
+    format: ! '%{attribute}%{message}'
+    messages:
       accepted: Please accept
       current_password_incorrect: The current password is incorrect
       wrong_mail_form: Please enter the correct email format
@@ -406,7 +406,7 @@ en:
     shuruimei: Type name
     bikou: Remarks
     kakuninzu: Confirmed
-    kyoka: Approval
+    kyouka: Approval
     yuusensa: Priority
     import_csv_btn: Import CSV
     ekicode: Station code
