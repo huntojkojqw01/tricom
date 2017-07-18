@@ -398,10 +398,9 @@ en:
     delete_confirm: Do you want to delete?
     shain: Employee
     youken: Business
-    kaiou: Reply
+    kaitou: Reply
     kensaku: Search
     dengoichiran: Message list
-    kensaku: Search
     hidzuke: Date
     dengonnaiyou: Message content
     shousin: Send
@@ -458,3 +457,5 @@ en:
     task: Task
     shutchou_ikkatsu: All input data for business trips
     basho999: In the case of 999, it is described in the comment column
+    yoyakusha: Reserved person
+    kinou: Function
