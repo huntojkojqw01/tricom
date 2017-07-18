@@ -398,7 +398,6 @@ vi:
     delete_confirm: Có muốn xóa?
     shain: Nhân viên
     youken: Yêu cầu
-    kaitou: Hồi đáp
     kensaku: Tìm kiếm
     dengoichiran: Danh sách tin nhắn
     hidzuke: Ngày tháng
@@ -459,3 +458,9 @@ vi:
     basho999: Trong trường hợp của 999, được mô tả trong phần ý kiến
     yoyakusha: Người đăng kí
     kinou: Chức năng
+    shoushinichiran: Danh sách gửi
+    hakkousha: Người gửi
+    nichiji: Ngày giờ
+    kenmei: Tiêu đề
+    naiyou: Nội dung
+    kakunin: Xác nhận

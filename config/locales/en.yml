@@ -314,7 +314,7 @@ en:
     jpt_hokiday_mst: Jupiter Holiday
     kairan: Circulation
     shokairan: Tranmission circulation
-    kaitou: Response
+    kaitou: Reply
     kairanyoukenmst: Circulation master
     kaishamaster: Company master
     kanri:
@@ -397,8 +397,7 @@ en:
     nyuuryokusha: Input person
     delete_confirm: Do you want to delete?
     shain: Employee
-    youken: Business
-    kaitou: Reply
+    youken: Business    
     kensaku: Search
     dengoichiran: Message list
     hidzuke: Date
@@ -459,3 +458,9 @@ en:
     basho999: In the case of 999, it is described in the comment column
     yoyakusha: Reserved person
     kinou: Function
+    shoushinichiran: Send
+    hakkousha: Sender
+    nichiji: Time
+    kenmei: Title
+    naiyou: Content
+    kakunin: Comfirm

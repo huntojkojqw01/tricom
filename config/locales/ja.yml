@@ -397,8 +397,7 @@ ja:
     nyuuryokusha: 入力者
     delete_confirm: 削除で宜しいですか。
     shain: 社員
-    youken: 用件
-    kaitou: 回答
+    youken: 用件    
     kensaku: 検索する
     dengoichiran: 伝言一覧
     hidzuke: 日付
@@ -459,3 +458,9 @@ ja:
     basho999: 999の場合は、コメント欄に記載
     yoyakusha: 予約者
     kinou: 機能
+    shoushinichiran: 送信一覧
+    hakkousha: 発行者
+    nichiji: 日時
+    kenmei: 件名
+    naiyou: 内容
+    kakunin: 確認
