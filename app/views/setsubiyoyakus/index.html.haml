@@ -5,7 +5,7 @@
 = provide(:title, (t 'title.setsubiyoyaku'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
-  %li.active 設備予約
+  %li.active=t 'title.setsubiyoyaku'
 
 
 = form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
@@ -17,8 +17,8 @@
 .spacer
 
 
-%button.btn.btn-primary#show_table_button{type: :button} 詳細一覧
-%button.btn.btn-primary#hide_table_button{type: :button} 詳細一覧
+%button.btn.btn-primary#show_table_button{type: :button}=t 'app.label.shousai_event'
+%button.btn.btn-primary#hide_table_button{type: :button}=t 'app.label.shousai_event'
 
 #table-div
 
@@ -33,11 +33,11 @@
     %thead
       %tr
         %th ID
-        %th 開始時刻
-        %th 終了時刻
-        %th 予約者
-        %th 相手先
-        %th 用件
+        %th=t 'title.kaishijikoku'
+        %th=t 'title.shyuuryoujikoku'
+        %th=t 'title.yoyakusha'
+        %th=t 'title.aitesaki'
+        %th=t 'title.youken'
         %th
         %th
     %tbody
@@ -49,9 +49,9 @@
           %td= setsubiyoyaku.shainmaster.氏名
           %td= setsubiyoyaku.kaishamaster.nil? ? setsubiyoyaku.相手先 : setsubiyoyaku.kaishamaster.会社名
           %td= setsubiyoyaku.用件
-          %td= link_to '編集', edit_setsubiyoyaku_path(setsubiyoyaku)
+          %td= link_to t('title.edit'), edit_setsubiyoyaku_path(setsubiyoyaku)
           - msg = t 'app.delete_confirm'
-          %td= link_to '削除', setsubiyoyaku, :method => :delete, :data => { :confirm => msg }
+          %td= link_to t('title.delete'), setsubiyoyaku, :method => :delete, :data => { :confirm => msg }
   
   .row
     .col-md-4.col-xs-4.col-sm-4.col-lg-4     

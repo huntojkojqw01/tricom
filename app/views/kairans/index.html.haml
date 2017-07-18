@@ -2,7 +2,7 @@
 = provide(:title, (t 'title.kairan'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
-  %li.active 回覧
+  %li.active=t 'title.kairan'
 
 -#= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: confirm_kairans_path, method: :get do |f|
 = simple_form_for :kairanIndex, html: {class:'form-inline'}, url: kairans_path, method: :get do |f|
@@ -13,13 +13,13 @@
 
     %thead
       %tr
-        %th 発行者
-        %th 日時
-        %th 要件
-        %th 件名
-        %th 内容
-        %th 確認
-        %th 回答
+        %th=t 'title.hakkousha'
+        %th=t 'title.nichiji'
+        %th=t 'title.youkendengon'
+        %th=t 'title.kenmei'
+        %th=t 'title.naiyou'
+        %th=t 'title.kakunin'
+        %th=t 'title.kaitou'
         %th
         %th id
         %th kairanCode

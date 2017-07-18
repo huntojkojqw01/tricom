@@ -398,10 +398,8 @@ vi:
     delete_confirm: Có muốn xóa?
     shain: Nhân viên
     youken: Yêu cầu
-    kaiou: Hồi đáp
     kensaku: Tìm kiếm
     dengoichiran: Danh sách tin nhắn
-    kensaku: Tìm kiếm
     hidzuke: Ngày tháng
     dengonnaiyou: Nội dung tin nhắn
     shousin: Gửi
@@ -458,3 +456,11 @@ vi:
     task: Công việc
     shutchou_ikkatsu: Nhập hàng loạt chuyến công tác
     basho999: Trong trường hợp của 999, được mô tả trong phần ý kiến
+    yoyakusha: Người đăng kí
+    kinou: Chức năng
+    shoushinichiran: Danh sách gửi
+    hakkousha: Người gửi
+    nichiji: Ngày giờ
+    kenmei: Tiêu đề
+    naiyou: Nội dung
+    kakunin: Xác nhận
