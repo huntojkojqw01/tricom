@@ -533,7 +533,7 @@ class KintaisController < ApplicationController
       @date=Date.today
     end
     @kintais=[]
-    Shainmaster.all.each do |shain|
+    Shainmaster.where(区分: false).each do |shain|
       kintai=shain.kintais.where('日付 = ?',@date).first
       @kintais<<{氏名: shain.氏名,社員番号: shain.社員番号,日付: @date,入力済: kintai.try(:入力済)}
       
