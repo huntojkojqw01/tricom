@@ -6,19 +6,14 @@
   %li.active=t('title.kintaisumikakunin')
 .row  
   .col-md-8.col-sm-8.col-md-offset-2.col-sm-offset-2    
-    .row
-      %form.form-inline
-        .col-md-3.col-xs-6.col-sm-6.col-lg-3.col-md-offset-2.col-lg-offset-2
-          = label_tag t('title.hidzuke')
-          .form-group
-            .input-group.date-search          
-              = text_field_tag :search,@date.strftime("%Y-%m"),placeholder: t('title.hidzuke'),class: "form-control",size: 6
-              %span.input-group-addon
-                %span.glyphicon.glyphicon-calendar              
-        / .col-md-3.col-xs-5.col-sm-5.col-lg-3   
-        /   = label_tag '社員名'
-        /   = select(:shain, :name, @kintais.pluck(:氏名),{:include_blank => '全て'},{:style => "height:30px"})
-        #search_btn.btn.btn-primary=t('helpers.button.search')     
+    .row.form-inline
+      .col-md-3.col-xs-6.col-sm-6.col-lg-3.col-md-offset-2.col-lg-offset-2
+        = label_tag t('title.hidzuke')
+        .form-group
+          .input-group.date-search          
+            = text_field_tag :search,@date.strftime("%Y-%m"),placeholder: t('title.hidzuke'),class: "form-control",size: 5
+            %span.input-group-addon
+              %span.glyphicon.glyphicon-calendar
     %table#kintaisumikakunin.table.table-striped.table-bordered
       %thead
         %tr

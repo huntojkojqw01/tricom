@@ -17,6 +17,7 @@ jQuery ->
       "bSearchable" :false
     }
     ],
+    "order":  [[ 1, "asc" ]],
     "oSearch": {"sSearch": queryParameters().search},
 
     "buttons": [{
@@ -36,8 +37,7 @@ jQuery ->
             }
 
             ]
-  })
-  $('.best_in_place').best_in_place()
+  })  
   now = new Date();
   current = new Date(now.getFullYear(), now.getMonth()+1, 1);
 
@@ -50,10 +50,13 @@ jQuery ->
   }).on('dp.show', () ->
     $('.date-search').data("DateTimePicker").viewMode("months")    
   );
-  $('#search').click () ->
-    $('.date-search').data("DateTimePicker").viewMode("months").toggle()
-  $('#search').on 'keypress',(e) ->    
-    if e.keyCode==13      
-      return false  
-  $('#search_btn').click ()->
-    window.location="/kintais/sumikakunin?date="+ $('#search').val()
+  current_date=$('#search').val()
+  $('#search')
+    .click () ->
+      $('.date-search').data("DateTimePicker").viewMode("months").toggle()
+    .on 'keypress',(e) ->    
+      if e.keyCode==13      
+        return false  
+    .on 'blur',()->      
+      if $(this).val()!=""&&$(this).val()!=current_date      
+        window.location="/kintais/sumikakunin?date="+ $(this).val()
