@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522035720) do
+ActiveRecord::Schema.define(version: 20170901071255) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 20170522035720) do
   create_table "temps", force: :cascade do |t|
     t.date    "date"
     t.boolean "checked"
-  end
+  end 
 
   create_table "ロールマスタ", id: false, force: :cascade do |t|
     t.string   "ロールコード",     limit: 10, null: false
@@ -414,18 +414,15 @@ ActiveRecord::Schema.define(version: 20170522035720) do
   end
 
   create_table "担当者マスタ", id: false, force: :cascade do |t|
-    t.string   "担当者コード",                              null: false
+    t.string   "担当者コード",                          null: false
     t.string   "担当者名称"
-    t.boolean  "admin",               default: false
+    t.boolean  "admin",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string   "email"
     t.string   "password_digest"
-    t.boolean  "supervisor",          default: false
+    t.boolean  "supervisor",      default: false
+    t.string   "avatar"
     t.index ["担当者コード"], name: "index_担当者マスタ_on_担当者コード", unique: true, using: :btree
   end
 

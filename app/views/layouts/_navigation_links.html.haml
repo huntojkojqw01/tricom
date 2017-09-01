@@ -52,13 +52,7 @@
             %ul.dropdown-menu.address-chat
               - @users = User.all
               - @users.each_with_index do |user, index|
-                - if user.avatar && user.avatar.url && user.avatar.exists?
-                  - image_path_origin = user.avatar.url
-                  %li= link_to raw("<span><img src="+image_path_origin+" style='margin-right:1em;'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
-                - else
-                  %li= link_to raw("<span><img src='/assets/thumb/missing.png' style='margin-right:1em;'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
-
-                / %li= link_to raw("<span><img src='/assets/thumb/missing.png' style='margin-right:1em;'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
+                %li= link_to raw("<span><img src="+user.avatar.url+" style='margin-right:1em;height:50px;width:50px'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
               %span.glyphicon.glyphicon-asterisk
@@ -73,20 +67,9 @@
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-              - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
-                - image_path_origin = current_user.avatar.url
-                %span= image_tag image_path_origin, size: "30x30"
-              - else
-                %span= image_tag "/assets/thumb/missing.png", size: "30x30"
-              / %span= image_tag "/assets/thumb/missing.png", size: "30x30"
+              %span= image_tag current_user.avatar, size: "30x30"                           
             %ul.dropdown-menu.center
-
-              - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
-                - image_path_origin = current_user.avatar.url
-                %li= image_tag image_path_origin, size: "30x30"
-              - else
-                %li= image_tag "/assets/thumb/missing.png", size: "30x30"
-              / %li= image_tag "/assets/thumb/missing.png", size: "30x30"
+              %li= image_tag current_user.avatar, size: "30x30"                            
               %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
               %li.text-gray パスワード更新日：#{current_user.updated_at.to_date}
               %legend.menu

@@ -2,7 +2,6 @@ source 'https://rubygems.org'
 
 ruby '2.3.1'
 gem 'rails', '~> 5.0.0.1'
-# gem 'sqlite3'
 gem 'best_in_place'
 gem 'jquery-ui-rails'
 gem 'font-awesome-rails'
@@ -13,9 +12,8 @@ gem 'passenger', '>= 5.0.4'
 # gem 'puma'
 gem 'sweetalert2'
 # for avatar, upload picture
-gem 'paperclip', '4.3.7'
+gem 'carrierwave'
 gem 'bcrypt', '~> 3.1.7'
-gem 'paperclip-cloudinary'
 # gem 'active_decorator'
 # gem 'cells'
 #for create seed file

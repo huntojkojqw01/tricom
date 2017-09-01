@@ -20,9 +20,9 @@ development:
 
   database: jpt
   host: <%= ENV["host"] %>
-#  host: 192.168.35.178
-  username: anhmt
-  password: jpt
+# host: 192.168.35.178
+# username: anhmt
+# password: jpt
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -31,8 +31,8 @@ test:
   <<: *default
   host: <%= ENV["host"] %>
   database: jpt_test
-  username: anhmt
-  password: jpt
+  # username: anhmt
+  # password: jpt
 
 production:
   <<: *default
