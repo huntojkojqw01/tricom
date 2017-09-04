@@ -7,9 +7,9 @@ gem 'jquery-ui-rails'
 gem 'font-awesome-rails'
 gem 'sinatra', git: 'https://github.com/sinatra/sinatra.git'
 # passenger start
-gem 'passenger', '>= 5.0.4'
+#gem 'passenger', '>= 5.0.4'
 # gem 'thin'
-# gem 'puma'
+gem 'puma'
 gem 'sweetalert2'
 # for avatar, upload picture
 gem 'carrierwave'
@@ -23,7 +23,7 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 #for chat
 gem 'private_pub'
-gem 'thin'
+#gem 'thin'
 #
 gem 'sprockets'
 gem 'sprockets-rails', '2.3.3'
@@ -79,7 +79,7 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 # end
 gem 'axlsx', '~> 2.0'
 gem 'axlsx_rails'
-
+gem 'redis'
 group :development, :test do
  gem 'better_errors'
  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]

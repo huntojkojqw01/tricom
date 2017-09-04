@@ -8,7 +8,10 @@ class EkisController < ApplicationController
 
   def index
     @ekis = Eki.all
-    respond_with(@ekis)
+    ActionCable.server.broadcast "some",
+      data: "cao thu vo lam"
+    head :ok    
+    #respond_with(@ekis)
   end
 
   def show

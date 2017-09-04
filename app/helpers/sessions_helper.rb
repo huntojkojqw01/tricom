@@ -3,7 +3,7 @@ module SessionsHelper
     session[:user] = user.id
     session[:current_user_id] = user.id
     session[:selected_shain] = user.shainmaster.id
-
+    cookies.signed[:user_id]= user.id# for actioncable verifier
     if user.shainmaster.login_time.nil?
       Shainmaster.update_all login_time: Date.today
     elsif user.shainmaster.login_time < Date.today

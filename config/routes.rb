@@ -236,4 +236,5 @@ end
     collection {post :import,:ajax}
   end
   root to: 'main#index'
+  mount ActionCable.server => '/cable'
 end

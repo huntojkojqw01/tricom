@@ -10,8 +10,7 @@ class Kairan < ActiveRecord::Base
 
   # delegate :要件名, to: :kairanyokenmst, prefix: :job, allow_nil: true
   delegate :名称, to: :kairanyokenmst, allow_nil: true
-  delegate :氏名, to: :shainmaster, allow_nil: true
-
+  delegate :氏名, to: :shainmaster, allow_nil: true  
 
   def self.to_csv
     attributes = %w{id 発行者 要件 開始 終了 件名 内容 確認 確認要 確認済}
