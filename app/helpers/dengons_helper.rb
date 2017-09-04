@@ -2,6 +2,7 @@ module DengonsHelper
   def update_dengon_counter dengon_params
     counter = Dengon.where(社員番号: dengon_params[:社員番号], 確認: false).count
     Shainmaster.find(dengon_params[:社員番号]).update(伝言件数: counter)
+    ActionCable.server.broadcast "user_#{dengon_params[:社員番号]}",{type: "dengon" }
   end
 
   def update_dengon_counter_with_id shainbango

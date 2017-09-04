@@ -6,9 +6,6 @@ gem 'best_in_place'
 gem 'jquery-ui-rails'
 gem 'font-awesome-rails'
 gem 'sinatra', git: 'https://github.com/sinatra/sinatra.git'
-# passenger start
-#gem 'passenger', '>= 5.0.4'
-# gem 'thin'
 gem 'puma'
 gem 'sweetalert2'
 # for avatar, upload picture
@@ -21,10 +18,6 @@ gem 'seed_dump'
 #for print pdf
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
-#for chat
-gem 'private_pub'
-#gem 'thin'
-#
 gem 'sprockets'
 gem 'sprockets-rails', '2.3.3'
 #PostgreSQL's full text search.
@@ -64,7 +57,7 @@ gem 'mail'
 gem 'ransack'
 gem 'kaminari'
 gem 'kaminari-bootstrap', '~> 3.0.1'
-# gem 'enum_help'
+#gem 'enum_help'
 #gem 'debugger'
 
 #gem 'ruby-oci8'

@@ -5,7 +5,7 @@ module KairansHelper
     return if arrShain.nil?
     arrShain.each do |shainNo|
       Kairanshosai.create(回覧コード: kairan_id, 対象者: shainNo, 状態: 0)
-      ActionCable.server.broadcast "user_#{shainNo}",data: "kairan"      
+      ActionCable.server.broadcast "user_#{shainNo}",{type: "kairan" }     
       # Update kairan on timeline view
       shainToUpdate = Shainmaster.find shainNo
       counter = Kairanshosai.where(対象者: shainNo, 状態: 0).count

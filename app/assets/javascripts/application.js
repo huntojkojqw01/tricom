@@ -16,7 +16,7 @@
 //= require jquery_ujs
 
 //= require chat
-//= require private_pub
+// require private_pub
 //= require main
 
 // require turbolinks

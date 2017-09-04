@@ -7,11 +7,8 @@ class EkisController < ApplicationController
   respond_to :json, :js
 
   def index
-    @ekis = Eki.all
-    ActionCable.server.broadcast "some",
-      data: "cao thu vo lam"
-    head :ok    
-    #respond_with(@ekis)
+    @ekis = Eki.all      
+    respond_with(@ekis)
   end
 
   def show

@@ -45,26 +45,7 @@ class ConversationsController < ApplicationController
         naiyou = dengon.伝言内容.length > 12 ? (dengon.伝言内容[0...12]+ '...') : dengon.伝言内容
         items = items + '<li><a class=\"glyphicon glyphicon-comment icon-left\" href=\"/dengons?locale=ja&search='+dengon.伝言内容+' \"> '+ naiyou+'</a></li>' if dengon.伝言内容
       end
-    end
-
-    PrivatePub.publish_to("/messages/"+current_user.id,"if(#{totalCount} > 0){
-                if($('.glyphicon-bell').hasClass('text-red') == false){
-                    $('.glyphicon-bell').addClass('text-red');
-                    $('.message-count').addClass('text-red');
-                }
-                $('.message-count').text(#{totalCount})
-                $('.message-item').css('display','')
-                $('.message-item').html(\'"+items+"\')
-            }else{
-                if($('.glyphicon-bell').hasClass('text-red')){
-                  $('.glyphicon-bell').removeClass('text-red');
-                  $('.message-count').removeClass('text-red');
-                }
-                $('.message-item').css('display','none')
-                $('.message-count').text('')
-                $('.message-item').html('')
-            }")
-
+    end    
     render json: { conversation_id: @conversation.id }
   end
   def update_message
@@ -106,24 +87,7 @@ class ConversationsController < ApplicationController
         items = items + '<li><a class=\"glyphicon glyphicon-comment icon-left\" href=\"/dengons?locale=ja&search='+dengon.伝言内容+' \"> '+ naiyou+'</a></li>' if dengon.伝言内容
       end
     end
-
-    PrivatePub.publish_to("/messages/"+current_user.id,"if(#{totalCount} > 0){
-                if($('.glyphicon-bell').hasClass('text-red') == false){
-                    $('.glyphicon-bell').addClass('text-red');
-                    $('.message-count').addClass('text-red');
-                }
-                $('.message-count').text(#{totalCount})
-                $('.message-item').css('display','')
-                $('.message-item').html(\'"+items+"\')
-            }else{
-                if($('.glyphicon-bell').hasClass('text-red')){
-                  $('.glyphicon-bell').removeClass('text-red');
-                  $('.message-count').removeClass('text-red');
-                }
-                $('.message-item').css('display','none')
-                $('.message-count').text('')
-                $('.message-item').html('')
-            }")
+    
     respond_to do |format|
       format.json { render json: "OK"}
     end

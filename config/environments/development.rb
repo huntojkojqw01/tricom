@@ -1,5 +1,9 @@
-Jpt::Application.configure do
-  config.action_cable.url = "ws://localhost:3000/cable"
+require "socket"
+Jpt::Application.configure do  
+  local_ip = UDPSocket.open {|s| s.connect("64.233.187.99", 1); s.addr.last}
+  config.action_cable.url = "ws://"+local_ip+":3000/cable"  
+  #config.action_cable.allowed_request_origins = ["http://localhost:3000"]
+  config.action_cable.disable_request_forgery_protection = true
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -36,7 +40,5 @@ Jpt::Application.configure do
 
   config.active_record.raise_in_transactional_callbacks = true
   config.active_record.time_zone_aware_types = [:datetime, :time]#dòng này là để tăt cảnh báo nhỏ nhỏ khi mình sử dụng method to_time để phân tích một String
-  # Paperclip::Attachment.default_options[:path] = "#{Rails.root}/public/assets/system/:class/avatars/:id_partition/:style/:filename"
-  # Paperclip::Attachment.default_options[:url] = "/public/assets/system/:class/avatars/:id_partition/:style/:filename"
-  # Paperclip::Attachment.default_options[:path] = "#{Rails.root}/app/assets/images/system/:class/avatars/:id_partition/:style/:filename.:extension"
+  
 end
