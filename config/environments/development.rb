@@ -1,7 +1,7 @@
 require "socket"
 Jpt::Application.configure do  
   local_ip = UDPSocket.open {|s| s.connect("64.233.187.99", 1); s.addr.last}
-  config.action_cable.url = "ws://"+local_ip+":3000/cable"  
+  config.action_cable.url = "/cable"  
   #config.action_cable.allowed_request_origins = ["http://localhost:3000"]
   config.action_cable.disable_request_forgery_protection = true
   # Settings specified here will take precedence over those in config/application.rb.
