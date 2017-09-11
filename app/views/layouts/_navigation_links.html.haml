@@ -48,13 +48,6 @@
         - if current_user
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
-              %span.fa.fa-wechat
-            %ul.dropdown-menu.address-chat
-              - @users = User.all
-              - @users.each_with_index do |user, index|
-                %li= link_to raw("<span><img src="+user.avatar.url+" style='margin-right:1em;height:50px;width:50px'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
-          %li.dropdown
-            %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
               %span.glyphicon.glyphicon-asterisk
               %span.caret
             %ul.dropdown-menu

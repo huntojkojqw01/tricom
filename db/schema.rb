@@ -242,7 +242,7 @@ ActiveRecord::Schema.define(version: 20170901071255) do
   create_table "temps", force: :cascade do |t|
     t.date    "date"
     t.boolean "checked"
-  end 
+  end
 
   create_table "ロールマスタ", id: false, force: :cascade do |t|
     t.string   "ロールコード",     limit: 10, null: false
