@@ -266,6 +266,7 @@ en:
       check_time_attendance: Please be at least attendance time
       check_time: Should be less than 22 hours
     label:
+      import_help: Upload help file
       import_data: Import data
       import_csv: Import data with CSV!
       reference: Reference

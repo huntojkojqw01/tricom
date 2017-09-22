@@ -266,6 +266,7 @@ ja:
       check_time_attendance: は出勤時刻以上の値にしてください。
       check_time: は22時間より小さい値にしてください。
     label:
+      import_help: ヘルプ更新
       import_data: データインポート
       import_csv: CSVでのデータをインポート!
       reference: 照会
