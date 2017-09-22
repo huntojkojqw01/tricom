@@ -22,6 +22,17 @@
     <%= link_to '9. 経理部', '#', class: 'show_pdf_help', data: '#page=36' %><br>
     <%= link_to '10. 回覧', '#', class: 'show_pdf_help', data: '#page=37' %><br>
     <%= link_to '11. 設備予約', '#', class: 'show_pdf_help', data: '#page=40' %><br>
+    <% if current_user.admin? %>
+      <h3><%=t 'app.label.import_help'%></h1>
+      <%= form_for(:help,url: '/helps') do |f|%>
+        <div class="form-group">
+          <%= f.file_field :file,class: 'form-control' %>
+        </div>
+        <div class="form-group">
+          <%= f.submit t('helpers.submit.update'),class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
   <div class="col-md-10 col-xs-12 col-sm-12 col-lg-10">
     <!-- <iframe src="../../assets/images/Tricom.pdf#page=1" height="800px" width="100%" id="view_pdf">
@@ -44,6 +55,7 @@
     </div>
   </div> -->
 </div>
+
 
 
 

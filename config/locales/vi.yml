@@ -266,6 +266,7 @@ vi:
       check_time_attendance: Hãy nhập giá trị lớn hơn thời gian làm việc.
       check_time: Hãy nhập giá trị nhỏ hơn 22 giờ.
     label:
+      import_help: Cập nhật hướng dẫn
       import_data: Tải dữ liệu
       import_csv: Đã tải dữ liệu từ file CSV!!
       reference: Tham khảo
