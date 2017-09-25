@@ -36,6 +36,7 @@ end
   get 'main/search'
   get 'helps' => 'helps#index'
   get 'edit_help' => 'helps#edit_help'
+  post 'helps' => 'helps#index'
 
   resources :kairans do
     collection {post :confirm, :kaitou_create}
