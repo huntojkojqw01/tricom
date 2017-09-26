@@ -1,0 +1,22 @@
+<%= javascript_include_tag('helps.js') %>
+<%= provide(:title, (t 'title.help')) %>
+<%= stylesheet_link_tag 'helps' %>
+<div class="row">
+  <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
+    <ol class="breadcrumb">
+      <li><%= link_to (t 'title.menu'), main_path %></li>
+      <li class="active"><%= link_to (t 'title.help'), events_path %></li>
+    </ol>
+  </div>
+</div>
+<div class="row wraper-content">
+  <div class="col-md-2 col-xs-4 col-sm-4 col-lg-2">
+    <%=render 'helps/help_pages/menu'%>
+  </div>  
+  <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10" id="content">    
+    <%=render 'helps/help_pages/page1'%> 
+  </div>  
+</div>
+
+
+

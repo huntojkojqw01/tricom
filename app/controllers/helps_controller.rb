@@ -14,5 +14,13 @@ class HelpsController < ApplicationController
 		end	
   end
   def edit_help
-  end  
+  end
+  def new    
+    unless params[:page]
+      @page_number=1
+    else
+      @page_number=params[:page]    
+      respond_to :js
+    end    
+  end
 end
