@@ -1,6 +1,13 @@
-<%= javascript_include_tag('helps.js') %>
 <%= provide(:title, (t 'title.help')) %>
-<%= stylesheet_link_tag 'helps' %>
+<style>
+  h1{
+    color:blue;
+    font-weight: bold;
+  }
+  h3{
+    line-height: 150%;
+  }
+</style>
 <div class="row">
   <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12">
     <ol class="breadcrumb">
@@ -11,7 +18,9 @@
 </div>
 <div class="row wraper-content">
   <div class="col-md-2 col-xs-4 col-sm-4 col-lg-2">
+    <div class="affix">           
     <%=render 'helps/help_pages/menu'%>
+    </div>
   </div>  
   <div class="col-md-10 col-xs-10 col-sm-10 col-lg-10" id="content">    
     <%=render 'helps/help_pages/page1'%> 
