@@ -358,22 +358,23 @@ jQuery ->
   $('#shonin-table-modal tbody').on 'click', 'tr', (event) ->
     d = oShonin_search_modal.row(this).data()
     #$('.shonin').val(d[1])
-
-    if ( $(this).hasClass('selected') )
-      $(this).removeClass('selected')
-      $(this).removeClass('success')
-      $('#shonin_sentaku_ok').addClass("disabled");
-    else
-      oShonin_search_modal.$('tr.selected').removeClass('selected')
-      oShonin_search_modal.$('tr.success').removeClass('success')
-      $(this).addClass('selected')
-      $(this).addClass('success')
-      $('#shonin_sentaku_ok').removeClass("disabled");
+    if(d != undefined)
+      if ( $(this).hasClass('selected') )
+        $(this).removeClass('selected')
+        $(this).removeClass('success')
+        $('#shonin_sentaku_ok').addClass('disabled')
+      else
+        oShonin_search_modal.$('tr.selected').removeClass('selected')
+        oShonin_search_modal.$('tr.success').removeClass('success')
+        $(this).addClass('selected')
+        $(this).addClass('success')
+        $('#shonin_sentaku_ok').removeClass('disabled')
   $('#shonin_sentaku_ok').on 'click', () ->
     d = oShonin_search_modal.row('tr.selected').data()
     $('.shonin').val(d[1])
   $(document).on 'click', '.shonin-search', (event) ->
     $('#shonin-search-modal').modal('show')
+    $('#shonin_sentaku_ok').addClass('disabled')
     tmp = $('.shonin')
     if tmp.val() != ''
       oShonin_search_modal.rows().every (rowIdx, tableLoop, rowLoop) ->
@@ -386,7 +387,6 @@ jQuery ->
           return @nodes().to$().addClass('success')
         return
       oShonin_search_modal.page.jumpToData tmp.val(), 1
-      $('#shonin_sentaku_ok').attr 'disabled', false
     event.preventDefault()
 
   oShonin_table = $('.shonin-table').DataTable({
