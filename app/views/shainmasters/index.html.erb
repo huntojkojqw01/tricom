@@ -45,7 +45,7 @@
       <td><%= link_to '編集', edit_shainmaster_path(shain) if
         current_user.admin? %></td>
       <td><%= link_to '削除', shain, method: :delete, data: { confirm:
-        '削除で宜しですか。' } if current_user.admin? &&
+        '削除して宜しいですか？' } if current_user.admin? &&
         current_user != shain.user %></td>
     </tr>
   <% end %>

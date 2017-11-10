@@ -48,7 +48,7 @@
         <td><%= myjobmaster.updated_at %></td>
         <!--<td><%# link_to '詳細', myjobmaster %></td>-->
         <td><%= link_to '編集', edit_myjobmaster_path(myjobmaster) %></td>
-        <td><%= link_to '削除', myjobmaster, method: :delete, data: { confirm: '削除でよろしいですが？' } %></td>
+        <td><%= link_to '削除', myjobmaster, method: :delete, data: { confirm: '削除して宜しいですか？' } %></td>
       </tr>
     <% end %>
   </tbody>

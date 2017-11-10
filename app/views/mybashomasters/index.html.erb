@@ -34,7 +34,7 @@
         <td><%= mybasho.kaishamaster.会社名 unless mybasho.kaishamaster.nil?%></td>
         <td><%= mybasho.updated_at %></td>
         <td><%= link_to '編集', edit_mybashomaster_path(mybasho) %></td>
-        <td><%= link_to '削除', mybasho, method: :delete, data: { confirm: '削除で宜しですか。' } %></td>
+        <td><%= link_to '削除', mybasho, method: :delete, data: { confirm: '削除して宜しいですか？' } %></td>
 
       </tr>
   <% end %>
