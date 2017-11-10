@@ -255,6 +255,8 @@ jQuery ->
       $("#select_allday").prop('checked', true);
     else
       $("#select_allday").prop('checked', false);
+  $('#head_setsubicode').change ()->    
+    $(this).closest('form').submit()    
 
   $('#hide_table_button').click () ->
     $('#hide_table_button').hide()

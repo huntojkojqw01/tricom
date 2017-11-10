@@ -2,6 +2,5 @@
   .form-inline
     .form-group
       .col-md-12.col-xs-12.col-sm-12.col-lg-12
-        = label_tag t('title.kinou')
+        = label_tag t('title.setsubi1')
         = select(:head, :setsubicode, Setsubi.all.order(:設備コード).collect {|p| [ p.設備名, p.設備コード ] } , {selected: @setsubi_param, include_blank: true }, class: 'form-control')
-        = button_tag t('helpers.button.search'), class:'btn btn-primary'
