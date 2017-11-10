@@ -212,7 +212,7 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        labelText: '状態',
+                        labelText: '所在',
                         field: 'joutai',
                         width: 40,
                         render: function(resources, el) {
