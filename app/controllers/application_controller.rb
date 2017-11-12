@@ -35,7 +35,8 @@ class ApplicationController < ActionController::Base
   # rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
   # rescue_from User::NotAuthorized, with: :user_not_authorized
   def require_kanriG_user!
-    unless current_user.shainmaster.shozokumaster.所属コード == '3'
+    # unless current_user.shainmaster.shozokumaster.所属コード == '3'
+    unless current_user.admin?
       flash[:danger] = t 'app.flash.access_denied'
       redirect_to main_path
     end
@@ -58,7 +59,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-  
+
   def default_url_options
     {locale: I18n.locale}
   end
@@ -106,6 +107,6 @@ class ApplicationController < ActionController::Base
           end
         end
       end
-    end  
+    end
   end
 end

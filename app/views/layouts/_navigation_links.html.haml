@@ -68,7 +68,8 @@
               %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.task')), tasks_path
               - if current_user.admin? || current_user.supervisor?
                 %li= link_to raw("<i class='glyphicon glyphicon-export' style='margin-right:1em;'></i>"+(t 'title.export_csv')+"!"), export_csv_index_path
-              - if current_user.shainmaster.shozokumaster.所属コード == "3"
+              -#- if current_user.shainmaster.shozokumaster.try 所属コード == "3"
+              - if current_user.admin?
                 %li= link_to raw("<i class='glyphicon glyphicon-list-alt' style='margin-right:1em;'></i>"+(t 'title.kanrig')), kanris_root_path
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
           %li.dropdown
