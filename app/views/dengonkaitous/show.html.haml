@@ -5,7 +5,7 @@
 %p
   %b= (t 'title.bikou')+':'
   = @dengonkaitou.備考
-= link_to 'Edit', edit_dengonkaitou_path(@dengonkaitou)
+= link_to (t 'title.edit'), edit_dengonkaitou_path(@dengonkaitou)
 \|
-= link_to 'Back', dengonkaitous_path
+= link_to (t 'title.modoru'), dengonkaitous_path
 = provide(:title, (t 'title.dengonkaitou'))
