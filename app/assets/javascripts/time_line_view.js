@@ -231,6 +231,14 @@ $(document).ready(function() {
                         }
                     },
                     {
+                        labelText: '場所',
+                        field: 'bashomei',
+                        width: 40,
+                        render: function(resources, el) {
+                            el.css('background-color', '#adadad');
+                        }
+                    },
+                    {
                         labelText: '伝言',
                         field: 'dengon',
                         width: 18,
@@ -287,10 +295,10 @@ $(document).ready(function() {
             $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
             $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
             $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').show();
-
+            $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
             $('#calendar-timeline .fc-resource-area').css('width',"30%");
             var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
-            $('.fc-resource-area td:nth-child(6)').each(function(){
+            $('.fc-resource-area td:nth-child(7)').each(function(){
                 $(this).html('<a href="/events/new?param=timeline&shain_id='+$(this).closest('tr').attr('data-resource-id')+'&start_at='+moment(selectedDate).format()+'" style=""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
             });
         });
@@ -412,7 +420,7 @@ $(document).on("click", ".fc-next-button", function(){
     var calDate = new Date(moment(selectedDate).format(''));
 
     var currentDate = new Date();
-    $('.fc-resource-area td:nth-child(6)').each(function(){
+    $('.fc-resource-area td:nth-child(7)').each(function(){
         $(this).html('<a href="/events/new?param=timeline&shain_id='+$(this).closest('tr').attr('data-resource-id')+'&start_at='+moment(selectedDate).format()+'" style=""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
     });
     var minutes = currentDate.getMinutes();
@@ -426,7 +434,7 @@ $(document).on("click", ".fc-next-button", function(){
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').show();
-
+        $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
     }else if(calDate > currentDate ){
         $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(予定)</h2></div>');
@@ -438,7 +446,7 @@ $(document).on("click", ".fc-next-button", function(){
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').hide();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').hide();
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').hide();
-
+        $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').hide();
         $('#calendar-timeline .fc-resource-area').css('width','14%');
     }else{
         $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'</h2></div>');
@@ -446,7 +454,7 @@ $(document).on("click", ".fc-next-button", function(){
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').show();
-
+        $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
     }
 
@@ -457,7 +465,7 @@ $(document).on("click", ".fc-prev-button", function(){
 
     var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
     var calDate = new Date(moment(selectedDate).format(''));
-    $('.fc-resource-area td:nth-child(6)').each(function(){
+    $('.fc-resource-area td:nth-child(7)').each(function(){
         $(this).html('<a href="/events/new?param=timeline&shain_id='+$(this).closest('tr').attr('data-resource-id')+'&start_at='+moment(selectedDate).format()+'" style=""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
     });
     var currentDate = new Date();
@@ -472,7 +480,7 @@ $(document).on("click", ".fc-prev-button", function(){
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').show();
-
+        $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
     }else if(calDate > currentDate ){
         $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(予定)</h2></div>');
@@ -480,6 +488,7 @@ $(document).on("click", ".fc-prev-button", function(){
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').hide();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').hide();
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').hide();
+        $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').hide();
         $('#calendar-timeline .fc-resource-area').css('width',"14%");
     }else{
         $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'</h2></div>');
@@ -487,7 +496,7 @@ $(document).on("click", ".fc-prev-button", function(){
         $('.fc-resource-area col:nth-child(3),.fc-resource-area td:nth-child(3),.fc-resource-area th:nth-child(3)').show();
         $('.fc-resource-area col:nth-child(4),.fc-resource-area td:nth-child(4),.fc-resource-area th:nth-child(4)').show();
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').show();
-
+        $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
     }
 
