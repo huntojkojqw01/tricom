@@ -125,7 +125,7 @@ ja:
       too_short: は%{count}文字以上で入力してください。
       wrong_length: は%{count}文字で入力してください。
       other_than: "は%{count}以外の値にしてください。"
-      delete_association: '削除したいデータは他の箇所に使用しています。削除で宜しいでしょうか。'
+      delete_association: '削除したいデータは他の箇所に使用しています。削除して宜しいですか。'
     template:
       body: 次の項目を確認してください。
       header:
@@ -301,7 +301,7 @@ ja:
     bashomaster: 場所マスタ
     bunrui: 分類マスタ
     dengonkaitou: 伝言回答マスタ
-    dengon: 伝言マスタ
+    dengon: 伝言
     dengonyouken: 伝言用件マスタ
     eki: 駅マスタ
     employer: MultiSelect
@@ -400,7 +400,7 @@ ja:
     nyuuryokusha: 入力者
     delete_confirm: 削除して宜しいですか？
     shain: 社員
-    youken: 用件    
+    youken: 用件
     kensaku: 検索する
     dengoichiran: 伝言一覧
     hidzuke: 日付
