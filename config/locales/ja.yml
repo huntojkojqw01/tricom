@@ -223,8 +223,8 @@ ja:
     errors:
       <<: *errors
   app:
-    delete_confirm: 削除で宜しいでしょうか。
-    delete_data_in_month_confirm: 当月の勤務データを削除されます。削除でよろしいでしょうか。
+    delete_confirm: 削除して宜しいですか？
+    delete_data_in_month_confirm: 当月の勤務データを削除されます。削除して宜しいですか？
     select_confirm: 行を選択してください。
     forgot_password: パスワードを忘れた方はこちら。
     update_pass_success: パスワードを更新できました。
@@ -398,7 +398,7 @@ ja:
     aitesaki: 相手先
     namae: 名前
     nyuuryokusha: 入力者
-    delete_confirm: 削除で宜しいですか。
+    delete_confirm: 削除して宜しいですか？
     shain: 社員
     youken: 用件    
     kensaku: 検索する

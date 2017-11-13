@@ -399,7 +399,7 @@ jQuery ->
     else
       swal({
         title: $('#message_confirm_delete').text(),
-        text: "削除でよろしいですが？",
+        text: "削除して宜しいですか？",
         type: "warning",
         showCancelButton: true,
         confirmButtonColor: "#DD6B55",
