@@ -7,7 +7,7 @@
   %b Last name:
   = @yuusen.last_name
 
-= link_to 'Edit', edit_yuusen_path(@yuusen)
+= link_to (t 'title.edit'), edit_yuusen_path(@yuusen)
 \|
-= link_to 'Back', yuusens_path
+= link_to (t 'title.modoru'), yuusens_path
 = provide(:title, (t 'title.yuusen'))
