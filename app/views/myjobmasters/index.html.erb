@@ -55,9 +55,7 @@
 </table>
 
 <br>
-
-<%= link_to '新規', new_myjobmaster_path, class: 'new-btn dt-button'%>
-
+<%=render 'share/new_edit_destroy_buttons',object: 'myjob',new_path: new_myjobmaster_path%>
 <% if can? :update, @myjobmasters %>
   <%=render 'share/import_csv_modal',import_path: import_myjobmasters_path%>
 <% end %>
