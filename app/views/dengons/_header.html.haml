@@ -2,6 +2,9 @@
 .row-fruid
   .form-inline
     .form-group
+      = label_tag (t 'title.nyuuryokusha')
+      = select(:head, :nyuuryokusha, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @nyuuryokusha, include_blank: true }, class: 'form-control')
+    .form-group
       = label_tag (t 'title.shain')
       = select(:head, :shainbango, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @shain_param, include_blank: true }, class: 'form-control')
     .form-group

@@ -15,6 +15,7 @@ class DengonsController < ApplicationController
     end
     @yoken = params[:head][:youken] if params[:head].present?
     @kaitou = params[:head][:kaitou] if params[:head].present?
+    @nyuuryokusha = params[:head][:nyuuryokusha] if params[:head].present?
 
     @dengons = @dengons.where('社員番号 = ?', @shain_param) if @shain_param.present? && vars['search'].nil?
     if !vars['search'].nil?
@@ -22,6 +23,7 @@ class DengonsController < ApplicationController
     end
     @dengons = @dengons.where(用件: @yoken) if @yoken.present?
     @dengons = @dengons.where(回答: @kaitou) if @kaitou.present?
+    @dengons = @dengons.where(入力者: @nyuuryokusha) if @nyuuryokusha.present?
     respond_with(@dengons)
   end
 
