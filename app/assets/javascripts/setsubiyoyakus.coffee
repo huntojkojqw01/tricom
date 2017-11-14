@@ -256,6 +256,7 @@ jQuery ->
     else
       $("#select_allday").prop('checked', false);
   $('#head_setsubicode').change ()->    
+    $('#selected_date').val($('#setsubiyoyaku-timeline').fullCalendar('getDate'))
     $(this).closest('form').submit()    
 
   $('#hide_table_button').click () ->

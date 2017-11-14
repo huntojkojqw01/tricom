@@ -3,7 +3,7 @@
  */
 
 
-$(document).ready(function() {
+$(document).ready(function() {    
     var setsubi = $('#head_setsubicode').val();
     param = '&head[setsubicode]='+setsubi;
     $.getJSON('/setsubiyoyakus?'+param, function(data) {
@@ -85,9 +85,10 @@ $(document).ready(function() {
 
                 }
             }
-        );
+        );                
+        setsubiyoyaku_timeline.fullCalendar('gotoDate', new Date($('#selected_date').val()));
     });
-
+    
     //Add tooltip
     $(document).on('mouseover','.nomal',function(e){
         var tooltip = '<div class="tooltipevent hover-end"><div>普通時間</div></div>'
