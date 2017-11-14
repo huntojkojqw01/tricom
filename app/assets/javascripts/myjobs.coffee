@@ -8,6 +8,8 @@ jQuery ->
     "scrollX": true,
     "fnDrawCallback": (oSettings) ->
       $('.new-btn').appendTo($('.dt-buttons'));
+      $('.edit-btn').appendTo($('.dt-buttons'));
+      $('.delete-btn').appendTo($('.dt-buttons'));
 #    'scrollY': "300px",
     "pagingType": "full_numbers",
     "oLanguage": {
@@ -316,7 +318,8 @@ jQuery ->
       $('.help-block', $(this)).html('');
       $(this).removeClass('has-error');
     );
-
+  $("#edit_myjob").addClass("disabled");
+  $("#destroy_myjob").addClass("disabled");
   $('#myjobmaster').on( 'click', 'tr',  () ->
     d = oTable.row(this).data()
     if d != undefined
@@ -418,5 +421,72 @@ jQuery ->
       $('#myjobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
       $('#myjobmaster_関連Job番号').closest('.form-group').removeClass('has-error')
     $('#job_search_modal').modal('hide')
-  )
+  )  
 
+  $('#destroy_myjob').click () ->
+    myjobs = oTable.rows('tr.selected').data()
+    myjobIds = new Array();
+    if myjobs.length == 0
+      swal($('#message_confirm_select').text())
+    else
+
+      swal({
+        title: $('#message_confirm_delete').text(),
+        text: "",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#DD6B55",
+        confirmButtonText: "OK",
+        cancelButtonText: "キャンセル",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      }).then(() ->
+        len = myjobs.length
+        for i in [0...len]
+          myjobIds[i] = myjobs[i][12].split('/')[2]
+
+        $.ajax({
+          url: '/myjobmasters/ajax',
+          data:{
+            focus_field: 'myjob_削除する',
+            myjobs: myjobIds
+          },
+
+          type: "POST",
+
+          success: (data) ->
+            swal("削除されました!", "", "success");
+            if data.destroy_success != null
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+              oTable.rows('tr.selected').remove().draw()
+            else
+              console.log("getAjax destroy_success:"+ data.destroy_success)
+
+
+          failure: () ->
+            console.log("myjob_削除する keydown Unsuccessful")
+
+        })
+        $("#edit_myjob").addClass("disabled");
+        $("#destroy_myjob").addClass("disabled");
+
+      ,(dismiss) ->
+        if dismiss == 'cancel'
+
+          selects = oTable.rows('tr.selected').data()
+          if selects.length == 0
+            $("#edit_myjob").addClass("disabled");
+            $("#destroy_myjob").addClass("disabled");
+          else
+            $("#destroy_myjob").removeClass("disabled");
+            if selects.length == 1
+              $("#edit_myjob").removeClass("disabled");
+            else
+              $("#edit_myjob").addClass("disabled");
+      );
+  $('#edit_myjob').click ->
+    new_address = oTable.row('tr.selected').data()[12].split("\"")[1]
+    if new_address == undefined
+      swal("行を選択してください。")
+    else
+      window.location = new_address
