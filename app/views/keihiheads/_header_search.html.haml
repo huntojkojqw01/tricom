@@ -19,7 +19,7 @@
         - if !request["search"].nil?
           = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: ''
         - elsif request["date"].nil?
-          = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: Date.today
+          = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: Date.today.prev_month
         - else
           = f.text_field :清算予定日_search, class: 'form-control datepicker_search', value: request['date']
         %span.input-group-addon#search_date_icon_group
