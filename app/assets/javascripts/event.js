@@ -1218,7 +1218,7 @@ $(function(){
             //{"targets": [5], "width": '8%'}
         ],
 
-        // "order": [],
+        "order": [[1,"asc"]],
         "columnDefs": [
             {"targets" : 'no-sort', "orderable": false}
         ],
