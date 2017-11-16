@@ -83,6 +83,29 @@ $(document).ready(function() {
                     var margin = ((height - contentHeight)/2).toString()+"px";
                     element.find('.fc-content').css("margin-top",margin);
 
+                },
+                eventMouseover: function(event, jsEvent, view) {
+                    var tooltip = '<div class="tooltipevent hover-end">';
+                    tooltip += '<div>'+ event.start.format("YYYY/MM/DD HH:mm")+'</div>'; 
+                    tooltip += '<div>'+ event.end.format("YYYY/MM/DD HH:mm") +'</div>'; 
+                    tooltip += '<div>'+ event.title +'</div>';
+                    tooltip += '<div>'+ event.shain +'</div>';
+                    tooltip += '<div>'+ event.description +'</div>';
+                    tooltip += '</div>'
+                    $("body").append(tooltip);
+                    $(this).mouseover(function(e) {
+                        $(this).css('z-index', 10000);
+                        $('.tooltipevent').fadeIn('500');
+                        $('.tooltipevent').fadeTo('10', 1.9);
+                    }).mousemove(function(e) {
+                        $('.tooltipevent').css('top', e.pageY + 10);
+                        $('.tooltipevent').css('left', e.pageX + 20);
+                    });
+                },
+
+                eventMouseout: function(event, jsEvent, view) {
+                    $(this).css('z-index', 8);
+                    $('.tooltipevent').remove();
                 }
             }
         );                
