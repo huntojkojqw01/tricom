@@ -110,6 +110,12 @@ $(document).ready(function() {
             }
         );                
         setsubiyoyaku_timeline.fullCalendar('gotoDate', new Date($('#selected_date').val()));
+        setsubiyoyaku_timeline.find('.fc-prev-button,.fc-next-button').click(function(){
+            $.post(
+                "/settings/ajax",
+                {setting: "setting_date", selected_date: new Date($('#setsubiyoyaku-timeline').fullCalendar('getDate'))}
+            );               
+        });
     });
     
     //Add tooltip

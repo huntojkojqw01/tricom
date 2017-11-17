@@ -127,6 +127,11 @@ class SettingsController < ApplicationController
       respond_to do |format|
         format.json {render json: @setting}
       end
+    when 'setting_date'
+      session[:selected_date] = params[:selected_date]           
+      respond_to do |format|
+        format.json {render json: session[:selected_date]}
+      end
     when 'turning_data'
       @setting = Setting.where(社員番号: session[:user]).first
       @setting.turning_data = params[:turning_data]
