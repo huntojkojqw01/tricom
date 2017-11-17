@@ -1,6 +1,7 @@
 class Shainmaster < ActiveRecord::Base
   self.table_name = :社員マスタ
   self.primary_key = :社員番号
+  before_save :strip_shainmaster_code
   include PgSearch
   multisearchable :against => %w{序列 社員番号 連携用社員番号 氏名 shozoku_name roru_ロール名 yakushoku_役職名 内線電話番号 有給残数 }
   # default_scope { where("社員番号 is not '#{ENV['admin_user']}'")}
@@ -77,5 +78,8 @@ class Shainmaster < ActiveRecord::Base
   # Naive approach
   def self.rebuild_pg_search_documents
     find_each { |record| record.update_pg_search_document }
+  end
+  def strip_shainmaster_code
+    self.社員番号.strip!
   end
 end
