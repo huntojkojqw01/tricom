@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
 
-  before_action :set_locale
+  before_action :set_locale,:set_page_len
   before_action :turning_data
   helper_method :current_user
   # before_filter :current_user
@@ -58,6 +58,10 @@ class ApplicationController < ActionController::Base
         end
       end
     end
+  end
+
+  def set_page_len
+    @page_length=session[:page_length]||10
   end
 
   def default_url_options

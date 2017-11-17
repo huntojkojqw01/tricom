@@ -2,7 +2,7 @@ jQuery ->
   $.fn.dataTable.ext.buttons.import =
   className: 'buttons-import'
   action: (e, dt, node, config) ->
-    $('#import-csv-modal').modal('show')
+    $('#import-csv-modal').modal('show')  
   oTable = $('.kouteitable').DataTable({
     "dom": "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     "fnDrawCallback": (oSettings) ->
@@ -25,6 +25,7 @@ jQuery ->
         "visible": false
       }
     ],
+    "pageLength": $('#pageLength').text(),
     "oSearch": {"sSearch": queryParameters().search},
 
     "buttons": [{
@@ -88,7 +89,10 @@ jQuery ->
 
             ]
   })
-
+  oTable.on 'length.dt', ( e, settings, len )->
+    $.post( "/settings/ajax", { setting: 'setting_page_len',page_len: len })
+      .done ( data )->
+        console.log( "Page length changed to " + data )     
   $("#edit_koutei").addClass("disabled");
   $("#destroy_koutei").addClass("disabled");
 

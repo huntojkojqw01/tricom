@@ -134,7 +134,12 @@ class SettingsController < ApplicationController
       respond_to do |format|
         format.json {render json: @setting}
       end
-    end 
+    when 'setting_page_len'
+      session[:page_length]=params[:page_len]
+      respond_to do |format|
+        format.json {render json: session[:page_length]}
+      end
+    end        
   end
 
   private
