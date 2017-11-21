@@ -1,42 +1,58 @@
-<p>
-  <strong>序列:</strong>
-  <%= @shainmaster.序列 %>
-</p>
-<p>
-  <strong>社員番号:</strong>
-  <%= @shainmaster.社員番号 %>
-</p>
+<div class="row">
+  <div class="col-md-4 col-lg-3">
+    <p>
+      <strong>序列:</strong>
+      <%= @shainmaster.序列 %>
+    </p>
+    <p>
+      <strong>社員番号:</strong>
+      <%= @shainmaster.社員番号 %>
+    </p>
 
-<p>
-  <strong>連携用社員番号:</strong>
-  <%= @shainmaster.連携用社員番号 %>
-</p>
+    <p>
+      <strong>連携用社員番号:</strong>
+      <%= @shainmaster.連携用社員番号 %>
+    </p>
 
-<p>
-  <strong>氏名:</strong>
-  <%= @shainmaster.氏名 %>
-</p>
-<p>
-  <strong>所属コード:</strong>
-  <%= @shainmaster.所属コード %>
-</p>
-<p>
-  <strong>直間区分:</strong>
-  <%= @shainmaster.直間区分 %>
-</p>
-<p>
-  <strong>残業区分:</strong>
-  <%= @shainmaster.残業区分 %>
-</p>
-<p>
-  <strong>役職コード:</strong>
-  <%= @shainmaster.役職コード %>
-</p>
-<p>
-  <strong>デフォルトロール:</strong>
-  <%= @shainmaster.デフォルトロール %>
-</p>
-
-<%= link_to '編集', edit_shainmaster_path(@shainmaster) %> |
-<%= link_to '戻る', shainmasters_path %>
+    <p>
+      <strong>氏名:</strong>
+      <%= @shainmaster.氏名 %>
+    </p>
+    <p>
+      <strong>所属コード:</strong>
+      <%= @shainmaster.所属コード %>
+    </p>
+    <p>
+      <strong>直間区分:</strong>
+      <%= @shainmaster.直間区分 %>
+    </p>
+    <p>
+      <strong>残業区分:</strong>
+      <%= @shainmaster.残業区分 %>
+    </p>
+    <p>
+      <strong>役職コード:</strong>
+      <%= @shainmaster.役職コード %>
+    </p>
+    <p>
+      <strong>デフォルトロール:</strong>
+      <%= @shainmaster.デフォルトロール %>
+    </p>    
+  </div>
+</div>
+<div class="row">
+  <div>
+    <%=form_for Rorumenba.new,remote: true do |f| %>
+      <%=hidden_field_tag :shain,@shainmaster.社員番号%>
+      <%=f.select :ロールコード, Rorumaster.all.collect {|p| [ p.ロール名, p.ロールコード ] },{prompt: ""}%>
+      <%=f.submit 'ロールメンバ追加',class: 'btn btn-primary'%>
+    <% end %>
+  </div>  
+</div>
+<div class="row">
+  <div class="col-md-4 col-lg-4">
+    <%= link_to '編集', edit_shainmaster_path(@shainmaster) %> |    
+    <%= link_to '戻る', shainmasters_path %>
+  </div>  
+</div>
 <%provide(:title, (t 'title.shainmaster'))%>
