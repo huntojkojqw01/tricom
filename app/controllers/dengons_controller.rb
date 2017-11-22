@@ -42,7 +42,16 @@ class DengonsController < ApplicationController
 
   def create
     @dengon = Dengon.new(dengon_params)
-    @dengon.save
+    nyuuryokusha=Shainmaster.find_by(社員番号: dengon_params[:入力者])
+    shain=User.find_by(担当者コード: dengon_params[:社員番号])
+    if @dengon.save
+      Mail.deliver do
+        to "#{shain.try(:email)}"
+        from 'hminhduc@gmail.com'
+        subject '【勤務システム】新伝言'
+        body "#{nyuuryokusha.try(:氏名)}から新伝言が送られました\n#{@dengon.try(:伝言内容)}"
+      end
+    end
     # respond_with(@dengon)
     update_dengon_counter dengon_params
     # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
