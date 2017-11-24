@@ -82,7 +82,7 @@ class UsersController < ApplicationController
           flash[:notice] = t 'app.flash.update_success' if @user.update(password: new_pass, email: email, avatar: avatar)
           Mail.deliver do
             to "#{email}"
-            from 'hminhduc@gmail.com'
+            from 'skybord@jpt.co.jp'
             subject '【勤務システム】ログインパスワード変更'
             body "パスワードを変更成功できました。この際から、【#{new_pass}】でログインしてくさだい！"
           end

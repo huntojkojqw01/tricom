@@ -14,7 +14,7 @@ module DengonsHelper
   def send_mail(to_mail, subject_mail, body_mail)
     Mail.deliver do
       to to_mail
-      from 'hminhduc@gmail.com'
+      from 'skybord@jpt.co.jp'
       subject subject_mail
       body body_mail
     end
