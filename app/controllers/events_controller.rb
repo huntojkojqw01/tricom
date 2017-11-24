@@ -159,27 +159,24 @@ class EventsController < ApplicationController
       end
     else
       vars = request.query_parameters
-      @all_events = Event.all
-      @shains = Shainmaster.where(タイムライン区分: false).all
-      if vars['roru'].empty? && vars['joutai'].empty?
-        @all_events = Event.all
-        @shains = Shainmaster.joins(:rorumenbas).where(タイムライン区分: false).reorder('ロールメンバ.ロール内序列 asc,ロールメンバ.ロールコード asc')
+      puts vars
+      if vars['roru'].empty?
+        if vars['joutai'].empty?          
+          @all_events = Event.all
+          @shains = Shainmaster.where(タイムライン区分: false)
+        else          
+          @all_events=Event.where(状態コード: vars['joutai'])
+          @shains = Shainmaster.joins(:events).where(タイムライン区分: false, "events.状態コード": vars['joutai'])
+        end
       else
-        if !vars['roru'].empty? && vars['joutai'].empty?
-          rorumenbas = Rorumenba.where(ロールコード: vars['roru'])
-          @shains = Shainmaster.where(タイムライン区分: false).joins(:rorumenbas).where(ロールメンバ: {ロールコード: vars['roru']}).reorder('ロールメンバ.ロールコード asc,ロールメンバ.ロール内序列 asc')
+        if vars['joutai'].empty?          
           @all_event=Event.all
-        end
-        if vars['roru'].empty? && !vars['joutai'].empty?
+          @shains = Shainmaster.joins(:rorumenbas).where(タイムライン区分: false,ロールメンバ: {ロールコード: vars['roru']})
+        else          
           @all_events=Event.where(状態コード: vars['joutai'])
-          @shains = Shainmaster.where(タイムライン区分: false, 所在コード: vars['joutai']).all.joins(:rorumenbas).reorder('ロールメンバ.ロール内序列 asc,ロールメンバ.ロールコード asc')
+          @shains = Shainmaster.joins(:rorumenbas,:events).where(タイムライン区分: false, "events.状態コード": vars['joutai'],ロールメンバ: {ロールコード: vars['roru']})
         end
-        if !vars['roru'].empty? && !vars['joutai'].empty?
-          @all_events=Event.where(状態コード: vars['joutai'])
-          rorumenbas = Rorumenba.where(ロールコード: vars['roru'])
-          @shains = Shainmaster.where(タイムライン区分: false,所在コード: vars['joutai']).joins(:rorumenbas).where(ロールメンバ: {ロールコード: vars['roru']}).reorder('ロールメンバ.ロールコード asc,ロールメンバ.ロール内序列 asc')
-        end
-      end
+      end         
       @events = Event.where(社員番号: @shains.ids).where('Date(開始) >= ?',(Date.today - 1.month).to_s(:db)).
       order(開始: :desc)
     end

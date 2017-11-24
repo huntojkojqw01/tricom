@@ -50,7 +50,7 @@
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
               %span.fa.fa-wechat
             %ul.dropdown-menu.address-chat
-              - @users = User.all
+              - @users = User.left_outer_joins(shainmaster: :rorumaster).order("ロールマスタ.序列 ASC","社員マスタ.序列 ASC")
               - @users.each_with_index do |user, index|
                 - if user.avatar && user.avatar.url && user.avatar.exists?
                   - image_path_origin = user.avatar.url
