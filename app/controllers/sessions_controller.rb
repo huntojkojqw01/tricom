@@ -28,7 +28,7 @@ class SessionsController < ApplicationController
       if user.update(password: ses,flag_reset_password: true)
         Mail.deliver do
           to "#{user.try(:email)}"
-          from 'hminhduc@gmail.com'
+          from 'skybord@jpt.co.jp'
           subject '【勤務システム】'
           body "担当者コード : 【#{user.try(:担当者コード)}】。新しいパスワード: 【"+ses+"】。"
         end

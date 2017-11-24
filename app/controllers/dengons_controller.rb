@@ -47,9 +47,9 @@ class DengonsController < ApplicationController
     if @dengon.save
       Mail.deliver do
         to "#{shain.try(:email)}"
-        from 'hminhduc@gmail.com'
-        subject '【勤務システム】新伝言'
-        body "#{nyuuryokusha.try(:氏名)}から新伝言が送られました\n#{@dengon.try(:伝言内容)}"
+        from 'skybord@jpt.co.jp'
+        subject '【勤務システム】伝言'
+        body "#{nyuuryokusha.try(:氏名)}: #{@dengon.try(:伝言内容)}"
       end
     end
     # respond_with(@dengon)
