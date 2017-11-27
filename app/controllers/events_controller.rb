@@ -170,7 +170,7 @@ class EventsController < ApplicationController
         end
       else
         if vars['joutai'].empty?          
-          @all_event=Event.all
+          @all_events=Event.all
           @shains = Shainmaster.joins(:rorumenbas).where(タイムライン区分: false,ロールメンバ: {ロールコード: vars['roru']})
         else          
           @all_events=Event.where(状態コード: vars['joutai'])
