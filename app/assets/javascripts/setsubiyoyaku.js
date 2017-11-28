@@ -11,7 +11,8 @@ $(document).ready(function() {
         var setsubiyoyaku_timeline = $('#setsubiyoyaku-timeline').fullCalendar(
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                height: 600,
+                firstDay: 1,
+                height: 600,                
                 //height: "auto",
                 //firstHour: '06:00',
                 businessHours:{
@@ -21,11 +22,13 @@ $(document).ready(function() {
                     dow: [0, 1, 2, 3, 4, 5, 6]
                     // days of week. an array of zero-based day of week integers (0=Sunday)
                     // (Monday-Freeday in this example)
-                },
+                },                
                 header: {
                     left:   'title',
                     right:  'today,prev,next'
                 },
+                titleFormat: 'YYYY年M月Ddd',
+                weekends: false,
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
                 slotLabelFormat: ['HH : mm'],
@@ -38,6 +41,7 @@ $(document).ready(function() {
                 scrollTime: '09:00',
                 dragOpacity: "0.5",
                 editable: true,
+
 
                 //events: data.setsubiyoyakus,
                 events: data.setsubiyoyakus,
@@ -102,7 +106,6 @@ $(document).ready(function() {
                         $('.tooltipevent').css('left', e.pageX + 20);
                     });
                 },
-
                 eventMouseout: function(event, jsEvent, view) {
                     $(this).css('z-index', 8);
                     $('.tooltipevent').remove();
