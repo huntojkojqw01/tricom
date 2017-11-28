@@ -65,9 +65,10 @@ class SetsubiyoyakusController < ApplicationController
     @kaishamasters = Kaishamaster.all
   end
 
-  def create
+  def create    
     @kaishamasters = Kaishamaster.all
     @setsubiyoyaku = Setsubiyoyaku.new setsubiyoyaku_params
+    session[:selected_date]=@setsubiyoyaku.開始#lưu lại cái ngày vào session để sau reload chuyển đến
     @setsubiyoyaku.save
     respond_with @setsubiyoyaku, location: setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
   end
