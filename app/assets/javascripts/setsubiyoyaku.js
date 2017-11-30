@@ -28,7 +28,7 @@ $(document).ready(function() {
                     right:  'today,prev,next'
                 },
                 titleFormat: 'YYYY年M月Ddd',
-                weekends: false,
+                //weekends: false,
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
                 slotLabelFormat: ['HH : mm'],
