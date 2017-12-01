@@ -98,8 +98,7 @@ jQuery ->
     calendarWeeks: true,
     toolbarPlacement: 'top',
     keyBinds: false,
-    focusOnShow: false,
-    daysOfWeekDisabled: [0, 6]
+    focusOnShow: false
 #    defaultDate: '2016/03/14 09:00'
   })
   $("#999").appendTo(".form-group.search_history.optional.event_場所コード .form-inline");
