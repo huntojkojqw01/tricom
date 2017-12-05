@@ -3,11 +3,9 @@
   <% if  @shainmasters.nil? || @shainmasters.empty? %>
     <%= f.input :担当者コード, disabled: true, hint: '社員はすでに存在します' %>
   <% else %>
-    <%= f.select :担当者コード do %>
-      <% @shainmasters.each do |shainmaster| %>
-        <%= content_tag(:option, shainmaster.title, value: shainmaster.id) %>
-      <% end %>
-    <% end %>
+    <%= select_tag :担当者コード,
+     options_for_select(@shainmasters.collect{ |u| [u.title, u.id] }),
+      class: 'form-control' %>
   <% end %>
   <br></br>
   <%= f.input :担当者名称 %>
