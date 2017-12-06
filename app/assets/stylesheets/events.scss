@@ -60,3 +60,10 @@ div.update-shozai label {
 .fc-day-number{
   text-align: center !important;
 }
+.datepicker table thead tr:last-child :first-child {
+  color: red;
+}
+
+.datepicker table thead tr:last-child :last-child {
+  color: red;
+}
