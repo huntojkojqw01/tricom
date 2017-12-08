@@ -42,13 +42,15 @@ class DengonsController < ApplicationController
 
   def create
     @dengon = Dengon.new(dengon_params)
-    nyuuryokusha = Shainmaster.find_by(社員番号: dengon_params[:入力者])
-    shain = User.find_by(担当者コード: dengon_params[:社員番号])
+    nyuuryokusha=Shainmaster.find_by(社員番号: dengon_params[:入力者])
+    shain = User.find_by(担当者コード: dengon_params[:社員番号])    
     if @dengon.save
       mailTo = Tsushinseigyou.find_by(社員番号: shain.担当者コード)
+      naiyou=@dengon.try(:伝言内容)   
       mailBody = ""
       unless @dengon.try(:日付).nil?
         mailBody = "#{@dengon.try(:日付).strftime('%F %H:%M')} \r\n"
+      end
       mailBody << "相手先　#{@dengon.try(:相手先)} \r\n"
       mailBody << "回答　#{@dengon.dengonkaitou.種類名} \r\n"
       mailBody << "内容　#{@dengon.try(:伝言内容)} \r\n"
@@ -59,7 +61,7 @@ class DengonsController < ApplicationController
         to "#{mailTo.メール}"
         from 'skybord@jpt.co.jp'
         subject 'From TRICOM'
-        body "#{mailBody}"
+        body "#{mailBody}"        
       end
     end
     # respond_with(@dengon)
