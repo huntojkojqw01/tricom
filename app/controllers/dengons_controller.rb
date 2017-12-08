@@ -44,20 +44,21 @@ class DengonsController < ApplicationController
     @dengon = Dengon.new(dengon_params)
     nyuuryokusha = Shainmaster.find_by(社員番号: dengon_params[:入力者])
     shain = User.find_by(担当者コード: dengon_params[:社員番号])
-    if @dengon.save
-      mailTo = Tsushinseigyou.find_by(社員番号: shain.社員番号)
-      mailBody = "#{@dengon.try(:日付).strftime(%F %H:%M)} \r\n"
-      mailBody << "相手先　#{@dengon.try(:相手先)} \r\n"
-      mailBody << "回答　#{@dengon.dengonkaitou.種類名} \r\n"
-      mailBody << "内容　#{@dengon.try(:伝言内容)} \r\n"
-      mailBody << "\r\n"
-      mailBody << "[#{nyuuryokusha.try(:氏名)}]"
-      mailBody.replace('\r\n','<br />')
+    if @dengon.
+      naiyou=@dengon.try(:伝言内容)
+      #mailTo = Tsushinseigyou.find_by(社員番号: shain.社員番号)
+      #mailBody = "#{@dengon.try(:日付).strftime(%F %H:%M)} \r\n"
+      #mailBody << "相手先　#{@dengon.try(:相手先)} \r\n"
+      #mailBody << "回答　#{@dengon.dengonkaitou.種類名} \r\n"
+      #mailBody << "内容　#{@dengon.try(:伝言内容)} \r\n"
+      #mailBody << "\r\n"
+      #mailBody << "[#{nyuuryokusha.try(:氏名)}]"
+      #mailBody.replace('\r\n','<br />')
       Mail.deliver do
-        to "#{mailTo.メール}"
-        from 'skybord@jpt.co.jp'
+        to "#{shain.try(:email)}"
+        from "#{nyuuryokusha.user.try(:email)}"
         subject 'From TRICOM'
-        body "#{mailBody}"
+        body "#{nyuuryokusha.try(:氏名)}: #{naiyou}"
       end
     end
     # respond_with(@dengon)
