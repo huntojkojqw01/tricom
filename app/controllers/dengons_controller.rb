@@ -42,26 +42,27 @@ class DengonsController < ApplicationController
 
   def create
     @dengon = Dengon.new(dengon_params)
-    nyuuryokusha=Shainmaster.find_by(社員番号: dengon_params[:入力者])
-    shain = User.find_by(担当者コード: dengon_params[:社員番号])    
+    nyuuryokusha = Shainmaster.find_by(社員番号: dengon_params[:入力者])
+    shain = User.find_by(担当者コード: dengon_params[:社員番号])
     if @dengon.save
-      mailTo = Tsushinseigyou.find_by(社員番号: shain.担当者コード)
-      naiyou=@dengon.try(:伝言内容)   
-      mailBody = ""
+      mail_to = Tsushinseigyou.find_by(社員番号: shain.担当者コード)
+      mail_body = ''
       unless @dengon.try(:日付).nil?
-        mailBody = "#{@dengon.try(:日付).strftime('%F %H:%M')} \r\n"
+        mail_body = "#{@dengon.try(:日付).strftime('%F %H:%M')} \r\n"
       end
-      mailBody << "相手先　#{@dengon.try(:相手先)} \r\n"
-      mailBody << "回答　#{@dengon.dengonkaitou.種類名} \r\n"
-      mailBody << "内容　#{@dengon.try(:伝言内容)} \r\n"
-      mailBody << "\r\n"
-      mailBody << "[#{nyuuryokusha.try(:氏名)}]"
-      mailBody.gsub('\r\n','<br />')
+      mail_body << "#{@dengon.try(:from1)} #{@dengon.try(:from2)} \r\n"
+      mail_body << "\r\n"
+      mail_body << "回答　#{@dengon.dengonkaitou.種類名} \r\n"
+      mail_body << "\r\n"
+      mail_body << "内容　#{@dengon.try(:伝言内容)} \r\n"
+      mail_body << "\r\n"
+      mail_body << "[#{nyuuryokusha.try(:氏名)}]"
+      mail_body.gsub('\r\n','<br />')
       Mail.deliver do
-        to "#{mailTo.メール}"
+        to mail_to.メール.to_s
         from 'skybord@jpt.co.jp'
         subject 'From TRICOM'
-        body "#{mailBody}"        
+        body mail_body.to_s
       end
     end
     # respond_with(@dengon)

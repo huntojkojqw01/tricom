@@ -193,7 +193,7 @@ $(function () {
         showTodayButton: true,
         showClear: true,
         sideBySide: true,
-        calendarWeeks: true,
+        // calendarWeeks: true,
         toolbarPlacement: 'top',
         keyBinds: false,
         focusOnShow: false,

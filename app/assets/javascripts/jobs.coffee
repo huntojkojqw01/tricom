@@ -259,7 +259,7 @@ jQuery ->
     showTodayButton: true,
     showClear: true,
 #    //,daysOfWeekDisabled:[0,6]
-    calendarWeeks: true,
+#    calendarWeeks: true,
     keyBinds: false,
     focusOnShow: false
   })

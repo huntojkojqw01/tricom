@@ -104,16 +104,3 @@
               / %td= link_to (t 'title.edit'), edit_keihihead_path(keihihead)
               %td= t 'title.delete'
           - numberRow = numberRow + 1
-
-
-/ %button.btn.btn-primary#pdf_keihihead{type: :button} #{t 'app.label.export_pdf'}
-
-/ .row.spacer
-/ %legend
-
-/ - if can? :update, @keihiheads
-/   =render 'share/import_export_buttons',import_path: import_keihiheads_path
-/ .row.spacer
-/ %legend
-
-/ %button.btn.btn-primary#export_keihihead{type: :button} #{t 'title.export_csv'}

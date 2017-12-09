@@ -4,13 +4,10 @@
   %li= link_to (t 'title.menu'), main_path
   %li.active=t 'title.kairan'
 
--#= simple_form_for :kairanIndex, html: {class:'form-inline'}, url: confirm_kairans_path, method: :get do |f|
 = simple_form_for :kairanIndex, html: {class:'form-inline'}, url: kairans_path, method: :get do |f|
   = render 'header', f: f
-  %br
-
+  .spacer
   %table.kairan-table.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%'}
-
     %thead
       %tr
         %th=t 'title.hakkousha'
@@ -24,7 +21,6 @@
         %th id
         %th kairanCode
         %th 対象者
-
     %tbody
       - @kairanShoshais.each do |kairanshosai|
         %tr
@@ -59,13 +55,6 @@
           %td= kairanshosai.id
           %td= kairanshosai.回覧コード
           %td= kairanshosai.対象者
-          -#%td= link_to '編集', edit_kairan_path(kairan)
-          -#%td= link_to '削除', kairan, :method => :delete, :data => { :confirm => '削除して宜しいですか？' }
-
-  %br
 
   = hidden_field_tag 'checked'
   = hidden_field_tag 'session_user', session[:user]
-  .pull-right
-    -#= button_tag '確認する', name: 'button', id: 'kakunin', value: '確認する', class: 'btn btn-primary'
-

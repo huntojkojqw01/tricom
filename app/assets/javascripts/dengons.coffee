@@ -7,7 +7,7 @@ jQuery ->
     showTodayButton: true,
     showClear: true,
     sideBySide: true,
-    calendarWeeks: true,
+#    calendarWeeks: true,
     toolbarPlacement: 'top',
     keyBinds: false,
     focusOnShow: false
@@ -41,7 +41,8 @@ jQuery ->
       'selectAll',
       'selectNone'
     ],
-    "oSearch": {"sSearch": queryParameters().search}
+    "oSearch": {"sSearch": queryParameters().search},
+    "order": [[ 2, "desc" ]]
   })
 
   $('#dengon_touroku').click (e) ->

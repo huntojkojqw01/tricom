@@ -1,10 +1,8 @@
 .row-fruid
   %h4= "担当者: " + Shainmaster.find(session[:user]).氏名
 .row-fruid
-
   .form-inline
     .form-group
-      / .col-md-12.col-xs-12.col-sm-12.col-lg-12
       = f.label :清算日
       .input-group.datetime-start
         - if !request["timeStart"].nil?
