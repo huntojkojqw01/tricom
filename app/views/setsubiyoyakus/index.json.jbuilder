@@ -8,8 +8,8 @@ json.setsubiyoyakus @setsubiyoyaku do |setsubiyoyaku|
   title ='default'
   title = setsubiyoyaku.try(:用件)
   shain = ''
-  shain = '社員の氏名: '+ setsubiyoyaku.shainmaster.try(:氏名) + " \n " if setsubiyoyaku.shainmaster
-  json.title title
+  shain = setsubiyoyaku.shainmaster.try(:氏名) + " \n " if setsubiyoyaku.shainmaster
+  json.title title + "\n" + shain
   json.shain shain
 
   json.start setsubiyoyaku.try(:開始)

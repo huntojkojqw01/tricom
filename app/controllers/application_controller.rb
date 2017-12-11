@@ -50,6 +50,7 @@ class ApplicationController < ActionController::Base
   # logging out removes it.
 
   def set_locale
+    return if current_user.nil? || current_user.shainmaster.nil?
     I18n.locale = params[:locale] || I18n.default_locale
     if logged_in?
       if !current_user.shainmaster.setting.nil?
@@ -83,6 +84,7 @@ class ApplicationController < ActionController::Base
   end
 
   def turning_data
+    return if current_user.nil? || current_user.shainmaster.nil?
     if logged_in?
       shains = current_user.shainmaster
       if !current_user.shainmaster.setting.nil?

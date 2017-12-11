@@ -50,18 +50,20 @@ class DengonsController < ApplicationController
       unless @dengon.try(:日付).nil?
         mail_body = "#{@dengon.try(:日付).strftime('%F %H:%M')} \r\n"
       end
+      mail_body << "\r\n"
       mail_body << "#{@dengon.try(:from1)} #{@dengon.try(:from2)} \r\n"
       mail_body << "\r\n"
-      mail_body << "回答　#{@dengon.dengonkaitou.種類名} \r\n"
+      mail_body << "用件　#{@dengon.dengonyouken.種類名} \r\n"
       mail_body << "\r\n"
-      mail_body << "内容　#{@dengon.try(:伝言内容)} \r\n"
+      mail_body << "#{@dengon.try(:伝言内容)} \r\n"
+      mail_body << "\r\n"
       mail_body << "\r\n"
       mail_body << "[#{nyuuryokusha.try(:氏名)}]"
       mail_body.gsub('\r\n','<br />')
       Mail.deliver do
         to mail_to.メール.to_s
         from 'skybord@jpt.co.jp'
-        subject 'From TRICOM'
+        subject 'From Web_TRICOM'
         body mail_body.to_s
       end
     end

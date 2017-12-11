@@ -2,14 +2,16 @@ module SessionsHelper
   def log_in user
     session[:user] = user.id
     session[:current_user_id] = user.id
-    session[:selected_shain] = user.shainmaster.id
+    session[:selected_shain] = user.shainmaster.try :id
 
-    if user.shainmaster.login_time.nil?
-      Shainmaster.update_all login_time: Date.today
-    elsif user.shainmaster.login_time < Date.today
-      Shainmaster.update_all 所在コード: nil, login_time: Date.today
+    unless user.shainmaster.nil?
+      if user.shainmaster.login_time.nil?
+        Shainmaster.update_all login_time: Date.today
+      elsif user.shainmaster.login_time < Date.today
+        Shainmaster.update_all 所在コード: nil, login_time: Date.today
+      end
     end
-    # 現在保留
+        # 現在保留
     # check_shozai()
     check_kintai_at_day_by_user(user.id, Date.today)
     # reset_data_search
@@ -110,7 +112,7 @@ module SessionsHelper
   def check_kintai_at_day_by_user user_id, at_day
     at_day = Date.today if at_day.nil?
     shainmaster = Shainmaster.find_by(id: user_id)
-    kintai = shainmaster.kintais.find_by(日付: at_day)
+    kintai = shainmaster.kintais.find_by(日付: at_day) unless shainmaster.nil?
     return if kintai
     start_date = at_day.beginning_of_month
     end_date = at_day.end_of_month
