@@ -1,9 +1,9 @@
 // init search table
 $(function() {
-    oTable = $('#bashomaster').DataTable({
+    $('#bashomaster').DataTable({
         "pagingType": "full_numbers"
         , "oLanguage": {
-            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+            "sUrl": "../../assets/resource/dataTable_" + $('#language').text()+".txt"
         },
         "aoColumnDefs": [
             { "bSortable": false, "aTargets": [ 6,7 ]},
@@ -20,7 +20,7 @@ $(function() {
     });
 
     //init shozoku modal table
-    oKaishaTable = $('#kaisha-table-modal').DataTable({
+    var oKaishaTable = $('#kaisha-table-modal').DataTable({
         "pagingType": "full_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"

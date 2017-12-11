@@ -753,7 +753,7 @@ $(function () {
      });
 
     $('#print_event').click(function(){
-        if( $("#selectDay").css('display') == 'none'){
+        if( $("#selectDay").css('display') === 'none'){
             $("#selectDay").css('display', '');
             $("#print_event_job").addClass("disabled");
             $("#print_event_koutei").addClass("disabled");
@@ -784,7 +784,7 @@ $(function () {
         }
     });
     $('#print_event_job').click(function(){
-        if( $("#selectDay").css('display') == 'none'){
+        if( $("#selectDay").css('display') === 'none'){
             $("#selectDay").css('display', '');
             $("#print_event").addClass("disabled");
             $("#print_event_koutei").addClass("disabled");
@@ -804,7 +804,7 @@ $(function () {
         }
     });
     $('#print_event_koutei').click(function(){
-        if( $("#selectDay").css('display') == 'none'){
+        if( $("#selectDay").css('display') === 'none'){
             $("#selectDay").css('display', '');
             $("#print_event").addClass("disabled");
             $("#print_event_job").addClass("disabled");
@@ -948,11 +948,11 @@ $(function () {
         format: 'YYYY/MM/DD',
         widgetPositioning: {
             horizontal: 'left'
-        }
-        ,showTodayButton: true
-        ,showClear: true
+        },
+        showTodayButton: true,
+        showClear: true,
         //,daysOfWeekDisabled:[0,6]
-        ,calendarWeeks: true,
+        // ,calendarWeeks: true,
         keyBinds: false,
         focusOnShow: false
 
@@ -1025,9 +1025,9 @@ $(function () {
         var mydate = new Date($("#event_開始").val().substring(0,10));
         var strtime = new Date($("#event_開始").val());
 
-        date =date.toString()
-        mydate = mydate.toString()
-        if(date == mydate)
+        date = date.toString();
+        mydate = mydate.toString();
+        if(date === mydate)
         {
             $("#selectShozai").css('display', '');
         }

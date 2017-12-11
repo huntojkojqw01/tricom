@@ -1,19 +1,10 @@
 = link_to t('title.new'), new_kairan_path, class: 'new-btn dt-button'
 = link_to t('title.shoushinichiran'), shokairan_kairans_path, class: 'edit-btn dt-button'
-= button_tag (t 'helpers.button.confirm'), name: 'button', id: :kakunin, value: (t 'helpers.button.confirm'), class: 'btn btn-primary delete-btn btn-custom-datatable dt-button'
-//%a#kakunin.delete-btn.dt-button= (t 'helpers.button.confirm')
-.spacer
 .row-fruid
   .form-inline
-    / .form-group
-    /   = label_tag :社員
-    /   = select(:head, :shainbango, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @shain_param, include_blank: true }, {class: 'form-control',disabled: true})
     .form-group
       = label_tag t('title.youkendengon')
       = select(:head, :youken, Kairanyokenmst.all.collect {|p| [ p.名称, p.id, {:style => "background-color: "+p.yuusen.try(:色).to_s+"; color: Black"} ] }, {selected: @yoken , include_blank: true }, class: 'form-control')
       = button_tag (t 'helpers.button.search'), name: :button, id: :search, value: (t 'helpers.button.search'), class:'btn btn-primary'
-
-    -#.form-group
-    -#  = label_tag :回答
-    -#  = select(:head, :kaitou, Dengonkaitou.all.collect {|p| [ p.種類名, p.id ] }, {selected: @kaitou, include_blank: true }, class: 'form-control')
-      -#= button_tag '送回覧', name: 'button', id: :createdkairan, value: '送回覧', class: 'btn btn-primary'
+    .pull-right
+      = button_tag (t 'helpers.button.confirm'), name: 'button', id: :kakunin, value: (t 'helpers.button.confirm'), class: 'btn btn-primary kakunin-btn btn-custom-datatable'

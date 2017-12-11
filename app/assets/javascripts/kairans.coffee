@@ -15,7 +15,7 @@ jQuery ->
       { "width": "15%", "targets": 0 },
       { "width": "10%", "targets": 1 },
       { "width": "20%", "targets": 2 },
-      { "width": "50%", "targets": 3 }
+      { "width": "50%", "targets": 3 },
       { "width": "5%", "targets": 4 }
     ],
     buttons: [
@@ -30,7 +30,7 @@ jQuery ->
     "fnDrawCallback": (oSettings) ->
       $('.new-btn').appendTo($('.dt-buttons'));
       $('.edit-btn').appendTo($('.dt-buttons'));
-      $('.delete-btn').appendTo($('.dt-buttons'));
+#      $('.kakunin-btn').appendTo($('.dt-buttons'));
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
@@ -108,7 +108,7 @@ jQuery ->
     showTodayButton: true,
     showClear: true,
     sideBySide: true,
-    calendarWeeks: true,
+#    calendarWeeks: false,
     toolbarPlacement: 'top',
     keyBinds: false,
     focusOnShow: false
