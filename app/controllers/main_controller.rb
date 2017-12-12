@@ -4,11 +4,10 @@ class MainController < ApplicationController
   def index
     @kairanCount = Kairanshosai.where(対象者: session[:user], 状態: 0).count
     shain = Shainmaster.find_by id: session[:user]
-    shain.update_attributes 回覧件数: @kairanCount
+    shain.update_attributes 回覧件数: @kairanCount unless shain.nil?
 
     @dengonCount = Dengon.where(社員番号: session[:user], 確認: false).count
-    shain = Shainmaster.find_by id: session[:user]
-    shain.update_attributes 伝言件数: @dengonCount
+    shain.update_attributes 伝言件数: @dengonCount unless shain.nil?
 
     @kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
     @dengons = Dengon.where(社員番号: session[:user], 確認: false)

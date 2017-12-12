@@ -81,7 +81,7 @@ class BunruisController < ApplicationController
     end
   end
 
-    def create_bunrui
+  def create_bunrui
     @bunrui = Bunrui.new(bunrui_params)
     respond_to do |format|
       if  @bunrui.save
@@ -90,7 +90,7 @@ class BunruisController < ApplicationController
         format.js { render json: @bunrui.errors, status: :unprocessable_entity}
       end
     end
-    end
+  end
 
   def update_bunrui
     @bunrui = Bunrui.find_by(分類コード: bunrui_params[:分類コード])
