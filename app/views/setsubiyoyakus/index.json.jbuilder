@@ -5,13 +5,11 @@ json.setsubiyoyakus @setsubiyoyaku do |setsubiyoyaku|
   description = setsubiyoyaku.setsubi.try(:設備名) if setsubiyoyaku.setsubi
   json.description description
 
-  title ='default'
   title = setsubiyoyaku.try(:用件)
-  shain = ''
   shain = setsubiyoyaku.shainmaster.try(:氏名) + " \n " if setsubiyoyaku.shainmaster
   json.title title + "\n" + shain
   json.shain shain
-
+  json.yoken setsubiyoyaku.try(:用件)
   json.start setsubiyoyaku.try(:開始)
   # json.start '2016-06-03 07:00'
   json.end setsubiyoyaku.try(:終了)
