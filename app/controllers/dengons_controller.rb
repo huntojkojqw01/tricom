@@ -53,7 +53,7 @@ class DengonsController < ApplicationController
       mail_body << "\r\n"
       mail_body << "#{@dengon.try(:from1)} #{@dengon.try(:from2)} \r\n"
       mail_body << "\r\n"
-      mail_body << "用件　#{@dengon.dengonyouken.種類名} \r\n"
+      mail_body << "#{@dengon.dengonyouken.try(:種類名)} #{@dengon.try(:回答)} \r\n"
       mail_body << "\r\n"
       mail_body << "#{@dengon.try(:伝言内容)} \r\n"
       mail_body << "\r\n"

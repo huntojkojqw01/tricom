@@ -42,23 +42,18 @@ $(document).ready(function() {
                 dragOpacity: "0.5",
                 editable: true,
 
-
-                //events: data.setsubiyoyakus,
                 events: data.setsubiyoyakus,
-                eventRender: function(event, element) {
-
-
-                  element.find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
+                // eventRender: function(event, element) {
+                //   element.find('.fc-title').html(data.setsubiyoyakus.title).html(element.find('.fc-title').text());
                   // element.closest('.fc-content').css("margin-bottom","100px");
                     // var date = event.start.getDate();
                     // alert(date);
                     // $('.fc-time-area tr[data-resource-id="_fc'+date+'"] ').find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
-                },
+                // },
                 eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
                    // alert(event.title + " was dropped on " + event.start.format());
                     updateEvent(event);
                 },
-
 
                 eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
                     updateEvent(event);
@@ -92,7 +87,7 @@ $(document).ready(function() {
                     var tooltip = '<div class="tooltipevent hover-end">';
                     tooltip += '<div>'+ event.start.format("YYYY/MM/DD HH:mm")+'</div>'; 
                     tooltip += '<div>'+ event.end.format("YYYY/MM/DD HH:mm") +'</div>'; 
-                    tooltip += '<div>'+ event.title +'</div>';
+                    tooltip += '<div>'+ event.yoken +'</div>';
                     tooltip += '<div>'+ event.shain +'</div>';
                     tooltip += '<div>'+ event.description +'</div>';
                     tooltip += '</div>'
