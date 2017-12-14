@@ -54,7 +54,7 @@
         %tr
           %td= dengon.from1
           %td= dengon.from2
-          %td= dengon.日付.strftime("%F %H:%M") if dengon.日付
+          %td= dengon.日付.strftime("%Y/%m/%d %H:%M") if dengon.日付
           %td= dengon.input_user_氏名
           %td= dengon.to_user_氏名
           %td{:style => "background-color: "+dengon.dengonyouken.try(:yuusen).try(:色).to_s+"; color: Black"}= dengon.youken_種類名
