@@ -3,7 +3,7 @@
  */
 
 
-$(document).ready(function() {    
+$(document).ready(function() {
     var setsubi = $('#head_setsubicode').val();
     param = '&head[setsubicode]='+setsubi;
     $.getJSON('/setsubiyoyakus?'+param, function(data) {
@@ -12,7 +12,7 @@ $(document).ready(function() {
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 firstDay: 1,
-                height: 600,                
+                height: 600,
                 //height: "auto",
                 //firstHour: '06:00',
                 businessHours:{
@@ -22,12 +22,11 @@ $(document).ready(function() {
                     dow: [0, 1, 2, 3, 4, 5, 6]
                     // days of week. an array of zero-based day of week integers (0=Sunday)
                     // (Monday-Freeday in this example)
-                },                
+                },
                 header: {
                     left:   'title',
                     right:  'today,prev,next'
                 },
-                titleFormat: 'YYYY年M月Ddd',
                 //weekends: false,
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
@@ -85,8 +84,8 @@ $(document).ready(function() {
                 },
                 eventMouseover: function(event, jsEvent, view) {
                     var tooltip = '<div class="tooltipevent hover-end">';
-                    tooltip += '<div>'+ event.start.format("YYYY/MM/DD HH:mm")+'</div>'; 
-                    tooltip += '<div>'+ event.end.format("YYYY/MM/DD HH:mm") +'</div>'; 
+                    tooltip += '<div>'+ event.start.format("YYYY/MM/DD HH:mm")+'</div>';
+                    tooltip += '<div>'+ event.end.format("YYYY/MM/DD HH:mm") +'</div>';
                     tooltip += '<div>'+ event.yoken +'</div>';
                     tooltip += '<div>'+ event.shain +'</div>';
                     tooltip += '<div>'+ event.description +'</div>';
@@ -106,16 +105,16 @@ $(document).ready(function() {
                     $('.tooltipevent').remove();
                 }
             }
-        );                
+        );
         setsubiyoyaku_timeline.fullCalendar('gotoDate', new Date($('#selected_date').val()));
         setsubiyoyaku_timeline.find('.fc-prev-button,.fc-next-button').click(function(){
             $.post(
                 "/settings/ajax",
                 {setting: "setting_date", selected_date: new Date($('#setsubiyoyaku-timeline').fullCalendar('getDate'))}
-            );               
+            );
         });
     });
-    
+
     //Add tooltip
     $(document).on('mouseover','.nomal',function(e){
         var tooltip = '<div class="tooltipevent hover-end"><div>普通時間</div></div>'

@@ -834,7 +834,7 @@ jQuery ->
       start_time = date + " " +start_input
     if end_input >= "00:00" && end_input <= "07:00"
       nextDay = moment(date).add('days',1)
-      date = moment(nextDay).format("YYYY-MM-DD")
+      date = moment(nextDay).format("YYYY/MM/DD")
     end_time = date + " " + end_input
     if start_input != '' && end_input != ''
       calculater(start_time,end_time,idKintai)
