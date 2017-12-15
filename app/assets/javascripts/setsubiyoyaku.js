@@ -27,6 +27,7 @@ $(document).ready(function() {
                     left:   'title',
                     right:  'today,prev,next'
                 },
+                titleFormat: 'YYYY年MM月(DD日)',
                 //weekends: false,
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',

@@ -1203,7 +1203,7 @@ $(function(){
             //     }
             // },
             {"aTargets": [1,2], "mRender": function (data, type, full) {
-                var time_format = moment(data, 'YYYY/MM/DD HH:mm').format('YYYY/MM/DD HH:mm');
+                var time_format = moment(data, 'YYYY/MM/DD').format('YYYY/MM/DD');
                 if (time_format !== 'Invalid date'){
                     return time_format;
                     }else return '';
