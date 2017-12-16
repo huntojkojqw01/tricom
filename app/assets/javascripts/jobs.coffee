@@ -20,6 +20,13 @@ jQuery ->
       {
         "targets": [10,11],
         "width": '5%'
+      },
+      {"aTargets": [2,3], "mRender":  (data, type, full) ->
+        time_format = moment(data, 'YYYY/MM/DD').format('YYYY/MM/DD')
+        if  time_format != 'Invalid date'
+          return time_format;
+        else
+          return '';
       }
     ],
     "columnDefs": [{

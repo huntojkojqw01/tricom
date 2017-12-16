@@ -19,6 +19,13 @@ jQuery ->
       {
         "targets": [8,9],
         "width": '5%'
+      },
+      {"aTargets": [7], "mRender":  (data, type, full) ->
+        time_format = moment(data, 'YYYY/MM/DD HH:mm:ss').format('YYYY/MM/DD HH:mm:ss')
+        if  time_format != 'Invalid date'
+          return time_format;
+        else
+          return '';
       }
     ],
     "oSearch": {"sSearch": queryParameters().search},

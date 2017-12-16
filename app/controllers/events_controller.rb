@@ -129,7 +129,7 @@ class EventsController < ApplicationController
 
   def time_line_view
 
-    @role = Rorumaster.all
+    @role = Rorumaster.all.order(:序列)
     @joutai = Joutaimaster.all
     @joutaiDefault = Joutaimaster.find_by(状態コード: '00')
     @roru = Shainmaster.find(session[:user]).rorumaster

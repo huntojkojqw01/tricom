@@ -24,6 +24,13 @@ jQuery ->
         "targets": [ 0 ],
         "bSearchable": false,
         "visible": false
+      },
+      {"aTargets": [1], "mRender":  (data, type, full) ->
+        time_format = moment(data, 'YYYY/MM/DD').format('YYYY/MM/DD')
+        if  time_format != 'Invalid date'
+          return time_format;
+        else
+          return '';
       }
     ],
     "oSearch": {"sSearch": queryParameters().search},
