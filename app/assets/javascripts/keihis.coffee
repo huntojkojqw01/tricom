@@ -399,6 +399,13 @@ jQuery ->
       {
         "targets": [13],
         "width": '4%'
+      },
+      {"aTargets": [0], "mRender":  (data, type, full) ->
+        time_format = moment(data, 'YYYY/MM/DD').format('YYYY/MM/DD')
+        if  time_format != 'Invalid date'
+          return time_format;
+        else
+          return '';
       }
     ]
   })
@@ -464,10 +471,18 @@ jQuery ->
       {
         "targets": [19,20],
         "width": '5%'
+      },
+      {"targets": [ 7..18 ],"visible": false },
+      {"targets": [ 5 ],"visible": false },
+      {"aTargets": [1,2], "mRender":  (data, type, full) ->
+        time_format = moment(data, 'YYYY/MM/DD').format('YYYY/MM/DD')
+        if  time_format != 'Invalid date'
+          return time_format;
+        else
+          return '';
       }
-      {"targets": [ 7..18 ],"visible": false }
-      {"targets": [ 5 ],"visible": false }
     ],
+
     "order": [],
     "oSearch": {"sSearch": queryParameters().search},
     "columnDefs": [ {
