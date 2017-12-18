@@ -109,7 +109,7 @@
             <bold style="line-height:40px;margin-right:15px;margin-left:15px;font-weight:bold;"><%=(t 'title.joutai')%></bold>
           </td>
           <td>
-            <%= f.select :状態コード, @joutai.map { |k| [k.状態名, k.状態コード]}, {:prompt => "全て"}, {class: 'form-control'}%>
+            <%= f.select :状態コード, @joutai.sort_by{|e| e[:状態コード]}.map { |k| [k.状態名, k.状態コード]}, {:prompt => "全て"}, {class: 'form-control'}%>
           </td>
           <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 0px;margin-left:15px"><%=(t 'helpers.button.search')%></button></td>
 
