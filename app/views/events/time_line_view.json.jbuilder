@@ -63,7 +63,6 @@ json.shains @shains do |shain|
   joutai = shain.shozai_所在名
   # joutai = event.joutai_状態名 if event
   json.joutai joutai
-
   # json.joutai shain.events.where("開始 < ? AND 終了 > ?", Time.now, Time.now).first.joutaimaster.try(:状態名) if shain.events.where("開始 < ? AND 終了 > ?",Time.now, Time.now).first
   json.shozoku shain.shozokumaster.try(:所属名) if shain.shozokumaster
   json.linenum shain.try :内線電話番号
@@ -79,8 +78,13 @@ json.shains @shains do |shain|
   text_color = ''
   text_color = shain.shozai.try :text_color if shain.shozai
   json.text_color text_color
-  is_joining_event= shain.events.where("開始 < ? AND 終了 > ?", Time.now, Time.now).first 
-  json.bashomei is_joining_event.bashomaster.try(:場所名) if is_joining_event
+  is_joining_event= shain.events.where("開始 < ? AND 終了 > ?", Time.now, Time.now).first
+  bashomei = ''
+  if is_joining_event
+    bashomei = is_joining_event.bashomaster.try(:場所名)
+    bashomei = is_joining_event.try(:comment) if is_joining_event.bashomaster.場所コード == "999"
+  end
+  json.bashomei bashomei
   # json.eventColor shain.events.first.joutaimaster.色 if shain.events.first
 end
 

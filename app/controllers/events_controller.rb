@@ -161,22 +161,22 @@ class EventsController < ApplicationController
       vars = request.query_parameters
       puts vars
       if vars['roru'].empty?
-        if vars['joutai'].empty?          
+        if vars['joutai'].empty?
           @all_events = Event.all
           @shains = Shainmaster.where(タイムライン区分: false)
-        else          
+        else
           @all_events=Event.where(状態コード: vars['joutai'])
           @shains = Shainmaster.joins(:events).where(タイムライン区分: false, "events.状態コード": vars['joutai'])
         end
       else
-        if vars['joutai'].empty?          
+        if vars['joutai'].empty?
           @all_events=Event.all
           @shains = Shainmaster.joins(:rorumenbas).where(タイムライン区分: false,ロールメンバ: {ロールコード: vars['roru']})
-        else          
+        else
           @all_events=Event.where(状態コード: vars['joutai'])
           @shains = Shainmaster.joins(:rorumenbas,:events).where(タイムライン区分: false, "events.状態コード": vars['joutai'],ロールメンバ: {ロールコード: vars['roru']})
         end
-      end         
+      end
       @events = Event.where(社員番号: @shains.ids).where('Date(開始) >= ?',(Date.today - 1.month).to_s(:db)).
       order(開始: :desc)
     end
