@@ -235,6 +235,7 @@ $(document).ready(function() {
                         width: 40,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
+                            el.html('<div align="right"><span style="margin-right:10px">'+resources.bashomei+'</span></div>');
                         }
                     },
                     {
@@ -245,7 +246,6 @@ $(document).ready(function() {
                             el.css('background-color', '#adadad');
 
                             el.html('<div align="right"><span style="margin-right:10px">'+resources.dengon+'</span><a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'"><i class="glyphicon glyphicon-comment" aria-hidden="true" ></i></a></div>');
-
                         }
 
                     },

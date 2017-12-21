@@ -97,7 +97,7 @@
               <%= f.select :所在コード, Shozai.all.order(所在コード: :asc).map { |s| [s.name, s.id, { class: '' }] }, {:selected => Shainmaster.find(session[:user]).try(:所在コード),include_blank: true},{ class: 'form-control'} %>
           <% end %>
         </div> -->
-        <table class="pull-left">         
+        <table class="pull-left">
           <td>
             <bold style="line-height:40px;margin-right:15px;font-weight:bold;"><%=(t 'title.busho')%></bold>
           </td>
