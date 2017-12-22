@@ -232,7 +232,7 @@
         <% msg_confirm = t 'app.delete_confirm' %>
         <span id='message_confirm_select' hidden='true'><%=msg_select%></span>
         <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
-        <a href=<%=new_event_path%> class='new-btn dt-button'><%=(t 'title.new')%></button></a>
+        <a href='<%=new_event_path%>' class='new-btn dt-button' ><%=(t 'title.new')%></a>
         <a class='edit-btn dt-button' id='destroy_event' ><%=(t 'title.delete')%></a>
         <a class='delete-btn dt-button' id='export_event' ><%=(t 'title.export_csv')%></a>
         <%=render 'share/import_csv_modal',import_path: import_events_path %>

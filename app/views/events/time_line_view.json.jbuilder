@@ -27,7 +27,7 @@ json.events @all_events do |event|
   if comment == ''
     comment = Jobmaster.find_by(job番号: event.try(:JOB)).job名 if Jobmaster.find_by(job番号: event.try(:JOB))
   end
-  title =''
+  title = ''
   title = event.joutaimaster.try(:name) if event.joutaimaster
   json.joutai title
   # title = event.joutaimaster.try(:name) << kisha_flag if event.joutaimaster
@@ -79,7 +79,6 @@ json.shains @shains do |shain|
   text_color = shain.shozai.try :text_color if shain.shozai
   json.text_color text_color
   is_joining_event= shain.events.where("開始 < ? AND 終了 > ?", Time.now, Time.now).first
-  json.is_joining_event is_joining_event
   bashomei = ''
   bashomei = is_joining_event.bashomaster.try(:場所名) if is_joining_event
   json.bashomei bashomei
