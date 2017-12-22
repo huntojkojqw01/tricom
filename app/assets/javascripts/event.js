@@ -43,6 +43,7 @@ $(function(){
                 //    // (Monday-Freeday in this example)
                 //},
                 firstDay: 1,
+                timeFormat: 'H:mm',
                 //editable: true,
                 //aspectRatio: 1.5,/
                 //resourceAreaWidth: '30%',
@@ -1196,6 +1197,7 @@ $(function(){
             $('.edit-btn').appendTo($('.dt-buttons'));
             $('.delete-btn').appendTo($('.dt-buttons'));
         },
+        "pageLength" : 50,
         "oLanguage":{"sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"},
         "aoColumnDefs": [
             // {"aTargets": [1], "mRender": function (data, type, full) {

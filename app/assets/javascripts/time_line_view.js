@@ -146,7 +146,11 @@ $(document).ready(function() {
                     // $('#calendar-timeline').fullCalendar('refetchEvents');
                 },
                 eventMouseover: function(event, jsEvent, view) {
-                    var tooltip = '<div class="tooltipevent hover-end">' +'<div>'+ event.start.format("YYYY/MM/DD HH:mm") +'</div>' +'<div>'+ event.end.format("YYYY/MM/DD HH:mm")+'</div>' +'<div>'+ event.title +'</div>'+'<div>'+ event.bashomei +'</div>' ;
+                  var tooltip = '<div class="tooltipevent hover-end">' +
+                                '<div>'+ event.start.format("YYYY/MM/DD HH:mm") +'</div>' +
+                                '<div>'+ event.end.format("YYYY/MM/DD HH:mm")+'</div>' +
+                                '<div>'+ event.title +'</div>'+
+                                '<div>'+ event.bashomei +'</div>';
                     if(event.job != undefined){
                         tooltip = tooltip + '<div>'+event.job+'</div>'
                     }
@@ -245,7 +249,10 @@ $(document).ready(function() {
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
 
-                            el.html('<div align="right"><span style="margin-right:10px">'+resources.dengon+'</span><a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'"><i class="glyphicon glyphicon-comment" aria-hidden="true" ></i></a></div>');
+                            el.html('<div align="right">'+
+                            '<span style="margin-right:10px">'+resources.dengon+'</span>'+
+                            '<a href="/dengons?head%5Bshainbango%5D='+resources.shainid+'">'+
+                            '<i class="glyphicon glyphicon-comment" aria-hidden="true" ></i></a></div>');
                         }
 
                     },
@@ -256,7 +263,10 @@ $(document).ready(function() {
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
                             if (resources.shainid == $('#user_login').val()) {
-                                el.html('<div align="right"><span style="margin-right:10px">'+resources.kairan+'</span><a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'"><i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>');
+                                el.html('<div align="right">'+
+                                '<span style="margin-right:10px">'+resources.kairan+'</span>'+
+                                '<a href="/kairans?head%5Bshainbango%5D='+resources.shainid+'">'+
+                                '<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>');
                             }
                         }
 
@@ -268,7 +278,8 @@ $(document).ready(function() {
                         render: function(resources, el) {
                             var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
                             var calDate = moment(selectedDate).format();
-                            el.html('<a href="/events/new?param=timeline&shain_id='+resources.shainid+'&start_at='+calDate+'" style=""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
+                            el.html('<a href="/events/new?param=timeline&shain_id='+resources.shainid+'&start_at='+calDate+'" style="">'+
+                            '<span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
                             // el.html('<a href="/events/new?shain_id='+resources.shainid+'"></a>');
                         }
 
@@ -514,9 +525,9 @@ $(function(){
         }
         // window.open('/events/time_line_view?roru='+roru+'&joutai='+joutai);
     });
-    $('#reload_button').click(function(){
-        location.reload()
-    })
+    //$('#reload_button').click(function(){
+        //location.reload()
+    //})
     $('#create_kitaku_button').click(function(){
         var time_start = moment().format('YYYY/MM/DD HH:mm');
         var time_end = moment().add('m',5).format('YYYY/MM/DD HH:mm');
