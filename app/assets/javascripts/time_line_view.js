@@ -3,7 +3,6 @@
  */
 
 //calendar init
-// var check = '';
 var shain_old = '';
 var start_old = '';
 var end_old = '';
@@ -17,52 +16,20 @@ weekday[4] = "木";
 weekday[5] = "金";
 weekday[6] = "土";
 $(document).ready(function() {
-
-
     var roru = getUrlVars()["roru"];
     var joutai = getUrlVars()["joutai"];
-    // var roru = $('#timeline_ロールコード').val();
-    // var joutai = $('#timeline_状態コード').val();
     var param ='';
     if(roru!=undefined&&joutai!=undefined){
         $('#timeline_ロールコード').val(roru);
         $('#timeline_状態コード').val(joutai);
          param = 'roru='+roru+'&joutai='+joutai;
     }else{
-        // jQuery.ajax({
-        //     url: '/events/ajax',
-        //     data: {id: 'roru_getData'},
-        //     type: "POST",
-        //     // processData: false,
-        //     // contentType: 'application/json',
-
-        //     success: function(data) {
-        //         if(data.roru != null){
-        //             $('#timeline_ロールコード').val(data.roru);
-        //             alert($('#timeline_ロールコード').val());
-        //             $('#timeline_状態コード').val("");
-        //             console.log("getAjax roru:"+ data.roru);
-        //         }
-        //         else{
-        //             $('#timeline_ロールコード').val("");
-        //             $('#timeline_状態コード').val("");
-        //             console.log("getAjax roru:"+ data.roru);
-        //         }
-        //     },
-        //     failure: function() {
-        //         console.log("roru keydown Unsuccessful");
-        //     }
-        // });
         roru = $('#timeline_ロールコード').val();
         joutai = $('#timeline_状態コード').val();
         param = 'roru='+roru+'&joutai='+joutai;
     }
-    // roru = $('#timeline_ロールコード').val();
-    // joutai = $('#timeline_状態コード').val();
-    // param = 'roru='+roru+'&joutai='+joutai;
-    // alert($('#timeline_ロールコード').val());
-    $.getJSON('/events/time_line_view?'+param, function(data) {
 
+    $.getJSON('/events/time_line_view?'+param, function(data) {
         var flag =0;
         var calendar = $('#calendar-timeline').fullCalendar(
             {
@@ -130,16 +97,7 @@ $(document).ready(function() {
                         event.end = end_old;
                         revertFunc();
                     }
-
-                    // check_drag(event);
-                    // if(check == "OK"){
-                    //     updateEvent(event);
-                    // }else{
-                    //     revertFunc();
-                    // }
-
                 },
-
 
                 eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
                     updateEvent(event);
@@ -173,40 +131,7 @@ $(document).ready(function() {
                     $(this).css('z-index', 8);
                     $('.tooltipevent').remove();
                 },
-                //events: '/events.json',
-                //header: {
-                //left:   'title',
-                //center: 'prevYear,nextYear timelineDay,timelineThreeDays',
-                //right:  'today prev,next'
-                //},
-                //views: {
-                //    timelineThreeDays: {
-                //        type: 'timeline',
-                //        duration: { days: 3 }
-                //    }
-                //},
-                //eventRender: function(event, element, view) {
-                //    element.qtip({
-                //        content: event.description
-                //    });
-                //},
-                // resourceGroupField: 'shozoku',
                 resourceColumns: [
-                    //{
-                    //group: true,
-                    //labelText: '所属',
-                    //field: 'shozoku'
-                    //},
-                    // {
-                    //     //group: true,
-                    //     labelText: '役職',
-                    //     field: 'yakushoku',
-                    //     width: 75,
-                    //     render: function(resources, el) {
-                    //         el.css('background-color', '#5bc0de');
-                    //     }
-
-                    // },
                     {
                         labelText: '社員名',
                         field: 'shain',
@@ -344,12 +269,14 @@ $(document).ready(function() {
                         check_exist = true;
                         $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
                         $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
+                        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(4) .fc-cell-content>div>span').text(listEvents[i].bashomei);
                     }
 
                 }
                 if(!check_exist){
                     $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
                     $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content>span').text(data.default.joutai);
+                    $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(4) .fc-cell-content>div>span').text('');
                 }
             // }
         }
@@ -370,9 +297,6 @@ $(document).ready(function() {
             $('#timeline_time').text(time);
             var currentTimeText = d.year()+"/"+(d.month()+1)+"/"+d.date()+"/"+hours+":"+minutes;
             var currentTime = moment(currentTimeText,'YYYY/MM/DD HH:mm');
-            // if(calDate.getDate()==d.date()&&calDate.getMonth()==d.month()&&calDate.getFullYear()==d.year()){
-            //     $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'(今日) '+hours+":"+minutes+'</h2></div>');
-            // }
 
             //update joutai
             var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
@@ -389,12 +313,14 @@ $(document).ready(function() {
                             check_exist = true;
                             $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
                             $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
+                            $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(4) .fc-cell-content>div>span').text(listEvents[i].bashomei);
                         }
 
                     }
                     if(!check_exist){
                         $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
                         $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content>span').text(data.default.joutai);
+                        $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(4) .fc-cell-content>div>span').text('');
                     }
                 // }
 
@@ -410,19 +336,6 @@ $(window).on('load', function() {
 
     $('#calendar-timeline').fullCalendar('render');
 });
-
-// $(function(){
-//     var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
-//     var currentDate = new Date();
-//     var calDate = moment(selectedDate).format();
-//     //alert(calDate);
-
-
-//     if(new Date(calDate) <= currentDate.format ){
-//         alert('before date'+ new Date(calDate) +"||"+ currentDate);
-//     }
-// });
-
 
 $(document).on("click", ".fc-next-button", function(){
 
@@ -467,9 +380,7 @@ $(document).on("click", ".fc-next-button", function(){
         $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
     }
-
 });
-
 
 $(document).on("click", ".fc-prev-button", function(){
 
@@ -512,10 +423,7 @@ $(document).on("click", ".fc-prev-button", function(){
 
 });
 
-
-
 $(function(){
-
     $('#kensaku').click(function() {
         var roru = $('#timeline_ロールコード').val();
         var joutai = $('#timeline_状態コード').val();
@@ -525,9 +433,7 @@ $(function(){
         }
         // window.open('/events/time_line_view?roru='+roru+'&joutai='+joutai);
     });
-    //$('#reload_button').click(function(){
-        //location.reload()
-    //})
+
     $('#create_kitaku_button').click(function(){
         var time_start = moment().format('YYYY/MM/DD HH:mm');
         var time_end = moment().add('m',5).format('YYYY/MM/DD HH:mm');
@@ -555,24 +461,6 @@ $(function(){
 
 });
 
-
-// function check_drag(event){
-//     jQuery.ajax({
-//         url: '/events/ajax',
-//         data: {id: 'event_drag_check', shainId: event.resourceId, eventId: event.id},
-//         type: "POST",
-//         async: false,
-//         success: function(data) {
-
-
-//             check = data.check
-//         },
-//         failure: function() {
-//             console.log("Update unsuccessful");
-//         }
-//     })
-// }
-
 function updateEvent(the_event){
     the_event.url = "/events/"+the_event.id+"/edit.html?locale=ja&param=timeline&shain_id="+the_event.resourceId;
     jQuery.ajax({
@@ -599,6 +487,7 @@ function updateEvent(the_event){
 //     });
 //     return vars;
 //   }
+
 $.fn.dataTable.ext.buttons.import = {
     className: 'buttons-import',
     action: function ( e, dt, node, config ) {

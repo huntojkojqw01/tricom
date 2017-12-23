@@ -8,6 +8,10 @@ $(function(){
     var scroll = -1,
         viewNames = ['agendaWeek', 'agendaDay', 'timelineDay'];
 
+    $('body').on('click', 'button.fc-prev-button', function() {
+        var text = $('.fc-left').text();
+    });
+
     $.getJSON('/events', function(data) {
         var myEventSourses = '';
         if(data.setting.select_holiday_vn == "1")
@@ -62,8 +66,9 @@ $(function(){
                 //events: '/events.json',
                 header: {
                     left:   'title',
-                    center: 'month,agendaWeek,agendaDay prevYear,nextYear',
-                    right:  'today prev,next'
+                    // center: 'month,agendaWeek,agendaDay prevYear,nextYear',
+                    center: 'month,agendaWeek,agendaDay prev,next today',
+                    right:  ''
                 },
                 dragOpacity: "0.5",
                 editable: true,
@@ -78,8 +83,6 @@ $(function(){
                     //alert(data.sUrl);
                 },
                 dayRender: function(date, element, view){
-
-
                         jQuery.ajax({
                         url: '/events/ajax',
                         data: {id: 'kintai_getData', date_kintai: date.format()},
