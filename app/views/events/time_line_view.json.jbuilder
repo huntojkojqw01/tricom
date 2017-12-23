@@ -78,7 +78,8 @@ json.shains @shains do |shain|
   text_color = ''
   text_color = shain.shozai.try :text_color if shain.shozai
   json.text_color text_color
-  is_joining_event= shain.events.where("開始 < ? AND 終了 > ?", Time.now, Time.now).first
+  time_now = Time.now.strftime '%Y/%m/%d %H:%m'
+  is_joining_event = shain.events.where('開始 < ? AND 終了 > ?', time_now, time_now).first
   bashomei = ''
   bashomei = is_joining_event.bashomaster.try(:場所名) if is_joining_event
   json.bashomei bashomei
