@@ -137,6 +137,7 @@ ja:
     submit:
       create: 登録する
       create_other: '登録する '
+      create_clone: 複写登録する
       submit: 保存する
       update: 更新する
       destroy: 削除
@@ -233,9 +234,9 @@ ja:
       import_csv: CSVファイルから読み込んでできました！
       record_not_found: 該当情報が見つかりませんでした！
       record_not_existing: 参照情報が存在していない！
-      new_success: 新規作成出来ました。
-      update_success: 更新成功出来ました。
-      delete_success: 削除成功出来ました。
+      new_success: 新規完了。
+      update_success: 更新完了。
+      delete_success: 削除完了。
       login_field: 正しい情報で入力してください。
       login_new: 担当者コードが正しくないです。
       login_existing: ユーザーが既に登録されました。

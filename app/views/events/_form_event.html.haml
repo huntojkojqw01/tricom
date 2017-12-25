@@ -41,12 +41,14 @@
     - if @event.計上 != '済' && mode == 'edit'
       - if request["param"] == "timeline"|| param == 'timeline'
         = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary submit-button', id: 'timeline'
+        = f.button :submit, (t 'helpers.submit.create_clone'), class: 'btn btn-primary submit-button', id: 'clone_event'
       - else
         = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary submit-button', id: 'event'
       - if request["param"] == "timeline"|| param == 'timeline'
         = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline',data: {confirm: (t 'app.delete_confirm')}
       - else
         = f.button :submit, (t 'helpers.submit.destroy_other'), class: 'btn btn-primary', id: 'event', data: {confirm: (t 'app.delete_confirm')}
+
   .col-md-2.col-xs-2.col-sm-2.col-lg-2
     - if mode == 'new'
       - param = request["param"].nil?? param: request["param"]

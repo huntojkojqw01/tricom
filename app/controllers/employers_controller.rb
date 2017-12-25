@@ -38,7 +38,7 @@ class EmployersController < ApplicationController
 
         respond_to do |format|
             if @employer.save
-              format.html { redirect_to @employer, notice: '新規成功出来ました。' }
+              format.html { redirect_to @employer, notice: '新規完了。' }
               format.json { render action: 'show', status: :created, location: @employer }
               # format.js { render 'index', status: :created, location: @employer }
               format.js {}
@@ -70,7 +70,7 @@ class EmployersController < ApplicationController
   def update
     respond_to do |format|
       if @employer.update(employer_params)
-        format.html { redirect_to @employer, notice: '更新成功できました。' }
+        format.html { redirect_to @employer, notice: '更新完了。' }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
