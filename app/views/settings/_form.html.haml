@@ -19,6 +19,10 @@
   /   = f.button :submit, class:'btn btn-primary'
 
   .col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
+    .h3
+    .span
+      .label.label-default=Shainmaster.find(session[:selected_shain]).try :氏名 if mode == :edit
+
     .row
       .col-md-12.col-xs-12.col-sm-12.col-lg-12
         .spacer
@@ -32,7 +36,7 @@
       .col-md-1.col-xs-1.col-sm-1.col-lg-1
       .col-md-10.col-xs-10.col-sm-10.col-lg-10
         = f.input :scrolltime, label: false do
-          = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:120px'}
+          = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:120px'}
     .spacer
     = f.label (t 'title.local')
     .row
