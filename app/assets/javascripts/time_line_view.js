@@ -164,7 +164,7 @@ $(document).ready(function() {
                         width: 40,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
-                            el.html('<div align="right"><span style="margin-right:10px">'+resources.bashomei+'</span></div>');
+                            el.html('<div align="left"><span style="margin-right:10px">'+resources.bashomei+'</span></div>');
                         }
                     },
                     {

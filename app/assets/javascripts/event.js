@@ -67,7 +67,7 @@ $(function(){
                 header: {
                     left:   'title',
                     // center: 'month,agendaWeek,agendaDay prevYear,nextYear',
-                    center: 'month,agendaWeek,agendaDay prev,next today',
+                    center: 'month,agendaWeek,agendaDay today prev,next',
                     right:  ''
                 },
                 dragOpacity: "0.5",
