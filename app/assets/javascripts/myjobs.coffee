@@ -40,6 +40,7 @@ jQuery ->
       "targets"  : 'no-sort',
       "orderable": false
     }],
+    "oSearch": {"sSearch": current_user_id},
     'scrollCollapse': true,
     "buttons": [{
                 "extend":    'copyHtml5',

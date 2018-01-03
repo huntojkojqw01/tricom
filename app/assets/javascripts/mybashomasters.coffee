@@ -28,7 +28,7 @@ jQuery ->
           return '';
       }
     ],
-    "oSearch": {"sSearch": queryParameters().search},
+    "oSearch": {"sSearch": current_user_id},
 
     "buttons": [{
                 "extend":    'copyHtml5',
