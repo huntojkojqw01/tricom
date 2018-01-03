@@ -24,7 +24,7 @@
       = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(request["shain_id"]).所属コード}"}, as: :hidden
     - else
       = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(@event.shainmaster.id).所属コード}"}, as: :hidden
-  .col-md-4.col-xs-4.col-sm-4.col-lg-4
+  .col-md-5.col-xs-4.col-sm-4.col-lg-4
     = f.input :開始, label: (t 'title.kaishi'), as: :date_time_picker
     = f.input :終了, label: (t 'title.shyuuryou'), as: :date_time_picker
     = f.input :工数, label: (t 'title.koushuu'), input_html: {style: 'width:100px'}, hint: (t 'title.tani'), readonly: true
@@ -40,8 +40,8 @@
 
     - if @event.計上 != '済' && mode == 'edit'
       - if request["param"] == "timeline"|| param == 'timeline'
-        = f.button :submit, (t 'helpers.submit.create'), class: 'btn btn-primary submit-button', id: 'timeline'
-        = f.button :submit, (t 'helpers.submit.create_clone'), class: 'btn btn-primary submit-button', id: 'clone_event'
+        = f.button :submit,  (t 'helpers.submit.create'), class: 'btn btn-primary submit-button', id: 'timeline'
+        = f.button :submit,  (t 'helpers.submit.create_clone'), class: 'btn btn-primary submit-button', id: 'clone_timeline_event'
       - else
         = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary submit-button', id: 'event'
       - if request["param"] == "timeline"|| param == 'timeline'

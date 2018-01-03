@@ -21,7 +21,7 @@
   .col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
     .h3
     .span
-      .label.label-default=Shainmaster.find(session[:selected_shain]).try :氏名 if mode == :edit
+      .label.label-default=Shainmaster.find(@setting.社員番号).try :氏名 if mode == :edit
 
     .row
       .col-md-12.col-xs-12.col-sm-12.col-lg-12
