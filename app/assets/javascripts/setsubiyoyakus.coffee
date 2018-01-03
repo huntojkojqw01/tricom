@@ -11,7 +11,7 @@ jQuery ->
     "pagingType": "full_numbers",
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-    }
+    },
     "aoColumnDefs": [
         { "bSortable": false, "aTargets": [ 6,7 ]},
         {
@@ -206,7 +206,7 @@ jQuery ->
       $(this).addClass 'selected'
       $(this).addClass 'success'
       $('#kaisha_sentaku_ok').attr 'disabled', false
-      $('#clear_kaisha').attr 'disabled', false  
+      $('#clear_kaisha').attr 'disabled', false
   $('#clear_kaisha').click () ->
     # $('#setsubiyoyaku_相手先').val('');
     # $('.hint-kaisha-refer').text('');
@@ -255,8 +255,8 @@ jQuery ->
       $("#select_allday").prop('checked', true);
     else
       $("#select_allday").prop('checked', false);
-  $('#head_setsubicode').change ()->    
-    $(this).closest('form').submit()    
+  $('#head_setsubicode').change ()->
+    $(this).closest('form').submit()
 
   $('#hide_table_button').click () ->
     $('#hide_table_button').hide()

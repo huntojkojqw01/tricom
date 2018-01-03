@@ -67,6 +67,7 @@ jQuery ->
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
+    "pageLength" : 20,
     columnDefs: [ {
       orderable: false,
       className: 'select-checkbox',
