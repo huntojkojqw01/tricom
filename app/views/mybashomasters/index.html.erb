@@ -1,10 +1,13 @@
 <%= javascript_include_tag 'mybashomasters' %>
 <%provide(:title, (t 'title.mybashomaster'))%>
+<script>
+    current_user_id = <%= current_user.id %>
+    current_user_id = current_user_id.toString()
+</script>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
   <li class="active">MY場所マスタ</li>
 </ol>
-
 <table id="mybashomaster" class="mybashotable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>

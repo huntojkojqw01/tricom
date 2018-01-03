@@ -1,6 +1,10 @@
 <%= javascript_include_tag 'myjobs' %>
 <%= stylesheet_link_tag 'myjobmst' %>
 <%provide(:title, (t 'title.myjobmaster'))%>
+<script>
+    current_user_id = <%= current_user.id %>
+    current_user_id = current_user_id.toString()
+</script>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
   <!-- <li><a href="#">基準情報</a></li> -->
