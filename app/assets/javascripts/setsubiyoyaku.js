@@ -108,7 +108,10 @@ $(document).ready(function() {
             }
         );
         setsubiyoyaku_timeline.fullCalendar('gotoDate', new Date($('#selected_date').val()));
-        setsubiyoyaku_timeline.find('.fc-prev-button,.fc-next-button').click(function(){
+        oTable = $('.setsubiyoyaku-table').DataTable();
+        oTable.draw();
+        setsubiyoyaku_timeline.find('.fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
+            oTable = $('.setsubiyoyaku-table').DataTable();
             oTable.draw();
             $.post(
                 "/settings/ajax",
@@ -157,15 +160,15 @@ $(document).ready(function() {
    // $('html, body').animate({scrollTop:$(document).height()/2});
 
 });
-// Extend dataTables search
+//Extend dataTables search
 // $.fn.dataTable.ext.search.push(
 //     function( settings, data, dataIndex ) {
 //         // var min  = getStartCalendarDate2( $('.fc-left').text());
-//         var min  = '2017/12/18';
+//         var min  = '2016/12/18';
 //         // var max  = $('#max-date').val();
 //         // var createdAt = data[2] || 0; // Our date column in the table
 //         var createdAt = parseDateValue2( data[0]); // Our date column in the table
-
+//
 //         if(  moment(createdAt).isSameOrAfter(min) )
 //         {
 //             return true;
@@ -174,22 +177,23 @@ $(document).ready(function() {
 //     }
 // );
 // //The plugin function for adding a new filtering routine
-// $.fn.dataTableExt.afnFiltering.push(
-//     function(oSettings, aData, iDataIndex){
-//         var dateStart = getStartCalendarDate( $('.fc-left').text());
-//         // var dateStart = parseDateValue($("#dateStart").val());
-//         // var dateEnd = parseDateValue($("#dateEnd").val());
-//         // aData represents the table structure as an array of columns, so the script access the date value
-//         // in the first column of the table via aData[0]
-//         var evalDate = parseDateValue(aData[0]);
-
-//         if (evalDate >= dateStart ) {
-//             return true;
-//         }
-//         else {
-//             return false;
-//         }
-// });
+$.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex){
+        var dateStart = getStartCalendarDate( $('.fc-left').text());
+        var dateEnd = getEndCalendarDate( $('.fc-left').text());
+        // var dateStart = parseDateValue($("#dateStart").val());
+        // var dateEnd = parseDateValue($("#dateEnd").val());
+        // aData represents the table structure as an array of columns, so the script access the date value
+        // in the first column of the table via aData[0]
+        console.log(dateEnd);
+        var evalDate = parseDateValue(aData[1]);
+        if (evalDate >= dateStart && evalDate <= dateEnd) {
+            return true;
+        }
+        else {
+            return false;
+        }
+});
 
 function updateEvent(the_event){
     jQuery.ajax({
@@ -235,6 +239,21 @@ function getStartCalendarDate(dateString){
 }
 
 /**
+ * 2018年01月01日 — 07日 -> 20180101
+ * 2017年11月27日 — 12月03日 -> 20171203
+ * @return {[type]} [description]
+ */
+function getEndCalendarDate(dateString){
+    var end_date = dateString.substring(14,16);
+    if(dateString.length > 17){
+      res = dateString.substring(0,4) + dateString.substring(14,16) + dateString.substring(17,19);;
+    }else{
+      res = dateString.substring(0,4) + dateString.substring(5,7) + dateString.substring(14,16);
+    }
+    return res;
+}
+
+/**
  * 2018年01月01日 — 07日 -> 2018/01/01
  * @return {[type]} [description]
  */
@@ -262,6 +281,3 @@ function parseDateValue2(rawDate) {
     var dateArray = rawDate.substring(0,10);
     return dateArray;
 }
-
-
-
