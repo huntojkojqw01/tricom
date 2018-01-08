@@ -326,6 +326,10 @@ $(document).ready(function(){
 
     });
 
+    function isNum(c){
+        return (c >= '0' && c <= '9' )
+    }
+
     function parseDateValue(rawDate) {
     var dateArray= rawDate.substring(0,10).split("/");
     var parsedDate= dateArray[0] + dateArray[1] + dateArray[2];
@@ -333,16 +337,35 @@ $(document).ready(function(){
     }
 
     function getStartCalendarMonthbegin(dateString){
-    var res = dateString.substring(0,4) + dateString.substring(5,7) + "01";
-    return res;
-    }
+    console.log(dateString.length);
+    var res = dateString.substring(0, 4);
 
+    if ( dateString.charAt(5) == " " ) {
+        if (isNum(dateString.charAt(6)) && isNum(dateString.charAt(7)))
+            res +=dateString.substring(6,8);
+        else res += "0" + dateString.substring(6,7);
+        res += "01";
+    }
+    else{
+        if ( isNum(dateString.charAt(5)) && isNum(dateString.charAt(6))){
+            res+=dateString.substring(5,7);
+            if ( isNum(dateString.charAt(8)) && isNum(dateString.charAt(9)))
+                res+=dateString.substring(8,10);
+            else res+= "0"+dateString.substring(8,9);
+            }
+        else {
+            res+= "0"+dateString.substring(5,6);
+            if ( isNum(dateString.charAt(7)) && isNum(dateString.charAt(8)))
+                res+=dateString.substring(7,9);
+            else res+= "0"+dateString.substring(7,8);
+
+            }
+        }
+    return res ;
+    }
     $.fn.dataTableExt.afnFiltering.push(
     function(oSettings, aData, iDataIndex){
         var dateStart = getStartCalendarMonthbegin( $('.fc-left').text());
-        if (dateStart.charAt(4) == " ") {
-            dateStart = dateStart.substring(0,4) + "0" + dateStart.substring(5,8);
-        }
         // var dateStart = parseDateValue($("#dateStart").val());
         // var dateEnd = parseDateValue($("#dateEnd").val());
         // aData represents the table structure as an array of columns, so the script access the date value
