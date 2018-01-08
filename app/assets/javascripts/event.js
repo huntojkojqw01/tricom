@@ -169,6 +169,14 @@ $(function(){
                 }
             }
         );
+        $('#month-view').find('#goto-date-button, .fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
+            oTable = $('#event_table').DataTable();
+            oTable.draw();
+            $.post(
+            "/settings/ajax",
+            {setting: "setting_date", selected_date: new Date($('#goto-date-input').val())}
+            );
+        });
 
         $('#calendar-timeline').fullCalendar(
             {
@@ -318,7 +326,37 @@ $(document).ready(function(){
 
     });
 
+    function parseDateValue(rawDate) {
+    var dateArray= rawDate.substring(0,10).split("/");
+    var parsedDate= dateArray[0] + dateArray[1] + dateArray[2];
+    return parsedDate;
+    }
 
+    function getStartCalendarMonthbegin(dateString){
+    var res = dateString.substring(0,4) + dateString.substring(5,7) + "01";
+    return res;
+    }
+
+    $.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex){
+        var dateStart = getStartCalendarMonthbegin( $('.fc-left').text());
+        if (dateStart.charAt(4) == " ") {
+            dateStart = dateStart.substring(0,4) + "0" + dateStart.substring(5,8);
+        }
+        // var dateStart = parseDateValue($("#dateStart").val());
+        // var dateEnd = parseDateValue($("#dateEnd").val());
+        // aData represents the table structure as an array of columns, so the script access the date value
+        // in the first column of the table via aData[0]
+        var evalDate = parseDateValue(aData[1]);
+        console.log("ngay: " + dateStart);
+        console.log("ngay-: " + evalDate);
+        if (evalDate >= dateStart) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
 });
 
 (function($) {
