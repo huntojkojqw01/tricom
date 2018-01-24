@@ -90,6 +90,7 @@ jQuery ->
             }
 
             ]
+       ,"order": [[0, "asc"], [1, "asc"]]
   })
 
   $("#edit_mybasho").addClass("disabled");

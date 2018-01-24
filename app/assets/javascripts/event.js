@@ -1227,6 +1227,7 @@ $(function(){
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
+        ,"order": [[0, "asc"], [1, "asc"]]
     });
 
 
@@ -1250,6 +1251,7 @@ $(function(){
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         }
+        ,"order": [[0, "asc"], [1, "asc"]]
     });
     // Event table in shousai modal
     oEventTable = $('#event_table').DataTable({
