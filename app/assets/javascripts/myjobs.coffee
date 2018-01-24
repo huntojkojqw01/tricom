@@ -101,6 +101,7 @@ jQuery ->
                 $(".buttons-select-none").addClass('disabled')
             }
             ]
+      ,"order": [[0, "asc"], [1, "asc"]]
 #    'fixedColumns': {
 #      'leftColumns': 0,
 #      'rightColumns': 2,
@@ -436,7 +437,7 @@ jQuery ->
       $('#myjobmaster_関連Job番号').closest('.form-group').find('span.help-block').remove()
       $('#myjobmaster_関連Job番号').closest('.form-group').removeClass('has-error')
     $('#job_search_modal').modal('hide')
-  )  
+  )
 
   $('#destroy_myjob').click () ->
     myjobs = oTable.rows('tr.selected').data()

@@ -43,6 +43,7 @@ $(document).ready(function() {
                 editable: true,
 
                 events: data.setsubiyoyakus,
+                timeFormat: 'HH:mm',
                 // eventRender: function(event, element) {
                 //   element.find('.fc-title').html(data.setsubiyoyakus.title).html(element.find('.fc-title').text());
                   // element.closest('.fc-content').css("margin-bottom","100px");
@@ -73,7 +74,7 @@ $(document).ready(function() {
 
                 },
                 eventAfterRender: function(event, element, view){
-
+                    console.log(event);
                     // var bottom = parseInt(element.closest('.fc-time-grid-event').css("bottom"),10);
                     // var top = parseInt(element.closest('.fc-time-grid-event').css("top"),10);
                     // var margin = (-(top + bottom)/2).toString()+"px";
