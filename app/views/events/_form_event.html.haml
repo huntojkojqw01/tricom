@@ -44,7 +44,7 @@
         = f.button :submit,  (t 'helpers.submit.create_clone'), class: 'btn btn-primary submit-button', id: 'clone_timeline_event'
       - else
         = f.button :submit, (t 'helpers.submit.create_other'), class: 'btn btn-primary submit-button', id: 'event'
-        = f.button :submit,  (t 'helpers.submit.create_clone'), class: 'btn btn-primary submit-button', id: 'clone_timeline_event'
+        = f.button :submit,  (t 'helpers.submit.create_clone_other'), class: 'btn btn-primary submit-button', id: 'clone_timeline_event'
       - if request["param"] == "timeline"|| param == 'timeline'
         = f.button :submit, (t 'helpers.submit.destroy'), class: 'btn btn-primary', id: 'timeline',data: {confirm: (t 'app.delete_confirm')}
       - else

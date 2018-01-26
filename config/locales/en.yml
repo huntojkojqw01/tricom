@@ -137,6 +137,8 @@ en:
     submit:
       create: Register
       create_other: 'Register '
+      create_clone: Clone
+      create_clone_other: 'Clone '
       submit: Save
       update: Update
       destroy: Destroy
@@ -400,7 +402,7 @@ en:
     nyuuryokusha: Input person
     delete_confirm: Do you want to delete?
     shain: Employee
-    youken: Business    
+    youken: Business
     kensaku: Search
     dengoichiran: Message list
     hidzuke: Date

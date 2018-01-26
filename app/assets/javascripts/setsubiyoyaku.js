@@ -186,9 +186,8 @@ $.fn.dataTableExt.afnFiltering.push(
         // var dateEnd = parseDateValue($("#dateEnd").val());
         // aData represents the table structure as an array of columns, so the script access the date value
         // in the first column of the table via aData[0]
-        console.log(dateEnd);
         var evalDate = parseDateValue(aData[1]);
-        if (evalDate >= dateStart && evalDate <= dateEnd) {
+        if (evalDate >= dateStart) {
             return true;
         }
         else {
