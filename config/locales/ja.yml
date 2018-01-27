@@ -136,11 +136,11 @@ ja:
       prompt: 選択してください。
     submit:
       create: 登録
-      create_other: '登録する '
+      create_other: '登録 '
       create_clone: 複写登録
-      create_clone_other: '複写登録する '
-      submit: 保存する
-      update: 更新する
+      create_clone_other: '複写登録 '
+      submit: 保存
+      update: 更新
       destroy: 削除
       destroy_other: '削除 '
       setting: 設定
@@ -152,7 +152,7 @@ ja:
       redirect_to_shonin: 承認
       redirect_to_kairan: 回覧
       redirect_to_setsubiyoyaku: 設備予約
-      input: 入力する
+      input: 入力
       entered: 入力済
       send_mail: メールを送る
     button:
