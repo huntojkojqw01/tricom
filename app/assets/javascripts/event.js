@@ -169,12 +169,16 @@ $(function(){
                 }
             }
         );
+        //Hander calendar header button click
         $('#month-view').find('#goto-date-button, .fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
             oTable = $('#event_table').DataTable();
             oTable.draw();
             $.post(
-            "/settings/ajax",
-            {setting: "setting_date", selected_date: new Date($('#goto-date-input').val())}
+                "/settings/ajax",
+                {
+                    setting: "setting_date",
+                    selected_date: new Date($('#goto-date-input').val())
+                }
             );
         });
 
@@ -303,7 +307,6 @@ $(function(){
 
 });
 
-
 $(document).ready(function(){
     $('#after_div').hide();
     $('#hide_event_button').hide();
@@ -325,18 +328,30 @@ $(document).ready(function(){
         $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
 
     });
+});
 
-    function isNum(c){
-        return (c >= '0' && c <= '9' )
-    }
+//Add filter for datatable
+$(function () {
+    $.fn.dataTableExt.afnFiltering.push(
+        function(oSettings, aData, iDataIndex){
+            var dateStart = getStartCalendarMonthbegin( $('.fc-left').text());
+            // var dateStart = parseDateValue($("#dateStart").val());
+            // var dateEnd = parseDateValue($("#dateEnd").val());
+            // aData represents the table structure as an array of columns, so the script access the date value
+            // in the first column of the table via aData[0]
+            var evalDate = parseDateValue(aData[1]);
+            console.log("ngay: " + dateStart);
+            console.log("ngay-: " + evalDate);
+            if (evalDate >= dateStart) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        });
+});
 
-    function parseDateValue(rawDate) {
-    var dateArray= rawDate.substring(0,10).split("/");
-    var parsedDate= dateArray[0] + dateArray[1] + dateArray[2];
-    return parsedDate;
-    }
-
-    function getStartCalendarMonthbegin(dateString){
+function getStartCalendarMonthbegin(dateString){
     console.log(dateString.length);
     var res = dateString.substring(0, 4);
 
@@ -352,35 +367,27 @@ $(document).ready(function(){
             if ( isNum(dateString.charAt(8)) && isNum(dateString.charAt(9)))
                 res+=dateString.substring(8,10);
             else res+= "0"+dateString.substring(8,9);
-            }
+        }
         else {
             res+= "0"+dateString.substring(5,6);
             if ( isNum(dateString.charAt(7)) && isNum(dateString.charAt(8)))
                 res+=dateString.substring(7,9);
             else res+= "0"+dateString.substring(7,8);
 
-            }
         }
-    return res ;
     }
-    $.fn.dataTableExt.afnFiltering.push(
-    function(oSettings, aData, iDataIndex){
-        var dateStart = getStartCalendarMonthbegin( $('.fc-left').text());
-        // var dateStart = parseDateValue($("#dateStart").val());
-        // var dateEnd = parseDateValue($("#dateEnd").val());
-        // aData represents the table structure as an array of columns, so the script access the date value
-        // in the first column of the table via aData[0]
-        var evalDate = parseDateValue(aData[1]);
-        console.log("ngay: " + dateStart);
-        console.log("ngay-: " + evalDate);
-        if (evalDate >= dateStart) {
-            return true;
-        }
-        else {
-            return false;
-        }
-    });
-});
+    return res ;
+}
+
+function parseDateValue(rawDate) {
+    var dateArray= rawDate.substring(0,10).split("/");
+    var parsedDate= dateArray[0] + dateArray[1] + dateArray[2];
+    return parsedDate;
+}
+
+function isNum(c){
+    return (c >= '0' && c <= '9' )
+}
 
 (function($) {
 
@@ -703,115 +710,9 @@ $(function () {
                       $("#destroy_event").removeClass("disabled");
                 }
             });
-          // var response = confirm($('#message_confirm_delete').text());
-          // if(response){
-          //   var len = events.length;
 
-          //   var i=0;
-          //   for(i=0;i<len;i++)
-          //     eventIds[i] = events[i][0];
-
-          //   $.ajax({
-          //     url: '/events/ajax',
-          //     data:{
-          //       id: 'event_destroy',
-          //       events: eventIds
-          //     },
-
-          //     type: "POST",
-
-          //     success: function(data){
-          //       if (data.destroy_success != null){
-          //           console.log("getAjax destroy_success:"+ data.destroy_success);
-          //           $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
-          //           $("#event_table").dataTable().fnDraw();
-          //           for(i=0;i<len;i++)
-          //               $('#calendar-month-view').fullCalendar('removeEvents',eventIds[i]);
-
-          //       }else
-          //           console.log("getAjax destroy_success:"+ data.destroy_success);
-          //       },
-          //     failure: function(){
-          //       console.log("event_destroy keydown Unsuccessful");
-          //     }
-
-          //   });
-
-          //   $("#destroy_event").addClass("disabled");
-          // }else{
-          //   var selects = oEventTable.rows('tr.selected').data();
-          //   if( selects.length == 0)
-          //     $("#destroy_event").addClass("disabled");
-          //   else
-          //     $("#destroy_event").removeClass("disabled");
-          // }
         }
     });
-
-    // $('#destroy_event_footer').click(function(){
-    //     var events = oEventTable_Footer.rows('tr.selected').data();
-    //     var eventIds = new Array();
-    //     if( events.length == 0)
-    //       swal($('#message_confirm_select').text());
-    //     else{
-    //         swal({
-    //             title: $('#message_confirm_delete').text(),
-    //             text: "",
-    //             type: "warning",
-    //             showCancelButton: true,
-    //             confirmButtonColor: "#DD6B55",
-    //             confirmButtonText: "OK",
-    //             cancelButtonText: "キャンセル",
-    //             closeOnConfirm: false,
-    //             closeOnCancel: false
-    //         }).then(function() {
-    //             var len = events.length;
-
-    //             var i=0;
-    //             for(i=0;i<len;i++)
-    //               eventIds[i] = events[i][0];
-
-    //             $.ajax({
-    //               url: '/events/ajax',
-    //               data:{
-    //                 id: 'event_destroy',
-    //                 events: eventIds
-    //               },
-
-    //               type: "POST",
-
-    //               success: function(data){
-    //                 swal("削除されました!", "", "success");
-    //                 if (data.destroy_success != null){
-    //                     console.log("getAjax destroy_success:"+ data.destroy_success);
-    //                     oEventTable_Footer.rows('tr.selected').remove().draw();
-    //                     // $("#event_table").dataTable().fnDeleteRow($('#event_table').find('tr.selected').remove());
-    //                     // $("#event_table").dataTable().fnDraw();
-    //                     for(i=0;i<len;i++)
-    //                         $('#calendar-month-view').fullCalendar('removeEvents',eventIds[i]);
-
-    //                 }else
-    //                     console.log("getAjax destroy_success:"+ data.destroy_success);
-    //                 },
-    //               failure: function(){
-    //                 console.log("event_destroy keydown Unsuccessful");
-    //               }
-
-    //             });
-
-    //             $("#destroy_event_footer").addClass("disabled");
-    //         }, function(dismiss) {
-    //             if (dismiss === 'cancel') {
-
-    //                 var selects = oEventTable_Footer.rows('tr.selected').data();
-    //                 if( selects.length == 0)
-    //                   $("#destroy_event_footer").addClass("disabled");
-    //                 else
-    //                   $("#destroy_event_footer").removeClass("disabled");
-    //             }
-    //         });
-    //     }
-    // });
 
      $('#export_event').click(function(){
         location.href='/events/export_csv.csv?locale=ja';
@@ -830,16 +731,6 @@ $(function () {
             var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
             $("#date_start_input").val(startOfWeek);
             $("#date_end_input").val(endOfWeek);
-
-            // //set minDate and maxDate for datetimepicker
-            // var dateCurrent = $('#calendar-month-view').fullCalendar('getDate');
-            // var minDate = dateCurrent.startOf("month").format("DD-MM-YYYY");
-            // var maxDate = dateCurrent.endOf("month").format("DD-MM-YYYY");
-            // $('.date_start_select').data("DateTimePicker").minDate(minDate);
-            // $('.date_start_select').data("DateTimePicker").maxDate(maxDate);
-            // $('.date_end_select').data("DateTimePicker").minDate(minDate);
-            // $('.date_end_select').data("DateTimePicker").maxDate(maxDate);
-
 
         }
         else{
@@ -905,105 +796,6 @@ $(function () {
     });
 
 
-
-    //Footer
-    // $('#export_event_footer').click(function(){
-    //     location.href='/events/export_csv.csv?locale=ja';
-    //  });
-
-    // $('#print_event_footer').click(function(){
-    //     if( $("#selectDay_footer").css('display') == 'none'){
-    //         $("#selectDay_footer").css('display', '');
-    //         $("#print_event_job_footer").addClass("disabled");
-    //         $("#print_event_koutei_footer").addClass("disabled");
-    //         $("#print_pdf_event_footer").css('display', '');
-    //         $("#print_pdf_job_footer").css('display', 'none');
-    //         $("#print_pdf_koutei_footer").css('display', 'none');
-    //         var currentDate = new Date();
-    //         var startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
-    //         var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
-    //         $("#date_start_input_footer").val(startOfWeek);
-    //         $("#date_end_input_footer").val(endOfWeek);
-
-    //         // //set minDate and maxDate for datetimepicker
-    //         // var dateCurrent = $('#calendar-month-view').fullCalendar('getDate');
-    //         // var minDate = dateCurrent.startOf("month").format("DD-MM-YYYY");
-    //         // var maxDate = dateCurrent.endOf("month").format("DD-MM-YYYY");
-    //         // $('.date_start_select').data("DateTimePicker").minDate(minDate);
-    //         // $('.date_start_select').data("DateTimePicker").maxDate(maxDate);
-    //         // $('.date_end_select').data("DateTimePicker").minDate(minDate);
-    //         // $('.date_end_select').data("DateTimePicker").maxDate(maxDate);
-
-
-    //     }
-    //     else{
-    //         $("#selectDay_footer").css('display', 'none');
-    //         $("#print_event_job_footer").removeClass("disabled");
-    //         $("#print_event_koutei_footer").removeClass("disabled");
-    //     }
-    // });
-    // $('#print_event_job_footer').click(function(){
-    //     if( $("#selectDay_footer").css('display') == 'none'){
-    //         $("#selectDay_footer").css('display', '');
-    //         $("#print_event_footer").addClass("disabled");
-    //         $("#print_event_koutei_footer").addClass("disabled");
-    //         $("#print_pdf_event_footer").css('display', 'none');
-    //         $("#print_pdf_job_footer").css('display', '');
-    //         $("#print_pdf_koutei_footer").css('display', 'none');
-    //         var currentDate = new Date();
-    //         var startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
-    //         var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
-    //         $("#date_start_input_footer").val(startOfWeek);
-    //         $("#date_end_input_footer").val(endOfWeek);
-    //     }
-    //     else{
-    //         $("#selectDay_footer").css('display', 'none');
-    //         $("#print_event_footer").removeClass("disabled");
-    //         $("#print_event_koutei_footer").removeClass("disabled");
-    //     }
-    // });
-    // $('#print_event_koutei_footer').click(function(){
-    //     if( $("#selectDay_footer").css('display') == 'none'){
-    //         $("#selectDay_footer").css('display', '');
-    //         $("#print_event_footer").addClass("disabled");
-    //         $("#print_event_job_footer").addClass("disabled");
-    //         $("#print_pdf_event_footer").css('display', 'none');
-    //         $("#print_pdf_job_footer").css('display', 'none');
-    //         $("#print_pdf_koutei_footer").css('display', '');
-    //         var currentDate = new Date();
-    //         var startOfWeek = moment().startOf('isoweek').format('YYYY/MM/DD');
-    //         var endOfWeek   = moment().endOf('isoweek').format('YYYY/MM/DD');
-    //         $("#date_start_input_footer").val(startOfWeek);
-    //         $("#date_end_input_footer").val(endOfWeek);
-    //     }
-    //     else{
-    //         $("#selectDay_footer").css('display', 'none');
-    //         $("#print_event_footer").removeClass("disabled");
-    //         $("#print_event_job_footer").removeClass("disabled");
-    //     }
-    // });
-    // $('#print_pdf_event_footer').click(function(){
-    //     window.open('/events/pdf_event_show.pdf?locale=ja&date_start='+$("#date_start_input_footer").val()+'&date_end='+$("#date_end_input_footer").val());
-    // });
-    // $('#print_pdf_job_footer').click(function(){
-    //     window.open('/events/pdf_job_show.pdf?locale=ja&date_start='+$("#date_start_input_footer").val()+'&date_end='+$("#date_end_input_footer").val());
-    // });
-    // $('#print_pdf_koutei_footer').click(function(){
-    //     window.open('/events/pdf_koutei_show.pdf?locale=ja&date_start='+$("#date_start_input_footer").val()+'&date_end='+$("#date_end_input_footer").val());
-    // });
-    // $('#date_start_input_footer').click(function(){
-    //     $('.date_start_select_footer').data("DateTimePicker").toggle();
-    // });
-    // $('#date_end_input_footer').click(function(){
-    //     $('.date_end_select_footer').data("DateTimePicker").toggle();
-    // });
-    //$('#開始').click(function () {
-    //    $('#event_開始').data("DateTimePicker").toggle();
-    //});
-    //
-    //$('#終了').click(function () {
-    //    $('#event_終了').data("DateTimePicker").toggle();
-    //});
 });
 
 //date field click handler
@@ -1052,31 +844,6 @@ $(function () {
     $('.date_end_select_footer').datetimepicker({
         format: 'YYYY/MM/DD'
     });
-    // $('#event_開始').datetimepicker({
-    //    format: 'YYYY/MM/DD HH:mm',
-    //    showClear: true,
-    //    showTodayButton: true,
-    //    sideBySide: true,
-    //    //,daysOfWeekDisabled:[0,6]
-    //    calendarWeeks: true,
-    //    //allowInputToggle: true,
-    //    toolbarPlacement: 'top',
-    //    keyBinds: false,
-    //    focusOnShow: false
-    // });
-
-    // $('#event_終了').datetimepicker({
-    //    format: 'YYYY/MM/DD HH:mm',
-    //    showTodayButton: true,
-    //    showClear: true,
-    //    sideBySide: true,
-    //    //daysOfWeekDisabled:[0,6],
-    //    calendarWeeks: true,
-    //    //allowInputToggle: true,
-    //    toolbarPlacement: 'top',
-    //    keyBinds: false,
-    //    focusOnShow: false
-    // });
 
     $(".event_開始 .datetime").on("dp.change", function (e) {
 
@@ -1121,78 +888,6 @@ $(function(){
     $('#search_user').click(function(){
         $('#select_user_modal').modal('show');
     });
-
-    // $("#calendar-month-view").dblclick(function() {
-    //     window.open('http://localhost:3000/events/new?locale=ja');
-    // });
-    //$('#joutai_search').click(function(){
-    //    $('#joutai_search_modal').modal('show');
-    //});
-    //
-    //$('#basho_search').click(function(){
-    //    $('#basho_search_modal').modal('show');
-    //});
-    //
-    //$('#koutei_search').click(function(){
-    //    $('#koutei_search_modal').modal('show');
-    //});
-    //
-    //$('#shozai_search').click(function(){
-    //    $('#shozai_search_modal').modal('show');
-    //});
-    //
-    //$('#job_search').click(function(){
-    //    $('#job_search_modal').modal('show');
-    //});
-
-    //$('#shujitu').click(function() {
-    //    start_form_time = $('#event_開始').val();
-    //    end_form_time = $('#event_終了').val();
-    //
-    //    var start_time, end_time
-    //
-    //    if (start_form_time == "" && end_form_time == "") {
-    //        start_time = moment().format("YYYY-MM-DD");
-    //        end_time = start_time + " 18:00"
-    //        start_time += " 09:00"
-    //        $('#event_開始').val(start_time);
-    //        $('#event_終了').val(end_time);
-    //        return;
-    //    }
-    //
-    //    if (start_form_time != "") {
-    //        start_time = start_form_time.substring(0, 10) + " 09:00";
-    //        end_time = start_form_time.substring(0, 10) + " 18:00";
-    //    } else {
-    //        start_time = end_form_time.substring(0, 10) + " 09:00";
-    //        end_time = end_form_time.substring(0, 10) + " 18:00";
-    //    }
-    //
-    //
-    //    $('#event_開始').val(start_time);
-    //    $('#event_終了').val(end_time);
-    //
-    //});
-
-    //month day switch view
-    //$('#month-view-button').click(function(){
-    //    $('#calendar-timeline').hide();
-    //    $('#month-view').show();
-    //
-    //    $('#calendar-month-view').fullCalendar('render');
-    //    //$('#calendar-timeline').hide();
-    //    //$('#calendar-month-view').show();
-    //    //$('#calendar-month-view').fullCalendar('render');
-    //
-    //});
-
-    //$('#day-view-button').click(function(){
-    //    $('#month-view').hide();
-    //    //$('#calendar-timeline').show();
-    //    $('.timeline-view').show();
-    //    //$('#calendar-month-view').hide();
-    //    //$('#calendar-timeline').show();
-    //});
 
 });
 
@@ -1378,119 +1073,6 @@ $(function(){
         }
     });
 
-
-    //Event table in end page
-//     oEventTable_Footer = $('#event_table_footer').DataTable({
-//         "dom": 'lBfrtip',
-//         "pagingType": "full_numbers",
-//         "oLanguage":{"sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"},
-//         "aoColumnDefs": [
-//             {"aTargets": [1], "mRender": function (data, type, full) {
-//                 return '<a href="/events/' + data + '/edit">詳細</a>';
-//                 }
-//             },
-//             {"aTargets": [2,3], "mRender": function (data, type, full) {
-//                 var time_format = moment(data, 'YYYY-MM-DD HH:mm').format('YYYY-MM-DD HH:mm');
-//                 if (time_format !== 'Invalid date'){
-//                     return time_format;
-//                     }else return '';
-//                 }
-//             },
-//             { "bSortable": false, "aTargets": [ 0,1 ]},
-//             {"targets": [ 0,1 ],"searchable": false},
-//             {"targets": [ 0 ],"visible": false }
-//             //{"targets": [1,2], "width": '11%'},
-//             //{"targets": [0], "width": '3%'},
-//             //{"targets": [7,8], "width": '6%'},
-//             //{"targets": [5], "width": '8%'}
-//         ],
-
-//         "order": [],
-//         "columnDefs": [
-//             {"targets" : 'no-sort', "orderable": false}
-//         ],
-//         "oSearch": {"sSearch": queryParameters().search},
-//         "autoWidth": true,
-//         "buttons": [{
-//             "extend":    'copyHtml5',
-//             "text":      '<i class="fa fa-files-o"></i>',
-//             "titleAttr": 'Copy',
-//             "exportOptions": {
-//                 "columns": [2,3,4,5,6,7,8,9]
-//             }
-//         },
-//         {
-//             "extend":    'excelHtml5',
-//             "text":      '<i class="fa fa-file-excel-o"></i>',
-//             "titleAttr": 'Excel',
-//             "exportOptions": {
-//                 "columns": [2,3,4,5,6,7,8,9]
-//             }
-//         },
-//         {
-//             "extend":    'csvHtml5',
-//             "text":      '<i class="fa fa-file-text-o"></i>',
-//             "titleAttr": 'CSV',
-//             "exportOptions": {
-//                 "columns": [2,3,4,5,6,7,8,9]
-//             }
-//         },
-//         {
-//           "extend": 'selectAll',
-//           "action": function( e, dt, node, config ){
-//             oEventTable_Footer.$('tr').addClass('selected');
-//             oEventTable_Footer.$('tr').addClass('success');
-//             var selects = oEventTable_Footer.rows('tr.selected').data();
-//             if (selects.length == 0){
-//                 $("#destroy_event_footer").addClass("disabled");
-//             }else{
-//                 $("#destroy_event_footer").removeClass("disabled");
-//             }
-
-//             $(".buttons-select-none").removeClass('disabled');
-//           }
-//         },
-//         {
-//           "extend": 'selectNone',
-//           "action": function( e, dt, node, config ){
-//             oEventTable_Footer.$('tr').removeClass('selected');
-//             oEventTable_Footer.$('tr').removeClass('success');
-//             var selects = oEventTable_Footer.rows('tr.selected').data();
-//             if( selects.length == 0){
-//                 $("#destroy_event_footer").addClass("disabled");
-//             }else{
-//                 $("#destroy_event_footer").removeClass("disabled");
-//             }
-//             $(".buttons-select-none").addClass('disabled');
-//           }
-
-//         }
-
-//         ]
-//     });
-
-//     $('#event_table_footer').on( 'click', 'tr', function () {
-
-//         var d = oEventTable_Footer.row(this).data();
-//         if(d != undefined){
-//             if($(this).hasClass('selected')){
-//                 $(this).removeClass('selected');
-//                 $(this).removeClass('success');
-
-//             }else{
-//                 $(this).addClass('selected');
-//                 $(this).addClass('success');
-//             }
-//         }
-//         var selects = oEventTable_Footer.rows('tr.selected').data();
-//         if( selects.length == 0){
-//           $("#destroy_event_footer").addClass("disabled");
-//           $(".buttons-select-none").addClass('disabled')
-//         }else{
-//           $("#destroy_event_footer").removeClass("disabled");
-//           $(".buttons-select-none").removeClass('disabled');
-//         }
-// });
 
     //選択された行を判断
     $('#user_table tbody').on( 'click', 'tr', function () {
@@ -1804,16 +1386,6 @@ $(function(){
 });
 
 $(function(){
-    //calendar hide show
-    //$('#calendar-month-view').show();
-    //$('#calendar-timeline').hide();
-
-    // $('#month-view').show();
-    //$('#calendar-timeline').show();
-    //$('.timeline-view').show();
-});
-
-$(function(){
     var s = $("#event_状態コード").val();
     $('.event_帰社').hide();
     if (s == '10' || s == '11' || s == '12' || s == '13'){
@@ -1833,7 +1405,7 @@ function showModal(date,hoshukeitai) {
         $('#bt-hoshu-1'+date).hide();
         $('#bt-hoshu-0'+date).show();
     }
-    if (!date || !hoshukeitai) return
+    if (!date || !hoshukeitai) return;
     jQuery.ajax({
         url: '/events/ajax',
         data: {id: 'kintai_保守携帯回数',hoshukeitai: hoshukeitai, date_kintai: date},

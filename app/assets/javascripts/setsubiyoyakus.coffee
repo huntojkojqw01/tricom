@@ -12,6 +12,7 @@ jQuery ->
     "oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
     },
+    "order": [[1, "asc"]]
     "aoColumnDefs": [
         { "bSortable": false, "aTargets": [ 6,7 ]},
         {
