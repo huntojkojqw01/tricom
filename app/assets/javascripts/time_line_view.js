@@ -33,6 +33,19 @@ $(document).ready(function() {
         var flag =0;
         var calendar = $('#calendar-timeline').fullCalendar(
             {
+                // customButtons: {
+                //     myCustomButton: {
+                //         text: '>+10',
+                //         click: function() {
+                //             this.fullCalendar( 'gotoDate', moment('2018/02/03') );
+                //         }
+                //     }
+                // },
+                header: {
+                    // left: 'prev,next today myCustomButton',
+                    // center: 'title',
+                    right: 'timelineMonth, timelineWeek, timelineDay, today, prev, next'
+                },
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 //height: 1287,
                 height: "auto",
@@ -679,3 +692,25 @@ $(function(){
         location.href='/events/export_csv.csv?locale=ja';
      });
 });
+
+//button next10Days and prev10Days click handle
+/*
+$(function(){
+    $('#next10Days').click(function() {
+        var moment = $('#calendar-timeline').fullCalendar('getDate').add(10, 'days');
+        var dateInput = moment.format().substr(0,10);
+        date = moment('2018/02/03');
+        // $('#calendar-month-view').fullCalendar('gotoDate', date);
+        // $('#calendar-timeline').fullCalendar('gotoDate', date);
+        var duration = {days:10};
+        $('#calendar-timeline').fullCalendar( 'incrementDate', duration )
+    });
+    $('#prev10Days').click(function() {
+        var moment = $('#calendar-timeline').fullCalendar('getDate').add(-10, 'days');
+        var dateInput = moment.format().substr(0,10);
+        date = moment(dateInput);
+        // $('#calendar-month-view').fullCalendar('gotoDate', date);
+        $('#calendar-timeline').fullCalendar('gotoDate', date);
+    });
+});
+*/
