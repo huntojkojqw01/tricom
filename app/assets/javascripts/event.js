@@ -3,6 +3,7 @@
  */
 
 //calendar init
+var calendar;
 $(function(){
     //var firstHour = new Date().getUTCHours();
     var scroll = -1,
@@ -32,7 +33,7 @@ $(function(){
                         color: 'green'
                     }
                 ];
-        var calendar = $('#calendar-month-view').fullCalendar(
+        calendar = $('#calendar-month-view').fullCalendar(
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 //height: 1287,
@@ -168,16 +169,22 @@ $(function(){
                     $('.tooltipevent').remove();
                 }
             }
-        );
+            );
+        //scroll calendar to date
+        calendar.fullCalendar('gotoDate', moment($('#gotoDate').val()));
+
         //Hander calendar header button click
         $('#month-view').find('#goto-date-button, .fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
+            //redraw dataTable after filter
             oTable = $('#event_table').DataTable();
             oTable.draw();
+            //set current date to hidden field to goback, post it to session
+            // $('#gotoDate').val(calendar.fullCalendar('getDate'));
             $.post(
                 "/settings/ajax",
                 {
                     setting: "setting_date",
-                    selected_date: new Date($('#goto-date-input').val())
+                    selected_date: $('#calendar-month-view').fullCalendar('getDate').format('YYYY/MM/DD')
                 }
             );
         });
