@@ -172,7 +172,8 @@ $(function(){
             );
         //scroll calendar to date
         calendar.fullCalendar('gotoDate', moment($('#gotoDate').val()));
-
+        oTable = $('#event_table').DataTable();
+        oTable.draw();
         //Hander calendar header button click
         $('#month-view').find('#goto-date-button, .fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
             //redraw dataTable after filter
