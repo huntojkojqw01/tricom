@@ -10,10 +10,8 @@ class SetsubiyoyakusController < ApplicationController
     @all_events = Event.all
     @shains = Shainmaster.all
     @setsubiyoyaku = Setsubiyoyaku.all
-    if params[:head].present?
-      @setsubi_param = params[:head][:setsubicode]       
-    end
-    @selected_date= session[:selected_date]||Date.current
+    @setsubi_param = params[:head][:setsubicode] if params[:head].present?
+    @selected_date = session[:selected_date] || Date.current
     @setsubiyoyaku = Setsubiyoyaku.where(設備コード: @setsubi_param) if @setsubi_param.present?
     respond_with(@setsubiyoyaku)
   end
