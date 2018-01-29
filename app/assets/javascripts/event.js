@@ -171,7 +171,7 @@ $(function(){
             }
             );
         //scroll calendar to date
-        calendar.fullCalendar('gotoDate', moment($('#gotoDate').val()));
+        calendar.fullCalendar('gotoDate', new Date($('#gotoDate').val()));
         oTable = $('#event_table').DataTable();
         oTable.draw();
         //Hander calendar header button click
@@ -180,12 +180,12 @@ $(function(){
             oTable = $('#event_table').DataTable();
             oTable.draw();
             //set current date to hidden field to goback, post it to session
-            // $('#gotoDate').val(calendar.fullCalendar('getDate'));
+            $('#gotoDate').val(calendar.fullCalendar('getDate').format());
             $.post(
                 "/settings/ajax",
                 {
                     setting: "setting_date",
-                    selected_date: $('#calendar-month-view').fullCalendar('getDate').format('YYYY/MM/DD')
+                    selected_date: new Date($('#calendar-month-view').fullCalendar('getDate'))
                 }
             );
         });
