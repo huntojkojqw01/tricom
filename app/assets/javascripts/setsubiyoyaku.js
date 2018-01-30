@@ -2,13 +2,13 @@
  * Created by cmc on 16/12/2016.
  */
 
-
+var setsubiyoyaku_timeline;
 $(document).ready(function() {
     var setsubi = $('#head_setsubicode').val();
-    param = '&head[setsubicode]='+setsubi;
+    var param = '&head[setsubicode]='+setsubi;
     $.getJSON('/setsubiyoyakus?'+param, function(data) {
 
-        var setsubiyoyaku_timeline = $('#setsubiyoyaku-timeline').fullCalendar(
+        setsubiyoyaku_timeline = $('#setsubiyoyaku-timeline').fullCalendar(
             {
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 firstDay: 1,
@@ -161,6 +161,20 @@ $(document).ready(function() {
    // $('html, body').animate({scrollTop:$(document).height()/2});
 
 });
+
+//refresh content
+$(function () {
+    var setsubi = $('#head_setsubicode').val();
+    var param = '&head[setsubicode]='+setsubi;
+    setInterval(function () {
+        $.getJSON('/setsubiyoyakus?'+param, function(data) {
+            setsubiyoyaku_timeline.fullCalendar('removeEvents');
+            setsubiyoyaku_timeline.fullCalendar('addEventSource', data.setsubiyoyakus);
+            setsubiyoyaku_timeline.fullCalendar('rerenderEvents' );
+        });
+    },3000);
+});
+
 //Extend dataTables search
 // $.fn.dataTable.ext.search.push(
 //     function( settings, data, dataIndex ) {
