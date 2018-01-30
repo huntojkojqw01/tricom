@@ -19,7 +19,7 @@ $(document).ready(function() {
     var roru = getUrlVars()["roru"];
     var joutai = getUrlVars()["joutai"];
     var param ='';
-    if(roru!=undefined&&joutai!=undefined){
+    if(roru != undefined && joutai != undefined){
         $('#timeline_ロールコード').val(roru);
         $('#timeline_状態コード').val(joutai);
          param = 'roru='+roru+'&joutai='+joutai;
@@ -41,11 +41,11 @@ $(document).ready(function() {
                 //         }
                 //     }
                 // },
-                header: {
-                    // left: 'prev,next today myCustomButton',
-                    // center: 'title',
-                    right: 'timelineMonth, timelineWeek, timelineDay, today, prev, next'
-                },
+                // header: {
+                //     // left: 'prev,next today myCustomButton',
+                //     // center: 'title',
+                //     right: 'timelineMonth, timelineWeek, timelineDay, today, prev, next'
+                // },
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 //height: 1287,
                 height: "auto",
