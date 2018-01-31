@@ -33,19 +33,32 @@ $(document).ready(function() {
         var flag =0;
         var calendar = $('#calendar-timeline').fullCalendar(
             {
-                // customButtons: {
-                //     myCustomButton: {
-                //         text: '>+10',
-                //         click: function() {
-                //             this.fullCalendar( 'gotoDate', moment('2018/02/03') );
-                //         }
-                //     }
-                // },
-                // header: {
-                //     // left: 'prev,next today myCustomButton',
-                //     // center: 'title',
-                //     right: 'timelineMonth, timelineWeek, timelineDay, today, prev, next'
-                // },
+                customButtons: {
+                    next10Days: {
+                        text: '>+10',
+                        click: function() {
+                            var currentDate = $('#calendar-timeline').fullCalendar('getDate');
+                            var next10Days = currentDate.add(10,'days');
+                            $('#calendar-timeline').fullCalendar( 'gotoDate', next10Days );
+                        },
+                        icon: 'right-double-arrow'
+                    },
+                    prev10Days: {
+                        text: '<-10',
+                        click: function() {
+                            var currentDate = $('#calendar-timeline').fullCalendar('getDate');
+                            var prev10Days = currentDate.add(-10,'days');
+                            $('#calendar-timeline').fullCalendar( 'gotoDate', prev10Days );
+                        },
+                        icon: 'left-double-arrow'
+                    }
+                },
+                header: {
+                    // left: 'prev,next today myCustomButton',
+                    // center: 'title',
+                    // right: 'timelineMonth, timelineWeek, timelineDay, today, prev, next'
+                    right:  'today prev,next, prev10Days,next10Days'
+                },
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
                 //height: 1287,
                 height: "auto",
