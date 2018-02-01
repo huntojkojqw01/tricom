@@ -171,7 +171,7 @@ $(function(){
             }
             );
         //scroll calendar to date
-        calendar.fullCalendar('gotoDate', new Date($('#gotoDate').val()));
+        calendar.fullCalendar('gotoDate', moment($('#gotoDate').val()));
         oTable = $('#event_table').DataTable();
         oTable.draw();
         //Hander calendar header button click
@@ -185,7 +185,7 @@ $(function(){
                 "/settings/ajax",
                 {
                     setting: "setting_date",
-                    selected_date: new Date($('#calendar-month-view').fullCalendar('getDate'))
+                    selected_date: $('#calendar-month-view').fullCalendar('getDate').format()
                 }
             );
         });
