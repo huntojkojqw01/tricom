@@ -51,15 +51,45 @@ $(document).ready(function() {
                             $('#calendar-timeline').fullCalendar( 'gotoDate', prev10Days );
                         },
                         icon: 'left-double-arrow'
-                    }
+                    },
+                    // changeView: {
+                    //     text: 'changeView',
+                    //     click: function() {
+                    //         $('#calendar-timeline').fullCalendar('changeView', 'timelineWeek', {
+                    //             start: '2017-06-01',
+                    //             end: '2017-06-08'
+                    //         });
+                    //     },
+                    //     // icon: 'left-double-arrow'
+                    // }
                 },
                 header: {
                     // left: 'prev,next today myCustomButton',
                     // center: 'title',
                     // right: 'timelineMonth, timelineWeek, timelineDay, today, prev, next'
-                    right:  'today prev,next, prev10Days,next10Days'
+                    right:  'today prev,next, prev10Days,next10Days, timelineDay, timeline5Day'
+                },
+                views: {
+                    timeline5Day: {
+                        type: 'timeline',
+                        // duration: { days: 5 },
+                        buttonText: '週',
+                        visibleRange: function(currentDate) {
+                            return {
+                                start: currentDate.clone().subtract(3, 'days'),
+                                end: currentDate.clone().add(3, 'days') // exclusive end, so 3
+                            };
+                        },
+                        slotDuration: moment.duration(1, 'day'),
+                        // slotLabelInterval: moment.duration(1, 'minutes'),
+                        slotLabelFormat: [
+                            'ddd'
+                        ],
+                        // slotWidth: 10
+                    }
                 },
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+                lang: 'ja',
                 //height: 1287,
                 height: "auto",
                 //firstHour: '06:00',

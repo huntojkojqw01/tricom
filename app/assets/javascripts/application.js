@@ -25,6 +25,7 @@
 //= require moment/ja
 
 //= require fullcalendar.min
+//= require locale/ja
 //= require scheduler.min
 // require fullcalendar/gcal
 //= require gcal
