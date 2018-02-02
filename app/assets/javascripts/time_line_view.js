@@ -76,14 +76,16 @@ $(document).ready(function() {
                         buttonText: '週',
                         visibleRange: function(currentDate) {
                             return {
-                                start: currentDate.clone().subtract(3, 'days'),
-                                end: currentDate.clone().add(3, 'days') // exclusive end, so 3
+                                // start: currentDate.clone().subtract(3, 'days'),
+                                start: moment().zone("+0900").startOf('week').add(1, 'day'),
+                                // end: currentDate.clone().add(3, 'days') // exclusive end, so 3
+                                end: moment().zone("+0900").startOf('week').add(8, 'days') // exclusive end, so 3
                             };
                         },
                         slotDuration: moment.duration(1, 'day'),
                         // slotLabelInterval: moment.duration(1, 'minutes'),
                         slotLabelFormat: [
-                            'ddd'
+                            'M/D ddd'
                         ],
                         // slotWidth: 10
                     }
