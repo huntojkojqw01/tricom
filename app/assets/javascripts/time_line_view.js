@@ -67,10 +67,10 @@ $(document).ready(function() {
                     // left: 'prev,next today myCustomButton',
                     // center: 'title',
                     // right: 'timelineMonth, timelineWeek, timelineDay, today, prev, next'
-                    right:  'today prev,next, prev10Days,next10Days, timelineDay, timeline5Day'
+                    right:  'today prev,next, prev10Days,next10Days, timelineDay, timeline7Day'
                 },
                 views: {
-                    timeline5Day: {
+                    timeline7Day: {
                         type: 'timeline',
                         // duration: { days: 5 },
                         buttonText: '週',
@@ -88,6 +88,10 @@ $(document).ready(function() {
                             'M/D ddd'
                         ],
                         // slotWidth: 10
+                        // titleFormat: 'YYYY, MM, DD [duc]'
+                    },
+                    timelineDay: {
+                        titleFormat: 'YYYY[年]MM[月]DD[日] [(]dd[)]'
                     }
                 },
                 schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
@@ -281,7 +285,7 @@ $(document).ready(function() {
         var date = nowDate.getFullYear()+"年"+(nowDate.getMonth()+1)+"月"+nowDate.getDate()+"日"+"  ("+weekday[nowDate.getDay()]+")";
         $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'  (今日)</h2></div>');
         calendar.find('.fc-today-button').click(function(){
-            var currentDate = new Date();
+            /*var currentDate = new Date();
             var date = currentDate.getFullYear()+"年"+(currentDate.getMonth()+1)+"月"+currentDate.getDate()+"日"+"  ("+weekday[currentDate.getDay()]+")";
             $("#calendar-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'  (今日)</h2></div>');
             $('.fc-resource-area col:nth-child(2),.fc-resource-area td:nth-child(2),.fc-resource-area th:nth-child(2)').show();
@@ -293,7 +297,7 @@ $(document).ready(function() {
             var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
             $('.fc-resource-area td:nth-child(7)').each(function(){
                 $(this).html('<a href="/events/new?param=timeline&shain_id='+$(this).closest('tr').attr('data-resource-id')+'&start_at='+moment(selectedDate).format()+'" style=""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
-            });
+            });*/
         });
 
 
@@ -395,9 +399,9 @@ $(window).on('load', function() {
     $('#calendar-timeline').fullCalendar('render');
 });
 
-$(document).on("click", ".fc-next-button", function(){
+$(document).on("click", ".fc-next-button1", function(){
 
-    var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
+    /*var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
     var calDate = new Date(moment(selectedDate).format(''));
 
     var currentDate = new Date();
@@ -437,12 +441,12 @@ $(document).on("click", ".fc-next-button", function(){
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').show();
         $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
-    }
+    }*/
 });
 
 $(document).on("click", ".fc-prev-button", function(){
 
-    var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
+   /* var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
     var calDate = new Date(moment(selectedDate).format(''));
     $('.fc-resource-area td:nth-child(7)').each(function(){
         $(this).html('<a href="/events/new?param=timeline&shain_id='+$(this).closest('tr').attr('data-resource-id')+'&start_at='+moment(selectedDate).format()+'" style=""><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>');
@@ -477,7 +481,7 @@ $(document).on("click", ".fc-prev-button", function(){
         $('.fc-resource-area col:nth-child(5),.fc-resource-area td:nth-child(5),.fc-resource-area th:nth-child(5)').show();
         $('.fc-resource-area col:nth-child(6),.fc-resource-area td:nth-child(6),.fc-resource-area th:nth-child(6)').show();
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
-    }
+    }*/
 
 });
 
