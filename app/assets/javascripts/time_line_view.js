@@ -95,6 +95,7 @@ $(document).ready(function() {
                         titleFormat: 'YYYY年M月D日 [(]dd[)]'
                     }
                 },
+                //trigger when modify render as click navigator button
                 viewRender: function(view, element) {
                     var date = view.title
                     var now = moment().format('YYYY/MM/DD');
