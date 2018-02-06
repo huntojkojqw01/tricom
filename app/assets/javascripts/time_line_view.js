@@ -71,17 +71,18 @@ $(document).ready(function() {
                 },
                 views: {
                     timeline7Day: {
-                        type: 'timeline',
+                        // type: 'timeline',
+                        type: 'timelineWeek',
                         // duration: { days: 5 },
                         buttonText: '週',
-                        visibleRange: function(currentDate) {
+                        /*visibleRange: function(currentDate) {
                             return {
                                 // start: currentDate.clone().subtract(3, 'days'),
                                 start: moment().zone("+0900").startOf('week').add(1, 'day'),
                                 // end: currentDate.clone().add(3, 'days') // exclusive end, so 3
                                 end: moment().zone("+0900").startOf('week').add(8, 'days') // exclusive end, so 3
                             };
-                        },
+                        },*/
                         slotDuration: moment.duration(1, 'day'),
                         // slotLabelInterval: moment.duration(1, 'minutes'),
                         slotLabelFormat: [
@@ -90,6 +91,7 @@ $(document).ready(function() {
                         // slotWidth: 10
                         titleFormat: 'YYYY年M月D日 dd',
                         // titleRangeSeparator: ' to '
+                        timeFormat: 'HH'
                     },
                     timelineDay: {
                         titleFormat: 'YYYY年M月D日 [(]dd[)]'
