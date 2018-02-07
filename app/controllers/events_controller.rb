@@ -24,7 +24,6 @@ class EventsController < ApplicationController
       shain.save
     end
     @kintai = Kintai.first
-    @selected_date = session[:selected_date] || Date.current
 
   rescue
     @events = Shainmaster.take.events

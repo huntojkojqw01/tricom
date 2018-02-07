@@ -180,7 +180,6 @@ $(function(){
             oTable = $('#event_table').DataTable();
             oTable.draw();
             //set current date to hidden field to goback, post it to session
-            $('#gotoDate').val(calendar.fullCalendar('getDate').format());
             $.post(
                 "/settings/ajax",
                 {
