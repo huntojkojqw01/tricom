@@ -74,16 +74,16 @@ $(document).ready(function() {
                     timeline7Day: {
                         // type: 'timeline',
                         type: 'timelineWeek',
-                        // duration: { days: 5 },
+                        // duration: { days: 7 },
                         buttonText: '週',
-                        /*visibleRange: function(currentDate) {
-                            return {
-                                // start: currentDate.clone().subtract(3, 'days'),
-                                start: moment().zone("+0900").startOf('week').add(1, 'day'),
-                                // end: currentDate.clone().add(3, 'days') // exclusive end, so 3
-                                end: moment().zone("+0900").startOf('week').add(8, 'days') // exclusive end, so 3
-                            };
-                        },*/
+                        // visibleRange: function(currentDate) {
+                        //     return {
+                        //         // start: currentDate.clone().subtract(3, 'days'),
+                        //         start: moment().zone("+0900").startOf('week').add(1, 'day'),
+                        //         // end: currentDate.clone().add(3, 'days') // exclusive end, so 3
+                        //         end: moment().zone("+0900").startOf('week').add(8, 'days') // exclusive end, so 3
+                        //     };
+                        // },
                         slotDuration: moment.duration(1, 'day'),
                         // slotLabelInterval: moment.duration(1, 'minutes'),
                         slotLabelFormat: [
@@ -92,7 +92,7 @@ $(document).ready(function() {
                         // slotWidth: 10
                         titleFormat: 'YYYY年M月D日 dd',
                         // titleRangeSeparator: ' to '
-                        timeFormat: 'HH'
+                        timeFormat: 'HH',
                     },
                     timelineDay: {
                         titleFormat: 'YYYY年M月D日 [(]dd[)]'
@@ -821,3 +821,26 @@ $(function(){
     });
 });
 */
+
+/**
+ * 2018年2月5 – 11日 -> 2018年2月5日 – 11日
+ * @param inputTitleFormat
+ */
+function changeTitleFormat(inputTitleFormat) {
+    var indx = inputTitleFormat.indexOf('–');
+    if (indx > 0)
+        return insert(inputTitleFormat, indx-1, '日');
+    else
+        return inputTitleFormat;
+}
+
+/**
+ * alert(insert("foo baz", 4, "bar "));
+ * @param str
+ * @param index
+ * @param value
+ * @returns {string}
+ */
+function insert(str, index, value) {
+    return str.substr(0, index) + value + str.substr(index);
+}

@@ -27,8 +27,14 @@ $(document).ready(function() {
                     left:   'title',
                     right:  'today,prev,next'
                 },
-                titleFormat: 'YYYY年MM月(DD日)',
+                // titleFormat: 'YYYY年MM月(DD日)',
                 //weekends: false,
+                viewRender: function(view, element) {
+                    var date = view.title
+                    date = changeTitleFormat(date);
+                    $("#setsubiyoyaku-timeline .fc-left").replaceWith('<div class= "fc-left"><h2>'+date+'</h2></div>');
+
+                },
                 aspectRatio: 1.5,
                 resourceAreaWidth: '15%',
                 slotLabelFormat: ['HH : mm'],
@@ -294,4 +300,27 @@ function parseDateValue(rawDate) {
 function parseDateValue2(rawDate) {
     var dateArray = rawDate.substring(0,10);
     return dateArray;
+}
+
+/**
+ * 2018年2月5 – 11日 -> 2018年2月5日 – 11日
+ * @param inputTitleFormat
+ */
+function changeTitleFormat(inputTitleFormat) {
+    var indx = inputTitleFormat.indexOf('–');
+    if (indx > 0)
+        return insert(inputTitleFormat, indx-1, '日');
+    else
+        return inputTitleFormat;
+}
+
+/**
+ * alert(insert("foo baz", 4, "bar "));
+ * @param str
+ * @param index
+ * @param value
+ * @returns {string}
+ */
+function insert(str, index, value) {
+    return str.substr(0, index) + value + str.substr(index);
 }

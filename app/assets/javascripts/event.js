@@ -171,7 +171,7 @@ $(function(){
             }
             );
         //scroll calendar to date
-        calendar.fullCalendar('gotoDate', moment($('#gotoDate').val()));
+        calendar.fullCalendar('gotoDate', moment($('#goto_date').val()));
         oTable = $('#event_table').DataTable();
         oTable.draw();
         //Hander calendar header button click
