@@ -24,6 +24,8 @@
           %span.glyphicon.glyphicon-search{'aria-hidden'=>"true"}
 
     = f.button :submit, class: 'btn btn-primary'
+    = f.button :submit,  (t 'helpers.submit.create_clone_other'), class: 'btn btn-primary submit-button', id: 'clone_setsubi'
+
     = link_to '削除', @setsubiyoyaku, :method => :delete, :data => { :confirm => (t 'app.delete_confirm') }, class: 'btn btn-primary' if modal == "edit"
     %span#time_start{hidden: true}=@setsubiyoyaku.開始
 = render 'share/kaisha_modal'

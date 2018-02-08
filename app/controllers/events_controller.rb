@@ -24,7 +24,7 @@ class EventsController < ApplicationController
       shain.save
     end
     @kintai = Kintai.first
-
+    @selected_date = session[:selected_date] || Date.current
   rescue
     @events = Shainmaster.take.events
     # 不在状態の社員
@@ -128,7 +128,7 @@ class EventsController < ApplicationController
   end
 
   def time_line_view
-
+    @selected_date = session[:selected_date] || Date.current
     @role = Rorumaster.all.order(:序列)
     @joutai = Joutaimaster.all
     @joutaiDefault = Joutaimaster.find_by(状態コード: '00')
