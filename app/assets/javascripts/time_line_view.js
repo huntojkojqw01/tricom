@@ -336,6 +336,22 @@ $(document).ready(function() {
             );
         });
 
+        calendar.find('.fc-timeline7Day-button').click(function () {
+            calendar.find('.fc-next10Days-button, .fc-prev10Days-button').addClass('fc-state-disabled');
+            /*var view = $('#calendar-timeline').fullCalendar('getView');
+            if(view.name == 'timeline7Day'){
+
+            }*/
+        });
+
+        calendar.find('.fc-timelineDay-button').click(function () {
+            calendar.find('.fc-next10Days-button, .fc-prev10Days-button').removeClass('fc-state-disabled');
+            /*var view = $('#calendar-timeline').fullCalendar('getView');
+            if(view.name == 'timeline7Day'){
+
+            }*/
+        });
+
         //$("#calendar-timeline").fullCalendar( 'getResourceById', 'kairan' ).hide();
         //update time
         var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
