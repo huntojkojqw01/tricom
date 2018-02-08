@@ -8,7 +8,7 @@
     <ol class="breadcrumb">
       <li><%= link_to (t 'title.menu'), main_path %></li>
       <li><%= link_to (t 'title.time_line_view'), time_line_view_events_path %></li>
-      <li class="active"><%= link_to (t 'title.event'), events_path %></li>
+      <li class="active"><%= (t 'title.event') %></li>
       <div class= 'pull-right'>
         <div class="navbar-right" style="margin-right: 10px">
           <li class="dropdown">
@@ -316,5 +316,5 @@
   <!--</div>-->
 <!--</div>-->
 <input type="hidden" name="current_user" id="current_user" value=<%= current_user.id %> />
-<input type="hidden" name="gotoDate" id="gotoDate" value="<%= @selected_date %>" />
+<input type="hidden" name="gotoDate" id="gotoDate" value="<%= session[:selected_date] %>" />
 <% end %>

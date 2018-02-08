@@ -6,6 +6,7 @@
 var shain_old = '';
 var start_old = '';
 var end_old = '';
+var calendar;
 //init time title and joutai
 var weekday = new Array(7);
 weekday[0] =  "日";
@@ -31,7 +32,7 @@ $(document).ready(function() {
 
     $.getJSON('/events/time_line_view?'+param, function(data) {
         var flag =0;
-        var calendar = $('#calendar-timeline').fullCalendar(
+        calendar = $('#calendar-timeline').fullCalendar(
             {
                 customButtons: {
                     next10Days: {
@@ -71,17 +72,18 @@ $(document).ready(function() {
                 },
                 views: {
                     timeline7Day: {
-                        type: 'timeline',
+                        // type: 'timeline',
+                        type: 'timelineWeek',
                         // duration: { days: 5 },
                         buttonText: '週',
-                        visibleRange: function(currentDate) {
+                        /*visibleRange: function(currentDate) {
                             return {
                                 // start: currentDate.clone().subtract(3, 'days'),
                                 start: moment().zone("+0900").startOf('week').add(1, 'day'),
                                 // end: currentDate.clone().add(3, 'days') // exclusive end, so 3
                                 end: moment().zone("+0900").startOf('week').add(8, 'days') // exclusive end, so 3
                             };
-                        },
+                        },*/
                         slotDuration: moment.duration(1, 'day'),
                         // slotLabelInterval: moment.duration(1, 'minutes'),
                         slotLabelFormat: [
@@ -90,6 +92,7 @@ $(document).ready(function() {
                         // slotWidth: 10
                         titleFormat: 'YYYY年M月D日 dd',
                         // titleRangeSeparator: ' to '
+                        timeFormat: 'HH'
                     },
                     timelineDay: {
                         titleFormat: 'YYYY年M月D日 [(]dd[)]'
@@ -295,6 +298,8 @@ $(document).ready(function() {
                 ,resources: data.shains
             }
         );
+        //scroll to date
+        calendar.fullCalendar('gotoDate', moment($('#goto_date').val()));
         // var nowDate = new Date();
         //
         // var minutes = nowDate.getMinutes();
@@ -320,6 +325,16 @@ $(document).ready(function() {
             });*/
         });
 
+        calendar.find('.fc-today-button, .fc-prev-button, .fc-next-button, .fc-next10Days-button, .fc-prev10Days-button').click(function(){
+            //set current date to hidden field to goback, post it to session
+            $.post(
+                "/settings/ajax",
+                {
+                    setting: "setting_date",
+                    selected_date: $('#calendar-timeline').fullCalendar('getDate').format()
+                }
+            );
+        });
 
         //$("#calendar-timeline").fullCalendar( 'getResourceById', 'kairan' ).hide();
         //update time
@@ -412,7 +427,6 @@ $(document).ready(function() {
     });
 
 });
-
 // readjust sizing after font load
 $(window).on('load', function() {
 
@@ -463,6 +477,30 @@ $(document).on("click", ".fc-next-button", function(){
         $('#calendar-timeline .fc-resource-area').css('width',"30%");
     }*/
 });
+//goback scroll to last day
+/*
+$(document).on("click", ".fc-prev-button", function(){
+    set_selected_date();
+});
+$(document).on("click", ".fc-next-button", function(){
+    set_selected_date();
+});
+$(document).on("click", ".fc-next10Days-button", function(){
+    set_selected_date();
+});
+$(document).on("click", ".fc-prev10Days-button", function(){
+    set_selected_date();
+});
+*/
+function set_selected_date() {
+    $.post(
+        "/settings/ajax",
+        {
+            setting: "setting_date",
+            selected_date: $('#calendar-timeline').fullCalendar('getDate').format()
+        }
+    );
+}
 
 $(document).on("click", ".fc-prev-button", function(){
 
