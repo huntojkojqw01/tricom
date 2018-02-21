@@ -229,9 +229,8 @@ $(function () {
             // aData represents the table structure as an array of columns, so the script access the date value
             // in the first column of the table via aData[0]
             var evalDate = parseDateValue(aData[1]);
-            console.log("ngay: " + dateStart);
-            console.log("ngay-: " + evalDate);
-            if (evalDate >= dateStart) {
+            //show only this month
+            if (evalDate.substr(0,6) == dateStart.substr(0,6)) {
                 return true;
             }
             else {
@@ -268,6 +267,11 @@ function getStartCalendarMonthbegin(dateString){
     return res ;
 }
 
+/**
+ * 2018/10/04 -> 20181004
+ * @param rawDate
+ * @returns {string}
+ */
 function parseDateValue(rawDate) {
     var dateArray= rawDate.substring(0,10).split("/");
     var parsedDate= dateArray[0] + dateArray[1] + dateArray[2];
