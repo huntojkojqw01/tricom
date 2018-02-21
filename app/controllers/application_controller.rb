@@ -90,23 +90,23 @@ class ApplicationController < ActionController::Base
       if !current_user.shainmaster.setting.nil?
         if !current_user.shainmaster.setting.turning_data.nil?
           if shains.setting.turning_data
-            events = shains.events.where('Date(開始) < ?',Date.today.prev_month(2).beginning_of_month)
+            events = shains.events.where('Date(開始) < ?',Date.today.prev_month(12).beginning_of_month)
             events.each do |event|
               event.destroy
             end
-            kintais = shains.kintais.where('Date(日付) < ?',Date.today.prev_month(2).beginning_of_month)
+            kintais = shains.kintais.where('Date(日付) < ?',Date.today.prev_month(12).beginning_of_month)
             kintais.each do |kintai|
               kintai.destroy
             end
-            keihiheads = Keihihead.where(社員番号: session[:user]).where('Date(清算予定日) < ?',Date.today.prev_month(2).beginning_of_month)
+            keihiheads = Keihihead.where(社員番号: session[:user]).where('Date(清算予定日) < ?',Date.today.prev_month(12).beginning_of_month)
             keihiheads.each do |keihihead|
               keihihead.destroy
             end
-            kairans = shains.kairan.where('Date(開始) < ?',Date.today.prev_month(2).beginning_of_month)
+            kairans = shains.kairan.where('Date(開始) < ?',Date.today.prev_month(12).beginning_of_month)
             kairans.each do |kairan|
               kairan.destroy
             end
-            dengons = Dengon.where('社員番号 = ? or 入力者 = ?',session[:user], session[:user]).where('Date(日付) < ?',Date.today.prev_month(2).beginning_of_month)
+            dengons = Dengon.where('社員番号 = ? or 入力者 = ?',session[:user], session[:user]).where('Date(日付) < ?',Date.today.prev_month(12).beginning_of_month)
             dengons.each do |dengon|
               dengon.destroy
             end
