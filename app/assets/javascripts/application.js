@@ -23,7 +23,9 @@
 
 //= require moment
 //= require moment/ja
-
+//= require underscore
+//= require underscore.string.min
+//= require numeral
 //= require fullcalendar.min
 //= require locale/ja
 //= require scheduler.min
