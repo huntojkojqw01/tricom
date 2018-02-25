@@ -776,6 +776,10 @@ $(function(){
         date = moment(date_input);
         $('#calendar-month-view').fullCalendar('gotoDate',date);
         $('#calendar-timeline').fullCalendar('gotoDate',date);
+        console.log('gotoDate: ' + date);
+        console.log('random: ' + _.random(12));
+        console.log(('numeral: '+ numeral(1000).format('0,0')));
+        console.log(('underscore.string: '+ s.numberFormat(1000, 2)));
     });
 
     $('#search_user').click(function(){
