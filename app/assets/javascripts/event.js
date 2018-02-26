@@ -221,7 +221,7 @@ $(document).ready(function(){
 
 //Add filter for datatable
 $(function () {
-    $.fn.dataTableExt.afnFiltering.push(
+    dataTableExt = $.fn.dataTableExt.afnFiltering.push(
         function(oSettings, aData, iDataIndex){
             var dateStart = getStartCalendarMonthbegin( $('.fc-left').text());
             // var dateStart = parseDateValue($("#dateStart").val());
@@ -230,12 +230,12 @@ $(function () {
             // in the first column of the table via aData[0]
             var evalDate = parseDateValue(aData[1]);
             //show only this month
-            if (evalDate.substr(0,6) == dateStart.substr(0,6)) {
+            if (!moment(aData[1].substr(0,10), "YYYY/MM/DD", true).isValid()){ //check to inogle date coloumn
+                return true;
+            }else if (evalDate.substr(0,6) == dateStart.substr(0,6)) {
                 return true;
             }
-            else {
-                return false;
-            }
+            return false;
         });
 });
 
@@ -770,16 +770,16 @@ $(function () {
 //button handle
 $(function(){
 
-    $('#goto-date-button').click(function() {
+    gotoDateButton = $('#goto-date-button').click(function() {
         //$('#calendar').fullCalendar('next');
         date_input = $('#goto-date-input').val();
         date = moment(date_input);
         $('#calendar-month-view').fullCalendar('gotoDate',date);
         $('#calendar-timeline').fullCalendar('gotoDate',date);
         console.log('gotoDate: ' + date);
-        console.log('random: ' + _.random(12));
+        console.log('underscore: ' + _.first([5, 4, 3, 2, 1]));
         console.log(('numeral: '+ numeral(1000).format('0,0')));
-        console.log(('underscore.string: '+ s.numberFormat(1000, 2)));
+        console.log(('underscore.string: '+ _.str.numberFormat(1000, 2)));
     });
 
     $('#search_user').click(function(){
