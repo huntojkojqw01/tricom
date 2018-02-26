@@ -23,9 +23,6 @@
 
 //= require moment
 //= require moment/ja
-//= require underscore
-//= require underscore.string.min
-//= require numeral
 //= require fullcalendar.min
 //= require locale/ja
 //= require scheduler.min
@@ -57,6 +54,10 @@
 //= require best_in_place.jquery-ui
 //= require sweetalert2
 //= require html.sortable
+//= require underscore
+//= require underscore.string
+//= require numeral
+
 // require_tree .
 
 $(document).on('ready', function() {
