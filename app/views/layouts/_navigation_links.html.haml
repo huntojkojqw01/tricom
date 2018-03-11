@@ -105,18 +105,19 @@
                 %i{class: 'glyphicon glyphicon-bell text-red'}
                 %span{class: 'message-count text-red'} #{count_total}
               %ul.dropdown-menu.message-item
-                - if messages.count > 0
-                  - messages.each do |message|
-                    - naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
-                    %li= link_to raw('&nbsp;&nbsp;&nbsp;')+ message.user.name+': '+naiyou, "#", class: "fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
+                -#- if messages.count > 0
+                -#  - messages.each do |message|
+                -#    - naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
+                -#    %li= link_to raw('&nbsp;&nbsp;&nbsp;')+ message.user.name+': '+naiyou, "#", class: "fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
                 - if kairans.count > 0
-                  - if messages.count > 0
-                    %legend.menu
+                  -#- if messages.count > 0
+                  -#  %legend.menu
                   - kairans.each do |kairan|
                     - naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
                     %li= link_to ' '+ naiyou, "/kairans?locale=ja&search="+kairan.内容, :class => "glyphicon glyphicon-envelope icon-left"
                 - if dengons.count > 0
-                  - if kairans.count > 0 || messages.count > 0
+                  -#- if kairans.count > 0 || messages.count > 0
+                  - if kairans.count  > 0
                     %legend.menu
                   - dengons.each do |dengon|
                     - naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
