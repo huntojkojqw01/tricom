@@ -76,18 +76,18 @@
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
               - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
                 - image_path_origin = current_user.avatar.url
-                %span= image_tag image_path_origin, size: "30x30"
+                -#%span= image_tag image_path_origin, size: "30x30"
+                %span= image_tag "/assets/thumb/missing.png", size: "30x30"
               - else
                 %span= image_tag "/assets/thumb/missing.png", size: "30x30"
-              / %span= image_tag "/assets/thumb/missing.png", size: "30x30"
             %ul.dropdown-menu.center
 
               - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
                 - image_path_origin = current_user.avatar.url
-                %li= image_tag image_path_origin, size: "30x30"
+                -#%li= image_tag image_path_origin, size: "30x30"
+                %li= image_tag "/assets/thumb/missing.png", size: "30x30"
               - else
                 %li= image_tag "/assets/thumb/missing.png", size: "30x30"
-              / %li= image_tag "/assets/thumb/missing.png", size: "30x30"
               %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
               %li.text-gray パスワード更新日：#{current_user.updated_at.to_date}
               %legend.menu
@@ -96,8 +96,9 @@
 
           - kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
           - dengons = Dengon.where(社員番号: session[:user], 確認: false)
-          - messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil).joins(:user).where("担当者マスタ.担当者コード!= ?",current_user.id).order(created_at: :desc)
-          - count_total = kairans.count + dengons.count + messages.count
+          -#- messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil).joins(:user).where("担当者マスタ.担当者コード!= ?",current_user.id).order(created_at: :desc)
+          - count_total = kairans.count + dengons.count
+          -#- count_total = kairans.count + dengons.count + messages.count
           - if count_total > 0
             %li.dropdown
               %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
