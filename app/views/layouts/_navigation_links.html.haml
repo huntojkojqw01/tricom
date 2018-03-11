@@ -76,16 +76,14 @@
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
               - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
                 - image_path_origin = current_user.avatar.url
-                -#%span= image_tag image_path_origin, size: "30x30"
-                %span= image_tag "/assets/thumb/missing.png", size: "30x30"
+                %span= image_tag image_path_origin, size: "30x30"
               - else
                 %span= image_tag "/assets/thumb/missing.png", size: "30x30"
             %ul.dropdown-menu.center
 
               - if current_user.avatar && current_user.avatar.url && current_user.avatar.exists?
                 - image_path_origin = current_user.avatar.url
-                -#%li= image_tag image_path_origin, size: "30x30"
-                %li= image_tag "/assets/thumb/missing.png", size: "30x30"
+                %li= image_tag image_path_origin, size: "30x30"
               - else
                 %li= image_tag "/assets/thumb/missing.png", size: "30x30"
               %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
