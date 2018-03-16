@@ -28,7 +28,8 @@ Mail.defaults do
       #:domain => 'heroku.com',
       :user_name => 'skyfordtricom@gmail.com',
       :password => 'cmcjpt1Z',
-      :authentication => :login,
+      # :authentication => :login,
+      :authentication => :plain,
       :enable_starttls_auto => true
   }
 end
