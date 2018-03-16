@@ -62,7 +62,7 @@ class DengonsController < ApplicationController
       mail_body.gsub('\r\n','<br />')
       Mail.deliver do
         to mail_to.メール.to_s
-        from 'skybord@jpt.co.jp'
+        from 'hminhduc@gmail.com'
         subject 'From Web_TRICOM'
         body mail_body.to_s
       end
