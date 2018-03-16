@@ -13,12 +13,21 @@ require 'composite_primary_keys'
 require 'mail'
 
 Mail.defaults do
+  # delivery_method :smtp, {
+  #     :address => 'mail.jpt.co.jp',
+  #     :port => '465',
+  #     #:domain => 'heroku.com',
+  #     :user_name => 'skybord@jpt.co.jp',
+  #     :password => 'LD-RJ45T10A',
+  #     :authentication => :login,
+  #     :enable_starttls_auto => true
+  # }
   delivery_method :smtp, {
-      :address => 'mail.jpt.co.jp',
-      :port => '465',
+      :address => 'smtp.gmail.com',
+      :port => '587',
       #:domain => 'heroku.com',
-      :user_name => 'skybord@jpt.co.jp',
-      :password => 'LD-RJ45T10A',
+      :user_name => 'hminhduc@gmail.com',
+      :password => 'Kiemtienso1',
       :authentication => :login,
       :enable_starttls_auto => true
   }
