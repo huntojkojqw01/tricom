@@ -26,8 +26,8 @@ Mail.defaults do
       :address => 'smtp.gmail.com',
       :port => '587',
       #:domain => 'heroku.com',
-      :user_name => 'hminhduc@gmail.com',
-      :password => 'Kiemtienso1',
+      :user_name => 'skyfordtricom@gmail.com',
+      :password => 'cmcjpt1Z',
       :authentication => :login,
       :enable_starttls_auto => true
   }
