@@ -13,9 +13,10 @@ gem 'passenger', '>= 5.0.4'
 # gem 'puma'
 gem 'sweetalert2'
 # for avatar, upload picture
-gem 'paperclip', '4.3.7'
+# gem 'paperclip', '4.3.7'
 gem 'bcrypt', '~> 3.1.7'
-gem 'paperclip-cloudinary'
+# gem 'paperclip-cloudinary'
+gem 'carrierwave'
 # gem 'active_decorator'
 # gem 'cells'
 #for create seed file

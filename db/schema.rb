@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170522035720) do
+ActiveRecord::Schema.define(version: 20180404143538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -174,6 +174,22 @@ ActiveRecord::Schema.define(version: 20170522035720) do
     t.datetime "退社時刻"
     t.decimal  "遅刻時間"
     t.decimal  "早退時間"
+  end
+
+  create_table "kintaiteburus", force: :cascade do |t|
+    t.string   "勤務タイプ"
+    t.time     "出勤時刻"
+    t.time     "退社時刻"
+    t.float    "昼休憩時間"
+    t.float    "夜休憩時間"
+    t.float    "深夜休憩時間"
+    t.float    "早朝休憩時間"
+    t.float    "実労働時間"
+    t.float    "早朝残業時間"
+    t.float    "残業時間"
+    t.float    "深夜残業時間"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "kintaiteeburus", force: :cascade do |t|
@@ -414,19 +430,21 @@ ActiveRecord::Schema.define(version: 20170522035720) do
   end
 
   create_table "担当者マスタ", id: false, force: :cascade do |t|
-    t.string   "担当者コード",                              null: false
+    t.string   "担当者コード",                          null: false
     t.string   "担当者名称"
-    t.boolean  "admin",               default: false
+    t.boolean  "admin",           default: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "avatar_updated_at"
     t.string   "email"
     t.string   "password_digest"
-    t.boolean  "supervisor",          default: false
+    t.boolean  "supervisor",      default: false
+    t.string   "avatar"
     t.index ["担当者コード"], name: "index_担当者マスタ_on_担当者コード", unique: true, using: :btree
+  end
+
+  create_table "担当者変換", id: false, force: :cascade do |t|
+    t.string "元コード", null: false
+    t.string "先コード", null: false
   end
 
   create_table "有給休暇履歴", force: :cascade do |t|
