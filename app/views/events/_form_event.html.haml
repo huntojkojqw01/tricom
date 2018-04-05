@@ -6,8 +6,10 @@
       = f.input :社員番号, label: (t 'title.shainbangou'), input_html: {style: 'width:100px'}, hint:"#{@event.shainmaster.try :氏名}", hint_html: {class: 'hint-shain-refer'}
     / = f.input :社員番号, input_html: {style: 'width:100px'}
     .row
-      .col-md-6.col-xs-8.col-sm-7.col-lg-5
+      .col-md-4.col-xs-5.col-sm-4.col-lg-3
         = f.input :状態コード, label: (t 'title.joutai'), input_html: {style: 'width:100px'}, as: :search_field, hint:"#{@event.joutaimaster.try :状態名}", hint_html: {class: 'hint-joutai-refer'}
+      .col-md-2.col-xs-3.col-sm-3.col-lg-2
+        = f.input :経費精算, label: (t 'title.keihiseisan'), input_html: {style: 'margin: 1px 0px 0px 1px'}, as: :boolean, boolean_style: :inline, checked_value: true, unchecked_value: false
       .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
         = f.input (t 'title.kisha') do
           = f.select :有無, options_for_select(["帰社", "直帰", "連続"], :selected => @event.有無), {include_blank: true },{ class: 'form-control', style: 'width:100px'}

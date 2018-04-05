@@ -50,6 +50,7 @@ class EventsController < ApplicationController
     @events = Shainmaster.find(session[:selected_shain]).events.
       where('Date(開始) >= ?',@date_start.to_date.to_s(:db)).
       where('Date(終了) <= ?',@date_end.to_date.to_s(:db)).
+      where('経費精算 = ?',true).
       order(開始: :asc)
     @events.each{ |event|
         Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
@@ -76,7 +77,8 @@ class EventsController < ApplicationController
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Shainmaster.find(session[:selected_shain]).events.
       where('Date(開始) >= ?',@date_start.to_date.to_s(:db)).
-      where('Date(終了) <= ?',@date_end.to_date.to_s(:db))
+      where('Date(終了) <= ?',@date_end.to_date.to_s(:db)).
+      where('経費精算 = ?',true)
     @events.each{ |event|
         Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
     }
@@ -106,7 +108,8 @@ class EventsController < ApplicationController
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Shainmaster.find(session[:selected_shain]).events.
       where('Date(開始) >= ?',@date_start.to_date.to_s(:db)).
-      where('Date(終了) <= ?',@date_end.to_date.to_s(:db))
+      where('Date(終了) <= ?',@date_end.to_date.to_s(:db)).
+      where('経費精算 = ?',true)
     @events.each{ |event|
         Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
     }
@@ -1000,7 +1003,7 @@ private
 # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数,
-                                  :計上, :所在コード, :comment, :有無, :帰社区分)
+                                  :計上, :所在コード, :comment, :有無, :帰社区分, :経費精算)
   end
 
   def bashomaster_params
