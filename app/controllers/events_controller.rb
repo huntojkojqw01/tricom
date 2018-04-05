@@ -975,8 +975,8 @@ private
     @joutaimaster = Joutaimaster.new
     # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
     vars = request.query_parameters
-    shain = vars['shain_id'] || session[:selected_shain]
-    @kouteis = Shainmaster.find(shain).shozokumaster.kouteimasters
+    shozoku = Shainmaster.find_by_id(vars['shain_id'] || session[:selected_shain]).try(:shozokumaster)
+    @kouteis = shozoku ? shozoku.kouteimasters : []
     @basho = Bashomaster.new
 
     @kaisha = Kaishamaster.new
