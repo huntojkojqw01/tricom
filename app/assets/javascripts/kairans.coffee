@@ -165,24 +165,25 @@ jQuery ->
       result.push(strData)
     return result
 
-  send_kairan_id = $('#send_kairan_id').val()
-  getPath = '/kairans/'+send_kairan_id+'/send_kairan_view'
-  $.getJSON(getPath, (data) ->
-    shain_table_mark = $('.shain-table-mark').DataTable({
-      "pagingType": "simple_numbers",
-      "oLanguage":{
-        "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-      },
-      "select": {
-        "style": 'multi'
-      },
-      "columns": [
-        { "data": '社員番号' },
-        { "data": '社員名' }
-      ],
-      "rowId": '社員番号',
-      "initComplete": ( settings ) ->
-        api = new $.fn.dataTable.Api( settings )
-        api.rows(getTaishoList(data.taishosha)).select()
-    })
-  )
+  send_kairan_id = $('#send_kairan_id').val()  
+  if send_kairan_id != undefined
+    getPath = '/kairans/'+send_kairan_id+'/send_kairan_view'
+    $.getJSON(getPath, (data) ->
+      shain_table_mark = $('.shain-table-mark').DataTable({
+        "pagingType": "simple_numbers",
+        "oLanguage":{
+          "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
+        },
+        "select": {
+          "style": 'multi'
+        },
+        "columns": [
+          { "data": '社員番号' },
+          { "data": '社員名' }
+        ],
+        "rowId": '社員番号',
+        "initComplete": ( settings ) ->
+          api = new $.fn.dataTable.Api( settings )
+          api.rows(getTaishoList(data.taishosha)).select()
+      })
+    )

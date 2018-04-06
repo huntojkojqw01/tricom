@@ -78,43 +78,38 @@
               %li= link_to ' プロファイル変更', edit_user_path(current_user), :class => "glyphicon glyphicon-edit icon-left"
               %li= link_to " ログアウト", logout_path, method: "delete", :class => "glyphicon glyphicon-log-out icon-left"
 
-          - kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
-          - dengons = Dengon.where(社員番号: session[:user], 確認: false)
-          -#- messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil).joins(:user).where("担当者マスタ.担当者コード!= ?",current_user.id).order(created_at: :desc)
-          - count_total = kairans.count + dengons.count
-          -#- count_total = kairans.count + dengons.count + messages.count
+          - unread_messages = get_unread_messages
+          - kairans = get_unread_kairans
+          - dengons = get_unread_dengons          
+          - count_total = unread_messages.size + kairans.size + dengons.size
           - if count_total > 0
             %li.dropdown
               %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
                 %i{class: 'glyphicon glyphicon-bell text-red'}
                 %span{class: 'message-count text-red'} #{count_total}
               %ul.dropdown-menu.message-item
-                -#- if messages.count > 0
-                -#  - messages.each do |message|
-                -#    - naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
-                -#    %li= link_to raw('&nbsp;&nbsp;&nbsp;')+ message.user.name+': '+naiyou, "#", class: "fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
-                - if kairans.count > 0
-                  -#- if messages.count > 0
-                  -#  %legend.menu
-                  - kairans.each do |kairan|
-                    - naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
-                    %li= link_to ' '+ naiyou, "/kairans?locale=ja&search="+kairan.内容, :class => "glyphicon glyphicon-envelope icon-left"
-                - if dengons.count > 0
-                  -#- if kairans.count > 0 || messages.count > 0
-                  - if kairans.count  > 0
-                    %legend.menu
-                  - dengons.each do |dengon|
-                    - naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
-                    %li= link_to ' '+ naiyou, "/dengons?locale=ja&search="+dengon.伝言内容, :class => "glyphicon glyphicon-comment icon-left"
+                /#message-notify
+                -unread_messages.each do |message|
+                  -naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
+                  %li= link_to raw('&nbsp;&nbsp;&nbsp;')+ message.user.name+': '+naiyou, "#", class: "fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
+                -if unread_messages.any?
+                  %legend.menu
+                /#kairan-notify
+                -kairans.each do |kairan|
+                  -naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
+                  %li= link_to ' '+ naiyou, "/kairans?locale=ja&search="+kairan.内容, :class => "glyphicon glyphicon-envelope icon-left"
+                -if kairans.any?
+                  %legend.menu
+                /#dengon-notify                
+                -dengons.each do |dengon|
+                  -naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
+                  %li= link_to ' '+ naiyou, "/dengons?locale=ja&search="+dengon.伝言内容, :class => "glyphicon glyphicon-comment icon-left"
           - else
             %li.dropdown
               %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
                 %i{class: 'glyphicon glyphicon-bell'}
                 %span{class: 'message-count'}
               %ul.dropdown-menu.message-item{style: "display: none"}
-
-
-
         - else
           %li= link_to (t 'title.login'), login_path
     - else
