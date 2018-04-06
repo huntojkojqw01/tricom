@@ -198,4 +198,78 @@ module SessionsHelper
     # Kintai.create!(日付: day, 曜日: day.wday.to_s, 勤務タイプ: kinmu_type, 出勤時刻: start, 社員番号: user_id, holiday: holiday, 備考: note)
     Kintai.create!(日付: day, 曜日: day.wday.to_s, 社員番号: user_id, holiday: holiday, 備考: note)
   end
+
+  def get_unread_messages
+    Message.eager_load(:conversation,:user)
+            .where("read_at IS ? AND messages.user != ?", nil, current_user.id)
+            .where("conversations.sender_id = ? OR conversations.recipient_id = ?", current_user.id, current_user.id)
+            .order(created_at: :desc)
+  end
+
+  def get_unread_kairans
+    Kairanshosai.where(対象者: session[:user], 状態: 0)
+  end
+
+  def get_unread_dengons
+    Dengon.where(社員番号: session[:user], 確認: false)
+  end
+
+  def notify_to(conversation_id = nil, receiver_id = nil) 
+    receiver_id = session[:user] unless User.find_by(id: receiver_id)
+    if(conversation_id)
+      unread_messages = Message.eager_load(:conversation, :user)
+                            .where("read_at IS ? AND messages.user != ?", nil, receiver_id)
+                            .where(conversation_id: conversation_id)
+                            .where("conversations.sender_id = ? OR conversations.recipient_id = ?", receiver_id, receiver_id)
+                            .order(created_at: :desc)
+    else
+      unread_messages = Message.eager_load(:conversation, :user)
+                            .where("read_at IS ? AND messages.user != ?", nil, receiver_id)
+                            .where("conversations.sender_id = ? OR conversations.recipient_id = ?", receiver_id, receiver_id)
+                            .order(created_at: :desc)
+    end
+
+    kairans = Kairanshosai.where(対象者: receiver_id, 状態: 0)
+    dengons = Dengon.where(社員番号: receiver_id, 確認: false)
+
+    totalCount = unread_messages.size + kairans.size + dengons.size
+
+    items = ''
+
+    unread_messages.each do |message|
+      naiyou = message.body.length > 12 ? (message.body[0...12]+ '...') : message.body
+      items += '<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\"'+message.conversation.sender_id+'\" data-rip = \"'+ message.conversation.recipient_id+'\" href=\"#\">&nbsp;&nbsp;&nbsp;'+ message.user.name+': '+naiyou+'</a></li>' if message.body
+    end
+    items += '<legend class=\"menu\"></legend>' if unread_messages.any?
+
+    kairans.each do |kairan|
+      naiyou = kairan.内容.length > 12 ? (kairan.内容[0...12]+'...') : kairan.内容
+      items = items + '<li><a class=\"glyphicon glyphicon-envelope icon-left\" href=\"/kairans?locale=ja&search='+kairan.内容+' \"> '+ naiyou+'</a></li>' if kairan.内容
+    end
+    items += '<legend class=\"menu\"></legend>' if unread_messages.any? && kairans.any?
+
+    dengons.each do |dengon|
+      naiyou = dengon.伝言内容.length > 12 ? (dengon.伝言内容[0...12]+ '...') : dengon.伝言内容
+      items += '<li><a class=\"glyphicon glyphicon-comment icon-left\" href=\"/dengons?locale=ja&search='+dengon.伝言内容+' \"> '+ naiyou+'</a></li>' if dengon.伝言内容
+    end
+
+    PrivatePub.publish_to("/messages/" + receiver_id,
+                "if(#{totalCount} > 0){
+                  if($('.glyphicon-bell').hasClass('text-red') == false){
+                      $('.glyphicon-bell').addClass('text-red');
+                      $('.message-count').addClass('text-red');
+                  }
+                  $('.message-count').text(#{totalCount})
+                  $('.message-item').css('display','')
+                  $('.message-item').html(\'"+items+"\')
+                }else{
+                  if($('.glyphicon-bell').hasClass('text-red')){
+                    $('.glyphicon-bell').removeClass('text-red');
+                    $('.message-count').removeClass('text-red');
+                  }
+                  $('.message-item').css('display','none')
+                  $('.message-count').text('')
+                  $('.message-item').html('')
+                }")
+  end
 end

@@ -71,7 +71,7 @@ class DengonsController < ApplicationController
     update_dengon_counter dengon_params
     # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
     # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
-
+    notify_to(nil, @dengon.社員番号)
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = t 'app.flash.mail_to'
   rescue Net::SMTPFatalError
