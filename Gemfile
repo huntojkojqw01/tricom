@@ -85,7 +85,7 @@ gem 'kaminari-bootstrap', '~> 3.0.1'
 # end
 gem 'axlsx', '~> 2.0'
 gem 'axlsx_rails'
-
+gem 'whenever', require: false
 group :development, :test do
  gem 'better_errors'
  gem 'binding_of_caller', :platforms=>[:mri_19, :mri_20, :rbx]
