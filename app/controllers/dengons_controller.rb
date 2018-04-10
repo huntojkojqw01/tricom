@@ -42,13 +42,17 @@ class DengonsController < ApplicationController
 
   def create
     @dengon = Dengon.new(dengon_params)
-    nyuuryokusha = Shainmaster.find_by(社員番号: dengon_params[:入力者])
-    shain = User.find_by(担当者コード: dengon_params[:社員番号])
     if @dengon.save
-      mail_to = Tsushinseigyou.find_by(社員番号: shain.担当者コード)
-      mail_body = ''
-      unless @dengon.try(:日付).nil?
+      begin
+        mail_to = @dengon.to_user.tsushinseigyou.メール
+      rescue
+        mail_to = ""
+      end
+
+      begin
         mail_body = "#{@dengon.try(:日付).strftime('%F %H:%M')} \r\n"
+      rescue
+        mail_body = ""
       end
       mail_body << "\r\n"
       mail_body << "#{@dengon.try(:from1)} #{@dengon.try(:from2)} \r\n"
@@ -58,19 +62,12 @@ class DengonsController < ApplicationController
       mail_body << "#{@dengon.try(:伝言内容)} \r\n"
       mail_body << "\r\n"
       mail_body << "\r\n"
-      mail_body << "[#{nyuuryokusha.try(:氏名)}]"
+      mail_body << "[#{@dengon.input_user.try(:氏名)}]"
       mail_body.gsub('\r\n','<br />')
-      Mail.deliver do
-        to mail_to.メール.to_s
-        from 'skyfordtricom@gmail.com'
-        subject 'From Web_TRICOM'
-        body mail_body.to_s
-      end
+      
+      SendMailJob.perform_later(mail_to.to_s, 'skyfordtricom@gmail.com', 'From Web_TRICOM', mail_body.to_s )
     end
-    # respond_with(@dengon)
     update_dengon_counter dengon_params
-    # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
-    # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
     notify_to(nil, @dengon.社員番号)
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = t 'app.flash.mail_to'

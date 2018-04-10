@@ -32,6 +32,7 @@ class Shainmaster < ActiveRecord::Base
   has_many :rorumenbas, dependent: :destroy, foreign_key: :社員番号
   has_many :yuukyuu_kyuuka_rireki, dependent: :destroy, foreign_key: :社員番号
   has_one :setting, dependent: :destroy, foreign_key: :社員番号
+  has_one :tsushinseigyou, dependent: :destroy, foreign_key: :社員番号, class_name: Tsushinseigyou.name
   belongs_to :shozai, foreign_key: :所在コード
   belongs_to :shozokumaster, foreign_key: :所属コード
   belongs_to :yakushokumaster, foreign_key: :役職コード
