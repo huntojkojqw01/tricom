@@ -2,19 +2,8 @@ class MainController < ApplicationController
   before_action :require_user!
 
   def index
-    @kairanCount = Kairanshosai.where(対象者: session[:user], 状態: 0).count
-    shain = Shainmaster.find_by id: session[:user]
-    shain.update_attributes 回覧件数: @kairanCount unless shain.nil?
-
-    @dengonCount = Dengon.where(社員番号: session[:user], 確認: false).count
-    shain.update_attributes 伝言件数: @dengonCount unless shain.nil?
-
-    @kairans = Kairanshosai.where(対象者: session[:user], 状態: 0)
-    @dengons = Dengon.where(社員番号: session[:user], 確認: false)
-    @users = User.all
-
-    @messages = Message.all.where(conversation_id: (Conversation.involving(current_user).map(&:id)),read_at: nil)
-    .joins(:user).where('担当者マスタ.担当者コード!= ?',current_user.id).order(created_at: :desc)
+    @kairanCount = Kairanshosai.where(対象者: session[:user], 状態: 0).size    
+    @dengonCount = Dengon.where(社員番号: session[:user], 確認: false).size
   end
   def search
     vars = request.query_parameters
