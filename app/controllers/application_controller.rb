@@ -5,8 +5,7 @@ class ApplicationController < ActionController::Base
   self.responder = ApplicationResponder
   respond_to :html
 
-  before_action :set_locale,:set_page_len
-  before_action :turning_data
+  before_action :set_locale, :set_page_len
   helper_method :current_user
   # before_filter :current_user
 
@@ -81,38 +80,5 @@ class ApplicationController < ActionController::Base
   def user_not_authorized
     flash[:error] = "You don't have access to this section."
     redirect_to :back
-  end
-
-  def turning_data
-    return if current_user.nil? || current_user.shainmaster.nil?
-    if logged_in?
-      shains = current_user.shainmaster
-      if !current_user.shainmaster.setting.nil?
-        if !current_user.shainmaster.setting.turning_data.nil?
-          if shains.setting.turning_data
-            events = shains.events.where('Date(開始) < ?',Date.today.prev_month(12).beginning_of_month)
-            events.each do |event|
-              event.destroy
-            end
-            kintais = shains.kintais.where('Date(日付) < ?',Date.today.prev_month(12).beginning_of_month)
-            kintais.each do |kintai|
-              kintai.destroy
-            end
-            keihiheads = Keihihead.where(社員番号: session[:user]).where('Date(清算予定日) < ?',Date.today.prev_month(12).beginning_of_month)
-            keihiheads.each do |keihihead|
-              keihihead.destroy
-            end
-            kairans = shains.kairan.where('Date(開始) < ?',Date.today.prev_month(12).beginning_of_month)
-            kairans.each do |kairan|
-              kairan.destroy
-            end
-            dengons = Dengon.where('社員番号 = ? or 入力者 = ?',session[:user], session[:user]).where('Date(日付) < ?',Date.today.prev_month(12).beginning_of_month)
-            dengons.each do |dengon|
-              dengon.destroy
-            end
-          end
-        end
-      end
-    end
   end
 end
