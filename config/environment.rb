@@ -26,8 +26,8 @@ Mail.defaults do
       :address => 'smtp.gmail.com',
       :port => '587',
       #:domain => 'heroku.com',
-      :user_name => ENV['TRICOM_MAIL'],
-      :password => ENV['TRICOM_PASS'],
+      :user_name => 'skyfordtricom@gmail.com',
+      :password => 'cmcjpt1Z',
       # :authentication => :login,
       :authentication => :plain,
       :enable_starttls_auto => true
