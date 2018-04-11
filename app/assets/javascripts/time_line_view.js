@@ -8,14 +8,7 @@ var start_old = '';
 var end_old = '';
 var calendar;
 //init time title and joutai
-var weekday = new Array(7);
-weekday[0] =  "日";
-weekday[1] = "月";
-weekday[2] = "火";
-weekday[3] = "水";
-weekday[4] = "木";
-weekday[5] = "金";
-weekday[6] = "土";
+var weekday = ["日", "月", "火", "水", "木", "金", "土"];
 $(document).ready(function() {
     var roru = getUrlVars()["roru"];
     var joutai = getUrlVars()["joutai"];

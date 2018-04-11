@@ -48,7 +48,7 @@
 <div class="row">
   <div class="col-md-2 col-xs-6 col-sm-3 col-lg-2">
     <table class="pull-left">
-      <% if !@kitaku_event.nil? && @kitaku_event.count > 0 %>
+      <% if @kitaku_event.any? %>
         <td>
           <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px" disabled="true"><%=(t 'app.label.create_kitaku')%></button>
         </td>
@@ -62,23 +62,10 @@
       <!--</td>-->
     </table>
   </div>
-  <div class="col-md-6 col-xs-8 col-sm-8 col-lg-4 col-md-offset-3 col-xs-offset-0 col-sm-offset-0 col-lg-offset-3">
-    <%
-        weekday = Array.new
-        weekday[0] =  "日"
-        weekday[1] = "月"
-        weekday[2] = "火"
-        weekday[3] = "水"
-        weekday[4] = "木"
-        weekday[5] = "金"
-        weekday[6] = "土"
-        time = Time.new
-        timeText = "#{time.year}年#{time.month}月#{time.day}日(#{weekday[time.wday]}) #{time.strftime("%H:%M")}"
-     %>
-    <span style="font-size: 30px" id="timeline_time"><%=timeText%></span>
+  <div class="col-md-6 col-xs-8 col-sm-8 col-lg-4 col-md-offset-3 col-xs-offset-0 col-sm-offset-0 col-lg-offset-3">    
+    <span style="font-size: 30px" id="timeline_time"></span>
     <input type="hidden" id="user_login" value=<%= session[:user] %> />
     <input type="hidden" id="goto_date" value=<%= @selected_date %> />
-
   </div>
 </div>
 <!-- end -->
@@ -104,14 +91,14 @@
             <bold style="line-height:40px;margin-right:15px;font-weight:bold;"><%=(t 'title.busho')%></bold>
           </td>
           <td>
-            <%= f.select :ロールコード, @role.map { |k| [k.ロール名, k.ロールコード]}, {:selected => @roru.try(:ロールコード), include_blank: true},{class: 'form-control'}%>
+            <%= f.select :ロールコード, Rorumaster.order(:序列).pluck(:ロール名, :ロールコード), {:selected => @default_roru, include_blank: true},{class: 'form-control'}%>
           </td>
 
           <td>
             <bold style="line-height:40px;margin-right:15px;margin-left:15px;font-weight:bold;"><%=(t 'title.joutai')%></bold>
           </td>
           <td>
-            <%= f.select :状態コード, @joutai.sort_by{|e| e[:状態コード]}.map { |k| [k.状態名, k.状態コード]}, {:prompt => "全て"}, {class: 'form-control'}%>
+            <%= f.select :状態コード, Joutaimaster.order(:状態コード).pluck(:状態名, :状態コード), {:prompt => "全て"}, {class: 'form-control'}%>
           </td>
           <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 0px;margin-left:15px"><%=(t 'helpers.button.search')%></button></td>
 
