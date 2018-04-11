@@ -131,18 +131,14 @@ class EventsController < ApplicationController
   end
 
   def time_line_view
-    @selected_date = session[:selected_date] || Date.current
-    @role = Rorumaster.all.order(:序列)
-    @joutai = Joutaimaster.all
+    @selected_date = session[:selected_date] || Date.current  
+    @default_roru = Shainmaster.find(session[:user]).rorumaster.try(:ロールコード)
+    @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
+                    .where(社員番号: session[:selected_shain]).where('Date(開始) >= ?', 1.month.ago(Date.today))
+                    .order(開始: :desc)
+    @kitaku_event = Event.where(社員番号: session[:user], 状態コード: '99').where('Date(開始) = ?', Date.today)
+    @setting = Setting.find_by(社員番号: session[:user])
     @joutaiDefault = Joutaimaster.find_by(状態コード: '00')
-    @roru = Shainmaster.find(session[:user]).rorumaster
-    @setting = Setting.where(社員番号: session[:user]).first
-    @events = Shainmaster.find(session[:selected_shain]).events.
-      where('Date(開始) >= ?',(Date.today - 1.month).to_s(:db)).
-      order(開始: :desc)
-    @kitaku_event = Shainmaster.find(session[:user]).events.
-      where('Date(開始) = ?',(Date.today).to_s(:db)).
-      where(状態コード: '99')
     if request.post?
       case params[:commit]
         when (t 'helpers.submit.redirect_to_timeline')
@@ -162,35 +158,36 @@ class EventsController < ApplicationController
       end
     else
       vars = request.query_parameters
-      puts vars
-      if vars['roru'].empty?
-        if vars['joutai'].empty?
-          @all_events = Event.all
-          @shains = Shainmaster.where(タイムライン区分: false)
+      if !vars['roru'] || vars['roru'].empty?
+        if !vars['joutai'] || vars['joutai'].empty?
+          @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
+          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
+                              .where(タイムライン区分: false)
         else
-          @all_events=Event.where(状態コード: vars['joutai'])
-          @shains = Shainmaster.joins(:events).where(タイムライン区分: false, "events.状態コード": vars['joutai'])
+          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
+                              .where(状態コード: vars['joutai'])
+          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
+                              .where(タイムライン区分: false, "events.状態コード": vars['joutai'])
         end
       else
-        if vars['joutai'].empty?
-          @all_events=Event.all
-          @shains = Shainmaster.joins(:rorumenbas).where(タイムライン区分: false,ロールメンバ: {ロールコード: vars['roru']})
+        if !vars['joutai'] || vars['joutai'].empty?
+          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
+          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
+                              .joins(:rorumenbas).where(タイムライン区分: false, ロールメンバ: {ロールコード: vars['roru']})
         else
-          @all_events=Event.where(状態コード: vars['joutai'])
-          @shains = Shainmaster.joins(:rorumenbas,:events).where(タイムライン区分: false, "events.状態コード": vars['joutai'],ロールメンバ: {ロールコード: vars['roru']})
+          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
+                          .where(状態コード: vars['joutai'])
+          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
+                              .joins(:rorumenbas, :events).where(タイムライン区分: false, "events.状態コード": vars['joutai'], ロールメンバ: {ロールコード: vars['roru']})
         end
       end
-      @events = Event.where(社員番号: @shains.ids).where('Date(開始) >= ?',(Date.today - 1.month).to_s(:db)).
-      order(開始: :desc)
-    end
-    @shains.each do |shainmaster|
-      @kairanCount = Kairanshosai.where(対象者: shainmaster.社員番号, 状態: 0).count
-      @dengonCount = Dengon.where(社員番号: shainmaster.社員番号, 確認: false).count
-      shainmaster.update(伝言件数: @dengonCount, 回覧件数: @kairanCount)
-    end
-    rescue
+      @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
+                    .where(社員番号: @shains.ids).where('Date(開始) >= ?', 1.month.ago(Date.today))
+                    .order(開始: :desc)
+    end      
+    rescue => e
+      p e
       @events = Shainmaster.take.events
-    # @all_events = Event.where('Date(開始) = ?', Date.today.to_s(:db))
   end
 
   def edit
