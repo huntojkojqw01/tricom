@@ -274,8 +274,8 @@ ja:
       reference: 照会
       export_pdf: 印刷
       pdf_event: 就業報告表
-      pdf_event_job: '就業合計表(JOB単位）'
-      pdf_event_koutei: '就業合計表(工程単位）'
+      pdf_event_job: JOB集計
+      pdf_event_koutei: JOB集計(工程単位)
       calendar_genzai: 現在
       necessary: 要
       unnecessary: 不要
