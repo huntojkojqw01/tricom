@@ -1,4 +1,4 @@
-= simple_form_for(@yuukyuu_kyuuka_rireki) do |f|
+= simple_form_for(@yuukyuu_kyuuka_rireki, url: "/yuukyuu_kyuuka_rirekis/#{params[:id].try(:gsub!, '/', '-')}") do |f|
   .col-md-3.col-xs-9.col-sm-6.col-lg-3.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
     = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label: (t 'title.shain') if mode == :new
     = f.input :年月, as: :date_time_picker if mode == :new
