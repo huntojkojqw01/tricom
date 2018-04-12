@@ -24,7 +24,7 @@
         %td= yuukyuu_kyuuka_rireki.年月
         %td= yuukyuu_kyuuka_rireki.月初有給残
         %td= yuukyuu_kyuuka_rireki.月末有給残
-        %td= link_to '編集', edit_yuukyuu_kyuuka_rireki_path(yuukyuu_kyuuka_rireki)
+        %td= link_to '編集', edit_yuukyuu_kyuuka_rireki_path(id: "#{yuukyuu_kyuuka_rireki.社員番号},#{yuukyuu_kyuuka_rireki.年月.gsub('/', '-')}")
         - msg = t 'app.delete_confirm'
         %td= link_to '削除', yuukyuu_kyuuka_rireki, :method => :delete, :data => { :confirm => msg }
 =render 'share/new_edit_destroy_buttons', object: "ykkkre",new_path: new_yuukyuu_kyuuka_rireki_path
