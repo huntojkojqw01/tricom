@@ -81,7 +81,8 @@ class YuukyuuKyuukaRirekisController < ApplicationController
 
   private
     def set_yuukyuu_kyuuka_rireki
-      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find(params[:id])
+      params[:id].try(:gsub!, '-', '/')
+      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(id: params[:id])
     end
 
     def yuukyuu_kyuuka_rireki_params
