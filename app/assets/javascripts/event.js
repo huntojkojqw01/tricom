@@ -145,7 +145,9 @@ $(function(){
                     updateEvent(event);
                 }
                 ,eventMouseover: function(event, jsEvent, view) {
-                    var tooltip = '<div class="tooltipevent hover-end">' +'<div>'+ event.start.format("YYYY/MM/DD HH:mm") +'</div>' +'<div>'+ event.end.format("YYYY/MM/DD HH:mm")+'</div>' +'<div>'+ event.title +'</div>' ;
+                    var tooltip = '<div class="tooltipevent hover-end">' +'<div>'+ event.start.format("YYYY/MM/DD HH:mm") +'</div>' +'<div>'+ event.end.format("YYYY/MM/DD HH:mm")+'</div>';
+                    tooltip += '<div>'+ event.title;
+                    tooltip += (event.job != undefined ? ' ' + event.bashomei : '') +'</div>' ;
                     if(event.job != undefined){
                         tooltip = tooltip + '<div>'+event.job+'</div>'
                     }
