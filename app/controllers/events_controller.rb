@@ -8,21 +8,16 @@ class EventsController < ApplicationController
   include EventsHelper
 
   def index
-    @all_events = Event.where('Date(開始) = ?', Date.today.to_s(:db))
-    @shains = Shainmaster.order(:所属コード, :役職コード, :社員番号).where(社員番号: User.all.ids)
+    @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster).where('Date(開始) = ?', Date.today.to_s(:db))
+    @shains = Shainmaster.includes(:shozokumaster, :yakushokumaster, :shozai).order(:所属コード, :役職コード, :社員番号).where(社員番号: User.all.ids)
     @holidays = JptHolidayMst.all
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
-    @events = Shainmaster.find(session[:selected_shain]).events.
-      where('Date(開始) >= ?',(Date.today - 1.month).to_s(:db)).
-      order(開始: :desc)
+    @events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :kouteimaster, bashomaster: :kaishamaster )
+                  .where(社員番号: session[:selected_shain])
+                  .where('Date(開始) >= ?', 1.month.ago(Date.today))
+                  .order(開始: :desc)
     @shain = Shainmaster.find(session[:selected_shain])
-    @kairanCount = Kairanshosai.where(対象者: session[:user], 状態: 0).count
-    shain = Shainmaster.find(session[:user])
-    @setting = Setting.where(社員番号: session[:selected_shain]).first
-    if shain
-      shain.回覧件数 = @kairanCount
-      shain.save
-    end
+    @setting = Setting.find_by(社員番号: session[:selected_shain])
     @kintai = Kintai.first
     @selected_date = session[:selected_date] || Date.current
   rescue
