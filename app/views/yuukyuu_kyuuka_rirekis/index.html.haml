@@ -18,14 +18,14 @@
       %th
   %tbody
     - @yuukyuu_kyuuka_rireki.each do |yuukyuu_kyuuka_rireki|
+      - ykkk_id = "#{yuukyuu_kyuuka_rireki.社員番号},#{yuukyuu_kyuuka_rireki.年月.gsub('/', '-')}"
       %tr
         %td= yuukyuu_kyuuka_rireki.id
         %td= yuukyuu_kyuuka_rireki.社員番号
         %td= yuukyuu_kyuuka_rireki.年月
         %td= yuukyuu_kyuuka_rireki.月初有給残
         %td= yuukyuu_kyuuka_rireki.月末有給残
-        %td= link_to '編集', edit_yuukyuu_kyuuka_rireki_path(id: "#{yuukyuu_kyuuka_rireki.社員番号},#{yuukyuu_kyuuka_rireki.年月.gsub('/', '-')}")
-        - msg = t 'app.delete_confirm'
-        %td= link_to '削除', yuukyuu_kyuuka_rireki, :method => :delete, :data => { :confirm => msg }
+        %td= link_to '編集', edit_yuukyuu_kyuuka_rireki_path(id: ykkk_id)
+        %td= link_to '削除', "/yuukyuu_kyuuka_rirekis/#{ykkk_id}", :method => :delete, :data => { :confirm => t('app.delete_confirm') }
 =render 'share/new_edit_destroy_buttons', object: "ykkkre",new_path: new_yuukyuu_kyuuka_rireki_path
 =render 'share/import_csv_modal',import_path: import_yuukyuu_kyuuka_rirekis_path
