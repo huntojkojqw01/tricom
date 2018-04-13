@@ -72,8 +72,7 @@ class EventsController < ApplicationController
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Shainmaster.find(session[:selected_shain]).events.
       where('Date(開始) >= ?',@date_start.to_date.to_s(:db)).
-      where('Date(終了) <= ?',@date_end.to_date.to_s(:db)).
-      where('経費精算 = ?',true)
+      where('Date(終了) <= ?',@date_end.to_date.to_s(:db))
     @events.each{ |event|
         Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
     }
@@ -103,8 +102,7 @@ class EventsController < ApplicationController
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Shainmaster.find(session[:selected_shain]).events.
       where('Date(開始) >= ?',@date_start.to_date.to_s(:db)).
-      where('Date(終了) <= ?',@date_end.to_date.to_s(:db)).
-      where('経費精算 = ?',true)
+      where('Date(終了) <= ?',@date_end.to_date.to_s(:db))
     @events.each{ |event|
         Event.find_by(id: event.id).update(工数: caculate_koushuu(event.開始, event.終了))
     }
