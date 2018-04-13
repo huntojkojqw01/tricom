@@ -433,9 +433,9 @@ jQuery ->
     $('#kintai_退社時刻').val(end_time)
 
     $('#kintai_遅刻時間').val(0)
-    $('#kintai_普通保守時間').val(0)
+    # $('#kintai_普通保守時間').val(0)
     $('#kintai_深夜残業時間').val(0)
-    $('#kintai_深夜保守時間').val(0)
+    # $('#kintai_深夜保守時間').val(0)
     $('#kintai_実労働時間').val(real_time)
     $('#kintai_普通残業時間').val(0)
 
@@ -719,7 +719,7 @@ jQuery ->
     $('#kintai_普通残業時間').val(fustu_zangyo)
     $('#kintai_深夜残業時間').val(shinya_zangyou)
     #$('#kintai_普通保守時間').val(yoru_kyukei)
-    $('#kintai_深夜保守時間').val(shinya_kyukei)
+    # $('#kintai_深夜保守時間').val(shinya_kyukei)
 
   $('.datetime').datetimepicker({
     format: 'YYYY/MM/DD HH:mm',
