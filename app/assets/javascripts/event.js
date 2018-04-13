@@ -73,6 +73,40 @@ $(function(){
                 },
                 dragOpacity: "0.5",
                 editable: true,
+                defaultDate: moment($('#goto_date').val()),
+                viewRender: function(view, element){
+                  jQuery.ajax({
+                      url: '/events/ajax',
+                      data: {
+                        id: 'kintai_getData',
+                        date_kintai: $('#calendar-month-view').fullCalendar('getDate').format()
+                      },
+                      type: "POST",
+                      success: function(data) {
+                        jQuery.each( data, function( key, val ) {
+                          cell = element.find(".fc-bg td.fc-day[data-date="+key+"]");
+                          if(cell.length >0){
+                            color = cell.css("background-color");
+                            cell.append("<button id='bt-hoshu-1"+key+"' onclick='showModal(\""+key+"\",\"0\"); return false;' "+
+                                      "value=1 class='btn btn-hoshu' type='button'>携帯</button>"+
+                                      "<button id='bt-hoshu-0"+key+"' onclick='showModal(\""+key+"\",\"1\"); return false;' "+
+                                      "value=0 class='btn btn-text' style='background-color:"+color+"' type='button'>携帯</button>");
+                            if(val == 1){
+                                $('#bt-hoshu-1'+key).show();
+                                $('#bt-hoshu-0'+key).hide();
+                            }
+                            else{
+                                $('#bt-hoshu-1'+key).hide();
+                                $('#bt-hoshu-0'+key).show();
+                            }
+                          }                                               
+                        });            
+                      },
+                      failure: function() {
+                        console.log("kintai_保守携帯回数 keydown Unsuccessful");
+                      }
+                    });
+                },
                 dayClick: function(date, jsEvent, view) {
                    //window.open('http://misuzu.herokuapp.com/events/new?start_at='+date.format());
                    var calendar = document.getElementById('calendar-month-view');
@@ -84,37 +118,6 @@ $(function(){
                     //alert(data.sUrl);
                 },
                 dayRender: function(date, element, view){
-                        jQuery.ajax({
-                        url: '/events/ajax',
-                        data: {id: 'kintai_getData', date_kintai: date.format()},
-                        type: "POST",
-                        // processData: false,
-                        // contentType: 'application/json',
-
-                        success: function(data) {
-                            var color = element.css("background-color");
-                            element.append("<button id='bt-hoshu-1"+date.format()+"' onclick='showModal(\""+date.format()+"\",\"0\"); return false;' "+
-                                    "value=1 class='btn btn-hoshu' type='button'>携帯</button>"+
-                                    "<button id='bt-hoshu-0"+date.format()+"' onclick='showModal(\""+date.format()+"\",\"1\"); return false;' "+
-                                    "value=0 class='btn btn-text' style='background-color:"+color+"' type='button'>携帯</button>");
-                            if(data.kintai_hoshukeitai == 1){
-                                $('#bt-hoshu-1'+date.format()).show();
-                                $('#bt-hoshu-0'+date.format()).hide();
-                                // element.append("<a id='abc' value=100 onclick='showModal(\""+date.format()+"\"); return false;' style='cursor: pointer;'><i class='fa fa-pencil'>"+data.kintai_hoshukeitai+"</i></a>");
-                                console.log("getAjax kintai_id:"+ data.kintai_hoshukeitai);
-                            }
-                            else{
-                                $('#bt-hoshu-1'+date.format()).hide();
-                                $('#bt-hoshu-0'+date.format()).show();
-                                console.log("getAjax kintai_id:"+ data.kintai_hoshukeitai);
-                            }
-                        },
-                        failure: function() {
-                            console.log("kintai_保守携帯回数 keydown Unsuccessful");
-                        }
-                    });
-
-
                     // var date_convert = new Date(date.format());
                     // if(date_convert.getDay()!==6 && date_convert.getDay()!==0&&hoshukeitai!=null)
                     //     element.append("<a id='abc' value=100 onclick='showModal(\""+date.format()+"\"); return false;' style='cursor: pointer;'><i class='fa fa-pencil'>"+hoshukeitai+"</i></a>");
@@ -122,11 +125,6 @@ $(function(){
                     // if(date_convert.getDay()!==6 && date_convert.getDay()!==0)
                     //     element.append("<a id='abc' onclick='showModal(\""+date.format()+"\"); return false;' style='cursor: pointer;'><i class='fa fa-pencil'>保守携帯</i></a>");
                 },
-                //eventRender: function(event, element, view) {
-                //    element.qtip({
-                //        content: event.description
-                //    });
-                //},
                 eventRender: function(event, element, view) {
                     if (view.name === "agendaDay" || view.name === "agendaWeek") {
                         if(event.job != undefined || event.comment != undefined){
@@ -139,12 +137,10 @@ $(function(){
                    // alert(event.title + " was dropped on " + event.start.format());
                     updateEvent(event);
                 },
-
-
                 eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
                     updateEvent(event);
-                }
-                ,eventMouseover: function(event, jsEvent, view) {
+                },
+                eventMouseover: function(event, jsEvent, view) {
                     var tooltip = '<div class="tooltipevent hover-end">' +'<div>'+ event.start.format("YYYY/MM/DD HH:mm") +'</div>' +'<div>'+ event.end.format("YYYY/MM/DD HH:mm")+'</div>';
                     tooltip += '<div>'+ event.title;
                     tooltip += (event.job != undefined ? ' ' + event.bashomei : '') +'</div>' ;
@@ -165,15 +161,13 @@ $(function(){
                         $('.tooltipevent').css('left', e.pageX + 20);
                     });
                 },
-
                 eventMouseout: function(event, jsEvent, view) {
                     $(this).css('z-index', 8);
                     $('.tooltipevent').remove();
                 }
             }
-            );
-        //scroll calendar to date
-        calendar.fullCalendar('gotoDate', moment($('#goto_date').val()));
+          );// end of $('#calendar-month-view').fullCalendar(
+
         oTable = $('#event_table').DataTable();
         oTable.draw();
         //Hander calendar header button click
@@ -242,7 +236,7 @@ $(function () {
 });
 
 function getStartCalendarMonthbegin(dateString){
-    console.log(dateString.length);
+    //console.log(dateString.length);
     var res = dateString.substring(0, 4);
 
     if ( dateString.charAt(5) == " " ) {
@@ -363,11 +357,11 @@ $(function () {
 
             success: function(data) {
                if(data.kintai_id != null){
-                    console.log("getAjax kintai_id:"+ data.kintai_id);
+                    //console.log("getAjax kintai_id:"+ data.kintai_id);
                 }
                 else{
 
-                    console.log("getAjax kintai_id:"+ data.kintai_id);
+                    //console.log("getAjax kintai_id:"+ data.kintai_id);
                 }
             },
             failure: function() {

@@ -763,16 +763,16 @@ class EventsController < ApplicationController
          format.json { render json: return_data}
        end
       when 'kintai_保守携帯回数'
-       kintai = Kintai.where(日付: params[:date_kintai],社員番号: session[:user]).first
-       Kintai.find(kintai.id).update(保守携帯回数: params[:hoshukeitai])
-       data = {kintai_id: kintai.id}
+       kintai = Kintai.find_by(日付: params[:date_kintai],社員番号: session[:user])
+       kintai.update(保守携帯回数: params[:hoshukeitai]) if kintai
        respond_to do |format|
-         format.json { render json: data}
+         format.json { render json: { kintai_id: kintai.try(:id) } }
        end
      when 'kintai_getData'
-       kintai = Kintai.where(日付: params[:date_kintai],社員番号: session[:user]).first
-
-       data = {kintai_hoshukeitai: kintai.try(:保守携帯回数)}
+       date = params[:date_kintai].to_date
+       data = ((date.beginning_of_month-7.day)..(date.end_of_month+14.day)).inject({}) { |hash, date| hash[date.to_s] = nil; hash } 
+       Kintai.where(日付: (date.beginning_of_month-7.day)..(date.end_of_month+14.day))
+              .each_with_object(data) { |kintai, data| data[kintai.日付.to_s] = kintai.保守携帯回数 }
        respond_to do |format|
          format.json { render json: data}
        end
