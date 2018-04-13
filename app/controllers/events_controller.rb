@@ -962,9 +962,9 @@ private
   end
 
   def set_param
-    @jobs = Jobmaster.all
+    @jobs = Jobmaster.includes(:bunrui)
     @shozais = Shozai.all
-    @bashos = Bashomaster.all
+    @bashos = Bashomaster.includes(:kaishamaster)
 
     @joutais = Joutaimaster.web_use.all
     @joutaimaster = Joutaimaster.new
@@ -977,11 +977,11 @@ private
     @kaisha = Kaishamaster.new
     @kaishamasters = Kaishamaster.all
     if vars['shain_id'].nil?
-      @mybashos = Mybashomaster.where(社員番号: session[:selected_shain]).all.order('updated_at desc')
-      @myjobs = Myjobmaster.where(社員番号: session[:selected_shain]).all.order('updated_at desc')
+      @mybashos = Mybashomaster.includes(:kaishamaster).where(社員番号: session[:selected_shain]).order('updated_at desc')
+      @myjobs = Myjobmaster.includes(:bunrui).where(社員番号: session[:selected_shain]).order('updated_at desc')
     else
-      @mybashos = Mybashomaster.where(社員番号: vars['shain_id']).all.order('updated_at desc')
-      @myjobs = Myjobmaster.where(社員番号: vars['shain_id']).all.order('updated_at desc')
+      @mybashos = Mybashomaster.includes(:kaishamaster).where(社員番号: vars['shain_id']).order('updated_at desc')
+      @myjobs = Myjobmaster.includes(:bunrui).where(社員番号: vars['shain_id']).order('updated_at desc')
     end
     max_job = Jobmaster.pluck(:job番号).map {|i| i.to_i}.max + 1
     # max_job = Jobmaster.maximum(:job番号) + 1
