@@ -260,9 +260,16 @@ class Event < ActiveRecord::Base
 
 
   def check_date_input
-    if 開始.present? && 終了.present? && 開始 >= 終了
-      errors.add(:終了, (I18n.t 'app.model.check_data_input'))
-    end
+    if 開始.present? && 終了.present?
+      if 開始 >= 終了
+        errors.add(:終了, (I18n.t 'app.model.check_data_input'))
+      else
+        day = 開始.to_date
+        if day.beginning_of_day < 開始.to_time && 終了.to_time < day.end_of_day && (day.saturday? || day.sunday?)
+          errors.add(:状態コード, '休日で全日休の指定はできない')        
+        end
+      end
+    end    
   end
   def basho_name
     basho = Bashomaster.find_by(場所コード: self.場所コード)
