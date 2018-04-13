@@ -177,12 +177,12 @@ class EventsController < ApplicationController
         end
       end
       @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
-                    .where(社員番号: @shains.ids).where('Date(開始) >= ?', 1.month.ago(Date.today))
+                    .where(社員番号: @shains.ids.uniq).where('Date(開始) >= ?', 1.month.ago(Date.today))
                     .order(開始: :desc)
     end      
     rescue => e
       p e
-      @events = Shainmaster.take.events
+      @events = Shainmaster.take.events.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
   end
 
   def edit
