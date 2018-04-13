@@ -6,7 +6,7 @@ class ShainmastersController < ApplicationController
   respond_to :js
 
   def index
-    @shainmasters = Shainmaster.includes(:shozokumaster, :yakushokumaster, :rorumaster, :user).reorder(:序列)
+    @shainmasters = Shainmaster.includes(:shozokumaster, :yakushokumaster, :rorumaster, :user)
   end
 
   def show

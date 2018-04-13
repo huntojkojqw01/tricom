@@ -157,23 +157,23 @@ class EventsController < ApplicationController
         if !vars['joutai'] || vars['joutai'].empty?
           @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
           @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .where(タイムライン区分: false).reorder(:序列)
+                              .where(タイムライン区分: false)
         else
           @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
                               .where(状態コード: vars['joutai'])
           @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .where(タイムライン区分: false, "events.状態コード": vars['joutai']).reorder(:序列)
+                              .where(タイムライン区分: false, "events.状態コード": vars['joutai'])
         end
       else
         if !vars['joutai'] || vars['joutai'].empty?
           @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
           @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .joins(:rorumenbas).where(タイムライン区分: false, ロールメンバ: {ロールコード: vars['roru']}).reorder(:序列)
+                              .joins(:rorumenbas).where(タイムライン区分: false, ロールメンバ: {ロールコード: vars['roru']})
         else
           @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
                           .where(状態コード: vars['joutai'])
           @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .joins(:rorumenbas, :events).where(タイムライン区分: false, "events.状態コード": vars['joutai'], ロールメンバ: {ロールコード: vars['roru']}).reorder(:序列)
+                              .joins(:rorumenbas, :events).where(タイムライン区分: false, "events.状態コード": vars['joutai'], ロールメンバ: {ロールコード: vars['roru']})
         end
       end
       @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
