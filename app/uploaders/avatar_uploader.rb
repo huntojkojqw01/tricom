@@ -1,5 +1,5 @@
 class AvatarUploader < CarrierWave::Uploader::Base
-
+  DEFAULT_URL = "/assets/thumb/missing.png"
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -20,7 +20,7 @@ class AvatarUploader < CarrierWave::Uploader::Base
   #   # ActionController::Base.helpers.asset_path("fallback/" + [version_name, "default.png"].compact.join('_'))
   #
   #   "/images/fallback/" + [version_name, "default.png"].compact.join('_')
-    "/assets/thumb/missing.png"
+    DEFAULT_URL
   end
 
   # Process files as they are uploaded:

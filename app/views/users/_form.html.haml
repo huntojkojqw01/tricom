@@ -21,7 +21,7 @@
     %table
       %tr
         %td
-          =image_tag current_user.avatar,size: "100x100",id: "thumb"
+          =image_tag @user.avatar_link, size: "100x100",id: "thumb"
         %td
           = f.file_field :avatar
     %br

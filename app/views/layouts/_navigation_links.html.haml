@@ -52,7 +52,7 @@
             %ul.dropdown-menu.address-chat
               - @users = User.left_outer_joins(shainmaster: :rorumaster).order("社員マスタ.序列 ASC", "ロールマスタ.序列 ASC")
               - @users.each_with_index do |user, index|
-                %li= link_to raw("<span><img src="+user.avatar.url+" style='margin-right:1em;height:50px;width:50px'></img>"+user.担当者名称+"</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
+                %li= link_to raw("<span><img src='#{ user.avatar_link }' style='margin-right:1em;height:50px;width:50px'></img>#{ user.担当者名称 }</span>"),"#", class: " start-conversation","data-sid" => current_user.id, "data-rip" => user.担当者コード
 
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false"}
@@ -69,9 +69,9 @@
               %li= link_to raw("<i class='glyphicon glyphicon-asterisk' style='margin-right:1em;'></i>"+(t 'title.setting')), setting_settings_path
           %li.dropdown
             %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }
-              %span= image_tag current_user.avatar, size: "30x30"
+              %span= image_tag current_user.avatar_link, size: "30x30"
             %ul.dropdown-menu.center
-              %li= image_tag current_user.avatar, size: "30x30"
+              %li= image_tag current_user.avatar_link, size: "30x30"
               %li= link_to current_user.try(:担当者名称).to_s, edit_user_path(current_user)
               %li.text-gray パスワード更新日：#{current_user.updated_at.to_date}
               %legend.menu
