@@ -88,22 +88,7 @@
                 %i{class: 'glyphicon glyphicon-bell text-red'}
                 %span{class: 'message-count text-red'} #{count_total}
               %ul.dropdown-menu.message-item
-                /#message-notify
-                -unread_messages.each do |message|
-                  -naiyou = message.body.length > 12 ? "#{message.body[0...12]}..." : message.body
-                  %li= link_to raw('&nbsp;&nbsp;&nbsp;')+ message.user.name+': '+naiyou, "#", class: "fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
-                -if unread_messages.any?
-                  %legend.menu
-                /#kairan-notify
-                -kairans.each do |kairan|
-                  -naiyou = kairan.内容.length > 12 ? "#{kairan.内容[0...12]}..." : kairan.内容
-                  %li= link_to ' '+ naiyou, "/kairans?locale=ja&search="+kairan.内容, :class => "glyphicon glyphicon-envelope icon-left"
-                -if kairans.any?
-                  %legend.menu
-                /#dengon-notify                
-                -dengons.each do |dengon|
-                  -naiyou = dengon.伝言内容.length > 12 ? "#{dengon.伝言内容[0...12]}..." : dengon.伝言内容
-                  %li= link_to ' '+ naiyou, "/dengons?locale=ja&search="+dengon.伝言内容, :class => "glyphicon glyphicon-comment icon-left"
+                = notify_items(unread_messages, kairans, dengons)
           - else
             %li.dropdown
               %a.dropdown-toggle{'href'=>"#", 'data-toggle'=>"dropdown", 'role'=>"button", 'aria-haspopup'=>"true", 'aria-expanded'=>"false" }

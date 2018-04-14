@@ -207,13 +207,36 @@ module SessionsHelper
   end
 
   def get_unread_kairans
-    Kairanshosai.where(対象者: session[:user], 状態: 0)
+    Kairanshosai.includes(:kairan).where(対象者: session[:user], 状態: 0)
   end
 
   def get_unread_dengons
     Dengon.where(社員番号: session[:user], 確認: false)
   end
 
+  def notify_message message
+    link_to raw("&nbsp;&nbsp;&nbsp;#{message.user.name}:#{message.body.truncate(12)}"), "#", class: "fa fa-wechat icon-left start-conversation","data-sid" => message.conversation.sender_id, "data-rip" => message.conversation.recipient_id
+  end
+
+  def notify_dengon dengon
+    link_to " #{dengon.伝言内容.truncate(12)}", "/dengons?locale=ja&search=#{dengon.伝言内容}", :class => "glyphicon glyphicon-comment icon-left"
+  end
+
+  def notify_kairan kairan
+    link_to " #{kairan.内容.truncate(12)}", "/kairans?locale=ja&search=#{kairan.内容}", :class => "glyphicon glyphicon-envelope icon-left"
+  end
+
+  def notify_items messages, kairans, dengons
+    items = ''
+    messages.inject(items) {|i, m| i << "<li>#{ notify_message m }</li>" }
+    items += '<legend class=\"menu\"></legend>' if messages.any?
+
+    kairans.inject(items) {|i, k| i << "<li>#{ notify_kairan k }</li>"}
+    items += '<legend class=\"menu\"></legend>' if messages.any? && kairans.any?
+
+    dengons.inject(items) {|i, d| i << "<li>#{ notify_dengon d }</li>"}
+    items.html_safe
+  end
   def notify_to(conversation_id = nil, receiver_id = nil) 
     receiver_id = session[:user] unless User.find_by(id: receiver_id)
     if(conversation_id)
@@ -229,7 +252,7 @@ module SessionsHelper
                             .order(created_at: :desc)
     end
 
-    kairans = Kairanshosai.where(対象者: receiver_id, 状態: 0)
+    kairans = Kairanshosai.includes(:kairan).where(対象者: receiver_id, 状態: 0)
     dengons = Dengon.where(社員番号: receiver_id, 確認: false)
 
     totalCount = unread_messages.size + kairans.size + dengons.size
@@ -237,19 +260,19 @@ module SessionsHelper
     items = ''
 
     unread_messages.each do |message|
-      naiyou = message.body.length > 12 ? (message.body[0...12]+ '...') : message.body
+      naiyou = message.body.truncate(12)
       items += '<li><a class=\" fa fa-wechat icon-left start-conversation \" data-sid=\"'+message.conversation.sender_id+'\" data-rip = \"'+ message.conversation.recipient_id+'\" href=\"#\">&nbsp;&nbsp;&nbsp;'+ message.user.name+': '+naiyou+'</a></li>' if message.body
     end
     items += '<legend class=\"menu\"></legend>' if unread_messages.any?
 
     kairans.each do |kairan|
-      naiyou = kairan.内容.length > 12 ? (kairan.内容[0...12]+'...') : kairan.内容
+      naiyou = kairan.内容.truncate(12)
       items = items + '<li><a class=\"glyphicon glyphicon-envelope icon-left\" href=\"/kairans?locale=ja&search='+kairan.内容+' \"> '+ naiyou+'</a></li>' if kairan.内容
     end
     items += '<legend class=\"menu\"></legend>' if unread_messages.any? && kairans.any?
 
     dengons.each do |dengon|
-      naiyou = dengon.伝言内容.length > 12 ? (dengon.伝言内容[0...12]+ '...') : dengon.伝言内容
+      naiyou = dengon.伝言内容.truncate(12)
       items += '<li><a class=\"glyphicon glyphicon-comment icon-left\" href=\"/dengons?locale=ja&search='+dengon.伝言内容+' \"> '+ naiyou+'</a></li>' if dengon.伝言内容
     end
 
