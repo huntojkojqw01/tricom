@@ -526,17 +526,14 @@ class KintaisController < ApplicationController
     end
   end
   def sumikakunin
-    if params[:date]
-      tmp=params[:date].split('/')
-      @date=Date.new(tmp[0].to_i,tmp[1].to_i,1)
-    else
-      @date=Date.today
-    end
-    @kintais=[]
-    Shainmaster.where(区分: false).each do |shain|
-      kintai=shain.kintais.where('日付 = ?',@date).first
-      @kintais<<{氏名: shain.氏名,社員番号: shain.社員番号,日付: @date,入力済: kintai.try(:入力済)}
-
+    begin
+      @date = params[:date].to_date
+    rescue
+      @date = Date.today
+    end   
+    @kintais = Shainmaster.includes(:kintais).where(区分: false).map do |shain|
+      kintai = shain.kintais.select { |k| k.日付 == @date }
+      { 氏名: shain.氏名, 社員番号: shain.社員番号, 日付: @date, 入力済: kintai.try(:入力済) }
     end
   end
   private
