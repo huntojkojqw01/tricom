@@ -9,7 +9,7 @@ class EventsController < ApplicationController
 
   def index
     @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster).where('Date(開始) = ?', Date.today.to_s(:db))
-    @shains = Shainmaster.includes(:shozokumaster, :yakushokumaster, :shozai).order(:所属コード, :役職コード, :社員番号).where(社員番号: User.all.ids)
+    @shains = Shainmaster.includes(:shozokumaster, :yakushokumaster, :shozai).reorder(:序列, :社員番号).where(社員番号: User.all.ids)
     @holidays = JptHolidayMst.all
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :kouteimaster, bashomaster: :kaishamaster )
