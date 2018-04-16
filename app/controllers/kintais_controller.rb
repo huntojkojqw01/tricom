@@ -518,11 +518,49 @@ class KintaisController < ApplicationController
   end
 
   def export_csv
-    @kintais = Kintai.all
-
-    respond_to do |format|
-      format.html
-      format.csv { send_data @kintais.to_csv, filename: '勤怠.csv' }
+    if params[:date]
+      begin
+        date = params[:date].to_date
+      rescue
+        date = Date.today
+      end   
+      @kintais = []
+      Shainmaster.includes(:kintais, :events).where(区分: false).each do |shain|
+        kintai = shain.kintais.select { |k| k.日付 == date }
+        begin_t, end_t = date.beginning_of_month, date.end_of_month
+        events = shain.events.joins(:jobmaster)
+                            .where('Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) >= ? AND Date(終了) <= ?',
+                             begin_t, begin_t, end_t, end_t, begin_t, end_t)
+        if events.any?
+          events.each { |event| event.update(工数: EventsController.new.caculate_koushuu(event.開始, event.終了)) }
+          events.select('job名','JOB','SUM(CAST(工数 AS DECIMAL)) AS sum_job').group(:JOB,:job名).order(:JOB).each do |event|
+            @kintais << {
+              日付: date.strftime("%Y/%m"),
+              氏名: shain.氏名,
+              社員番号: shain.社員番号,
+              JOB: "#{event.JOB} #{event.job名}",
+              工数: event.sum_job
+            }
+          end
+        else
+          @kintais << {
+              日付: date.strftime("%Y/%m"),
+              氏名: shain.氏名,
+              社員番号: shain.社員番号,
+              JOB: nil,
+              工数: nil
+            }
+        end
+      end
+      respond_to do |format|
+        format.csv { send_data to_csv_by_date(@kintais), filename: '勤怠.csv' }
+      end
+    else
+      @kintais = Kintai.all
+      respond_to do |format|
+        format.html
+        format.csv { send_data @kintais.to_csv, filename: '勤怠.csv' }
+      end
     end
   end
   def sumikakunin
@@ -533,8 +571,13 @@ class KintaisController < ApplicationController
     end   
     @kintais = Shainmaster.includes(:kintais).where(区分: false).map do |shain|
       kintai = shain.kintais.select { |k| k.日付 == @date }
-      { 氏名: shain.氏名, 社員番号: shain.社員番号, 日付: @date, 入力済: kintai.try(:入力済) }
-    end
+      {     
+        氏名: shain.氏名,
+        社員番号: shain.社員番号,
+        日付: @date,
+        入力済: kintai.try(:入力済)        
+      }
+    end    
   end
   private
     def set_kintai
@@ -569,6 +612,16 @@ class KintaisController < ApplicationController
       if @kintai.入力済 == '1'
         flash[:danger] = t 'app.flash.access_denied'
         redirect_to kintais_path
+      end
+    end
+
+    def to_csv_by_date(kintais)
+      headers = kintais.first.keys
+      CSV.generate(headers: true) do |csv|
+        csv << headers
+        kintais.each do |h|
+          csv << h.values
+        end
       end
     end
 end

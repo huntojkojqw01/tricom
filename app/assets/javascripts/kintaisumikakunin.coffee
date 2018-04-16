@@ -34,6 +34,13 @@ jQuery ->
                 "extend":    'csvHtml5',
                 "text":      '<i class="fa fa-file-text-o"></i>',
                 "titleAttr": 'CSV'
+            },
+            {
+                "extend":    'csvHtml5',
+                "text":      'JOB別CSV出力',
+                "titleAttr": '年月(YYYY/MM)、社員、job別の工数集計のCSVデータ出力'                
+                action: ( e, dt, node, config ) ->
+                  window.open('/kintais/export_csv.csv?date='+$("#search").val())
             }
 
             ]
