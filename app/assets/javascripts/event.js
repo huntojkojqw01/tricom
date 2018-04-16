@@ -797,11 +797,8 @@ $(function(){
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
         },
+        "order": [],  
         columnDefs: [{
-                targets: [0],
-                orderData: [2, 3, 0]
-            }
-            ,{
                 "targets": [2, 3],
                 "visible": false,
                 "searchable": false
