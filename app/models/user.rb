@@ -76,4 +76,8 @@ class User < ActiveRecord::Base
   def self.rebuild_pg_search_documents
     find_each { |record| record.update_pg_search_document }
   end
+  # Get avatar url
+  def avatar_link
+    avatar? ? avatar_url : AvatarUploader::DEFAULT_URL
+  end
 end
