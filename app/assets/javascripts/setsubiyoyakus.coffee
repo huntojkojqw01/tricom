@@ -243,14 +243,13 @@ jQuery ->
       $('#kaisha_sentaku_ok').attr 'disabled', false
       $('#clear_kaisha').attr 'disabled', false
   $(document).ready () ->
-    if $('#head_setsubicode').val() != ''
-      $('#table-div').hide()
-      $('#hide_table_button').hide()
-    else
+    $('#table-div').hide()
+    if $('#head_setsubicode').val().length <= 0
       $('#setsubiyoyaku-timeline').hide()
-      $('#table-div').hide()
-      $('#hide_table_button').hide()
       $('#show_table_button').hide()
+    else
+      $('#setsubiyoyaku-timeline').show()      
+      $('#show_table_button').show()
 
     if getUrlVars()["all_day"] == "true"
       $("#select_allday").prop('checked', true);
@@ -259,15 +258,8 @@ jQuery ->
   $('#head_setsubicode').change ()->
     $(this).closest('form').submit()
 
-  $('#hide_table_button').click () ->
-    $('#hide_table_button').hide()
-    $('#show_table_button').show()
-    $('#table-div').hide()
-
   $('#show_table_button').click () ->
-    $('#hide_table_button').show()
-    $('#show_table_button').hide()
-    $('#table-div').show()
+    $('#table-div').toggle()
 
   $("#select_allday").change ->
     date = moment().format("YYYY/MM/DD");
