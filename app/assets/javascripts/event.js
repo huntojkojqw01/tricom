@@ -792,7 +792,7 @@ $.fn.dataTable.ext.buttons.import = {
     }
 };
 $(function(){
-    oTable = $('#user_table').DataTable({
+    oUserTable = $('#user_table').DataTable({
         "pagingType": "simple_numbers"
         ,"oLanguage":{
             "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
@@ -972,8 +972,8 @@ $(function(){
             $(this).removeClass('success');
         }
         else {
-            oTable.$('tr.selected').removeClass('selected');
-            oTable.$('tr.success').removeClass('success');
+            oUserTable.$('tr.selected').removeClass('selected');
+            oUserTable.$('tr.success').removeClass('success');
             $(this).addClass('selected');
             $(this).addClass('success');
         }
@@ -1065,7 +1065,7 @@ $(function(){
     } );
 
     $('#user_refer_sentaku_ok').click(function(){
-        var d = oTable.row('tr.selected').data();
+        var d = oUserTable.row('tr.selected').data();
         if(d!=undefined){
             $('#jobmaster_入力社員番号').val(d[0])
             $('.hint-shain-refer').text(d[1])
@@ -1075,7 +1075,7 @@ $(function(){
     $('#select_user_modal_refer,#user_table tbody').on( 'dblclick', 'tr', function () {
         $(this).addClass('selected');
         $(this).addClass('success');
-        var d = oTable.row('tr.selected').data();
+        var d = oUserTable.row('tr.selected').data();
         if(d!=undefined){
             $('#jobmaster_入力社員番号').val(d[0])
             $('.hint-shain-refer').text(d[1])
@@ -1086,7 +1086,7 @@ $(function(){
 
 
     $('#user_sentaku_ok').click(function(){
-        var d = oTable.row('tr.selected').data();
+        var d = oUserTable.row('tr.selected').data();
         if(d!=undefined){
             $('#selected_user').val(d[0]);
             $('#selected_user_name').val(d[1]);
@@ -1096,7 +1096,7 @@ $(function(){
     $('#select_user_modal,#user_table tbody').on( 'dblclick', 'tr', function () {
         $(this).addClass('selected');
         $(this).addClass('success');
-        var d = oTable.row('tr.selected').data();
+        var d = oUserTable.row('tr.selected').data();
         if(d!=undefined){
             $('#selected_user').val(d[0]);
             $('#selected_user_name').val(d[1]);
