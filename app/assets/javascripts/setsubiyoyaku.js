@@ -57,6 +57,7 @@ $(document).ready(function() {
                     // alert(date);
                     // $('.fc-time-area tr[data-resource-id="_fc'+date+'"] ').find('span.fc-title').html(data.setsubiyoyakus.title).html(element.find('span.fc-title').text());
                 // },
+                defaultDate: moment($('#selected_date').val()),
                 eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
                    // alert(event.title + " was dropped on " + event.start.format());
                     updateEvent(event);
@@ -113,15 +114,13 @@ $(document).ready(function() {
                 }
             }
         );
-        setsubiyoyaku_timeline.fullCalendar('gotoDate', new Date($('#selected_date').val()));
-        oTable = $('.setsubiyoyaku-table').DataTable();
-        oTable.draw();
         setsubiyoyaku_timeline.find('.fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
-            oTable = $('.setsubiyoyaku-table').DataTable();
-            oTable.draw();
             $.post(
                 "/settings/ajax",
-                {setting: "setting_date", selected_date: new Date($('#setsubiyoyaku-timeline').fullCalendar('getDate'))}
+                { 
+                  setting: "setting_date",
+                  selected_date: $('#setsubiyoyaku-timeline').fullCalendar('getDate').format()
+                }
             );
         });
     });
@@ -197,22 +196,22 @@ $(function () {
 //     }
 // );
 // //The plugin function for adding a new filtering routine
-$.fn.dataTableExt.afnFiltering.push(
-    function(oSettings, aData, iDataIndex){
-        var dateStart = getStartCalendarDate( $('.fc-left').text());
-        var dateEnd = getEndCalendarDate( $('.fc-left').text());
-        // var dateStart = parseDateValue($("#dateStart").val());
-        // var dateEnd = parseDateValue($("#dateEnd").val());
-        // aData represents the table structure as an array of columns, so the script access the date value
-        // in the first column of the table via aData[0]
-        var evalDate = parseDateValue(aData[1]);
-        if (evalDate >= dateStart) {
-            return true;
-        }
-        else {
-            return false;
-        }
-});
+// $.fn.dataTableExt.afnFiltering.push(
+//     function(oSettings, aData, iDataIndex){
+//         var dateStart = getStartCalendarDate( $('.fc-left').text());
+//         var dateEnd = getEndCalendarDate( $('.fc-left').text());
+//         // var dateStart = parseDateValue($("#dateStart").val());
+//         // var dateEnd = parseDateValue($("#dateEnd").val());
+//         // aData represents the table structure as an array of columns, so the script access the date value
+//         // in the first column of the table via aData[0]
+//         var evalDate = parseDateValue(aData[1]);
+//         if (evalDate >= dateStart) {
+//             return true;
+//         }
+//         else {
+//             return false;
+//         }
+// });
 
 function updateEvent(the_event){
     jQuery.ajax({

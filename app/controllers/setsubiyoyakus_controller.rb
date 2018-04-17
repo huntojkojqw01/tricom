@@ -6,7 +6,8 @@ class SetsubiyoyakusController < ApplicationController
 
   def index
 
-    @hizukes = all_day_in_month_list()  
+    @hizukes = all_day_in_month_list()
+    @selected_date = session[:selected_date] || Date.current
     @setsubi_param = params[:head][:setsubicode] if params[:head].present?
     if @setsubi_param.present?
       @setsubiyoyaku = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi).where(設備コード: @setsubi_param)
