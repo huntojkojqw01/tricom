@@ -27,7 +27,7 @@ $(document).ready(function() {
                     left:   'title',
                     right:  'today,prev,next'
                 },
-                // titleFormat: 'YYYY年MM月(DD日)',
+                titleFormat: 'YYYY年MM月(DD日)',
                 //weekends: false,
                 viewRender: function(view, element) {
                     var date = view.title
@@ -114,7 +114,9 @@ $(document).ready(function() {
                 }
             }
         );
+        $('.setsubiyoyaku-table').DataTable().draw();
         setsubiyoyaku_timeline.find('.fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
+            $('.setsubiyoyaku-table').DataTable().draw();
             $.post(
                 "/settings/ajax",
                 { 
@@ -195,23 +197,23 @@ $(function () {
 //         return false;
 //     }
 // );
-// //The plugin function for adding a new filtering routine
-// $.fn.dataTableExt.afnFiltering.push(
-//     function(oSettings, aData, iDataIndex){
-//         var dateStart = getStartCalendarDate( $('.fc-left').text());
-//         var dateEnd = getEndCalendarDate( $('.fc-left').text());
-//         // var dateStart = parseDateValue($("#dateStart").val());
-//         // var dateEnd = parseDateValue($("#dateEnd").val());
-//         // aData represents the table structure as an array of columns, so the script access the date value
-//         // in the first column of the table via aData[0]
-//         var evalDate = parseDateValue(aData[1]);
-//         if (evalDate >= dateStart) {
-//             return true;
-//         }
-//         else {
-//             return false;
-//         }
-// });
+//The plugin function for adding a new filtering routine
+$.fn.dataTableExt.afnFiltering.push(
+    function(oSettings, aData, iDataIndex){
+        var dateStart = getStartCalendarDate( $('.fc-left').text());
+        var dateEnd = getEndCalendarDate( $('.fc-left').text());
+        // var dateStart = parseDateValue($("#dateStart").val());
+        // var dateEnd = parseDateValue($("#dateEnd").val());
+        // aData represents the table structure as an array of columns, so the script access the date value
+        // in the first column of the table via aData[0]
+        var evalDate = parseDateValue(aData[1]);
+        if (evalDate >= dateStart) {
+            return true;
+        }
+        else {
+            return false;
+        }
+});
 
 function updateEvent(the_event){
     jQuery.ajax({
