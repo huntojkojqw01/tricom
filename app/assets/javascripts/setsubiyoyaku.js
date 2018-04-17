@@ -80,7 +80,6 @@ $(document).ready(function() {
 
                 },
                 eventAfterRender: function(event, element, view){
-                    console.log(event);
                     // var bottom = parseInt(element.closest('.fc-time-grid-event').css("bottom"),10);
                     // var top = parseInt(element.closest('.fc-time-grid-event').css("top"),10);
                     // var margin = (-(top + bottom)/2).toString()+"px";
@@ -94,8 +93,8 @@ $(document).ready(function() {
                     var tooltip = '<div class="tooltipevent hover-end">';
                     tooltip += '<div>'+ event.start.format("YYYY/MM/DD HH:mm")+'</div>';
                     tooltip += '<div>'+ event.end.format("YYYY/MM/DD HH:mm") +'</div>';
-                    tooltip += '<div>'+ event.yoken +'</div>';
                     tooltip += '<div>'+ event.shain +'</div>';
+                    tooltip += '<div>'+ event.yoken +'</div>';
                     tooltip += '<div>'+ event.description +'</div>';
                     tooltip += '</div>'
                     $("body").append(tooltip);
@@ -178,7 +177,7 @@ $(function () {
             setsubiyoyaku_timeline.fullCalendar('addEventSource', data.setsubiyoyakus);
             setsubiyoyaku_timeline.fullCalendar('rerenderEvents' );
         });
-    },3000);
+    },5000);
 });
 
 //Extend dataTables search
