@@ -6,13 +6,13 @@ class SetsubiyoyakusController < ApplicationController
 
   def index
 
-    @hizukes = all_day_in_month_list()
-    @all_events = Event.all
-    @shains = Shainmaster.all
-    @setsubiyoyaku = Setsubiyoyaku.all
+    @hizukes = all_day_in_month_list()  
     @setsubi_param = params[:head][:setsubicode] if params[:head].present?
-    @selected_date = session[:selected_date] || Date.current
-    @setsubiyoyaku = Setsubiyoyaku.where(設備コード: @setsubi_param) if @setsubi_param.present?
+    if @setsubi_param.present?
+      @setsubiyoyaku = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi).where(設備コード: @setsubi_param)
+    else
+      @setsubiyoyaku = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi)
+    end
     respond_with(@setsubiyoyaku)
   end
 
