@@ -1,37 +1,42 @@
 = simple_form_for @shainmaster do |f|
-  .col-md-3.col-xs-4.col-sm-4.col-lg-3.col-md-offset-3.col-xs-offset-3.col-sm-offset-3.col-lg-offset-3
-    = f.input :序列
-    = f.input :社員番号 if mode == :new
-    = f.input :連携用社員番号
-    = f.input :氏名
-    = f.association :shozokumaster, label_method: :所属名, value_method: :所属コード, label:'所属'
-    - show_in = %w(直接 間接)
-    = f.input :直間区分, collection: (1..2).map {|i| [show_in[i-1], i ]}, input_html: {style: 'width:100px'}
-    = f.association :yakushokumaster, label_method: :役職名, value_method: :役職コード, label:'役職'
-    = f.association :rorumaster, label_method: :ロール名, value_method: :ロールコード, label:'デフォルトロール'
-    = f.input :内線電話番号
-    = f.input :有給残数
+  .row
+    .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
+      = f.input :序列
+      = f.input :社員番号 if mode == :new
+      = f.input :連携用社員番号
+      = f.input :氏名
+      = f.association :shozokumaster, label_method: :所属名, value_method: :所属コード, label:'所属'
+      - show_in = %w(直接 間接)
+    .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1    
+      = f.input :直間区分, collection: (1..2).map {|i| [show_in[i-1], i ]}, input_html: {style: 'width:100px'}
+      = f.association :yakushokumaster, label_method: :役職名, value_method: :役職コード, label:'役職'
+      = f.association :rorumaster, label_method: :ロール名, value_method: :ロールコード, label:'デフォルトロール'
+      = f.input :内線電話番号
+      = f.input :有給残数
 
     - if current_user.admin? || current_user.supervisor?
-      = f.label (t 'app.label.shain_zangyoukubun')
-      %p.help-block=t 'app.label.shain_zangyoukubun_descr'
-      = f.check_box :残業区分
-      %br
-      %br
-      = f.label (t 'app.label.shain_kubun')
-      %p.help-block=t 'app.label.shain_kubun_descr'
-      = f.check_box :区分
-      %br
-      %br
-      = f.label (t 'app.label.shain_timelinekubun')
-      %p.help-block=t 'app.label.shain_timelinekubun_descr'
-      = f.check_box :タイムライン区分
-      %br
-      %br
-      / = f.label :残業区分, '残業区分(残業管理)'
-      / = f.input :残業区分, as: :boolean
-      / = f.label :区分, '区分(勤怠管理をしない.)'
-      / = f.input :区分, as: :boolean
-      / = f.label :タイムライン区分, 'タイムライン区分(タイムラインに表示したくない.)'
-      / = f.input :タイムライン区分, as: :boolean
-    = f.button :submit, class: 'btn btn-primary'
+      .col-md-2.col-xs-2.col-sm-2.col-lg-2.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
+        = f.label (t 'app.label.shain_zangyoukubun')
+        %p.help-block=t 'app.label.shain_zangyoukubun_descr'
+        = f.check_box :残業区分
+        %br
+        %br
+        = f.label (t 'app.label.shain_kubun')
+        %p.help-block=t 'app.label.shain_kubun_descr'
+        = f.check_box :区分
+        %br
+        %br
+        = f.label (t 'app.label.shain_timelinekubun')
+        %p.help-block=t 'app.label.shain_timelinekubun_descr'
+        = f.check_box :タイムライン区分
+        %br
+        %br
+        / = f.label :残業区分, '残業区分(残業管理)'
+        / = f.input :残業区分, as: :boolean
+        / = f.label :区分, '区分(勤怠管理をしない.)'
+        / = f.input :区分, as: :boolean
+        / = f.label :タイムライン区分, 'タイムライン区分(タイムラインに表示したくない.)'
+        / = f.input :タイムライン区分, as: :boolean
+  .row
+    .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-5.col-xs-offset-5.col-sm-offset-5.col-lg-offset-5
+      = f.button :submit, style: 'width: 200px', class: 'btn btn-primary'
