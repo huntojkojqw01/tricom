@@ -26,9 +26,10 @@
         %tr
           %th 社員番号
           %th 社員名
-
+          %th 確認日
       %tbody
-        - @kairanshosais.each do |kairanshosais|
+        - @kairanshosais.each do |kairanshosai|
           %tr
-            %td= kairanshosais.shainmaster.社員番号
-            %td= kairanshosais.shainmaster.氏名
+            %td= kairanshosai.shainmaster.社員番号
+            %td= kairanshosai.shainmaster.氏名
+            %td= kairanshosai.状態 == '確認済' ? kairanshosai.updated_at.strftime("%Y/%m/%d") : kairanshosai.状態
