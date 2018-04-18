@@ -179,11 +179,12 @@ jQuery ->
         },
         "columns": [
           { "data": '社員番号' },
-          { "data": '社員名' }
+          { "data": '社員名' },
+          { "data": '確認日' }
         ],
         "rowId": '社員番号',
         "initComplete": ( settings ) ->
-          api = new $.fn.dataTable.Api( settings )
-          api.rows(getTaishoList(data.taishosha)).select()
+          # api = new $.fn.dataTable.Api( settings )
+          # api.rows(getTaishoList(data.taishosha)).select()
       })
     )
