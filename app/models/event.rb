@@ -20,6 +20,7 @@ class Event < ActiveRecord::Base
   belongs_to :joutaimaster, foreign_key: :状態コード
   belongs_to :bashomaster, foreign_key: :場所コード
   belongs_to :kouteimaster, foreign_key: [:工程コード,:所属コード]
+  belongs_to :shozokumaster, foreign_key: :所属コード
   # belongs_to :shozai
   belongs_to :jobmaster, foreign_key: :JOB
 

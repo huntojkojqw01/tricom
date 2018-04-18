@@ -17,7 +17,8 @@ jQuery ->
       "bSearchable" :false
     }
     ],
-    "order":  [[ 1, "asc" ]],
+    "order":  [],
+    "pageLength": 100,
     "oSearch": {"sSearch": queryParameters().search},
 
     "buttons": [{
@@ -38,11 +39,17 @@ jQuery ->
             {
                 "extend":    'csvHtml5',
                 "text":      'JOB別CSV出力',
-                "titleAttr": '年月(YYYY/MM)、社員、job別の工数集計のCSVデータ出力'                
+                "titleAttr": '年月(YYYY/MM)、社員、job別の工数集計のCSVデータ出力'
                 action: ( e, dt, node, config ) ->
                   window.open('/kintais/export_csv.csv?date='+$("#search").val())
+            },
+            {
+                "extend":    'csvHtml5',
+                "text":      'JOB別明細CSV出力',
+                "titleAttr": 'カレンダ・詳細一覧のデータ出力'
+                action: ( e, dt, node, config ) ->
+                  window.open('/kintais/export_csv.csv?tai=1&date='+$("#search").val())
             }
-
             ]
   })
   now = new Date();
