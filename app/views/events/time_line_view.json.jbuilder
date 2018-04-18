@@ -66,7 +66,7 @@ json.shains @shains do |shain|
   json.background_color shain.shozai ? shain.shozai.background_color : ''
   json.text_color shain.shozai ? shain.shozai.text_color : ''
   is_joining_event = shain.events.find{ |e| Time.now.between?(e.開始.to_time,e.終了.to_time) }
-  json.bashomei is_joining_event ? is_joining_event.bashomaster.try(:場所名) : ''
+  json.bashomei is_joining_event.try(:bashomaster).try(:場所名) || ''
   # json.eventColor shain.events.first.joutaimaster.色 if shain.events.first
 end
 
