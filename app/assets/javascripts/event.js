@@ -165,7 +165,7 @@ $(function(){
                     $(this).css('z-index', 8);
                     $('.tooltipevent').remove();
                 }
-            }
+            } 
           );// end of $('#calendar-month-view').fullCalendar(
 
         oTable = $('#event_table').DataTable();
@@ -305,32 +305,8 @@ function isNum(c){
 
 // readjust sizing after font load
 $(window).on('load', function() {
-    $('#calendar-timeline').fullCalendar('render');
-    $('#goto-date-input').val(moment().format('YYYY/MM/DD'));
-    var strtime = new Date($("#event_開始").val());
-
-    var joutai = $('#event_状態コード').val()
-    var joutai_kubun = ''
-    oJoutaiTable.rows().every( function( rowIdx, tableLoop, rowLoop ){
-        var data = this.data();
-        if( data[0] == joutai){
-            joutai_kubun = data[3]
-        }
-    });
-    if (joutai_kubun == '1' || joutai_kubun == '5') {
-        $('#event_場所コード').prop( "disabled", false );
-        $('#event_JOB').prop( "disabled", false );
-        $('#event_工程コード').prop( "disabled", false );
-        $('#basho_search').prop( "disabled", false );
-        $('#koutei_search').prop( "disabled", false )
-    }else {
-        $('#event_場所コード').prop( "disabled", true );
-        $('#event_JOB').prop( "disabled", true );
-        $('#event_工程コード').prop( "disabled", true );
-        $('#basho_search').prop( "disabled", true );
-        $('#koutei_search').prop( "disabled", true );
-    }
-
+  $('#calendar-timeline').fullCalendar('render');
+  $('#goto-date-input').val(moment().format('YYYY/MM/DD'));
 });
 
 //toggle_calendar
@@ -603,9 +579,9 @@ $(function () {
         }
     });
 
-     $('#export_event').click(function(){
-        location.href='/events/export_csv.csv?locale=ja';
-     });
+    $('#export_event').click(function(){
+      location.href='/events/export_csv.csv?locale=ja';
+    });
 
     $('#print_event').click(function(){
         if( $("#selectDay").css('display') === 'none'){
@@ -744,7 +720,6 @@ $(function () {
         var date = new Date(y,m,d);
 
         var mydate = new Date($("#event_開始").val().substring(0,10));
-        var strtime = new Date($("#event_開始").val());
 
         date = date.toString();
         mydate = mydate.toString();

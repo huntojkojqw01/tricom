@@ -13,6 +13,29 @@ $(document).ready(function(){
     });
 
 });
+$(window).on('load', function() {
+  var joutai = $('#event_状態コード').val();
+  var joutai_kubun = '';
+  oJoutaiTable.rows().every( function( rowIdx, tableLoop, rowLoop ){
+    var data = this.data();
+    if( data[0] == joutai){
+      joutai_kubun = data[3];
+    }
+  });
+  if (joutai_kubun == '1' || joutai_kubun == '5') {
+    $('#event_場所コード').prop( "disabled", false );
+    $('#event_JOB').prop( "disabled", false );
+    $('#event_工程コード').prop( "disabled", false );
+    $('#basho_search').prop( "disabled", false );
+    $('#koutei_search').prop( "disabled", false )
+  }else {
+    $('#event_場所コード').prop( "disabled", true );
+    $('#event_JOB').prop( "disabled", true );
+    $('#event_工程コード').prop( "disabled", true );
+    $('#basho_search').prop( "disabled", true );
+    $('#koutei_search').prop( "disabled", true );
+  }
+});
 //colorpicker
 $(function(){
     $('#joutai-new-modal #joutaimaster_色').colorpicker();
