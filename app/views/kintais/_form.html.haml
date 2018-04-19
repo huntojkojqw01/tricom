@@ -27,7 +27,7 @@
           = f.input :保守携帯回数, label: '保守携帯' ,collection: (0..1).map {|i| [display[i],i]}
       .row
         .col-md-10.col-xs-10.col-sm-10.col-lg-10
-          = f.input :状態1, wrapper: :vertical_input_group, hint:'', hint_html: { class: 'joutai-code-hint' } do
+          = f.input :状態1, label: '処理区分', wrapper: :vertical_input_group, hint:"#{@kintai.joutai_状態名}", hint_html: { class: 'joutai-code-hint' } do
             = f.input_field :状態1, class: 'form-control'
             %span.input-group-btn
               %button.btn.btn-default.refer-joutai
