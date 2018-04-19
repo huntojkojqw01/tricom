@@ -5,9 +5,7 @@ class Shainmaster < ActiveRecord::Base
   include PgSearch
   multisearchable :against => %w{序列 社員番号 連携用社員番号 氏名 shozoku_name roru_ロール名 yakushoku_役職名 内線電話番号 有給残数 }
   # default_scope { where("社員番号 is not '#{ENV['admin_user']}'")}
-  default_scope {
-   joins(:rorumaster).order("社員マスタ.序列 ASC", "ロールマスタ.序列 ASC", "社員マスタ.社員番号 ASC") 
-  }
+  default_scope { order(序列: :asc, 社員番号: :asc) }
   validates :社員番号,:氏名, :連携用社員番号, presence: true
   validates :社員番号, uniqueness: true
 
