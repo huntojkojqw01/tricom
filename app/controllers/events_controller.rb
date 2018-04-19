@@ -969,7 +969,7 @@ private
     # @kouteis = User.find(session[:user]).shainmaster.shozokumaster.kouteimasters
     vars = request.query_parameters
     shozoku = Shainmaster.find_by_id(vars['shain_id'] || session[:selected_shain]).try(:shozokumaster)
-    @kouteis = shozoku ? shozoku.kouteimasters : []
+    @kouteis = shozoku ? shozoku.kouteimasters.order(:工程コード) : []
     @basho = Bashomaster.new
 
     @kaisha = Kaishamaster.new

@@ -266,7 +266,7 @@ class Event < ActiveRecord::Base
         errors.add(:終了, (I18n.t 'app.model.check_data_input'))
       else
         day = 開始.to_date
-        if day.beginning_of_day < 開始.to_time && 終了.to_time < day.end_of_day && (day.saturday? || day.sunday?)
+        if day.beginning_of_day < 開始.to_time && 終了.to_time < day.end_of_day && (day.saturday? || day.sunday?) && 状態コード == '30'
           errors.add(:状態コード, '休日で全日休の指定はできない')        
         end
       end
