@@ -117,7 +117,7 @@ class DengonsController < ApplicationController
           mail_body << "[#{dengon.input_user.try(:氏名)}]"
           mail_body.gsub('\r\n','<br />')
           
-          SendMailJob.perform_later(mail_to.to_s, 'skyfordtricom@gmail.com', 'From Web_TRICOM', mail_body.to_s )
+          SendMailJob.perform_later(mail_to.to_s, 'SkyBordTricom@gmail.com', 'From Web_TRICOM', mail_body.to_s )
         end
     end
 end
