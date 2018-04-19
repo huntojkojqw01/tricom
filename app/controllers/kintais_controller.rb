@@ -556,13 +556,28 @@ class KintaisController < ApplicationController
                   工程名: event.kouteimaster.try(:工程名),
                   工数: event.工数,
                   計上: event.計上,
-                  comment: event.comment                
+                  comment: event.comment
                 }
               end
             else
               @results << {
                   社員番号: shain.社員番号,
-                  氏名: shain.氏名                              
+                  氏名: shain.氏名,
+                  開始: nil,
+                  終了: nil,
+                  状態コード: nil,
+                  状態名: nil,
+                  場所コード: nil,
+                  場所名: nil,
+                  JOB: nil,
+                  JOB名: nil,
+                  所属コード: nil,
+                  所属名: nil,
+                  工程コード: nil,
+                  工程名: nil,
+                  工数: nil,
+                  計上: nil,
+                  comment: nil
                 }
             end # if events.any?
           end # .each do |shain|
