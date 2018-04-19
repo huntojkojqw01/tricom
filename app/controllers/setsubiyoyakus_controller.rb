@@ -68,39 +68,27 @@ class SetsubiyoyakusController < ApplicationController
     @kaishamasters = Kaishamaster.all
     @setsubiyoyaku = Setsubiyoyaku.new setsubiyoyaku_params
     session[:selected_date]=@setsubiyoyaku.開始#lưu lại cái ngày vào session để sau reload chuyển đến
-    @setsubiyoyaku.save
-    respond_with @setsubiyoyaku, location: setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
-
+    if @setsubiyoyaku.save
+      respond_with @setsubiyoyaku, location: setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
+    else
+      render :new
+    end
   end
 
   def update
     case params[:commit]
-      when (t 'helpers.submit.update')
-        if @setsubiyoyaku.update_attributes(setsubiyoyaku_params)
-          flash[:notice] = t 'app.flash.update_success'
-          redirect_to setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
-        else
-          @kaishamasters = Kaishamaster.all
-          render :edit
-          # respond_with(@setsubiyoyaku)
-        end
-      when (t 'helpers.submit.create_clone_other')
-        @kaishamasters = Kaishamaster.all
-        @setsubiyoyaku = Setsubiyoyaku.new setsubiyoyaku_params
-        @setsubiyoyaku.save
-        # respond_with @setsubiyoyaku, location: setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
+    when (t 'helpers.submit.update')
+      if @setsubiyoyaku.update_attributes(setsubiyoyaku_params)
+        flash[:notice] = t 'app.flash.update_success'
         redirect_to setsubiyoyakus_url(:head => {setsubicode: @setsubiyoyaku.設備コード})
-
+      else
+        @kaishamasters = Kaishamaster.all
+        render :edit
+        # respond_with(@setsubiyoyaku)
+      end
+    when (t 'helpers.submit.create_clone_other')
+      create
     end
-
-    # setsubiyoyaku_params['設備コーchanged']=false
-    # setsubiyoyaku_params.add('設備コーchanged'=>'false')
-    # byebug
-    # if @setsubiyoyaku.設備コード == setsubiyoyaku_params.設備コード
-        # setsubiyoyaku_params.add('設備コーchanged'=>'true')
-        # setsubiyoyaku_params['設備コーchanged']=true
-    # end
-
   end
 
   def destroy
