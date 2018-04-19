@@ -7,15 +7,11 @@ class DengonsController < ApplicationController
 
   def index
     vars = request.query_parameters
-    @dengons = Dengon.all
-    if params[:head].present?
-      @shain_param = params[:head][:shainbango]
-    else
-      @shain_param = session[:user]
-    end
+    @dengons = Dengon.includes(:input_user, :to_user, {dengonyouken: :yuusen}, :dengonkaitou)
+    @shain_param = params[:head].present? ? params[:head][:shainbango] : session[:user]
+    @nyuuryokusha = params[:head][:nyuuryokusha] if params[:head].present?
     @yoken = params[:head][:youken] if params[:head].present?
     @kaitou = params[:head][:kaitou] if params[:head].present?
-    @nyuuryokusha = params[:head][:nyuuryokusha] if params[:head].present?
 
     @dengons = @dengons.where('社員番号 = ?', @shain_param) if @shain_param.present? && vars['search'].nil?
     if !vars['search'].nil?
@@ -43,32 +39,10 @@ class DengonsController < ApplicationController
   def create
     @dengon = Dengon.new(dengon_params)
     if @dengon.save
-      begin
-        mail_to = @dengon.to_user.tsushinseigyou.メール
-      rescue
-        mail_to = ""
-      end
-
-      begin
-        mail_body = "#{@dengon.try(:日付).strftime('%F %H:%M')} \r\n"
-      rescue
-        mail_body = ""
-      end
-      mail_body << "\r\n"
-      mail_body << "#{@dengon.try(:from1)} #{@dengon.try(:from2)} \r\n"
-      mail_body << "\r\n"
-      mail_body << "#{@dengon.dengonyouken.try(:種類名)} #{@dengon.dengonkaitou.try(:種類名)} \r\n"
-      mail_body << "\r\n"
-      mail_body << "#{@dengon.try(:伝言内容)} \r\n"
-      mail_body << "\r\n"
-      mail_body << "\r\n"
-      mail_body << "[#{@dengon.input_user.try(:氏名)}]"
-      mail_body.gsub('\r\n','<br />')
-      
-      SendMailJob.perform_later(mail_to.to_s, 'skyfordtricom@gmail.com', 'From Web_TRICOM', mail_body.to_s )
+      send_notify_mail(@dengon)    
+      update_dengon_counter dengon_params
+      notify_to(nil, @dengon.社員番号)
     end
-    update_dengon_counter dengon_params
-    notify_to(nil, @dengon.社員番号)
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = t 'app.flash.mail_to'
   rescue Net::SMTPFatalError
@@ -78,11 +52,13 @@ class DengonsController < ApplicationController
   end
 
   def update
-    @dengon.update(dengon_params)
-    # respond_with(@dengon)
-    update_dengon_counter dengon_params
-    # mail_to = Tsushinseigyou.find_by!(社員番号: dengon_params[:社員番号]).メール;
-    # send_mail(mail_to, dengon_params[:回答], dengon_params[:伝言内容])
+    mail_has_send = @dengon.送信
+    if @dengon.update(dengon_params)
+      unless mail_has_send
+        send_notify_mail(@dengon)
+      end
+      update_dengon_counter dengon_params
+    end
 
   rescue ActiveRecord::RecordNotFound
     flash[:notice] = t 'app.flash.mail_to'
@@ -115,5 +91,33 @@ class DengonsController < ApplicationController
 
     def dengon_params
       params.require(:dengon).permit(:from1, :from2, :日付, :入力者, :社員番号, :用件, :回答, :伝言内容, :確認, :送信)
+    end
+
+    def send_notify_mail(dengon)
+      if dengon.送信
+          begin
+            mail_to = dengon.to_user.tsushinseigyou.メール
+          rescue
+            mail_to = ""
+          end
+
+          begin
+            mail_body = "#{dengon.try(:日付).strftime('%F %H:%M')} \r\n"
+          rescue
+            mail_body = ""
+          end
+          mail_body << "\r\n"
+          mail_body << "#{dengon.try(:from1)} #{dengon.try(:from2)} \r\n"
+          mail_body << "\r\n"
+          mail_body << "#{dengon.dengonyouken.try(:種類名)} #{dengon.dengonkaitou.try(:種類名)} \r\n"
+          mail_body << "\r\n"
+          mail_body << "#{dengon.try(:伝言内容)} \r\n"
+          mail_body << "\r\n"
+          mail_body << "\r\n"
+          mail_body << "[#{dengon.input_user.try(:氏名)}]"
+          mail_body.gsub('\r\n','<br />')
+          
+          SendMailJob.perform_later(mail_to.to_s, 'skyfordtricom@gmail.com', 'From Web_TRICOM', mail_body.to_s )
+        end
     end
 end
