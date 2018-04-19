@@ -43,7 +43,7 @@ json.events @all_events do |event|
   json.color event.joutaimaster.try(:色) if event.joutaimaster
   json.textColor event.joutaimaster.try(:text_color)  if event.joutaimaster
   json.bashokubun event.bashomaster.try(:場所区分) if event.bashomaster
-  json.bashomei event.bashomaster.try(:場所名)
+  json.bashomei event.bashomaster.try(:場所名) || ''
 end
 
 json.shains @shains do |shain|
