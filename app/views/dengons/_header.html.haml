@@ -1,17 +1,18 @@
 = link_to (t 'title.new'), new_dengon_path, class: 'new-btn dt-button'
+- shains = Shainmaster.pluck(:氏名, :社員番号)
 .row-fruid
   .form-inline
     .form-group
       = label_tag (t 'title.nyuuryokusha')
-      = select(:head, :nyuuryokusha, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @nyuuryokusha, include_blank: true }, class: 'form-control')
+      = select(:head, :nyuuryokusha, shains, {selected: @nyuuryokusha, include_blank: true }, class: 'form-control')
     .form-group
       = label_tag (t 'title.shain')
-      = select(:head, :shainbango, Shainmaster.all.collect {|p| [ p.氏名, p.社員番号 ] }, {selected: @shain_param, include_blank: true }, class: 'form-control')
+      = select(:head, :shainbango, shains, {selected: @shain_param, include_blank: true }, class: 'form-control')
     .form-group
       = label_tag (t 'title.youkendengon')
-      = select(:head, :youken, Dengonyouken.all.collect {|p| [ p.種類名, p.id, {:style => "background-color: "+p.yuusen.try(:色).to_s+"; color: Black"} ] }, {selected: @yoken, include_blank: true }, class: 'form-control')
+      = select(:head, :youken, Dengonyouken.includes(:yuusen).collect {|p| [ p.種類名, p.id, {:style => "background-color: "+p.yuusen.try(:色).to_s+"; color: Black"} ] }, {selected: @yoken, include_blank: true }, class: 'form-control')
     .form-group
       = label_tag (t 'title.kaitou')
-      = select(:head, :kaitou, Dengonkaitou.all.collect {|p| [ p.種類名, p.id ] }, {selected: @kaitou, include_blank: true }, class: 'form-control')
+      = select(:head, :kaitou, Dengonkaitou.pluck(:種類名, :id), {selected: @kaitou, include_blank: true }, class: 'form-control')
     .form-group
       = button_tag (t 'title.kensaku'), class:'btn btn-primary'
