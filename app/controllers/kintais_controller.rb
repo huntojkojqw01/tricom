@@ -645,12 +645,12 @@ class KintaisController < ApplicationController
       kubunlist = []
       case @kintai.曜日
         when '日','土'
-          kubunlist = ['1','5']
+          kubunlist = ['1', '2', '5', '6']
         when '月', '火', '水', '木', '金'
           if @kintai.try(:holiday) == '1'
-            kubunlist = ['1','5']
+            kubunlist = ['1', '2', '5', '6']
           else
-            kubunlist = ['1','2','6']
+            kubunlist = ['1', '2', '6']
           end
       end
       # @joutais = Joutaimaster.active(kubunlist)

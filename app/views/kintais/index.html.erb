@@ -123,7 +123,7 @@
             place_holder11 = "<span class='text-gray'>状態1</span>"
 
           end%>
-          <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => place_holder1, :inner_class => 'form_control kinmutype set-width', id: kintai.id.to_s%></td>
+          <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"],["010", "010"],["011", "011"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => place_holder1, :inner_class => 'form_control kinmutype set-width', id: kintai.id.to_s%></td>
           <% if kintai.出勤時刻.blank? && kintai.日付 == @date_now %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><i class='text-gray'>出勤時間</i></td>
           <% else %>
@@ -169,10 +169,10 @@
               kubunlist = []
               case kintai.曜日
                 when '日','土'
-                  kubunlist = ['1','5']
+                  kubunlist = ['1','2','5','6']
                 when '月', '火', '水', '木', '金'
                   if kintai.try(:holiday) == '1'
-                    kubunlist = ['1','5']
+                    kubunlist = ['1','2','5','6']
                   else
                     kubunlist = ['1','2','6']
                   end

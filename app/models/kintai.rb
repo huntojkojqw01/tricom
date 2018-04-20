@@ -22,7 +22,7 @@ class Kintai < ActiveRecord::Base
   belongs_to :shainmaster, foreign_key: :社員番号
   enum 曜日: {日: "0", 月: "1", 火: "2", 水: "3", 木: "4", 金: "5", 土: "6"}
 
-  KINMU_TYPE = %w(001 002 003 004 005 006 007 008 009)
+  KINMU_TYPE = %w(001 002 003 004 005 006 007 008 009 010 011)
   validate :check_joutai1
   validate :check_date_input
   validates :実労働時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
