@@ -1,7 +1,7 @@
 = simple_form_for @kintai do |f|
   .row
     .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-sm-offset-1
-      - display = ['001 → 07:00 ~ 16:00', '002 → 07:30 ~ 16:30' , '003 → 08:00 ~ 17:00' , '004 → 08:30 ~ 17:30' , '005 → 09:00 ~ 18:00' , '006 → 09:30 ~ 18:30' , '007 → 10:00 ~ 19:00' , '008 → 10:30 ~ 19:30' , '009 → 11:00 ~ 20:00']
+      - display = ['001 → 07:00 ~ 16:00', '002 → 07:30 ~ 16:30' , '003 → 08:00 ~ 17:00' , '004 → 08:30 ~ 17:30' , '005 → 09:00 ~ 18:00' , '006 → 09:30 ~ 18:30' , '007 → 10:00 ~ 19:00' , '008 → 10:30 ~ 19:30' , '009 → 11:00 ~ 20:00', '010 → 09:00 ~ 14:00' , '011 → 14:00 ~ 18:00']
       .row
         .col-md-10.col-xs-10.col-sm-10.col-lg-10
           = f.input :勤務タイプ, collection: (Kintai::KINMU_TYPE).map {|i| [display[i.to_i - 1],i]}
@@ -18,9 +18,9 @@
       -#    %button.btn.btn-default.end-time
       -#      %span.glyphicon.glyphicon-hand-right
       -#= text_field_tag :kyukei, '', placeholder: '休憩時間', style: 'width: 100px'
-      = f.button :button, type: :button, id: 'time-cal'  do
-        実労働時間再計算
-        %span.glyphicon.glyphicon-hand-right
+      -#= f.button :button, type: :button, id: 'time-cal'  do
+        -#実労働時間再計算
+        -#%span.glyphicon.glyphicon-hand-right
       - display = ['0：なし', '1：保守携帯']
       .row
         .col-md-10.col-xs-10.col-sm-10.col-lg-10
