@@ -68,129 +68,33 @@ module EventsHelper
     event.save
   end
 
-  def get_koushuu(start_time, end_time)
-    date_1 = start_time.to_datetime
-    date_2 = end_time.to_datetime
-    koushuu = ((date_2 - date_1)*24)
-    # if koushuu < 0
-    #   return 0
-    # else
-    #   return koushuu
-    # end
-    kousu = []
-    countup = 0
-    until countup > 1000 do
-      kousu.push(countup)
-      countup += 0.25
-    end
-    for num in kousu do
-      if num > koushuu && num > 0
-        return (num-0.25)
-      end
-    end
-    return koushuu
-  end
-
   def test_fun(val1)
     return val1.to_f +1
 
-  end
+  end  
 
-  def get_time_diff(start_time, end_time)
-    date_1 = start_time.to_datetime
-    date_2 = end_time.to_datetime
-    koushuu = ((date_2 - date_1)*24)
-    if koushuu < 0
-      return 0
-    else
-      kousu = []
-      countup = 0
-      until countup > 1000 do
-        kousu.push(countup)
-        countup += 0.5
-      end
-      for num in kousu do
-        if num > koushuu && num > 0
-          return (num-0.5)
-        end
-      end
-      return koushuu
-    end
-  end
-
-
+  # Moi don vi tinh lam tron ve 15 phut, => moi tieng <=> 4 don vi,
+  # vi du (0 -> 1 gio) <=> 0,1,2,3 ; (1 -> 2 gio) <=> 4,5,6,7.
+  # Cac thoi gian nghi la co dinh nhu sau:
+  #-hiru_kyukei: 12->13 <=> 48,49,50,51
+  #-yoru_kyukei: 18->19 <=> 72,73,74,75
+  #-shinya_kyukei: 23->0 <=> 92,93,94,95
+  #-souchou_kyukei: 4->7 <=> 16->27
+  # duyet het cac don vi thoi gian tinh tu start -> end, neu co don vi nao thuoc [start,end] thi thoi gian nghi +=1
+  # => tinh koushuu chi can tru di thoi gian nghi do la duoc!
   def caculate_koushuu(time_start, time_end)
-
-    real_hours = 0
-    fustu_zangyo = 0
-    shinya_zangyou = 0
-
-    start_time_date = time_start[0, 10]
-    end_time_date = time_start[0,10]
-
-    nextDay = start_time_date.to_date.next
-    next_time_date = nextDay.to_s
-
-
-    hiru_kyukei_start =     start_time_date + ' 12:00'
-    hiru_kyukei_end =       start_time_date + ' 13:00'
-    yoru_kyukei_start =     start_time_date + ' 18:00'
-    yoru_kyukei_end =       start_time_date + ' 19:00'
-    shinya_kyukei_start =   start_time_date + ' 23:00'
-    shinya_kyukei_end =     next_time_date + ' 00:00'
-    souchou_kyukei_start =  next_time_date + ' 04:00'
-    souchou_kyukei_end =    next_time_date + ' 07:00'
-
-    if get_koushuu(time_start,hiru_kyukei_start) > 0
-      hiru_diff_1 = get_koushuu(hiru_kyukei_start,time_end)
-      hiru_diff_2 = get_koushuu(hiru_kyukei_end,time_end)
-      hiru_kyukei = hiru_diff_1 - hiru_diff_2
-    elsif get_koushuu(time_start,hiru_kyukei_end) > 0
-      hiru_diff_1 = get_koushuu(time_start,time_end)
-      hiru_diff_2 = get_koushuu(hiru_kyukei_end,time_end)
-      hiru_kyukei = hiru_diff_1 - hiru_diff_2
-    else
-      hiru_kyukei = 0
+    begin_of_day = time_start.to_time.beginning_of_day
+    # chuyen time ve don vi tuong duong 15 phut( khong lam tron )
+    time_start = (time_start.to_time - begin_of_day)/900
+    time_end = (time_end.to_time - begin_of_day)/900
+    kyuukei_time = 0    
+    [4, 5, 6, 12, 18, 23].each_with_object([]){|x, a| a.push(x*4,x*4+1,x*4+2,x*4+3)}.each do |i|
+      j = i
+      while j.between?(time_start, time_end - 1)
+        kyuukei_time += 1
+        j += 96 #sang ngay moi
+      end
     end
-
-    if get_koushuu(time_start,yoru_kyukei_start) > 0
-      yoru_diff_1 = get_koushuu(yoru_kyukei_start,time_end)
-      yoru_diff_2 = get_koushuu(yoru_kyukei_end,time_end)
-      yoru_kyukei = yoru_diff_1 - yoru_diff_2
-    elsif get_koushuu(time_start,yoru_kyukei_end) > 0
-      yoru_diff_1 = get_koushuu(time_start,time_end)
-      yoru_diff_2 = get_koushuu(yoru_kyukei_end,time_end)
-      yoru_kyukei = yoru_diff_1 - yoru_diff_2
-    else
-      yoru_kyukei = 0
-    end
-
-    if get_koushuu(time_start,shinya_kyukei_start) > 0
-      shinya_diff_1 = get_koushuu(shinya_kyukei_start,time_end)
-      shinya_diff_2 = get_koushuu(shinya_kyukei_end,time_end)
-      shinya_kyukei = shinya_diff_1 - shinya_diff_2
-    elsif get_koushuu(time_start,shinya_kyukei_end) > 0
-      shinya_diff_1 = get_koushuu(time_start,time_end)
-      shinya_diff_2 = get_koushuu(shinya_kyukei_end,time_end)
-      shinya_kyukei = shinya_diff_1 - shinya_diff_2
-    else
-      shinya_kyukei = 0
-    end
-
-    if get_koushuu(time_start,souchou_kyukei_start) > 0
-      souchou_diff_1 = get_koushuu(souchou_kyukei_start,time_end)
-      souchou_diff_2 = get_koushuu(souchou_kyukei_end,time_end)
-      souchou_kyukei = souchou_diff_1 - souchou_diff_2
-    elsif get_koushuu(time_start,souchou_kyukei_end) > 0
-      souchou_diff_1 = get_koushuu(time_start,time_end)
-      souchou_diff_2 = get_koushuu(souchou_kyukei_end,time_end)
-      souchou_kyukei = souchou_diff_1 - souchou_diff_2
-    else
-      souchou_kyukei = 0
-    end
-
-    real_hours = get_koushuu(time_start,time_end)
-    real_hours = real_hours - hiru_kyukei - yoru_kyukei - shinya_kyukei - souchou_kyukei
+    ((time_end - time_start).floor - kyuukei_time)/4.0    
   end
-
 end
