@@ -381,7 +381,7 @@ class EventsController < ApplicationController
     @event = User.find(session[:user]).shainmaster.events.new attributes
     if attributes[:状態コード].in?(['30','31','32'])
       kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
-      kintai.update(状態1: attributes[:状態コード])
+      kintai.update(状態1: attributes[:状態コード]) if kintai
     end
     # flash[:notice] = t 'app.flash.new_success' if @event.save
     # case params[:commit]
