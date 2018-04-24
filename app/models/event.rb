@@ -49,21 +49,21 @@ class Event < ActiveRecord::Base
   end
   def doUpdateKintai
     ApplicationController.helpers.check_kintai_at_day_by_user(self.社員番号, self.開始.to_date)
-    kintai = Kintai.where("Date(日付) = Date(?)",self.開始).where(社員番号: self.社員番号).first
+    kintai = Kintai.find_by("Date(日付) = Date(?) AND 社員番号 = ?", self.開始, self.社員番号)
     old_joutai = kintai.状態1
-    if !kintai.nil?
+    if kintai
       kinmu_type = Shainmaster.find(self.社員番号).勤務タイプ
-      events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where("状態マスタ.状態区分 = ? or 状態マスタ.状態区分 = ?","1","5")
-      .where.not(開始: '').where.not(終了: '')
-      joutaiEvents = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where(状態マスタ: {勤怠使用区分: "1"}).where.not(開始: '').where.not(終了: '')
-      joutai_first = ''
-      if joutaiEvents.count > 0
-        joutai_first = joutaiEvents.order(開始: :asc).first.状態コード
-      end
+      events = Event.joins(:joutaimaster)
+                    .where("Date(開始) = Date(?) AND (状態マスタ.状態区分 = ? OR 状態マスタ.状態区分 = ?)", self.開始, "1", "5")
+                    .where(社員番号: self.社員番号)
+                    .where.not(開始: '', 終了: '')
+      joutai_first = Event.joins(:joutaimaster)
+                          .where("Date(開始) = Date(?)", self.開始)
+                          .where(社員番号: self.社員番号, 状態マスタ: {勤怠使用区分: "1"})
+                          .where.not(開始: '', 終了: '').order(開始: :asc).first.try(:状態コード) || ''
       if events.count > 0
-        time_start = events.order(開始: :asc).first.開始
-        time_end = events.order(終了: :desc).first.終了
-        # joutai_first = events.order(開始: :asc).first.状態コード
+        time_start = events.order(開始: :asc).first.try(:開始)
+        time_end = events.order(終了: :desc).first.try(:終了)
         hh_mm = time_start[11,15]
         if hh_mm <= "07:00"
           kinmu_type = "001"
@@ -180,7 +180,7 @@ class Event < ActiveRecord::Base
           real_hours_total += real_hours
           fustu_zangyo_total += fustu_zangyo
           shinya_zangyou_total += shinya_zangyou
-        end
+        end # events.each do |event|
         fustu_zangyo_total = fustu_zangyo_total - 8
         if fustu_zangyo_total < 0
           fustu_zangyo_total = 0
@@ -188,36 +188,27 @@ class Event < ActiveRecord::Base
 
         zangyou_kubun = Shainmaster.find(self.社員番号).残業区分
         if zangyou_kubun == "1"
-          Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
+          kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
           退社時刻: time_end, 実労働時間: real_hours_total, 普通残業時間: fustu_zangyo_total,
           深夜残業時間: shinya_zangyou_total, 状態1: joutai_first)
         else
-          Kintai.find(kintai.id).update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
+          kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
           退社時刻: time_end, 実労働時間: real_hours_total,普通残業時間: '',
           深夜残業時間: '', 状態1: joutai_first)
         end
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
         実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
-      end
+      end # if events.count > 0
       # tinh toan su kien di muon ve som
-      chikoku_soutai_events = Event.where("Date(開始) = Date(?)",self.開始).where(社員番号: self.社員番号).joins(:joutaimaster).where("状態マスタ.状態区分 = ?","3")
-      .where.not(開始: '').where.not(終了: '')
-      if chikoku_soutai_events.count > 0
-        chikoku_total = 0
-        chikoku_soutai_events.each do |event|
-          chikoku = get_time_diff(event.開始,event.終了)
-          chikoku_total += chikoku
-        end
-        kintai.update(遅刻時間: chikoku_total)
-      else
-        kintai.update(遅刻時間: '')
-      end
-
-      @kintai = Kintai.find(kintai.id)
+      chikoku_total = Event.joins(:joutaimaster)
+                          .where("Date(開始) = Date(?) AND 状態マスタ.状態区分 = ? AND 社員番号 = ?", self.開始, "3", self.社員番号)
+                          .where.not(開始: '', 終了: '')
+                          .inject { |sum, event| sum += get_time_diff(event.開始,event.終了) }
+      kintai.update(遅刻時間: chikoku_total || '')
       if old_joutai != joutai_first
-        if @kintai.代休相手日付 != ''
-          daikyu_aite_hidzuke = Kintai.current_user(self.社員番号).find_by(日付: @kintai.代休相手日付)
+        if kintai.代休相手日付 != ''
+          daikyu_aite_hidzuke = Kintai.find_by(社員番号: self.社員番号, 日付: kintai.代休相手日付)
           if daikyu_aite_hidzuke
             if daikyu_aite_hidzuke.代休取得区分 == '1'
               daikyu_aite_hidzuke.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
@@ -228,35 +219,18 @@ class Event < ActiveRecord::Base
           end
         end
         if joutai_first.in?(['103','107','111']) #振出
-          @kintai.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
-        elsif !joutai_first.nil?
-          @kintai.update(代休取得区分: '', 代休相手日付: '', 備考: '')
+          kintai.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+        elsif joutai_first
+          kintai.update(代休取得区分: '', 代休相手日付: '', 備考: '')
         end
-      end
-    end
-
+      end # if old_joutai != joutai_first
+    end # if kintai
   end
 
-  def get_time_diff(start_time, end_time)
-    date_1 = start_time.to_datetime
-    date_2 = end_time.to_datetime
-    koushuu = ((date_2 - date_1)*24)
-    if koushuu < 0
-      return 0
-    else
-      kousu = []
-      countup = 0
-      until countup > 1000 do
-        kousu.push(countup)
-        countup += 0.5
-      end
-      for num in kousu do
-        if num > koushuu && num > 0
-          return (num-0.5)
-        end
-      end
-      return koushuu
-    end
+  def get_time_diff(start_time, end_time)  
+    ((end_time.to_time - start_time.to_time)/1800).floor/2.0
+  rescue
+    0
   end
 
 
