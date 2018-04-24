@@ -109,14 +109,9 @@ module SessionsHelper
     session[:forwarding_url] = request.url if request.get?
   end
 
-  def check_kintai_at_day_by_user user_id, at_day
-    at_day = Date.today if at_day.nil?
-    shainmaster = Shainmaster.find_by(id: user_id)
-    kintai = shainmaster.kintais.find_by(日付: at_day) unless shainmaster.nil?
-    return if kintai
-    start_date = at_day.beginning_of_month
-    end_date = at_day.end_of_month
-    MonthRange.new(start_date..end_date).each {|day| create_kintai(user_id, day)}
+  def check_kintai_at_day_by_user user_id, at_day = Date.today
+    return if Kintai.find_by(日付: at_day, 社員番号: user_id)
+    (at_day.beginning_of_month..at_day.end_of_month).each { |day| create_kintai(user_id, day) }
   end
 
   def check_shozai
@@ -130,25 +125,6 @@ module SessionsHelper
     events = Event.where("Date(開始) = ? AND 状態コード = ?", Date.today.to_s(:db),'30')
     events.each do |event|
       event.shainmaster.update 所在コード: 600
-    end
-  end
-
-  class MonthRange
-    include Enumerable
-
-    def initialize(range)
-      @start_date = range.first
-      @end_date = range.last
-      # @start_date = Date.parse(@start_date)
-      # @end_date = Date.parse(@end_date)
-    end
-
-    def each
-      current_day = @start_date
-      while current_day <= @end_date do
-        yield current_day
-        current_day += 1
-      end
     end
   end
 
