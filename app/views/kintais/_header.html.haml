@@ -7,8 +7,8 @@
     %button#export_pdf.btn.btn-primary{:type => "button"}= (t 'app.label.export_pdf')
     = f.submit (t 'helpers.submit.input'), class: 'btn btn-primary'
   = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
-  .pull-right
-    %button#gesshozan_btn.btn.btn-primary{:type => "button"}= (t 'app.label.gesshozan_btn')
+  / .pull-right
+  /   %button#gesshozan_btn.btn.btn-primary{:type => "button"}= (t 'app.label.gesshozan_btn')
 .spacer
   .row
 
@@ -34,17 +34,18 @@
       %tr
         %th{rowspan: "2"} 有給残
         %th 月初残
-        %td
-          - if @yuukyuu_kyuuka_rireki.nil?
-            - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
-              %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: 0}
-            - else
-              %input.form-control{size: 4, type: "text", class: "input-number", value: 0, disabled: true}
-          - else
-            - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
-              %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: @yuukyuu_kyuuka_rireki.月初有給残}
-            - else
-              %input.form-control{size: 4,type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}
+        %td{class: "input-number"}= @yuukyuu_kyuuka_rireki.try(:月初有給残) || 0
+        / %td
+        /   - if @yuukyuu_kyuuka_rireki.nil?
+        /     - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
+        /       %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: 0}
+        /     - else
+        /       %input.form-control{size: 4, type: "text", class: "input-number", value: 0, disabled: true}
+        /   - else
+        /     - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
+        /       %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: @yuukyuu_kyuuka_rireki.月初有給残}
+        /     - else
+        /       %input.form-control{size: 4,type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}
       %tr
         %th{class: "custom-background"} 月末残
         %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}

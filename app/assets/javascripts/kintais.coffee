@@ -372,22 +372,22 @@ jQuery ->
     $('.summary').trigger('click')
   )
 
-  $('#gesshozan_btn').click () ->
-    date = $('#search').val()
-    if date == ''
-      date = moment()
-    else
-      date = moment(date+"/01")
-    tougetsu = date.format('YYYY/MM')
-    jQuery.ajax({
-      url: '/kintais/ajax',
-      data: {id: 'gesshozan_calculate', zengetsu: date.subtract('months',1).format('YYYY/MM'),tougetsu: tougetsu},
-      type: "POST",
-      success: (data) ->
-        $('.sum-yuukyu').text(data.getsumatsuzan)
-        $('.input-number').val(data.gesshozan)
-      failure: () ->
-    })
+  # $('#gesshozan_btn').click () ->
+  #   date = $('#search').val()
+  #   if date == ''
+  #     date = moment()
+  #   else
+  #     date = moment(date+"/01")
+  #   tougetsu = date.format('YYYY/MM')
+  #   jQuery.ajax({
+  #     url: '/kintais/ajax',
+  #     data: {id: 'gesshozan_calculate', zengetsu: date.subtract('months',1).format('YYYY/MM'),tougetsu: tougetsu},
+  #     type: "POST",
+  #     success: (data) ->
+  #       $('.sum-yuukyu').text(data.getsumatsuzan)
+  #       $('.input-number').val(data.gesshozan)
+  #     failure: () ->
+  #   })
 
 
   $('#kintai_勤務タイプ').on('change',() ->
@@ -903,16 +903,16 @@ jQuery ->
     )
   );
 
-  $('.input-number').on('change', () ->
-    summary()
-  )
+  # $('.input-number').on('change', () ->
+  #   summary()
+  # )
 
-  $('input').keydown( (e) ->
-    if e.keyCode == 13
-      if $('.input-number').is( ":focus" )
-        e.preventDefault();
-        $('.input-number').blur();
-  );
+  # $('input').keydown( (e) ->
+  #   if e.keyCode == 13
+  #     if $('.input-number').is( ":focus" )
+  #       e.preventDefault();
+  #       $('.input-number').blur();
+  # );
 
   summary = () ->
     gesshozan = $('.input-number').val()
