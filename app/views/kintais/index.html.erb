@@ -120,7 +120,7 @@
             place_holder8 = "<span class='text-gray'>普通保守</span>"
             place_holder9 = "<span class='text-gray'>深夜保守</span>"
             place_holder10 = "<span class='text-gray'>保守携帯</span>"
-            place_holder11 = "<span class='text-gray'>状態1</span>"
+            place_holder11 = "<span class='text-gray'>処理区分</span>"
 
           end%>
           <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"],["010", "010"],["011", "011"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => place_holder1, :inner_class => 'form_control kinmutype set-width', id: kintai.id.to_s%></td>
