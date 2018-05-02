@@ -595,7 +595,7 @@ class KintaisController < ApplicationController
                 日付: date.strftime("%Y/%m"),
                 氏名: shain.氏名,
                 社員番号: shain.社員番号,
-                JOB: "#{event.JOB} #{event.job名}",
+                JOB: "#{event.JOB},#{event.job名}",
                 工数: event.sum_job
               }
             end
