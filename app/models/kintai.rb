@@ -22,7 +22,20 @@ class Kintai < ActiveRecord::Base
   belongs_to :shainmaster, foreign_key: :社員番号
   enum 曜日: {日: "0", 月: "1", 火: "2", 水: "3", 木: "4", 金: "5", 土: "6"}
 
-  KINMU_TYPE = %w(001 002 003 004 005 006 007 008 009 010 011)
+  KINMU_TYPE = {
+    '001' => '07:00 ~ 16:00',
+    '002' => '07:30 ~ 16:30',
+    '003' => '08:00 ~ 17:00',
+    '004' => '08:30 ~ 17:30',
+    '005' => '09:00 ~ 18:00',
+    '006' => '09:30 ~ 19:30',
+    '007' => '10:00 ~ 20:00',
+    '008' => '10:30 ~ 20:30',
+    '009' => '11:00 ~ 21:00',
+    '010' => '09:00 ~ 14:00',
+    '011' => '14:00 ~ 18:00'
+  }
+  
   validate :check_joutai1
   validate :check_date_input
   validates :実労働時間, numericality: { greater_than_or_equal_to: 0}, allow_nil: true
