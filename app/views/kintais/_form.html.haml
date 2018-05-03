@@ -17,9 +17,9 @@
       -#    %button.btn.btn-default.end-time
       -#      %span.glyphicon.glyphicon-hand-right
       -#= text_field_tag :kyukei, '', placeholder: '休憩時間', style: 'width: 100px'
-      -#= f.button :button, type: :button, id: 'time-cal'  do
-        -#実労働時間再計算
-        -#%span.glyphicon.glyphicon-hand-right
+      = f.button :button, type: :button, id: 'time-cal'  do
+        実労働時間再計算
+        %span.glyphicon.glyphicon-hand-right
       - display = ['0：なし', '1：保守携帯']
       .row
         .col-md-10.col-xs-10.col-sm-10.col-lg-10
