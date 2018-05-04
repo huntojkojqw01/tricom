@@ -138,6 +138,7 @@ $(document).ready(function() {
                 dragOpacity: "0.5",
                 editable: true,
                 events: data.events,
+                defaultDate: moment($('#goto_date').val()),
                 eventRender: function(event, element) {
                     element.find('span.fc-title').html(data.events.title).html(element.find('span.fc-title').text());
                     if(event.bashokubun != 1 && flag==0){
@@ -232,8 +233,8 @@ $(document).ready(function() {
                         field: 'joutai',
                         width: 40,
                         render: function(resources, el) {
-                            el.css('background-color', resources.background_color);
-                            el.css('color', resources.text_color);
+                            // el.css('background-color', resources.background_color);
+                            // el.css('color', resources.text_color);
                         }
                     },
                     {
@@ -242,7 +243,7 @@ $(document).ready(function() {
                         width: 40,
                         render: function(resources, el) {
                             el.css('background-color', '#adadad');
-                            el.html('<div align="left"><span style="margin-right:10px">'+resources.bashomei+'</span></div>');
+                            el.html('<div align="left"><span style="margin-right:10px"></span></div>');
                         }
                     },
                     {
@@ -292,7 +293,7 @@ $(document).ready(function() {
             }
         );
         //scroll to date
-        calendar.fullCalendar('gotoDate', moment($('#goto_date').val()));
+        // calendar.fullCalendar('gotoDate', moment($('#goto_date').val()));
         // var nowDate = new Date();
         //
         // var minutes = nowDate.getMinutes();
@@ -324,7 +325,7 @@ $(document).ready(function() {
                 "/settings/ajax",
                 {
                     setting: "setting_date",
-                    selected_date: $('#calendar-timeline').fullCalendar('getDate').format()
+                    selected_date: $('#calendar-timeline').fullCalendar('getDate').format('YYYY/MM/DD')
                 }
             );
         });

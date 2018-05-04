@@ -124,7 +124,7 @@ class EventsController < ApplicationController
   end
 
   def time_line_view
-    @selected_date = session[:selected_date] || Date.current  
+    @selected_date = session[:selected_date] || Date.today.strftime('%Y/%m/%d')    
     @default_roru = Shainmaster.find(session[:user]).rorumaster.try(:ロールコード)
     @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
                     .where(社員番号: session[:selected_shain]).where('Date(開始) >= ?', 1.month.ago(Date.today))
@@ -151,29 +151,22 @@ class EventsController < ApplicationController
       end
     else
       vars = request.query_parameters
-      if !vars['roru'] || vars['roru'].empty?
-        if !vars['joutai'] || vars['joutai'].empty?
-          @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .where(タイムライン区分: false)
+      current_time_text = "#{@selected_date} #{Time.now.strftime('%H:%M')}"
+      @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
+      @shains = Shainmaster.where(タイムライン区分: false)
+      @shains = @shains.joins(:rorumenbas).where(ロールメンバ: {ロールコード: vars['roru']}) if vars['roru'] && vars['roru'].present?
+      if vars['joutai'] && vars['joutai'].present?        
+        if vars['joutai'] == '00' # 不在 chossen.
+          shain_ids = Shainmaster.pluck(:社員番号).uniq - Event.where(" ? BETWEEN 開始 AND 終了", current_time_text)
+                                                              .where.not(状態コード: '00')
+                                                              .pluck(:社員番号).uniq
         else
-          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
-                              .where(状態コード: vars['joutai'])
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .where(タイムライン区分: false, "events.状態コード": vars['joutai'])
+          shain_ids = Event.where(" ? BETWEEN 開始 AND 終了", current_time_text)
+                            .where(状態コード: vars['joutai'])
+                            .pluck(:社員番号).uniq
         end
-      else
-        if !vars['joutai'] || vars['joutai'].empty?
-          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .joins(:rorumenbas).where(タイムライン区分: false, ロールメンバ: {ロールコード: vars['roru']})
-        else
-          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
-                          .where(状態コード: vars['joutai'])
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .joins(:rorumenbas, :events).where(タイムライン区分: false, "events.状態コード": vars['joutai'], ロールメンバ: {ロールコード: vars['roru']})
-        end
-      end
+        @shains = @shains.where(社員番号: shain_ids)
+      end      
       @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
                     .where(社員番号: @shains.ids.uniq).where('Date(開始) >= ?', 1.month.ago(Date.today))
                     .order(開始: :desc)
