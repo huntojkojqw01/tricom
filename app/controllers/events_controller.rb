@@ -124,9 +124,9 @@ class EventsController < ApplicationController
   end
 
   def time_line_view
-    @selected_date = session[:selected_date] || Date.current  
+    @selected_date = session[:selected_date] || Date.today.strftime('%Y/%m/%d')    
     @default_roru = Shainmaster.find(session[:user]).rorumaster.try(:ロールコード)
-    @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
+    @events = Event.includes(:joutaimaster, { bashomaster: :kaishamaster } , :jobmaster, :kouteimaster)
                     .where(社員番号: session[:selected_shain]).where('Date(開始) >= ?', 1.month.ago(Date.today))
                     .order(開始: :desc)
     @kitaku_event = Event.where(社員番号: session[:user], 状態コード: '99').where('Date(開始) = ?', Date.today)
@@ -151,33 +151,39 @@ class EventsController < ApplicationController
       end
     else
       vars = request.query_parameters
-      if !vars['roru'] || vars['roru'].empty?
-        if !vars['joutai'] || vars['joutai'].empty?
-          @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .where(タイムライン区分: false)
+      current_time_text = "#{@selected_date} #{Time.now.strftime('%H:%M')}"
+      @shains = Shainmaster.where(タイムライン区分: false)
+      @shains = @shains.joins(:rorumenbas).where(ロールメンバ: {ロールコード: vars['roru']}) if vars['roru'] && vars['roru'].present?
+      if vars['joutai'] && vars['joutai'].present?        
+        if vars['joutai'] == '00' # 不在 chossen.
+          shain_ids = Shainmaster.pluck(:社員番号).uniq - Event.where(" ? BETWEEN 開始 AND 終了", current_time_text)
+                                                              .where.not(状態コード: '00')
+                                                              .pluck(:社員番号).uniq
         else
-          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
-                              .where(状態コード: vars['joutai'])
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .where(タイムライン区分: false, "events.状態コード": vars['joutai'])
+          shain_ids = Event.where(" ? BETWEEN 開始 AND 終了", current_time_text)
+                            .where(状態コード: vars['joutai'])
+                            .pluck(:社員番号).uniq
         end
-      else
-        if !vars['joutai'] || vars['joutai'].empty?
-          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster).all
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .joins(:rorumenbas).where(タイムライン区分: false, ロールメンバ: {ロールコード: vars['roru']})
-        else
-          @all_events=Event.includes(:jobmaster, :joutaimaster, :shainmaster, :bashomaster)
-                          .where(状態コード: vars['joutai'])
-          @shains = Shainmaster.includes(:shozokumaster, :shozai, :yakushokumaster, events: :bashomaster)
-                              .joins(:rorumenbas, :events).where(タイムライン区分: false, "events.状態コード": vars['joutai'], ロールメンバ: {ロールコード: vars['roru']})
-        end
-      end
-      @events = Event.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
+        @shains = @shains.where(社員番号: shain_ids)
+      end      
+      @all_events = Event.includes(:jobmaster, :joutaimaster, :bashomaster).where(社員番号: @shains.ids.uniq)
+      @events = Event.includes(:joutaimaster, { bashomaster: :kaishamaster } , :jobmaster, :kouteimaster)
                     .where(社員番号: @shains.ids.uniq).where('Date(開始) >= ?', 1.month.ago(Date.today))
                     .order(開始: :desc)
-    end      
+    end    
+
+    default = {
+      joutai: @joutaiDefault.try(:name),
+      color: @joutaiDefault.try(:色),
+      textColor: @joutaiDefault.try(:text_color)
+    }
+
+    @data = { 
+            :events => build_event_json(@all_events),
+            :shains => build_shain_json(@shains),
+            :setting => { scrolltime: @setting.try(:scrolltime) || '06:00' },
+            :default => default
+    }.to_json   
     rescue => e
       p e
       @events = Shainmaster.take.events.includes(:joutaimaster, :bashomaster, :jobmaster, :kouteimaster)
@@ -188,19 +194,15 @@ class EventsController < ApplicationController
   end
 
   def new
-    date = Date.today.to_s(:db)
     vars = request.query_parameters
-    param_date = vars['start_at'] || Date.today.to_s
-    # @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: '#{date} 09:00', 終了: '#{date} 18:00')
-    param_shain = vars['shain_id'] || Shainmaster.find(session[:selected_shain]).id
-    event = Event.where(社員番号: param_shain).where.not(終了: '').where('Date(終了) = ?',param_date.to_date.to_s(:db))
-
-    if event.count > 0
-      event = event.order(終了: :desc).first
-      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: event.終了, 終了: "#{param_date} 18:00")
-    else
-      @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
-    end
+    param_date = vars['start_at'] || Date.today.strftime("%Y/%m/%d")
+    param_shain = vars['shain_id'] || session[:selected_shain]
+    event = Event.where(社員番号: param_shain)
+                 .where.not(終了: '')
+                 .where('Date(終了) = ?', param_date)
+                 .order(終了: :desc)
+                 .first
+    @event = Event.new(社員番号: session[:selected_shain], 開始: event.try(:終了) || "#{param_date} 09:00", 終了: "#{param_date} 18:00")
   end
 
   def shutchou_ikkatsu_new
@@ -1005,5 +1007,40 @@ private
   end
   def jobmaster_params
     params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
+  end
+  def build_event_json(events)
+    umu_flag = {
+      '帰社' => ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-left"></span>',
+      '直帰' => ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-bottom"></span>',
+      '連続' => ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-top"></span>',
+    }
+    events.map do |event|
+      {
+        id: event.id,
+        description: event.jobmaster.try(:job名) || '',
+        joutai: event.joutaimaster.try(:name) || '',
+        title: "#{event.joutaimaster.try(:name) || ''}: #{event.comment || event.jobmaster.try(:job名) || ''}#{umu_flag[event.有無]}",
+        start: event.start_time,
+        end: event.end_time,
+        url: edit_event_url(event, format: :html,:param => "timeline", :shain_id => event.社員番号),
+        resourceId: event.社員番号,
+        color: event.joutaimaster.try(:色),
+        textColor: event.joutaimaster.try(:text_color),
+        bashokubun: event.bashomaster.try(:場所区分),
+        bashomei: event.bashomaster.try(:場所名) || ''
+      }
+    end
+  end
+
+  def build_shain_json(shains)
+    shains.map do |shain|
+      {
+        id: shain.id,
+        shain: shain.氏名,
+        linenum: shain.内線電話番号,
+        dengon: shain.伝言件数 && shain.伝言件数 != '0' ? shain.伝言件数 : '',
+        kairan: (shain.回覧件数 == '0' || shain.id != session[:user]) ? '' : shain.回覧件数
+      }
+    end
   end
 end

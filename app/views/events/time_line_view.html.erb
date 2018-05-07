@@ -56,10 +56,7 @@
         <td>
           <button class="btn btn-primary" id="create_kitaku_button" type="button" style="margin-bottom: 0px;margin-right:15px"><%=(t 'app.label.create_kitaku')%></button>
         </td>
-      <%end %>
-      <!--<td>-->
-        <!--<button class="btn btn-primary" id="reload_button" type="button" style="margin-bottom: 0px;margin-right:15px" ><%=(t 'app.label.reload')%></button>-->
-      <!--</td>-->
+      <%end %>      
     </table>
   </div>
   <div class="col-md-6 col-xs-8 col-sm-8 col-lg-4 col-md-offset-3 col-xs-offset-0 col-sm-offset-0 col-lg-offset-3">    
@@ -72,20 +69,7 @@
 <div class="row">
   <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
     <div class="timeline-view">
-      <div style="height:55px;">
-        <!-- <div class="pull-left">
-          <%= f.submit (t 'helpers.submit.redirect_to_kintai'), class: 'btn btn-default', id:'kintai'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_keihihead'), class: 'btn btn-default', id:'keihi'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_shonin'), class: 'btn btn-default', id:'shonin'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_dengon'), class: 'btn btn-default', id:'dengon'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_kairan'), class: 'btn btn-default', id:'kairan'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_setsubiyoyaku'), class: 'btn btn-default', id:'setsubiyoyaku'%>
-        </div> -->
-        <!-- <div class="form-inline pull-left">
-          <%= f.input (t 'app.label.calendar_genzai') do %>
-              <%= f.select :所在コード, Shozai.all.order(所在コード: :asc).map { |s| [s.name, s.id, { class: '' }] }, {:selected => Shainmaster.find(session[:user]).try(:所在コード),include_blank: true},{ class: 'form-control'} %>
-          <% end %>
-        </div> -->
+      <div style="height:55px;">        
         <table class="pull-left">
           <td>
             <bold style="line-height:40px;margin-right:15px;font-weight:bold;"><%=(t 'title.busho')%></bold>
@@ -102,20 +86,14 @@
           </td>
           <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 0px;margin-left:15px"><%=(t 'helpers.button.search')%></button></td>
 
-        </table>
-        <!--<table class="pull-right">-->
-          <!--<td>-->
-            <!--<button class="btn btn-default" id="prev10Days" type="button" style="margin-bottom: 0px;margin-left:15px"><-10</button>-->
-          <!--</td>-->
-          <!--<td>-->
-            <!--<button class="btn btn-default" id="next10Days" type="button" style="margin-bottom: 0px;margin-left:15px">>+10</button>-->
-          <!--</td>-->
-
-        <!--</table>-->
+        </table>        
       </div>
 
       <div id="calendar-timeline"></div>
     </div>
   </div>
 </div>
+<% end %>
+<%= javascript_tag do %>
+  create_calendar(<%= @data.try(:html_safe)%>);
 <% end %>
