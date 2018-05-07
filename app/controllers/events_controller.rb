@@ -129,9 +129,7 @@ class EventsController < ApplicationController
     @events = Event.includes(:joutaimaster, { bashomaster: :kaishamaster } , :jobmaster, :kouteimaster)
                     .where(社員番号: session[:selected_shain]).where('Date(開始) >= ?', 1.month.ago(Date.today))
                     .order(開始: :desc)
-    @kitaku_event = Event.where(社員番号: session[:user], 状態コード: '99').where('Date(開始) = ?', Date.today)
-    @setting = Setting.find_by(社員番号: session[:user])
-    @joutaiDefault = Joutaimaster.find_by(状態コード: '00')
+    @kitaku_event = Event.where(社員番号: session[:user], 状態コード: '99').where('Date(開始) = ?', Date.today)    
     if request.post?
       case params[:commit]
         when (t 'helpers.submit.redirect_to_timeline')
@@ -170,19 +168,18 @@ class EventsController < ApplicationController
       @events = Event.includes(:joutaimaster, { bashomaster: :kaishamaster } , :jobmaster, :kouteimaster)
                     .where(社員番号: @shains.ids.uniq).where('Date(開始) >= ?', 1.month.ago(Date.today))
                     .order(開始: :desc)
-    end    
+    end
 
-    default = {
-      joutai: @joutaiDefault.try(:name),
-      color: @joutaiDefault.try(:色),
-      textColor: @joutaiDefault.try(:text_color)
-    }
-
+    joutaiDefault = Joutaimaster.find_by(状態コード: '00')
     @data = { 
             :events => build_event_json(@all_events),
             :shains => build_shain_json(@shains),
-            :setting => { scrolltime: @setting.try(:scrolltime) || '06:00' },
-            :default => default
+            :setting => { scrolltime: Setting.find_by(社員番号: session[:user]).try(:scrolltime) || '06:00' },
+            :default => {
+                          joutai: joutaiDefault.name,
+                          color: joutaiDefault.色,
+                          textColor: joutaiDefault.text_color
+                        }
     }.to_json   
     rescue => e
       p e

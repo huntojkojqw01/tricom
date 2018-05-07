@@ -749,76 +749,25 @@ function create_calendar(data) {
 
   //$("#calendar-timeline").fullCalendar( 'getResourceById', 'kairan' ).hide();
   //update time
-  var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
-  var d = moment(selectedDate);
-  var calDate = new Date();
-  var minutes = calDate.getMinutes();
-  minutes = minutes > 9 ? minutes : '0' + minutes;
-  var hours = calDate.getHours();
-  hours = hours > 9 ? hours : '0' + hours;
-
-  var time = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日"+"  ("+weekday[calDate.getDay()]+")  "+hours+":"+minutes;
-  $('#timeline_time').text(time);
-  var currentTimeText = d.year()+"/"+(d.month()+1)+"/"+d.date()+"/"+hours+":"+minutes;
-  var currentTime = moment(currentTimeText,'YYYY/MM/DD HH:mm');
-  //update joutai
-  var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
-  for (var j = 0; j < listShain.length; j++) {
-    var check_exist = false;
-    var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
-    for (var i = 0; i < listEvents.length; i++) {
-
-      var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
-      var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
-      // alert(start_diff+"\n"+end_diff)
-      if (start_diff>=0 && end_diff<=0) {
-        check_exist = true;
-        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
-        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
-        $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(4) .fc-cell-content>div>span').text(listEvents[i].bashomei);
-      }
-
-    }
-    if(!check_exist){
-      $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
-      $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content>span').text(data.default.joutai);
-      $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(4) .fc-cell-content>div>span').text('');
-    }
-  }
-
-  setInterval(function() {
-    //update time
+  function update_joutai_timeline(){
+    var time = new Date();
+    $('#timeline_time').text(moment(time).format("YYYY年M月D日 (ddd) HH:mm"));
     var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
-    var d = moment(selectedDate);
-    var calDate = new Date();
-    var minutes = calDate.getMinutes();
-    minutes = minutes > 9 ? minutes : '0' + minutes;
-    var hours = calDate.getHours();
-    hours = hours > 9 ? hours : '0' + hours;
-
-    var time = calDate.getFullYear()+"年"+(calDate.getMonth()+1)+"月"+calDate.getDate()+"日"+"  ("+weekday[calDate.getDay()]+")  "+hours+":"+minutes;
-    var date = d.year()+"年"+(d.month()+1)+"月"+d.date()+"日"
-    $('#timeline_time').text(time);
-    var currentTimeText = d.year()+"/"+(d.month()+1)+"/"+d.date()+"/"+hours+":"+minutes;
-    var currentTime = moment(currentTimeText,'YYYY/MM/DD HH:mm');
-
+    selectedDate.hour(time.getHours());
+    selectedDate.minute(time.getMinutes());
     //update joutai
     var listShain = $('#calendar-timeline').fullCalendar( 'getResources');
     for (var j = 0; j < listShain.length; j++) {
       var check_exist = false;
       var listEvents = $('#calendar-timeline').fullCalendar( 'getResourceEvents', listShain[j].id);
       for (var i = 0; i < listEvents.length; i++) {
-
-        var start_diff = currentTime.diff(moment(listEvents[i].start).format('YYYY/MM/DD HH:mm'),'minutes', true);
-        var end_diff = currentTime.diff(moment(listEvents[i].end).format('YYYY/MM/DD HH:mm'),'minutes', true);
-        // alert(start_diff+"\n"+end_diff)
-        if (start_diff>=0 && end_diff<=0) {
+        if (moment(listEvents[i].start) <= selectedDate && selectedDate <= moment(listEvents[i].end)) {
           check_exist = true;
           $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content').css('color',listEvents[i].textColor).css('background-color',listEvents[i].color);
           $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(3) .fc-cell-content>span').text(listEvents[i].joutai);
           $('.fc-resource-area tr[data-resource-id="'+listEvents[i].resourceId+'"] td:nth-child(4) .fc-cell-content>div>span').text(listEvents[i].bashomei);
+          break;
         }
-
       }
       if(!check_exist){
         $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(3) .fc-cell-content').css('color',data.default.textColor).css('background-color',data.default.color);
@@ -826,5 +775,7 @@ function create_calendar(data) {
         $('.fc-resource-area tr[data-resource-id="'+listShain[j].id+'"] td:nth-child(4) .fc-cell-content>div>span').text('');
       }
     }
-  }, 3000);    
+  }
+  update_joutai_timeline();
+  setInterval(update_joutai_timeline, 3000);    
 }
