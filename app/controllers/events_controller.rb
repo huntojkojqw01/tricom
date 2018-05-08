@@ -792,23 +792,20 @@ class EventsController < ApplicationController
          # format.js { render 'delete'}
        end
      when 'basho_selected'
-
-        @mybasho = Mybashomaster.where(社員番号: params[:shain],場所コード: params[:mybasho_id]).first
-        if @mybasho.nil?
-          basho = Bashomaster.find(params[:mybasho_id])
-          @mybasho = Mybashomaster.new(社員番号: params[:shain],場所コード: params[:mybasho_id],
-            場所名: basho.try(:場所名),場所名カナ: basho.try(:場所名カナ), SUB: basho.try(:SUB),
-            場所区分: basho.try(:場所区分),会社コード: basho.try(:会社コード))
+        @mybasho = Mybashomaster.find_by(社員番号: params[:shain], 場所コード: params[:mybasho_id])
+        if @mybasho
+          @mybasho.update(updated_at: Time.now)
+          respond_to do |format|
+            format.json { render json: { mybasho_id: @mybasho.id } }
+          end          
+        else
+          basho = Bashomaster.find_by(場所コード: params[:mybasho_id])
+          @mybasho = Mybashomaster.new(basho.slice(:場所コード, :場所名, :場所名カナ, :SUB, :場所区分, :会社コード)
+                                             .merge(社員番号: params[:shain]))
           if @mybasho.save
             respond_to do |format|
               format.js { render 'create_mybasho'}
             end
-          end
-        else
-          @mybasho.update(updated_at: Time.now)
-          data = {mybasho_id: @mybasho.id}
-          respond_to do |format|
-            format.json { render json: data}
           end
         end
 
@@ -825,24 +822,22 @@ class EventsController < ApplicationController
          # format.js { render 'delete'}
        end
      when 'job_selected'
-        @myjob = Myjobmaster.where(社員番号: params[:shain],job番号: params[:myjob_id]).first
-        if @myjob.nil?
-          job = Jobmaster.find(params[:myjob_id])
-          @myjob = Myjobmaster.new(社員番号: params[:shain],job番号: params[:myjob_id],
-            job名: job.try(:job名),開始日: job.try(:開始日), 終了日: job.try(:終了日),
-            ユーザ番号: job.try(:ユーザ番号),ユーザ名: job.try(:ユーザ名),入力社員番号: job.try(:入力社員番号),
-            分類コード: job.try(:分類コード),分類名: job.try(:分類名),
-            関連Job番号: job.try(:関連Job番号),備考: job.try(:備考))
-          if @myjob.save
-            respond_to do |format|
-              format.js { render 'create_myjob'}
-            end
-          end
-        else
+        @myjob = Myjobmaster.find_by(社員番号: params[:shain], job番号: params[:myjob_id])
+        if @myjob
           @myjob.update(updated_at: Time.now)
-          data = {myjob_id: @mybasho.id}
           respond_to do |format|
-            format.json { render json: data}
+            format.json { render json: { myjob_id: @myjob.id } }
+          end          
+        else
+          job = Jobmaster.find_by(job番号: params[:myjob_id])
+          if job
+            @myjob = Myjobmaster.new(job.slice(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
+                                        .merge(社員番号: params[:shain]))
+            if @myjob.save
+              respond_to do |format|
+                format.js { render 'create_myjob'}
+              end
+            end
           end
         end
 
