@@ -105,67 +105,25 @@ $(function () {
     });
 
     $('#basho_table tbody').on( 'dblclick', 'tr', function () {
-        $(this).addClass('selected');
-        $(this).addClass('success');
-        var mybasho = oBashoTable.row('tr.selected').data();
-        var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'basho_selected',mybasho_id: mybasho[0],shain: shain},
-            type: "POST",
-
-            success: function(data) {
-               if(data.mybasho_id != null){
-                    console.log("getAjax mybasho_id:"+ data.mybasho_id);
-
-                }
-                else{
-
-                    console.log("getAjax mybasho_id:"+ data.mybasho_id);
-                }
-            },
-            failure: function() {
-                console.log("basho_selected keydown Unsuccessful");
-            }
-        });
-        if(mybasho!= undefined){
-            $('#event_場所コード').val(mybasho[0]);
-            $('.hint-basho-refer').text(mybasho[1]);
-            $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
-            $('#event_場所コード').closest('.form-group').removeClass('has-error')
-        }
-        $('#basho_search_modal').modal('hide')
+      $(this).addClass('selected');
+      $(this).addClass('success');
+      var mybasho = oBashoTable.row('tr.selected').data();
+      if(mybasho!= undefined){
+        $('#event_場所コード').val(mybasho[0]);
+        $('.hint-basho-refer').text(mybasho[1]);
+        $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
+        $('#event_場所コード').closest('.form-group').removeClass('has-error');
+      }
+      $('#basho_search_modal').modal('hide');
     } );
     $('#basho_sentaku_ok').click(function(){
-
-        var mybasho = oBashoTable.row('tr.selected').data();
-        var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'basho_selected',mybasho_id: mybasho[0],shain: shain},
-            type: "POST",
-
-            success: function(data) {
-               if(data.mybasho_id != null){
-                    console.log("getAjax mybasho_id:"+ data.mybasho_id);
-
-                }
-                else{
-
-                    console.log("getAjax mybasho_id:"+ data.mybasho_id);
-                }
-            },
-            failure: function() {
-                console.log("basho_selected keydown Unsuccessful");
-            }
-        });
-        if(mybasho!= undefined){
-            $('#event_場所コード').val(mybasho[0]);
-            $('.hint-basho-refer').text(mybasho[1]);
-            $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
-            $('#event_場所コード').closest('.form-group').removeClass('has-error')
-
-        }
+      var mybasho = oBashoTable.row('tr.selected').data();
+      if(mybasho!= undefined){
+        $('#event_場所コード').val(mybasho[0]);
+        $('.hint-basho-refer').text(mybasho[1]);
+        $('#event_場所コード').closest('.form-group').find('span.help-block').remove();
+        $('#event_場所コード').closest('.form-group').removeClass('has-error');
+      }
     });
 
 });

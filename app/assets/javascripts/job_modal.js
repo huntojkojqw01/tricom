@@ -195,67 +195,26 @@ $(function () {
     oTable.$('tr.success').removeClass( 'success');
   });
   $('#job_sentaku_ok').click(function(){
-
-        var myjob = oJobTable.row('tr.selected').data();
-        var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'job_selected',myjob_id: myjob[0],shain: shain},
-            type: "POST",
-
-            success: function(data) {
-               if(data.myjob_id != null){
-                    console.log("getAjax myjob_id:"+ data.myjob_id);
-
-                }
-                else{
-
-                    console.log("getAjax myjob_id:"+ data.myjob_id);
-                }
-            },
-            failure: function() {
-                console.log("job_selected keydown Unsuccessful");
-            }
-        });
-        if(myjob!= undefined){
-          $('#event_JOB').val((myjob[0]));
-          $('.hint-job-refer').text((myjob[1]));
-          $('#event_JOB').closest('.form-group').find('span.help-block').remove();
-          $('#event_JOB').closest('.form-group').removeClass('has-error');
-        }
-    });
+    var myjob = oJobTable.row('tr.selected').data();
+    if(myjob!= undefined){
+      $('#event_JOB').val((myjob[0]));
+      $('.hint-job-refer').text((myjob[1]));
+      $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+      $('#event_JOB').closest('.form-group').removeClass('has-error');
+    }
+  });
 
   $('#job_table tbody').on( 'dblclick', 'tr', function () {
     $(this).addClass('selected');
     $(this).addClass('success');
-    var myjob = oJobTable.row('tr.selected').data();
-        var shain = $('#event_社員番号').val();
-        $.ajax({
-            url: '/events/ajax',
-            data: {id: 'job_selected',myjob_id: myjob[0],shain: shain},
-            type: "POST",
-
-            success: function(data) {
-               if(data.myjob_id != null){
-                    console.log("getAjax myjob_id:"+ data.myjob_id);
-
-                }
-                else{
-
-                    console.log("getAjax myjob_id:"+ data.myjob_id);
-                }
-            },
-            failure: function() {
-                console.log("job_selected keydown Unsuccessful");
-            }
-        });
-        if(myjob!= undefined){
-          $('#event_JOB').val((myjob[0]));
-          $('.hint-job-refer').text((myjob[1]));
-          $('#event_JOB').closest('.form-group').find('span.help-block').remove();
-          $('#event_JOB').closest('.form-group').removeClass('has-error');
-        }
-    $('#job_search_modal').modal('hide')
+    var myjob = oJobTable.row('tr.selected').data();        
+    if(myjob!= undefined){
+      $('#event_JOB').val((myjob[0]));
+      $('.hint-job-refer').text((myjob[1]));
+      $('#event_JOB').closest('.form-group').find('span.help-block').remove();
+      $('#event_JOB').closest('.form-group').removeClass('has-error');
+    }
+    $('#job_search_modal').modal('hide');
   });
 
 });
