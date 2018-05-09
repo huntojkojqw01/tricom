@@ -1,14 +1,14 @@
 class Event < ActiveRecord::Base
+  attr_accessor :kintai_daikyu_date
   include VerificationAssociations
   self.table_name = :events
   include PgSearch
   multisearchable :against => %w{開始 終了 joutai_状態名 basho_name job_job名 koutei_工程名 計上}
-
-  after_update :doUpdateKintai
-  after_create :doUpdateKintai
-  after_destroy :doUpdateKintai
+  
   before_update :doCaculateKousu
   before_create :doCaculateKousu
+  after_save :doUpdateKintai, :updateMyBasho, :updateMyJob
+  after_destroy :doUpdateKintai
   validates :社員番号, :開始, :状態コード, presence: true
   validates :工程コード, :場所コード, :JOB, presence: true, if: Proc.new{|event| (event.joutaimaster.try(:状態区分) == '1' || event.joutaimaster.try(:状態区分) == '5' ) && !(event.joutaimaster.try(:状態コード) == '60' && Time.parse(event.開始).hour >= 9)}
   validate :check_date_input
@@ -41,194 +41,94 @@ class Event < ActiveRecord::Base
 
 
   def doCaculateKousu
-    if self.開始 != '' && self.終了 != ''
-      kousu = ApplicationController.helpers.caculate_koushuu(self.開始, self.終了)
-      self.工数 = kousu.to_f.round(2)
-    end
-
+    self.工数 = ApplicationController.helpers.caculate_koushuu(開始, 終了) if 開始.present? && 終了.present?
   end
+
   def doUpdateKintai
-    ApplicationController.helpers.check_kintai_at_day_by_user(self.社員番号, self.開始.to_date)
-    kintai = Kintai.find_by("Date(日付) = Date(?) AND 社員番号 = ?", self.開始, self.社員番号)
-    old_joutai = kintai.状態1
+    ApplicationController.helpers.check_kintai_at_day_by_user(社員番号, 開始.to_date)
+    shain = Shainmaster.find_by(社員番号: 社員番号)
+    kintai = Kintai.find_by("Date(日付) = Date(?) AND 社員番号 = ?", 開始, 社員番号)    
     if kintai
-      kinmu_type = Shainmaster.find(self.社員番号).勤務タイプ
-      events = Event.joins(:joutaimaster)
-                    .where("Date(開始) = Date(?) AND (状態マスタ.状態区分 = ? OR 状態マスタ.状態区分 = ?)", self.開始, "1", "5")
-                    .where(社員番号: self.社員番号)
-                    .where.not(開始: '', 終了: '')
-      joutai_first = Event.joins(:joutaimaster)
-                          .where("Date(開始) = Date(?)", self.開始)
-                          .where(社員番号: self.社員番号, 状態マスタ: {勤怠使用区分: "1"})
-                          .where.not(開始: '', 終了: '').order(開始: :asc).first.try(:状態コード) || ''
-      if events.count > 0
-        time_start = events.order(開始: :asc).first.try(:開始)
-        time_end = events.order(終了: :desc).first.try(:終了)
-        hh_mm = time_start[11,15]
-        if hh_mm <= "07:00"
-          kinmu_type = "001"
-        elsif hh_mm > "07:00" && hh_mm <= "07:30"
-          kinmu_type = "002"
-        elsif hh_mm > "07:30" && hh_mm <= "08:00"
-          kinmu_type = "003"
-        elsif hh_mm > "08:00" && hh_mm <= "08:30"
-          kinmu_type = "004"
-        elsif hh_mm > "08:30" && hh_mm <= "09:00"
-          kinmu_type = "005"
-        elsif hh_mm > "09:00" && hh_mm <= "09:30"
-          kinmu_type = "006"
-        elsif hh_mm > "09:30" && hh_mm <= "10:00"
-          kinmu_type = "007"
-        elsif hh_mm > "10:00" && hh_mm <= "10:30"
-          kinmu_type = "008"
-        elsif hh_mm > "10:30"
-          kinmu_type = "009"
-        end
-        real_hours_total = 0
-        fustu_zangyo_total = 0
-        shinya_zangyou_total = 0
-        events.each do |event|
-          real_hours = 0
-          fustu_zangyo = 0
-          shinya_zangyou = 0
+      kinmu_type = shain.try(:勤務タイプ)
+      # tim nhung su kien trong ngay hom do (開始),ma co trang thai khong phai la nghi:
+      events = Event.joins(:joutaimaster).where("Date(開始) = Date(?)", 開始)
+                                         .where(社員番号: 社員番号, 状態マスタ: { 勤怠使用区分: ['1', '5'] } )
+                                         .where.not(開始: '', 終了: '')
+      # tim ra joutai se thiet lap cho kintai , joutai chinh la cai dau tien trong cac event:
+      joutai_first = 状態コード
+                    # Event.joins(:joutaimaster)
+                    #       .where("Date(開始) = Date(?)", 開始)
+                    #       .where(社員番号: 社員番号, 状態マスタ: { 勤怠使用区分: '1' } )
+                    #       .where.not(開始: '', 終了: '')
+                    #       .order(開始: :asc).first.try(:状態コード) || ''
 
-          start_time_date = event.開始[0, 10]
-          end_time_date = event.終了[0,10]
+      if events.any?
+        time_start, time_end = events.minimum(:開始), events.maximum(:終了)
+        times = ApplicationController.helpers.time_calculate(time_start, time_end, kinmu_type, events)
+        real_hours_total = times[:real_hours] / 15 * 0.25
+        fustu_zangyo_total = times[:fustu_zangyo] / 15 * 0.25
+        shinya_zangyou_total = times[:shinya_zangyou] / 15 * 0.25
+        shinya_zangyou_total = times[:shinya_zangyou] / 15 * 0.25
 
-          nextDay = start_time_date.to_date.next
-          next_time_date = nextDay.to_s
-
-
-          hiru_kyukei_start =     start_time_date + ' 12:00'
-          hiru_kyukei_end =       start_time_date + ' 13:00'
-          yoru_kyukei_start =     start_time_date + ' 18:00'
-          yoru_kyukei_end =       start_time_date + ' 19:00'
-          shinya_kyukei_start =   start_time_date + ' 23:00'
-          shinya_kyukei_end =     next_time_date + ' 00:00'
-          souchou_kyukei_start =  next_time_date + ' 04:00'
-          souchou_kyukei_end =    next_time_date + ' 07:00'
-
-          if get_time_diff(event.開始,hiru_kyukei_start) > 0
-            hiru_diff_1 = get_time_diff(hiru_kyukei_start,event.終了)
-            hiru_diff_2 = get_time_diff(hiru_kyukei_end,event.終了)
-            hiru_kyukei = hiru_diff_1 - hiru_diff_2
-          elsif get_time_diff(event.開始,hiru_kyukei_end) > 0
-            hiru_diff_1 = get_time_diff(event.開始,event.終了)
-            hiru_diff_2 = get_time_diff(hiru_kyukei_end,event.終了)
-            hiru_kyukei = hiru_diff_1 - hiru_diff_2
-          else
-            hiru_kyukei = 0
-          end
-
-          if get_time_diff(event.開始,yoru_kyukei_start) > 0
-            yoru_diff_1 = get_time_diff(yoru_kyukei_start,event.終了)
-            yoru_diff_2 = get_time_diff(yoru_kyukei_end,event.終了)
-            yoru_kyukei = yoru_diff_1 - yoru_diff_2
-          elsif get_time_diff(event.開始,yoru_kyukei_end) > 0
-            yoru_diff_1 = get_time_diff(event.開始,event.終了)
-            yoru_diff_2 = get_time_diff(yoru_kyukei_end,event.終了)
-            yoru_kyukei = yoru_diff_1 - yoru_diff_2
-          else
-            yoru_kyukei = 0
-          end
-
-          if get_time_diff(event.開始,shinya_kyukei_start) > 0
-            shinya_diff_1 = get_time_diff(shinya_kyukei_start,event.終了)
-            shinya_diff_2 = get_time_diff(shinya_kyukei_end,event.終了)
-            shinya_kyukei = shinya_diff_1 - shinya_diff_2
-          elsif get_time_diff(event.開始,shinya_kyukei_end) > 0
-            shinya_diff_1 = get_time_diff(event.開始,event.終了)
-            shinya_diff_2 = get_time_diff(shinya_kyukei_end,event.終了)
-            shinya_kyukei = shinya_diff_1 - shinya_diff_2
-          else
-            shinya_kyukei = 0
-          end
-
-          if get_time_diff(event.開始,souchou_kyukei_start) > 0
-            souchou_diff_1 = get_time_diff(souchou_kyukei_start,event.終了)
-            souchou_diff_2 = get_time_diff(souchou_kyukei_end,event.終了)
-            souchou_kyukei = souchou_diff_1 - souchou_diff_2
-          elsif get_time_diff(event.開始,souchou_kyukei_end) > 0
-            souchou_diff_1 = get_time_diff(event.開始,event.終了)
-            souchou_diff_2 = get_time_diff(souchou_kyukei_end,event.終了)
-            souchou_kyukei = souchou_diff_1 - souchou_diff_2
-          else
-            souchou_kyukei = 0
-          end
-
-          real_hours = get_time_diff(event.開始,event.終了)
-          real_hours = real_hours - hiru_kyukei - yoru_kyukei - shinya_kyukei - souchou_kyukei
-
-          if shinya_kyukei > 0
-            fustu_zangyo = get_time_diff(event.開始,shinya_kyukei_start)
-            fustu_zangyo = fustu_zangyo - hiru_kyukei - yoru_kyukei
-          else
-            fustu_zangyo = real_hours
-          end
-          if fustu_zangyo < 0
-            fustu_zangyo = 0
-          end
-
-          if souchou_kyukei > 0
-            shinya_zangyou = get_time_diff(shinya_kyukei_end,souchou_kyukei_start)
-          else
-            shinya_zangyou = get_time_diff(shinya_kyukei_end,event.終了)
-          end
-          if shinya_zangyou < 0
-            shinya_zangyou = 0
-          end
-          real_hours_total += real_hours
-          fustu_zangyo_total += fustu_zangyo
-          shinya_zangyou_total += shinya_zangyou
-        end # events.each do |event|
-        fustu_zangyo_total = fustu_zangyo_total - 8
-        if fustu_zangyo_total < 0
-          fustu_zangyo_total = 0
-        end
-
-        zangyou_kubun = Shainmaster.find(self.社員番号).残業区分
-        if zangyou_kubun == "1"
+        if shain.try(:残業区分) == "1"
           kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
           退社時刻: time_end, 実労働時間: real_hours_total, 普通残業時間: fustu_zangyo_total,
           深夜残業時間: shinya_zangyou_total, 状態1: joutai_first)
         else
           kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-          退社時刻: time_end, 実労働時間: real_hours_total,普通残業時間: '',
+          退社時刻: time_end, 実労働時間: real_hours_total, 普通残業時間: '',
           深夜残業時間: '', 状態1: joutai_first)
         end
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
         実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
-      end # if events.count > 0
+      end # if events.any?
+
       # tinh toan su kien di muon ve som
       chikoku_total = Event.joins(:joutaimaster)
-                          .where("Date(開始) = Date(?) AND 状態マスタ.状態区分 = ? AND 社員番号 = ?", self.開始, "3", self.社員番号)
+                          .where("Date(開始) = Date(?) AND 状態マスタ.状態区分 = ? AND 社員番号 = ?", 開始, "3", 社員番号)
                           .where.not(開始: '', 終了: '')
                           .inject { |sum, event| sum += get_time_diff(event.開始,event.終了) }
       kintai.update(遅刻時間: chikoku_total || '')
-      if old_joutai != joutai_first
-        if kintai.代休相手日付 != ''
-          daikyu_aite_hidzuke = Kintai.find_by(社員番号: self.社員番号, 日付: kintai.代休相手日付)
-          if daikyu_aite_hidzuke
-            if daikyu_aite_hidzuke.代休取得区分 == '1'
-              daikyu_aite_hidzuke.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
-            end
-            if daikyu_aite_hidzuke.代休取得区分 == ''
-              daikyu_aite_hidzuke.update(状態1: '', 代休相手日付: '', 備考: '')
-            end
+
+      # huy bo lien he giua 2 kintai ve van de nghi bu lam bu:
+      if kintai.代休相手日付.present?
+        daikyu_aite_hidzuke = Kintai.find_by(社員番号: 社員番号, 日付: kintai.代休相手日付)
+        if daikyu_aite_hidzuke
+          if daikyu_aite_hidzuke.代休取得区分 == '1' # '1' tuc la da nghi bu, thi chuyen thanh '0' tuc la chua dc nghi bu.
+            daikyu_aite_hidzuke.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+          elsif daikyu_aite_hidzuke.代休取得区分 == ''
+            daikyu_aite_hidzuke.update(状態1: '', 代休相手日付: '', 備考: '')
           end
         end
-        if joutai_first.in?(['103','107','111']) #振出
-          kintai.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
-        elsif joutai_first
-          kintai.update(代休取得区分: '', 代休相手日付: '', 備考: '')
-        end
-      end # if old_joutai != joutai_first
+      end
+
+      # tao lien he giua 2 kintai ve van de nghi bu lam bu moi:
+      if 状態コード.in?(['105', '109', '113']) # 振替休暇, 午前振休, 午後振休
+        if kintai_daikyu_date.present?
+          furikyuus = {
+            '105' => ['の振休', 'の振出'],
+            '109' => ['の午前振休', 'の午前振出'],
+            '113' => ['の午後振休', 'の午後振出']
+          }
+          daikyu_aite_hidzuke = Kintai.find_by(日付: kintai_daikyu_date.to_date, 社員番号: 社員番号)
+          if daikyu_aite_hidzuke
+            bikou1 = "#{ kintai_daikyu_date.to_date.to_s }#{ furikyuus[状態コード][0] }"
+            bikou2 = "#{ 開始.to_date.to_s}#{ furikyuus[状態コード][1] }"
+            kintai.update(代休相手日付: kintai_daikyu_date.to_date.strftime("%Y/%m/%d"), 代休取得区分: '', 備考: bikou1)
+            daikyu_aite_hidzuke.update(代休相手日付: 開始.to_date.strftime("%Y/%m/%d"), 代休取得区分: '1', 備考: bikou2)
+          end # of if daikyu_aite_hidzuke
+        end # of if kintai_daikyu_date.present?
+      elsif 状態コード.in?(['103', '107', '111'])
+        kintai.update(代休取得区分: '0', 代休相手日付: '', 備考: '')
+      else
+        kintai.update(代休取得区分: '', 代休相手日付: '', 備考: '')
+      end
     end # if kintai
   end
 
   def get_time_diff(start_time, end_time)  
-    ((end_time.to_time - start_time.to_time)/1800).floor/2.0
+    ((end_time.to_time - start_time.to_time).to_i / 900) * 0.25
   rescue
     0
   end
@@ -254,6 +154,35 @@ class Event < ActiveRecord::Base
       basho.try(:name)
     end
   end
+
+  def updateMyBasho
+    mybasho = Mybashomaster.find_by(社員番号: 社員番号, 場所コード: 場所コード)
+    if mybasho
+      mybasho.update(updated_at: Time.now)               
+    else
+      basho = Bashomaster.find_by(場所コード: 場所コード)
+      if basho
+        mybasho = Mybashomaster.new(basho.slice(:場所コード, :場所名, :場所名カナ, :SUB, :場所区分, :会社コード)
+                                           .merge(社員番号: 社員番号))
+        mybasho.save
+      end
+    end
+  end
+
+  def updateMyJob
+    myjob = Myjobmaster.find_by(社員番号: 社員番号, job番号: self.JOB)
+    if myjob
+      myjob.update(updated_at: Time.now)               
+    else
+      job = Jobmaster.find_by(job番号: self.JOB)
+      if job
+        myjob = Myjobmaster.new(job.slice(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
+                                    .merge(社員番号: 社員番号))
+        myjob.save        
+      end
+    end
+  end
+
   def self.import(file)
     # a block that runs through a loop in our CSV data
     CSV.foreach(file.path, headers: true) do |row|
