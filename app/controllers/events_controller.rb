@@ -347,149 +347,47 @@ class EventsController < ApplicationController
   end
 
   def create
-    attributes = event_params.clone
-    if event_params[:終了] == '' && event_params[:開始] != ''
-      date = Time.now.strftime('%Y/%m/%d')
-      attributes[:終了] = "#{date} 18:00"
-    end
-    dateCheck = event_params[:開始].to_date
-        if attributes[:状態コード] != '' && !attributes[:状態コード].nil?
-      joutai_kubun = Joutaimaster.find_by(状態コード: attributes[:状態コード]).状態区分
-      if joutai_kubun != '1' && joutai_kubun != '5'
+    attributes = event_params.clone    
+    attributes[:終了] = "#{ Time.now.strftime('%Y/%m/%d') } 18:00" if attributes[:開始].present? && attributes[:終了].blank?
+    if attributes[:状態コード].present?
+      joutai_kubun = Joutaimaster.find_by(状態コード: attributes[:状態コード]).try(:状態区分)
+      unless joutai_kubun.in?(['1', '5'])
         attributes[:場所コード] = ''
         attributes[:JOB] = ''
         attributes[:工程コード] = ''
       end
     end
-    # if event_params[:開始] != '' && dateCheck == Date.today
-    #     shozai_id = params[:head][:shozaicode]
-    #     shain = Shainmaster.find(event_params[:社員番号])
-    #     if shozai_id != ''
-    #       shozai = Shozai.find(shozai_id)
-    #       shain.shozai = shozai if shozai
-    #       shain.save
-    #     else
-    #       shain.update(所在コード: '')
-    #     end
-
-    # end
-    # if attributes[:開始]!= '' && attributes[:終了]!= ''&&attributes[:工数]== ''
-    #   attributes[:工数]= caculate_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
-    # end
-
     @event = User.find(session[:user]).shainmaster.events.new attributes
-    if attributes[:状態コード].in?(['30','31','32'])
-      kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
-      kintai.update(状態1: attributes[:状態コード]) if kintai
-    end
-    # flash[:notice] = t 'app.flash.new_success' if @event.save
-    # case params[:commit]
-    #   when (t 'helpers.submit.create')
-    #     respond_with @event, location: time_line_view_events_url, action: 'new',locals: { param: 'timeline'}
-    #   when (t 'helpers.submit.create_other')
-    #     respond_with @event, location: events_url
-    # end
-
+    @event.kintai_daikyu_date = params[:kintai_daikyu]
     case params[:commit]
-      when (t 'helpers.submit.create')
-        respond_to do |format|
-          if @event.save
-            if attributes[:状態コード].in?(['105','109','113'])
-              if params[:kintai_daikyu] != '' && !params[:kintai_daikyu].nil?
-                kintai_1 = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: attributes[:社員番号])
-                kintai_2 = Kintai.find_by(日付: params[:kintai_daikyu].to_date, 社員番号: attributes[:社員番号])
-                bikou1 = ''
-                bikou2 = ''
-                if kintai_1
-                  if attributes[:状態コード] == '105'
-                    bikou1 = params[:kintai_daikyu] + 'の振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の振出'
-                  elsif attributes[:状態コード] == '109'
-                    bikou1 = params[:kintai_daikyu] + 'の午前振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の振の午前振出'
-                  elsif attributes[:状態コード] == '113'
-                    bikou1 = params[:kintai_daikyu] + 'の午後振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の午後振出'
-                  end
-                  kintai_1.update(代休相手日付: params[:kintai_daikyu].to_date,代休取得区分: '',備考: bikou1)
-                end
-                if kintai_2
-                  kintai_2.update(代休相手日付: attributes[:開始].to_date,代休取得区分: '1',備考: bikou2)
-                end
-              end
-            end
-            flash[:notice] = t 'app.flash.new_success'
-            format.html { redirect_to time_line_view_events_url }
-            format.xml { render xml: @event, status: :created, location: @event }
-          else
-            format.html {render action: 'new', locals: { param: 'timeline'}}
-            format.xml { render xml: @event.errors, status: :unprocessable_entity }
-          end
-        end
-      when (t 'helpers.submit.create_other')
-        flash[:notice] = t 'app.flash.new_success' if @event.save
-        if attributes[:状態コード].in?(['105','109',
-          '113'])
-          if params[:kintai_daikyu] != '' && !params[:kintai_daikyu].nil?
-            kintai_1 = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: attributes[:社員番号])
-            kintai_2 = Kintai.find_by(日付: params[:kintai_daikyu].to_date, 社員番号: attributes[:社員番号])
-            bikou1 = ''
-            bikou2 = ''
-            if kintai_1
-              if attributes[:状態コード] == '105'
-                bikou1 = params[:kintai_daikyu] + 'の振休'
-                bikou2 = attributes[:開始].to_date.to_s + 'の振出'
-              elsif attributes[:状態コード] == '109'
-                bikou1 = params[:kintai_daikyu] + 'の午前振休'
-                bikou2 = attributes[:開始].to_date.to_s + 'の振の午前振出'
-              elsif attributes[:状態コード] == '113'
-                bikou1 = params[:kintai_daikyu] + 'の午後振休'
-                bikou2 = attributes[:開始].to_date.to_s + 'の午後振出'
-              end
-              kintai_1.update(代休相手日付: params[:kintai_daikyu].to_date,代休取得区分: '',備考: bikou1)
-            end
-            if kintai_2
-              kintai_2.update(代休相手日付: attributes[:開始].to_date,代休取得区分: '1',備考: bikou2)
-            end
-          end
-        end
-        respond_with @event, location: events_url
+    when (t 'helpers.submit.create')
+      respond_to do |format|
+        if @event.save            
+          flash[:notice] = t 'app.flash.new_success'
+          format.html { redirect_to time_line_view_events_url }
+          format.xml { render xml: @event, status: :created, location: @event }
+        else
+          format.html {render action: 'new', locals: { param: 'timeline'}}
+          format.xml { render xml: @event.errors, status: :unprocessable_entity }
+        end # if @event.save
+      end
+    when (t 'helpers.submit.create_other')
+      flash[:notice] = t 'app.flash.new_success' if @event.save        
+      respond_with @event, location: events_url
     end
-
   end
 
   def update
-
-    attributes = event_params.clone
-    if event_params[:終了] == '' && event_params[:開始] != ''
-      date = Time.now.strftime('%Y/%m/%d')
-      attributes[:終了] = "#{date} 18:00"
-    end
-    dateCheck = event_params[:開始].to_date
-    if attributes[:状態コード] != '' && !attributes[:状態コード].nil?
-      joutai_kubun = Joutaimaster.find_by(状態コード: attributes[:状態コード]).状態区分
-      if joutai_kubun != '1' && joutai_kubun != '5'
+    attributes = event_params.clone    
+    attributes[:終了] = "#{ Time.now.strftime('%Y/%m/%d') } 18:00" if attributes[:開始].present? && attributes[:終了].blank?
+    if attributes[:状態コード].present?
+      joutai_kubun = Joutaimaster.find_by(状態コード: attributes[:状態コード]).try(:状態区分)
+      unless joutai_kubun.in?(['1', '5'])
         attributes[:場所コード] = ''
         attributes[:JOB] = ''
         attributes[:工程コード] = ''
       end
-    end
-
-    # if event_params[:開始] != '' && dateCheck == Date.today && params[:commit] != (t 'helpers.submit.destroy_other') && params[:commit] != (t 'helpers.submit.destroy')
-    #     shozai_id = params[:head][:shozaicode]
-    #     shain = Shainmaster.find(event_params[:社員番号])
-    #     if shozai_id != ''
-    #       shozai = Shozai.find(shozai_id)
-    #       shain.shozai = shozai if shozai
-    #       shain.save
-    #     else
-    #       shain.update(所在コード: '')
-    #     end
-
-    # end
-    # if attributes[:開始]!= '' && attributes[:終了]!= '' && attributes[:工数]== ''
-    #   attributes[:工数]= caculate_koushuu(attributes[:開始],attributes[:終了]).to_f.round(2)
-    # end
+    end    
 
     case params[:commit]
       when (t 'helpers.submit.destroy_other')
@@ -498,70 +396,12 @@ class EventsController < ApplicationController
       when (t 'helpers.submit.destroy')
         flash[:notice] = t 'app.flash.delete_success' if @event.destroy
         redirect_to time_line_view_events_url
-      when (t 'helpers.submit.create_other')
-        if @event.update attributes
-          flash[:notice] = t 'app.flash.update_success'
-          if attributes[:状態コード].in?(['30','31','32'])
-              kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
-              kintai.update(状態1: attributes[:状態コード])
-          end
-          if attributes[:状態コード].in?(['105','109','113'])
-            if params[:kintai_daikyu] != '' && !params[:kintai_daikyu].nil?
-              kintai_1 = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: attributes[:社員番号])
-              kintai_2 = Kintai.find_by(日付: params[:kintai_daikyu].to_date, 社員番号: attributes[:社員番号])
-              bikou1 = ''
-              bikou2 = ''
-              if kintai_1
-                if attributes[:状態コード] == '105'
-                  bikou1 = params[:kintai_daikyu] + 'の振休'
-                  bikou2 = attributes[:開始].to_date.to_s + 'の振出'
-                elsif attributes[:状態コード] == '109'
-                  bikou1 = params[:kintai_daikyu] + 'の午前振休'
-                  bikou2 = attributes[:開始].to_date.to_s + 'の振の午前振出'
-                elsif attributes[:状態コード] == '113'
-                  bikou1 = params[:kintai_daikyu] + 'の午後振休'
-                  bikou2 = attributes[:開始].to_date.to_s + 'の午後振出'
-                end
-                kintai_1.update(代休相手日付: params[:kintai_daikyu].to_date,代休取得区分: '',備考: bikou1)
-              end
-              if kintai_2
-                kintai_2.update(代休相手日付: attributes[:開始].to_date,代休取得区分: '1',備考: bikou2)
-              end
-            end
-          end
-        end
+      when (t 'helpers.submit.create_other')        
+        flash[:notice] = t 'app.flash.update_success' if @event.update attributes
         respond_with @event, location: events_url
       when (t 'helpers.submit.create')
         respond_to do |format|
           if @event.update attributes
-            if attributes[:状態コード].in?(['30','31','32'])
-              kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
-              kintai.update(状態1: attributes[:状態コード])
-            end
-            if attributes[:状態コード].in?(['105','109','113'])
-              if params[:kintai_daikyu] != '' && !params[:kintai_daikyu].nil?
-                kintai_1 = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: attributes[:社員番号])
-                kintai_2 = Kintai.find_by(日付: params[:kintai_daikyu].to_date, 社員番号: attributes[:社員番号])
-                bikou1 = ''
-                bikou2 = ''
-                if kintai_1
-                  if attributes[:状態コード] == '105'
-                    bikou1 = params[:kintai_daikyu] + 'の振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の振出'
-                  elsif attributes[:状態コード] == '109'
-                    bikou1 = params[:kintai_daikyu] + 'の午前振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の午前振出'
-                  elsif attributes[:状態コード] == '113'
-                    bikou1 = params[:kintai_daikyu] + 'の午後振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の午後振出'
-                  end
-                  kintai_1.update(代休相手日付: params[:kintai_daikyu].to_date,代休取得区分: '',備考: bikou1)
-                end
-                if kintai_2
-                  kintai_2.update(代休相手日付: attributes[:開始].to_date,代休取得区分: '1',備考: bikou2)
-                end
-              end
-            end
             flash[:notice] = t 'app.flash.update_success'
             format.html { redirect_to time_line_view_events_url }
             format.xml { render xml: @event, status: :created, location: @event }
@@ -572,36 +412,8 @@ class EventsController < ApplicationController
         end
       when (t 'helpers.submit.create_clone')
         @event = User.find(session[:user]).shainmaster.events.new attributes
-        if attributes[:状態コード].in?(['30','31','32'])
-          kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
-          kintai.update(状態1: attributes[:状態コード])
-        end
         respond_to do |format|
           if @event.save
-            if attributes[:状態コード].in?(['105','109','113'])
-              if params[:kintai_daikyu] != '' && !params[:kintai_daikyu].nil?
-                kintai_1 = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: attributes[:社員番号])
-                kintai_2 = Kintai.find_by(日付: params[:kintai_daikyu].to_date, 社員番号: attributes[:社員番号])
-                bikou1 = ''
-                bikou2 = ''
-                if kintai_1
-                  if attributes[:状態コード] == '105'
-                    bikou1 = params[:kintai_daikyu] + 'の振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の振出'
-                  elsif attributes[:状態コード] == '109'
-                    bikou1 = params[:kintai_daikyu] + 'の午前振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の振の午前振出'
-                  elsif attributes[:状態コード] == '113'
-                    bikou1 = params[:kintai_daikyu] + 'の午後振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の午後振出'
-                  end
-                  kintai_1.update(代休相手日付: params[:kintai_daikyu].to_date,代休取得区分: '',備考: bikou1)
-                end
-                if kintai_2
-                  kintai_2.update(代休相手日付: attributes[:開始].to_date,代休取得区分: '1',備考: bikou2)
-                end
-              end
-            end
             flash[:notice] = t 'app.flash.new_success'
             format.html { redirect_to time_line_view_events_url }
             format.xml { render xml: @event, status: :created, location: @event }
@@ -612,36 +424,8 @@ class EventsController < ApplicationController
         end
       when (t 'helpers.submit.create_clone_other')
         @event = User.find(session[:user]).shainmaster.events.new attributes
-        if attributes[:状態コード].in?(['30','31','32'])
-          kintai = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: session[:user])
-          kintai.update(状態1: attributes[:状態コード])
-        end
         respond_to do |format|
           if @event.save
-            if attributes[:状態コード].in?(['105','109','113'])
-              if params[:kintai_daikyu] != '' && !params[:kintai_daikyu].nil?
-                kintai_1 = Kintai.find_by(日付: attributes[:開始].to_date, 社員番号: attributes[:社員番号])
-                kintai_2 = Kintai.find_by(日付: params[:kintai_daikyu].to_date, 社員番号: attributes[:社員番号])
-                bikou1 = ''
-                bikou2 = ''
-                if kintai_1
-                  if attributes[:状態コード] == '105'
-                    bikou1 = params[:kintai_daikyu] + 'の振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の振出'
-                  elsif attributes[:状態コード] == '109'
-                    bikou1 = params[:kintai_daikyu] + 'の午前振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の振の午前振出'
-                  elsif attributes[:状態コード] == '113'
-                    bikou1 = params[:kintai_daikyu] + 'の午後振休'
-                    bikou2 = attributes[:開始].to_date.to_s + 'の午後振出'
-                  end
-                  kintai_1.update(代休相手日付: params[:kintai_daikyu].to_date,代休取得区分: '',備考: bikou1)
-                end
-                if kintai_2
-                  kintai_2.update(代休相手日付: attributes[:開始].to_date,代休取得区分: '1',備考: bikou2)
-                end
-              end
-            end
             flash[:notice] = t 'app.flash.new_success'
             format.html { redirect_to events_url }
             format.xml { render xml: @event, status: :created, location: @event }
@@ -981,7 +765,7 @@ private
     @jobmaster = Jobmaster.new
     @shains = Shainmaster.all
     @bunruis = Bunrui.all
-    @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)
+    @daikyus = Kintai.where(社員番号: session[:user], 代休取得区分: '0').select(:日付) # variable for daikyu_modal
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
@@ -1034,5 +818,9 @@ private
         kairan: (shain.回覧件数 == '0' || shain.id != session[:user]) ? '' : shain.回覧件数
       }
     end
+  end
+
+  def update_kintai(event, kintai_daikyu_date)
+    
   end
 end
