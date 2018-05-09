@@ -9,7 +9,7 @@
     <% Kintai::KINMU_TYPE.each do |key, value| %>
       <tr>
         <td><%= key %></td>
-        <td><%= value %></td>
+        <td><%= value[:text] %></td>
       </tr>
     <% end %>  
   </tbody>
