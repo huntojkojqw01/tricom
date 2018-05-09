@@ -14,7 +14,7 @@ class EventsController < ApplicationController
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :kouteimaster, bashomaster: :kaishamaster )
                   .where(社員番号: session[:selected_shain])
-                  .where('Date(開始) >= ?', 1.month.ago(Date.today))
+                  .where('Date(開始) >= ?', 3.month.ago(Date.today))
                   .order(開始: :desc)
     @shain = Shainmaster.find(session[:selected_shain])
     @setting = Setting.find_by(社員番号: session[:selected_shain])
