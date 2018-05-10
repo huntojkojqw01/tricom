@@ -563,7 +563,7 @@ jQuery ->
     return results
   $('#time-cal').on 'click', (event) ->
     results = time_calculate($('#kintai_出勤時刻').val(), $('#kintai_退社時刻').val(), $('#kintai_勤務タイプ').val())
-    $('#kintai_実労働時間').val(results.real_hours)
+    $('#kintai_実労働時間').val(results.real_hours + results.fustu_zangyo + results.shinya_zangyou)
     $('#kintai_遅刻時間').val(results.chikoku_soutai)
     $('#kintai_普通残業時間').val(results.fustu_zangyo)
     $('#kintai_深夜残業時間').val(results.shinya_zangyou)
