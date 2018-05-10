@@ -114,7 +114,45 @@ jQuery ->
       oJoutai_search_modal.$('tr.success').removeClass('success')
       $(this).addClass('selected')
       $(this).addClass('success')
+  $('#joutai_table tbody').on 'dblclick', 'tr', (event) ->
+    d = oJoutai_search_modal.row(this).data()
+    if d[0] == '105' || d[0] == '109' || d[0] == '113' #振替勤務, 午前振出, 午後振出
+      fukyu_code = d[0]
+      fukyu_name = d[1]
+      $('#joutai_search_modal').modal('hide')
+      jQuery.ajax({
+        url: '/kintais/ajax',
+        data: {id: 'get_kintais', joutai: d[0]},
+        type: "POST",
+        success: (data) ->
+          console.log("OK");
+        failure: () ->
+      })
+    else
+      $('#kintai_状態1').val(d[0])
+      $('.joutai-code-hint').text(d[1])
+      joutaikubun = d[3]
+      if d[0] == '30' #有給
+        $('#kintai_出勤時刻_4i').val('00')
+        $('#kintai_出勤時刻_5i').val('00')
+        $('#kintai_退社時刻_4i').val('00')
+        $('#kintai_退社時刻_5i').val('00')
 
+
+    #    switch status
+#      when 1 then $('.status1-code').val(d[0])
+#      when 2 then $('.status2-code').val(d[0])
+#      when 3 then $('.status3-code').val(d[0])
+
+    if ( $(this).hasClass('selected') )
+      $(this).removeClass('selected')
+      $(this).removeClass('success')
+    else
+      oJoutai_search_modal.$('tr.selected').removeClass('selected')
+      oJoutai_search_modal.$('tr.success').removeClass('success')
+      $(this).addClass('selected')
+      $(this).addClass('success')
+    $('#joutai_search_modal').modal('hide')
 #  $('.kintai-sum').click () ->
 #    jQuery.ajax({
 #      url: '/kintais/summary_kintai',
@@ -433,7 +471,12 @@ jQuery ->
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-    }
+    },
+    "columnDefs": [{
+      "targets": [ 1 ],
+      "visible": false,
+      "searchable": false
+    }]
   })
 
 
