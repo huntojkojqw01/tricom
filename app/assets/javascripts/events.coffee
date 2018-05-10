@@ -282,7 +282,12 @@ jQuery ->
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-    }
+    },
+    "columnDefs": [{
+      "targets": [ 1 ],
+      "visible": false,
+      "searchable": false
+    }]
   })
 
   $('.daikyutable tbody').on 'click', 'tr', (event) ->

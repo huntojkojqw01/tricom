@@ -357,7 +357,6 @@ class EventsController < ApplicationController
       end
     end
     @event = User.find(session[:user]).shainmaster.events.new attributes
-    @event.kintai_daikyu_date = params[:kintai_daikyu]
     case params[:commit]
     when (t 'helpers.submit.create')
       respond_to do |format|
@@ -689,7 +688,7 @@ class EventsController < ApplicationController
       when '113' then joutai_aite = '111'
       end
       @kintais = Kintai.where(社員番号: params[:shain], 代休取得区分: '0',状態1: joutai_aite )
-                       .select(:日付)
+                       .select(:日付, :id)
       respond_to do |format|
         # format.json { render json: 'data'}
         format.js { render 'reset_daikyu_modal'}
@@ -770,6 +769,8 @@ private
   def event_params
     params.require(:event).permit(:社員番号, :開始, :終了, :状態コード, :場所コード, :JOB, :所属コード, :工程コード, :工数,
                                   :計上, :所在コード, :comment, :有無, :帰社区分, :経費精算)
+                          .merge(:kintai_daikyu_date => params[:kintai_daikyu])
+
   end
 
   def bashomaster_params
@@ -818,7 +819,4 @@ private
     end
   end
 
-  def update_kintai(event, kintai_daikyu_date)
-    
-  end
 end
