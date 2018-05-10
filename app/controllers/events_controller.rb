@@ -125,7 +125,6 @@ class EventsController < ApplicationController
 
   def time_line_view
     @selected_date = session[:selected_date] || Date.today.strftime('%Y/%m/%d')    
-    @default_roru = Shainmaster.find(session[:user]).rorumaster.try(:ロールコード)
     @events = Event.includes(:joutaimaster, { bashomaster: :kaishamaster } , :jobmaster, :kouteimaster)
                     .where(社員番号: session[:selected_shain]).where('Date(開始) >= ?', 1.month.ago(Date.today))
                     .order(開始: :desc)
@@ -684,18 +683,17 @@ class EventsController < ApplicationController
          format.json { render json: data}
       end
      when 'get_kintais'
-        if params[:joutai] == '105'
-          joutai_aite = '103'
-        elsif params[:joutai] == '109'
-          joutai_aite = '107'
-        elsif params[:joutai] == '113'
-          joutai_aite = '111'
-        end
-        @kintais = Kintai.current_user(params[:shain]).where(代休取得区分: '0',状態1: joutai_aite ).select(:日付)
-        respond_to do |format|
-          # format.json { render json: 'data'}
-          format.js { render 'reset_daikyu_modal'}
-        end
+      case params[:joutai]
+      when '105' then joutai_aite = '103'
+      when '109' then joutai_aite = '107'
+      when '113' then joutai_aite = '111'
+      end
+      @kintais = Kintai.where(社員番号: params[:shain], 代休取得区分: '0',状態1: joutai_aite )
+                       .select(:日付)
+      respond_to do |format|
+        # format.json { render json: 'data'}
+        format.js { render 'reset_daikyu_modal'}
+      end
    end
   end
 
