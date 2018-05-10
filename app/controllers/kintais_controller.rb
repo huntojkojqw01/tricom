@@ -51,7 +51,7 @@ class KintaisController < ApplicationController
     end # case params[:commit]
     # joutai_array = ['12','15','30','31','32','33','38','103','105','107','109','111','113']
     @joutais = Joutaimaster.where(勤怠使用区分: '1').order('CAST(状態コード AS DECIMAL) asc')
-    @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)
+    @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付, :id)
   end
 
   def search
@@ -633,7 +633,7 @@ class KintaisController < ApplicationController
   end
   private
     def set_kintai
-      @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)
+      @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付, :id)
       @kintai = Kintai.find(params[:id])
 
       kubunlist = []

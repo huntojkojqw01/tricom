@@ -762,7 +762,7 @@ private
     @jobmaster = Jobmaster.new
     @shains = Shainmaster.all
     @bunruis = Bunrui.all
-    @daikyus = Kintai.where(社員番号: session[:user], 代休取得区分: '0').select(:日付) # variable for daikyu_modal
+    @daikyus = Kintai.where(社員番号: session[:user], 代休取得区分: '0').select(:日付, :id) # variable for daikyu_modal
   end
 
 # Never trust parameters from the scary internet, only allow the white list through.
