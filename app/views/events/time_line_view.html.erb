@@ -75,7 +75,7 @@
             <bold style="line-height:40px;margin-right:15px;font-weight:bold;"><%=(t 'title.busho')%></bold>
           </td>
           <td>
-            <%= f.select :ロールコード, Rorumaster.order(:序列).pluck(:ロール名, :ロールコード), {:selected => @default_roru, include_blank: true},{class: 'form-control'}%>
+            <%= f.select :ロールコード, Rorumaster.order(:序列).pluck(:ロール名, :ロールコード), {:prompt => "全て"},{class: 'form-control'}%>
           </td>
 
           <td>
