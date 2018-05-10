@@ -83,10 +83,11 @@
   </thead>
 
   <tbody>
+    <% today = Date.today.to_date %>
     <% @kintais.each do |kintai| %>
       <% add_class = 'warning' if kintai.曜日.in?(['日','土']) ||
         kintai.try(:holiday) == '1' %>
-      <% add_class = 'success' if kintai.日付 == @date_now %>
+      <% add_class = 'success' if kintai.日付 == today %>
       <tr id="kintai-<%= kintai.id %>" class="<%= add_class %>">
         <td  id= "date<%= kintai.id %>" ><%= kintai.日付.strftime("%Y/%m/%d") %></td>
         <td><%= kintai.曜日 %></td>
@@ -96,7 +97,7 @@
           <% else %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.出勤時刻.to_s(:time) %></td>
           <%end%> -->
-          <% if kintai.日付 != @date_now
+          <% if kintai.日付 != today
             place_holder1 = "<i class='fa fa-sort-desc'></i>"
             place_holder2 = "&nbsp;"
             place_holder3 = "&nbsp;"
@@ -124,7 +125,7 @@
 
           end%>
           <td class='kintai-item' style="white-space: pre" id="kinmutype<%= kintai.id %>" ><%= best_in_place kintai, :勤務タイプ, :as => :select, :collection => [["", ""],["001", "001"],["002", "002"],["003", "003"],["004", "004"],["005", "005"],["006", "006"],["007", "007"],["008", "008"],["009", "009"],["010", "010"],["011", "011"]], activator: '#kinmutype' + kintai.id.to_s,:place_holder => place_holder1, :inner_class => 'form_control kinmutype set-width', id: kintai.id.to_s%></td>
-          <% if kintai.出勤時刻.blank? && kintai.日付 == @date_now %>
+          <% if kintai.出勤時刻.blank? && kintai.日付 == today %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><i class='text-gray'>出勤時間</i></td>
           <% else %>
             <td id= "shukkinjikoku_text_<%= kintai.id %>" style="width: 117px;"><%=kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>
@@ -143,7 +144,7 @@
           <% else %>
             <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%= kintai.退社時刻.to_s(:time) %></td>
           <%end%> -->
-          <% if kintai.退社時刻.blank? && kintai.日付 == @date_now %>
+          <% if kintai.退社時刻.blank? && kintai.日付 == today %>
             <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><i class='text-gray'>退社時刻</i></td>
           <% else %>
             <td id= "taishajikoku_text_<%= kintai.id %>" style="width: 117px;"><%=kintai.退社時刻.to_s(:time) unless kintai.退社時刻.blank? %></td>
@@ -181,7 +182,7 @@
               @joutais = Joutaimaster.active(kubunlist).order('CAST(状態コード AS DECIMAL) asc')
               @joutais.map { |k| hash_joutai.push([k.状態コード, k.状態名]) }
            %>
-          <td class='kintai-item' style="white-space: pre" id="joutai<%= kintai.id %>" ><%= best_in_place kintai, :状態1, :as => :select, collection: hash_joutai, activator: '#joutai' + kintai.id.to_s,:place_holder => place_holder11, :inner_class => 'form_control set-width',:classes => 'hoshukeitai-edit'%></td>
+          <td class='kintai-item' style="white-space: pre" id="joutai<%= kintai.id %>" ><%= best_in_place kintai, :状態1, :as => :select, collection: hash_joutai, activator: '#joutai' + kintai.id.to_s,:place_holder => place_holder11, :inner_class => 'form_control set-width',:class => 'hoshukeitai-edit'%></td>
         <% else %>
           <td><%= kintai.勤務タイプ %></td>
           <td><%= kintai.出勤時刻.to_s(:time) unless kintai.出勤時刻.blank? %></td>

@@ -18,7 +18,7 @@
       %label.sr-only date
       -#= f.text_field :日付, class: 'form-control date-search'
       .input-group.date-search
-        = text_field_tag :search, @date_param, class:'form-control', size: 6
+        = text_field_tag :search, @selected_month, class:'form-control', size: 6
         %span.input-group-addon
           %span.glyphicon.glyphicon-calendar
       = f.submit :勤怠検索, class: 'btn btn-primary'
@@ -48,4 +48,4 @@
         /       %input.form-control{size: 4,type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}
       %tr
         %th{class: "custom-background"} 月末残
-        %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}
+        %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}= @yuukyuu_kyuuka_rireki.try(:月末有給残) || 0
