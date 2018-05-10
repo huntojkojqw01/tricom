@@ -1,8 +1,6 @@
-var table = $('.daikyutable').DataTable();
+var table = $('#daikyu_table').DataTable();
 table.clear().draw();
-<% @kintais.each do |kintai|%>
-  table.row.add( ["<%=kintai.日付%>"] ).draw( false );
-<%end%>
-
+<% @kintais.each do |kintai| %>
+  table.row.add( ["<%=kintai.日付.try(:strftime, '%Y/%m/%d')%>", "<%=kintai.id%>"] ).draw(false);
+<% end %>
 $('#daikyu_search_modal').modal('show');
-$('#daikyu_index_search_modal').modal('show');
