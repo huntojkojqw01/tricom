@@ -8,62 +8,58 @@ class KintaisController < ApplicationController
   include UsersHelper
 
   def index
-    @date_now = Date.today.to_date
-    @date_param = Date.today
-    if params[:search].present?
-      @date_param = params[:search]
-      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param)
-    else
-      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param.strftime('%Y/%m'))
+    begin
+      @selected_month = (params[:search] || session[:selected_month]).to_date.strftime("%Y/%m")
+    rescue
+      @selected_month = Date.today.strftime("%Y/%m")
     end
-    # @date_param = params[:search]
-    # @date_param = Date.today.to_date unless date_param.present?
+    session[:selected_month] = @selected_month
+    @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_or_create_by(社員番号: session[:user], 年月: @selected_month)
 
-    date = @date_param.to_date
-    session[:selected_kintai_date] = date
-    check_kintai_at_day_by_user(current_user.id, date)
-    @kintais = Kintai.selected_month(session[:user], date).order(:日付)
-    yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
-    getsumatsuzan =  params[:gesshozan].to_f- yukyu
+    begin_of_month = @selected_month.to_date.beginning_of_month
+    check_kintai_at_day_by_user(current_user.id, begin_of_month)
+    @kintais = Kintai.selected_month(session[:user], begin_of_month).order(:日付)
+    @kintai = Kintai.find_by(日付: begin_of_month, 社員番号: session[:user])
+
     case params[:commit]
-      when (t 'helpers.submit.entered')
-        if params[:gesshozan].nil?
-        else
-          @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by(社員番号: session[:user], 年月: @date_param)
-          if @yuukyuu_kyuuka_rireki.nil?
-            @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.new(:社員番号 => session[:user], :年月  => params[:search],:月初有給残  => params[:gesshozan].to_f, :月末有給残  =>  getsumatsuzan)
-            @yuukyuu_kyuuka_rireki.save
-          else
-            @yuukyuu_kyuuka_rireki.update(:社員番号  => session[:user], :年月  => params[:search],:月初有給残  => params[:gesshozan], :月末有給残  => getsumatsuzan)
-          end
-        end
-        @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
-        @kintai.入力済 = '1' if @kintai
-        @kintai.save if @kintai
-      when (t 'helpers.submit.input')
-        @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
-        @kintai.入力済 = '0' if @kintai
-        @kintai.save if @kintai
-      # when (t 'helpers.submit.create')
-      #   check_kintai_at_day_by_user(current_user.id, date)
+    when (t 'helpers.submit.entered')
+      @kintai.update(入力済: '1') if @kintai
+      getshozan = count_getshozan(@yuukyuu_kyuuka_rireki)
+      getsumatsuzan = getshozan - count_yuukyu_of_kintais(@kintais)
+      getsumatsuzan = 0 if getsumatsuzan < 0
+      @yuukyuu_kyuuka_rireki.月初有給残 = getshozan
+      @yuukyuu_kyuuka_rireki.月末有給残  = getsumatsuzan
+      @yuukyuu_kyuuka_rireki.save
 
-      when (t 'helpers.submit.destroy')
-        if(notice!= (t 'app.flash.import_csv'))
-          @kintais = Kintai.selected_month(session[:user], date).order(:日付).destroy_all
-          redirect_to kintais_url
-        end
-    end
-    @kintai = Kintai.find_by(日付: date.beginning_of_month, 社員番号: session[:user])
+      # cap nhat getsumatsuzan vao thang tiep theo:
+      next_month = (@selected_month.to_date + 1.months).to_date.strftime("%Y/%m")
+      next_ykkk_rireki = YuukyuuKyuukaRireki.find_or_create_by(
+                                              :社員番号 => session[:user],
+                                              :年月  => next_month
+                                            )
+      next_ykkk_rireki.update(月初有給残: getsumatsuzan) if next_ykkk_rireki
+    when (t 'helpers.submit.input')
+      @kintai.update(入力済: '0') if @kintai
+    # when (t 'helpers.submit.create')
+    #   check_kintai_at_day_by_user(current_user.id, date)
+
+    when (t 'helpers.submit.destroy')
+      if(notice != (t 'app.flash.import_csv'))
+        @kintais = Kintai.selected_month(session[:user], begin_of_month).destroy_all
+        redirect_to kintais_url
+      end
+    end # case params[:commit]
     # joutai_array = ['12','15','30','31','32','33','38','103','105','107','109','111','113']
     @joutais = Joutaimaster.where(勤怠使用区分: '1').order('CAST(状態コード AS DECIMAL) asc')
     @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付)
   end
 
   def search
-    @kintais = Kintai.selected_month(session[:user], session[:selected_kintai_date])
-    @kintais_tonow = Kintai.selected_tocurrent(session[:user], session[:selected_kintai_date])
+    begin_of_month = (session[:selected_month] || Date.today).to_date.beginning_of_month
+    @kintais = Kintai.selected_month(session[:user], begin_of_month)
+    @kintais_tonow = Kintai.selected_tocurrent(session[:user], begin_of_month)
     @yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
-    if session[:selected_kintai_date].month == 1
+    if begin_of_month.month == 1
       @gesshozan = 12
     else
       @gesshozan = 12 - (@kintais_tonow.day_off.count + @kintais_tonow.morning_off.count*0.5 + @kintais_tonow.afternoon_off.count*0.5)
@@ -679,5 +675,30 @@ class KintaisController < ApplicationController
           csv << h.values
         end
       end
+    end
+
+    def count_yuukyu_of_kintais(kintais)
+      yuukyu = 0
+      kintais.each do |kintai|
+        case kintai.状態1
+        when "30" then yuukyu += 1
+        when "31", "32" then yuukyu += 0.5
+        end
+      end
+      yuukyu
+    end
+
+    def count_getshozan(ykkk_rireki)      
+      if ykkk_rireki.年月.to_date.month == 1
+        return 12
+      elsif ykkk_rireki.月初有給残.blank?
+        return 12 - count_yuukyu_of_kintais(Kintai.selected_tocurrent(ykkk_rireki.社員番号, ykkk_rireki.年月.to_date.beginning_of_month))
+      elsif ykkk_rireki.月初有給残.to_f < 0
+        return 0
+      else
+        return ykkk_rireki.月初有給残.to_f
+      end
+    rescue
+      return 0
     end
 end

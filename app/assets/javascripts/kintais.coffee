@@ -750,7 +750,7 @@ jQuery ->
   # );
 
   summary = () ->
-    gesshozan = $('.input-number').val()
+    gesshozan = $('.input-number').text()
     if gesshozan == ''
       gesshozan = 0
     else
