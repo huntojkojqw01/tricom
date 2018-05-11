@@ -24,20 +24,9 @@ class KintaisController < ApplicationController
     case params[:commit]
     when (t 'helpers.submit.entered')
       @kintai.update(入力済: '1') if @kintai
-      getshozan = count_getshozan(@yuukyuu_kyuuka_rireki)
-      getsumatsuzan = getshozan - count_yuukyu_of_kintais(@kintais)
-      getsumatsuzan = 0 if getsumatsuzan < 0
-      @yuukyuu_kyuuka_rireki.月初有給残 = getshozan
-      @yuukyuu_kyuuka_rireki.月末有給残  = getsumatsuzan
+      @yuukyuu_kyuuka_rireki.calculate_getshozan     
+      @yuukyuu_kyuuka_rireki.calculate_getmatsuzan(kintais)
       @yuukyuu_kyuuka_rireki.save
-
-      # cap nhat getsumatsuzan vao thang tiep theo:
-      next_month = (@selected_month.to_date + 1.months).to_date.strftime("%Y/%m")
-      next_ykkk_rireki = YuukyuuKyuukaRireki.find_or_create_by(
-                                              :社員番号 => session[:user],
-                                              :年月  => next_month
-                                            )
-      next_ykkk_rireki.update(月初有給残: getsumatsuzan) if next_ykkk_rireki
     when (t 'helpers.submit.input')
       @kintai.update(入力済: '0') if @kintai
     # when (t 'helpers.submit.create')
@@ -677,28 +666,4 @@ class KintaisController < ApplicationController
       end
     end
 
-    def count_yuukyu_of_kintais(kintais)
-      yuukyu = 0
-      kintais.each do |kintai|
-        case kintai.状態1
-        when "30" then yuukyu += 1
-        when "31", "32" then yuukyu += 0.5
-        end
-      end
-      yuukyu
-    end
-
-    def count_getshozan(ykkk_rireki)      
-      if ykkk_rireki.年月.to_date.month == 1
-        return 12
-      elsif ykkk_rireki.月初有給残.blank?
-        return 12 - count_yuukyu_of_kintais(Kintai.selected_tocurrent(ykkk_rireki.社員番号, ykkk_rireki.年月.to_date.beginning_of_month))
-      elsif ykkk_rireki.月初有給残.to_f < 0
-        return 0
-      else
-        return ykkk_rireki.月初有給残.to_f
-      end
-    rescue
-      return 0
-    end
 end
