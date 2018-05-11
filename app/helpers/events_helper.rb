@@ -126,7 +126,7 @@ module EventsHelper
     (start_t...end_t).each do |t|
       next if event_times && !event_times.include?(t)
       case (t / 60) % 24 # tinh xem thoi diem t ung voi may gio trong ngay.
-      when 19, 20, 21 then fustu_zangyo += 1
+      when 16, 17, 19, 20, 21 then fustu_zangyo += 1
       when 22, 0, 1, 2, 3 then shinya_zangyou += 1
       end
     end
@@ -161,7 +161,9 @@ module EventsHelper
             # start_time <= kinmu_start < kinmu_end <= end_time
             results[:fustu_zangyo], results[:shinya_zangyou] = zangyou_time_calculate(kinmu_end, end_time, event_times)
           end
-        end # if kinmu_start >= end_time then nothing to do
+        else  # if kinmu_start >= end_time then nothing to do
+          return {}
+        end
       else # if start_time > kinmu_start thi se dem tu start_time, chikoku > 0
         if start_time < kinmu_end
           if kinmu_end <= end_time # dem den kinmu_end
@@ -173,7 +175,9 @@ module EventsHelper
             results[:chikoku_soutai] += start_time - kinmu_start + kinmu_end - end_time
             results = kyuukei_time_calculate(start_time, end_time, event_times)
           end
-        end # if start_time >= kinmu_end then nothing to do
+        else # if start_time >= kinmu_end then nothing to do
+          return {}
+        end
       end
     else # Kintai::KINMU_TYPE.keys not include kinmu_type
       results = kyuukei_time_calculate(start_time, end_time, event_times)
