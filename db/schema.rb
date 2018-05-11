@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180405095730) do
+ActiveRecord::Schema.define(version: 20180511035818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,8 +179,8 @@ ActiveRecord::Schema.define(version: 20180405095730) do
 
   create_table "kintaiteeburus", force: :cascade do |t|
     t.string   "勤務タイプ"
-    t.time     "出勤時刻"
-    t.time     "退社時刻"
+    t.string   "出勤時刻"
+    t.string   "退社時刻"
     t.float    "昼休憩時間"
     t.float    "夜休憩時間"
     t.float    "深夜休憩時間"
