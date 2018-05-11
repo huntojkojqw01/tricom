@@ -620,10 +620,10 @@ class KintaisController < ApplicationController
       @date = params[:date].to_date
     rescue
       @date = Date.today
-    end   
-    @kintais = Shainmaster.includes(:kintais).where(区分: false).reorder("社員マスタ.序列 ASC", "社員マスタ.社員番号 ASC").map do |shain|
-      kintai = shain.kintais.select { |k| k.日付 == @date }
-      {     
+    end
+    @kintais = Shainmaster.includes(:kintais).where(区分: false).map do |shain|
+      kintai = shain.kintais.find { |k| k.日付 == @date }
+      {
         氏名: shain.氏名,
         社員番号: shain.社員番号,
         日付: @date,
