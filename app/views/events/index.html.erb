@@ -50,16 +50,12 @@
       </div> -->
       <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
         <div>
-          <h3><span class="label label-default">氏名：　<%= Shainmaster.find(session[:selected_shain]).try :氏名 %></span></h3>
+          <h3><span class="label label-default">氏名：　<%= Shainmaster.find_by(社員番号: session[:selected_shain]).try(:氏名) %></span></h3>
         </div>
       </div>
       <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3 pull-right">
         <div class="form-inline pull-right">
-          <%# f.input :勤務タイプ, collection: '001'..'009' %>
-          <% display = ['001 → 07:00 〜 16:00', '002 → 07:30 〜 16:30', '003 → 08:00 〜 17:00', '004 → 08:30 〜 17:30',
-                        '005 → 09:00 〜 18:00', '006 → 09:30 〜 19:30', '007 → 10:00 〜 20:00', '008 → 10:30 〜 20:30', '009 → 11:00 〜 21:00']
-          %>
-          <%= f.input :勤務タイプ, label: (t 'title.kinmutaipu'), class: "form-control", collection: (1..9).map { |i| ["#{display[i-1]}", "00#{i}"] }%>
+          <%= f.input :勤務タイプ, label: (t 'title.kinmutaipu'), class: "form-control", collection: (Kintai::KINMU_TYPE).map { |key, val| ["#{ key } → #{ val[:text] }", key] } %>
         </div>
       </div>
 
@@ -68,7 +64,7 @@
   <div>
     <div class="row">
       <div class="col-md-2 col-xs-4 col-sm-3 col-lg-2 col-md-offset-5 col-xs-offset-3 col-sm-offset-4 col-lg-offset-5">
-        <h4><%= Shainmaster.find(session[:selected_shain]).yakushokumaster.try :役職名 %></h4>
+        <h4><%= Shainmaster.find_by(社員番号: session[:selected_shain]).try(:yakushokumaster).try(:役職名) %></h4>
       </div>
       <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
         <%# button_to '社員選択', %>
@@ -85,20 +81,6 @@
 
     </div>
   </div>
-
-  <!-- <div>
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-        <div class="form-inline pull-right">
-          <%# f.input :勤務タイプ, collection: '001'..'009' %>
-          <% display = ['001 → 07:00 〜 16:00', '002 → 07:30 〜 16:30', '003 → 08:00 〜 17:00', '004 → 08:30 〜 17:30',
-                        '005 → 09:00 〜 18:00', '006 → 09:30 〜 18:30', '007 → 10:00 〜 19:00', '008 → 10:30 〜 19:30', '009 → 11:00 〜 20:00']
-          %>
-          <%= f.input :勤務タイプ, label: (t 'title.kinmutaipu'), class: "form-control", collection: (1..9).map { |i| ["#{display[i-1]}", "00#{i}"] }%>
-        </div>
-      </div>
-    </div>
-  </div> -->
 
     <div class="row">
       <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
@@ -140,8 +122,7 @@
     <div class="spacer"></div>
     <div class="row">
       <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
-        <button id="show_event_button" class="btn btn-primary" type="button">詳細一覧</button>
-        <button id="hide_event_button" class="btn btn-primary" type="button">詳細一覧</button>
+        <button id="event_button" class="btn btn-primary" type="button">詳細一覧</button>
       </div>
     </div>
 </div>
@@ -317,4 +298,7 @@
 <!--</div>-->
 <input type="hidden" name="current_user" id="current_user" value=<%= current_user.id %> />
 <input type="hidden" name="goto_date" id="goto_date" value="<%= @selected_date %>" />
+<% end %>
+<%= javascript_tag do %>
+  create_calendar(<%= @data.try(:html_safe)%>);
 <% end %>
