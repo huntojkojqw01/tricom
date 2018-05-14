@@ -2,8 +2,6 @@
  * Created by cmc on 18/03/2015.
  */
 
-//calendar init
-var calendar;
 $(function(){
     //var firstHour = new Date().getUTCHours();
     var scroll = -1,
@@ -12,189 +10,10 @@ $(function(){
     $('body').on('click', 'button.fc-prev-button', function() {
         var text = $('.fc-left').text();
     });
-
-    $.getJSON('/events', function(data) {
-        var myEventSourses = '';
-        if(data.setting.select_holiday_vn == "1")
-            myEventSourses = [
-                    {
-                        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
-                        color: 'green'
-                    }
-                    ,{
-                        googleCalendarId: 'en.vietnamese#holiday@group.v.calendar.google.com',
-                        color: 'blue'
-                    }
-                ];
-        else
-            myEventSourses = [
-                    {
-                        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
-                        color: 'green'
-                    }
-                ];
-        calendar = $('#calendar-month-view').fullCalendar(
-            {
-                schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
-                //height: 1287,
-                //height: 1500,
-                //firstHour: '09:00',
-                //businessHours:{
-                //    start: '09:00:00', // a start time (09am in this example)
-                //    end: '18:00:00', // an end time (6pm in this example)
-                //
-                //    dow: [1, 2, 3, 4, 5]
-                //    // days of week. an array of zero-based day of week integers (0=Sunday)
-                //    // (Monday-Freeday in this example)
-                //},
-                firstDay: 1,
-                timeFormat: 'H:mm',
-                //editable: true,
-                //aspectRatio: 1.5,/
-                //resourceAreaWidth: '30%',
-                slotLabelFormat: ['HH : mm'],
-                //scrollTime: '06:00:00',
-                //slotDuration: moment.duration(0.5, 'hours'),
-                //minTime: '00:00:00',
-                //maxTime: '24:00:00',
-                //eventOverlap: false,
-                nowIndicator: true,
-                googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
-                eventSources: myEventSourses,
-                schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
-                //defaultView: 'timelineDay',
-                events: data.my_events,
-                //events: '/events.json',
-                header: {
-                    left:   'title',
-                    // center: 'month,agendaWeek,agendaDay prevYear,nextYear',
-                    center: 'month,agendaWeek,agendaDay today prev,next',
-                    right:  ''
-                },
-                dragOpacity: "0.5",
-                editable: true,
-                defaultDate: moment($('#goto_date').val()),
-                viewRender: function(view, element){
-                  jQuery.ajax({
-                      url: '/events/ajax',
-                      data: {
-                        id: 'kintai_getData',
-                        date_kintai: $('#calendar-month-view').fullCalendar('getDate').format()
-                      },
-                      type: "POST",
-                      success: function(data) {
-                        jQuery.each( data, function( key, val ) {
-                          cell = element.find(".fc-bg td.fc-day[data-date="+key+"]");
-                          if(cell.length >0){
-                            color = cell.css("background-color");
-                            cell.append("<button id='bt-hoshu-1"+key+"' onclick='showModal(\""+key+"\",\"0\"); return false;' "+
-                                      "value=1 class='btn btn-hoshu' type='button'>携帯</button>"+
-                                      "<button id='bt-hoshu-0"+key+"' onclick='showModal(\""+key+"\",\"1\"); return false;' "+
-                                      "value=0 class='btn btn-text' style='background-color:"+color+"' type='button'>携帯</button>");
-                            if(val == 1){
-                                $('#bt-hoshu-1'+key).show();
-                                $('#bt-hoshu-0'+key).hide();
-                            }
-                            else{
-                                $('#bt-hoshu-1'+key).hide();
-                                $('#bt-hoshu-0'+key).show();
-                            }
-                          }                                               
-                        });            
-                      },
-                      failure: function() {
-                        console.log("kintai_保守携帯回数 keydown Unsuccessful");
-                      }
-                    });
-                },
-                dayClick: function(date, jsEvent, view) {
-                   //window.open('http://misuzu.herokuapp.com/events/new?start_at='+date.format());
-                   var calendar = document.getElementById('calendar-month-view');
-
-                    calendar.ondblclick = function() {
-                       location.href='/events/new?start_at='+date.format();
-
-                    }
-                    //alert(data.sUrl);
-                },
-                dayRender: function(date, element, view){
-                    // var date_convert = new Date(date.format());
-                    // if(date_convert.getDay()!==6 && date_convert.getDay()!==0&&hoshukeitai!=null)
-                    //     element.append("<a id='abc' value=100 onclick='showModal(\""+date.format()+"\"); return false;' style='cursor: pointer;'><i class='fa fa-pencil'>"+hoshukeitai+"</i></a>");
-                    // var date_convert = new Date(date.format());
-                    // if(date_convert.getDay()!==6 && date_convert.getDay()!==0)
-                    //     element.append("<a id='abc' onclick='showModal(\""+date.format()+"\"); return false;' style='cursor: pointer;'><i class='fa fa-pencil'>保守携帯</i></a>");
-                },
-                eventRender: function(event, element, view) {
-                    if (view.name === "agendaDay" || view.name === "agendaWeek") {
-                        if(event.job != undefined || event.comment != undefined){
-                            element.find(".fc-title")
-                            .replaceWith('<div>'+event.job+'</div>'+'<div>'+event.comment+'</div>');
-                        }
-                    }
-                },
-                eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
-                   // alert(event.title + " was dropped on " + event.start.format());
-                    updateEvent(event);
-                },
-                eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
-                    updateEvent(event);
-                },
-                eventMouseover: function(event, jsEvent, view) {
-                    var tooltip = '<div class="tooltipevent hover-end">' +'<div>'+ event.start.format("YYYY/MM/DD HH:mm") +'</div>' +'<div>'+ event.end.format("YYYY/MM/DD HH:mm")+'</div>';
-                    tooltip += '<div>'+ event.title;
-                    tooltip += (event.job != undefined ? ' ' + event.bashomei : '') +'</div>' ;
-                    if(event.job != undefined){
-                        tooltip = tooltip + '<div>'+event.job+'</div>'
-                    }
-                    if(event.comment != undefined){
-                        tooltip = tooltip + '<div>'+event.comment+'</div>'
-                    }
-                    tooltip = tooltip +'</div>'
-                    $("body").append(tooltip);
-                    $(this).mouseover(function(e) {
-                        $(this).css('z-index', 10000);
-                        $('.tooltipevent').fadeIn('500');
-                        $('.tooltipevent').fadeTo('10', 1.9);
-                    }).mousemove(function(e) {
-                        $('.tooltipevent').css('top', e.pageY + 10);
-                        $('.tooltipevent').css('left', e.pageX + 20);
-                    });
-                },
-                eventMouseout: function(event, jsEvent, view) {
-                    $(this).css('z-index', 8);
-                    $('.tooltipevent').remove();
-                }
-            } 
-          );// end of $('#calendar-month-view').fullCalendar(
-
-        oTable = $('#event_table').DataTable();
-        oTable.draw();
-        //Hander calendar header button click
-        $('#month-view').find('#goto-date-button, .fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
-            //redraw dataTable after filter
-            oTable = $('#event_table').DataTable();
-            oTable.draw();
-            //set current date to hidden field to goback, post it to session
-            $.post(
-                "/settings/ajax",
-                {
-                    setting: "setting_date",
-                    selected_date: $('#calendar-month-view').fullCalendar('getDate').format()
-                }
-            );
-        });
-
-        //add jpt holiday
-        $('#calendar-month-view').fullCalendar('addEventSource',data.holidays);
-
-    });
-
 });
 
 $(document).ready(function(){
     $('#after_div').hide();
-    $('#hide_event_button').hide();
 
     // $('#month-view').show('fast',function(){
     //     $('#after_div').show();
@@ -346,15 +165,8 @@ $(function () {
         });
         $('#kintai-new-modal').modal('hide');
     });
-    $('#hide_event_button').click(function () {
-        $('#hide_event_button').hide();
-        $('#show_event_button').show()
-        $('#after_div').hide();
-    });
-    $('#show_event_button').click(function () {
-        $('#hide_event_button').show();
-        $('#show_event_button').hide()
-        $('#after_div').show();
+    $('#event_button').click(function () {
+        $('#after_div').toggle();
     });
 
     $('#mybasho_destroy').click(function (){
@@ -1314,6 +1126,176 @@ function updateEvent(the_event){
 
 
 }
+
+function create_calendar(data) {
+  var myEventSourses = '';
+  if(data.setting.select_holiday_vn == "1")
+    myEventSourses = [
+      {
+        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
+        color: 'green'
+      },
+      {
+        googleCalendarId: 'en.vietnamese#holiday@group.v.calendar.google.com',
+        color: 'blue'
+      }
+    ];
+  else
+    myEventSourses = [
+      {
+        googleCalendarId: 'en.japanese#holiday@group.v.calendar.google.com',
+        color: 'green'
+      }
+    ];
+  $('#calendar-month-view').fullCalendar({
+    schedulerLicenseKey: 'CC-Attribution-NonCommercial-NoDerivatives',
+    //height: 1287,
+    //height: 1500,
+    //firstHour: '09:00',
+    //businessHours:{
+    //    start: '09:00:00', // a start time (09am in this example)
+    //    end: '18:00:00', // an end time (6pm in this example)
+    //
+    //    dow: [1, 2, 3, 4, 5]
+    //    // days of week. an array of zero-based day of week integers (0=Sunday)
+    //    // (Monday-Freeday in this example)
+    //},
+    firstDay: 1,
+    timeFormat: 'H:mm',
+    //editable: true,
+    //aspectRatio: 1.5,/
+    //resourceAreaWidth: '30%',
+    slotLabelFormat: ['HH : mm'],
+    //scrollTime: '06:00:00',
+    //slotDuration: moment.duration(0.5, 'hours'),
+    //minTime: '00:00:00',
+    //maxTime: '24:00:00',
+    //eventOverlap: false,
+    nowIndicator: true,
+    googleCalendarApiKey: 'AIzaSyDOeA5aJ29drd5dSAqv1TW8Dvy2zkYdsdk',
+    eventSources: myEventSourses,
+    schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+    //defaultView: 'timelineDay',
+    events: data.events,
+    header: {
+      left:   'title',
+      // center: 'month,agendaWeek,agendaDay prevYear,nextYear',
+      center: 'month,agendaWeek,agendaDay today prev,next',
+      right:  ''
+    },
+    dragOpacity: "0.5",
+    editable: true,
+    defaultDate: moment($('#goto_date').val()),
+    viewRender: function(view, element){
+      jQuery.ajax({
+        url: '/events/ajax',
+        data: {
+          id: 'kintai_getData',
+          date_kintai: $('#calendar-month-view').fullCalendar('getDate').format()
+        },
+        type: "POST",
+        success: function(data) {
+          jQuery.each( data, function( key, val ) {
+            cell = element.find(".fc-bg td.fc-day[data-date="+key+"]");
+            if(cell.length >0){
+              color = cell.css("background-color");
+              cell.append("<button id='bt-hoshu-1"+key+"' onclick='showModal(\""+key+"\",\"0\"); return false;' "+
+                        "value=1 class='btn btn-hoshu' type='button'>携帯</button>"+
+                        "<button id='bt-hoshu-0"+key+"' onclick='showModal(\""+key+"\",\"1\"); return false;' "+
+                        "value=0 class='btn btn-text' style='background-color:"+color+"' type='button'>携帯</button>");
+              if(val == 1){
+                $('#bt-hoshu-1'+key).show();
+                $('#bt-hoshu-0'+key).hide();
+              }
+              else{
+                $('#bt-hoshu-1'+key).hide();
+                $('#bt-hoshu-0'+key).show();
+              }
+            }
+          });
+        },
+        failure: function() {
+          console.log("kintai_保守携帯回数 keydown Unsuccessful");
+        }
+      });
+    },
+    dayClick: function(date, jsEvent, view) {
+      //window.open('http://misuzu.herokuapp.com/events/new?start_at='+date.format());
+      var calendar = document.getElementById('calendar-month-view');
+      calendar.ondblclick = function() {
+         location.href='/events/new?start_at='+date.format("YYYY/MM/DD");
+      }
+      //alert(data.sUrl);
+    },
+    dayRender: function(date, element, view){
+      // var date_convert = new Date(date.format());
+      // if(date_convert.getDay()!==6 && date_convert.getDay()!==0&&hoshukeitai!=null)
+      //     element.append("<a id='abc' value=100 onclick='showModal(\""+date.format()+"\"); return false;' style='cursor: pointer;'><i class='fa fa-pencil'>"+hoshukeitai+"</i></a>");
+      // var date_convert = new Date(date.format());
+      // if(date_convert.getDay()!==6 && date_convert.getDay()!==0)
+      //     element.append("<a id='abc' onclick='showModal(\""+date.format()+"\"); return false;' style='cursor: pointer;'><i class='fa fa-pencil'>保守携帯</i></a>");
+    },
+    eventRender: function(event, element, view) {
+      if (view.name === "agendaDay" || view.name === "agendaWeek") {
+        if(event.job != undefined || event.comment != undefined){
+          element.find(".fc-title")
+                 .replaceWith('<div>'+event.job+'</div>'+'<div>'+event.comment+'</div>');
+        }
+      }
+    },
+    eventDrop: function(event, dayDelta, minuteDelta, allDay, revertFunc) {
+      // alert(event.title + " was dropped on " + event.start.format());
+      updateEvent(event);
+    },
+    eventResize: function(event, dayDelta, minuteDelta, revertFunc) {
+      updateEvent(event);
+    },
+    eventMouseover: function(event, jsEvent, view) {
+      var tooltip = '<div class="tooltipevent hover-end">' +'<div>'+ event.start.format("YYYY/MM/DD HH:mm") +'</div>' +'<div>'+ event.end.format("YYYY/MM/DD HH:mm")+'</div>';
+      tooltip += '<div>'+ event.title;
+      tooltip += (event.job != undefined ? ' ' + event.bashomei : '') +'</div>' ;
+      if(event.job != undefined){
+        tooltip = tooltip + '<div>'+event.job+'</div>'
+      }
+      if(event.comment != undefined){
+        tooltip = tooltip + '<div>'+event.comment+'</div>'
+      }
+      tooltip = tooltip +'</div>'
+      $("body").append(tooltip);
+      $(this).mouseover(function(e) {
+        $(this).css('z-index', 10000);
+        $('.tooltipevent').fadeIn('500');
+        $('.tooltipevent').fadeTo('10', 1.9);
+      }).mousemove(function(e) {
+        $('.tooltipevent').css('top', e.pageY + 10);
+        $('.tooltipevent').css('left', e.pageX + 20);
+      });
+    },
+    eventMouseout: function(event, jsEvent, view) {
+      $(this).css('z-index', 8);
+      $('.tooltipevent').remove();
+    }
+  });// end of $('#calendar-month-view').fullCalendar(
+
+  //Hander calendar header button click
+  $('#month-view').find('#goto-date-button, .fc-today-button,.fc-prev-button,.fc-next-button').click(function(){
+      //redraw dataTable after filter
+      oTable = $('#event_table').DataTable();
+      oTable.draw();
+      //set current date to hidden field to goback, post it to session
+      $.post(
+          "/settings/ajax",
+          {
+              setting: "setting_date",
+              selected_date: $('#calendar-month-view').fullCalendar('getDate').format("YYYY/MM/DD")
+          }
+      );
+  });
+
+  //add jpt holiday
+  $('#calendar-month-view').fullCalendar('addEventSource',data.holidays);
+}
+
 $(function(){
     $('#current_user_button').show();
     //when click create

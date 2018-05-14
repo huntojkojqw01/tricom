@@ -8,18 +8,20 @@ class EventsController < ApplicationController
   include EventsHelper
 
   def index
-    @all_events = Event.includes(:jobmaster, :joutaimaster, :shainmaster).where('Date(開始) = ?', Date.today.to_s(:db))
     @shains = Shainmaster.includes(:shozokumaster, :yakushokumaster, :shozai).reorder(:序列, :社員番号).where(社員番号: User.all.ids)
-    @holidays = JptHolidayMst.all
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
-    @events = Event.includes(:jobmaster, :joutaimaster, :shainmaster, :kouteimaster, bashomaster: :kaishamaster )
+    @events = Event.includes(:jobmaster, :joutaimaster, :kouteimaster, bashomaster: :kaishamaster )
                   .where(社員番号: session[:selected_shain])
-                  .where('Date(開始) >= ?', 3.month.ago(Date.today))
                   .order(開始: :desc)
     @shain = Shainmaster.find(session[:selected_shain])
-    @setting = Setting.find_by(社員番号: session[:selected_shain])
     @kintai = Kintai.first
     @selected_date = session[:selected_date] || Date.current
+
+    @data = {
+              :events => build_calendar_event_json(@events),
+              :setting => { select_holiday_vn: Setting.find_by(社員番号: session[:selected_shain]).try(:select_holiday_vn) || '0' },
+              :holidays => build_calendar_holiday_json(JptHolidayMst.all)
+            }.to_json
   rescue
     @events = Shainmaster.take.events
     # 不在状態の社員
@@ -783,6 +785,39 @@ private
   def jobmaster_params
     params.require(:jobmaster).permit(:job番号, :job名, :開始日, :終了日, :ユーザ番号, :ユーザ名, :入力社員番号, :分類コード, :分類名, :関連Job番号, :備考)
   end
+
+  def build_calendar_event_json(events)
+    events.map do |my_event|
+      {
+        id: my_event.id,
+        description: my_event.joutaimaster.try(:name) || '',
+        comment: my_event.comment,
+        job: my_event.jobmaster.try(:job名) || '',
+        title: my_event.joutaimaster.try(:name) || '',
+        start: my_event.start_time,
+        end: my_event.end_time,
+        url: edit_event_url(my_event, format: :html, :shain_id => my_event.社員番号),
+        resourceId: my_event.社員番号,
+        color: my_event.joutaimaster.try(:color),
+        textColor: my_event.joutaimaster.try(:text_color),
+        bashomei: my_event.bashomaster.try(:場所名) || ''
+      }
+    end
+  end
+
+  def build_calendar_holiday_json(holidays)
+    holidays.map do |holiday|
+      {
+        id: holiday.id,
+        title: holiday.title,
+        description: holiday.description,
+        start: holiday.event_date,
+        end: holiday.event_date,
+        color: 'red'
+      }
+    end
+  end
+
   def build_event_json(events)
     umu_flag = {
       '帰社' => ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-left"></span>',
