@@ -25,7 +25,7 @@ class KintaisController < ApplicationController
     when (t 'helpers.submit.entered')
       @kintai.update(入力済: '1') if @kintai
       @yuukyuu_kyuuka_rireki.calculate_getshozan     
-      @yuukyuu_kyuuka_rireki.calculate_getmatsuzan(kintais)
+      @yuukyuu_kyuuka_rireki.calculate_getmatsuzan(@kintais)
       @yuukyuu_kyuuka_rireki.save
     when (t 'helpers.submit.input')
       @kintai.update(入力済: '0') if @kintai
