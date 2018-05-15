@@ -49,9 +49,9 @@ class KintaisController < ApplicationController
     @kintais_tonow = Kintai.selected_tocurrent(session[:user], begin_of_month)
     @yukyu = @kintais.day_off.count + @kintais.morning_off.count*0.5 + @kintais.afternoon_off.count*0.5
     if begin_of_month.month == 1
-      @gesshozan = 12
+      @gesshozan = 12.0
     else
-      @gesshozan = 12 - (@kintais_tonow.day_off.count + @kintais_tonow.morning_off.count*0.5 + @kintais_tonow.afternoon_off.count*0.5)
+      @gesshozan = 12.0 - (@kintais_tonow.day_off.count + @kintais_tonow.morning_off.count*0.5 + @kintais_tonow.afternoon_off.count*0.5)
     end
   end
 

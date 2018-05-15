@@ -16,8 +16,9 @@ class YuukyuuKyuukaRireki < ActiveRecord::Base
     if ykkk
       kyuukei_times = ykkk.月初有給残.to_f - ykkk.月末有給残.to_f
       kyuukei_times = 0.0 if kyuukei_times < 0.0
-      ykkk.月初有給残 = 月末有給残 || 0
+      ykkk.月初有給残 = 月末有給残 || 0.0
       ykkk.月末有給残 = ykkk.月初有給残 - kyuukei_times
+      ykkk.月末有給残 = 0.0 if ykkk.月末有給残 < 0.0
       ykkk.save
     end
   end
@@ -31,7 +32,7 @@ class YuukyuuKyuukaRireki < ActiveRecord::Base
     ykkks = YuukyuuKyuukaRireki.where(社員番号: 社員番号, 年月: first_month..prev_month)
     last_month_has_getmatsuzan = ykkks.map { |ykkk| { month: ykkk.年月.to_date.month, getmatsuzan: ykkk.月末有給残 } }
                     .sort_by { |i| - i[:month] }
-                    .find {|i| i[:getmatsuzan].present? && i[:getmatsuzan].to_f >= 0}
+                    .find {|i| i[:getmatsuzan].present? && i[:getmatsuzan].to_f >= 0.0 }
     self.月初有給残 = last_month_has_getmatsuzan ? last_month_has_getmatsuzan[:getmatsuzan] : 12.0
   end
 
