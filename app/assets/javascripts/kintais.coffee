@@ -795,7 +795,7 @@ jQuery ->
   summary = () ->
     gesshozan = $('.input-number').text()
     if gesshozan == ''
-      gesshozan = 0
+      gesshozan = 0.0
     else
       gesshozan = parseFloat(gesshozan)
 
@@ -807,7 +807,8 @@ jQuery ->
       yuukyu = parseFloat(yuukyu)
 
     sum = gesshozan - yuukyu
-    $('.sum-yuukyu').text(sum)
+    sum = 0.0 if sum < 0
+    $('.sum-yuukyu').text(sum.toFixed(1))
 
   $('#kintai-table').on('click', 'td', () ->
     id_column = $(this).attr("id")
