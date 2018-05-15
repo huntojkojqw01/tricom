@@ -16,7 +16,7 @@ class YuukyuuKyuukaRireki < ActiveRecord::Base
     if ykkk
       kyuukei_times = ykkk.月初有給残.to_f - ykkk.月末有給残.to_f
       kyuukei_times = 0.0 if kyuukei_times < 0.0
-      ykkk.月初有給残 = 月末有給残
+      ykkk.月初有給残 = 月末有給残 || 0
       ykkk.月末有給残 = ykkk.月初有給残 - kyuukei_times
       ykkk.save
     end
