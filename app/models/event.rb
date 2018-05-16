@@ -65,31 +65,24 @@ class Event < ActiveRecord::Base
       if events.any?
         time_start, time_end = events.minimum(:開始), events.maximum(:終了)
         times = ApplicationController.helpers.time_calculate(time_start, time_end, kinmu_type, events)
-        real_hours_total = times[:real_hours] / 15 * 0.25
-        fustu_zangyo_total = times[:fustu_zangyo] / 15 * 0.25
-        shinya_zangyou_total = times[:shinya_zangyou] / 15 * 0.25
-        shinya_zangyou_total = times[:shinya_zangyou] / 15 * 0.25
-
-        if shain.try(:残業区分) == "1"
-          kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-          退社時刻: time_end, 実労働時間: real_hours_total, 普通残業時間: fustu_zangyo_total,
-          深夜残業時間: shinya_zangyou_total, 状態1: joutai_first)
-        else
-          kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-          退社時刻: time_end, 実労働時間: real_hours_total, 普通残業時間: '',
-          深夜残業時間: '', 状態1: joutai_first)
-        end
+        real_hours = times[:real_hours] / 15 * 0.25
+        futsu_zangyou = times[:fustu_zangyo] / 15 * 0.25
+        shinya_zangyou = times[:shinya_zangyou] / 15 * 0.25
+        chikoku_soutai = times[:chikoku_soutai] / 15 * 0.25
+        kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
+          退社時刻: time_end, 実労働時間: real_hours, 普通残業時間: futsu_zangyou,
+          深夜残業時間: shinya_zangyou, 遅刻時間: chikoku_soutai, 状態1: joutai_first)
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
         実労働時間: '', 遅刻時間: '', 早退時間: '', 普通残業時間: '', 深夜残業時間: '', 状態1: joutai_first)
       end # if events.any?
 
-      # tinh toan su kien di muon ve som
-      chikoku_total = Event.joins(:joutaimaster)
-                          .where("Date(開始) = Date(?) AND 状態マスタ.状態区分 = ? AND 社員番号 = ?", 開始, "3", 社員番号)
-                          .where.not(開始: '', 終了: '')
-                          .inject { |sum, event| sum += get_time_diff(event.開始,event.終了) }
-      kintai.update(遅刻時間: chikoku_total || '')
+      # # tinh toan su kien di muon ve som
+      # chikoku_total = Event.joins(:joutaimaster)
+      #                     .where("Date(開始) = Date(?) AND 状態マスタ.状態区分 = ? AND 社員番号 = ?", 開始, "3", 社員番号)
+      #                     .where.not(開始: '', 終了: '')
+      #                     .inject { |sum, event| sum += get_time_diff(event.開始,event.終了) }
+      # kintai.update(遅刻時間: chikoku_total || 0.0)
 
       # huy bo lien he giua 2 kintai ve van de nghi bu lam bu:
       if kintai.代休相手日付.present?
