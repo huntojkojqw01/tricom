@@ -9,10 +9,12 @@
           %thead
             %tr
               %th 代休相手日付
+              %th ID
           %tbody
             - @daikyus.each do |daikyu|
               %tr
                 %td= daikyu.日付
+                %td= daikyu.id
       .modal-footer
         %button.btn.btn-primary#daikyu_index_sentaku_ok{type: :button, 'data-dismiss'=>"modal"}　ＯＫ　
         %button.btn.btn-default{type: :button, 'data-dismiss'=>"modal"} 閉じる
