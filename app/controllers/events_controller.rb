@@ -152,10 +152,10 @@ class EventsController < ApplicationController
       vars = request.query_parameters
       current_time_text = "#{@selected_date} #{Time.now.strftime('%H:%M')}"
       @shains = Shainmaster.where(タイムライン区分: false)
-      session[:selected_roru] = vars['roru'] if vars['roru'].present?
-      @shains = @shains.joins(:rorumenbas).where(ロールメンバ: { ロールコード: session[:selected_roru] }) if session[:selected_roru]
-      session[:selected_joutai] = vars['joutai'] if vars['joutai'].present?
-      if session[:selected_joutai]
+      session[:selected_roru] = vars['roru'] if  vars['roru']
+      @shains = @shains.joins(:rorumenbas).where(ロールメンバ: { ロールコード: session[:selected_roru] }) if session[:selected_roru].present?
+      session[:selected_joutai] = vars['joutai'] if vars['joutai']
+      if session[:selected_joutai].present?
         if session[:selected_joutai] == '00' # 不在 chossen.
           shain_ids = Shainmaster.pluck(:社員番号).uniq - Event.where(" ? BETWEEN 開始 AND 終了", current_time_text)
                                                               .where.not(状態コード: '00')
