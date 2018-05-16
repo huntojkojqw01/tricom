@@ -52,15 +52,14 @@ class Event < ActiveRecord::Base
       kinmu_type = shain.try(:勤務タイプ)
       # tim nhung su kien trong ngay hom do (開始),ma co trang thai khong phai la nghi:
       events = Event.joins(:joutaimaster).where("Date(開始) = Date(?)", 開始)
-                                         .where(社員番号: 社員番号, 状態マスタ: { 勤怠使用区分: ['1', '5'] } )
+                                         .where(社員番号: 社員番号, 状態マスタ: { 状態区分: ['1', '5'] } )
                                          .where.not(開始: '', 終了: '')
       # tim ra joutai se thiet lap cho kintai , joutai chinh la cai dau tien trong cac event:
-      joutai_first = 状態コード
-                    # Event.joins(:joutaimaster)
-                    #       .where("Date(開始) = Date(?)", 開始)
-                    #       .where(社員番号: 社員番号, 状態マスタ: { 勤怠使用区分: '1' } )
-                    #       .where.not(開始: '', 終了: '')
-                    #       .order(開始: :asc).first.try(:状態コード) || ''
+      joutai_first =  Event.joins(:joutaimaster)
+                          .where("Date(開始) = Date(?)", 開始)
+                          .where(社員番号: 社員番号, 状態マスタ: { 勤怠使用区分: '1' } )
+                          .where.not(開始: '', 終了: '')
+                          .order(開始: :asc).first.try(:状態コード) || ''
 
       if events.any?
         time_start, time_end = events.minimum(:開始), events.maximum(:終了)
