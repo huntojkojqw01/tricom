@@ -75,14 +75,14 @@
             <bold style="line-height:40px;margin-right:15px;font-weight:bold;"><%=(t 'title.busho')%></bold>
           </td>
           <td>
-            <%= f.select :ロールコード, Rorumaster.order(:序列).pluck(:ロール名, :ロールコード), {:prompt => "全て"},{class: 'form-control'}%>
+            <%= f.select :ロールコード, Rorumaster.order(:序列).pluck(:ロール名, :ロールコード), { selected: session[:selected_roru], include_blank: "全て" },{class: 'form-control'}%>
           </td>
 
           <td>
             <bold style="line-height:40px;margin-right:15px;margin-left:15px;font-weight:bold;"><%=(t 'title.joutai')%></bold>
           </td>
           <td>
-            <%= f.select :状態コード, Joutaimaster.order(:状態コード).pluck(:状態名, :状態コード), {:prompt => "全て"}, {class: 'form-control'}%>
+            <%= f.select :状態コード, Joutaimaster.order(:状態コード).pluck(:状態名, :状態コード), { selected: session[:selected_joutai], include_blank: "全て" }, {class: 'form-control'}%>
           </td>
           <td><button class="btn btn-primary" id="kensaku" type="button" style="margin-bottom: 0px;margin-left:15px"><%=(t 'helpers.button.search')%></button></td>
 

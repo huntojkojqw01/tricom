@@ -13,14 +13,6 @@ var weekday = ["日", "月", "火", "水", "木", "金", "土"];
 $(window).on('load', function() {
   $('#calendar-timeline').fullCalendar('render');
 });
-$(document).ready(function() {
-  var roru = getUrlVars()["roru"];
-  var joutai = getUrlVars()["joutai"];
-  if(roru != undefined && joutai != undefined){
-    $('#timeline_ロールコード').val(roru);
-    $('#timeline_状態コード').val(joutai);
-  }
-});
 $(document).on("click", ".fc-next-button", function(){
   /*var selectedDate = $('#calendar-timeline').fullCalendar('getDate');
   var calDate = new Date(moment(selectedDate).format(''));
