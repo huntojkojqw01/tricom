@@ -152,6 +152,7 @@ class EventsController < ApplicationController
       vars = request.query_parameters
       current_time_text = "#{@selected_date} #{Time.now.strftime('%H:%M')}"
       @shains = Shainmaster.where(タイムライン区分: false)
+      session[:selected_roru] = Shainmaster.find_by(社員番号: session[:user]).try(:デフォルトロール) unless session[:selected_roru]
       session[:selected_roru] = vars['roru'] if  vars['roru']
       @shains = @shains.joins(:rorumenbas).where(ロールメンバ: { ロールコード: session[:selected_roru] }) if session[:selected_roru].present?
       session[:selected_joutai] = vars['joutai'] if vars['joutai']
