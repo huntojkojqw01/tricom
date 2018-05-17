@@ -510,7 +510,7 @@ class KintaisController < ApplicationController
         date = Date.today
       end
       @results = []
-      if params[:tai] == '1'            
+      if params[:tai] == '1'
         Shainmaster.includes(events: [:joutaimaster, :bashomaster, :jobmaster, :shozokumaster, :kouteimaster])
                   .where(区分: false)
                   .reorder(:序列, :社員番号)
@@ -596,13 +596,13 @@ class KintaisController < ApplicationController
         end
       end # if params[:tai] != 1
       respond_to do |format|
-        format.csv { send_data to_csv_by_date(@results), filename: '勤怠.csv' }
+        format.csv { send_data to_csv_by_date(@results), filename: '勤怠.dat' }
       end
-    else
+    else # if params[:date] == nil
       @kintais = Kintai.all
       respond_to do |format|
         format.html
-        format.csv { send_data @kintais.to_csv, filename: '勤怠.csv' }
+        format.csv { send_data @kintais.to_csv, filename: '勤怠.dat' }
       end
     end
   end
