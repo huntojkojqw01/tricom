@@ -610,7 +610,7 @@ class KintaisController < ApplicationController
     begin
       @date = params[:date].to_date
     rescue
-      @date = Date.today
+      @date = Date.today.beginning_of_month
     end
     @kintais = Shainmaster.includes(:kintais).where(区分: false).map do |shain|
       kintai = shain.kintais.find { |k| k.日付 == @date }
@@ -618,9 +618,9 @@ class KintaisController < ApplicationController
         氏名: shain.氏名,
         社員番号: shain.社員番号,
         日付: @date,
-        入力済: kintai.try(:入力済)        
+        入力済: kintai.try(:入力済)
       }
-    end    
+    end
   end
   private
     def set_kintai
