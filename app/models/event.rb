@@ -44,12 +44,17 @@ class Event < ActiveRecord::Base
     self.工数 = ApplicationController.helpers.caculate_koushuu(開始, 終了) if 開始.present? && 終了.present?
   end
 
+  def estimate_kinmu_type(start_time)
+    time = start_time.try(:to_datetime).to_i % (1.day.to_i) / 60.0
+    Kintai::KINMU_TYPE.each { |type, value| puts value[:s] * 60; return type if value[:s] * 60 >= time }
+    return nil
+  end
+
   def doUpdateKintai
     ApplicationController.helpers.check_kintai_at_day_by_user(社員番号, 開始.to_date)
     shain = Shainmaster.find_by(社員番号: 社員番号)
-    kintai = Kintai.find_by("Date(日付) = Date(?) AND 社員番号 = ?", 開始, 社員番号)    
+    kintai = Kintai.find_by("Date(日付) = Date(?) AND 社員番号 = ?", 開始, 社員番号)
     if kintai
-      kinmu_type = shain.try(:勤務タイプ)
       # tim nhung su kien trong ngay hom do (開始),ma co trang thai khong phai la nghi:
       events = Event.joins(:joutaimaster).where("Date(開始) = Date(?)", 開始)
                                          .where(社員番号: 社員番号, 状態マスタ: { 状態区分: ['1', '5'] } )
@@ -63,6 +68,7 @@ class Event < ActiveRecord::Base
 
       if events.any?
         time_start, time_end = events.minimum(:開始), events.maximum(:終了)
+        kinmu_type = estimate_kinmu_type(time_start) || shain.try(:勤務タイプ)
         times = ApplicationController.helpers.time_calculate(time_start, time_end, kinmu_type, events)
         real_hours = times[:real_hours] / 15 * 0.25
         futsu_zangyou = times[:fustu_zangyo] / 15 * 0.25
