@@ -9,7 +9,7 @@
     <div class="field">
       <%= f.label :担当者コード, class: 'col-md-4 col-xs-8 col-sm-4 col-lg-4 control-label' %>
       <div class="col-md-8 col-xs-16 col-sm-8 col-lg-8">
-        <%= f.text_field :担当者コード, class: 'form-control', placeholder: 'ID', autocomplete: 'off' %>
+        <%= f.text_field :担当者コード, class: 'form-control', placeholder: '担当者コード', autocomplete: 'off' %>
       </div>
     </div>
   </div>
@@ -42,7 +42,9 @@ $("form").bind("keypress", function (e) {
         return false;
     }
 });
-
+window.onload = function () {
+    document.getElementById('session_担当者コード').focus();
+}
 </script>
 
   </div>
