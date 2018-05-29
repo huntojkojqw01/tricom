@@ -510,90 +510,53 @@ class KintaisController < ApplicationController
         date = Date.today
       end
       @results = []
+      begin_t, end_t = date.beginning_of_month, date.end_of_month
       if params[:tai] == '1'
-        Shainmaster.includes(events: [:joutaimaster, :bashomaster, :jobmaster, :shozokumaster, :kouteimaster])
-                  .where(区分: false)
-                  .reorder(:序列, :社員番号)
-          .each do |shain|
-            begin_t, end_t = date.beginning_of_month, date.end_of_month
-            events = shain.events.includes(:joutaimaster, :bashomaster, :jobmaster, :shozokumaster, :kouteimaster)
-                                .where('Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) >= ? AND Date(終了) <= ?',
-                                                  begin_t, begin_t, end_t, end_t, begin_t, end_t)
-                                .order(:開始, :終了)
-
-            if events.any?
-              events.each do |event|
+        Event.joins(:shainmaster, :jobmaster).left_outer_joins(:joutaimaster, :bashomaster, :shozokumaster, :kouteimaster)
+             .where(社員マスタ: { 区分: false } )
+             .where('Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) >= ? AND Date(終了) <= ?',
+                      begin_t, begin_t, end_t, end_t, begin_t, end_t)
+             .order('社員マスタ.序列 ASC', '社員マスタ.社員番号 ASC', :開始, :終了)
+             .select(:社員番号, :氏名, :開始, :終了, :状態コード, :状態名, :場所コード, :場所名, :JOB, :job名, :所属コード, :所属名, :工程コード, :工程名, :工数, :工数, :計上, :comment)
+             .each do |event|
                 @results << {
-                  社員番号: shain.社員番号,
-                  氏名: shain.氏名,
+                  社員番号: event.社員番号,
+                  氏名: event.氏名,
                   開始: event.開始,
                   終了: event.終了,
                   状態コード: event.状態コード,
-                  状態名: event.joutaimaster.try(:状態名),
+                  状態名: event.状態名,
                   場所コード: event.場所コード,
-                  場所名: event.bashomaster.try(:場所名),
+                  場所名: event.場所名,
                   JOB: event.JOB,
-                  JOB名: event.jobmaster.try(:job名),
+                  JOB名: event.job名,
                   所属コード: event.所属コード,
-                  所属名: event.shozokumaster.try(:所属名),
+                  所属名: event.所属名,
                   工程コード: event.工程コード,
-                  工程名: event.kouteimaster.try(:工程名),
+                  工程名: event.工程名,
                   工数: event.工数,
                   計上: event.計上,
                   comment: event.comment
                 }
               end
-            else
-              @results << {
-                  社員番号: shain.社員番号,
-                  氏名: shain.氏名,
-                  開始: nil,
-                  終了: nil,
-                  状態コード: nil,
-                  状態名: nil,
-                  場所コード: nil,
-                  場所名: nil,
-                  JOB: nil,
-                  JOB名: nil,
-                  所属コード: nil,
-                  所属名: nil,
-                  工程コード: nil,
-                  工程名: nil,
-                  工数: nil,
-                  計上: nil,
-                  comment: nil
-                }
-            end # if events.any?
-          end # .each do |shain|
       else # if params[:tai] != 1
-        Shainmaster.includes(:kintais, :events).where(区分: false).each do |shain|
-          kintai = shain.kintais.select { |k| k.日付 == date }
-          begin_t, end_t = date.beginning_of_month, date.end_of_month
-          events = shain.events.joins(:jobmaster)
-                              .where('Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) >= ? AND Date(終了) <= ?',
-                               begin_t, begin_t, end_t, end_t, begin_t, end_t)
-          if events.any?
-            events.select('job名','JOB','SUM(CAST(工数 AS DECIMAL)) AS sum_job').group(:JOB,:job名).order(:JOB).each do |event|
-              @results << {
-                日付: date.strftime("%Y/%m"),
-                氏名: shain.氏名,
-                社員番号: shain.社員番号,
-                JOB: event.JOB,
-                JOB名: event.job名,
-                工数: event.sum_job
-              }
-            end
-          else
-            @results << {
-                日付: date.strftime("%Y/%m"),
-                氏名: shain.氏名,
-                社員番号: shain.社員番号,
-                JOB: nil,
-                JOB名: nil,
-                工数: nil
-              }
-          end
-        end
+        Event.joins(:shainmaster, :jobmaster)
+             .where(社員マスタ: { 区分: false } )
+             .where('Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) <= ? AND Date(終了) >= ? OR Date(開始) >= ? AND Date(終了) <= ?',
+                      begin_t, begin_t, end_t, end_t, begin_t, end_t)
+             .group(:氏名, :社員番号, :JOB, :job名, '社員マスタ.序列')
+             .order('社員マスタ.序列', :社員番号, :JOB)
+             .select(:氏名, :社員番号, :JOB, :job名, 'SUM(CAST(工数 AS DECIMAL)) AS sum_job')
+             .each do |event|
+                @results << {
+                  日付: date.strftime("%Y/%m"),
+                  氏名: event.氏名,
+                  社員番号: event.社員番号,
+                  JOB: event.JOB,
+                  JOB名: event.job名,
+                  工数: event.sum_job
+                }
+              end
       end # if params[:tai] != 1
       respond_to do |format|
         format.csv { send_data to_csv_by_date(@results), filename: '勤怠.dat' }
