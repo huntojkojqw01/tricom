@@ -75,7 +75,7 @@ class Event < ActiveRecord::Base
         shinya_zangyou = times[:shinya_zangyou] / 15 * 0.25
         chikoku_soutai = times[:chikoku_soutai] / 15 * 0.25
         kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-          退社時刻: time_end, 実労働時間: real_hours, 普通残業時間: futsu_zangyou,
+          退社時刻: time_end, 実労働時間: real_hours + futsu_zangyou + shinya_zangyou, 普通残業時間: futsu_zangyou,
           深夜残業時間: shinya_zangyou, 遅刻時間: chikoku_soutai, 状態1: joutai_first)
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',
