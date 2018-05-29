@@ -84,7 +84,7 @@ module EventsHelper
   # => tinh koushuu chi can tru di thoi gian nghi do la duoc!
   def caculate_koushuu(time_start, time_end)
     results = time_calculate(time_start, time_end)
-    return (results[:real_hours] + results[:fustu_zangyo] + results[:shinya_zangyou]) / 15 * 0.25
+    return (results[:real_hours] + results[:fustu_zangyo] + results[:shinya_zangyou]) / 30 * 0.5
   end
   # Tao ra mot mang chua cac thoi diem (tinh theo phut) nam trong danh sach cac events:
   def create_event_times(begin_of_day, events)
@@ -172,8 +172,8 @@ module EventsHelper
             results[:chikoku_soutai] += start_time - kinmu_start # tinh thoi gian di muon
           else # if kinmu_end > end_time thi dem den end_time
             # kinmu_start < start_time < end_time < kinmu_end
-            results[:chikoku_soutai] += start_time - kinmu_start + kinmu_end - end_time
             results = kyuukei_time_calculate(start_time, end_time, event_times)
+            results[:chikoku_soutai] += start_time - kinmu_start + kinmu_end - end_time
           end
         else # if start_time >= kinmu_end then nothing to do
           return {}

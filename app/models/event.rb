@@ -70,10 +70,10 @@ class Event < ActiveRecord::Base
         time_start, time_end = events.minimum(:開始), events.maximum(:終了)
         kinmu_type = estimate_kinmu_type(time_start) || shain.try(:勤務タイプ)
         times = ApplicationController.helpers.time_calculate(time_start, time_end, kinmu_type, events)
-        real_hours = times[:real_hours] / 15 * 0.25
-        futsu_zangyou = times[:fustu_zangyo] / 15 * 0.25
-        shinya_zangyou = times[:shinya_zangyou] / 15 * 0.25
-        chikoku_soutai = times[:chikoku_soutai] / 15 * 0.25
+        real_hours = times[:real_hours] / 30 * 0.5
+        futsu_zangyou = times[:fustu_zangyo] / 30 * 0.5
+        shinya_zangyou = times[:shinya_zangyou] / 30 * 0.5
+        chikoku_soutai = times[:chikoku_soutai] / 30 * 0.5
         kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
           退社時刻: time_end, 実労働時間: real_hours + futsu_zangyou + shinya_zangyou, 普通残業時間: futsu_zangyou,
           深夜残業時間: shinya_zangyou, 遅刻時間: chikoku_soutai, 状態1: joutai_first)
