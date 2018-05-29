@@ -551,7 +551,7 @@ jQuery ->
     t = start
     while t + 30 <= end
       switch Math.floor(t / 60) % 24 # tinh xem thoi diem t ung voi may gio trong ngay.
-        when 19, 20, 21
+        when 16, 17, 19, 20, 21
           fustu_zangyo += 0.5
         when 22, 0, 1, 2, 3
           shinya_zangyou += 0.5
@@ -597,8 +597,8 @@ jQuery ->
               results.chikoku_soutai += start_time - kinmu_start # tinh thoi gian di muon
             else # if kinmu_end > end_time thi dem den end_time
               # kinmu_start < start_time < end_time < kinmu_end
-              results.chikoku_soutai += start_time - kinmu_start + kinmu_end - end_time
               results = kyuukei_time_calculate(start_time, end_time)
+              results.chikoku_soutai += start_time - kinmu_start + kinmu_end - end_time
           else # if start_time >= kinmu_end
             # nothing to do
     results.chikoku_soutai = Math.ceil(results.chikoku_soutai / 30) * 0.5
@@ -841,7 +841,7 @@ jQuery ->
     joutai = $("#joutai"+idKintai).attr("value")
     kinmutype = $('#'+idKintai).text()
     results = time_calculate(start_time, end_time, kinmutype)
-    $('#best_in_place_kintai_'+idKintai+"_実労働時間").text(results.real_hours)
+    $('#best_in_place_kintai_'+idKintai+"_実労働時間").text(results.real_hours + results.fustu_zangyo + results.shinya_zangyou)
     $('#best_in_place_kintai_'+idKintai+"_遅刻時間").text(results.chikoku_soutai)
     $('#best_in_place_kintai_'+idKintai+"_普通残業時間").text(results.fustu_zangyo)
     $('#best_in_place_kintai_'+idKintai+"_深夜残業時間").text(results.shinya_zangyou)
