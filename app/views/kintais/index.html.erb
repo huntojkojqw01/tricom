@@ -167,18 +167,19 @@
           <td class='kintai-item' style="white-space: pre" id="shinyahoshu<%= kintai.id %>"><%= best_in_place kintai, :深夜保守時間, :as => :input, activator: '#shinyahoshu' + kintai.id.to_s,:html_attrs => { size: 3 },:place_holder => place_holder9, readonly: true,inner_class: "set-width"%></td>
           <td class='kintai-item' style="white-space: pre" id="hoshukeitai<%= kintai.id %>" ><%= best_in_place kintai, :保守携帯回数, :as => :select, :collection => [["", ""], [1, "1:保守携帯"]], activator: '#hoshukeitai' + kintai.id.to_s,:place_holder => place_holder10, :inner_class => 'form_control set-width'%></td>
           <%  hash_joutai = [["",""]]
-              kubunlist = []
-              case kintai.曜日
-                when '日','土'
-                  kubunlist = ['1','2','5','6']
-                when '月', '火', '水', '木', '金'
-                  if kintai.try(:holiday) == '1'
-                    kubunlist = ['1','2','5','6']
-                  else
-                    kubunlist = ['1','2','6']
-                  end
-              end
-
+              # kubunlist = []
+              # case kintai.曜日
+              #   when '日','土'
+              #     kubunlist = ['1','2','5','6']
+              #   when '月', '火', '水', '木', '金'
+              #     if kintai.try(:holiday) == '1'
+              #       kubunlist = ['1','2','5','6']
+              #     else
+              #       kubunlist = ['1','2','6']
+              #     end
+              # end
+              # Khong hieu y nghia kubunlist 1,2,5,6 nen cu lay het luon:
+              kubunlist = ['1','2','5','6']
               @joutais = Joutaimaster.active(kubunlist).order('CAST(状態コード AS DECIMAL) asc')
               @joutais.map { |k| hash_joutai.push([k.状態コード, k.状態名]) }
            %>
