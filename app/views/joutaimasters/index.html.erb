@@ -20,6 +20,7 @@
     <th>文字色</th>
     <th>WEB使用区分</th>
     <th>勤怠使用区分</th>
+    <th>残業計算外区分</th>
   
   </tr>
   </thead>
@@ -36,7 +37,7 @@
         <td style = "background-color: <%= joutai.try(:色).to_s%> ;color: <%= joutai.try(:text_color).to_s %>"><%= joutai.text_color %></td>
         <td><%= joutai.WEB使用区分 %></td>
         <td><%= joutai.勤怠使用区分 %></td>
-       
+        <td><%= joutai.残業計算外区分 %></td>
       </tr>
   <% end %>
   </tbody>

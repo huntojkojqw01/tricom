@@ -46,7 +46,7 @@ class Event < ActiveRecord::Base
 
   def estimate_kinmu_type(start_time)
     time = start_time.try(:to_datetime).to_i % (1.day.to_i) / 60.0
-    Kintai::KINMU_TYPE.each { |type, value| puts value[:s] * 60; return type if value[:s] * 60 >= time }
+    Kintai::KINMU_TYPE.each { |type, value| return type if value[:s] * 60 >= time }
     return nil
   end
 
