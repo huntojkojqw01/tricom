@@ -122,8 +122,10 @@ $(function () {
             $('.hint-joutai-refer').text(d[1]);
             if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
                 $('.event_帰社').show();
-            else
+            else{
+                $('#event_有無').val('');
                 $('.event_帰社').hide();
+            }
             $('#event_状態コード').closest('.form-group').find('span.help-block').remove();
             $('#event_状態コード').closest('.form-group').removeClass('has-error');
             //check if that day missing
@@ -181,8 +183,10 @@ $(function () {
             $('.hint-joutai-refer').text(d[1]);
             if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
                 $('.event_帰社').show();
-            else
+            else{
+                $('#event_有無').val('');
                 $('.event_帰社').hide();
+            }
             $('#event_状態コード').closest('.form-group').find('span.help-block').remove();
             $('#event_状態コード').closest('.form-group').removeClass('has-error');
             //check if that day missing
