@@ -590,17 +590,20 @@ class KintaisController < ApplicationController
       @daikyus = Kintai.current_user(session[:user]).where(代休取得区分: '0').select(:日付, :id)
       @kintai = Kintai.find(params[:id])
 
-      kubunlist = []
-      case @kintai.曜日
-        when '日','土'
-          kubunlist = ['1', '2', '5', '6']
-        when '月', '火', '水', '木', '金'
-          if @kintai.try(:holiday) == '1'
-            kubunlist = ['1', '2', '5', '6']
-          else
-            kubunlist = ['1', '2', '6']
-          end
-      end
+      # kubunlist = []
+      # case @kintai.曜日
+      #   when '日','土'
+      #     kubunlist = ['1', '2', '5', '6']
+      #   when '月', '火', '水', '木', '金'
+      #     if @kintai.try(:holiday) == '1'
+      #       kubunlist = ['1', '2', '5', '6']
+      #     else
+      #       kubunlist = ['1', '2', '6']
+      #     end
+      # end
+      # Tam thoi ko hieu doan code tren loc kubunlist dung 1,2,5,6 voi y nghia gi,
+      # nen cu de all [1,2,5,6] cho no hien thi het:
+      kubunlist = ['1', '2', '5', '6']
       # @joutais = Joutaimaster.active(kubunlist)
       # joutai_array = ['12','15','30','31','32','33','38','103','105','107','109','111','113']
       @joutais = Joutaimaster.active(kubunlist).order('CAST(状態コード AS DECIMAL) asc')
