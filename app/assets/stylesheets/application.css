@@ -68,7 +68,7 @@
   border-top-left-radius: 20px;
 }
 .search-group-nav{
-  width: 500px;
+  width: 300px;
 }
 .link-top {
     background-repeat: no-repeat;
@@ -283,7 +283,7 @@ body { padding-top: 70px; }
   font-size: 4px;
   margin-top: 15px;
   /*margin-bottom: 0px;*/
-  margin-left: 350px;
+  margin-left: 200px;
   position: relative;
   text-indent: -9999em;
   -webkit-transform: translateZ(0);
