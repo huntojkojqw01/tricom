@@ -1,13 +1,7 @@
 $(document).ready(function(){
     $("#edit_joutaimaster").addClass("disabled");
     $("#destroy_joutaimaster").addClass("disabled");
-    oJoutaiTable = $('#joutai_table').DataTable({
-        "pagingType": "simple_numbers"
-        ,"oLanguage":{
-            "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-        }
-    });
-
+    oJoutaiTable = $('#joutai_table').DataTable();
     $(document).bind('ajaxError', 'form#new_joutaimaster', function(event, jqxhr, settings, exception){
         $(event.data).render_form_errors( $.parseJSON(jqxhr.responseText) );
     });

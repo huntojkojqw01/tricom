@@ -49,3 +49,16 @@
     </div>
   </div>
 </div>
+<script type="text/javascript">
+  $('#joutai_table').DataTable({
+    "pagingType": "simple_numbers"
+    ,"oLanguage":{
+      "sUrl": "/assets/resource/dataTable_"+$('#language').text()+".txt"
+    }
+    ,"columnDefs": [{
+      "targets": [4],
+      "visible": false,
+      "searchable": false
+    }]
+  });
+</script>
