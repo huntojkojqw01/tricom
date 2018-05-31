@@ -67,17 +67,7 @@ jQuery ->
 #    status = 3
 #    event.preventDefault()
 
-  oJoutai_search_modal = $('#joutai_table').DataTable({
-    "pagingType": "simple_numbers"
-    ,"oLanguage":{
-      "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-    }
-    ,"columnDefs": [{
-      "targets": [4],
-      "visible": false,
-      "searchable": false
-    }]
-  })
+  oJoutai_search_modal = $('#joutai_table').DataTable()
 
   joutaikubun = ''
   fukyu_code = ''
