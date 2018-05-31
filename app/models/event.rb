@@ -69,13 +69,18 @@ class Event < ActiveRecord::Base
       if events.any?
         time_start, time_end = events.minimum(:開始), events.maximum(:終了)
         kinmu_type = estimate_kinmu_type(time_start) || shain.try(:勤務タイプ)
-        times = ApplicationController.helpers.time_calculate(time_start, time_end, kinmu_type, events)
-        real_hours = times[:real_hours] / 30 * 0.5
-        futsu_zangyou = times[:fustu_zangyo] / 30 * 0.5
-        shinya_zangyou = times[:shinya_zangyou] / 30 * 0.5
-        chikoku_soutai = times[:chikoku_soutai] / 30 * 0.5
+        times = ApplicationController.helpers.time_calculate(time_start, time_end, kinmu_type, events)        
+        real_hours = times[:real_hours].to_i / 30 * 0.5
+        futsu_zangyou = times[:fustu_zangyo].to_i / 30 * 0.5
+        shinya_zangyou = times[:shinya_zangyou].to_i / 30 * 0.5
+        chikoku_soutai = (times[:chikoku].to_i + times[:soutai].to_i) / 30 * 0.5
+        koushuu = real_hours + futsu_zangyou + shinya_zangyou
+        # set zangyou theo yeu cau cua file 要望_勤怠_出張_20180521-1.xlsx
+        if Joutaimaster.find_by(状態コード: joutai_first).try(:残業計算外区分) == '1'
+          futsu_zangyou = shinya_zangyou = 0
+        end
         kintai.update(勤務タイプ: kinmu_type, 出勤時刻: time_start,
-          退社時刻: time_end, 実労働時間: real_hours + futsu_zangyou + shinya_zangyou, 普通残業時間: futsu_zangyou,
+          退社時刻: time_end, 実労働時間: koushuu, 普通残業時間: futsu_zangyou,
           深夜残業時間: shinya_zangyou, 遅刻時間: chikoku_soutai, 状態1: joutai_first)
       else
         kintai.update(勤務タイプ: '', 出勤時刻: '', 退社時刻: '',

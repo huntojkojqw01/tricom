@@ -71,7 +71,13 @@ jQuery ->
     "pagingType": "simple_numbers"
     ,"oLanguage":{
       "sUrl": "../../assets/resource/dataTable_"+$('#language').text()+".txt"
-    }})
+    }
+    ,"columnDefs": [{
+      "targets": [4],
+      "visible": false,
+      "searchable": false
+    }]
+  })
 
   joutaikubun = ''
   fukyu_code = ''
@@ -606,7 +612,15 @@ jQuery ->
     return results
   $('#time-cal').on 'click', (event) ->
     results = time_calculate($('#kintai_出勤時刻').val(), $('#kintai_退社時刻').val(), $('#kintai_勤務タイプ').val())
-    $('#kintai_実労働時間').val(results.real_hours + results.fustu_zangyo + results.shinya_zangyou)
+    koushuu = results.real_hours + results.fustu_zangyo + results.shinya_zangyou
+    # Kiem tra xem joutai dang chon co duoc tinh zangyou hay khong, neu khong thi set zangyou ve 0
+    data = oJoutai_search_modal.row((idx, data, node)->
+      return data[0] == $('#kintai_状態1').val() ? true : false
+    ).data();
+    if data != undefined && data[4] == '1'
+      results.fustu_zangyo = 0.0
+      results.shinya_zangyou = 0.0
+    $('#kintai_実労働時間').val(koushuu)
     $('#kintai_遅刻時間').val(results.chikoku_soutai)
     $('#kintai_普通残業時間').val(results.fustu_zangyo)
     $('#kintai_深夜残業時間').val(results.shinya_zangyou)
