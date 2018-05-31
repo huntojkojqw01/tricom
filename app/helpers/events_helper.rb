@@ -73,34 +73,29 @@ module EventsHelper
 
   end  
 
-  # Moi don vi tinh lam tron ve 15 phut, => moi tieng <=> 4 don vi,
-  # vi du (0 -> 1 gio) <=> 0,1,2,3 ; (1 -> 2 gio) <=> 4,5,6,7.
-  # Cac thoi gian nghi la co dinh nhu sau:
-  #-hiru_kyukei: 12->13 <=> 48,49,50,51
-  #-yoru_kyukei: 18->19 <=> 72,73,74,75
-  #-shinya_kyukei: 23->0 <=> 92,93,94,95
-  #-souchou_kyukei: 4->7 <=> 16->27
-  # duyet het cac don vi thoi gian tinh tu start -> end, neu co don vi nao thuoc [start,end] thi thoi gian nghi +=1
-  # => tinh koushuu chi can tru di thoi gian nghi do la duoc!
   def caculate_koushuu(time_start, time_end)
     results = time_calculate(time_start, time_end)
     return (results[:real_hours] + results[:fustu_zangyo] + results[:shinya_zangyou]) / 30 * 0.5
   end
   # Tao ra mot mang chua cac thoi diem (tinh theo phut) nam trong danh sach cac events:
   def create_event_times(begin_of_day, events)
-    events.inject([]) do |array, event|
+    time_array, no_zangyou_time_array = [], [] # no_zangyou_time_array la mang cac thoi diem khong tinh zangyou
+    events.each do |event|
       event_start_time = ((event.開始.to_time - begin_of_day) / 60).to_i
       event_end_time = ((event.終了.to_time - begin_of_day) / 60).to_i
-      array |= (event_start_time...event_end_time).to_a
+      time_array |= (event_start_time...event_end_time).to_a
+      no_zangyou_time_array |= (event_start_time...event_end_time).to_a if event.joutaimaster.try(:残業計算外区分) == '1'
     end
+    return [time_array, no_zangyou_time_array]
   rescue
     nil
   end
 
   def kyuukei_time_calculate(start_t, end_t, event_times = nil) # start va end tinh theo don vi phut
     hiru_kyukei = yoru_kyukei = shinya_kyukei = souchou_kyukei = real_hours = 0
+    time_array, no_zangyou_time_array = event_times
     (start_t...end_t).each do |t|
-      next if event_times && !event_times.include?(t)
+      next if time_array && !time_array.include?(t)
       case (t / 60) % 24 # tinh xem thoi diem t ung voi may gio trong ngay.
       when 12 then hiru_kyukei += 1 # tuong duong 12:00->13:00
       when 18 then yoru_kyukei += 1
@@ -114,23 +109,35 @@ module EventsHelper
       yoru_kyukei: yoru_kyukei,
       shinya_kyukei: shinya_kyukei,
       souchou_kyukei: souchou_kyukei,
-      real_hours: real_hours,
-      fustu_zangyo: 0,
-      shinya_zangyou: 0,
-      chikoku_soutai: 0
+      real_hours: real_hours
     }
   end
 
   def zangyou_time_calculate(start_t, end_t, event_times = nil)
     fustu_zangyo = shinya_zangyou = 0
+    time_array, no_zangyou_time_array = event_times # no_zangyou_time_array la mang cac thoi diem khong tinh zangyou
     (start_t...end_t).each do |t|
-      next if event_times && !event_times.include?(t)
+      next if time_array && !time_array.include?(t)
       case (t / 60) % 24 # tinh xem thoi diem t ung voi may gio trong ngay.
-      when 16, 17, 19, 20, 21 then fustu_zangyo += 1
-      when 22, 0, 1, 2, 3 then shinya_zangyou += 1
+      when 16, 17, 19, 20, 21 then fustu_zangyo += 1 unless no_zangyou_time_array.try(:include?, t)
+      when 22, 0, 1, 2, 3 then shinya_zangyou += 1 unless no_zangyou_time_array.try(:include?, t)
       end
     end
-    return [fustu_zangyo, shinya_zangyou]
+    return {
+      fustu_zangyo: fustu_zangyo,
+      shinya_zangyou: shinya_zangyou
+    }
+  end
+
+  def chikoku_soutai_time_calculate(kinmu_start, start_time, end_time, kinmu_end)
+    chikoku = start_time - kinmu_start
+    chikoku = 0 if chikoku < 0
+    soutai = kinmu_end - end_time
+    soutai = 0 if soutai < 0
+    return {
+      chikoku: chikoku,
+      soutai: soutai
+    }
   end
 
   def time_calculate(start_time, end_time, kinmu_type = nil, events = nil)
@@ -156,32 +163,29 @@ module EventsHelper
           results = kyuukei_time_calculate(kinmu_start, end_time, event_times)
           if end_time < kinmu_end # dem den end_time
             # start_time <= kinmu_start < end_time < kinmu_end
-            results[:chikoku_soutai] += kinmu_end - end_time # tinh thoi gian ve som
+            results.merge!(fustu_zangyo: 0, shinya_zangyou: 0)
+            results.merge!(chikoku_soutai_time_calculate(kinmu_start, start_time, end_time, kinmu_end))
           else # if end_time >= kinmu_end
             # start_time <= kinmu_start < kinmu_end <= end_time
-            results[:fustu_zangyo], results[:shinya_zangyou] = zangyou_time_calculate(kinmu_end, end_time, event_times)
+            results.merge!(zangyou_time_calculate(kinmu_end, end_time, event_times))
+            results.merge!(chikoku: 0, soutai: 0)
           end
         else  # if kinmu_start >= end_time then nothing to do
           return {}
         end
-      else # if start_time > kinmu_start thi se dem tu start_time, chikoku > 0
-        if start_time < kinmu_end
-          if kinmu_end <= end_time # dem den kinmu_end
-            # kinmu_start < start_time < kinmu_end <= end_time
-            results = kyuukei_time_calculate(start_time, kinmu_end, event_times)
-            results[:chikoku_soutai] += start_time - kinmu_start # tinh thoi gian di muon
-          else # if kinmu_end > end_time thi dem den end_time
-            # kinmu_start < start_time < end_time < kinmu_end
-            results = kyuukei_time_calculate(start_time, end_time, event_times)
-            results[:chikoku_soutai] += start_time - kinmu_start + kinmu_end - end_time
-          end
+      else # if start_time > kinmu_start thi chikoku > 0
+        if start_time < kinmu_end # thi tinh tu start_time den thoi diem nho nhat trong [kinmu_end, end_time]
+          results = kyuukei_time_calculate(start_time, [kinmu_end, end_time].min, event_times)
+          results.merge!(fustu_zangyo: 0, shinya_zangyou: 0)
+          results.merge!(chikoku_soutai_time_calculate(kinmu_start, start_time, end_time, kinmu_end))
         else # if start_time >= kinmu_end then nothing to do
           return {}
         end
       end
     else # Kintai::KINMU_TYPE.keys not include kinmu_type
       results = kyuukei_time_calculate(start_time, end_time, event_times)
-      results[:fustu_zangyo], results[:shinya_zangyou] = zangyou_time_calculate(start_time, end_time, event_times)
+      results.merge!(zangyou_time_calculate(start_time, end_time, event_times))
+      results.merge!(chikoku: 0, soutai: 0)
     end # case kinmu_type
     results[:real_hours] -= results[:fustu_zangyo] + results[:shinya_zangyou]
     return results
