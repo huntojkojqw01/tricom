@@ -340,3 +340,7 @@ body { padding-top: 70px; }
 .datepicker table thead tr:last-child :last-child {
     color: red;
 }
+
+.remove-underline {
+  text-decoration: none !important;
+} 
