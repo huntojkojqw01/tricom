@@ -213,7 +213,7 @@
         </td>
         <!--<td><%# link_to '詳細', kintai %></td>-->
         <% if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil? %>
-          <td><%= link_to '編集', edit_kintai_path(kintai) %></td>
+          <td><%= link_to '', edit_kintai_path(kintai), class: "glyphicon glyphicon-edit remove-underline" %></td>
         <% end %>
         <% msg = t "app.delete_confirm" %>
         <!--<td><%# link_to '削除', kintai, method: :delete, data: { confirm: msg } %></td>-->

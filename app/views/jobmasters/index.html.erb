@@ -43,8 +43,8 @@
         <td><%= jobmaster.関連Job番号 %></td>
         <td><%= jobmaster.備考 %></td>
         <!--<td><%# link_to '詳細', jobmaster %></td>-->
-        <td><%= link_to '編集', edit_jobmaster_path(jobmaster) %></td>
-        <td><%= link_to '削除', jobmaster, method: :delete, data: { confirm: '削除して宜しいですか？' } %></td>
+        <td><%= link_to '', edit_jobmaster_path(jobmaster), class: "glyphicon glyphicon-edit remove-underline" %></td>
+        <td><%= link_to '', jobmaster, method: :delete, data: { confirm: '削除して宜しいですか？' } , class: "glyphicon glyphicon-remove text-danger remove-underline" %></td>
       </tr>
     <% end %>
   </tbody>

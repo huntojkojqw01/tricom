@@ -24,9 +24,9 @@
         %td= rorumenba.社員番号
         %td= rorumenba.shainmaster.氏名
         %td= rorumenba.ロール内序列
-        %td= link_to '編集', edit_rorumenba_path(rorumenba)
+        %td= link_to '', edit_rorumenba_path(rorumenba), class: "glyphicon glyphicon-edit remove-underline"
         - msg = t 'app.delete_confirm'
-        %td= link_to '削除', rorumenba, :method => :delete, :data => { :confirm => msg }
+        %td= link_to '', rorumenba, :method => :delete, :data => { :confirm => msg } , class: "glyphicon glyphicon-remove text-danger remove-underline"
 
 = link_to '新規', new_rorumenba_path, class: 'new-btn dt-button'
 

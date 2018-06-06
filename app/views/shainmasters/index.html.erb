@@ -42,10 +42,10 @@
       <td><%= shain.rorumaster.ロール名 unless shain.rorumaster.nil? %></td>
       <td><%= shain.内線電話番号 %></td>
       <td><%= shain.有給残数 %></td>
-      <td><%= link_to '編集', edit_shainmaster_path(shain) if
+      <td><%= link_to '', edit_shainmaster_path(shain), class: "glyphicon glyphicon-edit remove-underline" if
         current_user.admin? %></td>
-      <td><%= link_to '削除', shain, method: :delete, data: { confirm:
-        '削除して宜しいですか？' } if current_user.admin? &&
+      <td><%= link_to '', shain, method: :delete, data: { confirm:
+        '削除して宜しいですか？' } , class: "glyphicon glyphicon-remove text-danger remove-underline" if current_user.admin? &&
         current_user != shain.user %></td>
     </tr>
   <% end %>
