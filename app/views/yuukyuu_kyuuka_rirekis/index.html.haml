@@ -25,7 +25,7 @@
         %td= yuukyuu_kyuuka_rireki.年月
         %td= yuukyuu_kyuuka_rireki.月初有給残
         %td= yuukyuu_kyuuka_rireki.月末有給残
-        %td= link_to '編集', edit_yuukyuu_kyuuka_rireki_path(id: ykkk_id)
-        %td= link_to '削除', "/yuukyuu_kyuuka_rirekis/#{ykkk_id}", :method => :delete, :data => { :confirm => t('app.delete_confirm') }
+        %td= link_to '', edit_yuukyuu_kyuuka_rireki_path(id: ykkk_id), class: "glyphicon glyphicon-edit remove-underline"
+        %td= link_to '', "/yuukyuu_kyuuka_rirekis/#{ykkk_id}", :method => :delete, :data => { :confirm => t('app.delete_confirm') }  , class: "glyphicon glyphicon-remove text-danger remove-underline"
 =render 'share/new_edit_destroy_buttons', object: "ykkkre",new_path: new_yuukyuu_kyuuka_rireki_path
 =render 'share/import_csv_modal',import_path: import_yuukyuu_kyuuka_rirekis_path

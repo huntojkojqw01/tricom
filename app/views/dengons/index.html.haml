@@ -67,8 +67,8 @@
           -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
           %td= dengon.確認 == true ? (t 'title.kakuninzu'):'未確認'
           %td= dengon.送信 == true ? '済' : ''
-          %td= link_to (t 'title.edit'), edit_dengon_path(dengon)
-          %td= link_to (t 'title.delete'), dengon, :method => :delete, :data => { :confirm => (t 'title.delete_confirm') }
+          %td= link_to '', edit_dengon_path(dengon), class: "glyphicon glyphicon-edit remove-underline"
+          %td= link_to '', dengon, :method => :delete, :data => { :confirm => (t 'title.delete_confirm') } , class: "glyphicon glyphicon-remove text-danger remove-underline"
 
 %br
 
