@@ -114,7 +114,7 @@ $(function () {
         if(d!= undefined){
             $('#event_状態コード').val(d[0]);
             $('.hint-joutai-refer').text(d[1]);
-            if( d[1] == '外出' || d[1] == '直行' || d[1] == '出張' || d[1] == '出張移動')
+            if(['外出', '直行', '出張', '出張移動', '出張振出', '出張午前振出', '出張午後振出'].includes(d[1]))
                 $('.event_帰社').show();
             else{
                 $('#event_有無').val('');
