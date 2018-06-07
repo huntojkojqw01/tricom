@@ -119,8 +119,8 @@ module EventsHelper
     (start_t...end_t).each do |t|
       next if time_array && !time_array.include?(t)
       case (t / 60) % 24 # tinh xem thoi diem t ung voi may gio trong ngay.
-      when 16, 17, 19, 20, 21 then fustu_zangyo += 1 unless no_zangyou_time_array.try(:include?, t)
-      when 22, 0, 1, 2, 3 then shinya_zangyou += 1 unless no_zangyou_time_array.try(:include?, t)
+      when 16, 17, 19, 20, 21, 22 then fustu_zangyo += 1 unless no_zangyou_time_array.try(:include?, t)
+      when 0, 1, 2, 3 then shinya_zangyou += 1 unless no_zangyou_time_array.try(:include?, t)
       end
     end
     return {

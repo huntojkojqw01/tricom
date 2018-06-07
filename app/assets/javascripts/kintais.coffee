@@ -547,9 +547,9 @@ jQuery ->
     t = start
     while t + 30 <= end
       switch Math.floor(t / 60) % 24 # tinh xem thoi diem t ung voi may gio trong ngay.
-        when 16, 17, 19, 20, 21
+        when 16, 17, 19, 20, 21, 22
           fustu_zangyo += 0.5
-        when 22, 0, 1, 2, 3
+        when 0, 1, 2, 3
           shinya_zangyou += 0.5
       t += 30
     return [fustu_zangyo, shinya_zangyou]
