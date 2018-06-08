@@ -501,7 +501,7 @@ jQuery ->
               $("#edit_myjob").addClass("disabled");
       );
   $('#edit_myjob').click ->
-    new_address = oTable.row('tr.selected').data()[12].split("\"")[1]
+    new_address = oTable.row('tr.selected').data()[12].split("\"")[3]
     if new_address == undefined
       swal("行を選択してください。")
     else
