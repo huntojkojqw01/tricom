@@ -213,7 +213,7 @@ jQuery ->
               $("#edit_mybasho").addClass("disabled");
       );
   $('#edit_mybasho').click ->
-    new_address = oTable.row('tr.selected').data()[8].split("\"")[1]
+    new_address = oTable.row('tr.selected').data()[8].split("\"")[3]
     if new_address == undefined
       swal("行を選択してください。")
     else
