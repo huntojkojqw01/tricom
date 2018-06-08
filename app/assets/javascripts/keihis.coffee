@@ -554,7 +554,7 @@ jQuery ->
 
 
 
-  $('#keihihead_清算予定日_search').datetimepicker({
+  $('#search_date_field_group').datetimepicker({
     format: 'YYYY/MM/DD',
     widgetPositioning: {
             horizontal: 'left'
@@ -584,7 +584,10 @@ jQuery ->
     $('.keihihead_清算予定日 .datetime').data("DateTimePicker").toggle();
 
   $('#search_date_icon_group').click (e) ->
-    $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();
+    $('#search_date_field_group').data("DateTimePicker").toggle();
+
+  $('#search_date_field_group').click (e) ->
+    $('#search_date_field_group').data("DateTimePicker").toggle();
 
   # $('#keihihead_清算予定日_search').click (e) ->
   #   $('#keihihead_清算予定日_search').data("DateTimePicker").toggle();

@@ -257,11 +257,10 @@ jQuery ->
 ##      $('#jobmaster_終了日').data("DateTimePicker").toggle()
 #  )
 
-  $('.date').datetimepicker({
+  $('.jobmaster_開始日 > .form-inline > .date ').datetimepicker({
     format: 'YYYY/MM/DD',
     widgetPositioning: {
       horizontal: 'left',
-      vertical: 'bottom'
     }
     showTodayButton: true,
     showClear: true,
@@ -270,6 +269,32 @@ jQuery ->
     keyBinds: false,
     focusOnShow: false
   })
+
+  $('.jobmaster_開始日 > .form-inline > .date > .input-group-addon' ).click () ->
+    $('.jobmaster_開始日 > .form-inline > .date').data.toggle();
+
+  $('#jobmaster_開始日').click () ->
+    $('.jobmaster_開始日 > .form-inline > .date').data("DateTimePicker").toggle();
+
+
+  $('.jobmaster_終了日 > .form-inline > .date ').datetimepicker({
+    format: 'YYYY/MM/DD',
+    widgetPositioning: {
+      horizontal: 'left',
+    }
+    showTodayButton: true,
+    showClear: true,
+#    //,daysOfWeekDisabled:[0,6]
+#    calendarWeeks: true,
+    keyBinds: false,
+    focusOnShow: false
+  })
+
+  $('.jobmaster_終了日 > .form-inline > .date > .input-group-addon' ).click () ->
+    $('.jobmaster_終了日 > .form-inline > .date').data.toggle();
+
+  $('#jobmaster_終了日').click () ->
+    $('.jobmaster_終了日 > .form-inline > .date').data("DateTimePicker").toggle();
 
 #  $('#jobmaster_開始日').datetimepicker({
 #    format: 'YYYY/MM/DD',
