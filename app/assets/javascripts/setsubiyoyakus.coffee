@@ -181,6 +181,11 @@ jQuery ->
 #    defaultDate: '2016/03/14 09:00'
   })
 
+  $('#setsubiyoyaku_開始').click () ->
+    $('.setsubiyoyaku_開始 .datetime').data("DateTimePicker").toggle();
+  $('#setsubiyoyaku_終了').click () ->
+    $('.setsubiyoyaku_終了 .datetime').data("DateTimePicker").toggle();
+
   oKaishaTable = $('#kaisha-table-modal').DataTable({
     "pagingType": "full_numbers"
     , "oLanguage": {
