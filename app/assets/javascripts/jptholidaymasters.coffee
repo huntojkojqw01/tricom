@@ -219,17 +219,19 @@ jQuery ->
       $('#jpt_holiday_mst_event_date').val(holiday[1])
       $('#jpt_holiday_mst_title').val(holiday[2])
       $('#jpt_holiday_mst_description').val(holiday[3])
-  $('#jpt_holiday_mst_event_date').datetimepicker({
+  $('.jpt_holiday_mst_休日 > .input-group').datetimepicker({
     format: 'YYYY/MM/DD',
     widgetPositioning: {
       horizontal: 'left'
       },
     showTodayButton: true
   });
-  $('#holiday-new-modal #jpt_holiday_mst_event_date').datetimepicker({
-    format: 'YYYY/MM/DD',
-    widgetPositioning: {
-      horizontal: 'left'
-    },
-    showTodayButton: true
-  });
+
+  $('#jpt_holiday_mst_event_date').click ->
+    $('.jpt_holiday_mst_休日 > .input-group').data('DateTimePicker').toggle();
+ 
+  $('.jpt_holiday_mst_休日 > .input-group > .input-group-addon').click ->
+    $('#jpt_holiday_mst_event_date').data('DateTimePicker').toggle();
+ 
+  $('#holiday-new-modal #jpt_holiday_mst_event_date').click ->
+    $('#holiday-new-modal .jpt_holiday_mst_休日 > .input-group').data('DateTimePicker').toggle();
