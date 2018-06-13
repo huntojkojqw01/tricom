@@ -397,18 +397,12 @@ jQuery ->
   $('#jobmaster_ユーザ番号').keydown( (e) ->
     if (e.keyCode == 9 && !e.shiftKey)
       kaisha_code = $('#jobmaster_ユーザ番号').val()
-      jQuery.ajax({
-        url: '/jobmasters/ajax',
-        data: {focus_field: 'jobmaster_ユーザ番号', kaisha_code: kaisha_code},
-        type: "POST",
-      success: (data) ->
-#        $('#kaisha-name').text(data.kaisha_name)
-        $('#jobmaster_ユーザ名').val(data.kaisha_name)
-        console.log("getAjax jobmaster_ユーザ番号:"+ data.kaisha_name)
-      ,
-      failure: () ->
-        console.log("jobmaster_ユーザ番号 keydown Unsuccessful")
-      })
+      row_can_tim = oKaisha_modal.row (idx, data, node)->
+        if data[0] == kaisha_code then true else false
+      if row_can_tim.length > 0
+        $('#jobmaster_ユーザ名').val(row_can_tim.data()[1])
+      else
+        $('#jobmaster_ユーザ名').val('')
   )
 
 #  $('#jobmaster_分類コード').on('change', () ->
