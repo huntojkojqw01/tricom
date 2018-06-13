@@ -1063,13 +1063,13 @@ $(function(){
 });
 
 $(function(){
-    var s = $("#event_状態コード").val();
+  if (check_joutai_relate_kisha($("#event_状態コード").val()))
+    $('.event_帰社').show();
+  else
     $('.event_帰社').hide();
-    if (s == '10' || s == '11' || s == '12' || s == '13'){
-        $('.event_帰社').show();
-    }
-    $("#destroy_event").addClass("disabled");
+  $("#destroy_event").addClass("disabled");
 });
+
 function showModal(date,hoshukeitai) {
 
 

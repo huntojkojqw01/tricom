@@ -87,6 +87,9 @@ $(function(){
 
 }(jQuery));
 
+function check_joutai_relate_kisha(joutai_code) {
+  return ['10', '11', '12', '13', '120', '121', '122'].includes(joutai_code);
+}
 
 $(function () {
 
@@ -114,7 +117,7 @@ $(function () {
         if(d!= undefined){
             $('#event_状態コード').val(d[0]);
             $('.hint-joutai-refer').text(d[1]);
-            if(['外出', '直行', '出張', '出張移動', '出張振出', '出張午前振出', '出張午後振出'].includes(d[1]))
+            if(check_joutai_relate_kisha(d[0]))
                 $('.event_帰社').show();
             else{
                 $('#event_有無').val('');
@@ -175,7 +178,7 @@ $(function () {
         if(d!= undefined){
             $('#event_状態コード').val(d[0]);
             $('.hint-joutai-refer').text(d[1]);
-            if(['外出', '直行', '出張', '出張移動', '出張振出', '出張午前振出', '出張午後振出'].includes(d[1]))
+            if(check_joutai_relate_kisha(d[0]))
                 $('.event_帰社').show();
             else{
                 $('#event_有無').val('');
