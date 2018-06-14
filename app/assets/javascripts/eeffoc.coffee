@@ -63,6 +63,161 @@ jQuery ->
     ok_button.click ()->
       selected_data = data_table.row('tr.selected').data()
       table.trigger trigger_name, [selected_data]
+
+  window.create_datatable = (
+    table_id,
+    new_path,
+    edit_path,
+    delete_path,
+    no_sort_columns,
+    order_columns,
+    search_params,
+    get_id_from_row_data
+  )->
+    oTable = $(table_id).DataTable({
+      dom: "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>"
+      scrollX: true
+      pagingType: "full_numbers"
+      oLanguage:
+        sUrl: "/assets/resource/dataTable_"+$('#language').text()+".txt"
+      aoColumnDefs: [
+        {
+          aTargets: no_sort_columns
+          bSortable: false
+        }
+      ]
+      oSearch:
+        sSearch: search_params
+      scrollCollapse: true
+      buttons: [
+        {
+          extend: 'copyHtml5',
+          text: '<i class="fa fa-files-o"></i>',
+          titleAttr: 'Copy'
+        },
+        {
+          extend: 'excelHtml5',
+          text: '<i class="fa fa-file-excel-o"></i>',
+          titleAttr: 'Excel'
+        },
+        {
+          extend: 'csvHtml5',
+          text: '<i class="fa fa-file-text-o"></i>',
+          titleAttr: 'CSV'
+        },
+        {
+          text: '<i class="fa fa-upload"></i>',
+          titleAttr: 'Import',
+          action: (e, dt, node, config )->
+            $('#import-csv-modal').modal('show')
+        },
+        {
+          extend: 'selectAll'
+          attr:
+            id: 'all'
+          action: (e, dt, node, config)->
+            dt.rows().select()
+            $("#edit").addClass("disabled")
+            $("#delete").removeClass("disabled")
+        },
+        {
+          extend: 'selectNone'
+          attr:
+            id: 'none'
+          action: (e, dt, node, config)->
+            dt.rows().deselect()
+            $("#edit").addClass("disabled")
+            $("#delete").addClass("disabled")
+        },
+        {
+          text: 'New'
+          attr:
+            id: 'new'
+          action: (e, dt, node, config)->
+            window.location = new_path
+        },
+        {
+          text: 'Edit'
+          attr:
+            id: 'edit'
+            class: 'dt-button disabled'
+          action: (e, dt, node, config)->
+            data_of_selected_row = dt.row('tr.selected').data()
+            if data_of_selected_row == undefined
+              swal("行を選択してください。")
+            else
+              window.location = edit_path.replace('/id/', "/#{get_id_from_row_data(data_of_selected_row)}/")
+        },
+        {
+          text: 'Delete'
+          attr:
+            id: 'delete'
+            class: 'dt-button disabled'
+          action: (e, dt, node, config)->
+            datas = dt.rows('tr.selected').data()
+            ids = new Array()
+            if datas.length == 0
+              swal('行を選択してください。')
+            else
+              swal({
+                title: '削除して宜しいですか？',
+                text: "",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "OK",
+                cancelButtonText: "キャンセル",
+                closeOnConfirm: false,
+                closeOnCancel: false
+              })
+              .then(
+                ()->
+                  datas.each (element, index)->
+                    ids[index] = get_id_from_row_data(element)
+                  $.ajax
+                    url: delete_path
+                    data:
+                      ids: ids
+                    type: 'delete'
+                    success: (data)->
+                      swal("削除されました!", "", "success")
+                      dt.rows('tr.selected').remove().draw()
+                    failure: ()->
+                      console.log("削除する Unsuccessful")
+                  $("#edit").addClass("disabled")
+                  $("#delete").addClass("disabled")
+                ,(dismiss)->
+                  if dismiss == 'cancel'
+                    selects = dt.rows('tr.selected').data()
+                    if selects.length == 0
+                      $("#edit").addClass("disabled")
+                      $("#delete").addClass("disabled")
+                    else
+                      $("#delete").removeClass("disabled")
+                      if selects.length == 1
+                        $("#edit").removeClass("disabled")
+                      else
+                        $("#edit").addClass("disabled")
+                )
+        }
+      ],
+      order: order_columns
+    })
+
+    $(table_id).on 'click', 'tbody tr', ()->
+      $(this).toggleClass('selected')
+      selects = oTable.rows('tr.selected').data()
+      if selects.length == 0
+        $("#edit").addClass("disabled")
+        $("#delete").addClass("disabled")
+        $(".buttons-select-none").addClass('disabled')
+      else
+        $("#delete").removeClass("disabled");
+        $(".buttons-select-none").removeClass('disabled')
+        if selects.length == 1
+          $("#edit").removeClass("disabled")
+        else
+          $("#edit").addClass("disabled")
   $.fn.setStandardTable = (object,ajax_url)->
     oTable = $('.'+object+'table').DataTable({
       "dom": 'lBfrtip',

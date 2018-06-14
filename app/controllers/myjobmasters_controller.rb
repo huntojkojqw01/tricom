@@ -1,8 +1,8 @@
 class MyjobmastersController < ApplicationController
   before_action :require_user!
-  before_action :set_myjobmaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_myjobmaster, only: [:show, :edit, :update]
   before_action :set_refer, only: [:new, :edit, :create, :update]
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
   respond_to :js
 
   include MyjobmastersHelper
@@ -49,8 +49,23 @@ class MyjobmastersController < ApplicationController
   # DELETE /jobmasters/1
   # DELETE /jobmasters/1.json
   def destroy
-    @myjobmaster.destroy
-    respond_with @myjobmaster, location: myjobmasters_url
+    if params[:ids]
+      begin
+        params[:ids].each { |id| Myjobmaster.find(id).try(:destroy) }
+      rescue
+      end
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data}
+      end
+    else
+      begin
+        @myjobmaster = Myjobmaster.find(params[:id])
+        @myjobmaster.destroy if @myjobmaster
+        respond_with @myjobmaster, location: myjobmasters_url
+      rescue
+      end
+    end
   end
 
   def ajax
