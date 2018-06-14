@@ -119,7 +119,7 @@ class MyjobmastersController < ApplicationController
 
   def set_refer
     @kaishamasters = Kaishamaster.all
-    @jobs = Jobmaster.all
+    @jobs = Jobmaster.includes(:bunrui)
     @shains = Shainmaster.all
     @bunruis = Bunrui.all
   end
