@@ -15,6 +15,16 @@ class MessagesController < ApplicationController
     end
   end
 
+  def destroy
+    @conversation = Conversation.find_by(id: params[:conversation_id])
+    if @conversation
+      @message = @conversation.messages.find_by(id: params[:id])
+      if @message && @message.user == current_user
+        @message.destroy
+      end  
+    end
+  end
+
   private
 
   def message_params

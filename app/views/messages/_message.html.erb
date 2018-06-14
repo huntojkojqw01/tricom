@@ -1,4 +1,5 @@
-<li class="<%=  self_or_other(message) %>">
+<%= stylesheet_link_tag 'messages' %>
+<li class="<%=  self_or_other(message) %>" id="message_<%= message.id %>" >
   <div class="avatar">
     <img src="http://placehold.it/50x50" />
   </div>
@@ -6,6 +7,9 @@
     <p><%= message.body %></p>
     <time datetime="<%= message.created_at %>" title="<%= message.created_at.strftime("%d %b  %Y at %I:%M%p") %>">
       <%= message_interlocutor(message).name %> • <%= message.created_at.strftime("%H:%M %p") %>
+      <% if message.user == current_user%>
+      	<%= link_to '', [@conversation, message], method: :delete, remote: true, class: "glyphicon glyphicon-trash dl-message-text remove-underline" %>
+      <% end %>
     </time>
   </div>
 </li>
