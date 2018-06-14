@@ -1,23 +1,8 @@
 jQuery ->
-  table = $('#kaisha-table-modal').DataTable
-    retrieve: true
-    pagingType: 'full_numbers'
-    oLanguage:
-      sUrl: '/assets/resource/dataTable_' + $('#language').text() + '.txt'
+  modal = $('#kaisha-search-modal')
+  table = $('#kaisha-table-modal')
+  ok_button = $('#kaisha_sentaku_ok')
+  clear_button = $('#clear_kaisha')
+  trigger_name = 'choose_kaisha'
 
-  $('#kaisha-table-modal tbody').on 'click', 'tr', ()->
-    if $(this).hasClass('selected')
-      $(this).removeClass('selected')
-    else
-      table.$('tr.selected').removeClass('selected')
-      $(this).addClass('selected')
-
-  $('#kaisha_sentaku_ok').click ()->
-    selected_data = table.row('tr.selected').data()
-    $('#kaisha-table-modal').trigger 'choose_kaisha', [selected_data]
-
-  $('#kaisha-table-modal tbody').on 'dblclick', 'tr', ()->
-    $(this).addClass('selected')
-    selected_data = table.row('tr.selected').data()
-    $('#kaisha-table-modal').trigger 'choose_kaisha', [selected_data]
-    $('#kaisha-search-modal').modal('hide')
+  create_sentaku_modal(modal, table, ok_button, clear_button, trigger_name)

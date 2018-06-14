@@ -24,10 +24,11 @@ jQuery ->
     $('.myjobmaster_終了日 > .form-inline > .date').data("DateTimePicker").toggle()
 
   $('.search-field').click ()->
-    switch $(this).prev().attr('id')
-      when 'myjobmaster_ユーザ番号' then $('#kaisha-search-modal').modal('show')
-      when 'myjobmaster_入力社員番号' then $('#select_user_modal_refer').modal('show')
-      when 'myjobmaster_関連Job番号' then $('#job_search_modal').modal('show')
+    input = $(this).prev()
+    switch input.attr('id')
+      when 'myjobmaster_ユーザ番号' then $('#kaisha-search-modal').trigger('show', [input.val()])
+      when 'myjobmaster_入力社員番号' then $('#select_user_modal_refer').trigger('show', [input.val()])
+      when 'myjobmaster_関連Job番号' then $('#job_search_modal').trigger('show', [input.val()])
 
   $('#myjobmaster_ユーザ番号').keydown (e)->
     if (e.keyCode == 9 && !e.shiftKey)
