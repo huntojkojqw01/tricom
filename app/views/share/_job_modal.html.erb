@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'share/job_modal'%>
 <div class="modal" id="job_search_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -5,10 +6,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title" id="myModalLabel">JOB選択</h4>
       </div>
-
       <div class="modal-body">
         <table id="job_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-
           <thead>
           <tr>
             <th>JOB番号</th>
@@ -17,7 +16,6 @@
             <th>分類名</th>
           </tr>
           </thead>
-
           <tbody>
           <% @jobs.each do |job| %>
               <tr>
@@ -28,26 +26,17 @@
               </tr>
           <% end %>
           </tbody>
-
-        </table>
-        <!--
-        <% if !(defined?(add_CUD)).nil? %>
-          <br>
-          <%=render "share/new_edit_destroy_buttons", object: "jobmaster"%>
-        <% end %>
-        -->
+        </table>        
       </div>
-
       <div class="modal-footer">
         <div class="pull-left">
-          <%= link_to 'JOBマスタ管理へ',  jobmasters_path %><br>
+          <%= link_to 'JOBマスタ管理へ', jobmasters_path %><br>
           <%= link_to '会社マスタ管理へ', kaishamasters_path %>
         </div>
         <button type="button" class="btn btn-default" id="clear_job">選択を解除する</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" id="job_sentaku_ok">　ＯＫ　</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
       </div>
-
     </div>
   </div>
 </div>
