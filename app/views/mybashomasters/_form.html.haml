@@ -1,3 +1,4 @@
+= javascript_include_tag 'mybashomasters/form'
 = simple_form_for @mybashomaster do |f|
   .col-md-2.col-xs-2.col-sm-2.col-lg-2.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
     = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label:'社員番号' if mode == :new
