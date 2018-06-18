@@ -1,9 +1,9 @@
 class MybashomastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
-  before_action :set_kaishamst, only: [:new, :create, :show, :edit, :update, :destroy]
-  before_action :set_mybashomaster, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_kaishamst, only: [:new, :create, :show, :edit, :update]
+  before_action :set_mybashomaster, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
   respond_to :js
 
   def index
@@ -35,8 +35,23 @@ class MybashomastersController < ApplicationController
   end
 
   def destroy
-    @mybashomaster.destroy
-    respond_with @mybashomaster, location: mybashomasters_url
+    if params[:ids]
+      begin
+        params[:ids].each { |id| Mybashomaster.find(id).try(:destroy) }
+      rescue
+      end
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data}
+      end
+    else
+      begin
+        @mybashomaster = Mybashomaster.find(params[:id])
+        @mybashomaster.destroy if @mybashomaster
+        respond_with @mybashomaster, location: mybashomasters_url
+      rescue
+      end
+    end
   end
 
   def ajax
