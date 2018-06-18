@@ -1,7 +1,7 @@
 class ShozaisController < ApplicationController
   before_action :require_user!
-  before_action :set_shozai, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_shozai, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   respond_to :js
 
@@ -35,8 +35,17 @@ class ShozaisController < ApplicationController
   end
 
   def destroy
-    @shozai.destroy
-    respond_with @shozai, location: shozais_url
+    if params[:ids]
+      Shozai.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @shozai = Shozai.find_by_id(params[:id])
+      @shozai.destroy if @shozai
+      respond_with @shozai, location: shozais_url
+    end
   end
   def ajax
     case params[:focus_field]      

@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'shozaimasters' %>
+<%= javascript_include_tag 'shozais/index' %>
 <%provide(:title, (t 'title.shozai'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -33,7 +33,6 @@
   <% end %>
   </tbody>
 </table>
-<%=render 'share/new_edit_destroy_buttons', object: "shozai",new_path: new_shozai_path%>
 <% if can? :update, @shozais %>
   <%=render 'share/import_csv_modal',import_path: import_shozais_path %>
 <% end %>
