@@ -1,4 +1,4 @@
-= javascript_include_tag 'yuukyuu_kyuukas'
+= javascript_include_tag 'yuukyuu_kyuuka_rirekis/index'
 = provide(:title, (t 'title.yuukyuu_kyuuka'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
@@ -6,10 +6,9 @@
 
 %br
 
-%table.ykkkretable.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+%table#yuukyuu_kyuuka_rireki_table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
-      %th
       %th 社員番号
       %th 年月
       %th 月初有給残
@@ -20,12 +19,10 @@
     - @yuukyuu_kyuuka_rireki.each do |yuukyuu_kyuuka_rireki|
       - ykkk_id = "#{yuukyuu_kyuuka_rireki.社員番号},#{yuukyuu_kyuuka_rireki.年月.gsub('/', '-')}"
       %tr
-        %td= yuukyuu_kyuuka_rireki.id
         %td= yuukyuu_kyuuka_rireki.社員番号
         %td= yuukyuu_kyuuka_rireki.年月
         %td= yuukyuu_kyuuka_rireki.月初有給残
         %td= yuukyuu_kyuuka_rireki.月末有給残
         %td= link_to '', edit_yuukyuu_kyuuka_rireki_path(id: ykkk_id), class: "glyphicon glyphicon-edit remove-underline"
         %td= link_to '', "/yuukyuu_kyuuka_rirekis/#{ykkk_id}", :method => :delete, :data => { :confirm => t('app.delete_confirm') }  , class: "glyphicon glyphicon-remove text-danger remove-underline"
-=render 'share/new_edit_destroy_buttons', object: "ykkkre",new_path: new_yuukyuu_kyuuka_rireki_path
 =render 'share/import_csv_modal',import_path: import_yuukyuu_kyuuka_rirekis_path
