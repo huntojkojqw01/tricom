@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'jobs' %>
+<%= javascript_include_tag 'jobmasters/index' %>
 <%= stylesheet_link_tag 'jobmst' %>
 <%provide(:title, (t 'title.jobmaster'))%>
 <ol class="breadcrumb">
@@ -33,8 +33,8 @@
       <tr id="jobmaster_<%= jobmaster.id %>">
         <td><%= jobmaster.job番号 %></td>
         <td><%= jobmaster.job名 %></td>
-        <td><%= jobmaster.開始日 %></td>
-        <td><%= jobmaster.終了日 %></td>
+        <td><%= jobmaster.開始日.try(:strftime, '%Y/%m/%d') %></td>
+        <td><%= jobmaster.終了日.try(:strftime, '%Y/%m/%d') %></td>
         <td><%= jobmaster.ユーザ番号 %></td>
         <td><%= jobmaster.ユーザ名 %></td>
         <td><%= jobmaster.入力社員番号 %></td>
@@ -49,7 +49,6 @@
     <% end %>
   </tbody>
 </table>
-<%= render 'share/new_edit_destroy_buttons',object: 'jobmaster',new_path: new_jobmaster_path %>
 <% if can? :update, @jobmasters %>
   <%=render 'share/import_csv_modal',import_path: import_jobmasters_path %>
 <% end %>
