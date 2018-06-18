@@ -2,7 +2,7 @@ class ShainmastersController < ApplicationController
   skip_before_action :verify_authenticity_token
   before_action :require_user!
   before_action :set_reference, only: [:new, :edit, :create, :update]
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
   respond_to :js
 
   def index
@@ -43,10 +43,19 @@ class ShainmastersController < ApplicationController
   end
 
   def destroy
-    # session[:selected_shain] = Shainmaster.take.id if
-    #   @shainmaster.id == session[:selected_shain]
-    @shainmaster.destroy if current_user != @shainmaster.user
-    respond_with @shainmaster, location: shainmasters_url
+    if params[:ids]
+      params[:ids].each do |shainId|
+        shain=Shainmaster.find_by_id(shainId)
+        shain.destroy if shain && current_user != shain.user
+      end
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @shainmaster.destroy if current_user != @shainmaster.user
+      respond_with @shainmaster, location: shainmasters_url
+    end
   end
   def multi_delete
     case params[:focus_field]
