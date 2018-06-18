@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'bashomasters' %>
+<%= javascript_include_tag 'bashomasters/index' %>
 <%provide(:title, (t 'title.bashomaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to (t 'title.menu'), main_path %></li>
@@ -36,7 +36,6 @@
   <% end %>
   </tbody>
 </table>
-<%=render 'share/new_edit_destroy_buttons', object: "basho",new_path: new_bashomaster_path%>
 <% if can? :update, @bashomasters %>
   <%=render 'share/import_csv_modal',import_path: import_bashomasters_path %>
 <% end %>

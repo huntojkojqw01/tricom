@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'mybashomasters' %>
+<%= javascript_include_tag 'mybashomasters/index' %>
 <%provide(:title, (t 'title.mybashomaster'))%>
 <script>
     current_user_id = <%= current_user.id %>
@@ -35,7 +35,7 @@
         <td><%= mybasho.SUB %></td>
         <td><%= mybasho.bashokubunmst.場所区分名 unless mybasho.bashokubunmst.nil?%></td>
         <td><%= mybasho.kaishamaster.会社名 unless mybasho.kaishamaster.nil?%></td>
-        <td><%= mybasho.updated_at %></td>
+        <td><%= mybasho.updated_at.try(:strftime, '%Y/%m/%d %H:%M:%S') %></td>
         <td><%= link_to '', edit_mybashomaster_path(mybasho), class: "glyphicon glyphicon-edit remove-underline" %></td>
         <td><%= link_to '', mybasho, method: :delete, data: { confirm: '削除して宜しいですか？' } , class: "glyphicon glyphicon-remove text-danger remove-underline" %></td>
 
@@ -43,7 +43,6 @@
   <% end %>
   </tbody>
 </table>
-<%=render 'share/new_edit_destroy_buttons',object: 'mybasho',new_path: new_mybashomaster_path%>
 <% if can? :update, @mybashomasters %>
   <%=render 'share/import_csv_modal',import_path: import_mybashomasters_path%>
 <% end %>

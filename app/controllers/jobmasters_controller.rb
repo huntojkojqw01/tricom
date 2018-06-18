@@ -1,8 +1,8 @@
 class JobmastersController < ApplicationController
   before_action :require_user!
-  before_action :set_jobmaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_jobmaster, only: [:show, :edit, :update]
   before_action :set_refer, only: [:new, :edit, :create, :update]
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
   respond_to :js
 
   include JobmastersHelper
@@ -51,8 +51,17 @@ class JobmastersController < ApplicationController
   # DELETE /jobmasters/1
   # DELETE /jobmasters/1.json
   def destroy
-    @jobmaster.destroy
-    respond_with @jobmaster, location: jobmasters_url
+    if params[:ids]
+      Jobmaster.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @jobmaster = Jobmaster.find_by_id(params[:id])
+      @jobmaster.destroy if @jobmaster
+      respond_with @jobmaster, location: jobmasters_url
+    end
   end
 
   def ajax
@@ -121,7 +130,7 @@ class JobmastersController < ApplicationController
 
   def set_refer
     @kaishamasters = Kaishamaster.all
-    @jobs = Jobmaster.all
+    @jobs = Jobmaster.includes(:bunrui)
     @shains = Shainmaster.all
     @bunruis = Bunrui.all
   end
