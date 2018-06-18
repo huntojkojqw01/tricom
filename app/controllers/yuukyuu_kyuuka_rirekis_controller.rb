@@ -1,6 +1,6 @@
 class YuukyuuKyuukaRirekisController < ApplicationController
-  before_action :set_yuukyuu_kyuuka_rireki, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_yuukyuu_kyuuka_rireki, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   def new
     @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.new
@@ -31,9 +31,24 @@ class YuukyuuKyuukaRirekisController < ApplicationController
   end
 
   def destroy
-
-    @yuukyuu_kyuuka_rireki.destroy
-    respond_with(@yuukyuu_kyuuka_rireki)
+    if params[:ids]
+      begin
+        params[:ids].each do |id|
+          id.try(:gsub!, '-', '/')
+          YuukyuuKyuukaRireki.find(id).try(:destroy)
+        end
+      rescue
+      end
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      params[:id].try(:gsub!, '-', '/')
+      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by_id(params[:id])
+      @yuukyuu_kyuuka_rireki.destroy if @yuukyuu_kyuuka_rireki
+      respond_with(@yuukyuu_kyuuka_rireki)
+    end
   end
   def ajax
     case params[:focus_field]     
