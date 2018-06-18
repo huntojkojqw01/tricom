@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :require_user!
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
   # skip_authorize_resource only: [:new, :create]
 
   # GET /users
@@ -49,9 +49,18 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    if @user.destroy
+    if params[:ids]
+      User.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @user = User.find_by_id(params[:id])
+      @user.destroy if @user
       redirect_to users_path
     end
+  rescue
   end
 
   def ajax
