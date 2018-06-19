@@ -1,7 +1,7 @@
 class YuusensController < ApplicationController
   before_action :require_user!
-  before_action :set_yuusen, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_yuusen, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
   respond_to :html, :js
 
   def index
@@ -34,8 +34,17 @@ class YuusensController < ApplicationController
   end
 
   def destroy
-    @yuusen.destroy
-    respond_with(@yuusen, location: yuusens_url)
+    if params[:ids]
+      Yuusen.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @yuusen = Yuusen.find_by_id(params[:id])
+      @yuusen.destroy if @yuusen
+      respond_with(@yuusen, location: yuusens_url)
+    end
   end
 
   def import
