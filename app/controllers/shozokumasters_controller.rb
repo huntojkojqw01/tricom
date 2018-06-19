@@ -2,7 +2,7 @@ class ShozokumastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
   before_action :set_param, only: :index
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
   respond_to :js
 
   def index
@@ -31,8 +31,17 @@ class ShozokumastersController < ApplicationController
   end
 
   def destroy
-    @shozokumaster.destroy
-    respond_with @shozokumaster, location: shozokumasters_url
+    if params[:ids]
+      Shozokumaster.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+        respond_to do |format|
+          format.json { render json: data }
+        end
+    else
+      @shozokumaster = Shozokumaster.find_by_id(params[:id])
+      @shozokumaster.destroy if @shozokumaster
+      respond_with @shozokumaster, location: shozokumasters_url
+    end
   end
 
   def import
@@ -84,30 +93,13 @@ class ShozokumastersController < ApplicationController
 
   def create_shozoku
     @shozokumaster = Shozokumaster.new(shozokumaster_params)
-
-    respond_to do |format|
-      if  @shozokumaster.save
-        format.js { render 'create_shozoku'}
-      else
-        format.js { render json: @shozokumaster.errors, status: :unprocessable_entity}
-      end
-    end
+    @shozokumaster.save
   end
 
   def update_shozoku
     @shozokumaster = Shozokumaster.find(shozokumaster_params[:所属コード])
-
-    respond_to do |format|
-      if  @shozokumaster.update(shozokumaster_params)
-        format.js { render 'update_shozoku'}
-      else
-        format.js { render json: @shozokumaster.errors, status: :unprocessable_entity}
-      end
-    end
-
+    @shozokumaster.update(shozokumaster_params)
   end
-
-
 
   private
     def shozokumaster_params

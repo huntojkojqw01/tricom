@@ -1,16 +1,16 @@
 class KouteimastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
-  before_action :set_kouteimaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_kouteimaster, only: [:show, :edit, :update]
   before_action :set_shozoku, only: [:new, :edit, :create, :update]
   before_action :set_param, only: :index
   respond_to :js
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   # GET /kouteimasters
   # GET /kouteimasters.json
   def index
-    @kouteimasters = Kouteimaster.all
+    @kouteimasters = Kouteimaster.includes(:shozokumaster)
   end
 
   # GET /kouteimasters/1
@@ -45,32 +45,29 @@ class KouteimastersController < ApplicationController
   end
   def create_koutei
     @kouteimaster = Kouteimaster.new(kouteimaster_params)
-
-    respond_to do |format|
-      if  @kouteimaster.save
-        format.js { render 'create_koutei'}
-      else
-        format.js { render json: @kouteimaster.errors, status: :unprocessable_entity}
-      end
-    end
+    @kouteimaster.save
   end
 
   def update_koutei
     koutei=kouteimaster_params
     @kouteimaster = Kouteimaster.find("#{koutei[:工程コード]},#{koutei[:所属コード]}")
-    respond_to do |format|
-      if  @kouteimaster.update(koutei)
-        format.js { render 'update_koutei'}
-      else
-        format.js { render json: @kouteimaster.errors, status: :unprocessable_entity}
-      end
-    end
+    @kouteimaster.update(koutei)
   end
   # DELETE /kouteimasters/1
   # DELETE /kouteimasters/1.json
   def destroy
-    @kouteimaster.destroy
-    respond_with @kouteimaster, location: kouteimasters_url
+    if params[:ids]
+      Kouteimaster.find(params[:ids]).each { |koutei| koutei.destroy }
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @kouteimaster = Kouteimaster.find(params[:id])
+      @kouteimaster.destroy if @kouteimaster
+      respond_with @kouteimaster, location: kouteimasters_url
+    end
+  rescue
   end
 
   def ajax

@@ -1,5 +1,13 @@
- $('#shozoku-new-modal').modal('hide');
+model = 'shozokumaster'
 
- var table = $('#shozokumaster').DataTable();
+$('form#new_' + model).clear_previous_errors()
 
- table.row.add( ["<%=@shozokumaster.所属コード%>","<%=@shozokumaster.所属名%>"] ).draw( false );
+<% if @shozokumaster.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@shozokumaster.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#shozoku-new-modal').modal('hide');
+  $('#shozokumaster').DataTable().row.add( [
+    "<%=@shozokumaster.所属コード%>",
+    "<%=@shozokumaster.所属名%>"
+  ]).draw( false );
+<% end %>

@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'shozokumasters' %>
+<%= javascript_include_tag 'shozokumasters/index' %>
 <%provide(:title, (t 'title.shozokumaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -9,37 +9,26 @@
 
 <!-- <h1>工程マスタ</h1> -->
 
-<table id="shozokumaster" class="shozokutable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="shozokumaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
-  <tr>
-    <th>所属コード</th>
-    <th>所属名</th>
-    <!-- <th></th>
-    <th></th> -->
-  </tr>
+    <tr>
+      <th>所属コード</th>
+      <th>所属名</th>
+    </tr>
   </thead>
 
   <tbody>
-  <% @shozokumasters.each do |shozoku| %>
+    <% @shozokumasters.each do |shozoku| %>
       <tr id="shozokumaster_<%= shozoku.id %>">
         <td><%= shozoku.所属コード %></td>
         <td><%= shozoku.所属名 %></td>
-        <!-- <td><%= link_to '編集', edit_shozokumaster_path(shozoku) if
-            current_user.admin? %></td>
-        <td><%= link_to '削除', shozoku, method: :delete, data: {confirm:
-            '削除して宜しいですか？'} if current_user.admin? %></td> -->
       </tr>
-  <% end %>
+    <% end %>
   </tbody>
 </table>
-
-<%=render 'share/new_edit_destroy_buttons', object: "shozoku"%>
-
 <% if current_user.admin? %>
   <%=render 'share/import_csv_modal',import_path: import_shozokumasters_path%>
 <% end %>
-
-
 <%= render 'shozoku_edit_modal' %>
 <%= render 'shozoku_new_modal' %>
