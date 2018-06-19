@@ -1,8 +1,15 @@
-$('#shozoku-edit-modal').modal('hide');
-$("#shozokumaster").DataTable().row('tr.selected').remove()
+model = 'shozokumaster'
 
- var table = $('#shozokumaster').DataTable();
- table.row.add( ["<%=@shozokumaster.所属コード%>","<%=@shozokumaster.所属名%>"] ).draw( false );
- $("#edit_shozoku").attr("disabled", true);
- $("#destroy_shozoku").attr("disabled", true);
+$('form#edit_' + model).clear_previous_errors()
 
+<% if @shozokumaster.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@shozokumaster.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#shozoku-edit-modal').modal('hide');
+  $("#shozokumaster").DataTable().row('tr.selected').remove();
+  $('#shozokumaster').DataTable().row.add([
+    "<%=@shozokumaster.所属コード%>",
+    "<%=@shozokumaster.所属名%>"
+    ]).draw( false );
+  $('#shozokumaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>
