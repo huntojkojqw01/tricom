@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'kouteimasters' %>
+<%= javascript_include_tag 'kouteimasters/index' %>
 <%provide(:title, (t 'title.kouteimaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -10,34 +10,27 @@
 <!-- <h1>工程マスタ</h1> -->
 
 <table id="kouteimaster" class="kouteitable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-
   <thead>
     <tr>
-      <th></th>
-      <th>所属</th>
+      <th>ID</th>
+      <th>所属コード</th>
+      <th>所属名</th>
       <th>工程コード</th>
       <th>工程名</th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
-
-  <% text = t 'app.delete_confirm' %>
-
   <tbody>
     <% @kouteimasters.each do |kouteimaster| %>
       <tr id="koutei_<%= kouteimaster.id %>">
-        <td><%= kouteimaster.所属コード%></td>
+        <td><%= kouteimaster.id %></td>
+        <td><%= kouteimaster.所属コード %></td>
         <td><%= kouteimaster.shozokumaster_name %></td>
         <td><%= kouteimaster.code %></td>
         <td><%= kouteimaster.name %></td>
-        <td><%= link_to '', edit_kouteimaster_path(kouteimaster), class: "glyphicon glyphicon-edit remove-underline" %></td>
-        <td><%= link_to '', kouteimaster, method: :delete , data: { confirm: "#{text}" } , class: "glyphicon glyphicon-remove text-danger remove-underline" %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
-<%=render 'share/new_edit_destroy_buttons',object: 'koutei'%>
 <% if can? :update, @kouteimasters %>  
   <%=render 'share/import_csv_modal',import_path: import_kouteimasters_path %>
 <% end %>
