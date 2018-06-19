@@ -1,4 +1,4 @@
-<%= javascript_include_tag 'joutais' %>
+<%= javascript_include_tag 'joutaimasters/index' %>
 <%provide(:title, (t 'title.joutaimaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
@@ -42,9 +42,6 @@
   <% end %>
   </tbody>
 </table>
-
-
-<%=render 'share/new_edit_destroy_buttons', object: "joutai",new_path: new_joutaimaster_path%>
 
 <% if can? :update, @joutaimasters %>
   <%=render 'share/import_csv_modal',import_path: import_joutaimasters_path%>
