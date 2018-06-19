@@ -1,8 +1,8 @@
 class JoutaimastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
-  before_action :set_joutaimaster, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_joutaimaster, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
  
 
   def index
@@ -47,8 +47,17 @@ class JoutaimastersController < ApplicationController
   end
 
   def destroy
-    @joutaimaster.destroy
-    respond_with @joutaimaster, location: joutaimasters_url
+    if params[:ids]
+      Joutaimaster.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @joutaimaster = Joutaimaster.find_by_id(params[:id])
+      @joutaimaster.destroy if @joutaimaster
+      respond_with @joutaimaster, location: joutaimasters_url
+    end
   end
 
   def create_joutai
