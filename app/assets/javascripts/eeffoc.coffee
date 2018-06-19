@@ -64,17 +64,8 @@ jQuery ->
       selected_data = data_table.row('tr.selected').data()
       table.trigger trigger_name, [selected_data]
 
-  window.create_datatable = (
-    table_id,
-    new_path,
-    edit_path,
-    delete_path,
-    no_sort_columns,
-    order_columns,
-    search_params,
-    get_id_from_row_data
-  )->
-    oTable = $(table_id).DataTable({
+  window.create_datatable = (args)->
+    oTable = $(args.table_id).DataTable({
       dom: "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>"
       scrollX: true
       pagingType: "full_numbers"
@@ -82,12 +73,20 @@ jQuery ->
         sUrl: "/assets/resource/dataTable_"+$('#language').text()+".txt"
       aoColumnDefs: [
         {
-          aTargets: no_sort_columns
+          aTargets: args.no_sort_columns
           bSortable: false
+        }
+        {
+          aTargets: args.invisible_columns
+          bVisible: false
+        }
+        {
+          aTargets: args.no_search_columns
+          bSearchable: false
         }
       ]
       oSearch:
-        sSearch: search_params
+        sSearch: args.search_params
       scrollCollapse: true
       buttons: [
         {
@@ -134,7 +133,7 @@ jQuery ->
           attr:
             id: 'new'
           action: (e, dt, node, config)->
-            window.location = new_path
+            window.location = args.new_path
         },
         {
           text: 'Edit'
@@ -146,7 +145,7 @@ jQuery ->
             if data_of_selected_row == undefined
               swal("行を選択してください。")
             else
-              window.location = edit_path.replace('/id/', "/#{get_id_from_row_data(data_of_selected_row)}/")
+              window.location = args.edit_path.replace('/id/', "/#{args.get_id_from_row_data(data_of_selected_row)}/")
         },
         {
           text: 'Delete'
@@ -173,9 +172,9 @@ jQuery ->
               .then(
                 ()->
                   datas.each (element, index)->
-                    ids[index] = get_id_from_row_data(element)
+                    ids[index] = args.get_id_from_row_data(element)
                   $.ajax
-                    url: delete_path
+                    url: args.delete_path
                     data:
                       ids: ids
                     type: 'delete'
@@ -201,10 +200,10 @@ jQuery ->
                 )
         }
       ],
-      order: order_columns
+      order: args.order_columns
     })
 
-    $(table_id).on 'click', 'tbody tr', ()->
+    $(args.table_id).on 'click', 'tbody tr', ()->
       $(this).toggleClass('selected')
       selects = oTable.rows('tr.selected').data()
       if selects.length == 0
