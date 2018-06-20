@@ -1,11 +1,14 @@
- $('#eki-new-modal').modal('hide');
- // $(".ekitable").append("<tr><td><%=@eki.id%></td><td><%=@eki.name%></td><td><%=@eki.駅名カナ%></td>"+
- //  "<td>test</td>"+
- //  "<td>test</td><tr>");
+model = 'eki'
 
+$('form#new_' + model).clear_previous_errors()
 
- var table = $('.ekitable').DataTable();
-
- table.row.add( ["<%=@eki.id%>","<%=@eki.name%>","<%=@eki.駅名カナ%>"] ).draw( false );
- // table.row.add( [<%=@eki.id%>,<%=@eki.name%>,<%=@eki.駅名カナ%>,
- // "test","<%= escape_javascript link_to('削除', @eki, :method => :delete) %>"] ).draw( false );
+<% if @eki.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@eki.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#eki-new-modal').modal('hide');
+  $('#ekimaster').DataTable().row.add( [
+    "<%=@eki.id%>",
+    "<%=@eki.name%>",
+    "<%=@eki.駅名カナ%>"
+  ]).draw( false );
+<% end %>

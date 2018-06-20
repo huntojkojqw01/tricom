@@ -1,30 +1,22 @@
-= javascript_include_tag 'ekis'
+= javascript_include_tag 'ekis/index'
 = provide(:title, (t 'title.eki'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active= (t 'title.ekimaster')
 
-%table.ekitable.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+%table#ekimaster.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
       %th= (t 'title.ekicode')
       %th= (t 'title.ekimei')
       %th= (t 'title.ekimeikana')
-      / %th
-      / %th
-
   %tbody
     - @ekis.each do |eki|
       %tr
         %td= eki.id
         %td= eki.name
         %td= eki.駅名カナ
-        / %td= link_to '編集', edit_eki_path(eki)
-        / - msg = t 'app.delete_confirm'
-        / %td= link_to '削除', eki, :method => :delete, :data => { :confirm => msg }
-=render "share/new_edit_destroy_buttons", object: "eki"
 - if can? :update, @ekis
-  //=render 'share/import_export_buttons',import_path: import_ekis_path
   = render 'share/import_csv_modal' ,import_path: import_ekis_path
 = render 'eki_new_modal'
 = render 'eki_edit_modal'
