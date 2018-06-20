@@ -1,25 +1,19 @@
-= javascript_include_tag 'yakushokumasters'
+= javascript_include_tag 'yakushokumasters/index'
 = provide(:title, (t 'title.yakushokumaster'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active=(t 'title.yakushokumaster')
 
-%table#yakushoku_table.yakushokutable.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+%table#yakushokumaster.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
       %th 役職コード
       %th 役職名
-      / %th
-      / %th
   %tbody
     - @yakushokumasters.each do |yakushoku|
       %tr{ id: "yakushoku_#{yakushoku.id}" }
         %td= yakushoku.役職コード
         %td= yakushoku.役職名
-        / %td= link_to '編集', edit_yakushokumaster_path(yakushoku)
-        / %td= link_to '削除', yakushoku,  method: :delete, data: { confirm: '削除して宜しいですか？' }
-
-=render 'share/new_edit_destroy_buttons', object: "yakushoku"
 - if can? :update, @yakushokumasters
   =render 'share/import_csv_modal',import_path: import_yakushokumasters_path
 = render 'yakushoku_new_modal'

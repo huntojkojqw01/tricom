@@ -1,10 +1,10 @@
 class YakushokumastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
-  before_action :set_yakushokumaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_yakushokumaster, only: [:show, :edit, :update]
   before_action :set_param, only: :index
   respond_to :js
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   def index
     @yakushokumasters = Yakushokumaster.all
@@ -34,8 +34,17 @@ class YakushokumastersController < ApplicationController
   end
 
   def destroy
-    @yakushokumaster.destroy
-    respond_with @yakushokumaster, location: yakushokumasters_url
+    if params[:ids]
+      Yakushokumaster.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @yakushokumaster = Yakushokumaster.find_by_id(params[:id])
+      @yakushokumaster.destroy is @yakushokumaster
+      respond_with @yakushokumaster, location: yakushokumasters_url
+    end
   end
 
   def import
@@ -93,29 +102,14 @@ class YakushokumastersController < ApplicationController
 
   def create_yakushoku
     @yakushokumaster = Yakushokumaster.new(yakushokumaster_params)
-
-    respond_to do |format|
-      if  @yakushokumaster.save
-        format.js { render 'create_yakushoku'}
-      else
-        format.js { render json: @yakushokumaster.errors, status: :unprocessable_entity}
-      end
-    end
+    @yakushokumaster.save
   end
 
   def update_yakushoku
-
     @yakushokumaster = Yakushokumaster.find(yakushokumaster_params[:役職コード])
-
-    respond_to do |format|
-      if  @yakushokumaster.update(yakushokumaster_params)
-        format.js { render 'update_yakushoku'}
-      else
-        format.js { render json: @yakushokumaster.errors, status: :unprocessable_entity}
-      end
-    end
-
+    @yakushokumaster.update(yakushokumaster_params)
   end
+
   private
   # Use callbacks to share common setup or constraints between actions.
   def set_yakushokumaster
