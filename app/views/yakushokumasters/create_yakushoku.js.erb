@@ -1,3 +1,13 @@
- $('#yakushoku-new-modal').modal('hide');
- var table = $('#yakushoku_table').DataTable();
- table.row.add( ["<%=@yakushokumaster.役職コード%>","<%=@yakushokumaster.役職名%>"] ).draw( false );
+model = 'yakushokumaster'
+
+$('form#new_' + model).clear_previous_errors()
+
+<% if @yakushokumaster.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@yakushokumaster.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#yakushoku-new-modal').modal('hide');
+  $('#yakushokumaster').DataTable().row.add( [
+    "<%=@yakushokumaster.役職コード%>",
+    "<%=@yakushokumaster.役職名%>"
+  ]).draw( false );
+<% end %>

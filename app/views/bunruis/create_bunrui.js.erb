@@ -1,4 +1,13 @@
- $('#bunrui-new-modal').modal('hide');
+model = 'bunrui'
 
- var table = $('.bunruistable').DataTable();
- table.row.add( ["<%=@bunrui.分類コード%>","<%=@bunrui.分類名%>"] ).draw( false );
+$('form#new_' + model).clear_previous_errors()
+
+<% if @bunrui.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@bunrui.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#bunrui-new-modal').modal('hide');
+  $('#bunrui_table').DataTable().row.add( [
+    "<%=@bunrui.分類コード%>",
+    "<%=@bunrui.分類名%>"
+  ]).draw( false );
+<% end %>

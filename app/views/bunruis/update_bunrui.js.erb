@@ -1,6 +1,15 @@
- $('#bunrui-edit-modal').modal('hide');
-$(".bunruistable").DataTable().row('tr.selected').remove()
+model = 'bunrui'
 
- var table = $('.bunruistable').DataTable();
- table.row.add( ["<%=@bunrui.分類コード%>","<%=@bunrui.分類名%>"] ).draw( false );
+$('form#edit_' + model).clear_previous_errors()
 
+<% if @bunrui.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@bunrui.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#bunrui-edit-modal').modal('hide');
+  $("#bunrui_table").DataTable().row('tr.selected').remove();
+  $('#bunrui_table').DataTable().row.add([
+    "<%=@bunrui.分類コード%>",
+    "<%=@bunrui.分類名%>"
+    ]).draw( false );
+  $('#bunrui_table').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

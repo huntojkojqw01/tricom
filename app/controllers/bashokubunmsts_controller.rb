@@ -1,6 +1,6 @@
 class BashokubunmstsController < ApplicationController
   before_action :require_user!
-  before_action :set_bashokubunmst, only: [:show, :edit, :update, :destroy]
+  before_action :set_bashokubunmst, only: [:show, :edit, :update]
 
   respond_to :html, :js
 
@@ -33,8 +33,17 @@ class BashokubunmstsController < ApplicationController
   end
 
   def destroy
-    @bashokubunmst.destroy
-    respond_with(@bashokubunmst)
+    if params[:ids]
+      Bashokubunmst.where(場所区分コード: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @bashokubunmst = Bashokubunmst.find_by(場所区分コード: params[:id])
+      @bashokubunmst.destroy if @bashokubunmst
+      respond_with(@bashokubunmst)
+    end
   end
 
   def import
@@ -85,26 +94,12 @@ class BashokubunmstsController < ApplicationController
 
     def create_bashokubunmst
     @bashokubunmst = Bashokubunmst.new(bashokubunmst_params)
-    respond_to do |format|
-      if  @bashokubunmst.save
-        format.js { render 'create_bashokubun'}
-      else
-        format.js { render json: @bashokubunmst.errors, status: :unprocessable_entity}
-      end
-    end
+    @bashokubunmst.save
     end
 
   def update_bashokubunmst
     @bashokubunmst = Bashokubunmst.find_by(場所区分コード: bashokubunmst_params[:場所区分コード])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @bashokubunmst.update(bashokubunmst_params)
-        format.js { render 'update_bashokubun'}
-      else
-        format.js { render json: @bashokubunmst.errors, status: :unprocessable_entity}
-      end
-    end
+    @bashokubunmst.update(bashokubunmst_params)
   end
   private
     def set_bashokubunmst

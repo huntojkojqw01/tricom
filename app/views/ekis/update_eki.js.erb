@@ -1,0 +1,16 @@
+model = 'eki'
+
+$('form#edit_' + model).clear_previous_errors()
+
+<% if @eki.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@eki.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#eki-edit-modal').modal('hide');
+  $("#ekimaster").DataTable().row('tr.selected').remove();
+  $('#ekimaster').DataTable().row.add([
+    "<%=@eki.id%>",
+    "<%=@eki.name%>",
+    "<%=@eki.駅名カナ%>"
+    ]).draw( false );
+  $('#ekimaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

@@ -1,0 +1,16 @@
+model = 'kikanmst'
+
+$('form#edit_' + model).clear_previous_errors()
+
+<% if @kikanmst.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@kikanmst.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#kikan-edit-modal').modal('hide');
+  $("#kikanmaster").DataTable().row('tr.selected').remove();
+  $('#kikanmaster').DataTable().row.add([
+    "<%=@kikanmst.機関コード%>",
+    "<%=@kikanmst.機関名%>",
+    "<%=@kikanmst.備考%>"
+    ]).draw( false );
+  $('#kikanmaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

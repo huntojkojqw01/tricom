@@ -1,8 +1,8 @@
 class EkisController < ApplicationController
   before_action :require_user!
-  before_action :set_eki, only: [:show, :edit, :update, :destroy]
+  before_action :set_eki, only: [:show, :edit, :update]
   before_action :eki_params, only: [ :create, :update]
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   respond_to :json, :js
 
@@ -34,9 +34,18 @@ class EkisController < ApplicationController
     respond_with(@eki)
   end
 
-  def destroy    
-    @eki.destroy    
-    respond_with(@eki)
+  def destroy
+    if params[:ids]
+      Eki.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @eki = Eki.find_by_id(params[:id])
+      @eki.destroy if @eki
+      respond_with(@eki)
+    end
   end
 
   def import
@@ -88,27 +97,12 @@ class EkisController < ApplicationController
 
   def create_eki
     @eki = Eki.new(eki_params)
-
-    respond_to do |format|
-      if  @eki.save
-        format.js { render 'create_eki'}
-      else
-        format.js { render json: @eki.errors, status: :unprocessable_entity}
-      end
-    end
+    @eki.save
   end
 
   def update_eki
     @eki = Eki.find(eki_params[:駅コード])
-
-    respond_to do |format|
-      if  @eki.update(eki_params)
-        format.js { render 'edit_eki'}
-      else
-        format.js { render json: @eki.errors, status: :unprocessable_entity}
-      end
-    end
-
+    @eki.update(eki_params)
   end
 
   private
