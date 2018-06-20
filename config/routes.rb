@@ -107,7 +107,7 @@ end
   end
 
   resources :kikanmsts do
-    collection {post :import, :ajax, :create_modal, :update_modal}
+    collection {post :import, :ajax, :create_kikan, :update_kikan}
     collection {get :export_csv}
   end
 

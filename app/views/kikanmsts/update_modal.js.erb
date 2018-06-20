@@ -1,8 +1,0 @@
- $('#kikan-edit-modal').modal('hide');
-$(".kikantable").DataTable().row('tr.selected').remove()
-
- var table = $('.kikantable').DataTable();
- table.row.add( ["<%=@kikanmst.機関コード%>","<%=@kikanmst.機関名%>","<%=@kikanmst.備考%>"] ).draw( false );
- $("#edit_kikan").attr("disabled", true);
- $("#destroy_kikan").attr("disabled", true);
-

@@ -1,8 +1,8 @@
 class KikanmstsController < ApplicationController
   before_action :require_user!
-  before_action :set_kikanmst, only: [:show, :edit, :update, :destroy]
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_kikanmst, only: [:show, :edit, :update]
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :index]
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   respond_to :html
 
@@ -35,8 +35,17 @@ class KikanmstsController < ApplicationController
   end
 
   def destroy
-    @kikanmst.destroy
-    respond_with(@kikanmst)
+    if params[:ids]
+      Kikanmst.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @kikanmst = Kikanmst.find_by_id(params[:id])
+      @kikanmst.destroy if @kikanmst
+      respond_with(@kikanmst)
+    end
   end
   def ajax
     case params[:focus_field]
@@ -84,30 +93,14 @@ class KikanmstsController < ApplicationController
     end
   end  
 
-  def create_modal
+  def create_kikan
     @kikanmst = Kikanmst.new(kikanmst_params)
-
-    respond_to do |format|
-      if  @kikanmst.save
-        format.js { render 'create_modal'}
-      else
-        format.js { render json: @kikanmst.errors, status: :unprocessable_entity}
-      end
-    end
+    @kikanmst.save
   end
 
-  def update_modal
-
+  def update_kikan
     @kikanmst = Kikanmst.find(kikanmst_params[:機関コード])
-
-    respond_to do |format|
-      if  @kikanmst.update(kikanmst_params)
-        format.js { render 'update_modal'}
-      else
-        format.js { render json: @kikanmst.errors, status: :unprocessable_entity}
-      end
-    end
-
+    @kikanmst.update(kikanmst_params)
   end
 
   private
