@@ -1,30 +1,22 @@
-= javascript_include_tag 'bunruis'
+= javascript_include_tag 'bunruis/index'
 = provide(:title, (t 'title.bunrui'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active= (t 'title.bunruimaster')
 
-%table.bunruistable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+%table#bunrui_table.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
       %th= (t 'title.bunruicode')
       %th= (t 'title.bunruimei')
-      
 
   %tbody
     - @bunruis.each do |bunrui|
       %tr
         %td= bunrui.分類コード
         %td= bunrui.分類名
-        
-
 %br
-
-
-= render 'share/new_edit_destroy_buttons',object: 'bunrui'
-
 - if can? :update, @bunruis
-  //=render 'share/import_export_buttons',import_path: import_bunruis_path
   =render 'share/import_csv_modal',import_path: import_bunruis_path
 = render 'bunrui_new_modal'
 = render 'bunrui_edit_modal'

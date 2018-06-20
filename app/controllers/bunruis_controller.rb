@@ -1,6 +1,6 @@
 class BunruisController < ApplicationController
   before_action :require_user!
-  before_action :set_bunrui, only: [:show, :edit, :update, :destroy]
+  before_action :set_bunrui, only: [:show, :edit, :update]
 
   respond_to :html, :js
 
@@ -31,8 +31,17 @@ class BunruisController < ApplicationController
   end
 
   def destroy
-    @bunrui.destroy
-    respond_with(@bunrui)
+    if params[:ids]
+      Bunrui.where(分類コード: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @bunrui = Bunrui.find_by(分類コード: params[:id])
+      @bunrui.destroy if @bunrui
+      respond_with(@bunrui)
+    end
   end
 
   def import
@@ -83,26 +92,12 @@ class BunruisController < ApplicationController
 
   def create_bunrui
     @bunrui = Bunrui.new(bunrui_params)
-    respond_to do |format|
-      if  @bunrui.save
-        format.js { render 'create_bunrui'}
-      else
-        format.js { render json: @bunrui.errors, status: :unprocessable_entity}
-      end
-    end
+    @bunrui.save
   end
 
   def update_bunrui
     @bunrui = Bunrui.find_by(分類コード: bunrui_params[:分類コード])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @bunrui.update(bunrui_params)
-        format.js { render 'update_bunrui'}
-      else
-        format.js { render json: @bunrui.errors, status: :unprocessable_entity}
-      end
-    end
+    @bunrui.update(bunrui_params)
   end
 
   private
