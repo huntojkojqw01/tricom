@@ -1,8 +1,8 @@
 class KaishamastersController < ApplicationController
   before_action :require_user!
-  before_action :set_kaishamaster, only: [:show, :edit, :update, :destroy]
+  before_action :set_kaishamaster, only: [:show, :edit, :update]
   before_action :set_param, only: :index
-  load_and_authorize_resource except: :export_csv
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   respond_to :js
 
@@ -35,8 +35,17 @@ class KaishamastersController < ApplicationController
   end
 
   def destroy
-    @kaishamaster.destroy
-    respond_with(@kaishamaster, location: kaishamasters_url)
+    if params[:ids]
+      Kaishamaster.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @kaishamaster = Kaishamaster.find_by_id(params[:id])
+      @kaishamaster.destroy if @kaishamaster
+      respond_with(@kaishamaster, location: kaishamasters_url)
+    end
   end
 
   def import
@@ -96,30 +105,13 @@ class KaishamastersController < ApplicationController
 
   def create_kaisha
     @kaishamaster = Kaishamaster.new(kaishamaster_params)
-
-    respond_to do |format|
-      if  @kaishamaster.save
-        format.js { render 'create_kaisha'}
-      else
-        format.js { render json: @kaishamaster.errors, status: :unprocessable_entity}
-      end
-    end
+    @kaishamaster.save
   end
 
   def update_kaisha
     @kaishamaster = Kaishamaster.find(kaishamaster_params[:会社コード])
-
-    respond_to do |format|
-      if  @kaishamaster.update(kaishamaster_params)
-        format.js { render 'update_kaisha'}
-      else
-        format.js { render json: @kaishamaster.errors, status: :unprocessable_entity}
-      end
-    end
-
+    @kaishamaster.update(kaishamaster_params)
   end
-
-
 
   private
     def set_kaishamaster

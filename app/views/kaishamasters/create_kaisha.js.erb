@@ -1,5 +1,12 @@
- $('#kaisha-new-modal').modal('hide');
+model = 'kaishamaster'
 
- var table = $('#kaishamaster-table').DataTable();
+$('form#new_' + model).clear_previous_errors()
 
- table.row.add( ["<%=@kaishamaster.会社コード%>","<%=@kaishamaster.会社名%>","<%=@kaishamaster.備考%>"] ).draw( false );
+<% if @kaishamaster.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@kaishamaster.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#kaisha-new-modal').modal('hide');
+  $('#kaishamaster').DataTable().row.add( [
+    "<%=@kaishamaster.会社コード%>","<%=@kaishamaster.会社名%>","<%=@kaishamaster.備考%>"
+  ]).draw( false );
+<% end %>
