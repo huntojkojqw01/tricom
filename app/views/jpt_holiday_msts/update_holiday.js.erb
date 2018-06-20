@@ -1,8 +1,17 @@
-$('#holiday-edit-modal').modal('hide');
-$("#holiday_table").DataTable().row('tr.selected').remove()
+model = 'jpt_holiday_mst'
 
- var table = $('#holiday_table').DataTable();
- table.row.add( ["<%=@jpt_holiday_mst.id%>","<%=@jpt_holiday_mst.event_date%>","<%=@jpt_holiday_mst.title%>","<%=@jpt_holiday_mst.description%>"] ).draw( false );
- $("#edit_holiday").attr("disabled", true);
- $("#destroy_holiday").attr("disabled", true);
+$('form#edit_' + model).clear_previous_errors()
 
+<% if @jpt_holiday_mst.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@jpt_holiday_mst.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#holiday-edit-modal').modal('hide');
+  $("#holiday_table").DataTable().row('tr.selected').remove();
+  $('#holiday_table').DataTable().row.add([
+    "<%=@jpt_holiday_mst.id%>",
+    "<%=@jpt_holiday_mst.event_date%>",
+    "<%=@jpt_holiday_mst.title%>",
+    "<%=@jpt_holiday_mst.description%>"
+    ]).draw( false );
+  $('#holiday_table').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>
