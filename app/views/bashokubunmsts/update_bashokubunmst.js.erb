@@ -1,0 +1,15 @@
+model = 'bashokubunmst'
+
+$('form#edit_' + model).clear_previous_errors()
+
+<% if @bashokubunmst.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@bashokubunmst.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#bashokubunmst-edit-modal').modal('hide');
+  $("#bashokubunmst_table").DataTable().row('tr.selected').remove();
+  $('#bashokubunmst_table').DataTable().row.add([
+    "<%=@bashokubunmst.場所区分コード%>",
+    "<%=@bashokubunmst.場所区分名%>"
+    ]).draw( false );
+  $('#bashokubunmst_table').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

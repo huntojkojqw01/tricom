@@ -1,10 +1,10 @@
-= javascript_include_tag 'bashokubunmsts'
+= javascript_include_tag 'bashokubunmsts/index'
 = provide(:title, (t 'title.bashokubunmst'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active= (t 'title.bashokubunmst')
 
-%table.bashokubunmsttable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+%table#bashokubunmst_table.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
       %th= (t 'title.bashokubuncode')
@@ -16,11 +16,8 @@
       %tr
         %td= bashokubunmst.場所区分コード
         %td= bashokubunmst.場所区分名
-       
 
-= render 'share/new_edit_destroy_buttons',object: 'bashokubunmst'
 - if can? :update, @bashokubunmsts
-  //=render 'share/import_export_buttons',import_path: import_bashokubunmsts_path
   = render 'share/import_csv_modal' ,import_path: import_bashokubunmsts_path
 = render 'bashokubun_new_modal'
 = render 'bashokubun_edit_modal'

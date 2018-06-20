@@ -1,0 +1,13 @@
+model = 'bashokubunmst'
+
+$('form#new_' + model).clear_previous_errors()
+
+<% if @bashokubunmst.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@bashokubunmst.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#bashokubunmst-new-modal').modal('hide');
+  $('#bashokubunmst_table').DataTable().row.add( [
+    "<%=@bashokubunmst.場所区分コード%>",
+    "<%=@bashokubunmst.場所区分名%>"
+  ]).draw( false );
+<% end %>
