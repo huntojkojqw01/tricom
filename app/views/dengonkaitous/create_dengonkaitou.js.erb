@@ -1,4 +1,14 @@
- $('#dengonkaitou-new-modal').modal('hide');
+model = 'dengonkaitou'
 
- var table = $('.dengonkaitoutable').DataTable();
- table.row.add( ["<%=@dengonkaitou.種類名%>","<%=@dengonkaitou.備考%>","<%=@dengonkaitou.id%>"] ).draw( false );
+$('form#new_' + model).clear_previous_errors()
+
+<% if @dengonkaitou.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@dengonkaitou.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#dengonkaitou-new-modal').modal('hide');
+  $('#dengonkaitoumaster').DataTable().row.add( [
+  	"<%=@dengonkaitou.id%>",
+    "<%=@dengonkaitou.種類名%>",
+    "<%=@dengonkaitou.備考%>"
+  ]).draw( false );
+<% end %>

@@ -1,29 +1,23 @@
-= javascript_include_tag 'dengonkaitous'
+= javascript_include_tag 'dengonkaitous/index'
 = provide(:title, (t 'title.dengonkaitou'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active= (t 'title.dengonkaitou')
 
-%table.dengonkaitoutable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+%table#dengonkaitoumaster.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
+      %th ID
       %th= (t 'title.shuruimei')
       %th= (t 'title.bikou')
-      %th id
-
   %tbody
     - @dengonkaitous.each do |dengonkaitou|
       %tr
+        %td= dengonkaitou.id
         %td= dengonkaitou.種類名
         %td= dengonkaitou.備考
-        %td= dengonkaitou.id
-
-
 %br
-
-= render 'share/new_edit_destroy_buttons',object: 'dengonkaitou'
 - if can? :update, @dengonkaitous
-  //=render 'share/import_export_buttons',import_path: import_dengonkaitous_path
   =render 'share/import_csv_modal',import_path: import_dengonkaitous_path
 = render 'dengonkaitou_new_modal'
 = render 'dengonkaitou_edit_modal'
