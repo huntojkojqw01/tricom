@@ -1,6 +1,17 @@
- $('#dengonyouken-edit-modal').modal('hide');
-$(".dengonyoukentable").DataTable().row('tr.selected').remove()
+model = 'dengonyouken'
 
- var table = $('.dengonyoukentable').DataTable();
- table.row.add( ["<%=@dengonyouken.種類名%>","<%=@dengonyouken.備考%>","<%=@dengonyouken.優先さ%>","<%=@dengonyouken.id%>"] ).draw( false );
+$('form#edit_' + model).clear_previous_errors()
 
+<% if @dengonyouken.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@dengonyouken.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#dengonyouken-edit-modal').modal('hide');
+  $("#dengonyoukenmaster").DataTable().row('tr.selected').remove();
+  $('#dengonyoukenmaster').DataTable().row.add([
+    "<%=@dengonyouken.id%>",
+    "<%=@dengonyouken.種類名%>",
+    "<%=@dengonyouken.備考%>",
+    "<%=@dengonyouken.優先さ%>"
+    ]).draw( false );
+  $('#dengonyoukenmaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

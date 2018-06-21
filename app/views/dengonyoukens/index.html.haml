@@ -1,31 +1,25 @@
-= javascript_include_tag 'dengonyoukens'
+= javascript_include_tag 'dengonyoukens/index'
 = provide(:title, (t 'title.dengonyouken'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active= (t 'title.dengonyouken')
 
-%table.dengonyoukentable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+%table#dengonyoukenmaster.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
+      %th ID
       %th= (t 'title.shuruimei')
       %th= (t 'title.bikou')
       %th= (t 'title.yuusensa')
-      %th id
-
   %tbody
     - @dengonyoukens.each do |dengonyouken|
       %tr
+        %td= dengonyouken.id
         %td= dengonyouken.種類名
         %td= dengonyouken.備考
         %td= dengonyouken.優先さ
-        %td= dengonyouken.id
-
 %br
-
-= render 'share/new_edit_destroy_buttons',object: 'dengonyouken'
-
 - if can? :update, @dengonyoukens
-  //=render 'share/import_export_buttons',import_path: import_dengonyoukens_path
   =render 'share/import_csv_modal',import_path: import_dengonyoukens_path
 = render 'dengonyouken_new_modal'
 = render 'dengonyouken_edit_modal'
