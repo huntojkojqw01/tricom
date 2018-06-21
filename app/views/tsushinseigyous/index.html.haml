@@ -1,26 +1,24 @@
-= javascript_include_tag 'tsushinseigyous'
+= javascript_include_tag 'tsushinseigyous/index'
 = provide(:title, (t 'title.tsushinseigyou'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active 通信制御マスタ
 
-%table.tsushinseigyotable.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
+%table#tsushinseigyoumaster.table.table-striped.table-bordered.table-hover{cellspacing: 0, width: '100%' }
   %thead
     %tr
+      %th id
       %th 社員番号
       %th メール
       %th 送信許可区分
-      %th id
   %tbody
     - @tsushinseigyous.each do |tsushinseigyou|
       %tr
-        %td= tsushinseigyou.shain_氏名
+        %td= tsushinseigyou.id
+        %td= tsushinseigyou.社員番号
         %td= tsushinseigyou.メール
         %td= tsushinseigyou.送信許可区分 == '0' ? '不可' : '許可'
-        %td= tsushinseigyou.id
 %br
-
-=render 'share/new_edit_destroy_buttons',object: 'tsushinseigyou', new_path: new_tsushinseigyou_path
 - if can? :update, @tsushinseigyous
   =render 'share/import_csv_modal',import_path: import_tsushinseigyous_path
 = render 'tsushinseigyou_new_modal'

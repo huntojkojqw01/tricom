@@ -1,5 +1,15 @@
- $('#tsushinseigyou-new-modal').modal('hide');
+model = 'tsushinseigyou'
 
- var table = $('.tsushinseigyoutable').DataTable();
+$('form#new_' + model).clear_previous_errors()
 
- table.row.add( ["<%=@tsushinseigyou.社員番号%>","<%=@tsushinseigyou.メール%>","<%=@tsushinseigyou.送信許可区分%>"] ).draw( false );
+<% if @tsushinseigyou.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@tsushinseigyou.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#tsushinseigyou-new-modal').modal('hide');
+  $('#tsushinseigyoumaster').DataTable().row.add( [
+    "<%=@tsushinseigyou.id%>",
+    "<%=@tsushinseigyou.社員番号%>",
+    "<%=@tsushinseigyou.メール%>",
+    "<%=@tsushinseigyou.送信許可区分 == '0' ? '不可' : '許可'%>"
+  ]).draw( false );
+<% end %>
