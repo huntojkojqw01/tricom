@@ -1,11 +1,11 @@
-<%= javascript_include_tag 'kintaiteeburus' %>
+<%= javascript_include_tag 'kintaiteeburus/index' %>
 <%provide(:title, (t 'title.kintaiteeburu'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>  
   <li class="active"><%=t 'title.kintaiteeburu'%></li>
 </ol>
 
-<table id="kintaiteeburu_table" class="kintaiteeburutable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+<table id="kintaiteeburumaster" class="kintaiteeburutable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
 
   <thead>
     <tr>
@@ -39,11 +39,8 @@
         <td><%= kintaiteeburu.早朝残業時間 %></td>
         <td><%= kintaiteeburu.残業時間 %></td>
         <td><%= kintaiteeburu.深夜残業時間 %></td>
-        <td><%= link_to '編集', edit_kintaiteeburu_path(kintaiteeburu) if
-        current_user.admin? || current_user.supervisor? %></td>        
       </tr>
   <% end %>
   </tbody>
 </table>
-<%=render 'share/new_edit_destroy_buttons',object: 'kintaiteeburu',new_path: new_kintaiteeburu_path%>
 <%=render 'share/import_csv_modal',import_path: import_kintaiteeburus_path %>

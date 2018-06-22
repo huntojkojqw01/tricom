@@ -1,4 +1,18 @@
 jQuery ->
+  window.KINMU = {
+    '000' : { s: 0, e: 23, st: '00:00', et: '23:00' },# tuong duong voi 00:00 -> 23:00
+    '001' : { s: 7, e: 16, st: '07:00', et: '16:00'  },
+    '002' : { s: 7.5, e: 16.5, st: '07:30', et: '16:30'  },
+    '003' : { s: 8, e: 17, st: '08:00', et: '17:00'  },
+    '004' : { s: 8.5, e: 17.5, st: '08:30', et: '17:30'  },
+    '005' : { s: 9, e: 18, st: '09:00', et: '18:00'  },
+    '006' : { s: 9.5, e: 19.5, st: '09:30', et: '19:30'  },
+    '007' : { s: 10, e: 20, st: '10:00', et: '20:00'  },
+    '008' : { s: 10.5, e: 20.5, st: '10:30', et: '20:30'  },
+    '009' : { s: 11, e: 21, st: '11:00', et: '21:00'  },
+    '010' : { s: 9, e: 14, st: '09:00', et: '14:00'  },
+    '011' : { s: 14, e: 18, st: '14:00', et: '18:00'  }
+  }
   $.fn.modal_success = ()->
     this.modal('hide')
     #clear form input elements
@@ -102,6 +116,8 @@ jQuery ->
           extend: 'csvHtml5',
           text: '<i class="fa fa-file-text-o"></i>',
           titleAttr: 'CSV'
+          exportOptions:
+            columns: args.csv_export_columns
         },
         {
           text: '<i class="fa fa-upload"></i>',
