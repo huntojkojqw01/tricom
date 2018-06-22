@@ -1,12 +1,12 @@
 class SetsubisController < ApplicationController
   before_action :require_user!
-  before_action :set_setsubi, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
+  before_action :set_setsubi, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :index]
   respond_to :html, :js
 
   def index
-    @setsubi = Setsubi.all
+    @setsubis = Setsubi.all
     
   end
 
@@ -34,8 +34,17 @@ class SetsubisController < ApplicationController
   end
 
   def destroy
-    @setsubi.destroy
-    respond_with(@setsubi)
+    if params[:ids]
+      Setsubi.where(設備コード: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @setsubi = Setsubi.find_by(設備コード: params[:id])
+      @setsubi.destroy if @setsubi
+      respond_with(@setsubi)
+    end
   end
 
 
@@ -86,28 +95,14 @@ class SetsubisController < ApplicationController
     end
   end
 
-    def create_setsubi
+  def create_setsubi
     @setsubi = Setsubi.new(setsubi_params)
-    respond_to do |format|
-      if  @setsubi.save
-        format.js { render 'create_setsubi'}
-      else
-        format.js { render json: @setsubi.errors, status: :unprocessable_entity}
-      end
-    end
-    end
+    @setsubi.save
+  end
 
   def update_setsubi
     @setsubi = Setsubi.find(setsubi_params[:設備コード])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @setsubi.update(setsubi_params)
-        format.js { render 'update_setsubi'}
-      else
-        format.js { render json: @setsubi.errors, status: :unprocessable_entity}
-      end
-    end
+    @setsubi.update(setsubi_params)
   end
 
   private
