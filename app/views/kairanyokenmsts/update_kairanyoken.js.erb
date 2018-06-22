@@ -1,0 +1,17 @@
+model = 'kairanyokenmst'
+
+$('form#edit_' + model).clear_previous_errors()
+
+<% if @kairanyokenmst.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@kairanyokenmst.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#kairanyouken-edit-modal').modal('hide');
+  $("#kairanyoukenmaster").DataTable().row('tr.selected').remove();
+  $('#kairanyoukenmaster').DataTable().row.add([
+    "<%=@kairanyokenmst.id%>",
+    "<%=@kairanyokenmst.名称%>",
+    "<%=@kairanyokenmst.備考%>",
+    "<%=@kairanyokenmst.優先さ%>"
+    ]).draw( false );
+  $('#kairanyoukenmaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>
