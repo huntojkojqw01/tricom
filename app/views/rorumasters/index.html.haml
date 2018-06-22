@@ -1,26 +1,20 @@
-= javascript_include_tag 'rorumasters'
+= javascript_include_tag 'rorumasters/index'
 = provide(:title, (t 'title.rorumaster'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active ロールマスタ
-
-
-%table.rorumaster-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+%table#rorumaster.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
       %th ロールコード
       %th ロール名
       %th 序列
-     
-
   %tbody
-    - @rorumaster.each do |rorumaster|
+    - @rorumasters.each do |rorumaster|
       %tr
         %td= rorumaster.ロールコード
         %td= rorumaster.ロール名
         %td= rorumaster.序列
-        
-= render 'share/new_edit_destroy_buttons',object: "rorumaster"
 = render 'share/import_csv_modal',import_path: import_rorumasters_path
 = render 'roru_new_modal'
 = render 'roru_edit_modal'

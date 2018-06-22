@@ -1,12 +1,11 @@
 class RorumastersController < ApplicationController
   before_action :require_user!
-  before_action :set_rorumaster, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :destroy, :index]
+  before_action :set_rorumaster, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
+  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :index]
   respond_to :json, :js
   def index
-    @rorumaster = Rorumaster.all
-    
+    @rorumasters = Rorumaster.all    
   end
 
   def new
@@ -30,8 +29,17 @@ class RorumastersController < ApplicationController
   end
 
   def destroy
-    @rorumaster.destroy
-    respond_with(@rorumaster)
+    if params[:ids]
+      Rorumaster.where(ロールコード: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @rorumaster = Rorumaster.find_by(ロールコード: params[:id])
+      @rorumaster.destroy if @rorumaster
+      respond_with(@rorumaster)
+    end
   end
 
   def ajax
@@ -82,26 +90,12 @@ class RorumastersController < ApplicationController
 
   def create_roru
     @rorumaster = Rorumaster.new(rorumaster_params)
-    respond_to do |format|
-      if  @rorumaster.save
-        format.js { render 'create_roru'}
-      else
-        format.js { render json: @rorumaster.errors, status: :unprocessable_entity}
-      end
-    end
-    end
+    @rorumaster.save
+  end
 
   def update_roru
-    @rorumaster = Rorumaster.find(rorumaster_params[:ロールコード])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @rorumaster.update(rorumaster_params)
-        format.js { render 'update_roru'}
-      else
-        format.js { render json: @rorumaster.errors, status: :unprocessable_entity}
-      end
-    end
+    @rorumaster = Rorumaster.find_by(ロールコード: rorumaster_params[:ロールコード])
+    @rorumaster.update(rorumaster_params)
   end
   
   private
