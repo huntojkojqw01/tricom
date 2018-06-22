@@ -1,8 +1,16 @@
- $('#roru-edit-modal').modal('hide');
-$(".rorumaster-table").DataTable().row('tr.selected').remove()
+model = 'rorumaster'
 
- var table = $('.rorumaster-table').DataTable();
- table.row.add( ["<%=@rorumaster.ロールコード%>","<%=@rorumaster.ロール名%>","<%=@rorumaster.序列%>"] ).draw( false );
- $("#edit_rorumaster").attr("disabled", true);
- $("#destroy_rorumaster").attr("disabled", true);
+$('form#edit_' + model).clear_previous_errors()
 
+<% if @rorumaster.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@rorumaster.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#roru-edit-modal').modal('hide');
+  $("#rorumaster").DataTable().row('tr.selected').remove();
+  $('#rorumaster').DataTable().row.add([
+    "<%=@rorumaster.ロールコード%>",
+    "<%=@rorumaster.ロール名%>",
+    "<%=@rorumaster.序列%>"
+    ]).draw( false );
+  $('#rorumaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

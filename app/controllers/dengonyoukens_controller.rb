@@ -1,6 +1,6 @@
 class DengonyoukensController < ApplicationController
   before_action :require_user!
-  before_action :set_dengonyouken, only: [:show, :edit, :update, :destroy]
+  before_action :set_dengonyouken, only: [:show, :edit, :update]
 
   respond_to :html, :js
 
@@ -33,8 +33,17 @@ class DengonyoukensController < ApplicationController
   end
 
   def destroy
-    @dengonyouken.destroy
-    respond_with(@dengonyouken)
+    if params[:ids]
+      Dengonyouken.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @dengonyouken = Dengonyouken.find_by_id(params[:id])
+      @dengonyouken.destroy if @dengonyouken
+      respond_with(@dengonyouken)
+    end
   end
 
   def import
@@ -83,28 +92,14 @@ class DengonyoukensController < ApplicationController
     end
   end
 
-    def create_dengonyouken
+  def create_dengonyouken
     @dengonyouken = Dengonyouken.new(dengonyouken_params)
-    respond_to do |format|
-      if  @dengonyouken.save
-        format.js { render 'create_dengonyouken'}
-      else
-        format.js { render json: @dengonyouken.errors, status: :unprocessable_entity}
-      end
-    end
-    end
+    @dengonyouken.save
+  end
 
   def update_dengonyouken
     @dengonyouken = Dengonyouken.find_by(id: dengonyouken_params[:id])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @dengonyouken.update(dengonyouken_params)
-        format.js { render 'update_dengonyouken'}
-      else
-        format.js { render json: @dengonyouken.errors, status: :unprocessable_entity}
-      end
-    end
+    @dengonyouken.update(dengonyouken_params)
   end
 
   private

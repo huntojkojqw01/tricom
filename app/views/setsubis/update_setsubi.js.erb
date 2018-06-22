@@ -1,8 +1,16 @@
- $('#setsubi-edit-modal').modal('hide');
-$(".shonin-table").DataTable().row('tr.selected').remove()
+model = 'setsubi'
 
- var table = $('.shonin-table').DataTable();
- table.row.add( ["<%=@setsubi.設備コード%>","<%=@setsubi.設備名%>","<%=@setsubi.備考%>"] ).draw( false );
- $("#edit_setsubi").attr("disabled", true);
- $("#destroy_setsubi").attr("disabled", true);
+$('form#edit_' + model).clear_previous_errors()
 
+<% if @setsubi.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@setsubi.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#setsubi-edit-modal').modal('hide');
+  $("#setsubimaster").DataTable().row('tr.selected').remove();
+  $('#setsubimaster').DataTable().row.add([
+    "<%=@setsubi.設備コード%>",
+    "<%=@setsubi.設備名%>",
+    "<%=@setsubi.備考%>"
+    ]).draw( false );
+  $('#setsubimaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

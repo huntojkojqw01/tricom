@@ -1,32 +1,25 @@
-= javascript_include_tag 'kairanyokenmsts'
+= javascript_include_tag 'kairanyokenmsts/index'
 = provide(:title, (t 'title.kairanyoukenmst'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active 回覧用件マスタ
 
-%table.kairanyouken-table.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
+%table#kairanyoukenmaster.table.table-striped.table-bordered.table-hover{cellspacing:0, width: '100%'}
   %thead
     %tr
-      
+      %th id
       %th 名称
       %th 備考
       %th 優先さ
-      %th id
-
   %tbody
     - @kairanyokenmsts.each do |kairanyokenmst|
       %tr
-
+        %td= kairanyokenmst.id
         %td= kairanyokenmst.名称
         %td= kairanyokenmst.備考
         %td= kairanyokenmst.優先さ
-        %td= kairanyokenmst.id
 %br
-
-= render 'share/new_edit_destroy_buttons',object: 'kairanyouken'
-
 - if can? :update, @kairanyokenmsts
-  //=render 'share/import_export_buttons',import_path: import_kairanyokenmsts_path
   =render 'share/import_csv_modal',import_path: import_kairanyokenmsts_path      
 = render 'kairanyouken_new_modal'
 = render 'kairanyouken_edit_modal'

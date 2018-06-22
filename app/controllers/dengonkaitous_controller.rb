@@ -1,6 +1,6 @@
 class DengonkaitousController < ApplicationController
   before_action :require_user!
-  before_action :set_dengonkaitou, only: [:show, :edit, :update, :destroy]
+  before_action :set_dengonkaitou, only: [:show, :edit, :update]
 
   respond_to :html, :js
 
@@ -32,8 +32,17 @@ class DengonkaitousController < ApplicationController
   end
 
   def destroy
-    @dengonkaitou.destroy
-    respond_with(@dengonkaitou)
+    if params[:ids]
+      Dengonkaitou.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @dengonkaitou = Dengonkaitou.find_by_id(params[:id])
+      @dengonkaitou.destroy if @dengonkaitou
+      respond_with(@dengonkaitou)
+    end
   end
 
   def import
@@ -82,28 +91,14 @@ class DengonkaitousController < ApplicationController
     end
   end
 
-    def create_dengonkaitou
+  def create_dengonkaitou
     @dengonkaitou = Dengonkaitou.new(dengonkaitou_params)
-    respond_to do |format|
-      if  @dengonkaitou.save
-        format.js { render 'create_dengonkaitou'}
-      else
-        format.js { render json: @dengonkaitou.errors, status: :unprocessable_entity}
-      end
-    end
-    end
+    @dengonkaitou.save
+  end
 
   def update_dengonkaitou
     @dengonkaitou = Dengonkaitou.find_by(id: dengonkaitou_params[:id])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @dengonkaitou.update(dengonkaitou_params)
-        format.js { render 'update_dengonkaitou'}
-      else
-        format.js { render json: @dengonkaitou.errors, status: :unprocessable_entity}
-      end
-    end
+    @dengonkaitou.update(dengonkaitou_params)
   end
 
   private

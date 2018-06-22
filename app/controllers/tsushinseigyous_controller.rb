@@ -1,6 +1,6 @@
 class TsushinseigyousController < ApplicationController
   before_action :require_user!
-  before_action :set_tsushinseigyou, only: [:show, :edit, :update, :destroy]
+  before_action :set_tsushinseigyou, only: [:show, :edit, :update]
   respond_to :html, :js
 
   def index
@@ -31,8 +31,17 @@ class TsushinseigyousController < ApplicationController
   end
 
   def destroy
-    @tsushinseigyou.destroy
-    respond_with(@tsushinseigyou)
+    if params[:ids]
+      Tsushinseigyou.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @tsushinseigyou = Tsushinseigyou.find_by_id(params[:id])
+      @tsushinseigyou.destroy if @tsushinseigyou
+      respond_with(@tsushinseigyou)
+    end
   end
 
   def import
@@ -81,28 +90,14 @@ class TsushinseigyousController < ApplicationController
     end
   end
 
-   def create_tsushinseigyou
+  def create_tsushinseigyou
     @tsushinseigyou = Tsushinseigyou.new(tsushinseigyou_params)
-    respond_to do |format|
-      if  @tsushinseigyou.save
-        format.js { render 'create_tsushinseigyou'}
-      else
-        format.js { render json: @tsushinseigyou.errors, status: :unprocessable_entity}
-      end
-    end
-    end
+    @tsushinseigyou.save
+  end
 
   def update_tsushinseigyou
     @tsushinseigyou = Tsushinseigyou.find_by(社員番号: tsushinseigyou_params[:社員番号])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @tsushinseigyou.update(tsushinseigyou_params)
-        format.js { render 'update_tsushinseigyou'}
-      else
-        format.js { render json: @tsushinseigyou.errors, status: :unprocessable_entity}
-      end
-    end
+    @tsushinseigyou.update(tsushinseigyou_params)
   end
   
   private

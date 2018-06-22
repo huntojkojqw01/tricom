@@ -1,6 +1,6 @@
 class SettingsController < ApplicationController
-  before_action :set_setting, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_setting, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   def new
     @shains = Shainmaster.all
@@ -10,7 +10,7 @@ class SettingsController < ApplicationController
 
   def index
     @shains = Shainmaster.all
-    @setting = Setting.all
+    @settings = Setting.all
   end
 
   def setting
@@ -53,9 +53,17 @@ class SettingsController < ApplicationController
   end
 
   def destroy
-    @shains = Shainmaster.all
-    @setting.destroy
-    respond_with(@setting)
+    if params[:ids]
+      Setting.where(社員番号: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @setting = Setting.find_by(社員番号: params[:id])
+      @setting.destroy if @setting
+      respond_with(@setting)
+    end
   end
 
   def import

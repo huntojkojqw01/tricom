@@ -1,6 +1,16 @@
- $('#dengonkaitou-edit-modal').modal('hide');
-$(".dengonkaitoutable").DataTable().row('tr.selected').remove()
+model = 'dengonkaitou'
 
- var table = $('.dengonkaitoutable').DataTable();
- table.row.add( ["<%=@dengonkaitou.種類名%>","<%=@dengonkaitou.備考%>","<%=@dengonkaitou.id%>"] ).draw( false );
+$('form#edit_' + model).clear_previous_errors()
 
+<% if @dengonkaitou.errors.any? %>
+  $('form#edit_' + model).render_form_errors(model, '<%=@dengonkaitou.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#dengonkaitou-edit-modal').modal('hide');
+  $("#dengonkaitoumaster").DataTable().row('tr.selected').remove();
+  $('#dengonkaitoumaster').DataTable().row.add([
+    "<%=@dengonkaitou.id%>",
+    "<%=@dengonkaitou.種類名%>",
+    "<%=@dengonkaitou.備考%>"
+    ]).draw( false );
+  $('#dengonkaitoumaster').DataTable().buttons('#edit, #destroy').nodes().addClass('disabled');
+<% end %>

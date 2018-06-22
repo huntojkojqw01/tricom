@@ -8,7 +8,10 @@
         = simple_form_for (Tsushinseigyou.new), url: update_tsushinseigyou_tsushinseigyous_path, :remote => true, html: {role: :form, 'data-model' => 'tsushinseigyou'} do |f|
           = f.input :社員番号, label:'社員番号' do
             = f.select :社員番号, Shainmaster.all.map { |s| [s.氏名, s.社員番号, { class: '' }] }, {}, {include_blank: true, class: 'form-control'}
-          = f.input :メール
+            .span.help-block
+          = f.input :メール, label: "メール" do
+            = f.email_field :メール, class: 'form-control'
+            .span.help-block
           - display = ['０：送信不可', '１：送信許可']
           = f.input :送信許可区分, label: '送信許可区分' ,collection: (0..1).map {|i| [display[i],i]}
           = f.button :submit, '更新する', class: 'btn btn-primary'

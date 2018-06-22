@@ -1,5 +1,14 @@
- $('#setsubi-new-modal').modal('hide');
+model = 'setsubi'
 
- var table = $('.shonin-table').DataTable();
+$('form#new_' + model).clear_previous_errors()
 
- table.row.add( ["<%=@setsubi.設備コード%>","<%=@setsubi.設備名%>","<%=@setsubi.備考%>"] ).draw( false );
+<% if @setsubi.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@setsubi.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#setsubi-new-modal').modal('hide');
+  $('#setsubimaster').DataTable().row.add( [
+    "<%=@setsubi.設備コード%>",
+    "<%=@setsubi.設備名%>",
+    "<%=@setsubi.備考%>"
+  ]).draw( false );
+<% end %>

@@ -1,18 +1,16 @@
-= javascript_include_tag 'shoninshamsts'
+= javascript_include_tag 'shoninshamsts/index'
 = provide(:title, (t 'title.shoninshamst'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active 承認者
 
-%table.shonin-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+%table#shoninshamaster.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
       %th id
       %th 申請者
       %th 承認者
       %th 順番
-
-
   %tbody
     - @shoninshamsts.each do |shoninshamst|
       %tr
@@ -20,8 +18,4 @@
         %td= shoninshamst.shinseisha.try(:氏名)
         %td= shoninshamst.shouninsha.try(:氏名)
         %td= shoninshamst.try(:順番)
-        
-
-= render 'share/new_edit_destroy_buttons',object: 'shonin', new_path: new_shoninshamst_path
 = render 'share/import_csv_modal',import_path: import_shoninshamsts_path
-= render 'shoninsha_new_modal'

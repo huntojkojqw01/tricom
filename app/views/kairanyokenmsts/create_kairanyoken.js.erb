@@ -1,0 +1,15 @@
+model = 'kairanyokenmst'
+
+$('form#new_' + model).clear_previous_errors()
+
+<% if @kairanyokenmst.errors.any? %>
+  $('form#new_' + model).render_form_errors(model, '<%=@kairanyokenmst.errors.messages.to_json.html_safe%>')
+<% else %>
+  $('#kairanyouken-new-modal').modal('hide');
+  $('#kairanyoukenmaster').DataTable().row.add( [
+    "<%=@kairanyokenmst.id%>",
+    "<%=@kairanyokenmst.名称%>",
+    "<%=@kairanyokenmst.備考%>",
+    "<%=@kairanyokenmst.優先さ%>"
+  ]).draw( false );
+<% end %>

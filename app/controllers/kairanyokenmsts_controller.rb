@@ -1,6 +1,6 @@
 class KairanyokenmstsController < ApplicationController
   before_action :require_user!
-  before_action :set_kairanyokenmst, only: [:show, :edit, :update, :destroy]
+  before_action :set_kairanyokenmst, only: [:show, :edit, :update]
 
   respond_to :html,:js
 
@@ -34,8 +34,17 @@ class KairanyokenmstsController < ApplicationController
   end
 
   def destroy
-    @kairanyokenmst.destroy
-    respond_with(@kairanyokenmst, location: kairanyokenmsts_url)
+    if params[:ids]
+      Kairanyokenmst.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @kairanyokenmst = Kairanyokenmst.find_by_id(params[:id])
+      @kairanyokenmst.destroy if @kairanyokenmst
+      respond_with(@kairanyokenmst, location: kairanyokenmsts_url)
+    end
   end
 
   def import
@@ -84,28 +93,14 @@ class KairanyokenmstsController < ApplicationController
     end
   end
 
-    def create_kairanyoken
+  def create_kairanyoken
     @kairanyokenmst = Kairanyokenmst.new(kairanyokenmst_params)
-    respond_to do |format|
-      if  @kairanyokenmst.save
-        format.js { render 'create_kairanyouken'}
-      else
-        format.js { render json: @kairanyokenmst.errors, status: :unprocessable_entity}
-      end
-    end
-    end
+    @kairanyokenmst.save
+  end
 
   def update_kairanyoken
     @kairanyokenmst = Kairanyokenmst.find_by(id: kairanyokenmst_params[:id])
-    # @eki.update(eki_params)
-    # redirect_to ekis_path
-    respond_to do |format|
-      if  @kairanyokenmst.update(kairanyokenmst_params)
-        format.js { render 'update_kairanyouken'}
-      else
-        format.js { render json: @kairanyokenmst.errors, status: :unprocessable_entity}
-      end
-    end
+    @kairanyokenmst.update(kairanyokenmst_params)
   end
 
   private

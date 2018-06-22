@@ -1,24 +1,21 @@
+= javascript_include_tag 'setsubis/index'
 = provide(:title, (t 'title.setsubi'))
-= javascript_include_tag 'setsubis'
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active 設備
 
-%table.shonin-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+%table#setsubimaster.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
   %thead
     %tr
       %th 設備コード
       %th 設備名
       %th 備考
-     
-
   %tbody
-    - @setsubi.each do |setsubi|
+    - @setsubis.each do |setsubi|
       %tr
         %td= setsubi.設備コード
         %td= setsubi.設備名
         %td= setsubi.備考
-= render 'share/new_edit_destroy_buttons',object: 'setsubi'
 = render 'share/import_csv_modal',import_path: import_setsubis_path
 = render 'setsubi_new_modal'
 = render 'setsubi_edit_modal'

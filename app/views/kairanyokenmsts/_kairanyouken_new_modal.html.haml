@@ -6,12 +6,13 @@
         %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
         = simple_form_for (Kairanyokenmst.new), url: create_kairanyoken_kairanyokenmsts_path, :remote => true, html: {role: :form, 'data-model' => 'kairanyokenmst'} do |f|
-          = f.input :名称, label: "名称" do
+          = f.input :名称 do
             = f.input_field :名称, class: 'form-control'
             .span.help-block
           = f.input :備考 do
             = f.input_field :備考, class: 'form-control'
-          = f.input "優先さ" do
+            .span.help-block
+          = f.input :優先さ do
             = f.number_field :優先さ, class: 'form-control'
             .span.help-block
           = f.button :submit, class: 'btn btn-primary'
