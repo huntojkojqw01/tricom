@@ -1,7 +1,7 @@
 class ShoninshamstsController < ApplicationController
   before_action :require_user!
-  before_action :set_shoninshamst, only: [:show, :edit, :update, :destroy]
-  load_and_authorize_resource except: :export_csv
+  before_action :set_shoninshamst, only: [:show, :edit, :update]
+  load_and_authorize_resource except: [:export_csv, :destroy]
 
   respond_to :html, :js
 
@@ -38,8 +38,17 @@ class ShoninshamstsController < ApplicationController
   end
 
   def destroy
-    @shoninshamst.destroy
-    respond_with(@shoninshamst)
+    if params[:ids]
+      Shoninshamst.where(id: params[:ids]).destroy_all
+      data = { destroy_success: 'success' }
+      respond_to do |format|
+        format.json { render json: data }
+      end
+    else
+      @shoninshamst = Shoninshamst.find_by_id(params[:id])
+      @shoninshamst.destroy if @shoninshamst
+      respond_with(@shoninshamst)
+    end
   end
 
   def import
