@@ -1,23 +1,6 @@
+= javascript_include_tag 'settings/form'
 = simple_form_for(@setting) do |f|
   = f.error_notification
-  / .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
-  /   = f.association :shainmaster, label_method: :氏名, value_method: :社員番号, label:'社員番号' if mode == :new
-  /   = f.input :scrolltime , label: 'ScrollTime'do
-  /     = f.select :scrolltime, options_for_select(["00:00", "01:00","02:00","03:00","04:00","05:00","06:00"], :selected => @setting.scrolltime), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
-  /   = f.input :local , label: 'Local'do
-  /     = f.select :local, options_for_select(["ja", "en","vi"], :selected => @setting.local), {include_blank: true },{ class: 'form-control', style: 'width:100px'}
-  /   = f.label (t 'app.label.select_vn_holiday')
-  /   .space
-  /   = f.check_box :select_holiday_vn
-  /   .space
-  /   = f.label (t 'app.label.turning_data')
-  /   .space
-  /   = f.check_box :turning_data
-  /   .row
-  /     .col-md-12.col-xs-12.col-sm-12.col-lg-12
-  /       .spacer
-  /   = f.button :submit, class:'btn btn-primary'
-
   .col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-2.col-xs-offset-2.col-sm-offset-2.col-lg-offset-2
     .h3
     .span
