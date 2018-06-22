@@ -5,7 +5,7 @@
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
         %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
-        = simple_form_for @kouteimaster, url: update_koutei_kouteimasters_path, :remote => true, html: {role: :form, 'data-model' => 'kouteimaster'} do |f|
+        = simple_form_for @kouteimaster, url: update_koutei_kouteimasters_path, :remote => true, html: {id: 'edit_kouteimaster', role: :form, 'data-model' => 'kouteimaster'} do |f|
           = f.input :所属コード, as: :hidden do
             = f.input_field :所属コード, class: 'form-control'
             .span.help-block
