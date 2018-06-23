@@ -161,9 +161,9 @@ end
     collection {post :ajax, :import}
   end
 
-  resources :yakushokumasters, param: :id do
-    collection {post :ajax, :import, :create_yakushoku, :update_yakushoku}
-    collection {get :export_csv}
+  resources :yakushokumasters do
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :keihiheads do

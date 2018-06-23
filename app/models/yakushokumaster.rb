@@ -1,5 +1,4 @@
 class Yakushokumaster < ActiveRecord::Base
-  include VerificationAssociations
   self.table_name = :役職マスタ
   self.primary_key = :役職コード
   include PgSearch
