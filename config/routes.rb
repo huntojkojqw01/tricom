@@ -133,8 +133,8 @@ end
   end
 
   resources :shainmasters do
-    collection {post :ajax, :import, :multi_delete}
-    collection {get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
 
