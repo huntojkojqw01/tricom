@@ -2,15 +2,10 @@
 <%provide(:title, (t 'title.shozokumaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
-  <!-- <li><a href="#">基準情報</a></li> -->
-  <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li class="active">所属マスタ</li>
 </ol>
 
-<!-- <h1>工程マスタ</h1> -->
-
 <table id="shozokumaster" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-
   <thead>
     <tr>
       <th>所属コード</th>
@@ -30,5 +25,5 @@
 <% if current_user.admin? %>
   <%=render 'share/import_csv_modal',import_path: import_shozokumasters_path%>
 <% end %>
-<%= render 'shozoku_edit_modal' %>
-<%= render 'shozoku_new_modal' %>
+<%= render 'new' %>
+<%= render 'edit' %>

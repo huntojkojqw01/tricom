@@ -177,8 +177,8 @@ end
   end
 
   resources :shozokumasters do
-    collection {post :import, :ajax, :create_shozoku, :update_shozoku}
-    collection {get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :joutaimasters do
