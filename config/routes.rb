@@ -133,8 +133,8 @@ end
   end
 
   resources :shainmasters do
-    collection {post :ajax, :import, :multi_delete}
-    collection {get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
 
@@ -161,9 +161,9 @@ end
     collection {post :ajax, :import}
   end
 
-  resources :yakushokumasters, param: :id do
-    collection {post :ajax, :import, :create_yakushoku, :update_yakushoku}
-    collection {get :export_csv}
+  resources :yakushokumasters do
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :keihiheads do
@@ -177,8 +177,8 @@ end
   end
 
   resources :shozokumasters do
-    collection {post :import, :ajax, :create_shozoku, :update_shozoku}
-    collection {get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :joutaimasters do

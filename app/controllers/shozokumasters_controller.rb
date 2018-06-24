@@ -1,32 +1,21 @@
 class ShozokumastersController < ApplicationController
   before_action :require_user!
   skip_before_action :verify_authenticity_token
-  before_action :set_param, only: :index
-  load_and_authorize_resource except: [:export_csv, :destroy]
   respond_to :js
 
   def index
-  end
-
-  def show
-  end
-
-  def new
-  end
-
-  def edit
-
+    @shozokumasters = Shozokumaster.all
   end
 
   def create
+    @shozokumaster = Shozokumaster.new(shozokumaster_params)
     flash[:notice] = t 'app.flash.new_success' if @shozokumaster.save
     respond_with @shozokumaster
-
   end
 
   def update
-    flash[:notice] = t 'app.flash.update_success' if @shozokumaster.
-      update_attributes shozokumaster_params
+    @shozokumaster = Shozokumaster.find(shozokumaster_params[:所属コード])
+    flash[:notice] = t 'app.flash.update_success' if @shozokumaster.update(shozokumaster_params)
     respond_with @shozokumaster
   end
 
@@ -69,43 +58,15 @@ class ShozokumastersController < ApplicationController
 
   def export_csv
     @shozokumasters = Shozokumaster.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @shozokumasters.to_csv, filename: '所属マスタ.csv' }
     end
   end
 
-   def ajax
-    case params[:focus_field]     
-      when 'shozoku_削除する'
-        shozokuIds = params[:shozokus]
-        shozokuIds.each{ |shozokuId|
-          shozoku=Shozokumaster.find(shozokuId)
-          shozoku.destroy unless shozoku==nil      
-        }        
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-          format.json { render json: data}
-        end
-    end
-  end
-
-  def create_shozoku
-    @shozokumaster = Shozokumaster.new(shozokumaster_params)
-    @shozokumaster.save
-  end
-
-  def update_shozoku
-    @shozokumaster = Shozokumaster.find(shozokumaster_params[:所属コード])
-    @shozokumaster.update(shozokumaster_params)
-  end
-
   private
-    def shozokumaster_params
-      params.require(:shozokumaster).permit :所属コード, :所属名
-    end
-    def set_param
-      @shozokumaster = Shozokumaster.new
-    end
+
+  def shozokumaster_params
+    params.require(:shozokumaster).permit(:所属コード, :所属名)
+  end
+
 end

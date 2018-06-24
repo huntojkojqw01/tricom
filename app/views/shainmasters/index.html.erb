@@ -2,15 +2,9 @@
 <%provide(:title, (t 'title.shainmaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
-  <!-- <li><a href="#">基準情報</a></li> -->
-  <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li class="active">社員マスタ</li>
 </ol>
-
-<!-- <h1>工程マスタ</h1> -->
-
 <table id="shainmaster" class="shaintable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-
   <thead>
     <tr>
       <th>序列</th>
@@ -27,7 +21,6 @@
       <th></th>
     </tr>
   </thead>
-
   <tbody>
   <% @shainmasters.each do |shain| %>
     <tr id="shainmaster_<%= shain.id %>">
