@@ -1,6 +1,5 @@
 class Event < ActiveRecord::Base
   attr_accessor :kintai_daikyu_date
-  include VerificationAssociations
   self.table_name = :events
   include PgSearch
   multisearchable :against => %w{開始 終了 joutai_状態名 basho_name job_job名 koutei_工程名 計上}
