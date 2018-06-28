@@ -10,7 +10,7 @@ class RorumenbasController < ApplicationController
 
   def index
     @shains = Shainmaster.all
-  	@rorumenba = Rorumenba.all
+  	@rorumenbas = Rorumenba.includes(:shainmaster, :rorumaster)
   end
 
   def show
@@ -72,8 +72,7 @@ class RorumenbasController < ApplicationController
   def export_csv
     @rorumenbas = Rorumenba.all
     respond_to do |format|
-      format.html
-      format.csv { send_data @rorumenbas.to_csv, filename: 'ロールメンバ.csv' }
+       format.csv { send_data @rorumenbas.to_csv, filename: 'ロールメンバ.csv' }
     end
   end
 

@@ -1,4 +1,4 @@
-= javascript_include_tag 'rorumenbas'
+= javascript_include_tag 'rorumenbas/index'
 = provide(:title, (t 'title.rorumenba'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
@@ -17,7 +17,7 @@
       %th
       %th
   %tbody
-    - @rorumenba.each do |rorumenba|
+    - @rorumenbas.each do |rorumenba|
       %tr
         %td= rorumenba.ロールコード
         %td= rorumenba.rorumaster.ロール名
@@ -27,7 +27,4 @@
         %td= link_to '', edit_rorumenba_path(rorumenba), class: "glyphicon glyphicon-edit remove-underline"
         - msg = t 'app.delete_confirm'
         %td= link_to '', rorumenba, :method => :delete, :data => { :confirm => msg } , class: "glyphicon glyphicon-remove text-danger remove-underline"
-
-= link_to '新規', new_rorumenba_path, class: 'new-btn dt-button'
-
 =render 'share/import_csv_modal',import_path: import_rorumenbas_path
