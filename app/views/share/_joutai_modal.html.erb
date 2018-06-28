@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'share/joutai_modal' %>
 <div class="modal" id="joutai_search_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -6,8 +7,6 @@
         <h4 class="modal-title" id="myModalLabel">状態選択</h4>
       </div>
       <div class="modal-body">
-        <%# Render the new person form (passing modal => true to enable remote => true) %>
-
         <table id="joutai_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
           <thead>
           <tr>
@@ -31,12 +30,6 @@
           <% end %>
           </tbody>
         </table>
-        <!--
-        <% if !(defined?(add_CUD)).nil? %>
-          <br>
-          <%=render "share/new_edit_destroy_buttons", object: "joutaimaster"%>
-        <% end %>
-        -->
       </div>
       <div class="modal-footer">
         <div class="pull-left">
@@ -49,16 +42,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  $('#joutai_table').DataTable({
-    "pagingType": "simple_numbers"
-    ,"oLanguage":{
-      "sUrl": "/assets/resource/dataTable_"+$('#language').text()+".txt"
-    }
-    ,"columnDefs": [{
-      "targets": [4],
-      "visible": false,
-      "searchable": false
-    }]
-  });
-</script>

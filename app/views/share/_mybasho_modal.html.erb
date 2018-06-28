@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'share/mybasho_modal'%>
 <div class="modal" id="mybasho_search_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -36,33 +37,12 @@
           <% end %>
           </tbody>
         </table>
-        <!--<div id="add-form">-->
-          <!--<form class="form-inline">-->
-          <!--<div class="form-group">-->
-            <!--<label class="sr-only" for="exampleInputEmail3">Email address</label>-->
-            <!--<input type="text" class="form-control" id="basho-code" placeholder="場所コード">-->
-          <!--</div>-->
-          <!--<div class="form-group">-->
-            <!--<label class="sr-only" for="exampleInputPassword3">Password</label>-->
-            <!--<input type="text" class="form-control" id="basho-name" placeholder="場所名">-->
-          <!--</div>-->
-          <!--<div class="pull-right">-->
-            <!--<button type="button" class="add-row btn btn-default">更新</button>-->
-          <!--</div>-->
-        <!--</form>-->
-        <!--</div>-->
-        <!--<br>-->
       </div>
       <div class="modal-footer">
         <div class="pull-left">
           <%= link_to 'MY場所マスタ管理へ', mybashomasters_path %>
         </div>
-        <% msg_select = t 'app.select_confirm' %>
-        <% msg_confirm = t 'app.delete_confirm' %>
-        <span id='message_confirm_select' hidden='true'><%=msg_select%></span>
-        <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
         <button type="button" class="btn btn-default" id="clear_mybasho">選択を解除する</button>
-        <button type="submit" style= 'margin-right: 100px' class="btn btn-primary" id="mybasho_destroy">削除</button>
         <button type="button" class="btn btn-primary" data-dismiss="modal" id="mybasho_sentaku_ok">　ＯＫ　</button>
         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
       </div>

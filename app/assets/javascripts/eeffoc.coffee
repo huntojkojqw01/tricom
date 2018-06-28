@@ -1,4 +1,6 @@
 jQuery ->
+  window.KISHA_JOUTAIS = ['10', '11', '12', '13', '120', '121', '122']
+  window.DAIKYU_JOUTAIS = ['105', '109', '113']
   window.KINMU = {
     '000' : { s: 0, e: 23, st: '00:00', et: '23:00' },# tuong duong voi 00:00 -> 23:00
     '001' : { s: 7, e: 16, st: '07:00', et: '16:00'  },
