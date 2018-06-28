@@ -32,49 +32,62 @@ jQuery ->
     $('.form-group.has-error', this).each ()->
       $('.help-block', $(this)).html('')
       $(this).removeClass('has-error')
-  window.create_sentaku_modal = (modal, table, ok_button, clear_button, trigger_name)->
-    data_table = table.DataTable
+  window.create_sentaku_modal = (args)->
+    data_table = args.table.DataTable
       retrieve: true
       pagingType: 'full_numbers'
       oLanguage:
         sUrl: '/assets/resource/dataTable_' + $('#language').text() + '.txt'
-
-    modal.on 'show', (e, code)->
+      aoColumnDefs: [
+        {
+          aTargets: args.no_sort_columns
+          bSortable: false
+        }
+        {
+          aTargets: args.invisible_columns
+          bVisible: false
+        }
+        {
+          aTargets: args.no_search_columns
+          bSearchable: false
+        }
+      ]
+    args.modal.on 'show', (e, code)->
       row_can_tim = data_table.row (idx, data, node)->
         if data[0] == code then true else false
       if row_can_tim.length > 0
         data_table.$('tr.selected').removeClass('selected')
         $(row_can_tim.node()).addClass('selected')
         data_table.page.jumpToData(code, 0)
-        ok_button.attr('disabled', false)
-        clear_button.attr('disabled', false)
+        args.ok_button.attr('disabled', false)
+        args.clear_button.attr('disabled', false)
       $(this).modal('show')
 
-    table.on 'click', 'tbody>tr', ()->
+    args.table.on 'click', 'tbody>tr', ()->
       if $(this).hasClass('selected')
         $(this).removeClass('selected')
-        ok_button.attr('disabled', true)
-        clear_button.attr('disabled', true)
+        args.ok_button.attr('disabled', true)
+        args.clear_button.attr('disabled', true)
       else
         data_table.$('tr.selected').removeClass('selected')
         $(this).addClass('selected')
-        ok_button.attr('disabled', false)
-        clear_button.attr('disabled', false)
+        args.ok_button.attr('disabled', false)
+        args.clear_button.attr('disabled', false)
 
-    table.on 'dblclick', 'tbody>tr', ()->
+    args.table.on 'dblclick', 'tbody>tr', ()->
       $(this).addClass('selected')
       selected_data = data_table.row('tr.selected').data()
-      table.trigger trigger_name, [selected_data]
-      modal.modal('hide')
+      args.table.trigger args.trigger_name, [selected_data]
+      args.modal.modal('hide')
 
-    clear_button.click ()->
+    args.clear_button.click ()->
       data_table.$('tr.selected').removeClass('selected')
-      ok_button.attr('disabled', true)
-      clear_button.attr('disabled', true)
+      args.ok_button.attr('disabled', true)
+      args.clear_button.attr('disabled', true)
 
-    ok_button.click ()->
+    args.ok_button.click ()->
       selected_data = data_table.row('tr.selected').data()
-      table.trigger trigger_name, [selected_data]
+      args.table.trigger args.trigger_name, [selected_data]
 
   window.create_datatable = (args)->
     oTable = $(args.table_id).DataTable({
