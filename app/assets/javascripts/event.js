@@ -1063,7 +1063,7 @@ $(function(){
 });
 
 $(function(){
-  if (check_joutai_relate_kisha($("#event_状態コード").val()))
+  if (KISHA_JOUTAIS.includes($("#event_状態コード").val()))
     $('.event_帰社').show();
   else
     $('.event_帰社').hide();

@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'share/basho_modal' %>
 <div class="modal" id="basho_search_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
@@ -6,8 +7,6 @@
         <h4 class="modal-title" id="myModalLabel">場所選択</h4>
       </div>
       <div class="modal-body">
-        <%# Render the new person form (passing modal => true to enable remote => true) %>
-
         <table id="basho_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
           <thead>
           <tr>
@@ -31,28 +30,6 @@
           <% end %>
           </tbody>
         </table>
-        <!--
-        <% if !(defined?(add_CUD)).nil? %>
-          <br>
-          <%=render "share/new_edit_destroy_buttons", object: "basho"%>
-        <% end %>
-        -->
-        <!--<div id="add-form">-->
-          <!--<form class="form-inline">-->
-          <!--<div class="form-group">-->
-            <!--<label class="sr-only" for="exampleInputEmail3">Email address</label>-->
-            <!--<input type="text" class="form-control" id="basho-code" placeholder="場所コード">-->
-          <!--</div>-->
-          <!--<div class="form-group">-->
-            <!--<label class="sr-only" for="exampleInputPassword3">Password</label>-->
-            <!--<input type="text" class="form-control" id="basho-name" placeholder="場所名">-->
-          <!--</div>-->
-          <!--<div class="pull-right">-->
-            <!--<button type="button" class="add-row btn btn-default">更新</button>-->
-          <!--</div>-->
-        <!--</form>-->
-        <!--</div>-->
-        <!--<br>-->
       </div>
       <div class="modal-footer">
         <div class="pull-left">
