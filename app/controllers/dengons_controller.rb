@@ -79,7 +79,6 @@ class DengonsController < ApplicationController
     @dengons = Dengon.all
 
     respond_to do |format|
-      format.html
       format.csv { send_data @dengons.to_csv, filename: '伝言.csv' }
     end
   end
