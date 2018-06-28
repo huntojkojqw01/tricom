@@ -1,4 +1,4 @@
-= javascript_include_tag 'dengons'
+= javascript_include_tag 'dengons/index'
 = provide(:title, (t 'title.dengon'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
@@ -24,12 +24,6 @@
         %li 確認：toの社員が伝言内容を確認したときにチェックを入力
         %li 送信： "伝言管理マスタの送信区分が""1""（送信OK)の場合に自動的にチェックを入れる。後で見直して、送信済みを確認するため。"
 
--#.row
-  -#.col-md-5.col-xs-5.col-sm-5.col-lg-5.col-md-offset-4.col-xs-offset-4.col-sm-offset-4.col-lg-offset-4
-    -#%h2
-      -#= "#{Time.now.strftime('%F %H:%M %A')}"
-      -#= "#{Time.current.in_time_zone('').strftime('%F %H:%M %A')}"
-      -#= "#{Date.current.in_time_zone.strftime('%F %H:%M %A')}"
 = form_for :dengon, url: dengons_path, html: {class:'form-inline'}, method: :get do |f|
   = render 'header', f:f
   %br
@@ -64,13 +58,7 @@
           - else
             %td{style: "white-space: pre-line;"}
               %b= dengon.伝言内容
-          -#%td{'word-wrap' => 'break-word'}= dengon.伝言内容
           %td= dengon.確認 == true ? (t 'title.kakuninzu'):'未確認'
           %td= dengon.送信 == true ? '済' : ''
           %td= link_to '', edit_dengon_path(dengon), class: "glyphicon glyphicon-edit remove-underline"
           %td= link_to '', dengon, :method => :delete, :data => { :confirm => (t 'title.delete_confirm') } , class: "glyphicon glyphicon-remove text-danger remove-underline"
-
-%br
-
-
-//{:style => "background-color: "+dengon.dengonyouken.try(:yuusen).try(:色).to_s+"; color: Black"}
