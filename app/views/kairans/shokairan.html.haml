@@ -1,4 +1,4 @@
-= javascript_include_tag 'kairans'
+= javascript_include_tag 'kairans/shokairan'
 = provide(:title, (t 'title.shokairan'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
@@ -22,5 +22,3 @@
           %td= kairan.件名
           %td.breakAll= kairan.内容
           %td= link_to '詳細', send_kairan_view_kairan_path(kairan)
-
-  = link_to '新規', new_kairan_path, class: 'new-btn dt-button'

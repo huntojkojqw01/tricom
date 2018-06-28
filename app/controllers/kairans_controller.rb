@@ -131,9 +131,7 @@ class KairansController < ApplicationController
 
   def export_csv
     @kairans = Kairan.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @kairans.to_csv, filename: '回覧.csv' }
     end
   end
