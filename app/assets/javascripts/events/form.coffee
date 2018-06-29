@@ -25,15 +25,17 @@ jQuery ->
 
   $('.search-field').click ()->
     input = $(this).prev()
-    switch input.attr('id')
-      when 'event_状態コード' then $('#joutai_search_modal').trigger('show', [input.val()])
-      when 'event_場所コード' then $('#basho_search_modal').trigger('show', [input.val()])
-      when 'event_JOB' then $('#job_search_modal').trigger('show', [input.val()])
+    unless input.is(':disabled')
+      switch input.attr('id')
+        when 'event_状態コード' then $('#joutai_search_modal').trigger('show', [input.val()])
+        when 'event_場所コード' then $('#basho_search_modal').trigger('show', [input.val()])
+        when 'event_JOB' then $('#job_search_modal').trigger('show', [input.val()])
   $('.search-history').click ()->
     input = $(this).prev().prev()
-    switch input.attr('id')
-      when 'event_場所コード' then $('#mybasho_search_modal').trigger('show', [input.val()])
-      when 'event_JOB' then $('#myjob_search_modal').trigger('show', [input.val()])
+    unless input.is(':disabled')
+      switch input.attr('id')
+        when 'event_場所コード' then $('#mybasho_search_modal').trigger('show', [input.val()])
+        when 'event_JOB' then $('#myjob_search_modal').trigger('show', [input.val()])
 
   $('#joutai_search_modal').on 'choose_joutai', (e, selected_data)->
     if selected_data != undefined
@@ -65,21 +67,12 @@ jQuery ->
       else
         $('#kintai_daikyu').val('')
 
-      oJoutaiTable = $('#joutai_table').DataTable()
-      row_can_tim = oJoutaiTable.row (idx, data, node)->
-        if data[0] == joutai_code then true else false
-      if row_can_tim.length > 0
-        joutai_kubun = row_can_tim.data()[3]
-      else
-        joutai_kubun = ''
-      if joutai_kubun == '1' or joutai_kubun == '5'
-        $('#event_場所コード').prop( "disabled", false )
-        $('#event_JOB').prop( "disabled", false )
-        $('#event_工程コード').prop( "disabled", false )
-      else
-        $('#event_場所コード').prop( "disabled", true )
-        $('#event_JOB').prop( "disabled", true )
-        $('#event_工程コード').prop( "disabled", true )
+      # neu joutaikubun = 1 hoac 5 thi disable basho, job, koutei inputs
+      joutai_kubun = selected_data[3]
+      tmp = joutai_kubun != '1' && joutai_kubun != '5'
+      $('#event_場所コード').prop('disabled', tmp)
+      $('#event_JOB').prop('disabled', tmp)
+      $('#event_工程コード').prop('disabled', tmp)
 
   $('#basho_table').on 'choose_basho', (e, selected_data)->
     if selected_data != undefined
@@ -106,3 +99,20 @@ jQuery ->
       $('.hint-job-refer').text(selected_data[2])
       $('#event_JOB').closest('.form-group').find('span.help-block').remove()
       $('#event_JOB').closest('.form-group').removeClass('has-error')
+
+  # nut co tac dung goi ajax de tinh so gio lam dua theo 2 thoi diem da nhap
+  $('#koushuusaikeisan').click (event)->
+    start_time = $('#event_開始').val()
+    end_time = $('#event_終了').val()
+    if start_time != '' && end_time != ''
+      $.post
+        url: '/events/ajax'
+        data:
+          id: 'get_kousuu'
+          start_time: start_time
+          end_time: end_time
+        success: (data)->
+          if data.kousuu != ''
+            $('#event_工数').val(data.kousuu)
+        failure: ()->
+          console.log("save-kinmu-type field")
