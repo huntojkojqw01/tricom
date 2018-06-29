@@ -45,11 +45,6 @@ end
     collection {get :export_csv}
   end
 
-  resources :kairanyokenmsts do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_kairanyoken, :update_kairanyoken}
-  end
-
   resources :kairanshosais do
     collection {get :export_csv}
     collection {post :import}
@@ -60,7 +55,7 @@ end
     collection {post :import, :ajax, :create_tsushinseigyou, :update_tsushinseigyou}
   end
 
-  resources :dengonyoukens do
+  resources :dengonyoukens, :kairanyokenmsts do
     collection { get :export_csv }
     collection { post :import }
   end

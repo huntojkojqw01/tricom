@@ -1,12 +1,11 @@
-.modal#kairanyouken-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+.modal#kairanyouken-new-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
   .modal-dialog.modal-sm
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel= (t 'title.edit')
+        %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
-        = simple_form_for (Kairanyokenmst.new), url: update_kairanyoken_kairanyokenmsts_path, :remote => true, html: { id: 'edit_kairanyokenmst', role: :form, 'data-model' => 'kairanyokenmst' } do |f|
-          = f.hidden_field :id
+        = simple_form_for :kairanyokenmst, url: kairanyokenmsts_path, method: :post, :remote => true, html: { id: 'new_kairanyokenmst', role: :form, 'data-model' => 'kairanyokenmst'} do |f|
           = f.input :名称 do
             = f.input_field :名称, class: 'form-control'
             .span.help-block
