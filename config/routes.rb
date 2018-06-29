@@ -171,18 +171,13 @@ end
     collection {get :export_csv}
   end
 
-  resources :shozokumasters do
+  resources :shozokumasters, :kaishamasters do
     collection { post :import }
     collection { get :export_csv }
   end
 
   resources :joutaimasters do
     collection {post :import, :multi_delete, :ajax, :create_joutai, :update_joutai}
-    collection {get :export_csv}
-  end
-
-  resources :kaishamasters, param: :id do
-    collection { post :import, :ajax, :create_kaisha, :update_kaisha}
     collection {get :export_csv}
   end
 

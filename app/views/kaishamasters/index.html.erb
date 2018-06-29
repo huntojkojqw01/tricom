@@ -2,8 +2,6 @@
 <%provide(:title, (t 'title.kaishamaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
-  <!-- <li><a href="#">基準情報</a></li> -->
-  <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li class="active">会社マスタ</li>
 </ol>
 
@@ -29,5 +27,5 @@
 <% if can? :update, @kaishamasters %>
   <%=render 'share/import_csv_modal',import_path: import_kaishamasters_path%>
 <% end %>
-<%= render 'kaisha_new_modal' %>
-<%= render 'kaisha_edit_modal' %>
+<%= render 'new' %>
+<%= render 'edit' %>
