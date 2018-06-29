@@ -47,12 +47,7 @@ end
     collection {post :import}
   end
 
-  resources :tsushinseigyous do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_tsushinseigyou, :update_tsushinseigyou}
-  end
-
-  resources :dengonkaitous, :dengonyoukens, :kairanyokenmsts, :setsubis do
+  resources :dengonkaitous, :dengonyoukens, :kairanyokenmsts, :setsubis, :tsushinseigyous do
     collection { get :export_csv }
     collection { post :import }
   end

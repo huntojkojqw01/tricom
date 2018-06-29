@@ -1,22 +1,10 @@
 class TsushinseigyousController < ApplicationController
   before_action :require_user!
-  before_action :set_tsushinseigyou, only: [:show, :edit, :update]
   respond_to :html, :js
 
   def index
     @tsushinseigyous = Tsushinseigyou.all
     respond_with(@tsushinseigyous)
-  end
-
-  def show
-    respond_with(@tsushinseigyou)
-  end
-
-  def new
-    @tsushinseigyou = Tsushinseigyou.new
-  end
-
-  def edit
   end
 
   def create
@@ -26,6 +14,7 @@ class TsushinseigyousController < ApplicationController
   end
 
   def update
+    @tsushinseigyou = Tsushinseigyou.find_by(社員番号: tsushinseigyou_params[:社員番号])
     @tsushinseigyou.update(tsushinseigyou_params)
     respond_with(@tsushinseigyou, location: tsushinseigyous_url)
   end
@@ -69,44 +58,15 @@ class TsushinseigyousController < ApplicationController
 
   def export_csv
     @tsushinseigyous = Tsushinseigyou.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @tsushinseigyous.to_csv, filename: '通信制御マスタ.csv' }
     end
   end
 
-  def ajax
-    case params[:focus_field]
-      when 'tsushinseigyou_削除する'
-        tsushinseigyouIds = params[:tsushinseigyous]
-        tsushinseigyouIds.each{ |tsushinseigyouId|
-          Tsushinseigyou.find_by(id: tsushinseigyouId).destroy
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
-
-  def create_tsushinseigyou
-    @tsushinseigyou = Tsushinseigyou.new(tsushinseigyou_params)
-    @tsushinseigyou.save
-  end
-
-  def update_tsushinseigyou
-    @tsushinseigyou = Tsushinseigyou.find_by(社員番号: tsushinseigyou_params[:社員番号])
-    @tsushinseigyou.update(tsushinseigyou_params)
-  end
-  
   private
-    def set_tsushinseigyou
-      @tsushinseigyou = Tsushinseigyou.find(params[:id])
-    end
 
-    def tsushinseigyou_params
-      params.require(:tsushinseigyou).permit(:社員番号, :メール, :送信許可区分, :id)
-    end
+  def tsushinseigyou_params
+    params.require(:tsushinseigyou).permit(:社員番号, :メール, :送信許可区分, :id)
+  end
 
 end

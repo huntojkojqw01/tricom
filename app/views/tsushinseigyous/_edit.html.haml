@@ -1,11 +1,11 @@
-.modal#tsushinseigyou-new-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+.modal#tsushinseigyou-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
   .modal-dialog.modal-sm
     .modal-content
       .modal-header
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
-        %h4.modal-title#myModalLabel New
+        %h4.modal-title#myModalLabel= (t 'title.edit')
       .modal-body
-        = simple_form_for (Tsushinseigyou.new), url: create_tsushinseigyou_tsushinseigyous_path, :remote => true, html: {role: :form, 'data-model' => 'tsushinseigyou'} do |f|
+        = simple_form_for :tsushinseigyou, url: tsushinseigyou_path(id: 0), method: :patch, :remote => true, html: { id: 'edit_tsushinseigyou', role: :form, 'data-model' => 'tsushinseigyou'} do |f|
           = f.input :社員番号, label:'社員番号' do
             = f.select :社員番号, Shainmaster.all.map { |s| [s.氏名, s.社員番号, { class: '' }] }, {}, {include_blank: true, class: 'form-control'}
             .span.help-block
