@@ -1,0 +1,14 @@
+.modal#setsubi-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel= (t 'title.edit')
+      .modal-body
+        = simple_form_for :setsubi, url: setsubi_path(id: 0), method: :patch, :remote => true, html: { id: 'edit_setsubi', role: :form, 'data-model' => 'setsubi' } do |f|
+          = f.hidden_field :設備コード, class: 'form-control'
+          = f.input "設備名" do
+            = f.input_field :設備名, class: 'form-control'
+            .span.help-block
+          = f.input :備考,label: "備考"
+          = f.button :submit, class: 'btn btn-primary'

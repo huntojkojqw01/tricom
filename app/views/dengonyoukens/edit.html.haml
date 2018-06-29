@@ -1,7 +1,0 @@
-%ol.breadcrumb
-  %li= link_to (t 'title.menu'), main_path
-  %li= link_to (t 'title.dengonkaitou'), dengonyoukens_path
-  %li.active= (t 'title.edit')
-
-= render 'form', mode: :edit
-= provide(:title, (t 'title.dengonyouken'))

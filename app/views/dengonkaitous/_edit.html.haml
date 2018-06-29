@@ -1,0 +1,16 @@
+.modal#dengonkaitou-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel= (t 'title.edit')
+      .modal-body
+        = simple_form_for :dengonkaitou, url: dengonkaitou_path(id: 0), method: :patch, :remote => true, html: { id: 'edit_dengonkaitou', role: :form, 'data-model' => 'dengonkaitou' } do |f|
+          = f.hidden_field :id
+          = f.input "種類名" do
+            = f.input_field :種類名, class: 'form-control'
+            .span.help-block
+          = f.input "備考" do
+            = f.input_field :備考, class: 'form-control'
+            .span.help-block
+          = f.button :submit, class: 'btn btn-primary'

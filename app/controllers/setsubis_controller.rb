@@ -1,25 +1,10 @@
 class SetsubisController < ApplicationController
   before_action :require_user!
-  before_action :set_setsubi, only: [:show, :edit, :update]
-  load_and_authorize_resource except: [:export_csv, :destroy]
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :index]
+  load_and_authorize_resource except: [:export_csv, :destroy, :update]
   respond_to :html, :js
 
   def index
     @setsubis = Setsubi.all
-    
-  end
-
-  def show
-    respond_with(@setsubi)
-  end
-
-  def new
-    @setsubi = Setsubi.new
-    respond_with(@setsubi)
-  end
-
-  def edit
   end
 
   def create
@@ -29,6 +14,7 @@ class SetsubisController < ApplicationController
   end
 
   def update
+    @setsubi = Setsubi.find_by(設備コード: setsubi_params[:設備コード])
     @setsubi.update(setsubi_params)
     respond_with(@setsubi)
   end
@@ -46,8 +32,6 @@ class SetsubisController < ApplicationController
       respond_with(@setsubi)
     end
   end
-
-
 
   def import
     if params[:file].nil?
@@ -74,47 +58,15 @@ class SetsubisController < ApplicationController
 
   def export_csv
     @setsubis = Setsubi.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @setsubis.to_csv, filename: '設備マスタ.csv' }
     end
   end
 
-  def ajax
-    case params[:focus_field]
-      when 'setsubi_削除する'
-        setsubiIds = params[:setsubis]
-        setsubiIds.each{ |setsubiId|
-          Setsubi.find_by(設備コード: setsubiId).destroy
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
-
-  def create_setsubi
-    @setsubi = Setsubi.new(setsubi_params)
-    @setsubi.save
-  end
-
-  def update_setsubi
-    @setsubi = Setsubi.find(setsubi_params[:設備コード])
-    @setsubi.update(setsubi_params)
-  end
-
   private
-    def set_setsubi
-      @setsubi = Setsubi.find(params[:id])
-    end
 
-    def setsubi_params
-      params.require(:setsubi).permit(:設備コード, :設備名, :備考)
-    end
+  def setsubi_params
+    params.require(:setsubi).permit(:設備コード, :設備名, :備考)
+  end
 
-    def set_param
-      @setsubi = Setsubi.new()
-    end
 end

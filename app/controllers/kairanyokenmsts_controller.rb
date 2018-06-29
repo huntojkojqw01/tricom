@@ -1,7 +1,5 @@
 class KairanyokenmstsController < ApplicationController
   before_action :require_user!
-  before_action :set_kairanyokenmst, only: [:show, :edit, :update]
-
   respond_to :html,:js
 
   def index
@@ -9,26 +7,14 @@ class KairanyokenmstsController < ApplicationController
     respond_with(@kairanyokenmsts)
   end
 
-  def show
-    respond_with(@kairanyokenmst)
-  end
-
-  def new
-    @kairanyokenmst = Kairanyokenmst.new
-    respond_with(@kairanyokenmst)
-  end
-
-  def edit
-  end
-
   def create
     @kairanyokenmst = Kairanyokenmst.new(kairanyokenmst_params)
     flash[:notice] = t 'app.flash.new_success' if @kairanyokenmst.save
     respond_with(@kairanyokenmst, location: kairanyokenmsts_url)
-
   end
 
   def update
+    @kairanyokenmst = Kairanyokenmst.find_by(id: kairanyokenmst_params[:id])
     flash[:nitice] = t 'app.flash.update_success' if @kairanyokenmst.update(kairanyokenmst_params)
     respond_with(@kairanyokenmst, location: kairanyokenmsts_url)
   end
@@ -72,43 +58,15 @@ class KairanyokenmstsController < ApplicationController
 
   def export_csv
     @kairanyokens = Kairanyokenmst.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @kairanyokens.to_csv, filename: '回覧用件マスタ.csv' }
     end
   end
 
-  def ajax
-    case params[:focus_field]
-      when 'kairanyouken_削除する'
-        kairanyoukenIds = params[:kairanyoukens]
-        kairanyoukenIds.each{ |kairanyoukenId|
-          Kairanyokenmst.find_by(名称: kairanyoukenId).destroy
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
-
-  def create_kairanyoken
-    @kairanyokenmst = Kairanyokenmst.new(kairanyokenmst_params)
-    @kairanyokenmst.save
-  end
-
-  def update_kairanyoken
-    @kairanyokenmst = Kairanyokenmst.find_by(id: kairanyokenmst_params[:id])
-    @kairanyokenmst.update(kairanyokenmst_params)
-  end
-
   private
-    def set_kairanyokenmst
-      @kairanyokenmst = Kairanyokenmst.find(params[:id])
-    end
 
-    def kairanyokenmst_params
-      params.require(:kairanyokenmst).permit(:名称, :備考, :優先さ, :id)
-    end
+  def kairanyokenmst_params
+    params.require(:kairanyokenmst).permit(:名称, :備考, :優先さ, :id)
+  end
+
 end

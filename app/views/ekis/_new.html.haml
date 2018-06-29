@@ -1,0 +1,16 @@
+.modal#eki-new-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel= (t 'title.ekishinki')
+      .modal-body
+        = simple_form_for :eki, url: ekis_path, method: :post, :remote => true, html: { id: 'new_eki', role: :form, 'data-model' => 'eki'} do |f|
+          = f.input :駅コード do
+            = f.input_field :駅コード, class: 'form-control'
+            .span.help-block
+          = f.input :駅名 do
+            = f.input_field :駅名, class: 'form-control'
+            .span.help-block
+          = f.input :駅名カナ,label: (t 'title.ekimeikana')
+          = f.button :submit, class: 'btn btn-primary'

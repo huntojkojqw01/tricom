@@ -1,7 +1,0 @@
-%ol.breadcrumb
-  %li= link_to (t 'title.menu'), main_path
-  %li= link_to (t 'title.bunrui'), bunruis_path
-  %li.active= (t 'title.new')
-
-= render 'form', mode: :new
-= provide(:title, (t 'title.bunrui'))

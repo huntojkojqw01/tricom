@@ -1,0 +1,13 @@
+.modal#bashokubunmst-edit-modal{tabindex:-1, role: :dialog, 'aria-labelledby'=>"myModalLabel", 'aria-hidden'=>"true"}
+  .modal-dialog.modal-sm
+    .modal-content
+      .modal-header
+        %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
+        %h4.modal-title#myModalLabel= (t 'title.edit')
+      .modal-body
+        = simple_form_for :bashokubunmst, url: bashokubunmst_path(id: 0), method: :patch, :remote => true, html: { id: 'edit_bashokubunmst', role: :form, 'data-model' => 'bashokubunmst' } do |f|
+          = f.hidden_field :場所区分コード
+          = f.input "場所区分名" do
+            = f.input_field :場所区分名, class: 'form-control'
+            .span.help-block
+          = f.button :submit, class: 'btn btn-primary'

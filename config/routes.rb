@@ -1,14 +1,34 @@
 Jpt::Application.routes.draw do
   Rails.application.routes.draw do
-
-  resources :tasks do
-    put :sort, on: :collection
-    collection {post :change_status, :ajax}
+    resources :tasks do
+      put :sort, on: :collection
+      collection {post :change_status, :ajax}
+    end
   end
-end
   get 'rorumenbas/new'
+  get 'kanris/index'
+  get 'kanri/index'
+  get 'main/search'
+  get 'helps' => 'helps#index'
+  get 'edit_help' => 'helps#edit_help'
+  post 'helps' => 'helps#index'
+  get "login" => "sessions#new"
+  post "login" => "sessions#create"
+  delete "logout" => "sessions#destroy"
+  get "confirm" => "sessions#send_mail"
+  post "confirm" => "sessions#confirm_mail"
+  get "login_code" => "sessions#login_code"
+  post "login_code" => "sessions#login_code_confirm"
+  match 'main', to: 'main#index', via: [:get]
 
-  get 'rorumasters/new'
+  resources :bashokubunmsts, :bunruis, :dengonkaitous, :dengonyoukens, :ekis, :jpt_holiday_msts,\
+            :kairanyokenmsts, :kaishamasters, :kikanmsts, :rorumasters, :setsubis, :shainmasters,\
+            :shozokumasters, :tsushinseigyous, :yakushokumasters do
+    collection do
+      get :export_csv
+      post :import
+    end
+  end
 
   resources :conversations do
     collection {post :update_message}
@@ -22,21 +42,11 @@ end
     collection {get :export_csv}
     collection {post :import}
   end
-  resources :setsubis do
-    collection {post :import, :ajax, :create_setsubi, :update_setsubi}
-    collection {get :export_csv}
-  end
+
   resources :settings do
     collection {post :import, :ajax}
     collection {get :export_csv, :setting}
   end
-  get 'kanris/index'
-
-  get 'kanri/index'
-  get 'main/search'
-  get 'helps' => 'helps#index'
-  get 'edit_help' => 'helps#edit_help'
-  post 'helps' => 'helps#index'
 
   resources :kairans do
     collection {post :confirm, :kaitou_create}
@@ -45,30 +55,10 @@ end
     collection {get :export_csv}
   end
 
-  resources :kairanyokenmsts do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_kairanyoken, :update_kairanyoken}
-  end
-
   resources :kairanshosais do
     collection {get :export_csv}
     collection {post :import}
-  end
-
-  resources :tsushinseigyous do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_tsushinseigyou, :update_tsushinseigyou}
-  end
-
-  resources :dengonyoukens do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_dengonyouken, :update_dengonyouken}
-  end
-
-  resources :dengonkaitous do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_dengonkaitou, :update_dengonkaitou}
-  end
+  end  
 
   resources :dengons do
     collection {get :export_csv}
@@ -79,35 +69,8 @@ end
     collection {post :ajax}
   end
 
-  get "login" => "sessions#new"
-  post "login" => "sessions#create"
-  delete "logout" => "sessions#destroy"
-  get "confirm" => "sessions#send_mail"
-  post "confirm" => "sessions#confirm_mail"
-  get "login_code" => "sessions#login_code"
-  post "login_code" => "sessions#login_code_confirm"
-  resources :bashokubunmsts  do
-    collection {post :import, :ajax, :create_bashokubunmst, :update_bashokubunmst}
-    collection {get :export_csv}
-  end
-
-  resources :bunruis do
-    collection {post :import, :ajax, :create_bunrui, :update_bunrui}
-    collection {get :export_csv}
-  end
-
   resources :shoninshamsts  do
     collection {post :import, :ajax, :create_shonin}
-    collection {get :export_csv}
-  end
-
-  resources :ekis do
-    collection {post :ajax, :import, :create_eki, :update_eki}
-    collection {get :export_csv}
-  end
-
-  resources :kikanmsts do
-    collection {post :import, :ajax, :create_kikan, :update_kikan}
     collection {get :export_csv}
   end
 
@@ -127,43 +90,27 @@ end
     collection {post :ajax, :import}
     collection {get :export_csv}
   end
+
   resources :mybashomasters do
     collection {post :ajax, :import}
     collection {get :export_csv}
-  end
-
-  resources :shainmasters do
-    collection { post :import }
-    collection { get :export_csv }
-  end
-
-
-  resources :jpt_holiday_msts do
-    collection { post :import }
-    collection { get :export_csv }
   end
 
   resources :jobmasters do
     collection {post :ajax, :import}
     collection {get :export_csv}
   end
+
   resources :myjobmasters do
     collection {post :ajax, :import}
     collection {get :export_csv}
   end
 
-	match 'main', to: 'main#index', via: [:get]
-
-  resources :users do
+	resources :users do
     collection {get :change_pass}
     collection {post :change_pass}
     collection {get :export_csv}
     collection {post :ajax, :import}
-  end
-
-  resources :yakushokumasters do
-    collection { post :import }
-    collection { get :export_csv }
   end
 
   resources :keihiheads do
@@ -176,18 +123,8 @@ end
     collection {get :export_csv}
   end
 
-  resources :shozokumasters do
-    collection { post :import }
-    collection { get :export_csv }
-  end
-
   resources :joutaimasters do
     collection {post :import, :multi_delete, :ajax, :create_joutai, :update_joutai}
-    collection {get :export_csv}
-  end
-
-  resources :kaishamasters, param: :id do
-    collection { post :import, :ajax, :create_kaisha, :update_kaisha}
     collection {get :export_csv}
   end
 
@@ -198,11 +135,6 @@ end
 
   resources :setsubiyoyakus do
     collection {post :import,:ajax}
-    collection {get :export_csv}
-  end
-
-  resources :rorumasters do
-    collection { post :import, :ajax, :multi_delete, :create_roru, :update_roru}
     collection {get :export_csv}
   end
 
@@ -232,8 +164,10 @@ end
     end
     resources :keihiheads, only: :index
   end
+
   resources :kintaiteeburus do
     collection {post :import,:ajax}
   end
+  
   root to: 'main#index'
 end
