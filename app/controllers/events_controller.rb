@@ -207,13 +207,10 @@ class EventsController < ApplicationController
   end
 
   def shutchou_ikkatsu_new
-    date = Date.today.to_s(:db)
-    vars = request.query_parameters
-    # param_date = vars['start_at']
-    param_date = vars['start_at'] || Date.today.to_s
-    @event = Event.new(shain_no: Shainmaster.find(session[:selected_shain]).id, 開始: "#{param_date} 09:00", 終了: "#{param_date} 18:00")
-
+    param_date = request.query_parameters['start_at'] || Date.today.strftime('%Y/%m/%d')
+    @event = Event.new(社員番号: session[:selected_shain], 開始: "#{ param_date } 09:00", 終了: "#{ param_date } 18:00")
   end
+
   def shutchou_create
     attributes = event_params.clone
     @event = User.find(session[:user]).shainmaster.events.new attributes
