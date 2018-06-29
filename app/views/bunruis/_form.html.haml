@@ -1,5 +1,0 @@
-= simple_form_for @bunrui do |f|
-  .col-md-2.col-xs-2.col-sm-2.col-lg-2.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
-    = f.input :分類コード, label: (t 'title.bunruicode') if mode == :new
-    = f.input :分類名, label: (t 'title.bunruimei')
-    = f.button :submit, (t 'helpers.submit.update'), class: 'btn btn-primary'

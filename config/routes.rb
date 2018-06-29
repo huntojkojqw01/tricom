@@ -92,8 +92,8 @@ end
   end
 
   resources :bunruis do
-    collection {post :import, :ajax, :create_bunrui, :update_bunrui}
-    collection {get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :shoninshamsts  do

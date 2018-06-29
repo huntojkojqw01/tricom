@@ -1,22 +1,9 @@
 class BunruisController < ApplicationController
   before_action :require_user!
-  before_action :set_bunrui, only: [:show, :edit, :update]
-
   respond_to :html, :js
 
   def index
     @bunruis = Bunrui.all
-  end
-
-  def show
-    respond_with(@bunrui)
-  end
-
-  def new
-    @bunrui = Bunrui.new    
-  end
-
-  def edit
   end
 
   def create
@@ -26,6 +13,7 @@ class BunruisController < ApplicationController
   end
 
   def update
+    @bunrui = Bunrui.find_by(分類コード: bunrui_params[:分類コード])
     flash[:notice] = t 'app.flash.update_success' if @bunrui.update(bunrui_params)
     respond_with(@bunrui)
   end
@@ -69,43 +57,15 @@ class BunruisController < ApplicationController
 
   def export_csv
     @bunruis = Bunrui.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @bunruis.to_csv, filename: '分類マスタ.csv' }
     end
   end
 
-  def ajax
-    case params[:focus_field]
-      when 'bunrui_削除する'
-        bunruiIds = params[:bunruis]
-        bunruiIds.each{ |bunruiId|
-          Bunrui.find_by(分類コード: bunruiId).destroy
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
-
-  def create_bunrui
-    @bunrui = Bunrui.new(bunrui_params)
-    @bunrui.save
-  end
-
-  def update_bunrui
-    @bunrui = Bunrui.find_by(分類コード: bunrui_params[:分類コード])
-    @bunrui.update(bunrui_params)
-  end
-
   private
-    def set_bunrui
-      @bunrui = Bunrui.find(params[:id])
-    end
 
-    def bunrui_params
-      params.require(:bunrui).permit(:分類コード, :分類名)
-    end
+  def bunrui_params
+    params.require(:bunrui).permit(:分類コード, :分類名)
+  end
+
 end
