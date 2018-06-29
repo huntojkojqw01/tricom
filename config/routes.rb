@@ -156,7 +156,7 @@ end
     collection {get :export_csv}
   end
 
-  resources :shozokumasters, :kaishamasters do
+  resources :shozokumasters, :kaishamasters, :rorumasters do
     collection { post :import }
     collection { get :export_csv }
   end
@@ -173,11 +173,6 @@ end
 
   resources :setsubiyoyakus do
     collection {post :import,:ajax}
-    collection {get :export_csv}
-  end
-
-  resources :rorumasters do
-    collection { post :import, :ajax, :multi_delete, :create_roru, :update_roru}
     collection {get :export_csv}
   end
 

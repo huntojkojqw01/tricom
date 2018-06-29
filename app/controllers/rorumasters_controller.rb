@@ -1,20 +1,10 @@
 class RorumastersController < ApplicationController
   before_action :require_user!
-  before_action :set_rorumaster, only: [:show, :edit, :update]
-  load_and_authorize_resource except: [:export_csv, :destroy]
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :index]
+  load_and_authorize_resource except: [:export_csv, :destroy, :update]
   respond_to :json, :js
+
   def index
     @rorumasters = Rorumaster.all    
-  end
-
-  def new
-    @rorumaster = Rorumaster.new
-    respond_with(@rorumaster)
-  end
-
-  def show
-    respond_with(@rorumaster)
   end
 
   def create
@@ -24,6 +14,7 @@ class RorumastersController < ApplicationController
   end
 
   def update
+    @rorumaster = Rorumaster.find_by(ロールコード: rorumaster_params[:ロールコード])
     @rorumaster.update(rorumaster_params)
     respond_with(@rorumaster)
   end
@@ -41,21 +32,6 @@ class RorumastersController < ApplicationController
       respond_with(@rorumaster)
     end
   end
-
-  def ajax
-    case params[:focus_field]
-      when 'rorumaster_削除する'
-        roruIds = params[:rorus]
-        roruIds.each{ |roruId|
-          Rorumaster.find_by(ロールコード: roruId).destroy
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
-  
 
   def import
     if params[:file].nil?
@@ -83,31 +59,14 @@ class RorumastersController < ApplicationController
   def export_csv
     @rorumasters = Rorumaster.all
     respond_to do |format|
-      format.html
       format.csv { send_data @rorumasters.to_csv, filename: 'ロールマスタ.csv' }
     end
   end
 
-  def create_roru
-    @rorumaster = Rorumaster.new(rorumaster_params)
-    @rorumaster.save
-  end
-
-  def update_roru
-    @rorumaster = Rorumaster.find_by(ロールコード: rorumaster_params[:ロールコード])
-    @rorumaster.update(rorumaster_params)
-  end
-  
   private
-    def set_rorumaster
-      @rorumaster = Rorumaster.find(params[:id])
-    end
 
-    def rorumaster_params
-      params.require(:rorumaster).permit :ロールコード, :ロール名, :序列
-    end
+  def rorumaster_params
+    params.require(:rorumaster).permit :ロールコード, :ロール名, :序列
+  end
 
-    def set_param
-      @rorumaster = Rorumaster.new()
-    end
 end

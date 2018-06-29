@@ -5,7 +5,7 @@
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
         %h4.modal-title#myModalLabel= (t 'title.new')
       .modal-body
-        = simple_form_for (Rorumaster.new), url: create_roru_rorumasters_path, :remote => true, html: {role: :form, 'data-model' => 'rorumaster'} do |f|
+        = simple_form_for :rorumaster, url: rorumasters_path, method: :post, :remote => true, html: { id: 'new_rorumaster', role: :form, 'data-model' => 'rorumaster'} do |f|
           = f.input :ロールコード do
             = f.input_field :ロールコード, class: 'form-control'
             .span.help-block
