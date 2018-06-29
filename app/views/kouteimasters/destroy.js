@@ -1,1 +1,0 @@
-$('#koutei_<%= @kouteimaster.id %>').remove();

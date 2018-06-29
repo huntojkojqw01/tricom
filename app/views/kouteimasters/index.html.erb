@@ -2,13 +2,8 @@
 <%provide(:title, (t 'title.kouteimaster'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
-  <!-- <li><a href="#">基準情報</a></li> -->
-  <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li class="active">工程マスタ</li>
 </ol>
-
-<!-- <h1>工程マスタ</h1> -->
-
 <table id="kouteimaster" class="kouteitable table table-striped table-bordered table-hover" cellspacing="0" width="100%">
   <thead>
     <tr>
@@ -34,5 +29,5 @@
 <% if can? :update, @kouteimasters %>  
   <%=render 'share/import_csv_modal',import_path: import_kouteimasters_path %>
 <% end %>
-<%= render 'koutei_new_modal' %>
-<%= render 'koutei_edit_modal' %>
+<%= render 'new' %>
+<%= render 'edit' %>

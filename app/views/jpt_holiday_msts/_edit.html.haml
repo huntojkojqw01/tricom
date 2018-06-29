@@ -5,17 +5,17 @@
         %button.close{type: :button, 'data-dismiss'=>"modal", 'aria-hidden'=>"true"} &times;
         %h4.modal-title#myModalLabel ジュピター休日編集
       .modal-body
-        = simple_form_for JptHolidayMst.new, url: update_holiday_jpt_holiday_msts_path, :remote => true, html: { id: 'edit_jpt_holiday_mst', role: :form, 'data-model' => 'jpt_holiday_mst'} do |f|
+        = simple_form_for :jpt_holiday_mst, url: jpt_holiday_mst_path(id: 0), method: :patch, :remote => true, html: { id: 'edit_jpt_holiday_mst', role: :form, 'data-model' => 'jpt_holiday_mst'} do |f|
           = f.input :ID, as: :hidden do
             = f.input_field :id, class: 'form-control'
             .span.help-block
-          = f.input :休日 do
-            = f.input_field :event_date, class: 'form-control'
+          = f.input :event_date, label: '休日' do
+            = f.input_field :event_date, as: :date_time_picker, class: 'form-control'
             .span.help-block
-          = f.input :タイトル do
+          = f.input :title, label: 'タイトル' do
             = f.input_field :title, class: 'form-control'
             .span.help-block
-          = f.input :備考 do
+          = f.input :description, label: '備考' do
             = f.input_field :description, class: 'form-control'
             .span.help-block
           = f.button :submit, class: 'btn btn-primary'

@@ -12,24 +12,20 @@ jQuery ->
 
   $('#holiday-new-modal').on 'show', ()->
     $(this).modal('show')
-    $('#jpt_holiday_mst_event_date').val('')
-    $('#jpt_holiday_mst_title').val('')
-    $('#jpt_holiday_mst_description').val('')
-    $('.form-group.has-error').each ()->
-      $('.help-block', $(this)).html('')
-      $(this).removeClass('has-error')
+    $(this).find('#jpt_holiday_mst_event_date').val('')
+    $(this).find('#jpt_holiday_mst_title').val('')
+    $(this).find('#jpt_holiday_mst_description').val('')
+    $(this).find('form').clear_previous_errors()
 
   $('#holiday-edit-modal').on 'show', (e, selected_row_data)->
     $(this).modal('show')
-    $('#jpt_holiday_mst_id').val(selected_row_data[0])
-    $('#jpt_holiday_mst_event_date').val(selected_row_data[1])
-    $('#jpt_holiday_mst_title').val(selected_row_data[2])
-    $('#jpt_holiday_mst_description').val(selected_row_data[3])
-    $('.form-group.has-error').each ()->
-      $('.help-block', $(this)).html('')
-      $(this).removeClass('has-error')
+    $(this).find('#jpt_holiday_mst_id').val(selected_row_data[0])
+    $(this).find('#jpt_holiday_mst_event_date').val(selected_row_data[1])
+    $(this).find('#jpt_holiday_mst_title').val(selected_row_data[2])
+    $(this).find('#jpt_holiday_mst_description').val(selected_row_data[3])
+    $(this).find('form').clear_previous_errors()
 
-  $('#holiday-new-modal .jpt_holiday_mst_休日 > .input-group').datetimepicker
+  $('.datetime').datetimepicker
     format: 'YYYY/MM/DD'
     widgetPositioning:
       horizontal: 'left'
@@ -38,14 +34,6 @@ jQuery ->
     keyBinds: false
     focusOnShow: false
   $('#holiday-new-modal #jpt_holiday_mst_event_date').click ()->
-    $('#holiday-new-modal .jpt_holiday_mst_休日 > .input-group').data('DateTimePicker').toggle()
-  $('#holiday-edit-modal .jpt_holiday_mst_休日 > .input-group').datetimepicker
-    format: 'YYYY/MM/DD'
-    widgetPositioning:
-      horizontal: 'left'
-    showTodayButton: true
-    showClear: true
-    keyBinds: false
-    focusOnShow: false
+    $('#holiday-new-modal .datetime').data('DateTimePicker').toggle()
   $('#holiday-edit-modal #jpt_holiday_mst_event_date').click ()->
-    $('#holiday-edit-modal .jpt_holiday_mst_休日 > .input-group').data('DateTimePicker').toggle()
+    $('#holiday-edit-modal .datetime').data('DateTimePicker').toggle()

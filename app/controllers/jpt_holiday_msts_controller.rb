@@ -1,8 +1,6 @@
 class JptHolidayMstsController < ApplicationController
   before_action :require_user!
-  before_action :set_jpt_holiday_mst, only: [:show, :edit, :update]
-  load_and_authorize_resource except: [:export_csv, :destroy]
-
+  load_and_authorize_resource except: [:export_csv, :update, :destroy]
   respond_to :js,:html
 
   def index
@@ -10,25 +8,15 @@ class JptHolidayMstsController < ApplicationController
     respond_with(@jpt_holiday_msts)
   end
 
-  def show
-    respond_with(@jpt_holiday_mst)
-  end
-
-  def new
-    @jpt_holiday_mst = JptHolidayMst.new
-    respond_with(@jpt_holiday_mst)
-  end
-
-  def edit
-  end
-
   def create
     @jpt_holiday_mst = JptHolidayMst.new(jpt_holiday_mst_params)
     flash[:notice] = t 'app.flash.new_success' if @jpt_holiday_mst.save
+    puts @jpt_holiday_mst.errors.full_messages
     respond_with(@jpt_holiday_mst)
   end
 
   def update
+    @jpt_holiday_mst = JptHolidayMst.find_by(id: jpt_holiday_mst_params[:id])
     flash[:notice] = t 'app.flash.update_success' if @jpt_holiday_mst.update(jpt_holiday_mst_params)
     respond_with(@jpt_holiday_mst)
   end
@@ -46,19 +34,7 @@ class JptHolidayMstsController < ApplicationController
       respond_with(@jpt_holiday_mst, location: jpt_holiday_msts_path)
     end
   end
-  def ajax
-    case params[:focus_field]
-      when 'holiday_削除する'
-        params[:holidays].each {|holiday_code|
-          holiday=JptHolidayMst.find(holiday_code)
-          holiday.destroy if holiday
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-          format.json { render json: data}
-        end        
-    end
-  end
+
   def import
     if params[:file].nil?
       flash[:alert] = t 'app.flash.file_nil'
@@ -85,22 +61,12 @@ class JptHolidayMstsController < ApplicationController
   def export_csv
     @jpt_holidays = JptHolidayMst.all
     respond_to do |format|
-      format.html
       format.csv { send_data @jpt_holidays.to_csv, filename: 'ジュピター休日.csv' }
     end
   end
 
-  def create_holiday
-    @jpt_holiday_mst = JptHolidayMst.new(jpt_holiday_mst_params)
-    @jpt_holiday_mst.save
-  end
-
-  def update_holiday
-    @jpt_holiday_mst = JptHolidayMst.find(jpt_holiday_mst_params[:id])
-    @jpt_holiday_mst.update(jpt_holiday_mst_params)
-  end
-
   private
+
   def set_jpt_holiday_mst
     @jpt_holiday_mst = JptHolidayMst.find_by id: params[:id]
   end
@@ -108,4 +74,5 @@ class JptHolidayMstsController < ApplicationController
   def jpt_holiday_mst_params
     params.require(:jpt_holiday_mst).permit(:id, :event_date, :title, :description)
   end
+
 end

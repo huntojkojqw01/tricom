@@ -2,12 +2,8 @@
 <%provide(:title, (t 'title.jpt_hokiday_mst'))%>
 <ol class="breadcrumb">
   <li><%= link_to 'メニュー', main_path %></li>
-  <!-- <li><a href="#">基準情報</a></li> -->
-  <!-- <li><a href="#">セキュリティ管理</a></li> -->
   <li class="active">ジュピター休日</li>
 </ol>
-
-
 <table id="holiday_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
   <thead>
   <tr>
@@ -32,8 +28,5 @@
 <% if can? :update, @jpt_holiday_msts %>
   <%=render 'share/import_csv_modal',import_path: import_jpt_holiday_msts_path%>
 <% end %>
-<%= render 'holiday_edit_modal' %>
-<%= render 'holiday_new_modal' %>
-
-
-
+<%= render 'new' %>
+<%= render 'edit' %>

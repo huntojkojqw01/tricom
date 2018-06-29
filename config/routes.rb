@@ -139,8 +139,8 @@ end
 
 
   resources :jpt_holiday_msts do
-    collection {post :ajax, :import, :create_holiday, :update_holiday}
-    collection{get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :jobmasters do
@@ -218,9 +218,8 @@ end
 
   constraints(:id => /\w+(,\w+)*/) do
     resources :kouteimasters do
-      collection {post :ajax,:multi_delete, :create_koutei, :update_koutei}
-      collection{post :import}
-      collection {get :export_csv}
+      collection { post :import }
+      collection { get :export_csv }
     end
   end
 
