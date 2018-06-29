@@ -1,14 +1,34 @@
 Jpt::Application.routes.draw do
   Rails.application.routes.draw do
-
-  resources :tasks do
-    put :sort, on: :collection
-    collection {post :change_status, :ajax}
+    resources :tasks do
+      put :sort, on: :collection
+      collection {post :change_status, :ajax}
+    end
   end
-end
   get 'rorumenbas/new'
+  get 'kanris/index'
+  get 'kanri/index'
+  get 'main/search'
+  get 'helps' => 'helps#index'
+  get 'edit_help' => 'helps#edit_help'
+  post 'helps' => 'helps#index'
+  get "login" => "sessions#new"
+  post "login" => "sessions#create"
+  delete "logout" => "sessions#destroy"
+  get "confirm" => "sessions#send_mail"
+  post "confirm" => "sessions#confirm_mail"
+  get "login_code" => "sessions#login_code"
+  post "login_code" => "sessions#login_code_confirm"
+  match 'main', to: 'main#index', via: [:get]
 
-  get 'rorumasters/new'
+  resources :bashokubunmsts, :bunruis, :dengonkaitous, :dengonyoukens, :ekis, :jpt_holiday_msts,\
+            :kairanyokenmsts, :kaishamasters, :kikanmsts, :rorumasters, :setsubis, :shainmasters,\
+            :shozokumasters, :tsushinseigyous, :yakushokumasters do
+    collection do
+      get :export_csv
+      post :import
+    end
+  end
 
   resources :conversations do
     collection {post :update_message}
@@ -27,13 +47,6 @@ end
     collection {post :import, :ajax}
     collection {get :export_csv, :setting}
   end
-  get 'kanris/index'
-
-  get 'kanri/index'
-  get 'main/search'
-  get 'helps' => 'helps#index'
-  get 'edit_help' => 'helps#edit_help'
-  post 'helps' => 'helps#index'
 
   resources :kairans do
     collection {post :confirm, :kaitou_create}
@@ -45,12 +58,7 @@ end
   resources :kairanshosais do
     collection {get :export_csv}
     collection {post :import}
-  end
-
-  resources :dengonkaitous, :dengonyoukens, :kairanyokenmsts, :setsubis, :tsushinseigyous do
-    collection { get :export_csv }
-    collection { post :import }
-  end
+  end  
 
   resources :dengons do
     collection {get :export_csv}
@@ -59,18 +67,6 @@ end
   resources :main, only: [:index] do
     collection {get :search}
     collection {post :ajax}
-  end
-
-  get "login" => "sessions#new"
-  post "login" => "sessions#create"
-  delete "logout" => "sessions#destroy"
-  get "confirm" => "sessions#send_mail"
-  post "confirm" => "sessions#confirm_mail"
-  get "login_code" => "sessions#login_code"
-  post "login_code" => "sessions#login_code_confirm"
-  resources :bashokubunmsts, :bunruis, :ekis, :kikanmsts do
-    collection { post :import }
-    collection { get :export_csv }
   end
 
   resources :shoninshamsts  do
@@ -94,43 +90,27 @@ end
     collection {post :ajax, :import}
     collection {get :export_csv}
   end
+
   resources :mybashomasters do
     collection {post :ajax, :import}
     collection {get :export_csv}
-  end
-
-  resources :shainmasters do
-    collection { post :import }
-    collection { get :export_csv }
-  end
-
-
-  resources :jpt_holiday_msts do
-    collection { post :import }
-    collection { get :export_csv }
   end
 
   resources :jobmasters do
     collection {post :ajax, :import}
     collection {get :export_csv}
   end
+
   resources :myjobmasters do
     collection {post :ajax, :import}
     collection {get :export_csv}
   end
 
-	match 'main', to: 'main#index', via: [:get]
-
-  resources :users do
+	resources :users do
     collection {get :change_pass}
     collection {post :change_pass}
     collection {get :export_csv}
     collection {post :ajax, :import}
-  end
-
-  resources :yakushokumasters do
-    collection { post :import }
-    collection { get :export_csv }
   end
 
   resources :keihiheads do
@@ -141,11 +121,6 @@ end
 
   resources :keihibodies do
     collection {get :export_csv}
-  end
-
-  resources :shozokumasters, :kaishamasters, :rorumasters do
-    collection { post :import }
-    collection { get :export_csv }
   end
 
   resources :joutaimasters do
@@ -189,8 +164,10 @@ end
     end
     resources :keihiheads, only: :index
   end
+
   resources :kintaiteeburus do
     collection {post :import,:ajax}
   end
+  
   root to: 'main#index'
 end
