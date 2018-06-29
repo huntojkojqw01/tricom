@@ -1,23 +1,10 @@
 class DengonkaitousController < ApplicationController
   before_action :require_user!
-  before_action :set_dengonkaitou, only: [:show, :edit, :update]
-
   respond_to :html, :js
 
   def index
     @dengonkaitous = Dengonkaitou.all
     respond_with(@dengonkaitous)
-  end
-
-  def show
-  end
-
-  def new
-    @dengonkaitou = Dengonkaitou.new
-    respond_with(@dengonkaitou)
-  end
-
-  def edit
   end
 
   def create
@@ -27,6 +14,7 @@ class DengonkaitousController < ApplicationController
   end
 
   def update
+    @dengonkaitou = Dengonkaitou.find_by(id: dengonkaitou_params[:id])
     @dengonkaitou.update(dengonkaitou_params)
     respond_with(@dengonkaitou, location: dengonkaitous_url)
   end
@@ -70,43 +58,15 @@ class DengonkaitousController < ApplicationController
 
   def export_csv
     @dengonkaitous = Dengonkaitou.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @dengonkaitous.to_csv, filename: '伝言回答マスタ.csv' }
     end
   end
 
-  def ajax
-    case params[:focus_field]
-      when 'dengonkaitou_削除する'
-        dengonkaitouIds = params[:dengonkaitous]
-        dengonkaitouIds.each{ |dengonkaitouId|
-          Dengonkaitou.find_by(id: dengonkaitouId).destroy
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
-
-  def create_dengonkaitou
-    @dengonkaitou = Dengonkaitou.new(dengonkaitou_params)
-    @dengonkaitou.save
-  end
-
-  def update_dengonkaitou
-    @dengonkaitou = Dengonkaitou.find_by(id: dengonkaitou_params[:id])
-    @dengonkaitou.update(dengonkaitou_params)
-  end
-
   private
-    def set_dengonkaitou
-      @dengonkaitou = Dengonkaitou.find(params[:id])
-    end
 
-    def dengonkaitou_params
-      params.require(:dengonkaitou).permit(:種類名, :備考, :id)
-    end
+  def dengonkaitou_params
+    params.require(:dengonkaitou).permit(:種類名, :備考, :id)
+  end
+
 end

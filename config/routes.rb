@@ -66,8 +66,8 @@ end
   end
 
   resources :dengonkaitous do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_dengonkaitou, :update_dengonkaitou}
+    collection { get :export_csv }
+    collection { post :import }
   end
 
   resources :dengons do
