@@ -18,5 +18,5 @@
         %td= eki.駅名カナ
 - if can? :update, @ekis
   = render 'share/import_csv_modal' ,import_path: import_ekis_path
-= render 'eki_new_modal'
-= render 'eki_edit_modal'
+= render 'new'
+= render 'edit'

@@ -102,8 +102,8 @@ end
   end
 
   resources :ekis do
-    collection {post :ajax, :import, :create_eki, :update_eki}
-    collection {get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :kikanmsts do
