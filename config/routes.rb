@@ -61,8 +61,8 @@ end
   end
 
   resources :dengonyoukens do
-    collection {get :export_csv}
-    collection {post :import, :ajax, :create_dengonyouken, :update_dengonyouken}
+    collection { get :export_csv }
+    collection { post :import }
   end
 
   resources :dengonkaitous do
