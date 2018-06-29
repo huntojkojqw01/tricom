@@ -37,11 +37,24 @@ jQuery ->
         when 'event_場所コード' then $('#mybasho_search_modal').trigger('show', [input.val()])
         when 'event_JOB' then $('#myjob_search_modal').trigger('show', [input.val()])
 
-  $('#joutai_search_modal').on 'choose_joutai', (e, selected_data)->
+  setup_tab_render_name
+    input: $('#event_状態コード')
+    output: $('.hint-joutai-refer')
+    table: $('#joutai_table')
+  setup_tab_render_name
+    input: $('#event_場所コード')
+    output: $('.hint-basho-refer')
+    table: $('#basho_table')
+  setup_tab_render_name
+    input: $('#event_JOB')
+    output: $('.hint-job-refer')
+    table: $('#job_table')
+
+  $('#joutai_table').on 'choose_joutai', (e, selected_data)->
     if selected_data != undefined
       # fill data to this input
       $('#event_状態コード').val(selected_data[0])
-      $('hint-joutai-refer').val(selected_data[1])
+      $('.hint-joutai-refer').text(selected_data[1])
       $('#event_状態コード').closest('.form-group').find('span.help-block').remove()
       $('#event_状態コード').closest('.form-group').removeClass('has-error')
 

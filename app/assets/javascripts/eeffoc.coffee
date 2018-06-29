@@ -253,3 +253,16 @@ jQuery ->
           $("#edit").removeClass("disabled")
         else
           $("#edit").addClass("disabled")
+  # ham thuc hien chuc nang bam Tab thi se hien name tuong ung voi code 
+  window.setup_tab_render_name = (args)->
+    args.input.keydown (e)->
+      if (e.keyCode == 9 && !e.shiftKey)
+        code = $(this).val()
+        table = args.table.DataTable()
+        row = table.row (idx, data, node) ->
+          if data[args.index_of_input || 0] == code then true else false
+        tmp = if row.length > 0 then row.data()[args.index_of_output || 1] else ''
+        if args.output.is('input')
+          args.output.val(tmp)
+        else
+          args.output.text(tmp)
