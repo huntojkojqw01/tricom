@@ -1,26 +1,11 @@
 class KikanmstsController < ApplicationController
   before_action :require_user!
-  before_action :set_kikanmst, only: [:show, :edit, :update]
-  before_action :set_param, only: [ :create, :new, :show, :edit, :update, :index]
-  load_and_authorize_resource except: [:export_csv, :destroy]
-
-  respond_to :html
+  load_and_authorize_resource except: [:export_csv, :destroy, :update]
+  respond_to :js
 
   def index
     @kikanmsts = Kikanmst.all
     respond_with(@kikanmsts)
-  end
-
-  def show
-    respond_with(@kikanmst)
-  end
-
-  def new
-    @kikanmst = Kikanmst.new
-    respond_with(@kikanmst)
-  end
-
-  def edit
   end
 
   def create
@@ -30,6 +15,7 @@ class KikanmstsController < ApplicationController
   end
 
   def update
+    @kikanmst = Kikanmst.find_by(機関コード: kikanmst_params[:機関コード])
     @kikanmst.update(kikanmst_params)
     respond_with(@kikanmst)
   end
@@ -47,20 +33,7 @@ class KikanmstsController < ApplicationController
       respond_with(@kikanmst)
     end
   end
-  def ajax
-    case params[:focus_field]
-      when 'kikan_削除する'
-        params[:kikans].each {|kikan_code|
-          p kikan_code
-          kikan=Kikanmst.find(kikan_code)
-          kikan.destroy if kikan
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-          format.json { render json: data}
-        end        
-    end
-  end
+
   def import
     if params[:file].nil?
       flash[:alert] = t 'app.flash.file_nil'
@@ -86,33 +59,15 @@ class KikanmstsController < ApplicationController
 
   def export_csv
     @kikanmsts = Kikanmst.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @kikanmsts.to_csv, filename: '機関マスタ.csv' }
     end
-  end  
-
-  def create_kikan
-    @kikanmst = Kikanmst.new(kikanmst_params)
-    @kikanmst.save
-  end
-
-  def update_kikan
-    @kikanmst = Kikanmst.find(kikanmst_params[:機関コード])
-    @kikanmst.update(kikanmst_params)
   end
 
   private
-    def set_kikanmst
-      @kikanmst = Kikanmst.find(params[:id])
-    end
 
-    def kikanmst_params
-      params.require(:kikanmst).permit(:機関コード, :機関名, :備考 )
-    end
+  def kikanmst_params
+    params.require(:kikanmst).permit(:機関コード, :機関名, :備考 )
+  end
 
-    def set_param
-      @kikanmst = Kikanmst.new
-    end
 end

@@ -81,28 +81,13 @@ end
   post "confirm" => "sessions#confirm_mail"
   get "login_code" => "sessions#login_code"
   post "login_code" => "sessions#login_code_confirm"
-  resources :bashokubunmsts  do
-    collection { post :import }
-    collection { get :export_csv }
-  end
-
-  resources :bunruis do
+  resources :bashokubunmsts, :bunruis, :ekis, :kikanmsts do
     collection { post :import }
     collection { get :export_csv }
   end
 
   resources :shoninshamsts  do
     collection {post :import, :ajax, :create_shonin}
-    collection {get :export_csv}
-  end
-
-  resources :ekis do
-    collection { post :import }
-    collection { get :export_csv }
-  end
-
-  resources :kikanmsts do
-    collection {post :import, :ajax, :create_kikan, :update_kikan}
     collection {get :export_csv}
   end
 
