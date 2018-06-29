@@ -87,8 +87,8 @@ end
   get "login_code" => "sessions#login_code"
   post "login_code" => "sessions#login_code_confirm"
   resources :bashokubunmsts  do
-    collection {post :import, :ajax, :create_bashokubunmst, :update_bashokubunmst}
-    collection {get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :bunruis do

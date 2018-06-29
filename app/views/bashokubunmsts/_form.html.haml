@@ -1,6 +1,0 @@
-= simple_form_for @bashokubunmst do |f|
-  .col-md-2.col-xs-2.col-sm-2.col-lg-2.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
-    = f.input :場所区分コード if mode == :new
-    = f.input :場所区分名
-
-    = f.button :submit, (t 'helpers.submit.update'), class: 'btn btn-primary'

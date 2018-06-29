@@ -1,24 +1,10 @@
 class BashokubunmstsController < ApplicationController
   before_action :require_user!
-  before_action :set_bashokubunmst, only: [:show, :edit, :update]
-
   respond_to :html, :js
 
   def index
     @bashokubunmsts = Bashokubunmst.all
     respond_with(@bashokubunmsts)
-  end
-
-  def show
-    respond_with(@bashokubunmst)
-  end
-
-  def new
-    @bashokubunmst = Bashokubunmst.new
-    respond_with(@bashokubunmst)
-  end
-
-  def edit
   end
 
   def create
@@ -28,6 +14,7 @@ class BashokubunmstsController < ApplicationController
   end
 
   def update
+    @bashokubunmst = Bashokubunmst.find_by(場所区分コード: bashokubunmst_params[:場所区分コード])
     flash[:notice] = t 'app.flash.update_success' if @bashokubunmst.update(bashokubunmst_params)
     respond_with(@bashokubunmst)
   end
@@ -71,42 +58,15 @@ class BashokubunmstsController < ApplicationController
 
   def export_csv
     @bashokubunmsts = Bashokubunmst.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @bashokubunmsts.to_csv, filename: '場所区分マスタ.csv' }
     end
   end
 
-  def ajax
-    case params[:focus_field]
-      when 'bashokubunmst_削除する'
-        bashokubunmstIds = params[:bashokubunmsts]
-        bashokubunmstIds.each{ |bashokubunmstId|
-          Bashokubunmst.find_by(場所区分コード: bashokubunmstId).destroy
-        }
-        data = {destroy_success: 'success'}
-        respond_to do |format|
-        format.json { render json: data}
-      end
-    end
-  end
-
-    def create_bashokubunmst
-    @bashokubunmst = Bashokubunmst.new(bashokubunmst_params)
-    @bashokubunmst.save
-    end
-
-  def update_bashokubunmst
-    @bashokubunmst = Bashokubunmst.find_by(場所区分コード: bashokubunmst_params[:場所区分コード])
-    @bashokubunmst.update(bashokubunmst_params)
-  end
   private
-    def set_bashokubunmst
-      @bashokubunmst = Bashokubunmst.find(params[:id])
-    end
 
-    def bashokubunmst_params
-      params.require(:bashokubunmst).permit(:場所区分コード, :場所区分名)
-    end
+  def bashokubunmst_params
+    params.require(:bashokubunmst).permit(:場所区分コード, :場所区分名)
+  end
+
 end
