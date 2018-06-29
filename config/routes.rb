@@ -139,8 +139,8 @@ end
 
 
   resources :jpt_holiday_msts do
-    collection {post :ajax, :import, :create_holiday, :update_holiday}
-    collection{get :export_csv}
+    collection { post :import }
+    collection { get :export_csv }
   end
 
   resources :jobmasters do

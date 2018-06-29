@@ -8,7 +8,7 @@ $('form#new_' + model).clear_previous_errors()
   $('#holiday-new-modal').modal('hide');
   $('#holiday_table').DataTable().row.add( [
     "<%=@jpt_holiday_mst.id%>",
-    "<%=@jpt_holiday_mst.event_date%>",
+    "<%=@jpt_holiday_mst.event_date.try(:strftime, '%Y/%m/%d')%>",
     "<%=@jpt_holiday_mst.title%>",
     "<%=@jpt_holiday_mst.description%>"
   ]).draw( false );
