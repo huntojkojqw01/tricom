@@ -30,16 +30,20 @@ jQuery ->
       when 'myjobmaster_入力社員番号' then $('#select_user_modal_refer').trigger('show', [input.val()])
       when 'myjobmaster_関連Job番号' then $('#job_search_modal').trigger('show', [input.val()])
 
-  $('#myjobmaster_ユーザ番号').keydown (e)->
-    if (e.keyCode == 9 && !e.shiftKey)
-      kaisha_code = $('#myjobmaster_ユーザ番号').val()
-      oKaisha_modal = $('#kaisha-table-modal').DataTable()
-      row_can_tim = oKaisha_modal.row (idx, data, node)->
-        if data[0] == kaisha_code then true else false
-      if row_can_tim.length > 0
-        $('#myjobmaster_ユーザ名').val(row_can_tim.data()[1])
-      else
-        $('#myjobmaster_ユーザ名').val('')      
+  setup_tab_render_name
+    input: $('#myjobmaster_ユーザ番号')
+    output: $('#myjobmaster_ユーザ名')
+    table: $('#kaisha-table-modal')
+
+  setup_tab_render_name
+    input: $('#myjobmaster_入力社員番号')
+    output: $('.hint-shain-refer')
+    table: $('#user_table')
+
+  setup_tab_render_name
+    input: $('#myjobmaster_関連Job番号')
+    output: $('.hint-job-refer')
+    table: $('#job_table')
   
   $('#kaisha-table-modal').on 'choose_kaisha', (e, selected_data)->
     if selected_data != undefined
