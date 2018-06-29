@@ -22,10 +22,7 @@ end
     collection {get :export_csv}
     collection {post :import}
   end
-  resources :setsubis do
-    collection {post :import, :ajax, :create_setsubi, :update_setsubi}
-    collection {get :export_csv}
-  end
+
   resources :settings do
     collection {post :import, :ajax}
     collection {get :export_csv, :setting}
@@ -55,12 +52,7 @@ end
     collection {post :import, :ajax, :create_tsushinseigyou, :update_tsushinseigyou}
   end
 
-  resources :dengonyoukens, :kairanyokenmsts do
-    collection { get :export_csv }
-    collection { post :import }
-  end
-
-  resources :dengonkaitous do
+  resources :dengonkaitous, :dengonyoukens, :kairanyokenmsts, :setsubis do
     collection { get :export_csv }
     collection { post :import }
   end
