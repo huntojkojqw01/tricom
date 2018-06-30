@@ -87,6 +87,10 @@ jQuery ->
       $('#event_JOB').prop('disabled', tmp)
       $('#event_工程コード').prop('disabled', tmp)
 
+  $('#daikyu_table').on 'choose_daikyu', (e, selected_data)->
+    if selected_data != undefined
+      $('#kintai_daikyu').val(selected_data[0])
+
   $('#basho_table').on 'choose_basho', (e, selected_data)->
     if selected_data != undefined
       $('#event_場所コード').val(selected_data[0])

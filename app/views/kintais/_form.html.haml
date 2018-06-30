@@ -1,3 +1,4 @@
+= javascript_include_tag 'kintais/form'
 = simple_form_for @kintai do |f|
   .row
     .col-md-3.col-xs-3.col-sm-3.col-lg-3.col-sm-offset-1
@@ -5,18 +6,7 @@
         .col-md-10.col-xs-8.col-sm-8.col-lg-8
           = f.input :勤務タイプ, collection: (Kintai::KINMU_TYPE).map { |key, val| ["#{ key } → #{ val[:text] }", key] }
           = f.input :出勤時刻, as: :date_time_picker
-          -#= f.input :出勤時刻, as: :string, wrapper: :vertical_custom_input_group do
-          -#  = f.input_field :出勤時刻, as: :string, class: 'form-control'
-          -#  %span.input-group-btn
-          -#    %button.btn.btn-default.start-time
-          -#      %span.glyphicon.glyphicon-hand-right
           = f.input :退社時刻, as: :date_time_picker
-          -#= f.input :退社時刻, as: :string, wrapper: :vertical_custom_input_group do
-          -#  = f.input_field :退社時刻, as: :string, class: 'form-control'
-          -#  %span.input-group-btn
-          -#    %button.btn.btn-default.end-time
-          -#      %span.glyphicon.glyphicon-hand-right
-          -#= text_field_tag :kyukei, '', placeholder: '休憩時間', style: 'width: 100px'
           = f.button :button, type: :button, id: 'time-cal', class: 'kintai-hand-right-bt' do
             実労働時間再計算
             %span.glyphicon.glyphicon-hand-right
