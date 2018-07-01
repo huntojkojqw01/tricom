@@ -9,6 +9,7 @@ class EventsController < ApplicationController
 
   def index
     @shains = Shainmaster.includes(:shozokumaster, :yakushokumaster, :shozai).reorder(:序列, :社員番号).where(社員番号: User.all.ids)
+    session[:selected_shain] = params[:selected_user] if params[:selected_user].present?
     session[:selected_shain] = current_user.id unless session[:selected_shain].present?
     @events = Event.includes(:jobmaster, :joutaimaster, :kouteimaster, bashomaster: :kaishamaster )
                   .where(社員番号: session[:selected_shain])

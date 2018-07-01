@@ -88,7 +88,7 @@
     .row
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
         = f.input :場所コード, label: (t 'title.basho'), input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.bashomaster.try :場所名}", hint_html: {class: 'hint-basho-refer'}
-        = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{get_shozoku(session[:selected_shain]).所属コード}"}, as: :hidden
+        = f.input :所属コード, label: (t 'title.shozokucode'), input_html:{value: "#{ Shainmaster.find_by(社員番号: session[:selected_shain]).try(:所属コード) }"}, as: :hidden
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
         = f.input :JOB, input_html: {style: 'width:100px'}, as: :search_history, hint:"#{@event.jobmaster.try :job名}", hint_html: {class: 'hint-job-refer'}
       .col-md-4.col-xs-4.col-sm-4.col-lg-4
