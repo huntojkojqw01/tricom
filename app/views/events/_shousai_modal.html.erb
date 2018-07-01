@@ -1,4 +1,3 @@
-<%= javascript_include_tag 'events/shousai_modal' %>
 <div class="modal" id="shousai_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="width:1024px">
     <div class="modal-content">
@@ -7,49 +6,7 @@
         <h4 class="modal-title" id="myModalLabel">詳細一覧</h4>
       </div>
       <div class="modal-body">
-        <div class="row">
-          <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-            <table id="event_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-              <thead>
-                <tr>
-                  <th>id</th>                            
-                  <th><%=(t 'title.kaishijikoku')%></th>
-                  <th><%=(t 'title.shyuuryoujikoku')%></th>
-                  <th><%=(t 'title.joutai')%></th>
-                  <th><%=(t 'title.basho')%></th>
-                  <th>JOB</th>
-                  <th><%=(t 'title.kouteimei')%></th>
-                  <th><%=(t 'title.koushuu')%></th>
-                  <th><%=(t 'title.keijyou')%></th>
-                  <th>&nbsp;</th>
-                </tr>
-              </thead>
-              <tbody>
-                <% @events.each do |event| %>
-                  <tr>
-                    <td><%= event.id %></td>                
-                    <td><%= event.開始 %></td>
-                    <td><%= event.終了 %></td>
-                    <td><%= event.joutaimaster.try :name %></td>
-                    <%
-                      if event.bashomaster
-                        basho_name = event.bashomaster.name
-                        basho_name = event.bashomaster.kaisha_name if event.bashomaster.場所区分 == '2'
-                      end
-                    %>
-                    <td><%= basho_name %></td>
-                    <td><%= event.job_job名 %></td>
-                    <td><%= event.koutei_工程名 %></td>
-                    <td><%= event.工数 %></td>
-                    <td><%= event.計上 %></td>
-                    <td><%= link_to '詳細',edit_event_path(event)%></td>
-                  </tr>
-                <% end %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <%=render 'share/import_csv_modal',import_path: import_events_path %>
+        <%= render 'event_table' %>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>

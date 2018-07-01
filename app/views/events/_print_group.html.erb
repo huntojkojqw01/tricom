@@ -1,0 +1,77 @@
+<% if div_in_modal %>
+  <%= javascript_include_tag 'events/modal_print_group' %>
+  <div id='modal_print_group'>
+    <ul class="nav nav-tabs">
+      <li class="active" id="modal_pdf_event"><a href="#"><%=(t 'app.label.pdf_event')%></a></li>
+      <li id="modal_pdf_job"><a href="#"><%=(t 'app.label.pdf_event_job')%></a></li>
+      <li id="modal_pdf_koutei"><a href="#"><%=(t 'app.label.pdf_event_koutei')%></a></li>
+    </ul>
+    <div id="modal_selectDay" >
+      <div class="row spacer">
+        <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-offset-1">
+          <label>開始</label>
+          <div class="input-group modal_date_start_select">
+            <input type='text' class="form-control" id="modal_date_start_input" name="modal_date_start_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_start" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 ">
+          <label>終了</label>
+          <div class="input-group modal_date_end_select">
+            <input type='text' class="form-control" id="modal_date_end_input" name="modal_date_end_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_end" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-1 col-xs-4 col-sm-4 col-lg-1">
+          <label>&nbsp;</label>
+          <div>
+            <span id="modal_print_pdf" class="btn btn-primary"><%=(t 'app.label.export_pdf')%></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% else %>
+  <%= javascript_include_tag 'events/print_group' %>
+  <div id='print_group'>
+    <div class="row">
+      <div class="col-md-6 col-xs-8 col-sm-8 col-lg-6 col-md-offset-4 col-xs-offset-2 col-sm-offset-3 col-lg-offset-4">
+        <button class='btn btn-primary' id='pdf_event'><%=(t 'app.label.pdf_event')%></button>
+        <button class='btn btn-primary' id='pdf_job'><%=(t 'app.label.pdf_event_job')%></button>
+        <button class='btn btn-primary' id='pdf_koutei'><%=(t 'app.label.pdf_event_koutei')%></button>
+      </div>
+    </div>
+    <div id="selectDay" hidden>
+      <div class="row spacer">
+        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 col-md-offset-4 col-xs-offset-1 col-sm-offset-3 col-lg-offset-4">
+          <label>開始</label>
+          <div class="input-group date_start_select">
+            <input type='text' class="form-control" id="date_start_input" name="date_start_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_start" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 ">
+          <label>終了</label>
+          <div class="input-group date_end_select">
+            <input type='text' class="form-control" id="date_end_input" name="date_end_input">
+            <span class="input-group-addon">
+              <span class="glyphicon glyphicon-calendar" id="icon_end" aria-hidden="true"></span>
+            </span>
+          </div>
+        </div>
+        <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
+          <label>&nbsp;</label>
+          <div>
+            <span id="print_pdf" class="btn btn-default"><%=(t 'app.label.export_pdf')%></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

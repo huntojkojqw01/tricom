@@ -13,13 +13,14 @@ jQuery ->
   $('#modal_date_end_input').click ->
     $('.modal_date_end_select').data("DateTimePicker").toggle()
 
-  $('#print_modal li').click ->
-    $('#print_modal li.active').removeClass('active')
+  reset_start_end_date()
+  $('#modal_print_group li').click ->
+    $('#modal_print_group li.active').removeClass('active')
     $(this).addClass('active')
     reset_start_end_date()
 
-  $('#print_pdf').click ->
-    switch $('#print_modal li.active').attr('id')
+  $('#modal_print_pdf').click ->
+    switch $('#modal_print_group li.active').attr('id')
       when 'modal_pdf_event'
         action = 'pdf_event_show'
       when 'modal_pdf_job'
