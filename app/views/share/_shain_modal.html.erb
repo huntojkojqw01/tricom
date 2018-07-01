@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'share/shain_modal' %>
 <div class="modal fade" id="select_user_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -6,8 +7,6 @@
         <h4 class="modal-title" id="myModalLabel">社員選択</h4>
       </div>
       <div class="modal-body">
-        <%# Render the new person form (passing modal => true to enable remote => true) %>
-
         <table id="user_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
           <thead>
           <tr>
@@ -34,8 +33,8 @@
         <div class="pull-left">
           <%= link_to '社員マスタ管理へ',shainmasters_path %>
         </div>
-        <%= f.submit current_user.担当者名称, class: 'btn btn-default', id:'current_user_button', style: "display:none" %>
-        <%= f.submit (t 'helpers.submit.ok'), class: 'btn btn-default', id:'user_sentaku_ok'%>
+        <span type="button" class='btn btn-default' data-dismiss="modal" id='current_user_button'><%= current_user.担当者名称  %></span>
+        <span type="button" class="btn btn-primary" data-dismiss="modal" id="user_sentaku_ok">　ＯＫ　</span>
         <button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
       </div>
     </div>
