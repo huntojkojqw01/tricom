@@ -1,8 +1,7 @@
-<%= javascript_include_tag 'event' %>
-<%= javascript_include_tag 'events' %>
-<%= javascript_include_tag 'resource/ja' %>
+<%= javascript_include_tag 'events/index' %>
 <%= stylesheet_link_tag 'events' %>
-<%provide(:title, (t 'title.event'))%>
+<% provide(:title, (t 'title.event')) %>
+
 <div class="row">
   <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
     <ol class="breadcrumb">
@@ -17,8 +16,7 @@
             </a>
             <ul class="dropdown-menu">
               <li><%= link_to raw("<i class='glyphicon glyphicon-new-window' style='margin-right:1em;'></i>"+(t 'title.shutchou_ikkatsu')), "/events/shutchou_ikkatsu_new?param=event&shain_id="+session[:user] %></li>
-              <li id="modal_print_event"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), "#" %></li>
-              <!-- <li id="modal_shousai_event"><%= link_to raw("<i class='glyphicon glyphicon-book' style='margin-right:1em;'></i>"+(t 'app.label.shousai_event')), "#" %></li> -->
+              <li id="modal_print_event"><%= link_to raw("<i class='fa fa-print' style='margin-right:1em;'></i>"+(t 'app.label.export_pdf')), '#print_modal', data: { toggle: 'modal' } %></li>
             </ul>
           </li>
         </div>
@@ -27,278 +25,66 @@
   </div>
 </div>
 <%= render 'print_modal' %>
-<%= render 'share/kintai_new_modal' %>
 
-<%= simple_form_for @shain, url: custom_events_path, method: :post do |f| %>
 <div id="month-view">
-  <div>
-    <div class="row">
-
-      <!-- <div class="pull-left">
-
-          <%= f.submit (t 'helpers.submit.redirect_to_kintai'), class: 'btn btn-default', id:'kintai'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_keihihead'), class: 'btn btn-default', id:'keihi'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_shonin'), class: 'btn btn-default', id:'shonin'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_dengon'), class: 'btn btn-default', id:'dengon'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_kairan'), class: 'btn btn-default', id:'kairan'%>
-          <%= f.submit (t 'helpers.submit.redirect_to_setsubiyoyaku'), class: 'btn btn-default', id:'setsubiyoyaku'%>
-
-          <%= f.input (t 'app.label.calendar_genzai') do %>
-              <%= f.select :所在コード, Shozai.all.order(所在コード: :asc).map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
-          <% end %>
-        </div>
-      </div> -->
-      <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
-        <div>
-          <h3><span class="label label-default">氏名：　<%= Shainmaster.find_by(社員番号: session[:selected_shain]).try(:氏名) %></span></h3>
-        </div>
+  <div class="row">
+    <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 col-md-offset-5 col-xs-offset-5 col-sm-offset-5 col-lg-offset-5">
+      <div>
+        <h3><span class="label label-default">氏名：　<%= Shainmaster.find_by(社員番号: session[:selected_shain]).try(:氏名) %></span></h3>
       </div>
-      <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3 pull-right">
-        <div class="form-inline pull-right">
-          <%= f.input :勤務タイプ, label: (t 'title.kinmutaipu'), class: "form-control", collection: (Kintai::KINMU_TYPE).map { |key, val| ["#{ key } → #{ val[:text] }", key] } %>
-        </div>
+    </div>
+    <div class="col-md-3 col-xs-3 col-sm-3 col-lg-3 pull-right">
+      <div class="form-inline pull-right">
+        <%= label_tag (t 'title.kinmutaipu') %>
+        <%= select_tag :勤務タイプ, options_for_select((Kintai::KINMU_TYPE).map { |key, val| ["#{ key } → #{ val[:text] }", key] }, selected: @shain.try(:勤務タイプ)), { id: 'shainmaster_kinmutype', class: 'form-control' } %>
       </div>
-
     </div>
   </div>
-  <div>
-    <div class="row">
-      <div class="col-md-2 col-xs-4 col-sm-3 col-lg-2 col-md-offset-5 col-xs-offset-3 col-sm-offset-4 col-lg-offset-5">
-        <h4><%= Shainmaster.find_by(社員番号: session[:selected_shain]).try(:yakushokumaster).try(:役職名) %></h4>
+  <div class="row">
+    <div class="col-md-2 col-xs-4 col-sm-3 col-lg-2 col-md-offset-5 col-xs-offset-3 col-sm-offset-4 col-lg-offset-5">
+      <h4><%= Shainmaster.find_by(社員番号: session[:selected_shain]).try(:yakushokumaster).try(:役職名) %></h4>
+    </div>
+    <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
+      <%= render 'share/shain_modal' %>
+      <button type="button" class="btn btn-primary" id="search_user"><%=(t 'title.shainsentaku')%></button>
+    </div>
+    <%= form_tag events_path, method: :get do %>
+      <input type="hidden" name="selected_user" id="selected_user"/>
+      <input type="hidden" name="selected_user_name" id="selected_user_name"/>
+    <% end %>
+  </div>
+  <div class="row spacer">
+    <div class="col-md-2 col-xs-6 col-sm-2 col-lg-2 ">
+      <div class="input-group datetime_search">
+        <input type='text' class="form-control" id="goto-date-input" name="goto-date-input">
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar" id="toggle-calendar-goto" aria-hidden="true"></span>
+        </span>
       </div>
-      <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
-        <%# button_to '社員選択', %>
-        <button type="button" class="btn btn-primary" id="search_user"><%=(t 'title.shainsentaku')%></button>
-      </div>
-
-      <!-- <div class="col-md-4 col-xs-4 col-sm-4 col-lg-4 pull-right">
-        <div class="form-inline pull-right">
-          <%= f.input (t 'app.label.calendar_genzai') do %>
-              <%= f.select :所在コード, Shozai.all.order(所在コード: :asc).map { |s| [s.name, s.id, { class: '' }] }, {}, {include_blank: true, class: 'form-control'} %>
-          <% end %>
-        </div>
-      </div> -->
-
+    </div>
+    <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1">
+      <button id="goto-date-button" class="btn btn-default" type="button">Go!</button>
     </div>
   </div>
-
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-        <div class="spacer">
-        </div>
-      </div>
+  <div class="row spacer">
+    <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
+      <div id="calendar-month-view"></div>
     </div>
-
-
-    <div class="row">
-      <div class="col-md-2 col-xs-6 col-sm-2 col-lg-2 ">
-        <div class="input-group datetime_search">
-          <input type='text' class="form-control" id="goto-date-input" name="goto-date-input">
-          <span class="input-group-addon">
-            <span class="glyphicon glyphicon-calendar" id="toggle-calendar-goto" aria-hidden="true"></span>
-          </span>
-        </div>
-      </div>
-      <div class="col-md-1 col-xs-1 col-sm-1 col-lg-1">
-        <button id="goto-date-button" class="btn btn-default" type="button">Go!</button>
-      </div>
-
-
-
+  </div>
+  <div class="row spacer">
+    <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
+      <button id="event_button" class="btn btn-primary" type="button">詳細一覧</button>
     </div>
-
-    <div class="spacer"></div>
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-        <div id="calendar-month-view"></div>
-        <!--<div id="calendar-timeline"></div>-->
-      </div>
-    </div>
-
-    <%= render 'share/shain_modal', f:f %>
-
-    <input type="hidden" name="selected_user" id="selected_user"/>
-    <input type="hidden" name="selected_user_name" id="selected_user_name"/>
-    <div class="spacer"></div>
-    <div class="row">
-      <div class="col-md-2 col-xs-2 col-sm-2 col-lg-2 ">
-        <button id="event_button" class="btn btn-primary" type="button">詳細一覧</button>
-      </div>
-    </div>
+  </div>
 </div>
 <div id="after_div">
-
-
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-        <div class="spacer">
-        </div>
-      </div>
-    </div>
-    <legend></legend>
-
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-
-        <table id="event_table" class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
-              <thead>
-              <tr>
-                <th>id</th>
-                <th><%=(t 'title.kaishijikoku')%></th>
-                <th><%=(t 'title.shyuuryoujikoku')%></th>
-                <th><%=(t 'title.joutai')%></th>
-                <th><%=(t 'title.basho')%></th>
-                <th>JOB</th>
-                <th><%=(t 'title.kouteimei')%></th>
-                <th><%=(t 'title.koushuu')%></th>
-                <th><%=(t 'title.keijyou')%></th>
-                <th>&nbsp;</th>
-              </tr>
-              </thead>
-
-              <tbody>
-              <% @events.each do |event| %>
-                  <tr>
-                    <td><%= event.id %></td>
-                    <td><%= event.開始 %></td>
-                    <td><%= event.終了 %></td>
-                    <td><%= event.joutaimaster.try :name %></td>
-                    <!--<td><%# event.shozai.try :所在名 %></td>-->
-                    <!--<td><%# event.場所名 %></td>-->
-                    <%
-                       if event.bashomaster
-                         basho_name = event.bashomaster.name
-                         basho_name = event.bashomaster.kaisha_name if event.bashomaster.場所区分 == '2'
-                       end
-                    %>
-                    <td><%= basho_name %></td>
-                    <td><%= event.job_job名 %></td>
-                    <td><%= event.koutei_工程名 %></td>
-                    <td><%= event.工数 %></td>
-                    <td><%= event.計上 %></td>
-                    <td><%= link_to '詳細',edit_event_path(event)%></td>
-                    <!--<td><%# event.joutaimaster.状態名 %></td>-->
-                  </tr>
-              <% end %>
-
-
-              <%# @events.each do |event| %>
-              <%# render partial: 'table_row', locals: {event: event} %>
-              <%# end %>
-              </tbody>
-            </table>
-      </div>
-
-    </div>
-
-    <div class="row" style="display: none;">
-        <%= form_tag import_events_path,class:'form-inline', multipart: true do %>
-        <% end %>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 ">
-        <% msg_select = t 'app.select_confirm' %>
-        <% msg_confirm = t 'app.delete_confirm' %>
-        <span id='message_confirm_select' hidden='true'><%=msg_select%></span>
-        <span id='message_confirm_delete' hidden='true'><%=msg_confirm%></span>
-        <a href='<%=new_event_path%>' class='new-btn dt-button' ><%=(t 'title.new')%></a>
-        <a class='edit-btn dt-button' id='destroy_event' ><%=(t 'title.delete')%></a>
-        <a class='delete-btn dt-button' id='export_event' ><%=(t 'title.export_csv')%></a>
-        <%=render 'share/import_csv_modal',import_path: import_events_path %>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-        <div class="spacer">
-        </div>
-      </div>
-    </div>
-    <legend></legend>
-
-    <div class="row">
-      <div class="col-md-6 col-xs-8 col-sm-8 col-lg-6 col-md-offset-4 col-xs-offset-2 col-sm-offset-3 col-lg-offset-4">
-        <button class='btn btn-primary' id='print_event' type= 'button'><%=(t 'app.label.pdf_event')%></button>
-        <button class='btn btn-primary' id='print_event_job' type= 'button'><%=(t 'app.label.pdf_event_job')%></button>
-        <button class='btn btn-primary' id='print_event_koutei' type= 'button'><%=(t 'app.label.pdf_event_koutei')%></button>
-      </div>
-    </div>
-
-    <div id="selectDay" style="display: none">
-      <div class="row">
-        <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-          <div class="spacer">
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-
-        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 col-md-offset-4 col-xs-offset-1 col-sm-offset-3 col-lg-offset-4">
-          <label>開始</label>
-          <div class="input-group date_start_select">
-            <input type='text' class="form-control" id="date_start_input" name="date_start_input">
-            <span class="input-group-addon">
-              <span class="glyphicon glyphicon-calendar" id="icon_start" aria-hidden="true"></span>
-            </span>
-
-          </div>
-
-        </div>
-        <div class="col-md-2 col-xs-3 col-sm-2 col-lg-2 ">
-          <label>終了</label>
-          <div class="input-group date_end_select">
-            <input type='text' class="form-control" id="date_end_input" name="date_end_input">
-            <span class="input-group-addon">
-              <span class="glyphicon glyphicon-calendar" id="icon_end" aria-hidden="true"></span>
-            </span>
-          </div>
-        </div>
-        <div class="col-md-1 col-xs-3 col-sm-2 col-lg-1">
-          <label>&nbsp;</label>
-          <div>
-            <button id="print_pdf_event" class="btn btn-default" type="button"><%=(t 'app.label.export_pdf')%></button>
-            <button id="print_pdf_job" class="btn btn-default" type="button"><%=(t 'app.label.export_pdf')%></button>
-            <button id="print_pdf_koutei" class="btn btn-default" type="button"><%=(t 'app.label.export_pdf')%></button>
-          </div>
-
-        </div>
-      </div>
-    </div>
+  <legend class='spacer'></legend>
+  <%= render 'event_table' %>
+  <legend class='spacer'></legend>
+  <%= render 'print_group', div_in_modal: false %>
 </div>
-  <!--   <div class="row">
-      <div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">
-        <div class="spacer">
-        </div>
-      </div>
-    </div>
-    <legend></legend> -->
-
-   <!--  <div class="row">
-      <div class="col-md-6 col-xs-6 col-sm-6 col-lg-6 ">
-
-
-      </div>
-    </div> -->
-<!--<div class="row">-->
-  <!--<div class="col-md-12 col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12">-->
-    <!--<div class="timeline-view">-->
-      <!--<div class="pull-left">-->
-        <!--<%# f.submit '勤務', class: 'btn btn-default', id:'kintai'%>-->
-        <!--<%# f.submit '経費', class: 'btn btn-default', id:'keihi'%>-->
-        <!--<%# f.submit '承認', class: 'btn btn-default', id:'shonin'%>-->
-        <!--<%# f.submit '伝言', class: 'btn btn-default', id:'dengon'%>-->
-        <!--<%# f.submit '回覧', class: 'btn btn-default', id:'kairan'%>-->
-      <!--</div>-->
-      <!--<br><br>-->
-      <!--<div id="calendar-timeline"></div>-->
-    <!--</div>-->
-  <!--</div>-->
-<!--</div>-->
 <input type="hidden" name="current_user" id="current_user" value=<%= current_user.id %> />
 <input type="hidden" name="goto_date" id="goto_date" value="<%= @selected_date %>" />
-<% end %>
 <%= javascript_tag do %>
-  create_calendar(<%= @data.try(:html_safe)%>);
+  event_data = <%= @data.try(:html_safe)%>;
 <% end %>
