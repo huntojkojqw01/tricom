@@ -1,4 +1,49 @@
 jQuery ->
+  $('#event_状態コード').change (e, selected_data)->
+    if selected_data == undefined
+      code = $(this).val()
+      table = $('#joutai_table').DataTable()
+      row = table.row (idx, data, node) ->
+        if data[0] == code then true else false
+      if row.length > 0
+        selected_data = row.data()
+
+    if selected_data != undefined
+      # fill data to this input
+      $('#event_状態コード').val(selected_data[0])
+      $('.hint-joutai-refer').text(selected_data[1])
+      $('#event_状態コード').closest('.form-group').find('span.help-block').remove()
+      $('#event_状態コード').closest('.form-group').removeClass('has-error')
+
+      # hide or show another input
+      joutai_code = $('#event_状態コード').val()
+      if KISHA_JOUTAIS.includes(joutai_code) 
+        $('.event_帰社').show()
+      else
+          $('#event_有無').val('')
+          $('.event_帰社').hide()
+
+      if DAIKYU_JOUTAIS.includes(joutai_code)
+        $.post
+          url: '/events/ajax'
+          data:
+            id: 'get_kintais'
+            joutai: joutai_code
+            shain: $('#event_社員番号').val()
+          success: (data)->
+            console.log("OK")
+          failure: ()->
+            console.log("Unsuccessful")
+      else
+        $('#kintai_daikyu').val('')
+
+      # neu joutaikubun = 1 hoac 5 thi disable basho, job, koutei inputs
+      joutai_kubun = selected_data[3]
+      tmp = joutai_kubun != '1' && joutai_kubun != '5'
+      $('#event_場所コード').prop('disabled', tmp)
+      $('#event_JOB').prop('disabled', tmp)
+      $('#event_工程コード').prop('disabled', tmp)
+
   $('.event_開始 > .form-inline > .datetime').datetimepicker
     format: 'YYYY/MM/DD HH:mm'
     showTodayButton: true
@@ -52,40 +97,7 @@ jQuery ->
 
   $('#joutai_table').on 'choose_joutai', (e, selected_data)->
     if selected_data != undefined
-      # fill data to this input
-      $('#event_状態コード').val(selected_data[0])
-      $('.hint-joutai-refer').text(selected_data[1])
-      $('#event_状態コード').closest('.form-group').find('span.help-block').remove()
-      $('#event_状態コード').closest('.form-group').removeClass('has-error')
-
-      # hide or show another input
-      joutai_code = $('#event_状態コード').val()
-      if KISHA_JOUTAIS.includes(joutai_code) 
-        $('.event_帰社').show()
-      else
-          $('#event_有無').val('')
-          $('.event_帰社').hide()
-
-      if DAIKYU_JOUTAIS.includes(joutai_code)
-        $.post
-          url: '/events/ajax'
-          data:
-            id: 'get_kintais'
-            joutai: joutai_code
-            shain: $('#event_社員番号').val()
-          success: (data)->
-            console.log("OK")
-          failure: ()->
-            console.log("Unsuccessful")
-      else
-        $('#kintai_daikyu').val('')
-
-      # neu joutaikubun = 1 hoac 5 thi disable basho, job, koutei inputs
-      joutai_kubun = selected_data[3]
-      tmp = joutai_kubun != '1' && joutai_kubun != '5'
-      $('#event_場所コード').prop('disabled', tmp)
-      $('#event_JOB').prop('disabled', tmp)
-      $('#event_工程コード').prop('disabled', tmp)
+      $('#event_状態コード').trigger('change', [selected_data])
 
   $('#daikyu_table').on 'choose_daikyu', (e, selected_data)->
     if selected_data != undefined
