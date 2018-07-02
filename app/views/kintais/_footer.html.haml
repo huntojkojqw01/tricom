@@ -1,13 +1,11 @@
 .row
   .col-sm-2
-    %button.btn.btn-default.kinmu-show
+    %button.btn.btn-default#kinmu_toggle
       %span.glyphicon.glyphicon-list-alt
-    %button.btn.btn-default.kinmu-hide
-      %span.glyphicon.glyphicon-list-alt
-    #kinmu_refer
+    #kinmu_refer{ style: "display: none;" }
       = render 'kinmu_refer'
   .col-md-6.col-xs-6.col-sm-6.col-lg-6.col-md-offset-1.col-xs-offset-1.col-sm-offset-1.col-lg-offset-1
-    = f.button ' 集 計 す る ', class: 'summary', type: 'button'
+    %button.summary 集 計 す る
     .row
       .spacer
       %table#kintai-table.table.table-striped.table-bordered.table-hover.table-condensed{cellspacing: "0"}
@@ -33,17 +31,3 @@
             %td.sum6
             %td.sum7
             %td.sum8
-
-      %p.finish-message
-  .col-md-3.col-xs-3.col-sm-3.col-lg-3
-    .pull-right
-      -#= check_box_tag 'finish-input'
-      -#= label_tag '承認要求'
-      -#= button_tag '入力済', name: 'commit', value:'入力済', class: 'btn btn-default'
-      / - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
-      /   %button#export_pdf.btn.btn-primary{:disabled => "true", :type => "button"}= (t 'app.label.export_pdf')
-      /   = f.submit (t 'helpers.submit.entered'), class: 'btn btn-primary'
-      / - else
-      /   %button#export_pdf.btn.btn-primary{:type => "button"}= (t 'app.label.export_pdf')
-      /   = f.submit (t 'helpers.submit.input'), class: 'btn btn-primary'
-      / = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }

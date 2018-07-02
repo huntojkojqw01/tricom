@@ -1,12 +1,12 @@
 - user = Shainmaster.find(session[:user])
 .row-fuid
-  - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
+  - unless @kintai.try(:入力済) == '1'
     %button#export_pdf.btn.btn-primary{:disabled => "true", :type => "button"}= (t 'app.label.export_pdf')
-    = f.submit (t 'helpers.submit.entered'), class: 'btn btn-primary'
+    = link_to (t 'helpers.submit.entered'), kintai_path(@kintai, status: 'entered'), method: :patch, class: 'btn btn-primary'
   - else
     %button#export_pdf.btn.btn-primary{:type => "button"}= (t 'app.label.export_pdf')
-    = f.submit (t 'helpers.submit.input'), class: 'btn btn-primary'
-  = f.submit (t 'helpers.submit.destroy'), class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
+    = link_to (t 'helpers.submit.input'), kintai_path(@kintai, status: 'input'), method: :patch, class: 'btn btn-primary'
+  = link_to (t 'helpers.submit.destroy'), kintai_path(@kintai, :clear_month => true), method: :delete, class: 'btn btn-primary', :data => { :confirm => (t 'app.delete_data_in_month_confirm') }
 .spacer
   .row
 
@@ -14,13 +14,12 @@
   .col-md-3.col-xs-5.col-sm-8.col-lg-3
     .form-group
       %label.sr-only date
-      -#= f.text_field :日付, class: 'form-control date-search'
-      .input-group.date-search
-        = text_field_tag :search, @selected_month, class:'form-control', size: 6
-        %span.input-group-addon
-          %span.glyphicon.glyphicon-calendar
-      = f.submit :勤怠検索, class: 'btn btn-primary'
-      / = f.submit (t 'helpers.submit.create'), class: 'btn btn-primary'
+      = form_for :kintai, url: kintais_path, html: {class:'form-inline'}, method: :get do |f|
+        .input-group.date-search
+          = text_field_tag :search, @selected_month, class:'form-control', size: 6
+          %span.input-group-addon
+            %span.glyphicon.glyphicon-calendar
+        = f.submit :勤怠検索, class: 'btn btn-primary'
   .col-md-2.col-xs-4.col-sm-6.col-lg-2
     %h4 勤務工数表
   .col-md-2.col-xs-4.col-sm-6.col-lg-2
@@ -33,17 +32,6 @@
         %th{rowspan: "2"} 有給残
         %th 月初残
         %td{class: "input-number"}= @yuukyuu_kyuuka_rireki.try(:月初有給残) || 0.0
-        / %td
-        /   - if @yuukyuu_kyuuka_rireki.nil?
-        /     - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
-        /       %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: 0}
-        /     - else
-        /       %input.form-control{size: 4, type: "text", class: "input-number", value: 0, disabled: true}
-        /   - else
-        /     - if @kintai.try(:入力済) == '0' || @kintai.try(:入力済).nil?
-        /       %input.form-control{size: 4,type: "text", class: "input-number",name: "gesshozan", value: @yuukyuu_kyuuka_rireki.月初有給残}
-        /     - else
-        /       %input.form-control{size: 4,type: "text", class: "input-number", value: @yuukyuu_kyuuka_rireki.月初有給残, disabled: true}
       %tr
         %th{class: "custom-background"} 月末残
         %td{class: "sum-yuukyu custom-background", id: "sumYuukyu"}= @yuukyuu_kyuuka_rireki.try(:月末有給残) || 0.0
