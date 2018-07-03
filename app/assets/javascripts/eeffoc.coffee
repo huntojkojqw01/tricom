@@ -315,6 +315,7 @@ jQuery ->
     # quy doi start_time, end_time ra phut
     start_time = new Date(start_time)
     end_time = new Date(end_time)
+    return {} if isNaN(start_time) || isNaN(end_time)
     delta = (end_time - start_time) / 60000
     start_time = start_time.getHours() * 60 + start_time.getMinutes()
     end_time = start_time + delta
