@@ -1,7 +1,8 @@
 .row-fruid
   .form-inline
     .form-group
-      = hidden_field_tag 'selected_date', @selected_date
       .col-md-12.col-xs-12.col-sm-12.col-lg-12
-        = label_tag t('title.setsubi1')
-        = select(:head, :setsubicode, Setsubi.all.order(:設備コード).collect {|p| [ p.設備名, p.設備コード ] } , {selected: @setsubi_param, include_blank: true }, class: 'form-control')
+        = form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
+          = hidden_field_tag 'selected_date', @selected_date
+          = label_tag t('title.setsubi1')
+          = select(:head, :setsubicode, Setsubi.all.order(:設備コード).pluck(:設備名, :設備コード), {selected: @setsubi_param, include_blank: true }, class: 'form-control')

@@ -6,7 +6,7 @@ class SetsubiyoyakusController < ApplicationController
 
   def index
 
-    @hizukes = all_day_in_month_list()
+    @hizukes = all_day_in_month_list
     @selected_date = session[:selected_date] || Date.current
     @setsubi_param = params[:head][:setsubicode] if params[:head].present?
     if @setsubi_param.present?
@@ -15,11 +15,6 @@ class SetsubiyoyakusController < ApplicationController
       @setsubiyoyaku = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi)
     end
     respond_with(@setsubiyoyaku)
-  end
-
-  def all_day_in_month_list()
-    d = Date.today
-    (d.at_beginning_of_month.to_date..d.at_end_of_month.to_date)
   end
 
   def show
@@ -148,9 +143,7 @@ class SetsubiyoyakusController < ApplicationController
 
   def export_csv
     @setsubiyoyakus = Setsubiyoyaku.all
-
     respond_to do |format|
-      format.html
       format.csv { send_data @setsubiyoyakus.to_csv, filename: '設備予約.csv' }
     end
   end
@@ -162,4 +155,10 @@ class SetsubiyoyakusController < ApplicationController
   def setsubiyoyaku_params
     params.require(:setsubiyoyaku).permit(:設備コード, :予約者, :相手先, :開始, :終了, :用件)
   end
+
+  def all_day_in_month_list
+    d = Date.today
+    (d.at_beginning_of_month.to_date..d.at_end_of_month.to_date)
+  end
+
 end
