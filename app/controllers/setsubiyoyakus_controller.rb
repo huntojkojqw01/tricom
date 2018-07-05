@@ -10,11 +10,11 @@ class SetsubiyoyakusController < ApplicationController
     @selected_date = session[:selected_date] || Date.current
     @setsubi_param = params[:head][:setsubicode] if params[:head].present?
     if @setsubi_param.present?
-      @setsubiyoyaku = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi).where(設備コード: @setsubi_param)
+      @setsubiyoyakus = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi).where(設備コード: @setsubi_param)
     else
-      @setsubiyoyaku = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi)
+      @setsubiyoyakus = Setsubiyoyaku.includes(:shainmaster, :kaishamaster, :setsubi)
     end
-    respond_with(@setsubiyoyaku)
+    respond_with(@setsubiyoyakus)
   end
 
   def show
