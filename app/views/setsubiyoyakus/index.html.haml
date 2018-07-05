@@ -1,34 +1,18 @@
-= javascript_include_tag 'setsubiyoyakus'
-= javascript_include_tag 'setsubiyoyaku'
-= javascript_include_tag 'resource/ja'
+= javascript_include_tag 'setsubiyoyakus/index'
+= javascript_include_tag 'setsubiyoyakus/calendar'
+= javascript_include_tag 'setsubiyoyakus/setsubiyoyaku_table'
 = stylesheet_link_tag 'setsubiyoyakus'
 = provide(:title, (t 'title.setsubiyoyaku'))
 %ol.breadcrumb
   %li= link_to (t 'title.menu'), main_path
   %li.active=t 'title.setsubiyoyaku'
 
-
-= form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
-  = render 'header', f:f
-.spacer
-
-
-#setsubiyoyaku-timeline
-.spacer
-
-
-%button.btn.btn-primary#show_table_button{type: :button}=t 'app.label.shousai_event'
-
+= render 'header'
+#setsubiyoyaku-timeline.spacer
+%button.spacer.btn.btn-primary#show_table_button{type: :button}=t 'app.label.shousai_event'
 #table-div
-
-  / = form_for :setsubiyoyaku, url: setsubiyoyakus_path, html: {class:'form-inline'}, method: :get do |f|
-  /   = render 'header', f:f
-
-  .row
-    .col-md-12.col-xs-12.col-sm-12.col-lg-12.col-xs-12.col-sm-12.col-lg-12
-      .spacer
-  %legend
-  %table.setsubiyoyaku-table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
+  %legend.spacer
+  %table#setsubiyoyaku_table.table.table-striped.table-bordered.table-hover{cellspacing: '0', width: '100%'}
     %thead
       %tr
         %th ID
@@ -40,7 +24,7 @@
         %th
         %th
     %tbody
-      - @setsubiyoyaku.each do |setsubiyoyaku|
+      - @setsubiyoyakus.each do |setsubiyoyaku|
         %tr
           %td= setsubiyoyaku.id
           %td= setsubiyoyaku.開始
@@ -49,29 +33,5 @@
           %td= setsubiyoyaku.kaishamaster.nil? ? setsubiyoyaku.相手先 : setsubiyoyaku.kaishamaster.会社名
           %td= setsubiyoyaku.用件
           %td= link_to t('title.edit'), edit_setsubiyoyaku_path(setsubiyoyaku)
-          - msg = t 'app.delete_confirm'
-          %td= link_to t('title.delete'), setsubiyoyaku, :method => :delete, :data => { :confirm => msg }
-
-  .row
-    .col-md-4.col-xs-4.col-sm-4.col-lg-4
-      %span#message_confirm_select{:hidden => "true"}= t 'app.select_confirm'
-      %span#message_confirm_delete{:hidden => "true"}= t 'app.delete_confirm'
-      - if request[:head].present?
-        = link_to (t 'title.new'), new_setsubiyoyaku_path(:setsubi_code => request[:head][:setsubicode]),class: "btn btn-primary glyphicon"
-      - else
-        = link_to (t 'title.new'), new_setsubiyoyaku_path,class: "btn btn-primary glyphicon"
-      %button#destroy_setsubiyoyaku.btn.btn-primary.glyphicon=t "title.delete"
-      //%span#import_button.btn.btn-primary.glyphicon.glyphicon-import
-      %span#export_setsubiyoyaku.btn.btn-primary.glyphicon.glyphicon-export
-      .spacer
-      = render 'share/import_csv_modal',import_path: import_setsubiyoyakus_path
-      / = form_tag import_setsubiyoyakus_path,id: 'import_form',class:'form-inline', multipart: true do
-      /   %div
-      /     = submit_tag (t 'title.import_csv_btn') , class: 'btn btn-primary'
-
-      /   .spacer
-      /   .form-group
-      /     = label_tag 'selectcsv', nil, class: 'sr-only'
-      /     = file_field_tag :file , class: 'btn btn-default'
-      /   .form-group
-      /     = label_tag 'importcsv', nil, class: 'sr-only'
+          %td= link_to t('title.delete'), setsubiyoyaku, :method => :delete, :data => { :confirm => t('app.delete_confirm') }
+  = render 'share/import_csv_modal',import_path: import_setsubiyoyakus_path

@@ -1,4 +1,4 @@
-json.setsubiyoyakus @setsubiyoyaku do |setsubiyoyaku|
+json.setsubiyoyakus @setsubiyoyakus do |setsubiyoyaku|
   json.id setsubiyoyaku.id
   json.description "#{ setsubiyoyaku.kaishamaster.try(:会社名) || setsubiyoyaku.相手先 }"
   json.title "#{ setsubiyoyaku.用件 }\n#{ setsubiyoyaku.shainmaster.try(:氏名) } \n "
