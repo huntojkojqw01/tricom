@@ -38,10 +38,6 @@ class KintaisController < ApplicationController
     end
   end
 
-  def show
-    @kintai = Kintai.find_by id: params[:id]
-    respond_with(@kintai)
-  end
   def pdf_show
     vars = request.query_parameters
     @date_param = Date.today
