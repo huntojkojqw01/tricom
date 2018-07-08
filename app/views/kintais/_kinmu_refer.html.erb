@@ -9,7 +9,7 @@
     <% Kintai::KINMU_TYPE.each do |key, value| %>
       <tr>
         <td><%= key %></td>
-        <td><%= value[:text] %></td>
+        <td><%= "#{value[:stext]} ~ #{value[:etext]}" %></td>
       </tr>
     <% end %>  
   </tbody>
