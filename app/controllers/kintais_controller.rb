@@ -38,10 +38,6 @@ class KintaisController < ApplicationController
     end
   end
 
-  def show
-    @kintai = Kintai.find_by id: params[:id]
-    respond_with(@kintai)
-  end
   def pdf_show
     vars = request.query_parameters
     @date_param = Date.today
@@ -76,35 +72,9 @@ class KintaisController < ApplicationController
       @kintai.普通保守時間 = 0
       @kintai.深夜保守時間 = 0
       date = @kintai.日付.to_s
-      case @kintai.勤務タイプ
-        when '001'
-          @kintai.出勤時刻 = date + ' 07:00:00'
-          @kintai.退社時刻 = date + ' 16:00:00'
-        when '002'
-          @kintai.出勤時刻 = date + ' 07:30:00'
-          @kintai.退社時刻 = date + ' 16:30:00'
-        when '003'
-          @kintai.出勤時刻 = date + ' 08:00:00'
-          @kintai.退社時刻 = date + ' 17:00:00'
-        when '004'
-          @kintai.出勤時刻 = date + ' 08:30:00'
-          @kintai.退社時刻 = date + ' 17:30:00'
-        when '005'
-          @kintai.出勤時刻 = date + ' 09:00:00'
-          @kintai.退社時刻 = date + ' 18:00:00'
-        when '006'
-          @kintai.出勤時刻 = date + ' 09:30:00'
-          @kintai.退社時刻 = date + ' 18:30:00'
-        when '007'
-          @kintai.出勤時刻 = date + ' 10:00:00'
-          @kintai.退社時刻 = date + ' 19:00:00'
-        when '008'
-          @kintai.出勤時刻 = date + ' 10:30:00'
-          @kintai.退社時刻 = date + ' 19:30:00'
-        when '009'
-          @kintai.出勤時刻 = date + ' 11:00:00'
-          @kintai.退社時刻 = date + ' 20:00:00'
-      end
+      kinmutype = Kintai::KINMU_TYPE[@kintai.勤務タイプ]
+      @kintai.出勤時刻 = "#{date} #{kinmutype[:stext]}:00"
+      @kintai.退社時刻 = "#{date} #{kinmutype[:etext]}:00"
     end
   end
 
@@ -338,46 +308,18 @@ class KintaisController < ApplicationController
          format.json { render json: data}
         end
       when 'update_kinmutype'
-        kinmutype = params[:kinmutype]
+        kinmutype = Kintai::KINMU_TYPE[params[:kinmutype]]
         kintai = Kintai.find_by(id: params[:idKintai])
-        date = params[:date]
-        case kinmutype
-          when '001'
-            starttime = date + ' 07:00:00'
-            text_time = '07:00'
-
-          when '002'
-            starttime = date + ' 07:30:00'
-            text_time = '07:30'
-          when '003'
-            starttime = date + ' 08:00:00'
-            text_time = '08:00'
-          when '004'
-            starttime = date + ' 08:30:00'
-            text_time = '08:30'
-          when '005'
-            starttime = date + ' 09:00:00'
-            text_time = '09:00'
-          when '006'
-            starttime = date + ' 09:30:00'
-            text_time = '09:30'
-          when '007'
-            starttime = date + ' 10:00:00'
-            text_time = '10:00'
-          when '008'
-            starttime = date + ' 10:30:00'
-            text_time = '10:30'
-          when '009'
-            starttime = date + ' 11:00:00'
-            text_time = '11:00'
-          when ''
-            starttime = ''
-            text_time = ''
+        if kinmutype
+          starttime = "#{params[:date]} #{kinmutype[:stext]}:00"
+          text_time = kinmutype[:stext]
+        else
+          start_time = text_time = ''
         end
         kintai.update(出勤時刻: starttime, 退社時刻: '', 実労働時間: '', 普通残業時間: '', 深夜残業時間: '', 普通保守時間: '', 深夜保守時間: '', 遅刻時間: '' )
-        data = {starttime: text_time,endtime: ''}
+        data = { starttime: text_time, endtime: '' }
         respond_to do |format|
-         format.json { render json: data}
+         format.json { render json: data }
         end
       when 'gesshozan_calculate'
         zengetsu = params[:zengetsu]
