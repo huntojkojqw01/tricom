@@ -61,14 +61,14 @@ jQuery ->
           $("#delete").addClass("disabled")
       }
       {
-        text: 'New'
+        text: '新規'
         attr:
           id: 'new'
         action: (e, dt, node, config)->
           window.location = '/events/new'
       }
       {
-        text: 'Delete'
+        text: '削除'
         attr:
           id: 'delete'
           class: 'dt-button disabled'

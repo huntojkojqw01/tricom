@@ -54,6 +54,7 @@ jQuery ->
           bSearchable: false
         }
       ]
+      order: args.order_columns
     args.modal.on 'show', (e, code)->
       row_can_tim = data_table.row (idx, data, node)->
         if data[0] == code then true else false
@@ -159,7 +160,7 @@ jQuery ->
             $("#delete").addClass("disabled")
         },
         {
-          text: 'New'
+          text: '新規'
           attr:
             id: 'new'
           action: (e, dt, node, config)->
@@ -169,7 +170,7 @@ jQuery ->
               $(args.new_modal_id).trigger 'show', []
         },
         {
-          text: 'Edit'
+          text: '編集'
           attr:
             id: 'edit'
             class: 'dt-button disabled'
@@ -184,7 +185,7 @@ jQuery ->
                 $(args.edit_modal_id).trigger 'show', [data_of_selected_row]
         },
         {
-          text: 'Delete'
+          text: '削除'
           attr:
             id: 'delete'
             class: 'dt-button disabled'

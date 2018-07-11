@@ -82,14 +82,14 @@ jQuery ->
       }
       if $('#head_setsubicode').val() != ''
         {
-          text: 'New'
+          text: '新規'
           attr:
             id: 'new'
           action: (e, dt, node, config)->
             window.location = '/setsubiyoyakus/new?setsubi_code=' + $('#head_setsubicode').val()
         }
       {
-        text: 'Delete'
+        text: '削除'
         attr:
           id: 'delete'
           class: 'dt-button disabled'
