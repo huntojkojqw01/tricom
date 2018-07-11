@@ -54,6 +54,7 @@ jQuery ->
           bSearchable: false
         }
       ]
+      order: args.order_columns
     args.modal.on 'show', (e, code)->
       row_can_tim = data_table.row (idx, data, node)->
         if data[0] == code then true else false
