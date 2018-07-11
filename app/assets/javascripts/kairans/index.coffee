@@ -36,14 +36,14 @@ jQuery ->
             dt.rows().deselect()
         },
         {
-          text: 'New'
+          text: '新規'
           attr:
             id: 'new'
           action: (e, dt, node, config)->
             window.location = '/kairans/new'
         },
         {
-          text: 'Send'
+          text: '送信一覧'
           attr:
             id: 'send_kairan'
           action: (e, dt, node, config)->

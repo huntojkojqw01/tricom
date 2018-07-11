@@ -27,7 +27,7 @@ jQuery ->
           dt.rows().deselect()
       },
       {
-        text: 'New'
+        text: '新規'
         attr:
           id: 'new'
         action: (e, dt, node, config)->
