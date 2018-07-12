@@ -821,9 +821,9 @@ private
 
   def build_event_json(events)
     umu_flag = {
-      '帰社' => ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-left"></span>',
-      '直帰' => ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-bottom"></span>',
-      '連続' => ' <span style="font-size: 15px;" class="glyphicon glyphicon-triangle-top"></span>',
+      '帰社' => ' ◀',
+      '直帰' => ' ▼',
+      '連続' => ' ▲',
     }
     events.map do |event|
       {

@@ -129,13 +129,6 @@ create_calendar = (data) ->
     editable: true
     events: data.events
     defaultDate: moment($('#goto_date').val())
-    eventRender: (event, element) ->
-      element.find('span.fc-title').html(data.events.title).html element.find('span.fc-title').text()
-      if event.bashokubun != 1 and flag == 0
-        selectedDate = $('#calendar-timeline').fullCalendar('getDate')
-        calDate = moment(selectedDate).format()
-        if event.start.isBefore(calDate) and event.end.isAfter(calDate)
-          $('.fc-resource-area tr[data-resource-id="' + event.resourceId + '"] td:nth-child(2)').css 'color', '#e6e6fa'
     eventDragStart: (event) ->
       flag = 1
       if event.bashokubun != 1
@@ -180,29 +173,26 @@ create_calendar = (data) ->
       {
         labelText: '社員名'
         field: 'shain'
-        width: 44
         render: (resources, el) ->
           el.css 'background-color', '#67b168'
       }
       {
         labelText: '内線'
         field: 'linenum'
-        width: 20
+        width: 45
         render: (resources, el) ->
           el.css 'background-color', '#adadad'
       }
       {
         labelText: '状態'
         field: 'joutai'
-        width: 40
         render: (resources, el) ->
-          # el.css('background-color', resources.background_color);
-          # el.css('color', resources.text_color);
+          el.css('background-color', resources.background_color)
+          el.css('color', resources.text_color)
       }
       {
         labelText: '場所'
         field: 'bashomei'
-        width: 40
         render: (resources, el) ->
           el.css 'background-color', '#adadad'
           el.html '<div align="left"><span style="margin-right:10px"></span></div>'
@@ -210,28 +200,26 @@ create_calendar = (data) ->
       {
         labelText: '伝言'
         field: 'dengon'
-        width: 18
+        width: 45
         render: (resources, el) ->
           el.css 'background-color', '#adadad'
-          el.html '<div align="right">' + '<span style="margin-right:10px">' + resources.dengon + '</span>' + '<a href="/dengons?head%5Bshainbango%5D=' + resources.id + '">' + '<i class="glyphicon glyphicon-comment" aria-hidden="true" ></i></a></div>'
+          el.html '<div align="right"><span style="margin-right:10px">' + resources.dengon + '</span><a href="/dengons?head%5Bshainbango%5D=' + resources.id + '"><i class="glyphicon glyphicon-comment" aria-hidden="true" style="font-size:12px;"></i></a></div>'
       }
       {
         labelText: '回覧'
         field: 'kairan'
-        width: 18
+        width: 45
         render: (resources, el) ->
           el.css 'background-color', '#adadad'
           if resources.id == $('#user_login').val()
-            el.html '<div align="right">' + '<span style="margin-right:10px">' + resources.kairan + '</span>' + '<a href="/kairans?head%5Bshainbango%5D=' + resources.id + '">' + '<i class="glyphicon glyphicon-envelope" aria-hidden="true"></i></a></div>'
+            el.html '<div align="right"><span style="margin-right:10px">' + resources.kairan + '</span><a href="/kairans?head%5Bshainbango%5D=' + resources.id + '">' + '<i class="glyphicon glyphicon-envelope" aria-hidden="true" style="font-size:12px;"></i></a></div>'
       }
       {
         labelText: ''
         field: 'shinki'
-        width: 10
+        width: 30
         render: (resources, el) ->
-          el.html '<a><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></a>'
-          el.click ->
-            window.location.href = '/events/new?param=timeline&shain_id=' + resources.id + '&start_at=' + $('#calendar-timeline').fullCalendar('getDate').format('YYYY/MM/DD')
+          el.html '<a href="/events/new?param=timeline&shain_id=' + resources.id + '&start_at=' + $('#calendar-timeline').fullCalendar('getDate').format('YYYY/MM/DD') + '" class="glyphicon glyphicon-edit" aria-hidden="true" style="font-size:12px;"></a>'
       }
     ]
     resources: data.shains)
@@ -246,8 +234,8 @@ create_calendar = (data) ->
   calendar.find('.fc-timelineDay-button').click ->
     calendar.find('.fc-next10Days-button, .fc-prev10Days-button').removeClass 'fc-state-disabled'
 
-  update_joutai_timeline()
-  setInterval update_joutai_timeline, 3000
+  update_joutai_timeline
+  setInterval(update_joutai_timeline, 3000)
 
 jQuery ->
   $('#create_kitaku_button').click ->
