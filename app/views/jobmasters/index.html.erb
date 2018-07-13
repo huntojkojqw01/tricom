@@ -15,6 +15,8 @@
       <th>Job名</th>
       <th>開始日</th>
       <th>終了日</th>
+      <th>受注金額</th>
+      <th>納期</th>
       <th>ユーザ番号</th>
       <th>ユーザ名</th>
       <th>入力社員番号</th>
@@ -35,6 +37,8 @@
         <td><%= jobmaster.job名 %></td>
         <td><%= jobmaster.開始日.try(:strftime, '%Y/%m/%d') %></td>
         <td><%= jobmaster.終了日.try(:strftime, '%Y/%m/%d') %></td>
+        <td><%= jobmaster.受注金額 %></td>
+        <td><%= jobmaster.納期.try(:strftime, '%Y/%m/%d') %></td>
         <td><%= jobmaster.ユーザ番号 %></td>
         <td><%= jobmaster.ユーザ名 %></td>
         <td><%= jobmaster.入力社員番号 %></td>

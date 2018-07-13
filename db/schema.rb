@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180530041824) do
+ActiveRecord::Schema.define(version: 20180713141836) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 20180530041824) do
     t.string   "分類名"
     t.string   "関連Job番号"
     t.string   "備考"
+    t.integer  "受注金額"
+    t.date     "納期"
     t.index ["job番号"], name: "index_JOBマスタ_on_job番号", unique: true, using: :btree
   end
 

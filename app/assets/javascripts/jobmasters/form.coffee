@@ -1,5 +1,5 @@
 jQuery ->  
-  $('.jobmaster_開始日 > .form-inline > .date').datetimepicker
+  $('.date').datetimepicker
     format: 'YYYY/MM/DD'
     widgetPositioning:
       horizontal: 'left'
@@ -11,17 +11,11 @@ jQuery ->
   $('#jobmaster_開始日').click () ->
     $('.jobmaster_開始日 > .form-inline > .date').data("DateTimePicker").toggle()
 
-  $('.jobmaster_終了日 > .form-inline > .date').datetimepicker
-    format: 'YYYY/MM/DD'
-    widgetPositioning:
-      horizontal: 'left'
-    showTodayButton: true
-    showClear: true
-    keyBinds: false
-    focusOnShow: false
-
   $('#jobmaster_終了日').click ()->
     $('.jobmaster_終了日 > .form-inline > .date').data("DateTimePicker").toggle()
+  
+  $('#jobmaster_納期').click ()->
+    $('.jobmaster_納期 > .form-inline > .date').data("DateTimePicker").toggle()
 
   $('.search-field').click ()->
     input = $(this).prev()
