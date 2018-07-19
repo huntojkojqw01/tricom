@@ -1,7 +1,7 @@
 jQuery ->
   $('#rorumenba').click ()->
      shainNo = []
-     selected_rows = shain_table.rows( { selected: true } ).data()
+     selected_rows = $('.shain-table').DataTable().rows( { selected: true } ).data()
      for row in selected_rows
        shainNo.push(row[1])
      $('#shain').val(shainNo.toString())
@@ -22,3 +22,4 @@ jQuery ->
       'selectAll',
       'selectNone'
     ]
+    pageLength: 100
