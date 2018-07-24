@@ -1,6 +1,8 @@
 class Eki < ActiveRecord::Base
   include PgSearch
   multisearchable :against => [:駅コード, :駅名, :駅名カナ]
+  HEADERS = %w(駅コード 駅名 駅名カナ)
+  PRIMARY_KEYS = %w(駅コード)
 
   self.table_name = :駅マスタ
   self.primary_key = :駅コード
@@ -11,12 +13,6 @@ class Eki < ActiveRecord::Base
 
   alias_attribute :id, :駅コード
   alias_attribute :name, :駅名
-
-  def self.import(file)
-    CSV.foreach(file.path, headers: true) do |row|
-      Eki.create! row.to_hash
-    end
-  end
 
   def self.to_csv
     attributes = %w{駅コード 駅名 駅名カナ 選択回数}
