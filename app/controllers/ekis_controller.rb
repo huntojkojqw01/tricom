@@ -42,17 +42,12 @@ class EkisController < ApplicationController
       flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to ekis_path
     else
-      begin
-        Eki.transaction do
-          Eki.delete_all
-          Eki.reset_pk_sequence
-          Eki.import(params[:file])
-          notice = t 'app.flash.import_csv'
-          redirect_to :back, notice: notice
-        end
-      rescue => err
-        flash[:danger] = err.to_s
+      if notice = import_from_csv(Eki, params[:file])
+        flash[:danger] = notice
         redirect_to ekis_path
+      else
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
       end
     end
   end
