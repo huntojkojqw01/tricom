@@ -1,6 +1,8 @@
 class Jobmaster < ActiveRecord::Base
   self.table_name = :JOBマスタ
   self.primary_key = :job番号
+  HEADERS = %w(job番号 job名 開始日 終了日 ユーザ番号 ユーザ名 入力社員番号 分類コード 関連Job番号 備考 受注金額 納期)
+  PRIMARY_KEYS = %w(job番号)
 
   after_update :doUpdateMyjob
   include PgSearch

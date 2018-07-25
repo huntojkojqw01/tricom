@@ -93,17 +93,12 @@ class JobmastersController < ApplicationController
       flash[:danger] = t 'app.flash.file_format_invalid'
       redirect_to jobmasters_path
     else
-      begin
-        Jobmaster.transaction do
-          Jobmaster.delete_all
-          Jobmaster.reset_pk_sequence
-          Jobmaster.import(params[:file])
-          notice = t 'app.flash.import_csv'
-          redirect_to :back, notice: notice
-        end
-      rescue => err
-        flash[:danger] = err.to_s
+      if notice = import_from_csv(Jobmaster, params[:file])
+        flash[:danger] = notice
         redirect_to jobmasters_path
+      else
+        notice = t 'app.flash.import_csv'
+        redirect_to :back, notice: notice
       end
     end
   end
