@@ -14,10 +14,11 @@ module Import
     CSV.foreach(csv_file.path, headers: true) do |row|
       hash = row.to_hash
       #check header cua file hop le
-      if (headers - hash.keys).empty?
+      missing_columns = headers - hash.keys
+      if missing_columns.empty?
         hash.slice!(*headers)
       else
-        return "行#{$.} ヘッダ: #{headers.join("、")} 必要"
+        return "行#{$.} カラム: #{missing_columns.join("、")} 必要"
       end
       
       #check khoa chinh hop le
