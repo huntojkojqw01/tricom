@@ -11,7 +11,7 @@ module Import
     headers = table::HEADERS unless headers
     primary_keys = table::PRIMARY_KEYS unless primary_keys
     
-    CSV.foreach(csv_file.path, headers: true) do |row|
+    CSV.foreach(csv_file.path, encoding: "bom|utf-8", col_sep: ",", headers: true) do |row|
       hash = row.to_hash
       #check header cua file hop le
       missing_columns = headers - hash.keys
@@ -34,6 +34,6 @@ module Import
     end
     return nil
   rescue => err
-    return err
+    return err.to_s
   end
 end
