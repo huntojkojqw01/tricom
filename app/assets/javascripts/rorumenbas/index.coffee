@@ -18,20 +18,20 @@ jQuery ->
     oSearch:
       sSearch: queryParameters().search
     buttons: [
-      {
-        extend: 'selectAll'
-        attr:
-          id: 'all'
-        action: (e, dt, node, config)->
-          dt.rows().select()
-      },
-      {
-        extend: 'selectNone'
-        attr:
-          id: 'none'
-        action: (e, dt, node, config)->
-          dt.rows().deselect()
-      },
+      # {
+      #   extend: 'selectAll'
+      #   attr:
+      #     id: 'all'
+      #   action: (e, dt, node, config)->
+      #     dt.rows().select()
+      # },
+      # {
+      #   extend: 'selectNone'
+      #   attr:
+      #     id: 'none'
+      #   action: (e, dt, node, config)->
+      #     dt.rows().deselect()
+      # },
       {
         text: '新規'
         attr:

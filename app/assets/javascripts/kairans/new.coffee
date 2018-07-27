@@ -3,7 +3,7 @@ jQuery ->
     pagingType: "simple_numbers",
     oLanguage:
       sUrl: "/assets/resource/dataTable_"+$('#language').text()+".txt"
-    pageLength : 20,
+    pageLength : 100,
     columnDefs: [ {
       orderable: false,
       className: 'select-checkbox',

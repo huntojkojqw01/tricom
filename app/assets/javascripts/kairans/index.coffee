@@ -21,34 +21,34 @@ jQuery ->
     order: [[ 0, 'des' ]]
     dom: "<'row'<'col-md-6'l><'col-md-6'f>><'row'<'col-md-7'B><'col-md-5'p>><'row'<'col-md-12'tr>><'row'<'col-md-12'i>>",
     buttons: [
+      # {
+      #   extend: 'selectAll'
+      #   attr:
+      #     id: 'all'
+      #   action: (e, dt, node, config)->
+      #     dt.rows().select()
+      # },
+      # {
+      #   extend: 'selectNone'
+      #   attr:
+      #     id: 'none'
+      #   action: (e, dt, node, config)->
+      #     dt.rows().deselect()
+      # },
       {
-          extend: 'selectAll'
-          attr:
-            id: 'all'
-          action: (e, dt, node, config)->
-            dt.rows().select()
-        },
-        {
-          extend: 'selectNone'
-          attr:
-            id: 'none'
-          action: (e, dt, node, config)->
-            dt.rows().deselect()
-        },
-        {
-          text: '新規'
-          attr:
-            id: 'new'
-          action: (e, dt, node, config)->
-            window.location = '/kairans/new'
-        },
-        {
-          text: '送信一覧'
-          attr:
-            id: 'send_kairan'
-          action: (e, dt, node, config)->
-            window.location = '/kairans/shokairan'
-        }
+        text: '新規'
+        attr:
+          id: 'new'
+        action: (e, dt, node, config)->
+          window.location = '/kairans/new'
+      },
+      {
+        text: '送信一覧'
+        attr:
+          id: 'send_kairan'
+        action: (e, dt, node, config)->
+          window.location = '/kairans/shokairan'
+      }
     ]
     oSearch:
     	sSearch: queryParameters().search
