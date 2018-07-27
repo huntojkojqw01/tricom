@@ -36,30 +36,30 @@ jQuery ->
         exportOptions:
           columns: [1, 2, 3, 4, 5, 6, 7, 8]
       }
-      {
-        text: '<i class="fa fa-upload"></i>',
-        titleAttr: 'Import',
-        action: (e, dt, node, config )->
-          $('#import-csv-modal').modal('show')
-      }
-      {
-        extend: 'selectAll'
-        attr:
-          id: 'all'
-        action: (e, dt, node, config)->
-          dt.rows().select()
-          $("#edit").addClass("disabled")
-          $("#delete").removeClass("disabled")
-      }
-      {
-        extend: 'selectNone'
-        attr:
-          id: 'none'
-        action: (e, dt, node, config)->
-          dt.rows().deselect()
-          $("#edit").addClass("disabled")
-          $("#delete").addClass("disabled")
-      }
+      # {
+      #   text: '<i class="fa fa-upload"></i>',
+      #   titleAttr: 'Import',
+      #   action: (e, dt, node, config )->
+      #     $('#import-csv-modal').modal('show')
+      # }
+      # {
+      #   extend: 'selectAll'
+      #   attr:
+      #     id: 'all'
+      #   action: (e, dt, node, config)->
+      #     dt.rows().select()
+      #     $("#edit").addClass("disabled")
+      #     $("#delete").removeClass("disabled")
+      # }
+      # {
+      #   extend: 'selectNone'
+      #   attr:
+      #     id: 'none'
+      #   action: (e, dt, node, config)->
+      #     dt.rows().deselect()
+      #     $("#edit").addClass("disabled")
+      #     $("#delete").addClass("disabled")
+      # }
       {
         text: '新規'
         attr:
@@ -67,58 +67,58 @@ jQuery ->
         action: (e, dt, node, config)->
           window.location = '/events/new'
       }
-      {
-        text: '削除'
-        attr:
-          id: 'delete'
-          class: 'dt-button disabled'
-        action: (e, dt, node, config)->
-          datas = dt.rows('tr.selected').data()
-          ids = new Array()
-          if datas.length == 0
-            swal('行を選択してください。')
-          else
-            swal({
-              title: '削除して宜しいですか？',
-              text: "",
-              type: "warning",
-              showCancelButton: true,
-              confirmButtonColor: "#DD6B55",
-              confirmButtonText: "OK",
-              cancelButtonText: "キャンセル",
-              closeOnConfirm: false,
-              closeOnCancel: false
-            })
-            .then(
-              ()->
-                datas.each (element, index)->
-                  ids[index] = element[0]
-                $.ajax
-                  url: '/events/id'
-                  data:
-                    ids: ids
-                  type: 'delete'
-                  success: (data)->
-                    swal("削除されました!", "", "success")
-                    dt.rows('tr.selected').remove().draw()
-                  failure: ()->
-                    console.log("削除する Unsuccessful")
-                $("#edit").addClass("disabled")
-                $("#delete").addClass("disabled")
-              ,(dismiss)->
-                if dismiss == 'cancel'
-                  selects = dt.rows('tr.selected').data()
-                  if selects.length == 0
-                    $("#edit").addClass("disabled")
-                    $("#delete").addClass("disabled")
-                  else
-                    $("#delete").removeClass("disabled")
-                    if selects.length == 1
-                      $("#edit").removeClass("disabled")
-                    else
-                      $("#edit").addClass("disabled")
-              )
-      }
+      # {
+      #   text: '削除'
+      #   attr:
+      #     id: 'delete'
+      #     class: 'dt-button disabled'
+      #   action: (e, dt, node, config)->
+      #     datas = dt.rows('tr.selected').data()
+      #     ids = new Array()
+      #     if datas.length == 0
+      #       swal('行を選択してください。')
+      #     else
+      #       swal({
+      #         title: '削除して宜しいですか？',
+      #         text: "",
+      #         type: "warning",
+      #         showCancelButton: true,
+      #         confirmButtonColor: "#DD6B55",
+      #         confirmButtonText: "OK",
+      #         cancelButtonText: "キャンセル",
+      #         closeOnConfirm: false,
+      #         closeOnCancel: false
+      #       })
+      #       .then(
+      #         ()->
+      #           datas.each (element, index)->
+      #             ids[index] = element[0]
+      #           $.ajax
+      #             url: '/events/id'
+      #             data:
+      #               ids: ids
+      #             type: 'delete'
+      #             success: (data)->
+      #               swal("削除されました!", "", "success")
+      #               dt.rows('tr.selected').remove().draw()
+      #             failure: ()->
+      #               console.log("削除する Unsuccessful")
+      #           $("#edit").addClass("disabled")
+      #           $("#delete").addClass("disabled")
+      #         ,(dismiss)->
+      #           if dismiss == 'cancel'
+      #             selects = dt.rows('tr.selected').data()
+      #             if selects.length == 0
+      #               $("#edit").addClass("disabled")
+      #               $("#delete").addClass("disabled")
+      #             else
+      #               $("#delete").removeClass("disabled")
+      #               if selects.length == 1
+      #                 $("#edit").removeClass("disabled")
+      #               else
+      #                 $("#edit").addClass("disabled")
+      #         )
+      # }
       {
         text: 'データ出力'
         attr:
@@ -132,11 +132,11 @@ jQuery ->
     selects = oTable.rows('tr.selected').data()
     if selects.length == 0
       $("#edit").addClass("disabled")
-      $("#delete").addClass("disabled")
-      $(".buttons-select-none").addClass('disabled')
+      # $("#delete").addClass("disabled")
+      # $(".buttons-select-none").addClass('disabled')
     else
-      $("#delete").removeClass("disabled");
-      $(".buttons-select-none").removeClass('disabled')
+      # $("#delete").removeClass("disabled");
+      # $(".buttons-select-none").removeClass('disabled')
       if selects.length == 1
         $("#edit").removeClass("disabled")
       else
