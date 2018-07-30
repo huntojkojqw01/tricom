@@ -45,10 +45,14 @@ class YuukyuuKyuukaRirekisController < ApplicationController
       end
     else
       params[:id].try(:gsub!, '-', '/')
-      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find_by_id(params[:id])
-      @yuukyuu_kyuuka_rireki.destroy if @yuukyuu_kyuuka_rireki
-      respond_with(@yuukyuu_kyuuka_rireki)
+      @yuukyuu_kyuuka_rireki = YuukyuuKyuukaRireki.find(params[:id])
+      if @yuukyuu_kyuuka_rireki
+        @yuukyuu_kyuuka_rireki.destroy
+        respond_with(@yuukyuu_kyuuka_rireki)
+      end
     end
+  rescue => error
+    puts error
   end
   def ajax
     case params[:focus_field]     
