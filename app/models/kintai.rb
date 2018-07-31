@@ -25,7 +25,7 @@ class Kintai < ActiveRecord::Base
   KINMU_TYPE = {
     '001' => { s: 7, e: 16, stext: '07:00', etext: '16:00' },
     '002' => { s: 7.5, e: 16.5, stext: '07:30', etext: '16:30' },
-    '003' => { s: 8, e: 17, stext: '07:00', etext: '16:00' },
+    '003' => { s: 8, e: 17, stext: '08:00', etext: '17:00' },
     '004' => { s: 8.5, e: 17.5, stext: '08:30', etext: '17:30' },
     '005' => { s: 9, e: 18, stext: '09:00', etext: '18:00' },
     '006' => { s: 9.5, e: 19.5, stext: '09:30', etext: '19:30' },
