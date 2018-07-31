@@ -238,20 +238,4 @@ create_calendar = (data) ->
   setInterval(update_joutai_timeline, 3000)
 
 jQuery ->
-  $('#create_kitaku_button').click ->
-    time_start = moment().format('YYYY/MM/DD HH:mm')
-    time_end = moment().add('m', 5).format('YYYY/MM/DD HH:mm')
-    $.post
-      url: '/events/ajax'
-      data:
-        id: 'create_kitaku_event'
-        time_start: time_start
-        time_end: time_end
-      success: (data) ->
-        if data.create_message == 'OK'
-          location.reload()
-        else
-          swal '', '現在、未消化のイベントが、あります。イベント訂正後、再度、帰宅を入力してください。'
-      failure: ->
-        console.log 'Update unsuccessful'
   create_calendar(event_data) 
